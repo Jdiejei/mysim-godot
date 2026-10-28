@@ -1,0 +1,52 @@
+name: crash-campaign
+on:
+  workflow_dispatch:
+    inputs:
+      points:
+        description: crash points per layout
+        default: '24'
+      layouts:
+        description: 'layout offset within account (0 = first 20)'
+        default: '0'
+jobs:
+  crash:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        k: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+        g: ['0-5', '6-11', '12-17', '18-23']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: pick layout by account
+        run: |
+          case "${{ github.repository_owner }}" in
+            instagramshashank8-bot) off=0;;
+            blackwingftc-lang) off=20;;
+            Jdiejei) off=40;;
+            *) off=0;;
+          esac
+          echo "LAYOUT=$((off + ${{ matrix.k }}))" >> "$GITHUB_ENV"
+      - name: unpack baked barrier collision
+        run: gunzip -k data/col/*.gz
+      - name: get Godot (mono, linux)
+        run: |
+          curl -sL -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_linux_x86_64.zip
+          unzip -q godot.zip -d godot
+      - name: build C#
+        run: dotnet build MySimGodot.csproj
+      - name: crash this layout with these cars
+        run: |
+          G=$(find godot -name "Godot_v4.7.2*mono_linux*" -type f | head -1)
+          chmod +x "$G"
+          "$G" --headless --path . --import > import.log 2>&1 || true
+          MYSIM_CRASHMAP=$LAYOUT MYSIM_CARS=${{ matrix.g }} MYSIM_COLDIR=data/col MYSIM_CRASHPTS=${{ github.event.inputs.points || '24' }} MYSIM_CRASHOUT=crash_${LAYOUT}_${{ matrix.g }}.jsonl "$G" --headless --path . 2>&1 | grep -E "CRASHBATCH|ERROR" | head -20
+          ls -la crash_*.jsonl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crash-${{ env.LAYOUT }}-${{ matrix.g }}
+          path: crash_*.jsonl

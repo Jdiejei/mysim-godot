@@ -14,3 +14,6 @@ build/
 export*.log
 *.pck
 *.tmp
+*.bin
+colbake/
+crashmap/

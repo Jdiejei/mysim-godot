@@ -15,6 +15,8 @@ public partial class Main : Node3D {
    GD.Print("CARAUDIT ", ci, " ", CarCatalog.Folders[ci], " L=", bb.Size.Z.ToString("0.00"), " W=", bb.Size.X.ToString("0.00"), " H=", bb.Size.Y.ToString("0.00"), " wheelbase=", RecoveredGeometry.Wheelbase[ci].ToString("0.00"), " mass=", RecoveredVehicleProfiles.Mass[ci].ToString("0")); cn.QueueFree(); } GetTree().Quit(); return; }
   var cv = System.Environment.GetEnvironmentVariable("MYSIM_CARVIEW"); if (cv != null) { CarView(int.Parse(cv)); return; }
   Settings.ApplyAudio(); lastTrack = Settings.Get("track", 0); lastCar = Settings.Get("car", 0); lastLaps = Settings.Get("laps", 3);
+  var bakeT = System.Environment.GetEnvironmentVariable("MYSIM_BAKECOL"); if (bakeT != null) { BakeCollision(int.Parse(bakeT)); return; }
+  var crashT = System.Environment.GetEnvironmentVariable("MYSIM_CRASHMAP"); if (crashT != null) { CrashWorld(int.Parse(crashT)); return; }
   var t = System.Environment.GetEnvironmentVariable("MYSIM_TRACK");
   if (t != null) StartRace(int.Parse(t), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAR") ?? "8"), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_LAPS") ?? "3")); else { ShowMenu(); var ms = System.Environment.GetEnvironmentVariable("MYSIM_MENUSHOT"); if (ms != null) MenuShot(ms); }
  }
@@ -39,6 +41,35 @@ public partial class Main : Node3D {
   else if (!paused && pauseLayer != null) RemovePause();
  }
  void RemovePause() { pauseLayer?.QueueFree(); pauseLayer = null; }
+ void BakeCollision(int trackIdx) {
+  var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
+  string mp = tl["map"].AsString(), scn = tl["scene"].AsString();
+  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track);
+  WindingFixer.Fix(track, out int wc); GroundFixer.Fix(track);
+  string outp = System.Environment.GetEnvironmentVariable("MYSIM_BAKEOUT") ?? ("user://col_" + mp + ".bin");
+  int tris = CollisionBake.Write(track, outp); GD.Print("BAKECOL map=", mp, " tris=", tris, " out=", outp); GetTree().Quit();
+ }
+ async void CrashWorld(int trackIdx) {
+  string colDir = System.Environment.GetEnvironmentVariable("MYSIM_COLDIR");
+  if (colDir != null) { // collision-only world (CI): drive surface text + baked barrier triangles, no models/textures needed
+   var tl0 = Json.ParseString(FileAccess.GetFileAsString("res://data/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
+   string mp0 = tl0["map"].AsString(), lay0 = tl0["layout"].AsString();
+   string ds0 = "res://data/surfaces/" + mp0 + "_" + lay0 + ".txt"; if (!FileAccess.FileExists(ds0)) ds0 = "res://data/surfaces/" + mp0 + "_processed.txt";
+   AddChild(DriveSurfaceLoader.Load(ds0)); AddChild(CollisionBake.Read(colDir + "/col_" + mp0 + ".bin"));
+   for (int i = 0; i < 3; i++) await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+   int pts0 = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CRASHPTS") ?? "40"), shard0 = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SHARD") ?? "0"), shards0 = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SHARDS") ?? "1");
+   CrashBatch.Run(GetWorld3D().DirectSpaceState, trackIdx, pts0, shard0, shards0, System.Environment.GetEnvironmentVariable("MYSIM_CRASHOUT") ?? ("crash_" + trackIdx + "_" + shard0 + ".jsonl")); GetTree().Quit(); return;
+  }
+  var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
+  string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString();
+  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track);
+  WindingFixer.Fix(track, out int wc); GroundFixer.Fix(track); WallBuilder.Build(track);
+  string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
+  for (int i = 0; i < 3; i++) await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+  int pts = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CRASHPTS") ?? "40"), shard = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SHARD") ?? "0"), shards = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SHARDS") ?? "1");
+  string outp = System.Environment.GetEnvironmentVariable("MYSIM_CRASHOUT") ?? ("user://crash_" + trackIdx + "_" + shard + ".jsonl");
+  CrashBatch.Run(GetWorld3D().DirectSpaceState, trackIdx, pts, shard, shards, outp); GetTree().Quit();
+ }
  void ClearUi() { ui?.QueueFree(); ui = null; }
  void ShowMenu() {
   EndRace(); ClearUi(); ui = new CanvasLayer(); AddChild(ui); resultsShown = false;
@@ -91,6 +122,9 @@ public partial class Main : Node3D {
   l.Text = "RESULTS\n\nFINISHED  " + p.completedLaps + " laps\nTIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
 }}
+
+
+
 
 
 
