@@ -44,7 +44,7 @@ public partial class Main : Node3D {
  void BakeCollision(int trackIdx) {
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
   string mp = tl["map"].AsString(), scn = tl["scene"].AsString();
-  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track);
+  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); AddChild(track);
   WindingFixer.Fix(track, out int wc); GroundFixer.Fix(track);
   string outp = System.Environment.GetEnvironmentVariable("MYSIM_BAKEOUT") ?? ("user://col_" + mp + ".bin");
   int tris = CollisionBake.Write(track, outp); GD.Print("BAKECOL map=", mp, " tris=", tris, " out=", outp); GetTree().Quit();
@@ -62,7 +62,7 @@ public partial class Main : Node3D {
   }
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
   string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString();
-  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track);
+  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); AddChild(track);
   WindingFixer.Fix(track, out int wc); GroundFixer.Fix(track); WallBuilder.Build(track);
   string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
   for (int i = 0; i < 3; i++) await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
@@ -99,8 +99,8 @@ public partial class Main : Node3D {
   world = new Node3D { Name = "World" }; AddChild(world);
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
   string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString();
-  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); world.AddChild(track);
-  var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vps = GD.Load<PackedScene>(rp); if (vps == null) { GD.Print("VARIATION import failed ", rp); continue; } var vn = vps.Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, -100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
+  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); world.AddChild(track);
+  var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vps = GD.Load<PackedScene>(rp); if (vps == null) { GD.Print("VARIATION import failed ", rp); continue; } var vn = vps.Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, 100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
   var car = CarLoader.Load(CarCatalog.Folders[carIdx]); world.AddChild(car); CarLoader.ApplyExact(car, carIdx); var wheelPivots = CarLoader.AttachWheels(car, carIdx);
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { WindingFixer.Fix(L, out int wchk); GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);

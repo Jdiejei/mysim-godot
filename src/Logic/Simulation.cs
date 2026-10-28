@@ -116,7 +116,7 @@ namespace MySimulator.Rebuild
         public float serviceRemaining,stuckTime;
         public Compound nextCompound=Compound.Medium;
         public DriverInput input;
-        public bool abs=true,traction=true,steerAssist=false;public float ersCharge=1;public bool ersAuto=true,ersOvertake,ersActive;public float currentMaxSteer=.5f;Vec lastIntegrated;bool hasIntegrated;
+        public bool abs=true,traction=true,steerAssist=false;public float ersCharge=1;public bool ersAuto=true,ersOvertake,ersActive;public float currentMaxSteer=.5f;public Vec lastIntegrated;public bool hasIntegrated;public DynState dyn;public static bool UseDynamics=Environment.GetEnvironmentVariable("MYSIM_LEGACY_PHYS")!="1";
         public bool externalPhysics,externalResetRequested,physicalHandling,surfaceKnown,onDrivingSurface;
         public float previousProgress,offTrackTime,stationaryTime;
         public bool lapInvalid,lapCutPenaltyApplied,pitSpeedPenaltyApplied;public float pitOverspeedTime,recoveryRemaining;
@@ -127,7 +127,7 @@ namespace MySimulator.Rebuild
         public float Wear {get{return (tyres[0].wear+tyres[1].wear+tyres[2].wear+tyres[3].wear)*.25f;}}
         public void Place(Circuit circuit,float p,float offset)
         {
-            hasBodyPose=false;externalResetRequested=externalPhysics;position=circuit.Lane(p,offset);heading=circuit.Heading(p);velocity=new Vec();yawRate=0;speed=0;progress=previousProgress=p;nextGate=1;lapElapsed=0;
+            dyn=null;hasBodyPose=false;externalResetRequested=externalPhysics;position=circuit.Lane(p,offset);heading=circuit.Heading(p);velocity=new Vec();yawRate=0;speed=0;progress=previousProgress=p;nextGate=1;lapElapsed=0;
         }
         public void ReplaceTyres(){foreach(Tyre t in tyres)t.Replace(nextCompound);damage*=.2f;}
         public void Step(Circuit circuit,float dt,float wetness,bool running,float time,int laps,bool serviceAllowed=true,bool releaseAllowed=true)
@@ -150,6 +150,7 @@ namespace MySimulator.Rebuild
             if(externalPhysics){ApplyRaceRules(circuit,dt,time,laps,previousProgress);previousProgress=progress;totalDistance+=speed*dt;return;}
             // MySim driving model (replaces the recovered native bridge as the default). RR3-style: speed-sensitive steering
             // that targets the tyre limit, friction-circle tyres, downforce, ABS/TC, grass only slows the car.
+            if(UseDynamics){Dynamics.Step(this,dt,wetness,circuit);progress=circuit.Find(position,out lateral);ApplyRaceRules(circuit,dt,time,laps,oldProgress);return;}
             int m=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));
             float mass=RecoveredVehicleProfiles.Mass[m],vmax=RecoveredVehicleProfiles.Speed[m]*.44704f,t60=RecoveredVehicleProfiles.Acceleration[m],stop60=RecoveredVehicleProfiles.Brakes[m]*.3048f,df=RecoveredVehicleProfiles.Downforce[m];
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))],frontArm=wheelbase*.48f,rearArm=wheelbase*.52f;

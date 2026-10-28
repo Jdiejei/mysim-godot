@@ -3,7 +3,7 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Shared ground + wall contact logic used by both the playable DriveController and the headless CrashBatch.
 public static class Contact {
- public static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, -p.z);
+ public static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, p.z);
  public struct GroundResult { public bool found, near; public float y, rawY; public Vector3 normal; public bool clamped; }
  // Ground = drive-surface layer only (mask 1), continuous with the previous height (+-dyMax per call).
  public static GroundResult Ground(PhysicsDirectSpaceState3D space, Vector3 w, float refY, float dyMax = 0.6f) {
@@ -26,12 +26,12 @@ public static class Contact {
  // Box sweep against barrier colliders (layer 2). Returns true if a wall was hit. carY = current car height.
  public static bool Walls(PhysicsDirectSpaceState3D space, Vehicle v, Vec start, float carY, Vector3 boxSize) {
   if (v.servicing) return false; float dx = v.position.x - start.x, dz = v.position.z - start.z; float dist = Mathf.Sqrt(dx * dx + dz * dz); if (dist < 0.0001f) return false;
-  var s3 = ToWorld(start, carY + 0.65f); var motion = new Vector3(dx, 0, -dz);
-  var q = new PhysicsShapeQueryParameters3D { Shape = new BoxShape3D { Size = boxSize }, Transform = new Transform3D(new Basis(Vector3.Up, -v.heading), s3), Motion = motion, CollisionMask = 2 };
+  var s3 = ToWorld(start, carY + 0.65f); var motion = new Vector3(dx, 0, dz);
+  var q = new PhysicsShapeQueryParameters3D { Shape = new BoxShape3D { Size = boxSize }, Transform = new Transform3D(new Basis(Vector3.Up, v.heading), s3), Motion = motion, CollisionMask = 2 };
   var r = space.CastMotion(q); float safe = (float)r[0], unsafeF = (float)r[1]; if (safe >= 1f) return false;
   q.Transform = new Transform3D(q.Transform.Basis, s3 + motion * unsafeF); var info = space.GetRestInfo(q); Vector3 nrm = info.Count > 0 ? (Vector3)info["normal"] : -motion.Normalized(); nrm.Y = 0; nrm = nrm.Normalized(); if (nrm.Dot(motion) > 0) nrm = -nrm;
   float back = Mathf.Max(0, safe * dist - 0.1f); float ux = dx / dist, uz = dz / dist; v.position = new Vec(start.x + ux * back, start.z + uz * back);
-  Vec n = new Vec(nrm.X, -nrm.Z); float into = v.velocity.x * n.x + v.velocity.z * n.z; bool hit = false;
+  Vec n = new Vec(nrm.X, nrm.Z); float into = v.velocity.x * n.x + v.velocity.z * n.z; bool hit = false;
   if (into < 0) { v.velocity = new Vec(v.velocity.x - n.x * into * 1.1f, v.velocity.z - n.z * into * 1.1f); v.damage = Mathf.Min(1f, v.damage + Mathf.Abs(into) * 0.002f); hit = true;
    // Glancing response: rotate the car toward the wall tangent so it slides along the wall instead of staying pinned nose-first under throttle.
    float fx = Mathf.Sin(v.heading), fz = Mathf.Cos(v.heading); float tx = -n.z, tz = n.x; if (tx * fx + tz * fz < 0) { tx = -tx; tz = -tz; } float target = Mathf.Atan2(tx, tz); float dh = MathUtil.Wrap(target - v.heading); v.heading = MathUtil.Wrap(v.heading + dh * 0.35f); v.yawRate *= 0.5f; v.position = new Vec(v.position.x + n.x * 0.05f, v.position.z + n.z * 0.05f); float tvx = tx * (v.velocity.x * tx + v.velocity.z * tz), tvz = tz * (v.velocity.x * tx + v.velocity.z * tz); v.velocity = new Vec(tvx, tvz); }
