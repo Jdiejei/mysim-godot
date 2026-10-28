@@ -16,7 +16,7 @@ public partial class Main : Node3D {
   var car = CarLoader.Load("2015_mclaren_650s_gt3"); car.Visible = false; AddChild(car);
   AddChild(DriveSurfaceLoader.Load("res://assets/Resources/Brands_Hatch_processed.txt"));
   var cam0 = new Camera3D { Fov = 63, Current = true, Far = 4000 }; AddChild(cam0);
-  var drive = new DriveController { Car = car, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null }; car.Visible = true; AddChild(drive); drive.Cam = cam0;
+  var drive = new DriveController { Car = car, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null }; car.Visible = true; AddChild(drive); drive.Cam = cam0; var hud = new Hud(); AddChild(hud); drive.Hud = hud;
   
   
  }
@@ -29,6 +29,7 @@ public partial class Main : Node3D {
  }
  async void CaptureAfter(string path) { for (int i = 0; i < 40; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetViewport().GetTexture().GetImage().SavePng(path); GetTree().Quit(); }
 }}
+
 
 
 

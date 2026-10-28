@@ -7,3 +7,6 @@ obj/
 copy.log
 tools/CoreRunner/bin/
 tools/CoreRunner/obj/
+guidfind.txt
+convert.log
+*.png

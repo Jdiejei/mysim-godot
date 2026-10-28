@@ -4,11 +4,12 @@ namespace MySim {
 // Player drive loop: recovered Race simulation steps the car, the model is placed on the drive-surface mesh by raycast,
 // chase camera 7.2 m back / 2.65 m up with speed lookahead (revised Unity values), no artificial shake.
 public partial class DriveController : Node3D {
- public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8;
+ public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud;
  float t, camYaw; bool camInit;
  public override void _Ready() {
-  Race = new Race(0, 3, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f);
+  Race = new Race(0, 3, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f); CallDeferred(nameof(BindHud));
  }
+ void BindHud() { if (Hud != null) { Hud.Race = Race; Hud.Player = Player; } }
  static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, -p.z);
  public override void _PhysicsProcess(double delta) {
   t += (float)delta;
@@ -32,4 +33,5 @@ public partial class DriveController : Node3D {
   if (AutoDrive && t >= AutoSeconds) { GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
 
