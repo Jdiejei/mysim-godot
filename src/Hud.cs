@@ -17,6 +17,7 @@ public partial class Hud : CanvasLayer {
  public override void _Process(double delta) {
   if (Player == null) return;
   speed.Text = ((int)(Player.speed * 3.6f)) + " km/h"; gear.Text = "GEAR " + Player.gear;
-  info.Text = "LAP " + (Player.completedLaps + 1) + "/" + Race.targetLaps + "   LAP TIME " + Player.lapElapsed.ToString("0.0") + "s   BEST " + (Player.bestLap > 0 ? Player.bestLap.ToString("0.00") : "--") + "\nTYRES " + (int)(100 - Player.Wear * 100) + "%   FUEL " + (int)Player.fuel + " L   DAMAGE " + (int)(Player.damage * 100) + "%";
+  info.Text = "LAP " + (Player.completedLaps + 1) + "/" + Race.targetLaps + "   LAP TIME " + Player.lapElapsed.ToString("0.0") + "s   BEST " + (Player.bestLap > 0 ? Player.bestLap.ToString("0.00") : "--") + "\nTYRES " + (int)(100 - Player.Wear * 100) + "%   PIT " + (Player.servicing ? "SERVICING " + Player.serviceRemaining.ToString("0.0") + "s" : Player.pitActive ? "IN LANE" : Player.pitRequested ? "REQUESTED (P)" : "press P") + "   FUEL " + (int)Player.fuel + " L   DAMAGE " + (int)(Player.damage * 100) + "%";
  }
 }}
+
