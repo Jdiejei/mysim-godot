@@ -14,3 +14,14 @@ t2: WALLS solid meshes=8
 t2: TRACKBIND bound=16 of 20 surfaces; distinct textured materials=7
 t2: DRIVESURFACE verts=4955 tris=8780
 t2: DRIVETEST t=5.00001 speed=28.199661 progress=0.015937557 lateral=0.10708297 lap=0 wallHits=0 onSurface=True pos=(148.15579, 8.505166, 236.34932)
+t3: ERROR: Cannot open file 'res://.godot/imported/bathurst_variation.fbx-2dc354b6e0c9d3f68176e52432e17d46.scn'.
+t3: ERROR: Failed loading resource: res://.godot/imported/bathurst_variation.fbx-2dc354b6e0c9d3f68176e52432e17d46.scn.
+t3: ERROR: Failed loading resource: res://assets/RealRacing/Source/Bathurst/circuit/high/bathurst_variation.fbx.
+t3: NO SHOT
+t4: WALLS solid meshes=740
+t4: NO SHOT
+t5: WALLS solid meshes=724
+t5: NO SHOT
+t6: WALLS solid meshes=226
+t6: NO SHOT
+t7: WALLS solid meshes=199

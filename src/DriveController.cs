@@ -4,7 +4,7 @@ namespace MySim {
 // Player drive loop: recovered Race simulation steps the car, the model is placed on the drive-surface mesh by raycast,
 // chase camera 7.2 m back / 2.65 m up with speed lookahead (revised Unity values), no artificial shake.
 public partial class DriveController : Node3D {
- public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; public int TrackIndex; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
+ public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; public int TrackIndex; public Node3D[] WheelPivots; float spinAngle; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
  float t, camYaw; bool camInit;
  public override void _Ready() {
   Race = new Race(TrackIndex, Laps, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f); CallDeferred(nameof(BindHud));
@@ -21,11 +21,13 @@ public partial class DriveController : Node3D {
   Player.speed = Mathf.Sqrt(Player.velocity.x * Player.velocity.x + Player.velocity.z * Player.velocity.z);
  }
  public int WallHits;
+ static float DeadZone(float v, float dz) { float a = Mathf.Abs(v); if (a <= dz) return 0; return Mathf.Sign(v) * (a - dz) / (1f - dz); }
  static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, -p.z);
  public override void _PhysicsProcess(double delta) {
   t += (float)delta;
   float thr = Input.IsKeyPressed(Key.W) || Input.IsKeyPressed(Key.Up) ? 1 : 0, brk = Input.IsKeyPressed(Key.S) || Input.IsKeyPressed(Key.Down) ? 1 : 0;
   float steer = (Input.IsKeyPressed(Key.D) || Input.IsKeyPressed(Key.Right) ? 1 : 0) - (Input.IsKeyPressed(Key.A) || Input.IsKeyPressed(Key.Left) ? 1 : 0);
+  var pads = Input.GetConnectedJoypads(); if (pads.Count > 0) { int pid = pads[0]; float ax = DeadZone(Input.GetJoyAxis(pid, JoyAxis.LeftX), 0.08f), rt = Input.GetJoyAxis(pid, JoyAxis.TriggerRight), lt = Input.GetJoyAxis(pid, JoyAxis.TriggerLeft); if (Mathf.Abs(ax) > 0 || rt > 0.02f || lt > 0.02f) { steer = ax; thr = Mathf.Max(thr, DeadZone(rt, 0.04f)); brk = Mathf.Max(brk, DeadZone(lt, 0.04f)); } if (Input.IsJoyButtonPressed(pid, JoyButton.A)) Player.pitRequested = true; }
   if (AutoDrive && !AiTest) { thr = 1; brk = 0; steer = 0; }
   if (AiTest) { Player.human = false; Player.pitRequested = System.Environment.GetEnvironmentVariable("MYSIM_NOPIT") == null; var st = (Player.pitActive ? "A" : "-") + (Player.servicing ? "S" : "-") + (Player.pitDone ? "D" : "-"); if (st != lastSt) { GD.Print("PITSTATE t=", t.ToString("0.0"), " ", st, " progress=", Player.progress.ToString("0.000"), " speed=", Player.speed.ToString("0.0"), " lap=", Player.completedLaps, " wear=", Player.Wear.ToString("0.00")); lastSt = st; } }
   if (Input.IsKeyPressed(Key.P)) Player.pitRequested = true;
@@ -37,6 +39,7 @@ public partial class DriveController : Node3D {
   float h = Player.heading; var fwd = new Vector3(Mathf.Sin(h), 0, -Mathf.Cos(h));
   Car.Position = new Vector3(w.X, y + 0.05f, w.Z);
   var right = fwd.Cross(n).Normalized(); var f2 = n.Cross(right).Normalized(); Car.Basis = new Basis(-right, n, -f2).Orthonormalized();
+  if (WheelPivots != null) { spinAngle += Player.speed * (float)delta / 0.34f; for (int wi = 0; wi < 4; wi++) { var sp = WheelPivots[wi].GetNode<Node3D>("Spin"); float sgn = WheelPivots[wi].Position.X < 0 ? 1f : -1f; sp.Rotation = new Vector3(spinAngle * sgn, 0, 0); if (wi < 2) { var rot = WheelPivots[wi].Position.X < 0 ? Mathf.Pi : 0f; WheelPivots[wi].Rotation = new Vector3(0, rot - Player.steering, 0); } } }
   // chase camera
   float speed = Player.speed; float look = Mathf.Clamp(speed / 20f, 0, 1) * 4f + 3f;
   var target = Car.Position - fwd * 7.2f + Vector3.Up * 2.65f;
@@ -47,6 +50,8 @@ public partial class DriveController : Node3D {
   if (AutoDrive && !(AiTest && AutoSeconds > 250) && t >= AutoSeconds) { GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
+
 
 
 

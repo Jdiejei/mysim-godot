@@ -10,7 +10,7 @@ public static class UnityMaterialBinder {
  static string Strip(string n) { int i = n.LastIndexOf('_'); return n; }
  public static int Apply(Node3D layer, int variant, out int total) {
   total = 0; int bound = 0;
-  if (map == null) { using var f = FileAccess.Open("res://assets/unity_map.json", FileAccess.ModeFlags.Read); map = Json.ParseString(f.GetAsText()).AsGodotDictionary(); }
+  if (map == null) { if (!FileAccess.FileExists("res://assets/unity_map.json")) { GD.Print("UMAP file missing, using name matching"); return 0; } using var f = FileAccess.Open("res://assets/unity_map.json", FileAccess.ModeFlags.Read); map = Json.ParseString(f.GetAsText()).AsGodotDictionary(); }
   var tracks = map["tracks"].AsGodotDictionary(); string vk = variant.ToString(); if (!tracks.ContainsKey(vk)) { GD.Print("UMAP no variant ", vk); return 0; }
   var byName = tracks[vk].AsGodotDictionary(); var mats = map["materials"].AsGodotDictionary(); var used = new Dictionary<string, int>();
   foreach (var node in layer.FindChildren("*", "MeshInstance3D", true, false)) {
@@ -24,7 +24,7 @@ public static class UnityMaterialBinder {
     if (!cache.TryGetValue(key, out var mat)) {
      mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); string tp = mi2.ContainsKey("tex") ? Res(mi2["tex"].AsString()) : null; Texture2D tex = tp != null && ResourceLoader.Exists(tp) ? GD.Load<Texture2D>(tp) : null;
       Color col = Colors.White; if (mi2.ContainsKey("color")) { var c = mi2["color"].AsGodotArray(); col = new Color((float)c[0], (float)c[1], (float)c[2], (float)c[3]); }
-      bool clip = mi2.ContainsKey("alphaClip") && mi2["alphaClip"].AsBool(); bool trans = mi2.ContainsKey("transparent") && mi2["transparent"].AsBool(); float cut = mi2.ContainsKey("cutoff") ? (float)mi2["cutoff"].AsDouble() : 0.5f;
+      if (col.R + col.G + col.B < 0.06f) col = new Color(1, 1, 1, col.A < 0.01f ? 1f : col.A); bool clip = mi2.ContainsKey("alphaClip") && mi2["alphaClip"].AsBool(); bool trans = mi2.ContainsKey("transparent") && mi2["transparent"].AsBool(); float cut = mi2.ContainsKey("cutoff") ? (float)mi2["cutoff"].AsDouble() : 0.5f;
       if (tex != null || col != Colors.White) {
        if (ground && tex != null) { var sm = new ShaderMaterial { Shader = GroundShader }; sm.SetShaderParameter("tex", tex); sm.SetShaderParameter("tint", new Color(col.R, col.G, col.B)); mat = sm; }
        else { var st = new StandardMaterial3D { AlbedoTexture = tex, AlbedoColor = col, Roughness = 1f, MetallicSpecular = 0.12f, TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic }; if (clip) { st.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor; st.AlphaScissorThreshold = cut > 0 ? cut : 0.5f; st.CullMode = BaseMaterial3D.CullModeEnum.Disabled; } else if (trans) st.Transparency = BaseMaterial3D.TransparencyEnum.Alpha; mat = st; }
@@ -38,3 +38,5 @@ public static class UnityMaterialBinder {
   return bound;
  }
 }}
+
+

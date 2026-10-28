@@ -5,14 +5,24 @@ namespace MySim {
 public partial class Main : Node3D {
  Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; bool resultsShown;
  public override void _Ready() {
-  var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Sky, AmbientLightEnergy = 0.55f, TonemapMode = Godot.Environment.ToneMapper.Aces, TonemapExposure = 1.0f, TonemapWhite = 6f, FogEnabled = true, FogLightColor = new Color(0.63f, 0.70f, 0.76f), FogDensity = 0.00025f, FogSkyAffect = 0.4f, AdjustmentEnabled = true, AdjustmentContrast = 1.12f, AdjustmentSaturation = 1.1f };
+  var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Color, AmbientLightColor = new Color(0.62f, 0.66f, 0.72f), AmbientLightEnergy = 1.0f, TonemapMode = Godot.Environment.ToneMapper.Aces, TonemapExposure = 1.0f, TonemapWhite = 6f, FogEnabled = true, FogLightColor = new Color(0.63f, 0.70f, 0.76f), FogDensity = 0.00025f, FogSkyAffect = 0.4f, AdjustmentEnabled = true, AdjustmentContrast = 1.12f, AdjustmentSaturation = 1.1f };
   env.Sky = new Sky { SkyMaterial = new ProceduralSkyMaterial() }; AddChild(new WorldEnvironment { Environment = env });
   AddChild(new DirectionalLight3D { RotationDegrees = new Vector3(-48, -35, 0), LightEnergy = 1.7f, ShadowEnabled = true,
    DirectionalShadowMode = DirectionalLight3D.ShadowMode.Parallel4Splits, DirectionalShadowMaxDistance = 150, DirectionalShadowBlendSplits = true, ShadowBias = 0.03f, ShadowNormalBias = 1.0f, ShadowBlur = 1.0f });
+  if (System.Environment.GetEnvironmentVariable("MYSIM_AUDITCARS") != null) { for (int ci = 0; ci < CarCatalog.Count; ci++) { var cn = CarLoader.Load(CarCatalog.Folders[ci]); AddChild(cn); Aabb bb = new Aabb(); bool first = true; foreach (var n in cn.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible) continue; var b2 = mi.GlobalTransform * mi.GetAabb(); if (first) { bb = b2; first = false; } else bb = bb.Merge(b2); } if (ci == int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_AUDITMESH") ?? "-1")) foreach (var n in cn.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible) continue; var b3 = mi.GlobalTransform * mi.GetAabb(); GD.Print("AUDITMESH ", mi.Name, " c=", (b3.Position + b3.Size / 2).ToString("0.0"), " s=", b3.Size.ToString("0.0")); }
+   GD.Print("CARAUDIT ", ci, " ", CarCatalog.Folders[ci], " L=", bb.Size.Z.ToString("0.00"), " W=", bb.Size.X.ToString("0.00"), " H=", bb.Size.Y.ToString("0.00"), " wheelbase=", RecoveredGeometry.Wheelbase[ci].ToString("0.00"), " mass=", RecoveredVehicleProfiles.Mass[ci].ToString("0")); cn.QueueFree(); } GetTree().Quit(); return; }
+  var cv = System.Environment.GetEnvironmentVariable("MYSIM_CARVIEW"); if (cv != null) { CarView(int.Parse(cv)); return; }
   var t = System.Environment.GetEnvironmentVariable("MYSIM_TRACK");
   if (t != null) StartRace(int.Parse(t), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAR") ?? "8"), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_LAPS") ?? "3")); else { ShowMenu(); var ms = System.Environment.GetEnvironmentVariable("MYSIM_MENUSHOT"); if (ms != null) MenuShot(ms); }
  }
  async void MenuShot(string path) { for (int i = 0; i < 20; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetViewport().GetTexture().GetImage().SavePng(path); GetTree().Quit(); }
+ async void CarView(int ci) {
+  var floor = new MeshInstance3D { Mesh = new PlaneMesh { Size = new Vector2(60, 60) }, MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(0.3f, 0.3f, 0.32f) } }; AddChild(floor);
+  var car = CarLoader.Load(CarCatalog.Folders[ci]); AddChild(car); CarLoader.ApplyExact(car, ci); CarLoader.AttachWheels(car, ci); car.Position = new Vector3(0, 0.0f, 0);
+  var cam = new Camera3D { Fov = 40, Current = true, Position = new Vector3(5.2f, 1.8f, 5.6f) }; AddChild(cam); cam.LookAt(new Vector3(0, 0.6f, 0));
+  for (int i = 0; i < 25; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+  GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "carview.png"); GetTree().Quit();
+ }
  void ClearUi() { ui?.QueueFree(); ui = null; }
  void ShowMenu() {
   EndRace(); ClearUi(); ui = new CanvasLayer(); AddChild(ui); resultsShown = false;
@@ -41,13 +51,13 @@ public partial class Main : Node3D {
   string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString();
   var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); world.AddChild(track);
   var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vn = GD.Load<PackedScene>(rp).Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, -100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
-  var car = CarLoader.Load(CarCatalog.Folders[carIdx]); world.AddChild(car);
+  var car = CarLoader.Load(CarCatalog.Folders[carIdx]); world.AddChild(car); CarLoader.ApplyExact(car, carIdx); var wheelPivots = CarLoader.AttachWheels(car, carIdx);
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);
   string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; world.AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
   if (System.Environment.GetEnvironmentVariable("MYSIM_DEBUGROAD") != null) DebugRoad(track);
   var cam = new Camera3D { Fov = 63, Current = true, Far = 4000 }; world.AddChild(cam);
-  drive = new DriveController { Car = car, TrackIndex = trackIdx, Laps = laps, Cam = cam, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null, AiTest = System.Environment.GetEnvironmentVariable("MYSIM_AI") != null, AutoSeconds = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS") ?? "8") };
+  drive = new DriveController { Car = car, WheelPivots = wheelPivots, TrackIndex = trackIdx, Laps = laps, Cam = cam, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null, AiTest = System.Environment.GetEnvironmentVariable("MYSIM_AI") != null, AutoSeconds = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS") ?? "8") };
   var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); world.AddChild(hud);
  }
  public override void _Process(double delta) {
@@ -62,6 +72,12 @@ public partial class Main : Node3D {
   l.Text = "RESULTS\n\nFINISHED  " + p.completedLaps + " laps\nTIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
 }}
+
+
+
+
+
+
 
 
 
