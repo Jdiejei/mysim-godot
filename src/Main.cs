@@ -12,6 +12,7 @@ public partial class Main : Node3D {
   if (System.Environment.GetEnvironmentVariable("MYSIM_AUDITCARS") != null) { for (int ci = 0; ci < CarCatalog.Count; ci++) { var cn = CarLoader.Load(CarCatalog.Folders[ci]); AddChild(cn); Aabb bb = new Aabb(); bool first = true; foreach (var n in cn.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible) continue; var b2 = mi.GlobalTransform * mi.GetAabb(); if (first) { bb = b2; first = false; } else bb = bb.Merge(b2); } if (ci == int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_AUDITMESH") ?? "-1")) foreach (var n in cn.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible) continue; var b3 = mi.GlobalTransform * mi.GetAabb(); GD.Print("AUDITMESH ", mi.Name, " c=", (b3.Position + b3.Size / 2).ToString("0.0"), " s=", b3.Size.ToString("0.0")); }
    GD.Print("CARAUDIT ", ci, " ", CarCatalog.Folders[ci], " L=", bb.Size.Z.ToString("0.00"), " W=", bb.Size.X.ToString("0.00"), " H=", bb.Size.Y.ToString("0.00"), " wheelbase=", RecoveredGeometry.Wheelbase[ci].ToString("0.00"), " mass=", RecoveredVehicleProfiles.Mass[ci].ToString("0")); cn.QueueFree(); } GetTree().Quit(); return; }
   var cv = System.Environment.GetEnvironmentVariable("MYSIM_CARVIEW"); if (cv != null) { CarView(int.Parse(cv)); return; }
+  Settings.ApplyAudio(); lastTrack = Settings.Get("track", 0); lastCar = Settings.Get("car", 0); lastLaps = Settings.Get("laps", 3);
   var t = System.Environment.GetEnvironmentVariable("MYSIM_TRACK");
   if (t != null) StartRace(int.Parse(t), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAR") ?? "8"), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_LAPS") ?? "3")); else { ShowMenu(); var ms = System.Environment.GetEnvironmentVariable("MYSIM_MENUSHOT"); if (ms != null) MenuShot(ms); }
  }
@@ -45,12 +46,12 @@ public partial class Main : Node3D {
  }
  void EndRace() { world?.QueueFree(); world = null; drive = null; }
  void StartRace(int trackIdx, int carIdx, int laps) {
-  EndRace(); ClearUi(); lastTrack = trackIdx; lastCar = carIdx; lastLaps = laps; resultsShown = false;
+  EndRace(); ClearUi(); lastTrack = trackIdx; lastCar = carIdx; lastLaps = laps; resultsShown = false; Settings.Set("track", trackIdx); Settings.Set("car", carIdx); Settings.Set("laps", laps);
   world = new Node3D { Name = "World" }; AddChild(world);
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
   string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString();
   var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); world.AddChild(track);
-  var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vn = GD.Load<PackedScene>(rp).Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, -100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
+  var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vps = GD.Load<PackedScene>(rp); if (vps == null) { GD.Print("VARIATION import failed ", rp); continue; } var vn = vps.Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, -100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
   var car = CarLoader.Load(CarCatalog.Folders[carIdx]); world.AddChild(car); CarLoader.ApplyExact(car, carIdx); var wheelPivots = CarLoader.AttachWheels(car, carIdx);
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);
@@ -72,6 +73,8 @@ public partial class Main : Node3D {
   l.Text = "RESULTS\n\nFINISHED  " + p.completedLaps + " laps\nTIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
 }}
+
+
 
 
 
