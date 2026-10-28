@@ -19,9 +19,10 @@ public partial class Hud : CanvasLayer {
   if (Player == null) return;
   if (Paused) { info.Text = "PAUSED  (Tab to resume, Esc for menu)"; return; }
   speed.Text = ((int)(Player.speed * 3.6f)) + " km/h"; gear.Text = "GEAR " + Player.gear;
-  info.Text = (Player.finished ? "FINISHED " + Race.targetLaps + " laps" : "LAP " + System.Math.Min(Player.completedLaps + 1, Race.targetLaps) + "/" + Race.targetLaps) + "   LAP TIME " + Player.lapElapsed.ToString("0.0") + "s   BEST " + (Player.bestLap > 0 ? Player.bestLap.ToString("0.000") + "s" : "-- (no valid lap)") + "\nTYRES " + (int)(100 - Player.Wear * 100) + "%   PIT " + (Player.servicing ? "SERVICING " + Player.serviceRemaining.ToString("0.0") + "s" : Player.pitActive ? "IN LANE" : Player.pitRequested ? "REQUESTED (P)" : "press P") + "   FUEL " + (int)Player.fuel + " L   DAMAGE " + (int)(Player.damage * 100) + "%";
+  info.Text = (Player.finished ? "FINISHED " + Race.targetLaps + " laps" : "LAP " + System.Math.Min(Player.completedLaps + 1, Race.targetLaps) + "/" + Race.targetLaps) + "   LAP TIME " + Player.lapElapsed.ToString("0.0") + "s   BEST " + (Player.bestLap > 0 ? Player.bestLap.ToString("0.000") + "s" : "-- (no valid lap)") + "\nTYRES " + (int)(100 - Player.Wear * 100) + "%   PIT " + (Player.servicing ? (Player.serviceRemaining > 6.4f ? "JACK UP" : Player.serviceRemaining > 4.8f ? "WHEELS OFF" : Player.serviceRemaining > 1.5f ? "FITTING TYRES" : "RELEASE") + " " + Player.serviceRemaining.ToString("0.0") + "s" : Player.pitActive ? "IN LANE" : Player.pitRequested ? "REQUESTED (P)" : "press P") + "   FUEL " + (int)Player.fuel + " L   DAMAGE " + (int)(Player.damage * 100) + "%";
  }
 }}
+
 
 
 
