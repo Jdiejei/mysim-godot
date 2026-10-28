@@ -1,22 +1,35 @@
 name: lap-matrix
-on: { workflow_dispatch: {}, push: { paths: ['src/Logic/**','tools/LapRunner/**','.github/workflows/lap.yml'] } }
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/Logic/**'
+      - 'tools/LapRunner/**'
+      - '.github/workflows/lap.yml'
 jobs:
   laps:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        k: [0,1,2,3,4,5,6,7,8,9,10,11]
+        k: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
-        with: { dotnet-version: '8.0.x' }
+        with:
+          dotnet-version: '8.0.x'
       - name: pick shard by account
         run: |
           case "${{ github.repository_owner }}" in
-            instagramshashank8-bot) off=0;; blackwingftc-lang) off=12;; Jdiejei) off=24;; *) off=0;;
+            instagramshashank8-bot) off=0;;
+            blackwingftc-lang) off=12;;
+            Jdiejei) off=24;;
+            *) off=0;;
           esac
-          echo "SHARD=$((off + ${{ matrix.k }}))" >> $GITHUB_ENV
-      - run: dotnet run -c Release --project tools/LapRunner -- $SHARD 36 | tee out.txt
+          echo "SHARD=$((off + ${{ matrix.k }}))" >> "$GITHUB_ENV"
+      - name: run lap shard
+        run: dotnet run -c Release --project tools/LapRunner -- "$SHARD" 36 | tee out.txt
       - uses: actions/upload-artifact@v4
-        with: { name: laps-${{ matrix.k }}, path: "laps-*.jsonl" }
+        with:
+          name: laps-${{ matrix.k }}
+          path: laps-*.jsonl

@@ -12,7 +12,7 @@ public static class TrackMaterialBinder {
   foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) {
    var m = (MeshInstance3D)n;
    for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) {
-    total++; string name = m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? ""; if (name == "") continue;
+    total++; if (m.GetSurfaceOverrideMaterial(s) != null) { bound++; continue; } string name = m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? ""; if (name == "") continue;
     if (!cache.TryGetValue(name, out var mat)) {
      string tex = null; if (map.TryGetValue(name, out var t0)) tex = t0; else foreach (var kv in map) if (kv.Key.StartsWith(name + "_") || kv.Key.StartsWith(name)) { tex = kv.Value; break; }
      if (tex != null && ResourceLoader.Exists(dir + "textures/" + tex)) {
@@ -30,6 +30,7 @@ public static class TrackMaterialBinder {
   GD.Print("TRACKBIND bound=", bound, " of ", total, " surfaces; distinct textured materials=", cache.Count);
  }
 }}
+
 
 
 
