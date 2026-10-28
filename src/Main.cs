@@ -49,7 +49,10 @@ public partial class Main : Node3D {
   var cars = new ItemList { Position = new Vector2(600, 110), Size = new Vector2(420, 520) }; foreach (var n in CarCatalog.Names) cars.AddItem(n); cars.Select(lastCar); ui.AddChild(cars);
   var lapsLbl = new Label { Text = "LAPS", Position = new Vector2(1060, 110) }; ui.AddChild(lapsLbl);
   var laps = new SpinBox { MinValue = 1, MaxValue = 20, Value = lastLaps, Position = new Vector2(1060, 140) }; ui.AddChild(laps);
-  var hint = new Label { Text = "Pick track and car, then START.  Drive: WASD/arrows, Space handbrake, P pit, Esc menu", Position = new Vector2(48, 650) }; ui.AddChild(hint);
+  var infoLbl = new Label { Position = new Vector2(1060, 290), Size = new Vector2(200, 300), AutowrapMode = TextServer.AutowrapMode.WordSmart }; ui.AddChild(infoLbl);
+  System.Action refreshInfo = () => { var ts0 = tracks.GetSelectedItems(); var cs0 = cars.GetSelectedItems(); int ti = ts0.Length > 0 ? ts0[0] : 0, ci2 = cs0.Length > 0 ? cs0[0] : 0; var circ = new Circuit(ti); infoLbl.Text = "TRACK\n" + SourceRoutes.Names[ti] + "\nLength " + (circ.length / 1000f).ToString("0.00") + " km\nWidth " + circ.width.ToString("0") + " m\n\nCAR\n" + CarCatalog.Names[ci2] + "\nMass " + RecoveredVehicleProfiles.Mass[ci2].ToString("0") + " kg\nTop speed " + (RecoveredVehicleProfiles.Speed[ci2] * 1.609f).ToString("0") + " km/h\n0-60 mph " + RecoveredVehicleProfiles.Acceleration[ci2].ToString("0.0") + " s\nWheelbase " + RecoveredGeometry.Wheelbase[ci2].ToString("0.00") + " m"; };
+  tracks.ItemSelected += i => refreshInfo(); cars.ItemSelected += i => refreshInfo(); refreshInfo();
+  var hint = new Label { Text = "Pick track and car, then START.  Drive: WASD/arrows, Space handbrake, P pit, C camera, Esc pause", Position = new Vector2(48, 650) }; ui.AddChild(hint);
   var start = new Button { Text = "START RACE", Position = new Vector2(1060, 200), Size = new Vector2(180, 56) };
   start.Pressed += () => { var ts = tracks.GetSelectedItems(); var cs = cars.GetSelectedItems(); StartRace(ts.Length > 0 ? ts[0] : 0, cs.Length > 0 ? cs[0] : 0, (int)laps.Value); };
   ui.AddChild(start); tracks.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed); cars.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed);
@@ -88,6 +91,7 @@ public partial class Main : Node3D {
   l.Text = "RESULTS\n\nFINISHED  " + p.completedLaps + " laps\nTIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
 }}
+
 
 
 
