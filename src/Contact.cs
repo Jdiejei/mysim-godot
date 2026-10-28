@@ -19,13 +19,14 @@ public static class Contact {
  static readonly System.Collections.Generic.Dictionary<Vehicle, Vec> lastGood = new System.Collections.Generic.Dictionary<Vehicle, Vec>();
  public static void MarkGood(Vehicle v, bool groundNear) { if (groundNear) lastGood[v] = v.position; }
  public static bool Contain(Vehicle v, Vec start, bool groundNear, float limit) {
+  if (v.pitActive || v.servicing) return false; // pit lane may lie off the drive-surface mesh; the pit sequence is scripted
   if (groundNear && Mathf.Abs(v.lateral) <= limit) return false;
   if (groundNear == false && Mathf.Abs(v.lateral) <= 6f) return false; // holes inside the road are not walls
   v.position = lastGood.TryGetValue(v, out var g0) ? g0 : start; v.velocity = new Vec(-v.velocity.x * 0.3f, -v.velocity.z * 0.3f); v.yawRate = 0; v.speed = Mathf.Sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z); v.damage = Mathf.Min(1f, v.damage + 0.01f); return true;
  }
  // Box sweep against barrier colliders (layer 2). Returns true if a wall was hit. carY = current car height.
  public static bool Walls(PhysicsDirectSpaceState3D space, Vehicle v, Vec start, float carY, Vector3 boxSize) {
-  if (v.servicing) return false; float dx = v.position.x - start.x, dz = v.position.z - start.z; float dist = Mathf.Sqrt(dx * dx + dz * dz); if (dist < 0.0001f) return false;
+  if (v.servicing || v.pitActive) return false; float dx = v.position.x - start.x, dz = v.position.z - start.z; float dist = Mathf.Sqrt(dx * dx + dz * dz); if (dist < 0.0001f) return false;
   var s3 = ToWorld(start, carY + 0.65f); var motion = new Vector3(dx, 0, dz);
   var q = new PhysicsShapeQueryParameters3D { Shape = new BoxShape3D { Size = boxSize }, Transform = new Transform3D(new Basis(Vector3.Up, v.heading), s3), Motion = motion, CollisionMask = 2 };
   var r = space.CastMotion(q); float safe = (float)r[0], unsafeF = (float)r[1]; if (safe >= 1f) return false;
