@@ -1,0 +1,9 @@
+assets/
+.godot/
+bin/
+obj/
+*.png
+.godotpath
+copy.log
+tools/CoreRunner/bin/
+tools/CoreRunner/obj/

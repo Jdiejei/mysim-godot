@@ -1,0 +1,2 @@
+using System.Collections.Generic;
+namespace MySimulator.Rebuild {public static class ProgressResetKeys {public static IEnumerable<string> All(int circuits){for(int circuit=0;circuit<circuits;circuit++)for(int weather=0;weather<3;weather++)yield return "best_"+circuit+"_"+weather;yield return "races";yield return "MySim.Credits";yield return "MySim.Fame";yield return "MySim.Trophies";yield return "MySim.AssistTutorial";}}}
