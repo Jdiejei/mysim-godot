@@ -33,7 +33,7 @@ public partial class DriveController : Node3D {
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   // Ground = drive-surface layer only (mask 1), continuous with the previous height. The old ray started at y=60 with the default (all-layer) mask, so it landed on barrier tops, bridges and stacked decks (car "flew").
   float refY = lastGroundY.HasValue ? lastGroundY.Value : Car.Position.Y;
-  var gr = Contact.Ground(space, w, refY, 0.6f); if (Contact.Contain(Player, startPos, gr.near, 30f)) { WallHits++; w = ToWorld(Player.position, 0); gr = Contact.Ground(space, w, refY, 0.6f); }
+  var gr = Contact.Ground(space, w, refY, 0.6f); Contact.MarkGood(Player, gr.near); if (Contact.Contain(Player, startPos, gr.near, 30f)) { WallHits++; w = ToWorld(Player.position, 0); gr = Contact.Ground(space, w, refY, 0.6f); }
   var hit = gr.found ? new Godot.Collections.Dictionary() { { "p", 1 } } : new Godot.Collections.Dictionary();
   float y = gr.y; lastGroundY = y; if (y < minY) minY = y; if (y > maxY) maxY = y; if (prevY.HasValue) maxDy = Mathf.Max(maxDy, Mathf.Abs(y - prevY.Value)); prevY = y; Vector3 n = gr.normal;
   float h = Player.heading; var fwd = new Vector3(Mathf.Sin(h), 0, -Mathf.Cos(h));

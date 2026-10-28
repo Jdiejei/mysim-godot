@@ -33,7 +33,7 @@ public static class CrashBatch {
      if (!float.IsFinite(v.position.x) || !float.IsFinite(v.position.z) || !float.IsFinite(v.speed)) { nonFinite = true; break; }
      float spBefore = v.speed; if (Contact.Walls(space, v, start, lastY, box)) { wallHits++; if (v.speed > spBefore + 0.05f) hitGain++; }
      var w = Contact.ToWorld(v.position, 0); var g = Contact.Ground(space, w, lastY, 0.6f); if (Contact.Contain(v, start, g.near, 30f)) { contained++; w = Contact.ToWorld(v.position, 0); g = Contact.Ground(space, w, lastY, 0.6f); }
-     if (!g.found) voids++; else { if (g.clamped) { jumps++; if (jumps == 1) { hitX = w.X; hitY = g.rawY; hitZ = w.Z; } } maxDy = Mathf.Max(maxDy, Mathf.Abs(g.rawY - lastY)); lastY = g.y; }
+     Contact.MarkGood(v, g.near); if (!g.found) voids++; else { if (g.clamped) { jumps++; if (jumps == 1) { hitX = w.X; hitY = g.rawY; hitZ = w.Z; } } maxDy = Mathf.Max(maxDy, Mathf.Abs(g.rawY - lastY)); lastY = g.y; }
      maxY = Mathf.Max(maxY, lastY); minY = Mathf.Min(minY, lastY); maxLat = Mathf.Max(maxLat, Mathf.Abs(v.lateral)); if (crashing) maxSpeedAfter = Mathf.Max(maxSpeedAfter, v.speed); steps++;
     }
     var flags = new List<string>();

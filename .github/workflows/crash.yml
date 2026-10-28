@@ -5,11 +5,12 @@ on:
       spacing:
         description: metres between crash points
         default: '100'
-      layouts:
-        description: 'layout offset within account (0 = first 20)'
-        default: '0'
+      layout:
+        description: 'run only this layout index (empty = all)'
+        default: ''
 jobs:
   crash:
+    if: ${{ github.event.inputs.layout == '' || matrix.k == 0 }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -31,7 +32,7 @@ jobs:
             Jdiejei) off=40;;
             *) off=0;;
           esac
-          echo "LAYOUT=$((off + ${{ matrix.k }}))" >> "$GITHUB_ENV"
+          L=$((off + ${{ matrix.k }})); [ -n "${{ github.event.inputs.layout }}" ] && L=${{ github.event.inputs.layout }}; echo "LAYOUT=$L" >> "$GITHUB_ENV"
       - name: unpack baked barrier collision
         run: gunzip -k data/col/*.gz
       - name: get Godot (mono, linux)
@@ -52,6 +53,7 @@ jobs:
           name: crash-${{ env.LAYOUT }}-${{ matrix.g }}-${{ matrix.s }}
           path: crash_*.jsonl
           retention-days: 1
+
 
 
 
