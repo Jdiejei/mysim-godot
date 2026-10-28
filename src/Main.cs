@@ -3,6 +3,7 @@ namespace MySim {
 // Bootstrap scene: configured sun shadows (4 cascades, 150 m, tuned bias), chase camera target, optional car.
 public partial class Main : Node3D {
  public override void _Ready() {
+  int trackIdx = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_TRACK") ?? "0"), carIdx = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAR") ?? "8");
   var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Sky, TonemapMode = Godot.Environment.ToneMapper.Filmic };
   var sky = new Sky { SkyMaterial = new ProceduralSkyMaterial() }; env.Sky = sky;
   AddChild(new WorldEnvironment { Environment = env });
@@ -11,13 +12,13 @@ public partial class Main : Node3D {
    ShadowBias = 0.03f, ShadowNormalBias = 1.0f, ShadowBlur = 1.0f };
   AddChild(sun);
   var ground = new MeshInstance3D { Mesh = new PlaneMesh { Size = new Vector2(400, 400) }, CastShadow = GeometryInstance3D.ShadowCastingSetting.Off, MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(0.25f, 0.27f, 0.27f) } };
-  var trackScene = GD.Load<PackedScene>("res://assets/RealRacing/Source/Brands_Hatch/processed/high/hatch.fbx"); var track = trackScene.Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track); Aabb tb = new Aabb(); int tm = 0; foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; tb = tb.Merge(m.GlobalTransform * m.GetAabb()); tm++; } var names = new System.Collections.Generic.SortedSet<string>(); foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) names.Add(m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? "null"); } GD.Print("TRACKMAT count=", names.Count, " ", string.Join(",", names));
+  var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary(); string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString(); var trackScene = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn); var track = trackScene.Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track); Aabb tb = new Aabb(); int tm = 0; foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; tb = tb.Merge(m.GlobalTransform * m.GetAabb()); tm++; } var names = new System.Collections.Generic.SortedSet<string>(); foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) names.Add(m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? "null"); } GD.Print("TRACKMAT count=", names.Count, " ", string.Join(",", names));
   GD.Print("TRACK meshes=", tm, " pos=", tb.Position, " size=", tb.Size);
-  var car = CarLoader.Load("2015_mclaren_650s_gt3"); car.Visible = false; AddChild(car);
-  TrackMaterialBinder.Apply(track, "res://assets/BH/");
-  AddChild(DriveSurfaceLoader.Load("res://assets/Resources/Brands_Hatch_processed.txt"));
+  var car = CarLoader.Load(MySimulator.Rebuild.CarCatalog.Folders[carIdx]); car.Visible = false; AddChild(car);
+  WallBuilder.Build(track); TrackMaterialBinder.Apply(track, "res://assets/" + mp + "/");
+  AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists("res://assets/Resources/" + mp + "_" + lay + ".txt") ? "res://assets/Resources/" + mp + "_" + lay + ".txt" : "res://assets/Resources/" + mp + "_processed.txt"));
   var cam0 = new Camera3D { Fov = 63, Current = true, Far = 4000 }; AddChild(cam0);
-  var drive = new DriveController { Car = car, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null, AiTest = System.Environment.GetEnvironmentVariable("MYSIM_AI") != null, AutoSeconds = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS") ?? "8") }; car.Visible = true; AddChild(drive); drive.Cam = cam0; var hud = new Hud(); AddChild(hud); drive.Hud = hud;
+  var drive = new DriveController { Car = car, TrackIndex = trackIdx, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null, AiTest = System.Environment.GetEnvironmentVariable("MYSIM_AI") != null, AutoSeconds = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS") ?? "8") }; car.Visible = true; AddChild(drive); drive.Cam = cam0; var hud = new Hud(); AddChild(hud); drive.Hud = hud;
   
   
  }
@@ -30,6 +31,8 @@ public partial class Main : Node3D {
  }
  async void CaptureAfter(string path) { for (int i = 0; i < 40; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetViewport().GetTexture().GetImage().SavePng(path); GetTree().Quit(); }
 }}
+
+
 
 
 
