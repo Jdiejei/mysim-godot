@@ -32,10 +32,9 @@ public partial class DriveController : Node3D {
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   // Ground = drive-surface layer only (mask 1), continuous with the previous height. The old ray started at y=60 with the default (all-layer) mask, so it landed on barrier tops, bridges and stacked decks (car "flew").
   float refY = lastGroundY.HasValue ? lastGroundY.Value : Car.Position.Y;
-  var rq = PhysicsRayQueryParameters3D.Create(new Vector3(w.X, refY + 2.5f, w.Z), new Vector3(w.X, refY - 6f, w.Z)); rq.CollisionMask = 1; rq.HitBackFaces = true;
-  var hit = space.IntersectRay(rq);
-  if (hit.Count == 0) { var rq2 = PhysicsRayQueryParameters3D.Create(new Vector3(w.X, refY + 40f, w.Z), new Vector3(w.X, refY - 80f, w.Z)); rq2.CollisionMask = 1; rq2.HitBackFaces = true; hit = space.IntersectRay(rq2); }
-  float y = hit.Count > 0 ? ((Vector3)hit["position"]).Y : refY; if (hit.Count > 0) { float dyMax = 0.6f; y = Mathf.Clamp(y, refY - dyMax, refY + dyMax); } lastGroundY = y; if (y < minY) minY = y; if (y > maxY) maxY = y; if (prevY.HasValue) maxDy = Mathf.Max(maxDy, Mathf.Abs(y - prevY.Value)); prevY = y; Vector3 n = hit.Count > 0 ? (Vector3)hit["normal"] : Vector3.Up;
+  var gr = Contact.Ground(space, w, refY, 0.6f); if (Contact.Contain(Player, startPos, gr.near, 30f)) { WallHits++; w = ToWorld(Player.position, 0); gr = Contact.Ground(space, w, refY, 0.6f); }
+  var hit = gr.found ? new Godot.Collections.Dictionary() { { "p", 1 } } : new Godot.Collections.Dictionary();
+  float y = gr.y; lastGroundY = y; if (y < minY) minY = y; if (y > maxY) maxY = y; if (prevY.HasValue) maxDy = Mathf.Max(maxDy, Mathf.Abs(y - prevY.Value)); prevY = y; Vector3 n = gr.normal;
   float h = Player.heading; var fwd = new Vector3(Mathf.Sin(h), 0, -Mathf.Cos(h));
   Car.Position = new Vector3(w.X, y + 0.05f, w.Z);
   var f2 = (fwd - n * fwd.Dot(n)).Normalized(); var carX = n.Cross(f2).Normalized(); Car.Basis = new Basis(carX, n, f2); /* proper rotation (det +1): nose (+Z local) = travel direction. The old basis was left-handed and Orthonormalized() left it mirrored, so the nose faced the camera. */
@@ -52,6 +51,7 @@ public partial class DriveController : Node3D {
   if (AutoDrive && !(AiTest && AutoSeconds > 250) && t >= AutoSeconds) { GD.Print("YRANGE min=", minY.ToString("0.00"), " max=", maxY.ToString("0.00"), " maxStepDy=", maxDy.ToString("0.00")); GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
 
 
 

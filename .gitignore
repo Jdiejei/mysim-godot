@@ -17,3 +17,5 @@ export*.log
 *.bin
 colbake/
 crashmap/
+crashdl/
+
