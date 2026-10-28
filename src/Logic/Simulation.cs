@@ -153,7 +153,7 @@ namespace MySimulator.Rebuild
             float mass=RecoveredVehicleProfiles.Mass[m],vmax=RecoveredVehicleProfiles.Speed[m]*.44704f,t60=RecoveredVehicleProfiles.Acceleration[m],stop60=RecoveredVehicleProfiles.Brakes[m]*.3048f,df=RecoveredVehicleProfiles.Downforce[m];
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))],frontArm=wheelbase*.48f,rearArm=wheelbase*.52f;
             // walls/containment moved the car after last step: remove velocity into the obstacle and scrub speed (no "pinned at 150 km/h")
-            if(hasIntegrated){Vec push=position-lastIntegrated;float pm=push.Magnitude;if(pm>.002f){Vec n=push*(1/pm);float vn=Vec.Dot(velocity,n);if(vn<0)velocity=velocity-n*vn*1.3f;velocity=velocity*(1-Math.Min(.5f,pm*.8f));}}
+            if(hasIntegrated){Vec push=position-lastIntegrated;float pm=push.Magnitude;dbgPush=pm;if(pm>.002f){Vec n=push*(1/pm);float vn=Vec.Dot(velocity,n);if(vn<0)velocity=velocity-n*vn*1.3f;velocity=velocity*(1-Math.Min(.5f,pm*.8f));}}
             float longitudinal=Vec.Dot(velocity,Forward),side=Vec.Dot(velocity,Right);speed=velocity.Magnitude;float v=Math.Max(Math.Abs(longitudinal),.1f);
             float power=mass*26.82f*26.82f/(2*t60)*1.35f,dragK=power/(vmax*vmax*vmax);
             float mu=(tyres[0].Grip(wetness)+tyres[1].Grip(wetness)+tyres[2].Grip(wetness)+tyres[3].Grip(wetness))*.25f*1.18f;
@@ -178,7 +178,7 @@ namespace MySimulator.Rebuild
             latF=CircleClamp(latF,frontLong,mu*fzF);latR=CircleClamp(latR,rearLong,mu*fzR*(input.handbrake?.45f:1));
             if(traction){float room=(float)Math.Sqrt(Math.Max(0,mu*fzR*mu*fzR-latR*latR));driveForce=Math.Min(driveForce,room*1.05f);}
             float resistance=dragK*longitudinal*Math.Abs(longitudinal)+mass*9.81f*(road?.014f:.09f)*Math.Sign(longitudinal);
-            float accel=(driveForce-brakeForce*Math.Sign(longitudinal)-resistance)/mass;
+            float accel=(driveForce-brakeForce*Math.Sign(longitudinal)-resistance)/mass;dbgAcc=accel;dbgRes=resistance;dbgDriveF=driveForce;dbgBrakeF=brakeForce;dbgLong=longitudinal;
             // Body-frame rotation couples both velocity axes; omitting this term creates energy in turns.
             accel+=side*yawRate;
             float newLong;
@@ -238,7 +238,7 @@ namespace MySimulator.Rebuild
             }
         }
         static float PhysicalSteeringLimit(float speed){float[] speeds={0,15,40,70},factors={1,.6f,.28f,.16f};int i=0;while(i<2&&speed>speeds[i+1])i++;float t=MathUtil.Clamp((speed-speeds[i])/(speeds[i+1]-speeds[i]),0,1);t=t*t*(3-2*t);return (32*MathUtil.Pi/180)*MathUtil.Lerp(factors[i],factors[i+1],t);}
-        public float dbgA,dbgB,dbgC;public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
+        public float dbgA,dbgB,dbgC,dbgAcc,dbgRes,dbgDriveF,dbgBrakeF,dbgLong,dbgPush;public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
         {
             float look=MathUtil.Clamp(4+speed*.5f,4,40),offset=0;
             Vehicle obstruction=null;float aheadDistance=float.MaxValue;
