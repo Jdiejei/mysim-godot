@@ -272,7 +272,7 @@ namespace MySimulator.Rebuild
             if(recoveryRemaining>0)return new DriverInput(.4f,0,-MathUtil.Clamp(steer,-1,1)){reverse=true};
             if(finished)desired=18;if(retired)return new DriverInput(0,1,0);
             dbgA=desired;dbgB=curvature;dbgC=localX;float error=desired-speed;
-            float brakeCmd=MathUtil.Clamp(-error*.22f,0,1)*MathUtil.Lerp(1f,.5f,MathUtil.Clamp(Math.Abs(steer)/.35f,0,1)); // trail braking: full braking leaves no front lateral grip (measured run-wide at Laguna)
+            float brakeCmd=MathUtil.Clamp(-error*.22f,0,1)*MathUtil.Lerp(1f,.7f,MathUtil.Clamp(Math.Abs(steer)/.35f,0,1)); // trail braking: full braking leaves no front lateral grip (measured run-wide at Laguna)
             return new DriverInput(MathUtil.Clamp(error*.38f,0,1),brakeCmd,MathUtil.Clamp(steer,-1,1));
         }
     }
