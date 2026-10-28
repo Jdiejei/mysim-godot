@@ -96,6 +96,7 @@ namespace MySimulator.Rebuild
         public Vec PitPoint(float index){index=MathUtil.Clamp(index,0,PitRoute.Length-1);int i=(int)index;return PitRoute[i]+(PitRoute[Math.Min(i+1,PitRoute.Length-1)]-PitRoute[i])*(index-i);}
         public float FindPit(Vec p,out float distance){float best=float.MaxValue,index=0;for(int i=0;i<PitRoute.Length-1;i++){Vec a=PitRoute[i],d=PitRoute[i+1]-a;float t=MathUtil.Clamp(Vec.Dot(p-a,d)/Math.Max(.001f,Vec.Dot(d,d)),0,1);float sq=Vec.Dot(p-a-d*t,p-a-d*t);if(sq<best){best=sq;index=i+t;}}distance=(float)Math.Sqrt(best);return index;}
         public bool InPit(float p,float lateral){float distance;FindPit(Lane(p,lateral),out distance);return Math.Abs(lateral)>width*.5f&&distance<5;}
+        bool pitChecked,pitValid;public bool PitValid{get{if(!pitChecked){float l1,l2;Find(PitRoute[0],out l1);Find(PitRoute[PitRoute.Length-1],out l2);pitValid=Math.Abs(l1)<20f&&Math.Abs(l2)<20f;pitChecked=true;}return pitValid;}}
         public bool OnRoad(float p,float lateral){return Math.Abs(lateral)<width*.5f||InPit(p,lateral);}
     }
     [Serializable] public class Vehicle
@@ -132,7 +133,7 @@ namespace MySimulator.Rebuild
         public void Step(Circuit circuit,float dt,float wetness,bool running,float time,int laps,bool serviceAllowed=true,bool releaseAllowed=true)
         {
             recoveryRemaining=Math.Max(0,recoveryRemaining-dt);input=input.Safe();float oldProgress=progress;progress=circuit.Find(position,out lateral);
-            if(running&&!finished&&!retired&&pitRequested&&!pitDone&&(position-circuit.PitRoute[0]).Magnitude<10)pitActive=true;
+            if(running&&!finished&&!retired&&pitRequested&&!pitDone&&circuit.PitValid&&(position-circuit.PitRoute[0]).Magnitude<16)pitActive=true;
             if(serviceAllowed&&running&&!finished&&!retired&&pitActive&&!pitDone&&!servicing&&(position-circuit.PitBox).Magnitude<1.2f&&speed<1.2f)
             {servicing=true;serviceRemaining=7.5f;position=circuit.PitBox;Vec pitDirection=(circuit.PitPoint(circuit.PitServiceIndex+2)-circuit.PitPoint(circuit.PitServiceIndex-2)).Normalized;heading=(float)Math.Atan2(pitDirection.x,pitDirection.z);velocity=new Vec();yawRate=0;}
             if(!running){velocity=new Vec();yawRate=0;return;}
@@ -263,6 +264,7 @@ namespace MySimulator.Rebuild
             float curvature=Math.Abs((float)Math.Tan(desiredSteer))/Math.Max(1,wheelbase);
             desired=Math.Min(desired,(float)Math.Sqrt(CornerLateralAccel*Math.Min(pace,.75f)/Math.Max(.001f,curvature)));
             if(Vec.Dot(diff,Forward)<0){desired=Math.Min(desired,4);steer=localX>=0?1:-1;}
+            if(pitRequested&&!pitDone&&!pitActive&&track.PitValid){Vec entry=track.PitRoute[0];float entryLat;float entryP=track.Find(entry,out entryLat);float toEntry=MathUtil.Wrap01(entryP-progress)*track.length;if(toEntry<500)desired=Math.Min(desired,(float)Math.Sqrt(13f*13f+2*6f*Math.Max(0,toEntry-25)));}
             if(pitActive){desired=Math.Min(desired,PitLaneAiSpeed);Vec before=track.PitPoint(pitIndex),ahead=track.PitPoint(pitIndex+2),later=track.PitPoint(pitIndex+4);Vec aDir=(ahead-before).Normalized,bDir=(later-ahead).Normalized;float corner=Math.Abs(MathUtil.Wrap((float)Math.Atan2(aDir.x,aDir.z)-(float)Math.Atan2(bDir.x,bDir.z)));desired=Math.Min(desired,MathUtil.Lerp(PitLaneAiSpeed,4,corner));if(!pitDone&&pitIndex>track.PitServiceIndex-12){float remaining=(position-track.PitBox).Magnitude;desired=Math.Min(desired,(float)Math.Sqrt(Math.Max(0,remaining-.25f)*2.5f));if(remaining<1.1f)desired=0;}}
             if(obstruction!=null&&aheadDistance<8)desired=Math.Min(desired,Math.Max(0,obstruction.speed-2));
             if(!pitActive&&!finished&&stationaryTime>3){recoveryRemaining=2.5f;stationaryTime=0;recoveries++;}
@@ -302,7 +304,7 @@ namespace MySimulator.Rebuild
             foreach(Vehicle v in cars)
             {
                 if(!v.human||v.pitActive||v.finished||v.retired)v.input=v.Autopilot(track,pace*MathUtil.Lerp(1,.7f,wetness),cars);
-                if(!v.human&&v.Wear>.55f&&!v.pitRequested){v.pitRequested=true;v.nextCompound=wetness>.5f?Compound.Wet:Compound.Hard;}
+                if(!v.human&&v.Wear>.55f&&!v.pitRequested&&track.PitValid){v.pitRequested=true;v.nextCompound=wetness>.5f?Compound.Wet:Compound.Hard;}
                 bool boxAvailable=occupied==null||occupied==v;
                 if(!boxAvailable&&v.pitActive&&!v.pitDone&&(v.position-track.PitBox).Magnitude<8)v.input=new DriverInput(0,1,0);
                 bool safeRelease=true;if(v.servicing)foreach(var other in cars){if(other==v)continue;Vec gap=other.position-v.position;float ahead=Vec.Dot(gap,v.Forward);if(ahead>0&&ahead<6&&Math.Abs(Vec.Dot(gap,v.Right))<2.5f){safeRelease=false;break;}}
