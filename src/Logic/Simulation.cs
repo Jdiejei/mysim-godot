@@ -208,8 +208,8 @@ namespace MySimulator.Rebuild
 
         }
         // Fastest speed now that still lets the car slow to every upcoming corner's limit (curvature from 16 m chords).
-        public static float SpeedAhead(Circuit track,float progress,float lateral,float decel){float best=200,step=16f/track.length;
-            for(int k=0;k<22;k++){float p=progress+k*step;float h0=track.Heading(p),h1=track.Heading(p+step),h2=track.Heading(p+2*step);float curv=Math.Max(Math.Abs(MathUtil.Wrap(h1-h0)),Math.Abs(MathUtil.Wrap(h2-h1)))/11f;float vc=(float)Math.Sqrt(lateral/Math.Max(.0012f,curv));float dist=Math.Max(0,k*16f-6);best=Math.Min(best,(float)Math.Sqrt(vc*vc+2*decel*dist));}
+        public static float SpeedAhead(Circuit track,float progress,float lateral,float decel,float aDown=0){float best=200,step=16f/track.length;
+            for(int k=0;k<22;k++){float p=progress+k*step;float h0=track.Heading(p),h1=track.Heading(p+step),h2=track.Heading(p+2*step);float curv=Math.Max(Math.Abs(MathUtil.Wrap(h1-h0)),Math.Abs(MathUtil.Wrap(h2-h1)))/11f;float vc=(float)Math.Sqrt(lateral/Math.Max(.0012f,curv-aDown));float dist=Math.Max(0,k*16f-6);best=Math.Min(best,(float)Math.Sqrt(vc*vc+2*decel*dist));}
             return best;}
         static float muCurve(float x){return (float)Math.Tanh(x)*(1-.08f*Math.Min(1,Math.Max(0,Math.Abs(x)-1.5f)));}
         static float CircleClamp(float lat,float lon,float max){float t=lat*lat+lon*lon;if(t<=max*max)return lat;float room=Math.Max(0,max*max-lon*lon);return Math.Sign(lat)*(float)Math.Sqrt(room);}
@@ -258,12 +258,12 @@ namespace MySimulator.Rebuild
             float steer=desiredSteer/((externalPhysics||physicalHandling)?PhysicalSteeringLimit(speed):Math.Max(.05f,currentMaxSteer));
             float turn=Math.Abs(MathUtil.Wrap(track.Heading(progress+.04f)-track.Heading(progress)))/(.04f*track.length);
             for(int j=0;j<6;j++){float p=progress+j*.012f;turn=Math.Max(turn,Math.Abs(MathUtil.Wrap(track.Heading(p+.012f)-track.Heading(p)))/(.012f*track.length));}
-            float desired=MathUtil.Clamp(SpeedAhead(track,progress,CornerLateralAccel*Math.Min(pace,.75f),5f),10,TopAiSpeed);
+            int cm=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));float gripMul=MathUtil.Clamp(1+.3f*(RecoveredVehicleProfiles.Downforce[cm]-1.5f),1f,1.6f),latAcc=CornerLateralAccel*gripMul*Math.Min(pace,.75f);float aDown=Dynamics.DownK(cm)/RecoveredVehicleProfiles.Mass[cm]*latAcc/9.81f;float topAi=Math.Max(TopAiSpeed,RecoveredVehicleProfiles.Speed[cm]*.44704f*.92f);float desired=MathUtil.Clamp(SpeedAhead(track,progress,latAcc,5f,aDown),10,topAi);
             desired=Math.Max(4,desired*AiRaceCalibration.Scale(carModel,track.variant));
             // Limit speed for the turn actually requested, including recovery from lateral error.
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))];
             float curvature=Math.Abs((float)Math.Tan(desiredSteer))/Math.Max(1,wheelbase);
-            desired=Math.Min(desired,(float)Math.Sqrt(CornerLateralAccel*Math.Min(pace,.75f)/Math.Max(.001f,curvature)));
+            desired=Math.Min(desired,(float)Math.Sqrt(latAcc/Math.Max(.001f,curvature-aDown)));
             if(Vec.Dot(diff,Forward)<0){desired=Math.Min(desired,4);steer=localX>=0?1:-1;}
             if(pitRequested&&!pitDone&&!pitActive&&track.PitValid){Vec entry=track.PitRoute[0];float entryLat;float entryP=track.Find(entry,out entryLat);float toEntry=MathUtil.Wrap01(entryP-progress)*track.length;if(toEntry<500)desired=Math.Min(desired,(float)Math.Sqrt(13f*13f+2*6f*Math.Max(0,toEntry-25)));}
             if(pitActive){desired=Math.Min(desired,PitLaneAiSpeed);Vec before=track.PitPoint(pitIndex),ahead=track.PitPoint(pitIndex+2),later=track.PitPoint(pitIndex+4);Vec aDir=(ahead-before).Normalized,bDir=(later-ahead).Normalized;float corner=Math.Abs(MathUtil.Wrap((float)Math.Atan2(aDir.x,aDir.z)-(float)Math.Atan2(bDir.x,bDir.z)));desired=Math.Min(desired,MathUtil.Lerp(PitLaneAiSpeed,4,corner));if(!pitDone&&pitIndex>track.PitServiceIndex-12){float remaining=(position-track.PitBox).Magnitude;desired=Math.Min(desired,(float)Math.Sqrt(Math.Max(0,remaining-.25f)*2.5f));if(remaining<1.1f)desired=0;}}

@@ -20,6 +20,10 @@ namespace MySimulator.Rebuild
             float bs=PB*s,f=(float)Math.Sin(PC*Math.Atan(bs-PE*(bs-Math.Atan(bs))))*mu*fz;
             fx=f*kn/s;fy=-f*an/s;
         }
+        // downforce N per (m/s)^2: road cars keep the recovered value, wing cars scale up toward real Cl*A (F1 ~2.4)
+        public static float DownK(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return Math.Max(0,df-.9f)*(.55f+Math.Max(0,df-1.5f)*.45f);}
+        // slick racing tyres on wing cars grip harder than the road-car baseline
+        public static float GripMul(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return MathUtil.Clamp(1+.3f*(df-1.5f),1f,1.6f);}
         public static void Step(Vehicle v,float dt,float wetness,Circuit circuit)
         {
             int m=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,v.carModel));
@@ -38,7 +42,7 @@ namespace MySimulator.Rebuild
             float delta=v.steering,cd=(float)Math.Cos(delta),sd=(float)Math.Sin(delta);
             // power, drag, aero
             float power=mass*26.82f*26.82f/(2*t60)*1.35f,dragK=power/(vmax*vmax*vmax);
-            float down=Math.Max(0,(df-.9f)*.55f*speed*speed);
+            float down=DownK(v.carModel)*speed*speed;
             float staticF=mass*G*b/L,staticR=mass*G*a/L;
             float axleF=staticF-mass*st.ax*h/L+down*.42f,axleR=staticR+mass*st.ax*h/L+down*.58f;
             axleF=Math.Max(axleF,mass*G*.05f);axleR=Math.Max(axleR,mass*G*.05f);
@@ -59,7 +63,7 @@ namespace MySimulator.Rebuild
                 float d=front?delta:0,c=front?cd:1,s=front?sd:0;
                 float vxB=u-v.yawRate*yi,vyB=vy+v.yawRate*xi;
                 float vxw=vxB*c+vyB*s,vyw=vyB*c-vxB*s;
-                float mu0=v.tyres[i].Grip(wetness)*1.18f*(road?1:.62f);
+                float mu0=v.tyres[i].Grip(wetness)*1.18f*GripMul(v.carModel)*(road?1:.62f);
                 float mu=mu0*MathUtil.Clamp(1-.12f*(fz[i]/fz0-1),.7f,1.15f);
                 float vref=Math.Max(Math.Abs(vxw),2f),vlat=Math.Max(Math.Abs(vxw),4f);
                 float alpha=(float)Math.Atan2(vyw,vlat),kappa=(st.w[i]*R-vxw)/vref;
