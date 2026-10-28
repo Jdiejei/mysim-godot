@@ -108,7 +108,7 @@ public partial class Main : Node3D {
   if (System.Environment.GetEnvironmentVariable("MYSIM_DEBUGROAD") != null) DebugRoad(track);
   var cam = new Camera3D { Fov = 63, Current = true, Far = 4000 }; world.AddChild(cam);
   var carSize = CarLoader.MeasureSize(car); GD.Print("CARSIZE ", carIdx, " ", carSize.ToString("0.00")); drive = new DriveController { CarSize = carSize, Car = car, WheelPivots = wheelPivots, TrackIndex = trackIdx, Laps = laps, Cam = cam, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null, AiTest = System.Environment.GetEnvironmentVariable("MYSIM_AI") != null, AutoSeconds = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS") ?? "8") };
-  var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); world.AddChild(hud);
+  var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); world.AddChild(hud); world.AddChild(new TouchControls());
  }
  public override void _Process(double delta) {
   PauseUi();
@@ -122,6 +122,7 @@ public partial class Main : Node3D {
   l.Text = "RESULTS\n\nFINISHED  " + p.completedLaps + " laps\nTIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
 }}
+
 
 
 

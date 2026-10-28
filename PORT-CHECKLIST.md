@@ -3,7 +3,7 @@ Legend: DONE verified | PART partly | TODO not started | BLOCK blocked
 1 Component inventory ............ PART (this file; PORT-STATUS.md)
 2 Physics/driving ................ PART (recovered Race sim runs; AI lap matrix 1440 pairs headless; no tyre/slope PhysX equivalent, ground via raycast)
 3 Pits ........................... PART (BH AI pit cycle with walls on; other tracks untested)
-4 Controls ....................... PART keyboard + gamepad code (0.08 continuous deadzone, triggers; NOT hand-tested, no pad here); TODO touch, tilt, settings persistence
+4 Controls ....................... PART keyboard (ramped, speed-limited steering), gamepad (untested, no pad), on-screen touch/mouse buttons (render verified, untested on a phone); TODO tilt, rebinding, settings screen
 5 Cameras ........................ PART 4 modes (C or pad Y): chase, far chase, cockpit (original interior set), bonnet; verified renders on BH; TODO review in slopes/collisions/pit, obstruction handling, FOV tuning vs Monoposto
 6 Shadows/lighting ............... PART sun 4 cascades 150 m; TODO weather, quality tiers, acne review
 7 Tracks/assets .................. PART exact Unity materials; winding fixed (all 2860 surfaces had reversed winding vs normals); fence/chain-link now alpha-scissored from texture alpha (black blocks gone, crowd visible); TODO lightmaps, per-track visual review again, Le Mans spawn check

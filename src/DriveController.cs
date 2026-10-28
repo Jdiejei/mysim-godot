@@ -23,6 +23,7 @@ public partial class DriveController : Node3D {
   var pads = Input.GetConnectedJoypads(); if (pads.Count > 0) { int pid = pads[0]; float ax = DeadZone(Input.GetJoyAxis(pid, JoyAxis.LeftX), 0.08f), rt = Input.GetJoyAxis(pid, JoyAxis.TriggerRight), lt = Input.GetJoyAxis(pid, JoyAxis.TriggerLeft); if (Mathf.Abs(ax) > 0) steer = ax; thr = Mathf.Max(thr, DeadZone(rt, 0.04f)); brk = Mathf.Max(brk, DeadZone(lt, 0.04f)); if (Input.IsJoyButtonPressed(pid, JoyButton.A)) Player.pitRequested = true; }
   if (AutoDrive && !AiTest) { thr = 1; brk = 0; steer = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_STEERBIAS") ?? "0", System.Globalization.CultureInfo.InvariantCulture); }
   if (AiTest) { Player.human = false; Player.pitRequested = System.Environment.GetEnvironmentVariable("MYSIM_NOPIT") == null; var st = (Player.pitActive ? "A" : "-") + (Player.servicing ? "S" : "-") + (Player.pitDone ? "D" : "-"); if (st != lastSt) { GD.Print("PITSTATE t=", t.ToString("0.0"), " ", st, " progress=", Player.progress.ToString("0.000"), " speed=", Player.speed.ToString("0.0"), " lap=", Player.completedLaps, " wear=", Player.Wear.ToString("0.00")); lastSt = st; } }
+  if (TouchControls.Active) { if (TouchControls.Throttle > 0) thr = 1; if (TouchControls.Brake > 0) brk = 1; if (TouchControls.Steer != 0) steer = TouchControls.Steer; }
   if (Input.IsKeyPressed(Key.P)) Player.pitRequested = true;
   // Analog-style steering: keyboard digital input ramps up/down and the available lock shrinks with speed (no instant full-lock snap-spins).
   bool padSteer = Input.GetConnectedJoypads().Count > 0 && Mathf.Abs(Input.GetJoyAxis(Input.GetConnectedJoypads()[0], JoyAxis.LeftX)) > 0.08f;
@@ -51,6 +52,7 @@ public partial class DriveController : Node3D {
   if (AutoDrive && !(AiTest && AutoSeconds > 250) && t >= AutoSeconds) { GD.Print("YRANGE min=", minY.ToString("0.00"), " max=", maxY.ToString("0.00"), " maxStepDy=", maxDy.ToString("0.00")); GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
 
 
 
