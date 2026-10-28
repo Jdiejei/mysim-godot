@@ -23,7 +23,7 @@ public static class CarLoader {
   return root;
  }
 static Godot.Collections.Dictionary carMap;
- static readonly Shader CarShader = new Shader { Code = "shader_type spatial; uniform sampler2D base : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform sampler2D mask : hint_default_white; uniform vec3 ambient_tint = vec3(1.0); uniform float use_mask = 0.0; uniform float alpha_mode = 0.0; void fragment() { vec4 b = texture(base, UV); vec4 m = texture(mask, UV); float mk = mix(0.5, m.r, use_mask); ALBEDO = b.rgb * ambient_tint; ROUGHNESS = mix(0.65, 0.22, mk); SPECULAR = mix(0.35, 0.9, mk); METALLIC = 0.0; if (alpha_mode > 0.5) { ALPHA = b.a; ALPHA_SCISSOR_THRESHOLD = 0.5; } }" };
+ static readonly Shader CarShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D base : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform sampler2D mask : hint_default_white; uniform vec3 ambient_tint = vec3(1.0); uniform float use_mask = 0.0; uniform float alpha_mode = 0.0; void fragment() { vec2 uv = vec2(UV.x, 1.0 - UV.y); vec4 b = texture(base, uv); vec4 m = texture(mask, uv); float mk = mix(0.5, m.r, use_mask); ALBEDO = b.rgb * ambient_tint; ROUGHNESS = mix(0.65, 0.22, mk); SPECULAR = mix(0.35, 0.9, mk); METALLIC = 0.0; if (alpha_mode > 0.5) { ALPHA = b.a; ALPHA_SCISSOR_THRESHOLD = 0.5; } }" };
  static string Res(string p) { if (p == null) return null; int i = p.IndexOf("Assets/RealRacing/"); return i < 0 ? null : "res://assets/" + p.Substring(i + "Assets/".Length); }
  // Exact Unity assignment from Car{n}.prefab: renderer name -> material guids -> textures (base + mask), colours and alpha mode.
  public static int ApplyExact(Node3D root, int carIdx) {
@@ -44,6 +44,7 @@ static Godot.Collections.Dictionary carMap;
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;
  }
+ public static void ForceUnshaded(Node3D car) { foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var ov = mi.GetSurfaceOverrideMaterial(s) as ShaderMaterial; var tex = ov?.GetShaderParameter("base").As<Texture2D>(); if (tex != null) mi.SetSurfaceOverrideMaterial(s, new StandardMaterial3D { ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded, AlbedoTexture = tex, CullMode = BaseMaterial3D.CullModeEnum.Disabled, Uv1Scale = new Vector3(1, -1, 1), Uv1Offset = new Vector3(0, 1, 0) }); } } }
  public static Node3D[] AttachWheels(Node3D car, int carIdx) {
   var pts = Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()[carIdx.ToString()].AsGodotArray();
   var wheelMeshes = new System.Collections.Generic.List<MeshInstance3D>();
@@ -68,6 +69,9 @@ static Godot.Collections.Dictionary carMap;
   return mat;
  }
 }}
+
+
+
 
 
 
