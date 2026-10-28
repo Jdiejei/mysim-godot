@@ -13,7 +13,7 @@ public static class CarLoader {
   var cache = new Dictionary<string, StandardMaterial3D>();
   foreach (var n in root.FindChildren("*", "MeshInstance3D", true, false)) {
    var m = (MeshInstance3D)n;
-   string up = m.Name.ToString().ToUpperInvariant(); if (!up.StartsWith("LOD_A") || System.Text.RegularExpressions.Regex.IsMatch(up, "DAMAGE|BROKEN|CRACKED|SHATTERED|^LOD_A_INT_|BONNETCAM|_DEBRIS|SCRATCH|LOD_A_LIT_|WHEEL_BLUR")) { m.Visible = false; continue; }
+   string up = m.Name.ToString().ToUpperInvariant(); bool isInt = up.StartsWith("LOD_A_INT_") && !System.Text.RegularExpressions.Regex.IsMatch(up, "DAMAGE|BROKEN|CRACKED|SHATTERED"); if (!up.StartsWith("LOD_A") || System.Text.RegularExpressions.Regex.IsMatch(up, "DAMAGE|BROKEN|CRACKED|SHATTERED|BONNETCAM|_DEBRIS|SCRATCH|LOD_A_LIT_|WHEEL_BLUR") || (up.StartsWith("LOD_A_INT_") && !isInt)) { m.Visible = false; continue; } m.SetMeta("grp", isInt ? "int" : "ext"); if (isInt) m.Visible = false;
    for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) {
     string mn = m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? ""; int i = mn.LastIndexOf("_mm_"); if (i < 0) continue; string suf = mn.Substring(i + 4);
     if (!cache.TryGetValue(suf, out var mat)) { mat = Build(dir, carId, suf); cache[suf] = mat; }
@@ -68,6 +68,7 @@ static Godot.Collections.Dictionary carMap;
   return mat;
  }
 }}
+
 
 
 

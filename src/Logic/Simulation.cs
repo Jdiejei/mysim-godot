@@ -238,7 +238,7 @@ namespace MySimulator.Rebuild
             }
         }
         static float PhysicalSteeringLimit(float speed){float[] speeds={0,15,40,70},factors={1,.6f,.28f,.16f};int i=0;while(i<2&&speed>speeds[i+1])i++;float t=MathUtil.Clamp((speed-speeds[i])/(speeds[i+1]-speeds[i]),0,1);t=t*t*(3-2*t);return (32*MathUtil.Pi/180)*MathUtil.Lerp(factors[i],factors[i+1],t);}
-        public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
+        public float dbgA,dbgB,dbgC;public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
         {
             float look=MathUtil.Clamp(4+speed*.5f,4,40),offset=0;
             Vehicle obstruction=null;float aheadDistance=float.MaxValue;
@@ -266,7 +266,7 @@ namespace MySimulator.Rebuild
             if(!pitActive&&!finished&&stationaryTime>3){recoveryRemaining=2.5f;stationaryTime=0;}
             if(recoveryRemaining>0)return new DriverInput(.4f,0,-MathUtil.Clamp(steer,-1,1)){reverse=true};
             if(finished)desired=18;if(retired)return new DriverInput(0,1,0);
-            float error=desired-speed;
+            dbgA=desired;dbgB=curvature;dbgC=localX;float error=desired-speed;
             return new DriverInput(MathUtil.Clamp(error*.38f,0,1),MathUtil.Clamp(-error*.22f,0,1),MathUtil.Clamp(steer,-1,1));
         }
     }

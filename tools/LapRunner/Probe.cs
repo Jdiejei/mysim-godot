@@ -1,0 +1,2 @@
+using System;using MySimulator.Rebuild;
+static class Probe{public static void Run(int t){var c=new Circuit(t);Console.WriteLine($"track {t} length={c.length:0} width={c.width:0.0} points={c.points.Length}");for(int i=0;i<20;i++){float p=i/20f;float v=Vehicle.SpeedAhead(c,p,7.9f,7f);float h0=c.Heading(p),h1=c.Heading(p+16f/c.length);Console.WriteLine($"p={p:0.00} speedAhead={v:0.0} dHeading16m={MathUtil.Wrap(h1-h0)*57.3f:0.0}deg");}}}
