@@ -4,7 +4,7 @@ namespace MySim {
 // Player drive loop: recovered Race simulation steps the car, the model is placed on the drive-surface mesh by raycast,
 // chase camera 7.2 m back / 2.65 m up with speed lookahead (revised Unity values), no artificial shake.
 public partial class DriveController : Node3D {
- public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; float? lastGroundY, prevY; float minY = 1e9f, maxY = -1e9f, maxDy; float steerCmd; public Vector3 CarSize = new Vector3(2, 1.2f, 4.7f); public int TrackIndex; public Node3D[] WheelPivots; float spinAngle; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
+ public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; float? lastGroundY, prevY; float groundSmooth; bool groundInit; float minY = 1e9f, maxY = -1e9f, maxDy; float steerCmd; public Vector3 CarSize = new Vector3(2, 1.2f, 4.7f); public int TrackIndex; public Node3D[] WheelPivots; float spinAngle; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
  int CamMode = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAM") ?? "0"); bool cWas; bool tabWas; ulong pausedAt; float t, camYaw; int shownMode = -1; bool camInit;
  public override void _Ready() {
   Race = new Race(TrackIndex, Laps, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f); CallDeferred(nameof(BindHud));
@@ -37,11 +37,22 @@ public partial class DriveController : Node3D {
   var hit = gr.found ? new Godot.Collections.Dictionary() { { "p", 1 } } : new Godot.Collections.Dictionary();
   float y = gr.y; lastGroundY = y; if (y < minY) minY = y; if (y > maxY) maxY = y; if (prevY.HasValue) maxDy = Mathf.Max(maxDy, Mathf.Abs(y - prevY.Value)); prevY = y; Vector3 n = gr.normal;
   float h = Player.heading; var fwd = new Vector3(Mathf.Sin(h), 0, -Mathf.Cos(h));
-  Car.Position = new Vector3(w.X, y + 0.05f, w.Z);
+  // Four-wheel contact: sample the drive surface under each wheel, put the chassis on the average height and pitch/roll it from the wheel heights (no floating, no wheels in the ground).
+  Vector3 carPos = new Vector3(w.X, y + 0.05f, w.Z);
+  if (WheelPivots != null && WheelPivots.Length == 4) {
+   var rotOnly = Car.Basis; var cp = new Vector3[4]; float avg = 0; int ok = 0;
+   for (int wi = 0; wi < 4; wi++) { var off = rotOnly * WheelPivots[wi].Position; var wp = new Vector3(w.X + off.X, 0, w.Z + off.Z); var gi = Contact.Ground(space, wp, refY, 0.6f); cp[wi] = new Vector3(wp.X, gi.found ? gi.y : y, wp.Z); avg += cp[wi].Y; if (gi.found) ok++; }
+   avg /= 4f; var front = (cp[0] + cp[1]) * 0.5f - (cp[2] + cp[3]) * 0.5f; var side = (cp[1] + cp[3]) * 0.5f - (cp[0] + cp[2]) * 0.5f;
+   float tgtY = ok > 0 ? avg : y; groundSmooth = groundInit ? Mathf.Lerp(groundSmooth, tgtY, 1f - Mathf.Exp(-40f * (float)delta)) : tgtY; groundInit = true;
+   carPos = new Vector3(w.X, groundSmooth, w.Z);
+   var nn = front.Cross(side).Normalized(); if (nn.Y < 0) nn = -nn; if (ok == 4 && nn.Y > 0.7f) n = nn;
+  }
+  Car.Position = carPos;
   var f2 = (fwd - n * fwd.Dot(n)).Normalized(); var carX = n.Cross(f2).Normalized(); Car.Basis = new Basis(carX, n, f2); /* proper rotation (det +1): nose (+Z local) = travel direction. The old basis was left-handed and Orthonormalized() left it mirrored, so the nose faced the camera. */
   if (WheelPivots != null) { spinAngle += Player.speed * (float)delta / 0.34f; for (int wi = 0; wi < 4; wi++) { var sp = WheelPivots[wi].GetNode<Node3D>("Spin"); float sgn = WheelPivots[wi].Position.X < 0 ? -1f : 1f; sp.Rotation = new Vector3(spinAngle * sgn, 0, 0); if (wi < 2) { var rot = WheelPivots[wi].Position.X < 0 ? Mathf.Pi : 0f; WheelPivots[wi].Rotation = new Vector3(0, rot - Player.steering, 0); } } }
   // chase camera
   bool cNow = Input.IsKeyPressed(Key.C) || (Input.GetConnectedJoypads().Count > 0 && Input.IsJoyButtonPressed(Input.GetConnectedJoypads()[0], JoyButton.Y)); if (cNow && !cWas) CamMode = (CamMode + 1) % 4; cWas = cNow; if (CamMode != shownMode) { shownMode = CamMode; foreach (var mn in Car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)mn; if (!mi.HasMeta("grp")) continue; string gp = mi.GetMeta("grp").AsString(); mi.Visible = gp == "int" ? CamMode == 2 : CamMode != 2; } }
+  if (System.Environment.GetEnvironmentVariable("MYSIM_CLOSE") != null) { var sideDir = new Vector3(fwd.Z, 0, -fwd.X); Cam.Position = Car.Position + sideDir * 4.2f + Vector3.Up * 0.45f - fwd * 0.8f; Cam.LookAt(Car.Position + Vector3.Up * 0.35f); Cam.Fov = 45f; if (AutoDrive && t >= AutoSeconds) { GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "close.png"); GetTree().Quit(); } return; }
   float speed = Player.speed; float look = Mathf.Clamp(speed / 20f, 0, 1) * 4f + 3f;
   if (CamMode == 0 || CamMode == 1) {
    float len = Mathf.Max(CarSize.Z, 3.5f), hgt = Mathf.Max(CarSize.Y, 1.0f); float back = CamMode == 0 ? len * 1.3f : len * 2.1f, up = CamMode == 0 ? hgt * 1.35f + 0.25f : hgt * 2.4f; var target = ObstructCam(Car.Position + Vector3.Up * (hgt * 0.8f), Car.Position - fwd * back + Vector3.Up * up);
@@ -52,6 +63,8 @@ public partial class DriveController : Node3D {
   if (AutoDrive && !(AiTest && AutoSeconds > 250) && t >= AutoSeconds) { GD.Print("YRANGE min=", minY.ToString("0.00"), " max=", maxY.ToString("0.00"), " maxStepDy=", maxDy.ToString("0.00")); GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
+
 
 
 
