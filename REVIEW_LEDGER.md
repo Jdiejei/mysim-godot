@@ -33,3 +33,9 @@
 - [V] Windows export: exe runs the C# code (needs MySimGodot.sln; added). First two exports could not load FBX/PNG: Godot cannot export files reached through the D: junction (592 "Can't open file" errors in export3.log). Fix in progress: real asset copy under the project (tools/export_real.sh) then re-export.
 - [V] LapRunner exits non-zero on failure and fails reset/recovery-assisted laps: 1440/1440 clean passes (laps-full-assist.jsonl).
 - [OPEN] audit items not started: pause for pad focus, selection previews/search, settings schema, audio, network catalogue bounds (R04), time-trial vs race flow (U04), clean-machine export test, performance numbers.
+
+## Update: AI braking and valid-lap gate
+- [V] Core check "Invalid lap timing" regressed after the grip fix: Laguna Seca AI ran 6.9 m off track at the corkscrew on both laps, so bestLap stayed 0 (lap validity protection worked). Cause: AI braked at 100% leaving no front lateral grip (car went straight while steering -0.26). Fix: trail braking in `Autopilot` (brake scaled down with steering). Laguna worst lateral 6.9 -> 2.4 m.
+- [V] Gate now: every one of 1,440 pairs must FINISH, with zero resets/recoveries, AND have a valid (on-track) lap (`bestLap>0`). Result 1440/1440 (`laps-full-valid.jsonl`, laps 47-389 s). LapRunner exits non-zero on any failure.
+- [V] CoreChecks PASS (87,884 assertions; lower than before only because the AI now finishes in fewer ticks). Workflow `core.yml` now checks `^PASS n assertions` and no FAIL line.
+- [V] Network.cs bounds changed to full catalogue (60 tracks, 24 cars). [U] No network integration test on non-legacy IDs beyond core loopback.
