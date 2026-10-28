@@ -207,7 +207,7 @@ namespace MySimulator.Rebuild
         }
         // Fastest speed now that still lets the car slow to every upcoming corner's limit (curvature from 16 m chords).
         public static float SpeedAhead(Circuit track,float progress,float lateral,float decel){float best=200,step=16f/track.length;
-            for(int k=0;k<22;k++){float p=progress+k*step;float h0=track.Heading(p),h1=track.Heading(p+step),h2=track.Heading(p+2*step);float curv=Math.Abs(MathUtil.Wrap(h2-h0))/32f;float vc=(float)Math.Sqrt(lateral/Math.Max(.0012f,curv));float dist=Math.Max(0,k*16f-6);best=Math.Min(best,(float)Math.Sqrt(vc*vc+2*decel*dist));}
+            for(int k=0;k<22;k++){float p=progress+k*step;float h0=track.Heading(p),h1=track.Heading(p+step),h2=track.Heading(p+2*step);float curv=Math.Max(Math.Abs(MathUtil.Wrap(h1-h0)),Math.Abs(MathUtil.Wrap(h2-h1)))/11f;float vc=(float)Math.Sqrt(lateral/Math.Max(.0012f,curv));float dist=Math.Max(0,k*16f-6);best=Math.Min(best,(float)Math.Sqrt(vc*vc+2*decel*dist));}
             return best;}
         static float muCurve(float x){return (float)Math.Tanh(x)*(1-.08f*Math.Min(1,Math.Max(0,Math.Abs(x)-1.5f)));}
         static float CircleClamp(float lat,float lon,float max){float t=lat*lat+lon*lon;if(t<=max*max)return lat;float room=Math.Max(0,max*max-lon*lon);return Math.Sign(lat)*(float)Math.Sqrt(room);}
