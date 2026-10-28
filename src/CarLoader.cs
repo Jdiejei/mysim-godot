@@ -34,7 +34,7 @@ static Godot.Collections.Dictionary carMap;
    for (int s = 0; s < mi.Mesh.GetSurfaceCount() && guids.Count > 0; s++) {
     string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); if (!cache.TryGetValue(g, out var mat)) {
      mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); var texs = mi2.ContainsKey("texs") ? mi2["texs"].AsGodotDictionary() : null; string bp = texs != null && texs.ContainsKey("_BaseMap") ? Res(texs["_BaseMap"].AsString()) : (texs != null && texs.ContainsKey("_MainTex") ? Res(texs["_MainTex"].AsString()) : null);
-      if (bp != null && ResourceLoader.Exists(bp)) { var sm = new ShaderMaterial { Shader = CarShader }; sm.SetShaderParameter("base", GD.Load<Texture2D>(bp)); string mp = texs.ContainsKey("_MaskMap") ? Res(texs["_MaskMap"].AsString()) : null; if (mp != null && ResourceLoader.Exists(mp)) sm.SetShaderParameter("mask", GD.Load<Texture2D>(mp));
+      if (bp == null) bp = FallbackTex(carIdx, nm); if (bp != null && ResourceLoader.Exists(bp)) { var sm = new ShaderMaterial { Shader = CarShader }; sm.SetShaderParameter("base", GD.Load<Texture2D>(bp)); string mp = texs.ContainsKey("_MaskMap") ? Res(texs["_MaskMap"].AsString()) : null; if (mp != null && ResourceLoader.Exists(mp)) sm.SetShaderParameter("mask", GD.Load<Texture2D>(mp));
        var fl = mi2.ContainsKey("floats") ? mi2["floats"].AsGodotDictionary() : null; if (fl != null && fl.ContainsKey("_UseMask")) sm.SetShaderParameter("use_mask", (float)fl["_UseMask"].AsDouble());
        var cols = mi2.ContainsKey("colors") ? mi2["colors"].AsGodotDictionary() : null; if (cols != null && cols.ContainsKey("_AmbientColour")) { var a = cols["_AmbientColour"].AsGodotArray(); sm.SetShaderParameter("ambient_tint", new Vector3((float)a[0], (float)a[1], (float)a[2]) * 1.15f); }
        string ln = nm.ToLowerInvariant(); long q = mi2.ContainsKey("queue") ? (long)mi2["queue"].AsInt64() : -1; if (ln.Contains("badge") || ln.Contains("scratch") || ln.Contains("light") || ln.Contains("glow") || q > 2450) sm.SetShaderParameter("alpha_mode", 1f); mat = sm; } }
@@ -46,6 +46,12 @@ static Godot.Collections.Dictionary carMap;
  }
  public static Vector3 MeasureSize(Node3D car) { Aabb bb = new Aabb(); bool first = true; foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible || !mi.HasMeta("grp") || mi.GetMeta("grp").AsString() != "ext") continue; var b = mi.GlobalTransform * mi.GetAabb(); if (first) { bb = b; first = false; } else bb = bb.Merge(b); } return bb.Size; }
  public static void ForceUnshaded(Node3D car) { foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var ov = mi.GetSurfaceOverrideMaterial(s) as ShaderMaterial; var tex = ov?.GetShaderParameter("base").As<Texture2D>(); if (tex != null) mi.SetSurfaceOverrideMaterial(s, new StandardMaterial3D { ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded, AlbedoTexture = tex, CullMode = BaseMaterial3D.CullModeEnum.Disabled, Uv1Scale = new Vector3(1, -1, 1), Uv1Offset = new Vector3(0, 1, 0) }); } } }
+ // Some Unity car materials have an empty _BaseMap (assigned at runtime in Unity): fall back to the car's own livery/slot texture by node suffix.
+ static string FallbackTex(int carIdx, string nodeName) {
+  string folder = MySimulator.Rebuild.CarCatalog.Folders[carIdx]; string dir = "res://assets/RealRacing/Source/" + folder + "/"; int k = nodeName.LastIndexOf("_mm_"); if (k < 0) return null; string suf = nodeName.Substring(k + 4);
+  if (suf == "ext") { foreach (var f in Assets.Files(dir + "livery/")) if (f.EndsWith(".png")) return dir + "livery/" + f; return null; }
+  string p = dir + folder + "_" + suf + ".png"; return ResourceLoader.Exists(p) ? p : null;
+ }
  public static Node3D[] AttachWheels(Node3D car, int carIdx) {
   var pts = Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()[carIdx.ToString()].AsGodotArray();
   var wheelMeshes = new System.Collections.Generic.List<MeshInstance3D>();
@@ -70,6 +76,7 @@ static Godot.Collections.Dictionary carMap;
   return mat;
  }
 }}
+
 
 
 
