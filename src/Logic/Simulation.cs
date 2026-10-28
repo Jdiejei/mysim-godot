@@ -287,6 +287,9 @@ namespace MySimulator.Rebuild
             foreach(Tyre tyre in v.tyres)tyre.Replace(compound);
             float p=MathUtil.Wrap01(.988f-cars.Count*.008f);v.Place(track,p,(cars.Count%2==0?-2.4f:2.4f));cars.Add(v);return v;
         }
+        public const float FixedDt=1f/120f;float stepAccumulator;
+        // Deterministic stepping: render/physics deltas are accumulated and consumed in constant FixedDt substeps (independent of frame rate).
+        public void Advance(float frameDt){if(paused||!MathUtil.Finite(frameDt)||frameDt<=0)return;stepAccumulator+=Math.Min(frameDt,.25f);while(stepAccumulator>=FixedDt){Step(FixedDt);stepAccumulator-=FixedDt;}}
         public void Step(float dt)
         {
             if(paused||!MathUtil.Finite(dt)||dt<=0)return;dt=Math.Min(dt,.1f);

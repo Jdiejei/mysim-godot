@@ -33,7 +33,7 @@ public partial class DriveController : Node3D {
   if (AiTest) { Player.human = false; Player.pitRequested = System.Environment.GetEnvironmentVariable("MYSIM_NOPIT") == null; var st = (Player.pitActive ? "A" : "-") + (Player.servicing ? "S" : "-") + (Player.pitDone ? "D" : "-"); if (st != lastSt) { GD.Print("PITSTATE t=", t.ToString("0.0"), " ", st, " progress=", Player.progress.ToString("0.000"), " speed=", Player.speed.ToString("0.0"), " lap=", Player.completedLaps, " wear=", Player.Wear.ToString("0.00")); lastSt = st; } }
   if (Input.IsKeyPressed(Key.P)) Player.pitRequested = true;
   Player.input = new DriverInput(thr, brk, steer) { handbrake = Input.IsKeyPressed(Key.Space) };
-  var startPos = Player.position; Race.Step((float)delta); ResolveWalls(startPos);
+  var startPos = Player.position; Race.Advance((float)delta); ResolveWalls(startPos);
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   var hit = space.IntersectRay(PhysicsRayQueryParameters3D.Create(new Vector3(w.X, w.Y + 60, w.Z), new Vector3(w.X, w.Y - 200, w.Z)));
   float y = hit.Count > 0 ? ((Vector3)hit["position"]).Y : Car.Position.Y; Vector3 n = hit.Count > 0 ? (Vector3)hit["normal"] : Vector3.Up;
