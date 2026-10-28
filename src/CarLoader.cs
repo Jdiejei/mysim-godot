@@ -44,6 +44,7 @@ static Godot.Collections.Dictionary carMap;
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;
  }
+ public static Vector3 MeasureSize(Node3D car) { Aabb bb = new Aabb(); bool first = true; foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible || !mi.HasMeta("grp") || mi.GetMeta("grp").AsString() != "ext") continue; var b = mi.GlobalTransform * mi.GetAabb(); if (first) { bb = b; first = false; } else bb = bb.Merge(b); } return bb.Size; }
  public static void ForceUnshaded(Node3D car) { foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var ov = mi.GetSurfaceOverrideMaterial(s) as ShaderMaterial; var tex = ov?.GetShaderParameter("base").As<Texture2D>(); if (tex != null) mi.SetSurfaceOverrideMaterial(s, new StandardMaterial3D { ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded, AlbedoTexture = tex, CullMode = BaseMaterial3D.CullModeEnum.Disabled, Uv1Scale = new Vector3(1, -1, 1), Uv1Offset = new Vector3(0, 1, 0) }); } } }
  public static Node3D[] AttachWheels(Node3D car, int carIdx) {
   var pts = Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()[carIdx.ToString()].AsGodotArray();
@@ -69,6 +70,7 @@ static Godot.Collections.Dictionary carMap;
   return mat;
  }
 }}
+
 
 
 

@@ -21,3 +21,7 @@
 - Fix: `Simulation.cs` `if(traction) driveForce = Math.Min(driveForce, mu*fzR*.75f)` right after the hybrid term, BEFORE `rearLong`. After: same input gives steady yaw 0.23-0.30 rad/s, no spin, speed reaches 25 m/s.
 - Effect on AI laps (fixed 1/120 s): Brands Hatch/car 8 154.6 -> 78.9 s; Catalunya 378 -> 183 s; Le Mans Sarthe now finishes (425.5 s); Bathurst 220.9, Spa 275.0, Monza 188.6.
 - New failure: Indianapolis(10)/car 3: AI runs 12 m wide at the 25 percent gate (offTrack 1.46 s) so lap gates are never registered (laps=0). That is an AI braking/cornering problem, not a spin. Full matrix re-run in progress (`tools/LapRunner/full_fixedstep.txt`).
+
+## Update: wheelbase reconciliation and camera fit
+- Wheelbase (spec 8): sim table vs Unity WheelPivot spacing: 6 cars equal, **18 of 24 differ by 0.03-1.35 m** (F1 2.9 vs 3.7 m, Oreca 1.66 vs 3.01, P1 GTR 1.48 vs 2.68, Aston GTE 1.89 vs 2.76). Pivot spacing matches real cars, so `RecoveredGeometry.Wheelbase` was replaced by the pivot-derived values (old table kept in a comment). Matrix re-validation pending (LapRunner exe was locked by the running matrix).
+- Camera (spec 9): chase distance/height now from measured car bounds (distance = 1.3 x car length, height = 1.35 x car height + 0.25 m, FOV 58-64). Car 8 (4.72 x 1.32 m) fills about 24 percent of image height (`camfit.png`); F1 about 20 percent. NOT yet done: render interpolation, obstruction sweeps, human footage.

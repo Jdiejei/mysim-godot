@@ -1,0 +1,17 @@
+shard 0/1: 1440 runs, 1396 pass, 44 fail
+{"track":10,"car":0,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.72 laps=0 gate=1 lapElapsed=91 lastLap=0.0"}
+{"track":10,"car":1,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.58 laps=0 gate=1 lapElapsed=72 lastLap=0.0"}
+{"track":10,"car":2,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.60 laps=0 gate=1 lapElapsed=74 lastLap=0.0"}
+{"track":10,"car":3,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.58 laps=0 gate=1 lapElapsed=72 lastLap=0.0"}
+{"track":10,"car":4,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.78 laps=0 gate=1 lapElapsed=102 lastLap=0.0"}
+{"track":10,"car":5,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.66 laps=0 gate=1 lapElapsed=86 lastLap=0.0"}
+{"track":10,"car":6,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.75 laps=0 gate=1 lapElapsed=93 lastLap=0.0"}
+{"track":10,"car":7,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.76 laps=0 gate=1 lapElapsed=98 lastLap=0.0"}
+{"track":10,"car":8,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.76 laps=0 gate=1 lapElapsed=98 lastLap=0.0"}
+{"track":10,"car":9,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.73 laps=0 gate=1 lapElapsed=91 lastLap=0.0"}
+{"track":10,"car":10,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.72 laps=0 gate=1 lapElapsed=90 lastLap=0.0"}
+{"track":10,"car":11,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.82 laps=0 gate=1 lapElapsed=105 lastLap=0.0"}
+{"track":10,"car":12,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.80 laps=0 gate=1 lapElapsed=104 lastLap=0.0"}
+{"track":10,"car":13,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.99 laps=0 gate=1 lapElapsed=119 lastLap=0.0"}
+{"track":10,"car":14,"ok":false,"lap":-1.0,"why":"lap not finished in 900s progress=0.80 laps=0 gate=1 lapElapsed=104 lastLap=0.0"}
+FIN
