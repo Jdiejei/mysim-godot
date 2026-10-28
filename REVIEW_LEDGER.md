@@ -39,3 +39,8 @@
 - [V] Gate now: every one of 1,440 pairs must FINISH, with zero resets/recoveries, AND have a valid (on-track) lap (`bestLap>0`). Result 1440/1440 (`laps-full-valid.jsonl`, laps 47-389 s). LapRunner exits non-zero on any failure.
 - [V] CoreChecks PASS (87,884 assertions; lower than before only because the AI now finishes in fewer ticks). Workflow `core.yml` now checks `^PASS n assertions` and no FAIL line.
 - [V] Network.cs bounds changed to full catalogue (60 tracks, 24 cars). [U] No network integration test on non-legacy IDs beyond core loopback.
+
+## Update: standalone export + car materials
+- [V] Standalone Windows export works (build/MySim.exe + MySim.pck 2.24 GB + data_MySimGodot_windows_x86_64): from a clean run it loads Brands Hatch (2860/2860 surfaces bound), sky, McLaren 650S with 92 car materials, wheels, HUD; 0 ERROR lines (build_smoke2.png). Requirements found: a .sln beside the csproj; assets must be real files (not a junction) under the project; directory listings must strip .import/.remap suffixes.
+- [V] 24-car showroom (carshots/sheet0-1.png): 20 correct liveries; 4 black cars (BMW M4 GT4, 911 RSR, Aston GTE, 919) had Unity materials with empty _BaseMap -> now fall back to the car's own livery; fixed in editor (fb_sheet.png). Camaro ZL1, Chiron and Oreca are legitimately dark liveries (livery brightness measured).
+- [OPEN] Not yet tested in the exported player: the livery fallback (needs re-export). Not done: clean-machine test (no D: / no dev tools), exe size/packaging manifest, checksums.
