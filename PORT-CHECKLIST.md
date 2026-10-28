@@ -7,7 +7,7 @@ Legend: DONE verified | PART partly | TODO not started | BLOCK blocked
 5 Cameras ........................ PART chase only; TODO cockpit, alt cams, collision/slope review
 6 Shadows/lighting ............... PART sun 4 cascades 150 m; TODO weather, quality tiers, acne review
 7 Tracks/assets .................. PART BH textured (198 of 869 mats); 29 maps texture build running; TODO road/ground, lightmaps, all layouts check
-8 Race flow ...................... TODO menu, countdown UI, results, restart, championship
+8 Race flow ...................... PART menu(60 tracks,24 cars,laps)+race+results+restart verified; TODO championship, penalties UI; DEFECT AI pace very slow (BH lap 134 s, Le Mans 1070 s; raising lateral limit made it slower => AI line-following problem, telemetry in tools/LapRunner)
 9 UI/audio/settings .............. PART HUD only; TODO menus, pause, results, audio (muted), settings persistence
 10 Multiplayer ................... PART Network.cs core checks pass; TODO Godot wiring + live test
 11 Presentation .................. TODO wheels/steering animation, tyre variants, effects

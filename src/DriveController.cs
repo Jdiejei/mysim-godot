@@ -4,10 +4,10 @@ namespace MySim {
 // Player drive loop: recovered Race simulation steps the car, the model is placed on the drive-surface mesh by raycast,
 // chase camera 7.2 m back / 2.65 m up with speed lookahead (revised Unity values), no artificial shake.
 public partial class DriveController : Node3D {
- public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; public int TrackIndex; public bool AiTest; string lastSt = "";
+ public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; public int TrackIndex; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
  float t, camYaw; bool camInit;
  public override void _Ready() {
-  Race = new Race(TrackIndex, 3, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f); CallDeferred(nameof(BindHud));
+  Race = new Race(TrackIndex, Laps, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f); CallDeferred(nameof(BindHud));
  }
  void BindHud() { if (Hud != null) { Hud.Race = Race; Hud.Player = Player; } }
  void ResolveWalls(Vec start) {
@@ -27,7 +27,7 @@ public partial class DriveController : Node3D {
   float thr = Input.IsKeyPressed(Key.W) || Input.IsKeyPressed(Key.Up) ? 1 : 0, brk = Input.IsKeyPressed(Key.S) || Input.IsKeyPressed(Key.Down) ? 1 : 0;
   float steer = (Input.IsKeyPressed(Key.D) || Input.IsKeyPressed(Key.Right) ? 1 : 0) - (Input.IsKeyPressed(Key.A) || Input.IsKeyPressed(Key.Left) ? 1 : 0);
   if (AutoDrive && !AiTest) { thr = 1; brk = 0; steer = 0; }
-  if (AiTest) { Player.human = false; Player.pitRequested = true; var st = (Player.pitActive ? "A" : "-") + (Player.servicing ? "S" : "-") + (Player.pitDone ? "D" : "-"); if (st != lastSt) { GD.Print("PITSTATE t=", t.ToString("0.0"), " ", st, " progress=", Player.progress.ToString("0.000"), " speed=", Player.speed.ToString("0.0"), " lap=", Player.completedLaps, " wear=", Player.Wear.ToString("0.00")); lastSt = st; } }
+  if (AiTest) { Player.human = false; Player.pitRequested = System.Environment.GetEnvironmentVariable("MYSIM_NOPIT") == null; var st = (Player.pitActive ? "A" : "-") + (Player.servicing ? "S" : "-") + (Player.pitDone ? "D" : "-"); if (st != lastSt) { GD.Print("PITSTATE t=", t.ToString("0.0"), " ", st, " progress=", Player.progress.ToString("0.000"), " speed=", Player.speed.ToString("0.0"), " lap=", Player.completedLaps, " wear=", Player.Wear.ToString("0.00")); lastSt = st; } }
   if (Input.IsKeyPressed(Key.P)) Player.pitRequested = true;
   Player.input = new DriverInput(thr, brk, steer) { handbrake = Input.IsKeyPressed(Key.Space) };
   var startPos = Player.position; Race.Step((float)delta); ResolveWalls(startPos);
@@ -43,9 +43,12 @@ public partial class DriveController : Node3D {
   if (!camInit) { Cam.Position = target; camInit = true; }
   Cam.Position = Cam.Position.Lerp(target, 1f - Mathf.Exp(-6f * (float)delta));
   Cam.LookAt(Car.Position + fwd * look + Vector3.Up * 1.0f);
-  if (AutoDrive && t >= AutoSeconds) { GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
+  if (AiTest && Player.finished) { finT += (float)delta; if (finT > 1.5f) { GD.Print("FINISHED t=", t.ToString("0.0"), " laps=", Player.completedLaps, " time=", Player.finishTime.ToString("0.00"), " best=", Player.bestLap.ToString("0.00"), " wallHits=", WallHits, " damage=", Player.damage.ToString("0.00")); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "finish.png"); GetTree().Quit(); } }
+  if (AutoDrive && !(AiTest && AutoSeconds > 250) && t >= AutoSeconds) { GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
+
 
 
 

@@ -21,7 +21,7 @@ namespace MySimulator.Rebuild
         public static float Clamp(float v,float lo,float hi){return Math.Max(lo,Math.Min(hi,v));}
         public static float Lerp(float a,float b,float t){return a+(b-a)*Clamp(t,0,1);}
         public static float Wrap(float a){while(a>Pi)a-=2*Pi;while(a<-Pi)a+=2*Pi;return a;}
-        public static float Wrap01(float a){return a-(float)Math.Floor(a);}
+        public static float Wrap01(float a){float r=a-(float)Math.Floor(a);return r>=1f?0f:r;}
         public static bool Finite(float a){return !float.IsNaN(a)&&!float.IsInfinity(a);}
     }
     public enum Compound {Soft,Medium,Hard,Wet}
