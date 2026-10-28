@@ -59,3 +59,4 @@
 - Dubai/Bathurst kerbs over-saturated; Sebring has a stray dark wedge beside the car; Brands Hatch has a thin black wire line across scenery.
 - Laguna variation FBX is a 5 KB empty placeholder in the original: load error harmless.
 - s07-s08 (tracks 28-35): Daytona wall lettering mirrored (same text-orientation fault); Catalunya start gantry checker blurry/mirrored; Yas Marina has black rectangles at left stand and a hard dark shadow band; tracks 29/33/34 show "no pit lane" (13 layouts lack pit data); Daytona road course car 32 ends up angled at wall at 5 s (autodrive, expected).
+- 2026-10-29 UV fix: all non-ground track materials now use 180-degree UV; signage (nurburgring, Julius Bar, MOTUL, FIA, ABB) reads correctly on re-render of all 60 tracks. Open: floating bush blob on Silverstone Southern, repeated-A gantry placeholders, kerb saturation, Sebring dark wedge, Yas Marina black rectangles.
