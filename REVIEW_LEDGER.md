@@ -52,3 +52,9 @@
 - [U] Fixes written, NOT yet verified by data: wall sliding (heading rotates toward wall tangent), invisible containment (put back + bounce when no drive surface under car or >30 m from centreline), SPEED_GAIN now counts only gains at wall impacts. Run 2 (300 m spacing) in progress to measure.
 - [V] Limits: free Actions minutes (2,000/account/month on private repos) are the cap. blackwingftc-lang is exhausted; shawshanker18 has a billing block; the 5.2M-crash plan (25 m left+right, 10 m on bends) needs ~240 runner-hours, far above ~100 free hours.
 - Not changed: JSON flags are heuristics (ESCAPED_TRACK = >25 m lateral; STUCK = speed<0.5 and >6 m lateral). They do not prove visual correctness.
+
+## 2026-10-29 sheets s00-s06 (tracks 0-27), new physics build
+- Mirrored/upside-down sponsor text: Berlin (Julius Bar), New York/2021 (ABB, Formula E), Nurburgring (header banner), Sebring (REAL RACING), Richmond. Source PNG is stored V-flipped; V-flip alone gives horizontally mirrored text, so the mapping needs a per-mesh orientation check (not a global texture flip). Experiment reverted.
+- Start gantries on Monaco/Suzuka/Hockenheim show low-res checker texture (upscale candidate).
+- Dubai/Bathurst kerbs over-saturated; Sebring has a stray dark wedge beside the car; Brands Hatch has a thin black wire line across scenery.
+- Laguna variation FBX is a 5 KB empty placeholder in the original: load error harmless.
