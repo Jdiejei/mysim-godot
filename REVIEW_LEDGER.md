@@ -14,3 +14,10 @@
 | 11: 1440 matrix re-run after fixed step, Le Mans Sarthe 24 failures, pits, audio, multiplayer | OPEN | prior matrix: 1416/1440 at variable step |
 | 12: recordings/comparison | OPEN, no video, Android tooling removed (spec: do not reinstall) | |
 | Windows export (order 1) | OPEN | no export templates installed, no exe |
+
+## Update: yaw/stall root cause found and fixed (controller-free evidence)
+- Test: `LapRunner steptest <car> <steer> <throttle>` (human-model, no AI). Before: a constant steering input of 0.1 (steering angle 0.05 rad, about 3 degrees) at 17-21 m/s produced yaw 1.78-2.47 rad/s, repeated 360-degree spins, speed collapsing to 4-15 m/s. Expected steady yaw about 0.45 rad/s.
+- Cause [verified by change]: in `Vehicle.Step` the rear friction circle (`CircleClamp(latR, rearLong, ...)`) used the UNREDUCED drive force (`rearLong = driveForce + ...`) before traction control cut it, so full throttle consumed the whole rear circle and rear lateral force collapsed (about 0 N) -> oversteer snap. Traction control then reduced the force too late.
+- Fix: `Simulation.cs` `if(traction) driveForce = Math.Min(driveForce, mu*fzR*.75f)` right after the hybrid term, BEFORE `rearLong`. After: same input gives steady yaw 0.23-0.30 rad/s, no spin, speed reaches 25 m/s.
+- Effect on AI laps (fixed 1/120 s): Brands Hatch/car 8 154.6 -> 78.9 s; Catalunya 378 -> 183 s; Le Mans Sarthe now finishes (425.5 s); Bathurst 220.9, Spa 275.0, Monza 188.6.
+- New failure: Indianapolis(10)/car 3: AI runs 12 m wide at the 25 percent gate (offTrack 1.46 s) so lap gates are never registered (laps=0). That is an AI braking/cornering problem, not a spin. Full matrix re-run in progress (`tools/LapRunner/full_fixedstep.txt`).

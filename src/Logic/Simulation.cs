@@ -172,6 +172,8 @@ namespace MySimulator.Rebuild
             float brakeDecel=Math.Min(26.82f*26.82f/(2*stop60),mu*fz/mass);float brakeForce=input.brake*brakeDecel*mass*(road?1:.7f);
             float driveForce=input.throttle*Math.Min(power/Math.Max(v,6),mu*fzR*1.15f);
             driveForce+=HybridDeployment.Step(this,input,dt)*input.throttle;
+            // Traction control must reserve lateral grip BEFORE the friction circle is evaluated; otherwise full throttle consumes the whole rear circle and rear lateral force collapses (measured spin).
+            if(traction)driveForce=Math.Min(driveForce,mu*fzR*.75f);
             if(input.handbrake){brakeForce+=mass*3;}
             float rearLong=driveForce+brakeForce*.42f,frontLong=brakeForce*.58f;
             float latF=muCurve(frontSlip/peak)*mu*fzF,latR=muCurve(rearSlip/peak)*mu*fzR;
