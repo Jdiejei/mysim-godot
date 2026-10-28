@@ -256,7 +256,7 @@ namespace MySimulator.Rebuild
             float steer=desiredSteer/((externalPhysics||physicalHandling)?PhysicalSteeringLimit(speed):Math.Max(.05f,currentMaxSteer));
             float turn=Math.Abs(MathUtil.Wrap(track.Heading(progress+.04f)-track.Heading(progress)))/(.04f*track.length);
             for(int j=0;j<6;j++){float p=progress+j*.012f;turn=Math.Max(turn,Math.Abs(MathUtil.Wrap(track.Heading(p+.012f)-track.Heading(p)))/(.012f*track.length));}
-            float desired=MathUtil.Clamp(SpeedAhead(track,progress,CornerLateralAccel*Math.Min(pace,.75f),7f),10,TopAiSpeed);
+            float desired=MathUtil.Clamp(SpeedAhead(track,progress,CornerLateralAccel*Math.Min(pace,.75f),5f),10,TopAiSpeed);
             desired=Math.Max(4,desired*AiRaceCalibration.Scale(carModel,track.variant));
             // Limit speed for the turn actually requested, including recovery from lateral error.
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))];
@@ -269,7 +269,8 @@ namespace MySimulator.Rebuild
             if(recoveryRemaining>0)return new DriverInput(.4f,0,-MathUtil.Clamp(steer,-1,1)){reverse=true};
             if(finished)desired=18;if(retired)return new DriverInput(0,1,0);
             dbgA=desired;dbgB=curvature;dbgC=localX;float error=desired-speed;
-            return new DriverInput(MathUtil.Clamp(error*.38f,0,1),MathUtil.Clamp(-error*.22f,0,1),MathUtil.Clamp(steer,-1,1));
+            float brakeCmd=MathUtil.Clamp(-error*.22f,0,1)*MathUtil.Lerp(1f,.5f,MathUtil.Clamp(Math.Abs(steer)/.35f,0,1)); // trail braking: full braking leaves no front lateral grip (measured run-wide at Laguna)
+            return new DriverInput(MathUtil.Clamp(error*.38f,0,1),brakeCmd,MathUtil.Clamp(steer,-1,1));
         }
     }
     public class Race

@@ -25,3 +25,11 @@
 ## Update: wheelbase reconciliation and camera fit
 - Wheelbase (spec 8): sim table vs Unity WheelPivot spacing: 6 cars equal, **18 of 24 differ by 0.03-1.35 m** (F1 2.9 vs 3.7 m, Oreca 1.66 vs 3.01, P1 GTR 1.48 vs 2.68, Aston GTE 1.89 vs 2.76). Pivot spacing matches real cars, so `RecoveredGeometry.Wheelbase` was replaced by the pivot-derived values (old table kept in a comment). Matrix re-validation pending (LapRunner exe was locked by the running matrix).
 - Camera (spec 9): chase distance/height now from measured car bounds (distance = 1.3 x car length, height = 1.35 x car height + 0.25 m, FOV 58-64). Car 8 (4.72 x 1.32 m) fills about 24 percent of image height (`camfit.png`); F1 about 20 percent. NOT yet done: render interpolation, obstruction sweeps, human footage.
+
+## Update (evening): orientation, export, UI
+- [V] Car was mirrored: `Car.Basis = new Basis(-right, n, -f2).Orthonormalized()` was left-handed (det -1) and Orthonormalized() kept the mirrored Z, so the nose faced the camera (external audit was right). Fixed: `new Basis(n x f2, n, f2)`; chase view now shows tail lights/diffuser, cockpit shows steering wheel/cage. Wheel spin sign flipped to match. Evidence: orient.png, pause1.png.
+- [V] Livery decals read backwards with U not flipped; shader now samples (1-U, 1-V). Evidence: ucompare.png.
+- [V] Pause is a state (Esc/Tab): freezes race + camera + wheels, overlay Resume/Restart/Main menu (pause1.png). UI scales via content scale 1280x720 expand (menu_scale.png: 960x540 and 1920x1080 identical layout).
+- [V] Windows export: exe runs the C# code (needs MySimGodot.sln; added). First two exports could not load FBX/PNG: Godot cannot export files reached through the D: junction (592 "Can't open file" errors in export3.log). Fix in progress: real asset copy under the project (tools/export_real.sh) then re-export.
+- [V] LapRunner exits non-zero on failure and fails reset/recovery-assisted laps: 1440/1440 clean passes (laps-full-assist.jsonl).
+- [OPEN] audit items not started: pause for pad focus, selection previews/search, settings schema, audio, network catalogue bounds (R04), time-trial vs race flow (U04), clean-machine export test, performance numbers.

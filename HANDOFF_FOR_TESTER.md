@@ -61,4 +61,4 @@ Headless physics/AI tests (no Godot needed): `cd tools\LapRunner; dotnet run -c 
 - Physics: no suspension; gear/RPM on the HUD are derived from speed; AI is slow on some tracks; wall collision is guessed by material name; kerbs have no collision.
 - Missing: audio, multiplayer UI, championship, weather visuals, Android build, Windows .exe.
 - Latest numbers: headless lap matrix 1,397/1,440 pass before the last AI fix (final run pending).
-- Possible issue reported by the owner: the car may appear to drive in reverse in some situation; wheel spin direction and reverse input have not been verified on video.
+- FIXED today: the car used to face backwards (mirrored basis); now nose faces travel direction.

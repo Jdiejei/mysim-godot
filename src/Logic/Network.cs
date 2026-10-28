@@ -79,13 +79,13 @@ namespace MySimulator.Rebuild
         public static Race ReadSnapshot(string[] parts,out int sequence)
         {
             if(parts.Length<9||parts.Length>14)throw new FormatException("Invalid race packet");
-            sequence=Int(parts[1]);int circuit=Int(parts[5]),laps=Int(parts[6]);if(circuit<0||circuit>2||laps<1||laps>20)throw new FormatException("Invalid settings");
+            sequence=Int(parts[1]);int circuit=Int(parts[5]),laps=Int(parts[6]);if(circuit<0||circuit>=SourceRoutes.Names.Length||laps<1||laps>20)throw new FormatException("Invalid settings");
             Race race=new Race(circuit,laps,MathUtil.Clamp(Float(parts[7]),0,1)){clock=Float(parts[2]),countdown=Float(parts[3]),started=parts[4]=="1"};
             for(int i=8;i<parts.Length;i++)
             {
                 string[] p=parts[i].Split(',');if(p.Length!=49)throw new FormatException("Invalid car packet");int id=Int(p[0]);if(id!=i-8)throw new FormatException("Invalid car id");
                 if(p[43]!="0"&&p[43]!="1")throw new FormatException("Invalid body pose state");
-                if((p[42]!="0"&&p[42]!="1")||(p[41]!="0"&&p[41]!="1"))throw new FormatException("Invalid retirement state");int model=Int(p[40]);if(model<0||model>5)throw new FormatException("Invalid car model");
+                if((p[42]!="0"&&p[42]!="1")||(p[41]!="0"&&p[41]!="1"))throw new FormatException("Invalid retirement state");int model=Int(p[40]);if(model<0||model>=CarCatalog.Count)throw new FormatException("Invalid car model");
                 int nextCompound=Int(p[27]);if(nextCompound<0||nextCompound>3)throw new FormatException("Invalid next compound");
                 var v=new Vehicle{id=id,carModel=model,retired=p[41]=="1",physicalHandling=p[42]=="1",driver=Unname(p[1]),position=new Vec(Float(p[2]),Float(p[3])),velocity=new Vec(Float(p[4]),Float(p[5])),heading=Float(p[6]),speed=Float(p[7]),steering=Float(p[8]),rpm=Float(p[9]),gear=Int(p[10]),completedLaps=Int(p[11]),nextGate=Int(p[12]),progress=Float(p[13]),lateral=Float(p[14]),lapElapsed=Float(p[15]),lastLap=Float(p[16]),bestLap=Float(p[17]),damage=Float(p[18]),fuel=Float(p[19]),penalty=Float(p[20]),finishTime=Float(p[21]),finished=p[22]=="1",pitRequested=p[23]=="1",pitActive=p[24]=="1",servicing=p[25]=="1",serviceRemaining=Float(p[26]),nextCompound=(Compound)Int(p[27])};
                 for(int k=0;k<4;k++){int compound=Int(p[28+k*3]);if(compound<0||compound>3)throw new FormatException("Invalid compound");v.tyres[k].compound=(Compound)compound;v.tyres[k].wear=MathUtil.Clamp(Float(p[29+k*3]),0,1);v.tyres[k].temperature=MathUtil.Clamp(Float(p[30+k*3]),0,170);}
@@ -149,7 +149,7 @@ namespace MySimulator.Rebuild
             {
                 if(race.started||connected&&sender!=peer){channel.Send("BUSY|Race already started",sender);return;}
                 if(p[2].Length!=32)return;
-                int model=Wire.Int(p[4]);string peerName=Wire.Unname(p[3]);if(model<0||model>5||race.cars.Count<2)return;if(peerNonce!=p[2]){lastInputSequence=-1;remoteResetHeld=false;sessionToken=Guid.NewGuid().ToString("N");peerNonce=p[2];}race.cars[1].carModel=model;peer=sender;connected=true;silence=0;inputSilence=0;race.cars[1].human=true;race.cars[1].driver=peerName;status="Second driver connected";
+                int model=Wire.Int(p[4]);string peerName=Wire.Unname(p[3]);if(model<0||model>=CarCatalog.Count||race.cars.Count<2)return;if(peerNonce!=p[2]){lastInputSequence=-1;remoteResetHeld=false;sessionToken=Guid.NewGuid().ToString("N");peerNonce=p[2];}race.cars[1].carModel=model;peer=sender;connected=true;silence=0;inputSilence=0;race.cars[1].human=true;race.cars[1].driver=peerName;status="Second driver connected";
                 channel.Send("ACCEPT|"+Wire.Version+"|"+p[2]+"|"+sessionToken,peer);channel.Send(Wire.Snapshot(race,++sequence),peer);return;
             }
             if(sender!=peer)return;
