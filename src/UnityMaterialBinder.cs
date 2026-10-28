@@ -6,13 +6,17 @@ public static class UnityMaterialBinder {
  static Godot.Collections.Dictionary map;
  static readonly Dictionary<string, Material> cache = new Dictionary<string, Material>();
  static readonly Shader GroundShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform vec4 tint : source_color = vec4(1.0); void fragment() { ALBEDO = texture(tex, UV).rgb * tint.rgb; ROUGHNESS = 1.0; SPECULAR = 0.04; NORMAL = normalize((VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz); }" };
+// RR3-style clean track: no skid-mark / dust / oil / wall-scuff decal overlays, and every asphalt uses its no-skids variant.
+ static readonly System.Text.RegularExpressions.Regex DirtDecal = new System.Text.RegularExpressions.Regex("skid|dust|dirt_|oil|stain|scuff|grime|wall_damage|tyre_mark|rubber|ripple", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+ static void CleanTrack(Node3D layer) { int hidden = 0; foreach (var node in layer.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); if (nm.ToLowerInvariant().StartsWith("overlay") && DirtDecal.IsMatch(nm)) { mi.Visible = false; hidden++; } } GD.Print("CLEANTRACK hidden dirt decals=", hidden); }
+ static string NoSkid(string p) { if (p == null) return null; string f = System.IO.Path.GetFileName(p); if (f == "gnd_asphalt_01.png") return p.Replace(f, "gnd_asphalt_noskids_01.png"); if (f == "gnd_asphalt_03.png") return p.Replace(f, "gnd_asphalt_noskids_03.png"); if (f == "gnd_asphalt_dusty_01.png") return p.Replace(f, "gnd_asphalt_dusty_noskids_01.png"); return p; }
  static string Res(string p) { if (p == null) return null; int i = p.IndexOf("Assets/RealRacing/"); return i < 0 ? null : "res://assets/" + p.Substring(i + "Assets/".Length); }
  static string Strip(string n) { int i = n.LastIndexOf('_'); return n; }
  public static int Apply(Node3D layer, int variant, out int total) {
   total = 0; int bound = 0;
   if (map == null) { if (!FileAccess.FileExists("res://assets/unity_map.json")) { GD.Print("UMAP file missing, using name matching"); return 0; } using var f = FileAccess.Open("res://assets/unity_map.json", FileAccess.ModeFlags.Read); map = Json.ParseString(f.GetAsText()).AsGodotDictionary(); }
   var tracks = map["tracks"].AsGodotDictionary(); string vk = variant.ToString(); if (!tracks.ContainsKey(vk)) { GD.Print("UMAP no variant ", vk); return 0; }
-  var byName = tracks[vk].AsGodotDictionary(); var mats = map["materials"].AsGodotDictionary(); var used = new Dictionary<string, int>();
+  var byName = tracks[vk].AsGodotDictionary(); CleanTrack(layer); var mats = map["materials"].AsGodotDictionary(); var used = new Dictionary<string, int>();
   foreach (var node in layer.FindChildren("*", "MeshInstance3D", true, false)) {
    var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); Godot.Collections.Array lists = null;
    if (byName.ContainsKey(nm)) lists = byName[nm].AsGodotArray(); else { int k = nm.LastIndexOf('_'); string alt = nm; while (alt.Length > 0 && char.IsDigit(alt[alt.Length - 1])) alt = alt.Substring(0, alt.Length - 1); if (byName.ContainsKey(alt)) lists = byName[alt].AsGodotArray(); }
@@ -22,7 +26,7 @@ public static class UnityMaterialBinder {
    for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) {
     total++; if (guids.Count == 0) continue; string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); string key = g + (ground ? "|g" : "");
     if (!cache.TryGetValue(key, out var mat)) {
-     mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); string tp = mi2.ContainsKey("tex") ? Res(mi2["tex"].AsString()) : null; Texture2D tex = tp != null && ResourceLoader.Exists(tp) ? GD.Load<Texture2D>(tp) : null;
+     mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); string tp = mi2.ContainsKey("tex") ? Res(NoSkid(mi2["tex"].AsString())) : null; Texture2D tex = tp != null && ResourceLoader.Exists(tp) ? GD.Load<Texture2D>(tp) : null;
       Color col = Colors.White; if (mi2.ContainsKey("color")) { var c = mi2["color"].AsGodotArray(); col = new Color((float)c[0], (float)c[1], (float)c[2], (float)c[3]); }
       if (col.R + col.G + col.B < 0.06f) col = new Color(1, 1, 1, col.A < 0.01f ? 1f : col.A); bool texAlpha = false; if (tex != null) { var timg = tex.GetImage(); if (timg != null && timg.DetectAlpha() != Image.AlphaMode.None) texAlpha = true; } bool clip = texAlpha || mi2.ContainsKey("alphaClip") && mi2["alphaClip"].AsBool(); bool trans = mi2.ContainsKey("transparent") && mi2["transparent"].AsBool(); float cut = mi2.ContainsKey("cutoff") ? (float)mi2["cutoff"].AsDouble() : 0.5f; if (cut <= 0.01f) cut = 0.5f;
       if (tex != null || col != Colors.White) {
@@ -38,6 +42,7 @@ public static class UnityMaterialBinder {
   return bound;
  }
 }}
+
 
 
 
