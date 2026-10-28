@@ -3,6 +3,7 @@ using System.Collections.Generic;
 namespace MySim {
 // Binds the original recovered textures to the track's FBX materials (name -> texture via recovered Unity material names).
 public static class TrackMaterialBinder {
+ static readonly Shader GroundShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic; void fragment() { ALBEDO = texture(tex, UV).rgb; ROUGHNESS = 1.0; SPECULAR = 0.04; NORMAL = normalize((VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz); }" };
  public static readonly System.Collections.Generic.List<string> UnboundNames = new System.Collections.Generic.List<string>();
  public static void Apply(Node3D track, string dir) {
   var map = new Dictionary<string, string>();
@@ -15,17 +16,24 @@ public static class TrackMaterialBinder {
     if (!cache.TryGetValue(name, out var mat)) {
      string tex = null; if (map.TryGetValue(name, out var t0)) tex = t0; else foreach (var kv in map) if (kv.Key.StartsWith(name + "_") || kv.Key.StartsWith(name)) { tex = kv.Value; break; }
      if (tex != null && ResourceLoader.Exists(dir + "textures/" + tex)) {
-      mat = new StandardMaterial3D { AlbedoTexture = GD.Load<Texture2D>(dir + "textures/" + tex), Roughness = 0.9f, TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic };
+      mat = new StandardMaterial3D { AlbedoTexture = GD.Load<Texture2D>(dir + "textures/" + tex), Roughness = 1f, MetallicSpecular = 0.12f, TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic };
       string ln = name.ToLowerInvariant(); if (ln.Contains("overlay") || ln.Contains("alpha") || ln.Contains("fence") || ln.Contains("crowd")) mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
      }
-     if (mat == null) { string l2 = name.ToLowerInvariant(); if (!(l2.Contains("overlay") || l2.Contains("decal"))) { unbound++; mat = new StandardMaterial3D { AlbedoColor = new Color(0.36f, 0.36f, 0.34f), Roughness = 1f }; if (UnboundNames.Count < 400) UnboundNames.Add(name); } }
+     if (mat == null) { string l2 = name.ToLowerInvariant(); if (!(l2.Contains("overlay") || l2.Contains("decal"))) { unbound++; mat = new StandardMaterial3D { AlbedoColor = new Color(0.36f, 0.36f, 0.34f), Roughness = 1f, MetallicSpecular = 0.1f }; if (UnboundNames.Count < 400) UnboundNames.Add(name); } }
      cache[name] = mat;
     }
-    if (mat != null) { m.SetSurfaceOverrideMaterial(s, mat); bound++; }
+    if (mat != null) { string mn2 = m.Name.ToString().ToLowerInvariant(); if (mn2.StartsWith("gnd_") || mn2.StartsWith("road")) { var sm2 = new ShaderMaterial { Shader = GroundShader }; sm2.SetShaderParameter("tex", mat.AlbedoTexture); m.SetSurfaceOverrideMaterial(s, sm2); bound++; continue; } 
+    m.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }
   GD.Print("TRACKBIND fallbackGrey=", unbound, " unboundNames=", string.Join("|", UnboundNames.GetRange(0, System.Math.Min(40, UnboundNames.Count))));
   GD.Print("TRACKBIND bound=", bound, " of ", total, " surfaces; distinct textured materials=", cache.Count);
  }
 }}
+
+
+
+
+
+
 
