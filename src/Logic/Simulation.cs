@@ -258,7 +258,7 @@ namespace MySimulator.Rebuild
             float steer=desiredSteer/((externalPhysics||physicalHandling)?PhysicalSteeringLimit(speed):Math.Max(.05f,currentMaxSteer));
             float turn=Math.Abs(MathUtil.Wrap(track.Heading(progress+.04f)-track.Heading(progress)))/(.04f*track.length);
             for(int j=0;j<6;j++){float p=progress+j*.012f;turn=Math.Max(turn,Math.Abs(MathUtil.Wrap(track.Heading(p+.012f)-track.Heading(p)))/(.012f*track.length));}
-            int cm=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));float gripMul=MathUtil.Clamp(1+.3f*(RecoveredVehicleProfiles.Downforce[cm]-1.5f),1f,1.6f),latAcc=CornerLateralAccel*gripMul*Math.Min(pace,.75f);float aDown=Dynamics.DownK(cm)/RecoveredVehicleProfiles.Mass[cm]*latAcc/9.81f;float topAi=Math.Max(TopAiSpeed,RecoveredVehicleProfiles.Speed[cm]*.44704f*.92f);float desired=MathUtil.Clamp(SpeedAhead(track,progress,latAcc,5f,aDown),10,topAi);
+            int cm=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));float gripMul=MathUtil.Clamp(1+.45f*(RecoveredVehicleProfiles.Downforce[cm]-2f),1f,1.6f),latAcc=CornerLateralAccel*gripMul*Math.Min(pace,.75f);float aDown=Dynamics.DownK(cm)/RecoveredVehicleProfiles.Mass[cm]*latAcc/9.81f;float topAi=Math.Max(TopAiSpeed,RecoveredVehicleProfiles.Speed[cm]*.44704f*.92f);float desired=MathUtil.Clamp(SpeedAhead(track,progress,latAcc,5f,aDown),10,topAi);
             desired=Math.Max(4,desired*AiRaceCalibration.Scale(carModel,track.variant));
             // Limit speed for the turn actually requested, including recovery from lateral error.
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))];

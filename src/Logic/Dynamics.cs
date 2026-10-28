@@ -23,7 +23,7 @@ namespace MySimulator.Rebuild
         // downforce N per (m/s)^2: road cars keep the recovered value, wing cars scale up toward real Cl*A (F1 ~2.4)
         public static float DownK(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return Math.Max(0,df-.9f)*(.55f+Math.Max(0,df-1.5f)*.45f);}
         // slick racing tyres on wing cars grip harder than the road-car baseline
-        public static float GripMul(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return MathUtil.Clamp(1+.3f*(df-1.5f),1f,1.6f);}
+        public static float GripMul(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return MathUtil.Clamp(1+.45f*(df-2f),1f,1.6f);}
         public static void Step(Vehicle v,float dt,float wetness,Circuit circuit)
         {
             int m=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,v.carModel));
