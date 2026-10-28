@@ -10,3 +10,7 @@ tools/CoreRunner/obj/
 guidfind.txt
 convert.log
 *.png
+build/
+export*.log
+*.pck
+*.tmp

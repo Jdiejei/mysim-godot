@@ -5,6 +5,7 @@ namespace MySim {
 public partial class Main : Node3D {
  Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; bool resultsShown;
  public override void _Ready() {
+  var win = GetWindow(); win.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems; win.ContentScaleSize = new Vector2I(1280, 720); win.ContentScaleAspect = Window.ContentScaleAspectEnum.Expand;
   var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Color, AmbientLightColor = new Color(0.62f, 0.66f, 0.72f), AmbientLightEnergy = 1.0f, TonemapMode = Godot.Environment.ToneMapper.Aces, TonemapExposure = 1.0f, TonemapWhite = 6f, FogEnabled = true, FogLightColor = new Color(0.63f, 0.70f, 0.76f), FogDensity = 0.00025f, FogSkyAffect = 0.4f, AdjustmentEnabled = true, AdjustmentContrast = 1.12f, AdjustmentSaturation = 1.1f };
   env.Sky = new Sky { SkyMaterial = new ProceduralSkyMaterial() }; AddChild(new WorldEnvironment { Environment = env });
   AddChild(new DirectionalLight3D { RotationDegrees = new Vector3(-48, -35, 0), LightEnergy = 1.7f, ShadowEnabled = true,
@@ -26,6 +27,18 @@ public partial class Main : Node3D {
   for (int i = 0; i < 25; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
   GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "carview.png"); GetTree().Quit();
  }
+ CanvasLayer pauseLayer;
+ void PauseUi() {
+  bool paused = drive != null && drive.Race != null && drive.Race.paused && !resultsShown;
+  if (paused && pauseLayer == null) { pauseLayer = new CanvasLayer { Layer = 20 }; AddChild(pauseLayer); var dim = new ColorRect { Color = new Color(0, 0, 0, 0.6f), AnchorRight = 1, AnchorBottom = 1 }; pauseLayer.AddChild(dim);
+   var box = new VBoxContainer { Position = new Vector2(540, 250), CustomMinimumSize = new Vector2(200, 0) }; pauseLayer.AddChild(box);
+   var t = new Label { Text = "PAUSED" }; t.AddThemeFontSizeOverride("font_size", 44); box.AddChild(t);
+   var rs = new Button { Text = "RESUME (Esc / Tab)" }; rs.Pressed += () => { drive.Race.paused = false; }; box.AddChild(rs);
+   var rt = new Button { Text = "RESTART" }; rt.Pressed += () => { RemovePause(); StartRace(lastTrack, lastCar, lastLaps); }; box.AddChild(rt);
+   var mn = new Button { Text = "MAIN MENU" }; mn.Pressed += () => { RemovePause(); ShowMenu(); }; box.AddChild(mn); rs.GrabFocus(); }
+  else if (!paused && pauseLayer != null) RemovePause();
+ }
+ void RemovePause() { pauseLayer?.QueueFree(); pauseLayer = null; }
  void ClearUi() { ui?.QueueFree(); ui = null; }
  void ShowMenu() {
   EndRace(); ClearUi(); ui = new CanvasLayer(); AddChild(ui); resultsShown = false;
@@ -64,7 +77,7 @@ public partial class Main : Node3D {
   var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); world.AddChild(hud);
  }
  public override void _Process(double delta) {
-  if (Input.IsKeyPressed(Key.Escape) && drive != null) ShowMenu();
+  PauseUi();
   if (drive != null && !resultsShown && drive.Race != null && drive.Player != null && drive.Player.finished) ShowResults();
   if (resultsShown && Input.IsKeyPressed(Key.Enter)) StartRace(lastTrack, lastCar, lastLaps);
  }
@@ -75,6 +88,9 @@ public partial class Main : Node3D {
   l.Text = "RESULTS\n\nFINISHED  " + p.completedLaps + " laps\nTIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
 }}
+
+
+
 
 
 

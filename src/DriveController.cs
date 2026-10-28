@@ -5,7 +5,7 @@ namespace MySim {
 // chase camera 7.2 m back / 2.65 m up with speed lookahead (revised Unity values), no artificial shake.
 public partial class DriveController : Node3D {
  public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; public Vector3 CarSize = new Vector3(2, 1.2f, 4.7f); public int TrackIndex; public Node3D[] WheelPivots; float spinAngle; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
- int CamMode = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAM") ?? "0"); bool cWas; bool tabWas; float t, camYaw; int shownMode = -1; bool camInit;
+ int CamMode = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAM") ?? "0"); bool cWas; bool tabWas; ulong pausedAt; float t, camYaw; int shownMode = -1; bool camInit;
  public override void _Ready() {
   Race = new Race(TrackIndex, Laps, 0f); Player = Race.Add("PLAYER", true, Compound.Medium); Race.countdown = 0; Race.started = true; Player.Place(Race.track, 0.988f, 0f); CallDeferred(nameof(BindHud));
  }
@@ -25,7 +25,7 @@ public partial class DriveController : Node3D {
  static float DeadZone(float v, float dz) { float a = Mathf.Abs(v); if (a <= dz) return 0; return Mathf.Sign(v) * (a - dz) / (1f - dz); }
  static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, -p.z);
  public override void _PhysicsProcess(double delta) {
-  bool tabNow = Input.IsKeyPressed(Key.Tab); if (tabNow && !tabWas) Race.paused = !Race.paused; tabWas = tabNow; if (Hud != null) Hud.Paused = Race.paused;
+  bool tabNow = Input.IsKeyPressed(Key.Tab) || Input.IsKeyPressed(Key.Escape); if (tabNow && !tabWas) Race.paused = !Race.paused; tabWas = tabNow; if (Hud != null) Hud.Paused = Race.paused; if (System.Environment.GetEnvironmentVariable("MYSIM_PAUSETEST") != null) { if (!Race.paused && t > 2f && pausedAt == 0) { Race.paused = true; pausedAt = Time.GetTicksMsec(); } if (Race.paused && Time.GetTicksMsec() - pausedAt > 1500) { GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "pause.png"); GetTree().Quit(); } } if (Race.paused) return; bool escWas = false;
   t += (float)delta;
   float thr = Input.IsKeyPressed(Key.W) || Input.IsKeyPressed(Key.Up) ? 1 : 0, brk = Input.IsKeyPressed(Key.S) || Input.IsKeyPressed(Key.Down) ? 1 : 0;
   float steer = (Input.IsKeyPressed(Key.D) || Input.IsKeyPressed(Key.Right) ? 1 : 0) - (Input.IsKeyPressed(Key.A) || Input.IsKeyPressed(Key.Left) ? 1 : 0);
@@ -54,6 +54,8 @@ public partial class DriveController : Node3D {
   if (AutoDrive && !(AiTest && AutoSeconds > 250) && t >= AutoSeconds) { GD.Print("DRIVETEST t=", t, " speed=", Player.speed, " progress=", Player.progress, " lateral=", Player.lateral, " lap=", Player.completedLaps, " wallHits=", WallHits, " onSurface=", hit.Count > 0, " pos=", Car.Position); GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "drive.png"); GetTree().Quit(); }
  }
 }}
+
+
 
 
 
