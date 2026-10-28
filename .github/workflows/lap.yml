@@ -6,11 +6,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+        k: [0,1,2,3,4,5,6,7,8,9,10,11]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with: { dotnet-version: '8.0.x' }
-      - run: dotnet run -c Release --project tools/LapRunner -- ${{ matrix.shard }} 36 | tee out.txt
+      - name: pick shard by account
+        run: |
+          case "${{ github.repository_owner }}" in
+            instagramshashank8-bot) off=0;; blackwingftc-lang) off=12;; Jdiejei) off=24;; *) off=0;;
+          esac
+          echo "SHARD=$((off + ${{ matrix.k }}))" >> $GITHUB_ENV
+      - run: dotnet run -c Release --project tools/LapRunner -- $SHARD 36 | tee out.txt
       - uses: actions/upload-artifact@v4
-        with: { name: laps-${{ matrix.shard }}, path: "laps-*.jsonl" }
+        with: { name: laps-${{ matrix.k }}, path: "laps-*.jsonl" }
