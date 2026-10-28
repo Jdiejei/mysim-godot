@@ -40,6 +40,8 @@ void fragment() { vec3 base = texture(tex, UV).rgb * tint.rgb;
    if (byName.ContainsKey(nm)) lists = byName[nm].AsGodotArray(); else { int k = nm.LastIndexOf('_'); string alt = nm; while (alt.Length > 0 && char.IsDigit(alt[alt.Length - 1])) alt = alt.Substring(0, alt.Length - 1); if (byName.ContainsKey(alt)) lists = byName[alt].AsGodotArray(); }
    if (lists == null || lists.Count == 0) { total += mi.Mesh.GetSurfaceCount(); continue; }
    used.TryGetValue(nm, out int ui); used[nm] = ui + 1; var guids = lists[ui % lists.Count].AsGodotArray();
+   bool placeholderBrand = false; { var gl = guids.Count > 0 ? guids[0].AsString() : null; if (gl != null && mats.ContainsKey(gl)) { var gm = mats[gl].AsGodotDictionary(); if (gm.ContainsKey("tex")) { string gt = System.IO.Path.GetFileName(gm["tex"].AsString()).ToLowerInvariant(); if (System.Text.RegularExpressions.Regex.IsMatch(gt, "^mat_branding_(banners|concrete|billboards)_base_[a-z]\\.png$")) { var rp = Res(gm["tex"].AsString()); if (rp != null && ResourceLoader.Exists(rp) && GD.Load<Texture2D>(rp).GetWidth() <= 64) placeholderBrand = true; } } } }
+   if (placeholderBrand) { mi.Visible = false; continue; } // sponsor-slot placeholder sheets (big black A/B/C letters in RR3 are replaced by sponsor art at runtime)
    bool ground = nm.ToLowerInvariant().StartsWith("gnd_") || nm.ToLowerInvariant().StartsWith("road");
    for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) {
     total++; if (guids.Count == 0) continue; string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); string key = g + (ground ? "|g" : "");
@@ -60,6 +62,7 @@ void fragment() { vec3 base = texture(tex, UV).rgb * tint.rgb;
   return bound;
  }
 }}
+
 
 
 
