@@ -6,7 +6,7 @@ public static class CarLoader {
  public static Node3D Load(string carId) {
   string dir = "res://assets/RealRacing/Source/" + carId + "/";
   var root = new Node3D { Name = carId };
-  foreach (var part in DirAccess.GetFilesAt(dir)) {
+  foreach (var part in Assets.Files(dir)) {
    if (!part.EndsWith(".fbx")) continue;
    var inst = GD.Load<PackedScene>(dir + part).Instantiate<Node3D>(); inst.Scale = Vector3.One * 100f; root.AddChild(inst);
   }
@@ -70,6 +70,7 @@ static Godot.Collections.Dictionary carMap;
   return mat;
  }
 }}
+
 
 
 

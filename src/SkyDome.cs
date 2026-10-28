@@ -5,7 +5,7 @@ public partial class SkyDome : Node3D {
  Node3D dome;
  public static void Add(Node3D parent, string map) {
   string dir = "res://assets/RealRacing/Source/" + map + "/processed/"; string fbx = null; string png = null;
-  using (var d = DirAccess.Open(dir)) { if (d == null) { GD.Print("SKY no dir ", dir); return; } foreach (var f in d.GetFiles()) { if (f.EndsWith("_sky.fbx")) fbx = f; if (f.EndsWith(".png")) png = f; } }
+  { foreach (var f in Assets.Files(dir)) { if (f.EndsWith("_sky.fbx")) fbx = f; if (f.EndsWith(".png")) png = f; } }
   if (fbx == null) { GD.Print("SKY no fbx"); return; }
   var node = GD.Load<PackedScene>(dir + fbx).Instantiate<Node3D>(); node.Scale = new Vector3(100f, 100f, -100f);
   var tex = png != null ? GD.Load<Texture2D>(dir + png) : null; int n = 0;
@@ -14,3 +14,4 @@ public partial class SkyDome : Node3D {
  }
  public override void _Process(double delta) { var cam = GetViewport().GetCamera3D(); if (cam != null) GlobalPosition = cam.GlobalPosition; }
 }}
+
