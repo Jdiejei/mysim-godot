@@ -11,12 +11,14 @@ public partial class Main : Node3D {
    ShadowBias = 0.03f, ShadowNormalBias = 1.0f, ShadowBlur = 1.0f };
   AddChild(sun);
   var ground = new MeshInstance3D { Mesh = new PlaneMesh { Size = new Vector2(400, 400) }, CastShadow = GeometryInstance3D.ShadowCastingSetting.Off, MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(0.25f, 0.27f, 0.27f) } };
-  var trackScene = GD.Load<PackedScene>("res://assets/RealRacing/Source/Brands_Hatch/processed/high/hatch.fbx"); var track = trackScene.Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track); Aabb tb = new Aabb(); int tm = 0; foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; tb = tb.Merge(m.GlobalTransform * m.GetAabb()); tm++; } GD.Print("TRACK meshes=", tm, " pos=", tb.Position, " size=", tb.Size);
+  var trackScene = GD.Load<PackedScene>("res://assets/RealRacing/Source/Brands_Hatch/processed/high/hatch.fbx"); var track = trackScene.Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, -100f); AddChild(track); Aabb tb = new Aabb(); int tm = 0; foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; tb = tb.Merge(m.GlobalTransform * m.GetAabb()); tm++; } var names = new System.Collections.Generic.SortedSet<string>(); foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) { var m = (MeshInstance3D)n; for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) names.Add(m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? "null"); } GD.Print("TRACKMAT count=", names.Count, " ", string.Join(",", names));
+  GD.Print("TRACK meshes=", tm, " pos=", tb.Position, " size=", tb.Size);
   var car = CarLoader.Load("2015_mclaren_650s_gt3"); car.Visible = false; AddChild(car);
   AddChild(DriveSurfaceLoader.Load("res://assets/Resources/Brands_Hatch_processed.txt"));
-  Spawn(car, track);
-  var shot = System.Environment.GetEnvironmentVariable("MYSIM_SHOT"); if (shot != null) CaptureAfter(shot);
-  var cam = new Camera3D { Position = new Vector3(0, 2.6f, 7.2f), Fov = 63, Current = true }; AddChild(cam); cam.LookAt(new Vector3(0, 1, 0));
+  var cam0 = new Camera3D { Fov = 63, Current = true, Far = 4000 }; AddChild(cam0);
+  var drive = new DriveController { Car = car, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null }; car.Visible = true; AddChild(drive); drive.Cam = cam0;
+  
+  
  }
  async void Spawn(Node3D car, Node3D track) {
   await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame); await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
@@ -27,6 +29,9 @@ public partial class Main : Node3D {
  }
  async void CaptureAfter(string path) { for (int i = 0; i < 40; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetViewport().GetTexture().GetImage().SavePng(path); GetTree().Quit(); }
 }}
+
+
+
 
 
 
