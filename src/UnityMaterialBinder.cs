@@ -5,11 +5,29 @@ namespace MySim {
 public static class UnityMaterialBinder {
  static Godot.Collections.Dictionary map;
  static readonly Dictionary<string, Material> cache = new Dictionary<string, Material>();
- static readonly Shader GroundShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform vec4 tint : source_color = vec4(1.0); void fragment() { ALBEDO = texture(tex, UV).rgb * tint.rgb; ROUGHNESS = 1.0; SPECULAR = 0.04; NORMAL = normalize((VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz); }" };
+ static readonly Shader GroundShader = new Shader { Code = @"shader_type spatial; render_mode cull_disabled;
+uniform sampler2D tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform vec4 tint : source_color = vec4(1.0);
+uniform float detail_scale = 24.0; uniform float detail_amp = 0.12; uniform float macro_scale = 0.35; uniform float macro_amp = 0.10; uniform vec3 macro_tint = vec3(1.0, 1.0, 1.0);
+float h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float vnoise(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(h21(i), h21(i + vec2(1, 0)), f.x), mix(h21(i + vec2(0, 1)), h21(i + vec2(1, 1)), f.x), f.y); }
+float fbm(vec2 p) { float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a * vnoise(p); p *= 2.03; a *= 0.5; } return s; }
+void fragment() { vec3 base = texture(tex, UV).rgb * tint.rgb;
+ float det = fbm(UV * detail_scale) - 0.5; float mac = fbm(UV * macro_scale * 8.0 + 7.3) - 0.5;
+ vec3 c = base * (1.0 + det * detail_amp * 2.0); c = mix(c, c * macro_tint, clamp(mac * macro_amp * 4.0 + 0.5, 0.0, 1.0) * 0.5); c *= (1.0 + mac * macro_amp);
+ ALBEDO = c; ROUGHNESS = 1.0; SPECULAR = 0.04; NORMAL = normalize((VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz); }" };
 // RR3-style clean track: no skid-mark / dust / oil / wall-scuff decal overlays, and every asphalt uses its no-skids variant.
  static readonly System.Text.RegularExpressions.Regex DirtDecal = new System.Text.RegularExpressions.Regex("skid|dust|dirt_|oil|stain|scuff|grime|wall_damage|tyre_mark|rubber|ripple", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
  static void CleanTrack(Node3D layer) { int hidden = 0; foreach (var node in layer.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); if (nm.ToLowerInvariant().StartsWith("overlay") && DirtDecal.IsMatch(nm)) { mi.Visible = false; hidden++; } } GD.Print("CLEANTRACK hidden dirt decals=", hidden); }
  static string NoSkid(string p) { if (p == null) return null; string f = System.IO.Path.GetFileName(p); if (f == "gnd_asphalt_01.png") return p.Replace(f, "gnd_asphalt_noskids_01.png"); if (f == "gnd_asphalt_03.png") return p.Replace(f, "gnd_asphalt_noskids_03.png"); if (f == "gnd_asphalt_dusty_01.png") return p.Replace(f, "gnd_asphalt_dusty_noskids_01.png"); return p; }
+ // Per-surface detail: fine grain and large-scale variation tuned for each ground type so tiling reads as real surface instead of one repeated image.
+ static void GroundClass(ShaderMaterial sm, string path) {
+  string n = System.IO.Path.GetFileName(path ?? "").ToLowerInvariant();
+  if (n.Contains("asphalt") || n.Contains("road")) { sm.SetShaderParameter("detail_scale", 90f); sm.SetShaderParameter("detail_amp", 0.10f); sm.SetShaderParameter("macro_scale", 0.18f); sm.SetShaderParameter("macro_amp", 0.07f); sm.SetShaderParameter("macro_tint", new Vector3(0.96f, 0.96f, 0.98f)); }
+  else if (n.Contains("grass")) { sm.SetShaderParameter("detail_scale", 60f); sm.SetShaderParameter("detail_amp", 0.22f); sm.SetShaderParameter("macro_scale", 0.30f); sm.SetShaderParameter("macro_amp", 0.30f); sm.SetShaderParameter("macro_tint", new Vector3(1.10f, 1.04f, 0.78f)); }
+  else if (n.Contains("concrete") || n.Contains("pit")) { sm.SetShaderParameter("detail_scale", 70f); sm.SetShaderParameter("detail_amp", 0.14f); sm.SetShaderParameter("macro_scale", 0.22f); sm.SetShaderParameter("macro_amp", 0.10f); sm.SetShaderParameter("macro_tint", new Vector3(1.0f, 0.98f, 0.94f)); }
+  else if (n.Contains("gravel") || n.Contains("sand") || n.Contains("dirt")) { sm.SetShaderParameter("detail_scale", 110f); sm.SetShaderParameter("detail_amp", 0.28f); sm.SetShaderParameter("macro_scale", 0.25f); sm.SetShaderParameter("macro_amp", 0.18f); sm.SetShaderParameter("macro_tint", new Vector3(1.05f, 0.98f, 0.88f)); }
+  else { sm.SetShaderParameter("detail_scale", 50f); sm.SetShaderParameter("detail_amp", 0.10f); sm.SetShaderParameter("macro_scale", 0.2f); sm.SetShaderParameter("macro_amp", 0.08f); }
+ }
  static string Res(string p) { if (p == null) return null; int i = p.IndexOf("Assets/RealRacing/"); return i < 0 ? null : "res://assets/" + p.Substring(i + "Assets/".Length); }
  static string Strip(string n) { int i = n.LastIndexOf('_'); return n; }
  public static int Apply(Node3D layer, int variant, out int total) {
@@ -30,7 +48,7 @@ public static class UnityMaterialBinder {
       Color col = Colors.White; if (mi2.ContainsKey("color")) { var c = mi2["color"].AsGodotArray(); col = new Color((float)c[0], (float)c[1], (float)c[2], (float)c[3]); }
       if (col.R + col.G + col.B < 0.06f) col = new Color(1, 1, 1, col.A < 0.01f ? 1f : col.A); bool texAlpha = false; if (tex != null) { var timg = tex.GetImage(); if (timg != null && timg.DetectAlpha() != Image.AlphaMode.None) texAlpha = true; } bool clip = texAlpha || mi2.ContainsKey("alphaClip") && mi2["alphaClip"].AsBool(); bool trans = mi2.ContainsKey("transparent") && mi2["transparent"].AsBool(); float cut = mi2.ContainsKey("cutoff") ? (float)mi2["cutoff"].AsDouble() : 0.5f; if (cut <= 0.01f) cut = 0.5f;
       if (tex != null || col != Colors.White) {
-       if (ground && tex != null) { var sm = new ShaderMaterial { Shader = GroundShader }; sm.SetShaderParameter("tex", tex); sm.SetShaderParameter("tint", new Color(col.R, col.G, col.B)); mat = sm; }
+       if (ground && tex != null) { var sm = new ShaderMaterial { Shader = GroundShader }; sm.SetShaderParameter("tex", tex); GroundClass(sm, tp); sm.SetShaderParameter("tint", new Color(col.R, col.G, col.B)); mat = sm; }
        else { var st = new StandardMaterial3D { AlbedoTexture = tex, AlbedoColor = col, Roughness = 1f, MetallicSpecular = 0.12f, TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic }; if (clip) { st.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor; st.AlphaScissorThreshold = cut > 0 ? cut : 0.5f; st.AlphaAntialiasingMode = BaseMaterial3D.AlphaAntiAliasing.AlphaToCoverage; st.AlphaAntialiasingEdge = 0.3f; st.CullMode = BaseMaterial3D.CullModeEnum.Disabled; } else if (trans) st.Transparency = BaseMaterial3D.TransparencyEnum.Alpha; mat = st; }
       } }
      cache[key] = mat;
@@ -42,6 +60,7 @@ public static class UnityMaterialBinder {
   return bound;
  }
 }}
+
 
 
 
