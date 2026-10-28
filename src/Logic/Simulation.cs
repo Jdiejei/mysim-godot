@@ -240,7 +240,7 @@ namespace MySimulator.Rebuild
             }
         }
         static float PhysicalSteeringLimit(float speed){float[] speeds={0,15,40,70},factors={1,.6f,.28f,.16f};int i=0;while(i<2&&speed>speeds[i+1])i++;float t=MathUtil.Clamp((speed-speeds[i])/(speeds[i+1]-speeds[i]),0,1);t=t*t*(3-2*t);return (32*MathUtil.Pi/180)*MathUtil.Lerp(factors[i],factors[i+1],t);}
-        public float dbgA,dbgB,dbgC,dbgAcc,dbgRes,dbgDriveF,dbgBrakeF,dbgLong,dbgPush;public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
+        public int recoveries;public float dbgA,dbgB,dbgC,dbgAcc,dbgRes,dbgDriveF,dbgBrakeF,dbgLong,dbgPush;public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
         {
             float look=MathUtil.Clamp(4+speed*.5f,4,40),offset=0;
             Vehicle obstruction=null;float aheadDistance=float.MaxValue;
@@ -265,7 +265,7 @@ namespace MySimulator.Rebuild
             if(Vec.Dot(diff,Forward)<0){desired=Math.Min(desired,4);steer=localX>=0?1:-1;}
             if(pitActive){desired=Math.Min(desired,PitLaneAiSpeed);Vec before=track.PitPoint(pitIndex),ahead=track.PitPoint(pitIndex+2),later=track.PitPoint(pitIndex+4);Vec aDir=(ahead-before).Normalized,bDir=(later-ahead).Normalized;float corner=Math.Abs(MathUtil.Wrap((float)Math.Atan2(aDir.x,aDir.z)-(float)Math.Atan2(bDir.x,bDir.z)));desired=Math.Min(desired,MathUtil.Lerp(PitLaneAiSpeed,4,corner));if(!pitDone&&pitIndex>track.PitServiceIndex-12){float remaining=(position-track.PitBox).Magnitude;desired=Math.Min(desired,(float)Math.Sqrt(Math.Max(0,remaining-.25f)*2.5f));if(remaining<1.1f)desired=0;}}
             if(obstruction!=null&&aheadDistance<8)desired=Math.Min(desired,Math.Max(0,obstruction.speed-2));
-            if(!pitActive&&!finished&&stationaryTime>3){recoveryRemaining=2.5f;stationaryTime=0;}
+            if(!pitActive&&!finished&&stationaryTime>3){recoveryRemaining=2.5f;stationaryTime=0;recoveries++;}
             if(recoveryRemaining>0)return new DriverInput(.4f,0,-MathUtil.Clamp(steer,-1,1)){reverse=true};
             if(finished)desired=18;if(retired)return new DriverInput(0,1,0);
             dbgA=desired;dbgB=curvature;dbgC=localX;float error=desired-speed;
@@ -342,9 +342,9 @@ namespace MySimulator.Rebuild
                 return (b.completedLaps+b.progress).CompareTo(a.completedLaps+a.progress);
             });return sorted;
         }
-        public void Reset(Vehicle v)
+        public int ResetCount;public void Reset(Vehicle v)
         {
-            float p=v.progress;int gate=v.nextGate;float elapsed=v.lapElapsed;
+            ResetCount++;float p=v.progress;int gate=v.nextGate;float elapsed=v.lapElapsed;
             if(v.finished||v.retired||v.servicing||v.speed>8)return;
             v.Place(track,p,0);v.nextGate=gate;v.lapElapsed=elapsed;v.lapInvalid=true;
         }
