@@ -67,3 +67,4 @@
 - BMW M4 'smudge' is the baked AO islands in the livery texture (by design). Pit crew: 5 placeholder figures during service.
 - 2026-10-29 BUG FIXED: in-game Player.carModel was never set, so every car drove with car 0 (Ferrari 488) mass/power/downforce/brakes. Now set from the selected car; in-game lap trace matches headless sim exactly (Brands Hatch F1 p=.274 at t=16).
 - Cars: F1 wheel-guard meshes were duplicated onto every wheel (glassy bubbles) and rear tyre/wheel meshes onto all four wheels; fixed: guards stay on body, front/rear wheel meshes split by axle.
+- Local crash run (F1, Brands Hatch, 250 m spacing, 3408 crashes): 1092 flagged. ESCAPED_TRACK/NO_WALL clusters at p=.15-.2,.45-.5,.65-.75 are open grass/gravel run-off (verified p=.15 both sides: grass bank left, gravel + tyre wall ~25 m right); car slows to ~24 km/h and is contained at 30 m. STUCK_AT_WALL 460 = head-on 90-degree hits that stop dead (recovery by reverse). New env MYSIM_STARTP=<progress>.
