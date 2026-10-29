@@ -36,7 +36,7 @@ while True:
    for part in plan:
     if part.get('review_status')!='failed_after_retry' or part['name'] in state['parts']:continue
     dest=base/'cloud'/'recovery-diagnostics'/str(part['run_id']);dest.mkdir(parents=True,exist_ok=True)
-    call(['gh','run','download',str(part['run_id']),'--repo',repo,'--dir',str(dest)])
+    if not list(dest.rglob('geometry.json')):call(['gh','run','download',str(part['run_id']),'--repo',repo,'--dir',str(dest)])
     bad=[]
     for file in dest.rglob('geometry.json'):bad += [r for r in json.loads(file.read_text()) if not r['ok']]
     helper_only=bool(bad) and all('ambiguous candidate objects:' in r.get('error','') and '__program_' in r['error'] and '__LOD' in r['error'] for r in bad)

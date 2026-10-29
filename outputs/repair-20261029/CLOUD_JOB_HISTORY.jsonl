@@ -3,3 +3,5 @@
 {"runs": [40925874695], "event": "full_car_geometry_pass", "source_commit": "bef4bae", "recorded": 1793297308.9477355}
 {"runs": [40927287312, 40927701674], "event": "controls_contact_pass", "source_commits": ["561a328", "e8eaf18"], "recorded": 1793297308.9477365}
 {"runs": [40927606656, 40927885165], "event": "validation_in_progress", "scope": ["surface comparisons", "GUI resume regression"], "recorded": 1793297308.947737}
+{"runs": [40929682955], "event": "fixed_loader_pilot_pass", "converted": 347, "requested": 347, "intake_failures": 0, "accepted": 0, "source_commit": "755ead0", "recorded": 1793298129.6780405}
+{"runs": [40929851353], "event": "controls_contact_pass", "source_commit": "b6a82b6", "recorded": 1793298129.678077}
