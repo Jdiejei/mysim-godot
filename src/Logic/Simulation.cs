@@ -322,7 +322,7 @@ namespace MySimulator.Rebuild
                 bool boxAvailable=occupied==null||occupied==v;
                 if(!boxAvailable&&v.pitActive&&!v.pitDone&&(v.position-track.PitBox).Magnitude<8)v.input=new DriverInput(0,1,0);
                 bool safeRelease=true;if(v.servicing)foreach(var other in cars){if(other==v)continue;Vec gap=other.position-v.position;float ahead=Vec.Dot(gap,v.Forward);if(ahead>0&&ahead<6&&Math.Abs(Vec.Dot(gap,v.Right))<2.5f){safeRelease=false;break;}}
-                v.Step(track,dt,wetness,started,clock,targetLaps,boxAvailable,safeRelease);if(started&&!v.servicing&&!v.finished&&v.speed<1.5f&&Math.Abs(v.lateral)>track.width*.5f){v.stuckTime+=dt;if(v.stuckTime>3f){v.stuckTime=0;Reset(v);}}else v.stuckTime=0;
+                v.Step(track,dt,wetness,started,clock,targetLaps,boxAvailable,safeRelease);if(started&&!v.servicing&&!v.pitActive&&!v.finished&&!v.retired&&v.speed<1.5f&&Math.Abs(v.lateral)>track.width*.5f){v.stuckTime+=dt;if(v.stuckTime>3f){v.stuckTime=0;Reset(v);}}else v.stuckTime=0;
                 if(v.servicing)occupied=v;else if(occupied==v)occupied=null;
             }
             if(started)Collisions();
@@ -333,7 +333,7 @@ namespace MySimulator.Rebuild
         {
             for(int i=0;i<cars.Count;i++)for(int j=i+1;j<cars.Count;j++)
             {
-                Vehicle a=cars[i],b=cars[j];if(a.externalPhysics||b.externalPhysics)continue;Vec delta=b.position-a.position;float distance=delta.Magnitude;
+                Vehicle a=cars[i],b=cars[j];if(a.externalPhysics||b.externalPhysics||a.retired||b.retired)continue;Vec delta=b.position-a.position;float distance=delta.Magnitude;
                 if(distance<5.1f)
                 {
                     float closest=float.MaxValue;Vec contact=delta;
