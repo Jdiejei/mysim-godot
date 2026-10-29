@@ -11,6 +11,8 @@ def run(label,values,args=None,timeout=120):
  raise RuntimeError(label+' failed; see saved logs')
 if shard==0:
  text=run('geometry',{'MYSIM_RUNTIME_CHECKS':'1','MYSIM_GEOMETRYOUT':str(out/'geometry.json')},['--headless']);assert 'PASS runtime' in text
+if os.environ.get('GEOMETRY_ONLY')=='1':
+ print('PASS isolated full-car geometry validation',flush=True);sys.exit(0)
 for t in range(shard,60,6):
  label=f'track-{t:02}';shot=out/(label+'.png');full=os.environ.get('FULL_RACES')=='1'
  text=run(label,{'MYSIM_TRACK':str(t),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000' if full else '2','MYSIM_SHOT':str(shot)},timeout=1800 if full else 120)

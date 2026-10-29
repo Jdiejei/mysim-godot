@@ -3,7 +3,7 @@ run-name: full game art and runtime review
 on:
   workflow_dispatch:
     inputs:
-      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races], default: preview}
+      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry], default: preview}
 permissions: {contents: write}
 concurrency: {group: game-art-review, cancel-in-progress: false}
 jobs:
@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       max-parallel: 6
-      matrix: {shard: [0,1,2,3,4,5]}
+      matrix:
+        shard: ${{ fromJSON(inputs.depth == 'geometry' && '[0]' || '[0,1,2,3,4,5]') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -54,6 +55,7 @@ jobs:
       - name: Render layouts and cars; test real scene transitions
         env:
           SHARD: ${{ matrix.shard }}
+          GEOMETRY_ONLY: ${{ inputs.depth == 'geometry' && '1' || '0' }}
           FULL_RACES: ${{ inputs.depth == 'full_races' && '1' || '0' }}
         run: xvfb-run -a python tools/cloud_game_audit.py
       - name: Preserve encrypted visual evidence
