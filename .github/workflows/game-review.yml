@@ -1,0 +1,71 @@
+name: game-art-and-runtime-review
+run-name: full game art and runtime review
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+concurrency: {group: game-art-review, cancel-in-progress: false}
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix: {shard: [0,1,2,3,4,5]}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Restore source assets from encrypted transport
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+        run: |
+          pip install cryptography Pillow
+          gh release view repair-inputs-20261029 --json assets > /tmp/assets.json
+          python - <<'PY'
+          import json,subprocess,pathlib
+          names=sorted(a['name'] for a in json.load(open('/tmp/assets.json'))['assets'] if a['name'].startswith('assets-part-'))
+          assert names, 'No game asset parts uploaded'
+          for name in names:
+              subprocess.run(['gh','release','download','repair-inputs-20261029','--pattern',name,'--dir','/tmp/parts'],check=True)
+              subprocess.run(['python','tools/cloud_decrypt.py','/tmp/parts/'+name,'.'],check=True)
+              pathlib.Path('/tmp/parts/'+name).unlink()
+          PY
+      - name: Install software renderer and Godot
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb mesa-vulkan-drivers libxkbcommon-x11-0
+          curl --fail -L -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_linux_x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          G=$(find /tmp/godot -type f -name 'Godot_v4.7.2*mono_linux.x86_64' | head -1)
+          chmod +x "$G"
+          echo "GODOT_BIN=$G" >> "$GITHUB_ENV"
+          dotnet build -v quiet
+          "$G" --headless --editor --path . --import > import.log 2>&1
+      - name: Render layouts and cars; test real scene transitions
+        env:
+          SHARD: ${{ matrix.shard }}
+          VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
+        run: xvfb-run -a python tools/cloud_game_audit.py
+      - name: Preserve encrypted visual evidence
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+          SHARD: ${{ matrix.shard }}
+        run: |
+          if [ -d outputs/cloud-game ]; then
+            python tools/cloud_encrypt_output.py outputs/cloud-game "/tmp/game-review-$SHARD.enc"
+            gh release upload repair-review-20261029 "/tmp/game-review-$SHARD.enc" --clobber
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: game-runtime-${{ matrix.shard }}
+          path: |
+            outputs/cloud-game/*.json
+            outputs/cloud-game/*.log
+            import.log
+          retention-days: 14

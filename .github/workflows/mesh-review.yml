@@ -32,7 +32,11 @@ jobs:
         if: inputs.kind == 'mesh'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y blender
+          sudo apt-get install -y libxkbcommon-x11-0 libxi6 libxrender1 libgl1
+          curl --fail --retry 1 -L -o /tmp/blender.tar.xz https://download.blender.org/release/Blender4.5/blender-4.5.3-linux-x64.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+          export PATH="/tmp/blender-4.5.3-linux-x64:$PATH"
+          blender --version | head -1
           python tools/cloud_mesh_review.py /tmp/review-input /tmp/review-output
       - name: Inspect source textures and assets
         if: inputs.kind == 'assets'
