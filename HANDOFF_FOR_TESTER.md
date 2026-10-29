@@ -1,64 +1,47 @@
-# MySim (Godot port) - tester handoff
+# MySim (Godot port) - tester handoff (updated 2026-10-29)
 
-Plain summary for another agent/person who wants to run and test the game.
-Machine: Windows 11, NVIDIA RTX 4050 laptop, Godot 4.7.2 mono (.NET 8). Written 2026-10-28.
+Machine: Windows 11, NVIDIA RTX 4050 laptop, Godot 4.7.2 mono (.NET 8).
 
 ## What this is
-A racing game rebuilt in Godot 4 from recovered Real Racing 3-style assets. It has 24 playable cars, 60 track layouts (29 circuits), a menu, a race with laps/timing/results, pit stops, a HUD, four cameras, keyboard and gamepad input. Physics is the recovered C# vehicle model (not Godot rigid bodies). It is NOT finished: see "Known problems".
-There is NO exported .exe yet. Run it through the Godot binary.
+A racing game rebuilt in Godot 4 from the recovered MySim assets (Real Racing 3-style). 24 cars, 60 track layouts (29 circuits), menu with settings and track previews, race with laps/timing/results, pit stops with crew and sound, HUD, four cameras, keyboard/gamepad/touch input, audio. Physics is a new four-wheel model (`src/Logic/Dynamics.cs`: Magic-Formula tyres, load transfer, downforce, ABS/TC) on top of the recovered race rules.
 
 ## Where everything is
 | What | Path |
 |---|---|
 | Project (open this) | `C:\Users\shash\Documents\MySimGodot` |
-| Godot binary (console) | `C:\Users\shash\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine.Mono_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64_console.exe` (the same path without `_console` opens a window with no console) |
-| Game code | `...\MySimGodot\src` (Main.cs = menu/race flow, DriveController.cs = driving/camera/input, Hud.cs, CarLoader.cs, UnityMaterialBinder.cs, WallBuilder.cs, SkyDome.cs) |
-| Physics / race rules | `...\MySimGodot\src\Logic\Simulation.cs` (Vehicle.Step, Autopilot, Race.Advance) |
-| Assets (junction) | `...\MySimGodot\assets` -> real folder `D:\MySim-godot-assets\assets` (3.9 GB; drive D: must be connected) |
-| Original recovered data (do not modify) | `D:\MySim-recovered`, `D:\My Sim` |
-| Import cache | `...\MySimGodot\.godot` (can be rebuilt) |
-| Test tools | `...\MySimGodot\tools\LapRunner` (headless AI lap/physics tests), `tools\CoreRunner` (logic checks), `tools\shoot_all.sh` (render all tracks) |
-| Status docs | `AUDIT.md`, `REVIEW_LEDGER.md`, `PORT-CHECKLIST.md`, `ANSWER_Q2_PROJECT_PATHS.md` |
-| Renders | `...\MySimGodot\renders60` (60 track images), `shots\` |
-| Code copies (private) | github.com/instagramshashank8-bot/mysim-godot, blackwingftc-lang/mysim-godot, Jdiejei/mysim-godot (code only, no assets) |
+| Playable exe | `...\MySimGodot\build\MySim.exe` (+ `MySim.pck`, `data_MySimGodot_windows_x86_64`) |
+| Godot binary | path in `.godotpath` (console build) |
+| Code | `src` (Main, DriveController, Contact, CarLoader, UnityMaterialBinder, Hud, TouchControls, Settings) and `src/Logic` (Simulation, Dynamics, ...) |
+| Assets | `...\MySimGodot\assets` (4.4 GB, real files); backup copy `D:\MySim-godot-assets\assets` |
+| Originals (do not modify) | `D:\MySim-recovered`, `D:\My Sim` |
+| Review notes | `REVIEW_LEDGER.md`, `AUDIT.md`, `PORT-CHECKLIST.md`; renders `shots\t0..t59.png`, 4-up sheets `shots4\` |
+| Hourly code backups | `D:\MySim-backups\godot-*` |
 
-## How to launch
-PowerShell (replace nothing; paths are exact):
-```
-cd C:\Users\shash\Documents\MySimGodot
-& "C:\Users\shash\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine.Mono_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64.exe" --path . --resolution 1280x720
-```
-First run after a clean checkout: build and import once:
-```
-$env:Path += ";C:\Program Files\dotnet"; dotnet build
-& "<godot console exe>" --headless --path . --import
-```
-
-## How to start a race
-1. The menu opens: pick a track (left list, 60 layouts), a car (middle list, 24 cars), laps (right), press START RACE (or double-click an item).
-2. The car is placed on the grid and the race starts immediately.
-3. When the last lap finishes a RESULTS screen shows: Enter = restart, Esc = menu.
+## Run
+Exe: double-click `build\MySim.exe`. Windowless test: `MySim.exe --no-window --resolution 960x540` plus env vars below.
+Project: run the Godot binary with `--path C:\Users\shash\Documents\MySimGodot`.
 
 ## Controls
-Keyboard: W/Up throttle, S/Down brake, A/D or Left/Right steer, Space handbrake, P request pit stop, C change camera (chase, far chase, cockpit, bonnet), Tab pause, Esc back to menu.
-Gamepad: left stick steer (0.08 deadzone), right trigger throttle, left trigger brake, A pit request, Y camera. (Gamepad code exists but has not been tested with a real pad.)
-Audio is muted by default; press M to unmute. Engine (recovered EngineIdle.wav, pitch follows RPM), transmission whine and pit sounds (jack, wheel gun) play from recovered assets.
+W/Up throttle, S/Down brake, A/D or arrows steer, Space handbrake, P request pit, C camera (chase/far/cockpit/bonnet), Tab/Esc pause, M sound on/off (muted by default). Gamepad: left stick (response curve), RT/LT, A = pit, Y = camera. Touch: on-screen pads; accelerometer tilt steering via the `tilt` setting. Menu settings row: sound, ABS, traction control, tilt.
 
-## Skip the menu (automated tests, environment variables)
-`MYSIM_TRACK=<0-59>`, `MYSIM_CAR=<0-23>`, `MYSIM_LAPS=<n>`, `MYSIM_CAM=<0-3>`; `MYSIM_AUTODRIVE=1` full throttle, straight; `MYSIM_AI=1` AI drives the player car; `MYSIM_SECONDS=<n>` run length; `MYSIM_SHOT=<png path>` save a screenshot and quit. `MYSIM_CARVIEW=<car>` shows one car in a showroom.
-Example render: set `MYSIM_TRACK=0 MYSIM_CAR=8 MYSIM_AUTODRIVE=1 MYSIM_SECONDS=6 MYSIM_SHOT=C:\temp\a.png` then run Godot with `--path .`.
-Headless physics/AI tests (no Godot needed): `cd tools\LapRunner; dotnet run -c Release -- <shard> <shards>` (e.g. `0 1` runs all 1,440 car/track pairs) or one pair `-- 0 1 <track> <car>`; `-- steptest <car> <steer> <throttle>` for a controller-free steering test.
+## Test hooks (environment variables)
+`MYSIM_TRACK` 0-59, `MYSIM_CAR` 0-23, `MYSIM_LAPS`, `MYSIM_CAM`, `MYSIM_AUTODRIVE=1` (needed for timed runs), `MYSIM_AI=1` (AI drives; requests a pit each lap unless `MYSIM_NOPIT=1`), `MYSIM_SECONDS`, `MYSIM_SHOT=<png>`, `MYSIM_TRACE=1` (progress/speed every 4 s), `MYSIM_CARVIEW=<car>` (+ `MYSIM_CAMPOS=x,y,z`), `MYSIM_MENUSHOT=<png>`, `MYSIM_CLOSE=1` (side camera), `MYSIM_WHEELDBG=1`, `MYSIM_LEGACY_PHYS=1` (old physics model).
+Headless physics: `tools\LapRunner` (`dotnet run -c Release -- 0 1` = all 1,440 car/track pairs; `-- 0 1 <track> <car>` one pair; probes `trace`, `pit`, `pitroute`, `steptest`).
+Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/sheet4.py`.
 
-## How it works (short)
-- `Main.cs` builds the world: loads the track FBX (+ variation layer, sky dome), the recovered drive-surface mesh (the only thing cars drive on), barrier colliders, then the car.
-- `DriveController.cs` each physics tick: reads input -> `Race.Advance()` (fixed 1/120 s sub-steps) -> raycasts the drive surface for height/normal -> sets the car transform. Wheels spin/steer from simulation state. Walls use a box sweep.
-- Track and car materials come from maps generated from the original Unity prefabs (`assets/unity_map.json`, `car_map.json`, `car_pivots.json`).
-- World axis note: tracks are mirrored in Z (scale 100,100,-100) to line up with the drive surface.
+## Status
+- Headless lap matrix: 1,438 of 1,440 pairs pass (misses: car 7 on tracks 28 and 51).
+- All 60 tracks rendered and reviewed 4-up; signage reads correctly, colours natural, ground textures upscaled (Real-ESRGAN; originals in `upscale_backup`).
+- Pit stops work in game (enter, service, tyres reset, rejoin) on Brands Hatch, Silverstone, Monza; 13 layouts have no pit lane data ("no pit lane").
+- Audio from recovered assets only: engine idle loop (pitch follows RPM), transmission whine, pit sounds, UI sounds. No recovered tyre-squeal or crash sounds exist.
+- Fixed 2026-10-29: in-game physics always used car 0 (now uses the selected car); F1 wheel-guard meshes were spun with the wheels (glassy bubbles); front/rear F1 wheel meshes split by axle.
+- Cars are the original recovered LOD_A meshes. The 98,553 "enhanced mesh" candidates in `D:\MySim-processed` are faithful copies (no added detail, none quality-accepted) and are NOT used.
 
-## Known problems (what to look for)
-- Scenery: some stands/fences render black (transparency/lightmap handling in progress), no baked lightmaps, pale strip beside some barriers.
-- Cars: only the 24 menu cars; no damage, brake lights, reflections, driver or pit crew.
-- Physics: no suspension; gear/RPM on the HUD are derived from speed; AI is slow on some tracks; wall collision is guessed by material name; kerbs have no collision.
-- Missing: audio, multiplayer UI, championship, weather visuals, Android build, Windows .exe.
-- Latest numbers: headless lap matrix 1,397/1,440 pass before the last AI fix (final run pending).
-- FIXED today: the car used to face backwards (mirrored basis); now nose faces travel direction.
+## Known problems
+- F1 AI laps are slow on long circuits (Silverstone ~147 s); the power model (from the 0-60 time) understates F1 power. Needs a combined power/drag/gearing retune.
+- Pit crew are placeholder capsule figures; no jack/air-gun models.
+- A tree-like blob floats near the stand on Silverstone layouts (cosmetic).
+- Car rims look near-black (the recovered wheel texture is dark); tyres are plain dark.
+- Chassis follows the ground planar from four wheel samples, so a wheel can hover over crests/drops (no suspension).
+- Cloud lap/crash campaigns are blocked by GitHub billing on the working accounts; all testing is local.
+- Not done: multiplayer UI, championship, weather visuals, Android build, key-rebinding screen, Monoposto side-by-side (emulator removed).
