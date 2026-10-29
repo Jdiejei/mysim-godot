@@ -7,6 +7,9 @@ public partial class RuntimeChecks : Node3D {
  int count; void Check(bool ok,string reason) { if(!ok) throw new Exception(reason); count++; }
  public override async void _Ready() {
   try {
+   var windingRoot=new Node3D();AddChild(windingRoot);var plane=new PlaneMesh();var good=new MeshInstance3D {Mesh=plane};windingRoot.AddChild(good);Check(WindingFixer.Fix(windingRoot,out _)==0,"healthy Godot clockwise plane was reversed");
+   var planeArrays=plane.SurfaceGetArrays(0);var indices=(int[])planeArrays[(int)Mesh.ArrayType.Index];for(int i=0;i<indices.Length;i+=3){int tmp=indices[i+1];indices[i+1]=indices[i+2];indices[i+2]=tmp;}planeArrays[(int)Mesh.ArrayType.Index]=indices;var reversed=new ArrayMesh();reversed.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles,planeArrays);good.Mesh=reversed;
+   Check(WindingFixer.Fix(windingRoot,out _)==1,"reversed plane was not repaired");Check(WindingFixer.Fix(windingRoot,out _)==0,"winding repair is not idempotent");windingRoot.QueueFree();
    var wall=new StaticBody3D { CollisionLayer=2, CollisionMask=0 };
    wall.AddChild(new CollisionShape3D { Shape=new BoxShape3D { Size=new Vector3(30,4,.2f) }, Position=new Vector3(0,1,0) }); AddChild(wall);
    var beam=new StaticBody3D {CollisionLayer=2,CollisionMask=0};beam.AddChild(new CollisionShape3D {Shape=new BoxShape3D {Size=new Vector3(3,.2f,.3f)},Position=new Vector3(-20,1.8f,-6)});AddChild(beam);
