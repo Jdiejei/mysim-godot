@@ -13,6 +13,7 @@ public partial class Hud : CanvasLayer {
   var l = new Label(); l.AddThemeFontSizeOverride("font_size", size); l.AddThemeColorOverride("font_color", Colors.White); l.AddThemeColorOverride("font_outline_color", Colors.Black); l.AddThemeConstantOverride("outline_size", 3);
   if (bottomRight && touchMode) { l.AnchorLeft = l.AnchorRight = 1; l.AnchorTop = l.AnchorBottom = 0; l.OffsetLeft = off.X; l.OffsetTop = 24 + (off.Y < -180 ? 70 : 0); l.OffsetRight = -24; l.OffsetBottom = l.OffsetTop + 70; l.HorizontalAlignment = HorizontalAlignment.Right; } else if (bottomRight) { l.AnchorLeft = l.AnchorRight = 1; l.AnchorTop = l.AnchorBottom = 1; l.OffsetLeft = off.X; l.OffsetTop = off.Y; l.OffsetRight = -24; l.OffsetBottom = off.Y + 70; l.HorizontalAlignment = HorizontalAlignment.Right; }
   else { l.Position = off; }
+  if(!bottomRight){var panel=new Panel {Position=off-new Vector2(10,6),Size=new Vector2(860,62),MouseFilter=Control.MouseFilterEnum.Ignore};panel.AddThemeStyleboxOverride("panel",new StyleBoxFlat {BgColor=new Color(.02f,.03f,.045f,.9f),CornerRadiusTopLeft=6,CornerRadiusTopRight=6,CornerRadiusBottomLeft=6,CornerRadiusBottomRight=6});p.AddChild(panel);}
   p.AddChild(l); return l;
  }
 partial class MiniMap : Control {

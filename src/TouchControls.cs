@@ -21,9 +21,13 @@ public partial class TouchControls : CanvasLayer {
  void Clear(){leftHeld=rightHeld=false;if(current==this)Steer=Throttle=Brake=0;}
  public override void _ExitTree(){if(IsInstanceValid(inputWindow))inputWindow.FocusExited-=Clear;Clear();if(current==this){current=null;Active=false;}}
  static void Make(Control parent,string text,Vector2 pos,Vector2 size,System.Action<bool> set){
-  var button=new Button {Name=text,Text=text,Position=pos,Size=size,Modulate=new Color(1,1,1,.75f),FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
-  button.ButtonDown+=()=>set(true);button.ButtonUp+=()=>set(false);parent.AddChild(button);
+  var button=new Button {Name=text,Text=text,Position=pos,Size=size,FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
+  Style(button);button.ButtonDown+=()=>set(true);button.ButtonUp+=()=>set(false);parent.AddChild(button);
  }
- static void Action(Control parent,string text,Vector2 pos,System.Action action){var button=new Button {Name=text,Text=text,Position=pos,Size=new Vector2(100,40),FocusMode=Control.FocusModeEnum.None};button.Pressed+=action;parent.AddChild(button);}
+ static void Style(Button button){
+  button.AddThemeColorOverride("font_color",Colors.White);button.AddThemeColorOverride("font_hover_color",Colors.White);button.AddThemeColorOverride("font_pressed_color",Colors.White);
+  foreach(string state in new[]{"normal","hover","pressed"})button.AddThemeStyleboxOverride(state,new StyleBoxFlat {BgColor=state=="pressed"?new Color(.06f,.35f,.42f,.98f):new Color(.035f,.05f,.07f,.92f),BorderColor=new Color(.45f,.62f,.7f,.9f),BorderWidthLeft=1,BorderWidthRight=1,BorderWidthTop=1,BorderWidthBottom=1,CornerRadiusTopLeft=8,CornerRadiusTopRight=8,CornerRadiusBottomLeft=8,CornerRadiusBottomRight=8});
+ }
+ static void Action(Control parent,string text,Vector2 pos,System.Action action){var button=new Button {Name=text,Text=text,Position=pos,Size=new Vector2(100,40),FocusMode=Control.FocusModeEnum.None};Style(button);button.Pressed+=action;parent.AddChild(button);}
 }
 }
