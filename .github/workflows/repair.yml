@@ -1,5 +1,5 @@
 name: repair-verification
-on: {workflow_dispatch: {}, push: {branches: [codex/repair-20261029]}}
+on: {workflow_dispatch: {}}
 permissions: {contents: read}
 concurrency: {group: 'repair-${{ github.ref }}', cancel-in-progress: false}
 jobs:

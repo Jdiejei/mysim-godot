@@ -1,0 +1,55 @@
+name: mesh-and-texture-review
+on:
+  workflow_dispatch:
+    inputs:
+      part: {description: 'Encrypted input part name', required: true, type: string}
+      kind: {description: 'mesh or assets', required: true, type: choice, options: [mesh, assets]}
+permissions: {contents: write}
+concurrency: {group: 'intake-${{ inputs.part }}', cancel-in-progress: false}
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Get encrypted local inputs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PART: ${{ inputs.part }}
+        run: |
+          [[ "$PART" =~ ^(mesh|assets)-part-[0-9]{5}\.enc$ ]]
+          gh release download repair-inputs-20261029 --repo "$GITHUB_REPOSITORY" --pattern "$PART" --dir /tmp/input
+          python -m pip install cryptography Pillow
+      - name: Decrypt and validate transport
+        env:
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+          PART: ${{ inputs.part }}
+        run: python tools/cloud_decrypt.py "/tmp/input/$PART" /tmp/review-input
+      - name: Convert and inspect mesh candidates
+        if: inputs.kind == 'mesh'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y blender
+          python tools/cloud_mesh_review.py /tmp/review-input /tmp/review-output
+      - name: Inspect source textures and assets
+        if: inputs.kind == 'assets'
+        run: python tools/cloud_asset_review.py /tmp/review-input /tmp/review-output
+      - name: Preserve encrypted candidate catalogue and review images
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+          PART: ${{ inputs.part }}
+        run: |
+          python tools/cloud_encrypt_output.py /tmp/review-output "/tmp/review-$PART"
+          gh release upload repair-review-20261029 "/tmp/review-$PART" --repo "$GITHUB_REPOSITORY" --clobber
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: summary-${{ inputs.part }}
+          path: |
+            /tmp/review-output/summary.json
+            /tmp/review-output/geometry.json
+            /tmp/review-output/intake-failures.json
+          retention-days: 14

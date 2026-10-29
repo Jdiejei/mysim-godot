@@ -1,0 +1,25 @@
+{
+  "selected": 98553,
+  "quality_accepted": {
+    "False": 98553
+  },
+  "zip_states": {
+    "NEEDS_REPAIR": 48703,
+    "COMPLETE": 49850
+  },
+  "categories": {
+    "decal": 2715,
+    "barrier": 17934,
+    "architecture": 10818,
+    "props": 16121,
+    "vegetation": 35524,
+    "vehicle": 2187,
+    "ground": 4552,
+    "car": 2318,
+    "geometry": 2490,
+    "crowd": 3213,
+    "grass": 672,
+    "misc": 9
+  },
+  "unique_zips": 9226
+}
