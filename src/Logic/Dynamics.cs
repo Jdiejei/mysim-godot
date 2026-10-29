@@ -21,12 +21,13 @@ namespace MySimulator.Rebuild
             fx=f*kn/s;fy=-f*an/s;
         }
         // downforce N per (m/s)^2: road cars keep the recovered value, wing cars scale up toward real Cl*A (F1 ~2.4)
-        public static float DownK(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return Math.Max(0,df-.9f)*(.55f+Math.Max(0,df-1.5f)*.45f);}
+        public static float DownK(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return Math.Max(0,df-.9f)*(.55f+Math.Max(0,df-1.5f)*.45f)*(df>2.5f?DownM:1f);}
         // slick racing tyres on wing cars grip harder than the road-car baseline
         public static float GripMul(int car){float df=RecoveredVehicleProfiles.Downforce[Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,car))];return MathUtil.Clamp(1+GripSlope*(df-2f),1f,GripMax);}
         public static readonly float PowerMulEnv=float.Parse(Environment.GetEnvironmentVariable("MYSIM_PMUL")??"1",System.Globalization.CultureInfo.InvariantCulture);
         public static readonly float AeroF=float.Parse(Environment.GetEnvironmentVariable("MYSIM_AEROF")??"0.42",System.Globalization.CultureInfo.InvariantCulture);
         public static readonly float GripSlope=float.Parse(Environment.GetEnvironmentVariable("MYSIM_GSLOPE")??"1.2",System.Globalization.CultureInfo.InvariantCulture),GripMax=float.Parse(Environment.GetEnvironmentVariable("MYSIM_GMAX")??"2.8",System.Globalization.CultureInfo.InvariantCulture);
+        public static readonly float DownM=float.Parse(Environment.GetEnvironmentVariable("MYSIM_DOWNM")??"2",System.Globalization.CultureInfo.InvariantCulture);
         public static void Step(Vehicle v,float dt,float wetness,Circuit circuit)
         {
             int m=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,v.carModel));

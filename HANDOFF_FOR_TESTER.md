@@ -40,7 +40,7 @@ Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/shee
 - Cars are the original recovered LOD_A meshes. The 98,553 "enhanced mesh" candidates in `D:\MySim-processed` are faithful copies (no added detail, none quality-accepted) and are NOT used.
 
 ## Known problems
-- F1 AI laps are still slower than real (Silverstone ~120 s vs ~85 s real, Brands Hatch ~45 s) after the 2026-10-29 grip rework (Dynamics.GripMul shared by physics and AI plan; env MYSIM_GSLOPE/GMAX, default 1.2/2.8; higher values make F1s leave the road on the very long track 54). Power model still comes from the 0-60 time.
+- F1 AI laps are still slower than real (Silverstone ~112 s vs ~85 s real, Brands Hatch ~42 s) after the 2026-10-29 grip rework (Dynamics.GripMul shared by physics and AI plan; env MYSIM_GSLOPE/GMAX, default 1.2/2.8, with downforce x2 via MYSIM_DOWNM and an absolute 50 m/s2 corner-speed cap MYSIM_LATCAP; more grip or power makes cars leave the road on track 54). Power model still comes from the 0-60 time.
 - Pit crew are placeholder capsule figures; no jack/air-gun models.
 - (fixed) Silverstone floating tree blob and plank-like trees were caused by the signage UV rotation hitting foliage.
 - Wheels: rims are procedural (spokes, lip, hub; `MYSIM_OLDRIMS=1` restores the recovered dark rim mesh) and tyres are matte black with no tread/sidewall text. They are stylised, not the recovered model.
