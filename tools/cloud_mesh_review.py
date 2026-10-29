@@ -27,3 +27,5 @@ for start in range(0,len(images),100):
   im=Image.open(p).convert('RGB');im.thumbnail((160,120));x=k%10*160;y=k//10*140;sheet.paste(im,(x,y));d.text((x+2,y+121),pid[:24],fill='white')
  folder=out/'sheets';folder.mkdir(exist_ok=True);sheet.save(folder/f'sheet-{start//100:04}.jpg',quality=85)
 (out/'summary.json').write_text(json.dumps({'requested':sum(len(a['candidates']) for a in manifest['archives']),'converted':sum(x['ok'] for x in rows),'intake_failures':len(fail),'manual_reviewed':0,'accepted':0},indent=2))
+
+if fail or any(not r["ok"] for r in rows):sys.exit(1)

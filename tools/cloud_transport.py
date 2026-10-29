@@ -9,7 +9,7 @@ if not keyfile.exists():keyfile.write_bytes(os.urandom(32))
 key=keyfile.read_bytes();cmd(['gh','secret','set','MYSIM_INTAKE_KEY','--repo',REPO],input=key.hex(),env=env)
 for tag in [TAG,'repair-review-20261029']:
  exists=subprocess.run(['gh','release','view',tag,'--repo',REPO],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
- if not exists:cmd(['gh','release','create',tag,'--repo',REPO,'--title',tag,'--notes','Encrypted project compute inputs/review outputs. The key is stored only as an Actions secret and locally outside the repository.'],env=env)
+ if not exists:cmd(['gh','release','create',tag,'--repo',REPO,'--title',tag,'--prerelease','--latest=false','--notes','Encrypted project compute inputs/review outputs. The key is stored only as an Actions secret and locally outside the repository.'],env=env)
 planfile=BASE/'plan.json'
 if planfile.exists():parts=json.loads(planfile.read_text())
 else:
@@ -42,6 +42,7 @@ class EncryptWriter:
  def write(self,data):self.f.write(self.c.update(data));return len(data)
  def close(self):self.f.write(self.c.finalize());self.f.write(self.c.tag);self.f.close()
 # Upload existing archives and source assets only; geometry/render work runs exclusively on GitHub.
+parts.sort(key=lambda p: (0 if p["name"]=="mesh-part-00000.enc" else 1 if p["kind"]=="assets" else 2, p["name"]))
 for part in parts:
  if part['status']=='uploaded' or (part['status']=='failed' and part.get('attempt',0)>=2):continue
  for attempt in range(part.get('attempt',0)+1,3):
@@ -61,9 +62,40 @@ for part in parts:
    part['status']='uploaded';part['asset_url']=remote['url'];save();dest.unlink();print('uploaded',part['name'],flush=True);break
   except Exception as e:
    part.setdefault('failures',[]).append({'attempt':attempt,'time':time.time(),'error':str(e)});part['error']=str(e);part['status']='failed';save();print('failed',part['name'],'attempt',attempt,type(e).__name__,flush=True)
- # Dispatch only a bounded number of reviews at once. Uploaded inputs remain durable for the continuation agent.
  if part['status']=='uploaded' and sum(bool(p.get('dispatched')) for p in parts)<8:
   try:
-   cmd(['gh','workflow','run','mesh-review.yml','--repo',REPO,'--ref','codex/repair-20261029','-f','part='+part['name'],'-f','kind='+part['kind']],env=env);part['dispatched']=True;save()
-  except Exception as e:part['dispatch_pending']=True;save()
-save();state=json.loads(STATE.read_text());state['state']='transport_complete' if state['failed']==0 else 'transport_complete_with_failures';STATE.write_text(json.dumps(state,indent=2))
+   cmd(['gh','workflow','run','mesh-review.yml','--repo',REPO,'--ref','codex/repair-20261029','-f','part='+part['name'],'-f','kind='+part['kind']],env=env);part['dispatched']=True
+  except Exception:part['dispatch_pending']=True
+ save()
+save()
+
+def reconcile_reviews():
+ runs=json.loads(cmd(['gh','api',f'repos/{REPO}/actions/workflows/mesh-review.yml/runs?per_page=100'],env=env).stdout)['workflow_runs']
+ active=sum(r['status']!='completed' for r in runs)
+ byname={}
+ legacy=sorted([r for r in runs if r.get('display_title')=='mesh-and-texture-review'],key=lambda r:r['created_at'])
+ for index,run in enumerate(legacy):byname[f'mesh-part-{index:05}.enc']=run
+ for run in runs:
+  name=run.get('display_title','').removeprefix('review ')
+  if name not in byname:byname[name]=run
+ for part in parts:
+  run=byname.get(part['name'])
+  if run:
+   part['run_id']=run['id'];part['review_status']=run['status'];part['review_conclusion']=run['conclusion']
+   if run['status']=='completed' and run['conclusion'] not in ['success','cancelled']:
+    if not part.get('review_retry'):
+     part.setdefault('review_failures',[]).append({'run':run['id'],'conclusion':run['conclusion']});part['review_retry']=1
+     cmd(['gh','run','rerun',str(run['id']),'--failed','--repo',REPO],env=env);part['review_status']='retry_requested';active+=1
+    elif run.get('run_attempt',1)>=2:part['review_status']='failed_after_retry'
+    else:part['review_status']='retry_requested'
+  if part['status']=='uploaded' and not part.get('dispatched') and active<8:
+   cmd(['gh','workflow','run','mesh-review.yml','--repo',REPO,'--ref','codex/repair-20261029','-f','part='+part['name'],'-f','kind='+part['kind']],env=env);part['dispatched']=True;active+=1
+ save()
+while True:
+ try:
+  reconcile_reviews()
+  terminal=sum(p.get('review_status') in ['completed','failed_after_retry'] for p in parts if p['status']=='uploaded')
+  snapshot=json.loads(STATE.read_text());snapshot['state']='review_outputs_ready' if terminal==sum(p['status']=='uploaded' for p in parts) else 'cloud_reviews_pending';snapshot['reviews_terminal']=terminal;snapshot['manual_reviewed']=0;STATE.write_text(json.dumps(snapshot,indent=2))
+  if snapshot['state']=='review_outputs_ready':break
+ except Exception as e:print('review monitor',type(e).__name__,flush=True)
+ time.sleep(60)

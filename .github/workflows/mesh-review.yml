@@ -1,4 +1,5 @@
 name: mesh-and-texture-review
+run-name: review ${{ inputs.part }}
 on:
   workflow_dispatch:
     inputs:
@@ -37,6 +38,7 @@ jobs:
         if: inputs.kind == 'assets'
         run: python tools/cloud_asset_review.py /tmp/review-input /tmp/review-output
       - name: Preserve encrypted candidate catalogue and review images
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
