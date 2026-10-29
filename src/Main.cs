@@ -3,7 +3,7 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Game shell: menu (track/car/laps) -> race -> results -> restart/menu. Env MYSIM_TRACK skips the menu for automated tests.
 public partial class Main : Node3D {
- Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; bool resultsShown, escWas; float finShown, resultsArmed;
+ Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; Button menuStart; bool menuGoWas; float menuAge; bool resultsShown, escWas; float finShown, resultsArmed;
  public override void _Ready() {
   var win = GetWindow(); win.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems; win.ContentScaleSize = new Vector2I(1280, 720); win.ContentScaleAspect = Window.ContentScaleAspectEnum.Expand;
   var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Color, AmbientLightColor = new Color(0.62f, 0.66f, 0.72f), AmbientLightEnergy = 1.0f, TonemapMode = Godot.Environment.ToneMapper.Aces, TonemapExposure = 1.0f, TonemapWhite = 6f, FogEnabled = true, FogLightColor = new Color(0.63f, 0.70f, 0.76f), FogDensity = 0.00025f, FogSkyAffect = 0.4f, AdjustmentEnabled = true, AdjustmentContrast = 1.05f, AdjustmentSaturation = 0.94f };
@@ -73,7 +73,7 @@ public partial class Main : Node3D {
  }
  void ClearUi() { ui?.QueueFree(); ui = null; }
  void ShowMenu() {
-  EndRace(); ClearUi(); ui = new CanvasLayer(); AddChild(ui); resultsShown = false;
+  EndRace(); ClearUi(); ui = new CanvasLayer(); AddChild(ui); resultsShown = false; menuAge = 0;
   var bg = new ColorRect { Color = new Color(0.04f, 0.05f, 0.07f), AnchorRight = 1, AnchorBottom = 1 }; ui.AddChild(bg);
   var title = new Label { Text = "MYSIM", Position = new Vector2(48, 24) }; title.AddThemeFontSizeOverride("font_size", 56); ui.AddChild(title);
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray();
@@ -91,8 +91,10 @@ public partial class Main : Node3D {
   { var sp = new HBoxContainer { Position = new Vector2(48, 680) }; ui.AddChild(sp); sp.AddChild(new Label { Text = "SETTINGS   " });
     void Chk(string text, string key, bool def, bool invert, System.Action after = null) { var cb = new CheckBox { Text = text, ButtonPressed = invert ? !Settings.Get(key, def) : Settings.Get(key, def) }; cb.Toggled += on => { Ui("toggle"); Settings.Set(key, invert ? !on : on); after?.Invoke(); }; sp.AddChild(cb); }
     void Opt(string key, string[] names) { var ob = new OptionButton(); foreach (var nm in names) ob.AddItem(nm); ob.Selected = Mathf.Clamp(Settings.Get(key, 0), 0, names.Length - 1); ob.ItemSelected += i => { Ui("toggle"); Settings.Set(key, (int)i); }; sp.AddChild(ob); }
+    { var rb = new OptionButton(); string[] rn = { "Solo", "1 rival", "2 rivals", "3 rivals", "4 rivals", "5 rivals" }; foreach (var nm in rn) rb.AddItem(nm); rb.Selected = Mathf.Clamp(Settings.Get("rivals", 5), 0, 5); rb.ItemSelected += i => { Ui("toggle"); Settings.Set("rivals", (int)i); }; sp.AddChild(rb); sp.AddChild(new Label { Text = " " }); }
     sp.AddChild(new Label { Text = "Time" }); Opt("tod", Conditions.TodNames); sp.AddChild(new Label { Text = " Weather" }); Opt("wet", Conditions.WetNames);
     Chk("Sound on (M in race)", "mute", true, true, Settings.ApplyAudio); Chk("ABS", "abs", true, false); Chk("Traction control", "tc", true, false); Chk("Tilt steering (touch)", "tilt", false, false); }
+  tracks.GrabFocus(); menuStart = start;
   ui.AddChild(start); tracks.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed); cars.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed);
  }
  async void DebugRoad(Node3D track) {
@@ -120,6 +122,7 @@ public partial class Main : Node3D {
  public override void _Process(double delta) {
   PauseUi();
   if (drive != null && !resultsShown && drive.Race != null && drive.Player != null && drive.Player.finished) { finShown += (float)GetProcessDeltaTime(); if (drive.Race.cars.Count <= 1 || drive.Race.AllFinished || finShown > 12f) ShowResults(); }
+  if (ui != null && menuStart != null && IsInstanceValid(menuStart) && !resultsShown && (drive == null || !IsInstanceValid(drive) || drive.GetParent() == null)) { var pd0 = Input.GetConnectedJoypads(); bool go = Input.IsKeyPressed(Key.Enter) || (pd0.Count > 0 && Input.IsJoyButtonPressed(pd0[0], JoyButton.Start)); if (go && !menuGoWas && menuAge > 0.4f) menuStart.EmitSignal(BaseButton.SignalName.Pressed); menuGoWas = go; menuAge += (float)GetProcessDeltaTime(); }
   { bool padA = false, padB = false; var pads = Input.GetConnectedJoypads(); if (pads.Count > 0) { padA = Input.IsJoyButtonPressed(pads[0], JoyButton.A); padB = Input.IsJoyButtonPressed(pads[0], JoyButton.B); }
     bool escNow = Input.IsKeyPressed(Key.Escape) || padB;
     if (resultsShown && resultsArmed > 0.6f) { if (Input.IsKeyPressed(Key.Enter) || padA) { StartRace(lastTrack, lastCar, lastLaps); } else if (escNow && !escWas) { ShowMenu(); } }
