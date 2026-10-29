@@ -12,5 +12,6 @@ else:raise AssertionError('ambiguous program roots accepted')
 try:select_candidate(helpers,r)
 except ValueError:pass
 else:raise AssertionError('helpers accepted as main object')
+other=Object(r['mesh']+'__program_10',12,8);assert select_candidate([root,other,*helpers],r)==(root,'unique_program_root_topology')
 exact=Object(r['mesh']);assert select_candidate([exact,root,*helpers],r)[0] is exact
 print('PASS candidate selection: explicit root, helper exclusion, exact name and ambiguity rejection')
