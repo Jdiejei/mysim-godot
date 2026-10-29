@@ -5,7 +5,7 @@ on:
     inputs:
       depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry], default: preview}
 permissions: {contents: write}
-concurrency: {group: game-art-review, cancel-in-progress: false}
+concurrency: {group: 'game-art-review-${{ inputs.depth }}', cancel-in-progress: false}
 jobs:
   render:
     runs-on: ubuntu-latest

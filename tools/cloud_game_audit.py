@@ -1,6 +1,6 @@
 import os,pathlib,subprocess,json,sys
 r=pathlib.Path.cwd();out=r/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True);g=os.environ['GODOT_BIN'];shard=int(os.environ.get('SHARD','0'));rows=[]
-def run(label,values,args=None,timeout=120):
+def run(label,values,args=None,timeout=300):
  env=dict(os.environ,**values,MYSIM_BINDING_AUDIT=str(out/label));log=out/(label+'.log')
  for attempt in (1,2):
   with (out/(label+f'-{attempt}.log')).open('w') as f:
