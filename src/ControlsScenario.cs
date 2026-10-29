@@ -19,6 +19,23 @@ public partial class ControlsScenario : Node {
    panel.GetNode<Button>("RestoreDefaults").EmitSignal(BaseButton.SignalName.Pressed);Check(ControlBindings.Get(0)==Key.W,"reset did not restore controls");
    if(DisplayServer.GetName()!="headless")GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT")??"outputs/cloud-game/controls.png");
    KeyEvent(Key.Escape);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);Check(!IsInstanceValid(panel),"back did not close controls");
+   bool originalScreen=Settings.Get("screen_controls",true);
+   Settings.Set("screen_controls",true);
+   try {
+    var car=new MySimulator.Rebuild.Race(0,1,0);var player=car.Add("Input test",true,MySimulator.Rebuild.Compound.Medium);
+    var drive=new DriveController {Race=car,Player=player};
+    var oldControls=new TouchControls {Drive=drive};AddChild(oldControls);
+    var newControls=new TouchControls {Drive=drive};AddChild(newControls);oldControls.QueueFree();
+    await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+    Check(TouchControls.Active,"old race disabled new controls");
+    Button Find(string name) { foreach(var node in newControls.FindChildren("*","Button",true,false))if(node.Name==name)return (Button)node;throw new Exception("Missing GUI control "+name); }
+    Find("GAS").EmitSignal(BaseButton.SignalName.ButtonDown);Check(TouchControls.Throttle==1,"screen throttle did not engage");Find("GAS").EmitSignal(BaseButton.SignalName.ButtonUp);Check(TouchControls.Throttle==0,"screen throttle stuck");
+    Find("LEFT").EmitSignal(BaseButton.SignalName.ButtonDown);Find("RIGHT").EmitSignal(BaseButton.SignalName.ButtonDown);Check(TouchControls.Steer==0,"opposite steering buttons conflict");Find("LEFT").EmitSignal(BaseButton.SignalName.ButtonUp);Check(TouchControls.Steer==1,"steering release loses other held button");Find("RIGHT").EmitSignal(BaseButton.SignalName.ButtonUp);
+    Find("PIT").EmitSignal(BaseButton.SignalName.Pressed);Check(player.pitRequested,"GUI pit request missing");
+    Find("PAUSE").EmitSignal(BaseButton.SignalName.Pressed);Check(car.paused&&TouchControls.Throttle==0&&TouchControls.Steer==0,"GUI pause did not clear pedals");
+    newControls.QueueFree();await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);Check(!TouchControls.Active&&TouchControls.Throttle==0,"screen controls leak after exit");drive.Free();
+    GD.Print("PASS screen controls throttle/release, simultaneous steering, pit, pause and restart lifecycle");
+   }finally{Settings.Set("screen_controls",originalScreen);}
    GD.Print("PASS controls dialog rebinding, persistence, physical input, conflict rejection, reserved pause, cancel, defaults and back");GetTree().Quit();
   }catch(Exception e){GD.PrintErr("FAIL controls dialog ",e);GetTree().Quit(1);}
   finally {for(int i=0;i<original.Length;i++)Settings.Set("key_"+i,(long)original[i]);}

@@ -21,9 +21,9 @@ public partial class TouchControls : CanvasLayer {
  void Clear(){leftHeld=rightHeld=false;if(current==this)Steer=Throttle=Brake=0;}
  public override void _ExitTree(){if(IsInstanceValid(inputWindow))inputWindow.FocusExited-=Clear;Clear();if(current==this){current=null;Active=false;}}
  static void Make(Control parent,string text,Vector2 pos,Vector2 size,System.Action<bool> set){
-  var button=new Button {Text=text,Position=pos,Size=size,Modulate=new Color(1,1,1,.75f),FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
+  var button=new Button {Name=text,Text=text,Position=pos,Size=size,Modulate=new Color(1,1,1,.75f),FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
   button.ButtonDown+=()=>set(true);button.ButtonUp+=()=>set(false);parent.AddChild(button);
  }
- static void Action(Control parent,string text,Vector2 pos,System.Action action){var button=new Button {Text=text,Position=pos,Size=new Vector2(100,40),FocusMode=Control.FocusModeEnum.None};button.Pressed+=action;parent.AddChild(button);}
+ static void Action(Control parent,string text,Vector2 pos,System.Action action){var button=new Button {Name=text,Text=text,Position=pos,Size=new Vector2(100,40),FocusMode=Control.FocusModeEnum.None};button.Pressed+=action;parent.AddChild(button);}
 }
 }
