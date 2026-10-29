@@ -13,6 +13,27 @@ public partial class DriveController : Node3D {
  void ResolveWalls(Vec start) { if (Contact.Walls(GetWorld3D().DirectSpaceState, Player, start, Car.Position.Y, new Vector3(1.96f, 1.0f, 4.06f))) WallHits++; }
  public int WallHits; int lastTrace = -1;
  Vector3 ObstructCam(Vector3 from, Vector3 want) { var q = PhysicsRayQueryParameters3D.Create(from, want); q.CollisionMask = 2; q.HitBackFaces = true; var hit = GetWorld3D().DirectSpaceState.IntersectRay(q); if (hit.Count == 0) return want; var p = (Vector3)hit["position"]; var n = (Vector3)hit["normal"]; var dir = (want - from).Normalized(); float dist = Mathf.Max(0.8f, from.DistanceTo(p) - 0.35f); return from + dir * dist; }
+float lastLift; Node3D crew; Node3D[] crewFig; Vector3[] crewHome;
+ void BuildCrew() {
+  crew = new Node3D { Visible = false }; AddChild(crew); var inv = Car.GlobalTransform.Basis.Orthonormalized().Transposed(); crewFig = new Node3D[6]; crewHome = new Vector3[6];
+  var suit = new StandardMaterial3D { AlbedoColor = new Color(0.78f, 0.12f, 0.1f), Roughness = 0.9f }; var skin = new StandardMaterial3D { AlbedoColor = new Color(0.8f, 0.62f, 0.5f), Roughness = 0.9f }; var helm = new StandardMaterial3D { AlbedoColor = new Color(0.95f, 0.95f, 0.95f), Roughness = 0.4f };
+  for (int i = 0; i < 6; i++) {
+   var fig = new Node3D(); var body = new MeshInstance3D { Mesh = new CapsuleMesh { Radius = 0.17f, Height = 1.0f }, MaterialOverride = suit, Position = new Vector3(0, 0.5f, 0) }; var head = new MeshInstance3D { Mesh = new SphereMesh { Radius = 0.11f, Height = 0.22f }, MaterialOverride = helm, Position = new Vector3(0, 1.12f, 0) };
+   fig.AddChild(body); fig.AddChild(head); crew.AddChild(fig); crewFig[i] = fig;
+   Vector3 home;
+   if (i < 4 && WheelPivots != null) { var wp = inv * (WheelPivots[i].GlobalPosition - Car.GlobalPosition); float side = wp.X < 0 ? -1f : 1f; home = new Vector3(wp.X + side * 0.55f, 0, wp.Z); }
+   else if (i == 4) home = new Vector3(1.9f, 0, CarSize.Z * 0.5f + 0.7f); else home = new Vector3(0, 0, CarSize.Z * 0.5f + 0.7f);
+   crewHome[i] = home; fig.Position = home;
+  }
+ }
+ void UpdateCrew(float e) {
+  if (WheelPivots == null || Car == null) return; if (crew == null) BuildCrew(); crew.Visible = e >= 0 && e < 7.3f; if (!crew.Visible) return; crew.GlobalTransform = new Transform3D(Car.GlobalTransform.Basis.Orthonormalized(), new Vector3(Car.GlobalPosition.X, Car.GlobalPosition.Y - lastLift, Car.GlobalPosition.Z));
+  for (int i = 0; i < 6; i++) {
+   float lean = 0, off = 1.0f + i * 0.6f, on = 3.4f + i * 0.6f;
+   if (i < 4) { if (e > off - 0.5f && e < on + 0.7f) lean = 0.45f; float side = WheelPivots[i].Position.X < 0 ? -1f : 1f; crewFig[i].Rotation = new Vector3(0, 0, side * lean); crewFig[i].Position = crewHome[i] + new Vector3(-side * lean * 0.25f, 0, 0); }
+   else { lean = (i == 4 ? (e < 0.8f || e > 6.4f ? 0.5f : 0f) : (e < 7.3f ? 0.0f : 0f)); crewFig[i].Rotation = new Vector3(lean, 0, 0); }
+  }
+ }
  float PitSequence(float e) {
   if (WheelPivots == null) return 0; if (e < 0) { foreach (var wp in WheelPivots) wp.Visible = true; return 0; }
   float lift = e < 0.8f ? 0.14f * (e / 0.8f) : e < 6.4f ? 0.14f : 0.14f * (1f - Mathf.Clamp((e - 6.4f) / 0.8f, 0, 1));
@@ -55,7 +76,7 @@ public partial class DriveController : Node3D {
    var nn = front.Cross(side).Normalized(); if (nn.Y < 0) nn = -nn; if (ok == 4 && nn.Y > 0.7f) n = nn;
   }
   // Pit stop sequence (service time 7.5 s): jack up, remove and refit each wheel in turn, lower, release. Driven by the real service timer.
-  float lift = PitSequence(Player.servicing ? 7.5f - Player.serviceRemaining : -1f); carPos += new Vector3(0, lift, 0);
+  float lift = PitSequence(Player.servicing ? 7.5f - Player.serviceRemaining : -1f); carPos += new Vector3(0, lift, 0); lastLift = lift; UpdateCrew(Player.servicing ? 7.5f - Player.serviceRemaining : -1f);
   Car.Position = carPos;
   var f2 = (fwd - n * fwd.Dot(n)).Normalized(); var carX = n.Cross(f2).Normalized(); Car.Basis = new Basis(carX, n, f2); /* proper rotation (det +1): nose (+Z local) = travel direction. The old basis was left-handed and Orthonormalized() left it mirrored, so the nose faced the camera. */
   if (WheelPivots != null) { spinAngle += Player.speed * (float)delta / 0.34f; for (int wi = 0; wi < 4; wi++) { var sp = WheelPivots[wi].GetNode<Node3D>("Spin"); float sgn = WheelPivots[wi].Position.X < 0 ? -1f : 1f; sp.Rotation = new Vector3(spinAngle * sgn, 0, 0); if (wi < 2) { var rot = WheelPivots[wi].Position.X < 0 ? Mathf.Pi : 0f; WheelPivots[wi].Rotation = new Vector3(0, rot + Player.steering, 0); } } }
