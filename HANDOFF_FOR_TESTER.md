@@ -30,7 +30,7 @@ Headless physics: `tools\LapRunner` (`dotnet run -c Release -- 0 1` = all 1,440 
 Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/sheet4.py`.
 
 ## Status
-- Headless lap matrix: 1,438 of 1,440 pairs pass (misses: car 7 on tracks 28 and 51).
+- Headless lap matrix: 1,440 of 1,440 pairs pass (2026-10-29, AI planned-braking factor 0.38).
 - All 60 tracks rendered and reviewed 4-up; signage reads correctly, colours natural, ground textures upscaled (Real-ESRGAN; originals in `upscale_backup`).
 - Pit stops work in game (enter, service, tyres reset, rejoin). 13 layouts whose shipped pit data does not overlap their track (29,33,34,36,37,41,42,44,46,47,50,52,58) use an on-track fallback stop beside the start/finish line.
 - AI rivals: 5 AI cars start behind the player on the grid (setting `rivals`, env `MYSIM_RIVALS`; 0 for the old solo mode; none in AUTODRIVE/AI test runs). HUD shows race position POS n/6. Rivals use their own car models and the same physics; they are not wall-checked (they follow the centreline).

@@ -221,6 +221,7 @@ namespace MySimulator.Rebuild
 
         }
         // Fastest speed now that still lets the car slow to every upcoming corner's limit (curvature from 16 m chords).
+        public static readonly float PlanDecelK=float.Parse(Environment.GetEnvironmentVariable("MYSIM_PDK")??"0.38",System.Globalization.CultureInfo.InvariantCulture);
         public static readonly float AbsLatCap=float.Parse(Environment.GetEnvironmentVariable("MYSIM_LATCAP")??"50",System.Globalization.CultureInfo.InvariantCulture);
         public static float SpeedAhead(Circuit track,float progress,float lateral,float decel,float aDown=0){float best=200,step=16f/track.length;
             for(int k=0;k<40;k++){float p=progress+k*step;float h0=track.Heading(p),h1=track.Heading(p+step),h2=track.Heading(p+2*step);float curv=Math.Max(Math.Abs(MathUtil.Wrap(h1-h0)),Math.Abs(MathUtil.Wrap(h2-h1)))/11f;float vc=(float)Math.Min(Math.Sqrt(lateral/Math.Max(.0012f,curv-aDown)),Math.Sqrt(AbsLatCap/Math.Max(.0008f,curv)));float dist=Math.Max(0,k*16f-6);best=Math.Min(best,(float)Math.Sqrt(vc*vc+2*decel*dist));}
@@ -272,7 +273,7 @@ namespace MySimulator.Rebuild
             float steer=desiredSteer/((externalPhysics||physicalHandling)?PhysicalSteeringLimit(speed):Math.Max(.05f,currentMaxSteer));
             float turn=Math.Abs(MathUtil.Wrap(track.Heading(progress+.04f)-track.Heading(progress)))/(.04f*track.length);
             for(int j=0;j<6;j++){float p=progress+j*.012f;turn=Math.Max(turn,Math.Abs(MathUtil.Wrap(track.Heading(p+.012f)-track.Heading(p)))/(.012f*track.length));}
-            int cm=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));float gripMul=Dynamics.GripMul(cm),paceCap=MathUtil.Lerp(.75f,.97f,MathUtil.Clamp((gripMul-1)/.45f,0,1)),latAcc=CornerLateralAccel*gripMul*Math.Min(pace,paceCap);float aDown=Dynamics.DownK(cm)/RecoveredVehicleProfiles.Mass[cm]*latAcc/9.81f;float topAi=Math.Max(TopAiSpeed,RecoveredVehicleProfiles.Speed[cm]*.44704f*.92f);float planDecel=MathUtil.Clamp(26.82f*26.82f/(2*RecoveredVehicleProfiles.Brakes[cm]*.3048f)*.45f,5f,14f);float desired=MathUtil.Clamp(SpeedAhead(track,progress,latAcc,planDecel,aDown),10,topAi);
+            int cm=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));float gripMul=Dynamics.GripMul(cm),paceCap=MathUtil.Lerp(.75f,.97f,MathUtil.Clamp((gripMul-1)/.45f,0,1)),latAcc=CornerLateralAccel*gripMul*Math.Min(pace,paceCap);float aDown=Dynamics.DownK(cm)/RecoveredVehicleProfiles.Mass[cm]*latAcc/9.81f;float topAi=Math.Max(TopAiSpeed,RecoveredVehicleProfiles.Speed[cm]*.44704f*.92f);float planDecel=MathUtil.Clamp(26.82f*26.82f/(2*RecoveredVehicleProfiles.Brakes[cm]*.3048f)*PlanDecelK,5f,14f);float desired=MathUtil.Clamp(SpeedAhead(track,progress,latAcc,planDecel,aDown),10,topAi);
             desired=Math.Max(4,desired*AiRaceCalibration.Scale(carModel,track.variant));
             // Limit speed for the turn actually requested, including recovery from lateral error.
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))];
