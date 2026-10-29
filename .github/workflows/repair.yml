@@ -56,6 +56,14 @@ jobs:
           MYSIM_RUNTIME_CHECKS=1 MYSIM_CONTACT_ONLY=1 "$G" --headless --path . 2>&1 | tee contacts.log
           grep -q 'PASS contact checks' contacts.log
           ! grep -q 'FAIL' contacts.log
+          MYSIM_CONTROLCHECKS=1 "$G" --headless --path . 2>&1 | tee controls.log
+          grep -q 'PASS controls dialog' controls.log
+          ! grep -q 'FAIL' controls.log
       - uses: actions/upload-artifact@v4
         if: always()
-        with: {name: repair-contacts, path: contacts.log, retention-days: 14}
+        with:
+          name: repair-contacts
+          path: |
+            contacts.log
+            controls.log
+          retention-days: 14

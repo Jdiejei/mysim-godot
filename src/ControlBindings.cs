@@ -14,9 +14,9 @@ public partial class ControlsPanel : CanvasLayer {
   Layer=50;var background=new ColorRect {Color=new Color(.025f,.035f,.05f,.98f),AnchorRight=1,AnchorBottom=1};AddChild(background);
   var title=new Label {Text="DRIVING CONTROLS",Position=new Vector2(80,48)};title.AddThemeFontSizeOverride("font_size",32);AddChild(title);
   buttons=new Button[ControlBindings.Actions.Length];
-  for(int i=0;i<buttons.Length;i++){int action=i;float y=112+i*52;AddChild(new Label {Text=ControlBindings.Actions[i],Position=new Vector2(80,y+8)});var button=new Button {Position=new Vector2(420,y),Size=new Vector2(250,42)};button.Pressed+=()=>{waiting=action;message.Text="Press a key. Escape cancels; pause keys stay reserved.";Refresh();};buttons[i]=button;AddChild(button);}
+  for(int i=0;i<buttons.Length;i++){int action=i;float y=112+i*52;AddChild(new Label {Text=ControlBindings.Actions[i],Position=new Vector2(80,y+8)});var button=new Button {Name="Binding"+i,Position=new Vector2(420,y),Size=new Vector2(250,42)};button.Pressed+=()=>{waiting=action;message.Text="Press a key. Escape cancels; pause keys stay reserved.";Refresh();};buttons[i]=button;AddChild(button);}
   message=new Label {Text="Arrow keys also drive. Esc / Tab pause. Controller: stick, RT/LT, A pit, Y camera, Start pause.",Position=new Vector2(80,546)};AddChild(message);
-  var reset=new Button {Text="RESTORE DEFAULTS",Position=new Vector2(80,610),Size=new Vector2(250,48)};reset.Pressed+=()=>{waiting=-1;ControlBindings.Reset();Refresh();message.Text="Default controls restored.";};AddChild(reset);
+  var reset=new Button {Name="RestoreDefaults",Text="RESTORE DEFAULTS",Position=new Vector2(80,610),Size=new Vector2(250,48)};reset.Pressed+=()=>{waiting=-1;ControlBindings.Reset();Refresh();message.Text="Default controls restored.";};AddChild(reset);
   var close=new Button {Text="BACK",Position=new Vector2(420,610),Size=new Vector2(250,48)};close.Pressed+=()=>QueueFree();AddChild(close);Refresh();close.GrabFocus();
  }
  void Refresh(){for(int i=0;i<buttons.Length;i++)buttons[i].Text=waiting==i?"PRESS A KEY…":OS.GetKeycodeString(ControlBindings.Get(i));}

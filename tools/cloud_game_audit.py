@@ -30,6 +30,7 @@ if shard<3 and os.environ.get('FULL_RACES')!='1':
  for car in range(24):
   label=f'car-{car:02}-view-{shard}';shot=out/(label+'.png');run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot)});assert shot.exists()
 if shard==0 and os.environ.get('FULL_RACES')!='1':
+ text=run('controls-dialog',{'MYSIM_CONTROLCHECKS':'1','MYSIM_SHOT':str(out/'controls-dialog.png')});assert 'PASS controls dialog' in text
  for resolution in ('960x540','1600x900'):
   label='menu-'+resolution
   text=run(label,{'MYSIM_MENUSHOT':str(out/(label+'.png'))},['--resolution',resolution]);assert (out/(label+'.png')).exists()
