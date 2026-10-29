@@ -55,13 +55,14 @@ static Godot.Collections.Dictionary carMap;
  public static Node3D[] AttachWheels(Node3D car, int carIdx) {
   var pts = Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()[carIdx.ToString()].AsGodotArray();
   var wheelMeshes = new System.Collections.Generic.List<MeshInstance3D>();
-  foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; string up = mi.Name.ToString().ToUpperInvariant(); if (System.Text.RegularExpressions.Regex.IsMatch(up, "^LOD_A_(WHEEL|TYRE|TIRE|CALIPER|BRAKE_DISC|DISC|HUB|ROTOR)") && !up.Contains("BLUR")) wheelMeshes.Add(mi); }
+  foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; string up = mi.Name.ToString().ToUpperInvariant(); if (System.Text.RegularExpressions.Regex.IsMatch(up, "^LOD_A_(WHEEL|TYRE|TIRE|CALIPER|BRAKE_DISC|DISC|HUB|ROTOR)") && !up.Contains("BLUR") && !up.Contains("GUARD")) wheelMeshes.Add(mi); }
   if (System.Environment.GetEnvironmentVariable("MYSIM_WHEELDBG") != null) foreach (var wm in wheelMeshes) for (int si = 0; si < wm.Mesh.GetSurfaceCount(); si++) { var am = wm.GetActiveMaterial(si); string ds = am is StandardMaterial3D sm0 ? "std tex=" + (sm0.AlbedoTexture != null ? sm0.AlbedoTexture.ResourcePath : "none") + " col=" + sm0.AlbedoColor + " met=" + sm0.Metallic + " rough=" + sm0.Roughness + " unsh=" + sm0.ShadingMode : (am == null ? "null" : am.GetType().Name + (am is ShaderMaterial shm ? " shader" : "")); GD.Print("WHEELPART ", wm.Name, " s", si, " ", ds); }
   var pivots = new Node3D[4]; var inv = car.GlobalTransform.AffineInverse();
   for (int i = 0; i < 4; i++) {
    var p = pts[i].AsGodotArray(); var pivot = new Node3D { Name = "WheelPivot" + i, Position = new Vector3((float)p[0], (float)p[1], (float)p[2]) }; car.AddChild(pivot);
    var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin); if ((float)p[0] < 0) pivot.RotationDegrees = new Vector3(0, 180, 0);
-   foreach (var w in wheelMeshes) { var d = (MeshInstance3D)w.Duplicate(); spin.AddChild(d); d.Transform = inv * w.GlobalTransform; d.Visible = true; }
+   bool rearAxle = (float)p[2] < 0; bool anyRear = false; foreach (var w0 in wheelMeshes) if (w0.Name.ToString().ToUpperInvariant().Contains("_REAR")) anyRear = true;
+   foreach (var w in wheelMeshes) { bool isRearMesh = w.Name.ToString().ToUpperInvariant().Contains("_REAR"); if (anyRear && isRearMesh != rearAxle) continue; var d = (MeshInstance3D)w.Duplicate(); spin.AddChild(d); d.Transform = inv * w.GlobalTransform; d.Visible = true; }
    pivots[i] = pivot;
   }
   foreach (var w in wheelMeshes) w.Visible = false;
