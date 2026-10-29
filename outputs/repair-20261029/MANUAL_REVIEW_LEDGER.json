@@ -1,5 +1,5 @@
 {
-  "coverage": "362 mesh candidates and 1,400 texture thumbnails overview-reviewed; none finally accepted",
+  "coverage": "362 mesh candidates and 1,500 texture thumbnails overview-reviewed; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -13995,6 +13995,1006 @@
       "asset": "assets/Leipzig/textures/mat_window_large_u.png",
       "part": "assets-part-00000.enc",
       "sheet": 13,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_large_x.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_large_z.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_small_a_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_b_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_b_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_b_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_b_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_oak_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_windbreak.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/org_tree_windbreak_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/overlay_red_line.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_box_beige_b_1_fuses.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_box_beige_door.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_box_red_front.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_cayenna_transsyberia.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_digital_sign_back.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_flag_michelin.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_flaglights_lights.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_sign_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_leipzig_sign_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_light_post_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_turn_arrow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/prop_turn_arrow_back.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_arts_centre_scafold.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_bridge_princess_lights.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_bridge_queens_rail.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_bridge_sandridge_blue_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_bridge_sandridge_yellow_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_bridge_train_fence.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_bridge_train_side.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_corner_appartment_c_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_corner_appartment_c_window_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_crown_tower_tile.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_crown_wall_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_crown_wall_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_crown_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_crown_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_eureka_skytower_window_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_big_stone.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_metal.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_wall_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_wall_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_wall_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_wall_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_window_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_federation_square_window_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_bigwindow_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_brick_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_brick_red_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_clock.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_corners.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_00.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_05.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_concrete_detail_06.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_domes.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_green_metal.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_green_poles.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_marble_base_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_windows_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_flinders_station_windows_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_apartment_a_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_apartment_a_window_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_apartment_b_wall_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_apartment_c_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_apartment_c_window_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_building_b_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_building_b_window_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_building_c_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_gothic_door.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_gothic_lower_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_gothic_runner.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_gothic_window_round.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_highrise_d_windows_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_highrise_f_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_highrise_f_windows_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_highrise_h_windows_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_brick_arch.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_column.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_wall_arch.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_wall_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_wall_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_white_arch_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_b_white_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_d_cream_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_hotel_yooralla_banner.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_a_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_a_wall_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_a_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_a_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 14,
       "tile": 99,
       "overview_reviewed": true,
       "full_resolution_reviewed": false,

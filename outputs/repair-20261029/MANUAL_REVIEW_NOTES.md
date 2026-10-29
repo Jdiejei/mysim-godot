@@ -32,3 +32,8 @@ Viewed full sheet: Laguna/Leipzig building/service atlases, trackside vehicle sk
 
 ### Controlled dark-road comparison40927606656
 Viewed three full-resolution track05 frames: default+shadows, default without shadows, authored UV+shadows. Road blackness persists while building illumination changes with shadows. Authored UV switch does not restore roadway lighting. Identified incorrect clockwise/front-face sign in WindingFixer (official ArrayMesh docs linked in CONTINUE.md); corrected with native PlaneMesh regression. Visual validation of new source remains pending.
+
+### Texture sheet0014 indices1400?1499
+Viewed full sheet. Oak/windbreak foliage, Leipzig directional/speed/flag assets and Melbourne architecture atlases. Melbourne federation angular facades are authored geometry-layout textures, not corrupted images. Flinders clock and crest, numeric30sign, traffic lights and chevrons need UV orientation verified in assembled scenes. Do not globally flip all atlases or apply alpha to opaque facade panels. Overview only; no final acceptance.
+### Winding-corrected surface review40933461700
+Viewed track05 procedural and authored,23and59 default withshadows. Black-road defect resolved visibly; roadway shading and cast shadows restored. Road surface on23/59 is authored concrete, not missing asphalt. HUD and buttons readable; still foliage/fence aliasing, flat building/crowd presentation and insufficient polished car detail. No full-game acceptance.

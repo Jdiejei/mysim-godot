@@ -11,3 +11,5 @@
 {"runs": [40933009962], "event": "corner_regression_pass", "source_commit": "7dad1d8", "recorded": 1793299461.8721726}
 {"runs": [40927606656], "event": "surface_capture_complete_visual_rejected", "source_commit": "4f82717", "captures": 12, "recorded": 1793299461.8721733}
 {"runs": [40933457055, 40933461700], "event": "clockwise_winding_fix_validation_running", "source_commit": "1bb1968", "recorded": 1793299461.872174}
+{"runs": [40937073054], "event": "bake_cleanup_failed", "cause": "cached imported mesh bindings survive teardown", "recorded": 1793311861.8424628}
+{"runs": [40963723475, 40963728163, 40963789675, 40963793971], "event": "new_source_validation_dispatched", "source_commit": "55d7841", "recorded": 1793311861.842489}
