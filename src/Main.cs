@@ -3,7 +3,7 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Game shell: menu (track/car/laps) -> race -> results -> restart/menu. Env MYSIM_TRACK skips the menu for automated tests.
 public partial class Main : Node3D {
- Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; bool resultsShown; float finShown;
+ Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; bool resultsShown, escWas; float finShown, resultsArmed;
  public override void _Ready() {
   var win = GetWindow(); win.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems; win.ContentScaleSize = new Vector2I(1280, 720); win.ContentScaleAspect = Window.ContentScaleAspectEnum.Expand;
   var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Color, AmbientLightColor = new Color(0.62f, 0.66f, 0.72f), AmbientLightEnergy = 1.0f, TonemapMode = Godot.Environment.ToneMapper.Aces, TonemapExposure = 1.0f, TonemapWhite = 6f, FogEnabled = true, FogLightColor = new Color(0.63f, 0.70f, 0.76f), FogDensity = 0.00025f, FogSkyAffect = 0.4f, AdjustmentEnabled = true, AdjustmentContrast = 1.05f, AdjustmentSaturation = 0.94f };
@@ -120,7 +120,10 @@ public partial class Main : Node3D {
  public override void _Process(double delta) {
   PauseUi();
   if (drive != null && !resultsShown && drive.Race != null && drive.Player != null && drive.Player.finished) { finShown += (float)GetProcessDeltaTime(); if (drive.Race.cars.Count <= 1 || drive.Race.AllFinished || finShown > 12f) ShowResults(); }
-  if (resultsShown && Input.IsKeyPressed(Key.Enter)) StartRace(lastTrack, lastCar, lastLaps);
+  { bool padA = false, padB = false; var pads = Input.GetConnectedJoypads(); if (pads.Count > 0) { padA = Input.IsJoyButtonPressed(pads[0], JoyButton.A); padB = Input.IsJoyButtonPressed(pads[0], JoyButton.B); }
+    bool escNow = Input.IsKeyPressed(Key.Escape) || padB;
+    if (resultsShown && resultsArmed > 0.6f) { if (Input.IsKeyPressed(Key.Enter) || padA) { StartRace(lastTrack, lastCar, lastLaps); } else if (escNow && !escWas) { ShowMenu(); } }
+    if (resultsShown) resultsArmed += (float)GetProcessDeltaTime(); else resultsArmed = 0; escWas = escNow; }
  }
  void ShowResults() {
   resultsShown = true; var layer = new CanvasLayer(); world.AddChild(layer);
@@ -129,7 +132,7 @@ public partial class Main : Node3D {
   var order = new System.Collections.Generic.List<Vehicle>(drive.Race.cars); order.Sort((x, y) => { float kx = x.finished ? x.finishTime : 1e6f - (x.totalDistance - x.id * 0.008f * drive.Race.track.length), ky = y.finished ? y.finishTime : 1e6f - (y.totalDistance - y.id * 0.008f * drive.Race.track.length); return kx.CompareTo(ky); });
   string board = ""; for (int i = 0; i < order.Count; i++) { var o = order[i]; string who = o == p ? "YOU" : o.driver; float gapM = (p.totalDistance - p.id * 0.008f * drive.Race.track.length) - (o.totalDistance - o.id * 0.008f * drive.Race.track.length); string tm = o.finished ? o.finishTime.ToString("0.0") + " s" : (o == p ? "" : "+" + (gapM > 0 ? gapM : 0).ToString("0") + " m"); board += (i + 1) + ".  " + who.PadRight(8) + " " + tm + "\n"; }
   int place = order.IndexOf(p) + 1;
-  l.Text = "RESULTS   P" + place + " of " + order.Count + "\n\n" + (order.Count > 1 ? board + "\n" : "") + "TIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
+  l.Text = "RESULTS   P" + place + " of " + order.Count + "\n\n" + (order.Count > 1 ? board + "\n" : "") + "TIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu    (pad: A restart, B menu)"; layer.AddChild(l);
  }
 }}
 
