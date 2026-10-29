@@ -70,7 +70,7 @@ static Godot.Collections.Dictionary carMap;
    var spin = pivots[i].GetNode<Node3D>("Spin"); MeshInstance3D tyreDup = null; foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm) { string cn = cm.Name.ToString().ToUpperInvariant(); if (cn.Contains("TYRE") || cn.Contains("TIRE")) { if (tyreDup == null || cn.Contains("REAR") == (pts[i].AsGodotArray()[2].AsSingle() < 0)) tyreDup = cm; } }
    if (tyreDup == null) continue; var tb = tyreDup.Transform * tyreDup.GetAabb(); var ctr = tb.GetCenter(); float outerR = Mathf.Max(tb.Size.Y, tb.Size.Z) * 0.5f, tw = tb.Size.X; if (outerR < 0.15f || outerR > 0.6f) continue;
    foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm2) { string cn2 = cm2.Name.ToString().ToUpperInvariant(); if (cn2.StartsWith("LOD_A_WHEEL")) cm2.Visible = false; }
-   bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.52f : 0.69f); var rim = BuildRim(rimR, tw, carIdx); rim.Position = new Vector3(ctr.X, ctr.Y, ctr.Z); spin.AddChild(rim);
+   bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.6f : 0.69f); var rim = BuildRim(rimR, tw, carIdx); rim.Position = new Vector3(ctr.X, ctr.Y, ctr.Z); spin.AddChild(rim);
   }
   foreach (var w in wheelMeshes) w.Visible = false;
   GD.Print("WHEELS car=", carIdx, " parts=", wheelMeshes.Count);
@@ -79,7 +79,7 @@ static Godot.Collections.Dictionary carMap;
 
  static Node3D BuildRim(float r, float tyreW, int carIdx) {
   var root = new Node3D { Name = "ProcRim" }; bool f1 = carIdx >= 15 && carIdx <= 18; float w = tyreW * (f1 ? 0.78f : 0.7f);
-  Color[] tints = { new Color(0.78f, 0.79f, 0.82f), new Color(0.12f, 0.12f, 0.13f), new Color(0.74f, 0.62f, 0.34f), new Color(0.55f, 0.57f, 0.6f) }; var tint = tints[f1 ? 1 : (carIdx % 4 == 2 ? 2 : (carIdx % 4 == 1 ? 1 : (carIdx % 4 == 3 ? 3 : 0)))];
+  Color[] tints = { new Color(0.78f, 0.79f, 0.82f), new Color(0.3f, 0.3f, 0.33f), new Color(0.74f, 0.62f, 0.34f), new Color(0.55f, 0.57f, 0.6f) }; var tint = tints[f1 ? 1 : (carIdx % 4 == 2 ? 2 : (carIdx % 4 == 1 ? 1 : (carIdx % 4 == 3 ? 3 : 0)))];
   var metal = new StandardMaterial3D { AlbedoColor = tint, Metallic = 0.55f, Roughness = 0.32f, MetallicSpecular = 0.7f, CullMode = BaseMaterial3D.CullModeEnum.Disabled };
   var dark = new StandardMaterial3D { AlbedoColor = new Color(0.04f, 0.04f, 0.045f), Roughness = 0.9f, CullMode = BaseMaterial3D.CullModeEnum.Disabled };
   var lip = new StandardMaterial3D { AlbedoColor = new Color(0.82f, 0.83f, 0.86f), Metallic = 0.6f, Roughness = 0.25f };
