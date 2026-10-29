@@ -14,7 +14,7 @@ float fbm(vec2 p) { float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a
 void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv = world_scale > 0.0 ? wp0.xz * world_scale : UV; vec3 base = texture(tex, tuv).rgb * tint.rgb;
  vec3 wp = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; float det = fbm(wp.xz * (detail_scale / 24.0) * 1.3) - 0.5; float mac = fbm(wp.xz * (macro_scale / 0.35) * 0.045 + 7.3) - 0.5;
  vec3 c = base * (1.0 + det * detail_amp * 2.0); c = mix(c, c * macro_tint, clamp(mac * macro_amp * 4.0 + 0.5, 0.0, 1.0) * 0.5); c *= (1.0 + mac * macro_amp);
- ALBEDO = c; ROUGHNESS = 1.0; SPECULAR = 0.04; NORMAL = normalize((VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz); }" };
+ ALBEDO = c; ROUGHNESS = 1.0; SPECULAR = 0.04;  }" };
 // RR3-style clean track: no skid-mark / dust / oil / wall-scuff decal overlays, and every asphalt uses its no-skids variant.
  static readonly System.Text.RegularExpressions.Regex DirtDecal = new System.Text.RegularExpressions.Regex("skid|dust|dirt_|oil|stain|scuff|grime|wall_damage|tyre_mark|rubber|ripple", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
  static void CleanTrack(Node3D layer) { int hidden = 0; foreach (var node in layer.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); if (nm.ToLowerInvariant().StartsWith("overlay") && (DirtDecal.IsMatch(nm) || (System.Environment.GetEnvironmentVariable("MYSIM_NOOVERLAY") != null && !nm.ToLowerInvariant().Contains("start")))) { mi.Visible = false; hidden++; } } GD.Print("CLEANTRACK hidden dirt decals=", hidden); }

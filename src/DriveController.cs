@@ -6,6 +6,7 @@ namespace MySim {
 public partial class DriveController : Node3D {
  public int CarIndex; public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; float? lastGroundY, prevY; float groundSmooth; bool groundInit; float minY = 1e9f, maxY = -1e9f, maxDy; float steerCmd; public Vector3 CarSize = new Vector3(2, 1.2f, 4.7f); public int TrackIndex; public Node3D[] WheelPivots; float spinAngle; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
  int CamMode = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAM") ?? "0"); bool cWas; bool tabWas = true; ulong pausedAt; float t, camYaw; int shownMode = -1; bool camInit;
+ public void CycleCamera() { CamMode=(CamMode+1)%4; }
  public override void _Ready() {
   Race = new Race(TrackIndex, Laps, Conditions.WetnessValue); Player = Race.Add("PLAYER", true, Compound.Medium); Player.carModel = CarIndex; Race.countdown = 0; Race.started = true; Player.Place(Race.track, float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_STARTP") ?? "0.988", System.Globalization.CultureInfo.InvariantCulture), 0f); { int nr = System.Environment.GetEnvironmentVariable("MYSIM_RIVALS") != null ? int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_RIVALS")) : (AutoDrive || AiTest ? 0 : Settings.Get("rivals", 5)); { var order = new System.Collections.Generic.List<int>(); for (int ci = 0; ci < CarCatalog.Count; ci++) if (ci != CarIndex && CarCatalog.RaceClass(ci) == CarCatalog.RaceClass(CarIndex)) order.Add(ci); float myS = MySimulator.Rebuild.RecoveredVehicleProfiles.Speed[CarIndex], myA = MySimulator.Rebuild.RecoveredVehicleProfiles.Acceleration[CarIndex]; order.Sort((x, y) => (Mathf.Abs(MySimulator.Rebuild.RecoveredVehicleProfiles.Speed[x] - myS) / 60f + Mathf.Abs(MySimulator.Rebuild.RecoveredVehicleProfiles.Acceleration[x] - myA)).CompareTo(Mathf.Abs(MySimulator.Rebuild.RecoveredVehicleProfiles.Speed[y] - myS) / 60f + Mathf.Abs(MySimulator.Rebuild.RecoveredVehicleProfiles.Acceleration[y] - myA))); RivalModels = order.ToArray(); } for (int ri = 0; ri < nr; ri++) { var rv = Race.Add("AI " + (ri + 1), false, Compound.Medium); rv.carModel = RivalModels[ri % RivalModels.Length]; rivals.Add(new Rival { V = rv, LastY = float.NaN }); } } CallDeferred(nameof(BindHud));
  }
@@ -53,7 +54,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   if (e >= 0) { for (int i = 0; i < 4; i++) { float off = 1.0f + i * 0.6f, on = 3.4f + i * 0.6f; if (lastE < off && e >= off) PlaySfx("wheel_gun_loosen.wav"); if (lastE < off + 0.4f && e >= off + 0.4f) PlaySfx("wheel_set_down.wav"); if (lastE < on && e >= on) PlaySfx("wheel_gun_tighten.wav"); } if (lastE < 6.6f && e >= 6.6f) PlaySfx("jack_release.wav"); }
   lastE = e;
  }
- class Rival { public Vehicle V; public Node3D Node; public Node3D[] Pivots; public float LastY, Spin; }
+ class Rival { public Vehicle V; public Node3D Node; public Node3D[] Pivots; public float LastY, Spin; public Vec Start; }
  readonly System.Collections.Generic.List<Rival> rivals = new System.Collections.Generic.List<Rival>();
  int loadedThisFrame; void EnsureRivals() { loadedThisFrame = 0;
   foreach (var r in rivals) { if (r.Node != null) continue; if (loadedThisFrame++ >= 1) break; int ci = r.V.carModel; r.Node = CarLoader.Load(CarCatalog.Folders[ci]); Car.GetParent().AddChild(r.Node); CarLoader.ApplyExact(r.Node, ci); r.Pivots = CarLoader.AttachWheels(r.Node, ci); r.Node.Visible = false; }
@@ -61,7 +62,10 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
  void UpdateRivals(float delta) {
   if (rivals.Count == 0) return; EnsureRivals(); var space = GetWorld3D().DirectSpaceState;
   foreach (var r in rivals) {
-   if (r.Node == null) continue; var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY; var gr = Contact.Ground(space, w, refY, 1.0f);
+   if (r.Node == null) continue; var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY;
+   Contact.Walls(space,v,r.Start,refY,new Vector3(VehicleDimensions.Width[v.carModel],Mathf.Clamp(VehicleDimensions.Height[v.carModel],.6f,1.5f),VehicleDimensions.Length[v.carModel]));w=ToWorld(v.position,0);
+   var gr = Contact.Ground(space, w, refY, 1.0f);
+   if(Contact.Contain(v,r.Start,gr.near,30f)){w=ToWorld(v.position,0);gr=Contact.Ground(space,w,refY,1f);}Contact.MarkGood(v,gr.near&&Mathf.Abs(v.lateral)<=30f);
    float y = gr.found ? gr.y : refY; r.LastY = y; Vector3 n = gr.found && gr.normal.Y > 0.7f ? gr.normal : Vector3.Up;
    var fw = new Vector3(Mathf.Sin(v.heading), 0, Mathf.Cos(v.heading)); var f2 = (fw - n * fw.Dot(n)).Normalized(); var cx = n.Cross(f2).Normalized();
    r.Node.Position = new Vector3(w.X, y + 0.05f, w.Z); r.Node.Basis = new Basis(cx, n, f2); r.Node.Visible = true;
@@ -105,7 +109,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   if (!padSteer && !AutoDrive) { float rate = Mathf.Abs(steer) > 0.01f ? 2.6f : 5.0f; if (Mathf.Sign(steer) != Mathf.Sign(steerCmd) && Mathf.Abs(steer) > 0.01f) rate = 5.0f; steerCmd = Mathf.MoveToward(steerCmd, steer, rate * (float)delta); float lim = Mathf.Clamp(1.0f - Player.speed / 120f, 0.35f, 1f); steer = steerCmd * lim; } else steerCmd = steer;
   Player.input = pedals.Update(thr, brk, steer, Input.IsKeyPressed(Key.Space), Vec.Dot(Player.velocity, Player.Forward), (float)delta, !AutoDrive && !AiTest && Player.human);
 
-  var startPos = Player.position; Race.Advance((float)delta); if (Player.dbgPush > 0.002f) pushFrames++; frames++; ResolveWalls(startPos); UpdateRivals((float)delta);
+  var startPos = Player.position; foreach(var rival in rivals) rival.Start=rival.V.position; Race.Advance((float)delta); if (Player.dbgPush > 0.002f) pushFrames++; frames++; ResolveWalls(startPos); UpdateRivals((float)delta);
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   // Ground = drive-surface layer only (mask 1), continuous with the previous height. The old ray started at y=60 with the default (all-layer) mask, so it landed on barrier tops, bridges and stacked decks (car "flew").
   float refY = lastGroundY.HasValue ? lastGroundY.Value : Car.Position.Y;

@@ -11,6 +11,11 @@ public partial class RuntimeChecks : Node3D {
    wall.AddChild(new CollisionShape3D { Shape=new BoxShape3D { Size=new Vector3(30,4,.2f) }, Position=new Vector3(0,1,0) }); AddChild(wall);
    var floor=new StaticBody3D { CollisionLayer=1, CollisionMask=0 };
    floor.AddChild(new CollisionShape3D { Shape=new BoxShape3D { Size=new Vector3(100,.2f,100) }, Position=new Vector3(0,-.1f,0) });AddChild(floor);
+   var objects=new Node3D();AddChild(objects);
+   var building=new MeshInstance3D {Name="arc_brick_test",Mesh=new BoxMesh {Size=new Vector3(3,3,3)},Position=new Vector3(20,1.5f,-6)};objects.AddChild(building);
+   var road=new MeshInstance3D {Name="gnd_concrete_test",Mesh=new PlaneMesh()};objects.AddChild(road);
+   var decal=new MeshInstance3D {Name="overlay_wall_scuff",Mesh=new PlaneMesh()};objects.AddChild(decal);
+   Check(WallBuilder.IsSolid(building),"architecture lacks a solid role");Check(!WallBuilder.IsSolid(road),"road became a phantom wall");Check(!WallBuilder.IsSolid(decal),"decal became a phantom wall");Check(WallBuilder.Build(objects)==1,"physical role coverage wrong");
    for(int i=0;i<3;i++) await ToSignal(GetTree(),SceneTree.SignalName.PhysicsFrame);
    var space=GetWorld3D().DirectSpaceState;
    foreach(float length in new[]{4.06f,5.55f}) foreach(float angle in new[]{0f,.35f,-.35f}) {
@@ -22,6 +27,7 @@ public partial class RuntimeChecks : Node3D {
     var v=new Vehicle { position=new Vec(0,-.5f),velocity=new Vec(0,speed),speed=Math.Abs(speed) };
     Check(Contact.Walls(space,v,new Vec(0,-.5f),0,new Vector3(2,1,4)),"initial overlap ignored");Check(v.position.z < -2f,"initial overlap not cleared");Check(v.speed<=Math.Abs(speed)+.01f,"overlap added energy");
    }
+   var buildingHit=new Vehicle {position=new Vec(20,0),velocity=new Vec(0,80),speed=80};Check(Contact.Walls(space,buildingHit,new Vec(20,-14),0,new Vector3(2,1,4)),"drive-through architecture");Check(buildingHit.position.z < -9f,"car entered building footprint");
    var g=Contact.Ground(space,new Vector3(4,0,-4),0);Check(g.near&&Math.Abs(g.y)<.01f,"ground height incorrect");
    var contained=new Vehicle {position=new Vec(0,-4),velocity=new Vec(10,0),speed=10,lateral=0}; Contact.MarkGood(contained,true);
    contained.position=new Vec(40,-4);contained.lateral=40;Check(Contact.Contain(contained,new Vec(39,-4),true,30),"containment missed");Check(contained.position.x==0,"containment did not restore last valid point");

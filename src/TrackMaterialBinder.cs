@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace MySim {
 // Binds the original recovered textures to the track's FBX materials (name -> texture via recovered Unity material names).
 public static class TrackMaterialBinder {
- static readonly Shader GroundShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic; void fragment() { ALBEDO = texture(tex, UV).rgb; ROUGHNESS = 1.0; SPECULAR = 0.04; NORMAL = normalize((VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz); }" };
+ static readonly Shader GroundShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic; void fragment() { ALBEDO = texture(tex, UV).rgb; ROUGHNESS = 1.0; SPECULAR = 0.04;  }" };
  public static readonly System.Collections.Generic.List<string> UnboundNames = new System.Collections.Generic.List<string>();
  public static void Apply(Node3D track, string dir) {
   var map = new Dictionary<string, string>();
