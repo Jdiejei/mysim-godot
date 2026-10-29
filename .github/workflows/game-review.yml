@@ -39,19 +39,22 @@ jobs:
       - name: Install software renderer and Godot
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y xvfb mesa-vulkan-drivers libxkbcommon-x11-0
+          sudo apt-get install -y xvfb mesa-vulkan-drivers vulkan-tools libxkbcommon-x11-0
           curl --fail -L -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_linux_x86_64.zip
           unzip -q /tmp/godot.zip -d /tmp/godot
           G=$(find /tmp/godot -type f -name 'Godot_v4.7.2*mono_linux.x86_64' | head -1)
           chmod +x "$G"
           echo "GODOT_BIN=$G" >> "$GITHUB_ENV"
+          LVP=$(find /usr/share/vulkan/icd.d -name '*lvp*.json' | head -1)
+          test -n "$LVP"
+          echo "VK_ICD_FILENAMES=$LVP" >> "$GITHUB_ENV"
+          VK_ICD_FILENAMES="$LVP" xvfb-run -a vulkaninfo --summary > vulkaninfo.log 2>&1
           dotnet build -v quiet
           "$G" --headless --editor --path . --import > import.log 2>&1
       - name: Render layouts and cars; test real scene transitions
         env:
           SHARD: ${{ matrix.shard }}
           FULL_RACES: ${{ inputs.depth == 'full_races' && '1' || '0' }}
-          VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
         run: xvfb-run -a python tools/cloud_game_audit.py
       - name: Preserve encrypted visual evidence
         if: always()
@@ -72,4 +75,5 @@ jobs:
             outputs/cloud-game/*.json
             outputs/cloud-game/*.log
             import.log
+            vulkaninfo.log
           retention-days: 14

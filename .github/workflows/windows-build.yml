@@ -45,13 +45,8 @@ jobs:
           New-Item -ItemType Directory -Path build-cloud -Force | Out-Null
           & $env:GODOT_BIN --headless --path . --export-release 'Windows Desktop' build-cloud/MySim.exe *> windows-export.log
           if ($LASTEXITCODE -ne 0) { throw 'Export failed' }
-          $env:MYSIM_RUNTIME_CHECKS='1'; $env:MYSIM_CONTACT_ONLY='1'
-          & ./build-cloud/MySim.exe --headless *> windows-contact.log
-          if ($LASTEXITCODE -ne 0) { throw 'Native contact checks failed' }
-          Remove-Item Env:MYSIM_RUNTIME_CHECKS,Env:MYSIM_CONTACT_ONLY
-          $env:MYSIM_TRACK='24';$env:MYSIM_CAR='16';$env:MYSIM_RIVALS='5';$env:MYSIM_AI='1';$env:MYSIM_AUTODRIVE='1';$env:MYSIM_NOPIT='1';$env:MYSIM_SECONDS='8'
-          & ./build-cloud/MySim.exe --headless --fixed-fps 60 *> windows-player.log
-          if ($LASTEXITCODE -ne 0 -or !(Select-String windows-player.log -Pattern 'onSurface=True')) { throw 'Native player failed' }
+          python tools/cloud_windows_smoke.py
+          if ($LASTEXITCODE -ne 0) { throw 'Native player checks failed' }
       - name: Preserve encrypted Windows build in release parts
         env:
           GH_TOKEN: ${{ github.token }}
