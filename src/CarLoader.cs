@@ -66,9 +66,35 @@ static Godot.Collections.Dictionary carMap;
    foreach (var w in wheelMeshes) { bool isRearMesh = w.Name.ToString().ToUpperInvariant().Contains("_REAR"); if (anyRear && isRearMesh != rearAxle) continue; var d = (MeshInstance3D)w.Duplicate(); spin.AddChild(d); d.Transform = inv * w.GlobalTransform; d.Visible = true; }
    pivots[i] = pivot;
   }
+  if (System.Environment.GetEnvironmentVariable("MYSIM_OLDRIMS") == null) for (int i = 0; i < 4; i++) {
+   var spin = pivots[i].GetNode<Node3D>("Spin"); MeshInstance3D tyreDup = null; foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm) { string cn = cm.Name.ToString().ToUpperInvariant(); if (cn.Contains("TYRE") || cn.Contains("TIRE")) { if (tyreDup == null || cn.Contains("REAR") == (pts[i].AsGodotArray()[2].AsSingle() < 0)) tyreDup = cm; } }
+   if (tyreDup == null) continue; var tb = tyreDup.Transform * tyreDup.GetAabb(); var ctr = tb.GetCenter(); float outerR = Mathf.Max(tb.Size.Y, tb.Size.Z) * 0.5f, tw = tb.Size.X; if (outerR < 0.15f || outerR > 0.6f) continue;
+   foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm2) { string cn2 = cm2.Name.ToString().ToUpperInvariant(); if (cn2.StartsWith("LOD_A_WHEEL")) cm2.Visible = false; }
+   bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.52f : 0.69f); var rim = BuildRim(rimR, tw, carIdx); rim.Position = new Vector3(ctr.X, ctr.Y, ctr.Z); spin.AddChild(rim);
+  }
   foreach (var w in wheelMeshes) w.Visible = false;
   GD.Print("WHEELS car=", carIdx, " parts=", wheelMeshes.Count);
   return pivots;
+ }
+
+ static Node3D BuildRim(float r, float tyreW, int carIdx) {
+  var root = new Node3D { Name = "ProcRim" }; bool f1 = carIdx >= 15 && carIdx <= 18; float w = tyreW * (f1 ? 0.78f : 0.7f);
+  Color[] tints = { new Color(0.78f, 0.79f, 0.82f), new Color(0.12f, 0.12f, 0.13f), new Color(0.74f, 0.62f, 0.34f), new Color(0.55f, 0.57f, 0.6f) }; var tint = tints[f1 ? 1 : (carIdx % 4 == 2 ? 2 : (carIdx % 4 == 1 ? 1 : (carIdx % 4 == 3 ? 3 : 0)))];
+  var metal = new StandardMaterial3D { AlbedoColor = tint, Metallic = 0.55f, Roughness = 0.32f, MetallicSpecular = 0.7f, CullMode = BaseMaterial3D.CullModeEnum.Disabled };
+  var dark = new StandardMaterial3D { AlbedoColor = new Color(0.04f, 0.04f, 0.045f), Roughness = 0.9f, CullMode = BaseMaterial3D.CullModeEnum.Disabled };
+  var lip = new StandardMaterial3D { AlbedoColor = new Color(0.82f, 0.83f, 0.86f), Metallic = 0.6f, Roughness = 0.25f };
+  Basis axis = new Basis(Vector3.Back, Mathf.Pi / 2f); // cylinder Y axis -> wheel X axis
+  void Cyl(float rad, float len, float xOff, StandardMaterial3D m) { var mi = new MeshInstance3D { Mesh = new CylinderMesh { TopRadius = rad, BottomRadius = rad, Height = len, RadialSegments = 32, Rings = 1 }, MaterialOverride = m, Transform = new Transform3D(axis, new Vector3(xOff, 0, 0)) }; root.AddChild(mi); }
+  Cyl(r * 0.97f, w * 0.9f, 0f, dark);                 // deep dark barrel seen between the spokes
+  root.AddChild(new MeshInstance3D { Mesh = new TorusMesh { InnerRadius = r * 0.86f, OuterRadius = r * 1.0f, Rings = 32, RingSegments = 8 }, MaterialOverride = lip, Transform = new Transform3D(axis, new Vector3(w * 0.46f, 0, 0)) }); // polished outer lip ring
+  Cyl(r * 0.2f, w * 0.18f, w * 0.44f, metal);         // hub
+  var capMat = new StandardMaterial3D { AlbedoColor = new Color(0.9f, 0.9f, 0.92f), Metallic = 0.5f, Roughness = 0.3f }; Cyl(r * 0.07f, w * 0.12f, w * 0.52f, capMat);
+  int n = f1 ? 10 : (carIdx % 2 == 0 ? 5 : 7);
+  for (int k = 0; k < n; k++) {
+   float ang = Mathf.Tau * k / n; var spoke = new MeshInstance3D { Mesh = new BoxMesh { Size = new Vector3(w * 0.1f, r * 0.78f, r * (f1 ? 0.09f : 0.19f)) }, MaterialOverride = metal };
+   var dir = new Vector3(0, Mathf.Cos(ang), Mathf.Sin(ang)); spoke.Position = new Vector3(w * 0.42f, dir.Y * r * 0.54f, dir.Z * r * 0.54f); spoke.Basis = new Basis(Vector3.Right, ang); root.AddChild(spoke);
+  }
+  return root;
  }
  static StandardMaterial3D Build(string dir, string car, string suf) {
   var mat = new StandardMaterial3D { Roughness = 0.45f, Metallic = 0.2f };
