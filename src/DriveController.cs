@@ -11,7 +11,7 @@ public partial class DriveController : Node3D {
  }
  void BindHud() { if (Hud != null) { Hud.Race = Race; Hud.Player = Player; } }
  void ResolveWalls(Vec start) { if (Contact.Walls(GetWorld3D().DirectSpaceState, Player, start, Car.Position.Y, new Vector3(1.96f, 1.0f, 4.06f))) WallHits++; }
- public int WallHits; int lastTrace = -1; bool floatScanned, settingsApplied, condsApplied; float revHold; float maxDelta, fpsT; int[] RivalModels; float[] basePivotY; float[] wheelTravel = new float[4]; MeshInstance3D treeTarget; int pushFrames, frames;
+ public int WallHits; int lastTrace = -1; bool floatScanned, settingsApplied, condsApplied; float revHold; bool padStartSeen, padStartStuck; float maxDelta, fpsT; int[] RivalModels; float[] basePivotY; float[] wheelTravel = new float[4]; MeshInstance3D treeTarget; int pushFrames, frames;
  Vector3 ObstructCam(Vector3 from, Vector3 want) { var q = PhysicsRayQueryParameters3D.Create(from, want); q.CollisionMask = 2; q.HitBackFaces = true; var hit = GetWorld3D().DirectSpaceState.IntersectRay(q); if (hit.Count == 0) return want; var p = (Vector3)hit["position"]; var n = (Vector3)hit["normal"]; var dir = (want - from).Normalized(); float dist = Mathf.Max(0.8f, from.DistanceTo(p) - 0.35f); return from + dir * dist; }
 float lastLift; Node3D crew; Node3D[] crewFig; Vector3[] crewHome;
  void BuildCrew() {
@@ -55,13 +55,13 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
  }
  class Rival { public Vehicle V; public Node3D Node; public Node3D[] Pivots; public float LastY, Spin; }
  readonly System.Collections.Generic.List<Rival> rivals = new System.Collections.Generic.List<Rival>();
- void EnsureRivals() {
-  foreach (var r in rivals) { if (r.Node != null) continue; int ci = r.V.carModel; r.Node = CarLoader.Load(CarCatalog.Folders[ci]); Car.GetParent().AddChild(r.Node); CarLoader.ApplyExact(r.Node, ci); r.Pivots = CarLoader.AttachWheels(r.Node, ci); r.Node.Visible = false; }
+ int loadedThisFrame; void EnsureRivals() { loadedThisFrame = 0;
+  foreach (var r in rivals) { if (r.Node != null) continue; if (loadedThisFrame++ >= 1) break; int ci = r.V.carModel; r.Node = CarLoader.Load(CarCatalog.Folders[ci]); Car.GetParent().AddChild(r.Node); CarLoader.ApplyExact(r.Node, ci); r.Pivots = CarLoader.AttachWheels(r.Node, ci); r.Node.Visible = false; }
  }
  void UpdateRivals(float delta) {
   if (rivals.Count == 0) return; EnsureRivals(); var space = GetWorld3D().DirectSpaceState;
   foreach (var r in rivals) {
-   var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY; var gr = Contact.Ground(space, w, refY, 1.0f);
+   if (r.Node == null) continue; var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY; var gr = Contact.Ground(space, w, refY, 1.0f);
    float y = gr.found ? gr.y : refY; r.LastY = y; Vector3 n = gr.found && gr.normal.Y > 0.7f ? gr.normal : Vector3.Up;
    var fw = new Vector3(Mathf.Sin(v.heading), 0, Mathf.Cos(v.heading)); var f2 = (fw - n * fw.Dot(n)).Normalized(); var cx = n.Cross(f2).Normalized();
    r.Node.Position = new Vector3(w.X, y + 0.05f, w.Z); r.Node.Basis = new Basis(cx, n, f2); r.Node.Visible = true;
@@ -78,7 +78,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
  static float DeadZone(float v, float dz) { float a = Mathf.Abs(v); if (a <= dz) return 0; return Mathf.Sign(v) * (a - dz) / (1f - dz); }
  static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, p.z);
  public override void _PhysicsProcess(double delta) {
-  bool startBtn = false; { var pd = Input.GetConnectedJoypads(); if (pd.Count > 0) startBtn = Input.IsJoyButtonPressed(pd[0], JoyButton.Start); } bool tabNow = Input.IsKeyPressed(Key.Tab) || Input.IsKeyPressed(Key.Escape) || startBtn; if (tabNow && !tabWas) Race.paused = !Race.paused; tabWas = tabNow; if (Hud != null) Hud.Paused = Race.paused; if (System.Environment.GetEnvironmentVariable("MYSIM_PAUSETEST") != null) { if (!Race.paused && t > 2f && pausedAt == 0) { Race.paused = true; pausedAt = Time.GetTicksMsec(); } if (Race.paused && Time.GetTicksMsec() - pausedAt > 1500) { GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "pause.png"); GetTree().Quit(); } } if (Race.paused) return; bool escWas = false;
+  bool startBtn = false; { var pd = Input.GetConnectedJoypads(); if (pd.Count > 0) { bool raw = Input.IsJoyButtonPressed(pd[0], JoyButton.Start); if (!padStartSeen) { padStartSeen = true; padStartStuck = raw; } startBtn = raw && !padStartStuck; if (!raw) padStartStuck = false; } } bool tabNow = Input.IsKeyPressed(Key.Tab) || Input.IsKeyPressed(Key.Escape) || startBtn; if (tabNow && !tabWas) Race.paused = !Race.paused; tabWas = tabNow; if (Hud != null) Hud.Paused = Race.paused; if (System.Environment.GetEnvironmentVariable("MYSIM_PAUSETEST") != null) { if (!Race.paused && t > 2f && pausedAt == 0) { Race.paused = true; pausedAt = Time.GetTicksMsec(); } if (Race.paused && Time.GetTicksMsec() - pausedAt > 1500) { GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "pause.png"); GetTree().Quit(); } } if (Race.paused) return; bool escWas = false;
   t += (float)delta;
   float thr = Input.IsKeyPressed(Key.W) || Input.IsKeyPressed(Key.Up) ? 1 : 0, brk = Input.IsKeyPressed(Key.S) || Input.IsKeyPressed(Key.Down) ? 1 : 0;
   float steer = (Input.IsKeyPressed(Key.D) || Input.IsKeyPressed(Key.Right) ? 1 : 0) - (Input.IsKeyPressed(Key.A) || Input.IsKeyPressed(Key.Left) ? 1 : 0);
