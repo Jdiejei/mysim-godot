@@ -34,13 +34,13 @@ public static class Contact {
   var q = new PhysicsShapeQueryParameters3D { Shape = new BoxShape3D { Size=boxSize }, Transform = new Transform3D(new Basis(Vector3.Up,v.heading),s3), CollisionMask=2, Margin=.01f };
   bool touched=false;
   // CastMotion ignores shapes already overlapping at the start. Resolve those explicitly, even at rest.
-  var rest=space.GetRestInfo(q);
-  if(rest.Count>0) {
-   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();var pts=space.CollideShape(q,16);float depth=0;
-   for(int i=0;i+1<pts.Count;i+=2) depth=Mathf.Max(depth,Mathf.Abs((pts[i]-pts[i+1]).Dot(n)));
-   if(n.LengthSquared()>.1f) {s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);touched=true;}
+  for(int iteration=0;iteration<8;iteration++) {
+   q.Transform=new Transform3D(q.Transform.Basis,s3);var rest=space.GetRestInfo(q);if(rest.Count==0)break;
+   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f)break;
+   var pts=space.CollideShape(q,16);float depth=0;for(int i=0;i+1<pts.Count;i+=2)depth=Mathf.Max(depth,Mathf.Abs((pts[i]-pts[i+1]).Dot(n)));
+   s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);touched=true;
   }
-  float dist=motion.Length();if(dist<.0001f){v.position=start;return touched;}
+  float dist=motion.Length();if(dist<.0001f){v.position=start;v.lastIntegrated=v.position;return touched;}
   q.Transform=new Transform3D(q.Transform.Basis,s3);q.Motion=motion;
   var cast=space.CastMotion(q);float safe=cast[0],unsafeF=cast[1];
   if(safe>=1f){if(touched)v.position=start+new Vec(motion.X,motion.Z);v.lastIntegrated=v.position;return touched;}

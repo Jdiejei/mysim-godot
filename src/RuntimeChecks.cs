@@ -10,6 +10,7 @@ public partial class RuntimeChecks : Node3D {
    var wall=new StaticBody3D { CollisionLayer=2, CollisionMask=0 };
    wall.AddChild(new CollisionShape3D { Shape=new BoxShape3D { Size=new Vector3(30,4,.2f) }, Position=new Vector3(0,1,0) }); AddChild(wall);
    var beam=new StaticBody3D {CollisionLayer=2,CollisionMask=0};beam.AddChild(new CollisionShape3D {Shape=new BoxShape3D {Size=new Vector3(3,.2f,.3f)},Position=new Vector3(-20,1.8f,-6)});AddChild(beam);
+   var corner=new StaticBody3D {CollisionLayer=2,CollisionMask=0};corner.AddChild(new CollisionShape3D {Shape=new BoxShape3D {Size=new Vector3(8,3,.2f)},Position=new Vector3(36,1,-6)});corner.AddChild(new CollisionShape3D {Shape=new BoxShape3D {Size=new Vector3(.2f,3,8)},Position=new Vector3(38,1,-8)});AddChild(corner);
    var floor=new StaticBody3D { CollisionLayer=1, CollisionMask=0 };
    floor.AddChild(new CollisionShape3D { Shape=new BoxShape3D { Size=new Vector3(100,.2f,100) }, Position=new Vector3(0,-.1f,0) });AddChild(floor);
    var objects=new Node3D();AddChild(objects);
@@ -32,6 +33,8 @@ public partial class RuntimeChecks : Node3D {
    var buildingHit=new Vehicle {position=new Vec(20,0),velocity=new Vec(0,80),speed=80};Check(Contact.Walls(space,buildingHit,new Vec(20,-14),0,new Vector3(2,1,4)),"drive-through architecture");Check(buildingHit.position.z < -9f,"car entered building footprint");
    var tall=new Vehicle {position=new Vec(-20,0),velocity=new Vec(0,30),speed=30};Check(Contact.Walls(space,tall,new Vec(-20,-14),0,Contact.BodySize(new Vector3(2,1.85f,4))),"tall car roof clipped overhead beam");Check(tall.position.z<-8,"tall car passed through overhead obstruction");
    var low=new Vehicle {position=new Vec(-20,0),velocity=new Vec(0,30),speed=30};Check(!Contact.Walls(space,low,new Vec(-20,-14),0,Contact.BodySize(new Vector3(2,1.3f,4))),"short car blocked by clear overhead beam");
+   var wedged=new Vehicle {position=new Vec(37.5f,-6.5f),velocity=new Vec(),speed=0};Check(Contact.Walls(space,wedged,wedged.position,0,new Vector3(2,1,4)),"corner overlap ignored");
+   var clearance=new PhysicsShapeQueryParameters3D {Shape=new BoxShape3D {Size=new Vector3(2,1,4)},Transform=new Transform3D(Basis.Identity,new Vector3(wedged.position.x,.5f,wedged.position.z)),CollisionMask=2,Margin=.01f};Check(space.IntersectShape(clearance).Count==0,"initial overlap remains against second corner wall");Check((wedged.lastIntegrated-wedged.position).Magnitude<.001f,"stationary corner recovery leaves stale integration pose");
    var g=Contact.Ground(space,new Vector3(4,0,-4),0);Check(g.near&&Math.Abs(g.y)<.01f,"ground height incorrect");
    var contained=new Vehicle {position=new Vec(0,-4),velocity=new Vec(10,0),speed=10,lateral=0}; Contact.MarkGood(contained,true);
    contained.position=new Vec(40,-4);contained.lateral=40;Check(Contact.Contain(contained,new Vec(39,-4),true,30),"containment missed");Check(contained.position.x==0,"containment did not restore last valid point");
