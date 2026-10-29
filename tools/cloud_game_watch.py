@@ -25,6 +25,15 @@ while True:
     job.update(run)
     if run['status']=='completed' and run['conclusion']=='failure' and not job.get('retried'):
      call(['gh','run','rerun',str(job['databaseId']),'--failed','--repo',repo]);job['retried']=True;job['status']='retry_requested'
+  preview=jobs.get('game-review.yml',{})
+  if preview.get('conclusion')=='success' and 'full-races' not in jobs:
+   result=call(['gh','workflow','run','game-review.yml','--repo',repo,'--ref','codex/repair-20261029','-f','depth=full_races']);match=re.search(r'/runs/(\d+)',result)
+   if not match:raise RuntimeError('Full-race dispatch requires run reconciliation')
+   jobs['full-races']={'databaseId':int(match[1]),'status':'queued'}
+  if 'full-races' in jobs:
+   job=jobs['full-races'];run=json.loads(call(['gh','run','view',str(job['databaseId']),'--repo',repo,'--json','status,conclusion,url,headSha']));job.update(run)
+   if run['status']=='completed' and run['conclusion']=='failure' and not job.get('retried'):
+    call(['gh','run','rerun',str(job['databaseId']),'--failed','--repo',repo]);job['retried']=True;job['status']='retry_requested'
   state={'assets_uploaded':sum(p['status']=='uploaded' for p in assets),'assets_total':len(assets),'ready':ready,'jobs':jobs,'updated':time.time()};statefile.write_text(json.dumps(state,indent=2))
   if jobs and all(j.get('status')=='completed' for j in jobs.values()):print('GAME_WORKFLOWS_TERMINAL',time.time());break
  except Exception:traceback.print_exc()

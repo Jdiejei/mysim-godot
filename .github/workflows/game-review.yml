@@ -1,6 +1,9 @@
 name: game-art-and-runtime-review
 run-name: full game art and runtime review
-on: {workflow_dispatch: {}}
+on:
+  workflow_dispatch:
+    inputs:
+      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races], default: preview}
 permissions: {contents: write}
 concurrency: {group: game-art-review, cancel-in-progress: false}
 jobs:
@@ -47,6 +50,7 @@ jobs:
       - name: Render layouts and cars; test real scene transitions
         env:
           SHARD: ${{ matrix.shard }}
+          FULL_RACES: ${{ inputs.depth == 'full_races' && '1' || '0' }}
           VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
         run: xvfb-run -a python tools/cloud_game_audit.py
       - name: Preserve encrypted visual evidence
