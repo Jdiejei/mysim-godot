@@ -11,7 +11,7 @@ public static class ControlBindings {
 public partial class ControlsPanel : CanvasLayer {
  int waiting=-1;Button[] buttons;Label message;
  public override void _Ready(){
-  Layer=50;var background=new ColorRect {Color=new Color(.025f,.035f,.05f,.98f),AnchorRight=1,AnchorBottom=1};AddChild(background);
+  Layer=50;Input.UseAccumulatedInput=false;var background=new ColorRect {Color=new Color(.025f,.035f,.05f,.98f),AnchorRight=1,AnchorBottom=1};AddChild(background);
   var title=new Label {Text="DRIVING CONTROLS",Position=new Vector2(80,48)};title.AddThemeFontSizeOverride("font_size",32);AddChild(title);
   buttons=new Button[ControlBindings.Actions.Length];
   for(int i=0;i<buttons.Length;i++){int action=i;float y=112+i*52;AddChild(new Label {Text=ControlBindings.Actions[i],Position=new Vector2(80,y+8)});var button=new Button {Name="Binding"+i,Position=new Vector2(420,y),Size=new Vector2(250,42)};button.Pressed+=()=>{waiting=action;message.Text="Press a key. Escape cancels; pause keys stay reserved.";Refresh();};buttons[i]=button;AddChild(button);}
