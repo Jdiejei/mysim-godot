@@ -43,6 +43,7 @@ public partial class RuntimeChecks : Node3D {
       var ab=mesh.Transform*mesh.GetAabb();bound=first?ab:bound.Merge(ab);first=false;
       var sc=mesh.Transform.Basis.Scale;Check(float.IsFinite(sc.X)&&Math.Abs(sc.X)>0,"invalid wheel transform");
      }
+     GD.Print("WHEEL_GEOMETRY car=",ci," wheel=",wi," center=",bound.GetCenter()," size=",bound.Size);
      wr.Add(new { wheel=wi, x=bound.Size.X,y=bound.Size.Y,z=bound.Size.Z,center=bound.GetCenter().ToString() });
      Check(Math.Abs(bound.GetCenter().X)<.08f,"wheel assembly offset from hub car "+ci);Check(!first,"missing wheel geometry car "+ci);Check(bound.Size.Y>.3f&&bound.Size.Y<1.5f,"wheel diameter invalid car "+ci);
      Check(Math.Abs(bound.Size.Y-bound.Size.Z)<.18f,"wheel radial bounds not circular car "+ci+" wheel "+wi+" bounds="+bound);

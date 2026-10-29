@@ -70,17 +70,20 @@ static Godot.Collections.Dictionary carMap;
   var pivots = new Node3D[4]; var inv = car.GlobalTransform.AffineInverse();
   for (int i = 0; i < 4; i++) {
    var p = pts[i].AsGodotArray(); var pivot = new Node3D { Name = "WheelPivot" + i, Position = new Vector3((float)p[0], (float)p[1], (float)p[2]) }; car.AddChild(pivot);
-   var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin); if ((float)p[0] < 0) pivot.RotationDegrees = new Vector3(0, 180, 0);
+   var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin);var fixedBrake=new Node3D {Name="BrakeAssembly"};pivot.AddChild(fixedBrake); if ((float)p[0] < 0) pivot.RotationDegrees = new Vector3(0, 180, 0);
    bool rearAxle = (float)p[2] < 0; bool anyRear = false; foreach (var w0 in wheelMeshes) if (w0.Name.ToString().ToUpperInvariant().Contains("_REAR")) anyRear = true;
-   foreach (var w in wheelMeshes) { bool isRearMesh = w.Name.ToString().ToUpperInvariant().Contains("_REAR"); if (anyRear && isRearMesh != rearAxle) continue; var d = (MeshInstance3D)w.Duplicate(); spin.AddChild(d); d.Transform = inv * w.GlobalTransform; d.Visible = true; }
+   foreach (var w in wheelMeshes) { bool isRearMesh = w.Name.ToString().ToUpperInvariant().Contains("_REAR"); if (anyRear && isRearMesh != rearAxle) continue; var d = (MeshInstance3D)w.Duplicate();if(w.Name.ToString().ToUpperInvariant().Contains("CALIPER"))fixedBrake.AddChild(d);else spin.AddChild(d); d.Transform = inv * w.GlobalTransform; d.Visible = true; }
    pivots[i] = pivot;
   }
-  if (System.Environment.GetEnvironmentVariable("MYSIM_OLDRIMS") == null) for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 4; i++) {
    var spin = pivots[i].GetNode<Node3D>("Spin"); MeshInstance3D tyreDup = null; foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm) { string cn = cm.Name.ToString().ToUpperInvariant(); if (cn.Contains("TYRE") || cn.Contains("TIRE")) { if (tyreDup == null || cn.Contains("REAR") == (pts[i].AsGodotArray()[2].AsSingle() < 0)) tyreDup = cm; } }
    if (tyreDup == null) continue; var tb = tyreDup.Transform * tyreDup.GetAabb(); var ctr = tb.GetCenter(); float outerR = Mathf.Max(tb.Size.Y, tb.Size.Z) * 0.5f, tw = tb.Size.X; pivots[i].SetMeta("radius", outerR); if (outerR < 0.15f || outerR > 0.6f) continue;
    // Recovered tyre templates start at an inner sidewall. The prefab pivots are hub centres:
    // retain the template geometry and centre the complete assembly around that hub before mirroring/spinning.
    foreach (var child in spin.GetChildren()) if (child is MeshInstance3D part) part.Position -= ctr;
+   var brakes=pivots[i].GetNode<Node3D>("BrakeAssembly");foreach(var child in brakes.GetChildren())if(child is MeshInstance3D part)part.Position-=ctr;
+   bool authoredWheel=false;foreach(var child in spin.GetChildren())if(child is MeshInstance3D part&&part.Name.ToString().ToUpperInvariant().StartsWith("LOD_A_WHEEL"))authoredWheel=true;
+   if(authoredWheel&&System.Environment.GetEnvironmentVariable("MYSIM_PROCEDURAL_RIMS")!="1")continue;
    foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm2) { string cn2 = cm2.Name.ToString().ToUpperInvariant(); if (cn2.StartsWith("LOD_A_WHEEL")) { cm2.Visible = false; cm2.SetMeta("wheel_hidden", true); } }
    bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.6f : 0.69f); var rim = BuildRim(rimR, tw, carIdx); rim.Position = Vector3.Zero; spin.AddChild(rim);
   }

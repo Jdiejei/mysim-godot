@@ -73,10 +73,10 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   }
  }
   float PitSequence(float e) {
-  if (WheelPivots == null) return 0; if (e < 0) { foreach (var wp in WheelPivots) wp.Visible = true; return 0; }
+  if (WheelPivots == null) return 0; if (e < 0) { foreach (var wp in WheelPivots) { wp.Visible = true;wp.GetNode<Node3D>("Spin").Visible=true; } return 0; }
   float lift = e < 0.8f ? 0.14f * (e / 0.8f) : e < 6.4f ? 0.14f : 0.14f * (1f - Mathf.Clamp((e - 6.4f) / 0.8f, 0, 1));
   // wheels come off one by one 1.0-3.4 s (front-left, front-right, rear-left, rear-right) and go back on 3.4-6.0 s in the same order
-  for (int i = 0; i < 4; i++) { float off = 1.0f + i * 0.6f, on = 3.4f + i * 0.6f; WheelPivots[i].Visible = !(e >= off && e < on); }
+  for (int i = 0; i < 4; i++) { float off = 1.0f + i * 0.6f, on = 3.4f + i * 0.6f; WheelPivots[i].Visible=true;WheelPivots[i].GetNode<Node3D>("Spin").Visible = !(e >= off && e < on); }
   return lift;
  }
  static float DeadZone(float v, float dz) { float a = Mathf.Abs(v); if (a <= dz) return 0; return Mathf.Sign(v) * (a - dz) / (1f - dz); }
