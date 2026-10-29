@@ -85,3 +85,9 @@ Keybinding source compiled in cloud run 40924474375; actual controls-screen inte
 - Controls dialog now exists with persistent bindings and conflict/reserved-pause checks. Added full runtime tests, including screen throttle release/opposing steering/pit/pause and old-control-instance exit not clearing the new race. Runtime tests found a test attachment race (root busy) and buffered-event assertions; fixed those distinctly. Latest test run 40926285991 checks async frame-delivered key events. Do not report passing until actual results.
 - Global input accumulation is temporarily disabled only while the controls modal is open and restored on exit. Live keyboard controls ignore unfocused windows; explicit MYSIM_INPUTCHECKS probes are isolated exceptions for hidden test windows.
 - Asset overview coverage now 362 meshes and 1,100 texture thumbnails; no final quality acceptance. Code/regression and art review remain independent gates.
+
+## Continued engineering while cloud imports run
+- Controls interaction run 40926285991 PASSED. Latest dialog resize/HUD fixes still require their own cloud check. Dialog now fits a 960x540 viewport instead of placing Back/Reset below its bottom; helper text wraps. HUD pit hints honor the saved binding.
+- Geometry run 40925874695 is still active; do not duplicate. Preview 40920221225 is retrying failed shards; shard 5 passed. Track 22 logs contain a successful DRIVETEST and no ERROR lines; exact timeout/exit cause is NOT yet established. New audit source writes per-attempt return codes, timeout status, durations and screenshot presence without relaxing validation.
+- Visual release filenames now include run ID and attempt to prevent geometry and preview campaigns overwriting one another. Earlier generic game-review-N.enc objects can have mixed sources: never assume their provenance.
+- Transport snapshot 38/316 uploaded and dispatched, zero transfer failures; this is intake, not asset acceptance.

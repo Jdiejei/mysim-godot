@@ -1,4 +1,4 @@
-import os,pathlib,subprocess,json,sys
+import os,pathlib,subprocess,json,sys,time
 r=pathlib.Path.cwd();out=r/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True);g=os.environ['GODOT_BIN'];shard=int(os.environ.get('SHARD','0'));rows=[]
 def run(label,values,args=None,timeout=300):
  env={k:v for k,v in os.environ.items() if not k.startswith('MYSIM_')};env.update(values);env['MYSIM_BINDING_AUDIT']=str(out/label);log=out/(label+'.log')
@@ -7,10 +7,12 @@ def run(label,values,args=None,timeout=300):
   if shot is not None:
    if not shot.is_relative_to(out):raise ValueError('Screenshot must stay in this run output directory')
    if shot.exists():shot.rename(shot.with_name(shot.stem+f'-previous-attempt{attempt}'+shot.suffix))
+  started=time.monotonic();timed_out=False
   with (out/(label+f'-{attempt}.log')).open('w') as f:
    try:p=subprocess.run([g,'--path',str(r),'--resolution','960x540','--no-window','--fixed-fps','60','--audio-driver','Dummy']+(args or []),env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
-   except subprocess.TimeoutExpired:code=-1
+   except subprocess.TimeoutExpired:code=-1;timed_out=True
   text=(out/(label+f'-{attempt}.log')).read_text(errors='replace')
+  (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
 if shard==0:

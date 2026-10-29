@@ -66,8 +66,8 @@ jobs:
           SHARD: ${{ matrix.shard }}
         run: |
           if [ -d outputs/cloud-game ]; then
-            python tools/cloud_encrypt_output.py outputs/cloud-game "/tmp/game-review-$SHARD.enc"
-            gh release upload repair-review-20261029 "/tmp/game-review-$SHARD.enc" --clobber
+            python tools/cloud_encrypt_output.py outputs/cloud-game "/tmp/game-review-${{ github.run_id }}-${{ github.run_attempt }}-$SHARD.enc"
+            gh release upload repair-review-20261029 "/tmp/game-review-${{ github.run_id }}-${{ github.run_attempt }}-$SHARD.enc" --clobber
           fi
       - uses: actions/upload-artifact@v4
         if: always()

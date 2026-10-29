@@ -10,13 +10,14 @@ public partial class ControlsScenario : Node {
   try {
    ControlBindings.Reset();var panel=new ControlsPanel();AddChild(panel);
    await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
-   var binding=panel.GetNode<Button>("Binding0");binding.EmitSignal(BaseButton.SignalName.Pressed);await KeyEvent(Key.K);
+   var content=panel.GetNode<Control>("Content");var size=GetViewport().GetVisibleRect().Size;Check(content.Position.X>=0&&content.Position.Y>=0&&content.Position.Y+700*content.Scale.Y<=size.Y+1,"controls extend outside viewport");
+   var binding=panel.GetNode<Button>("Content/Binding0");binding.EmitSignal(BaseButton.SignalName.Pressed);await KeyEvent(Key.K);
    Check(ControlBindings.Get(0)==Key.K,"new throttle key not stored");
    Input.ParseInputEvent(new InputEventKey {Keycode=Key.K,PhysicalKeycode=Key.K,Pressed=true});await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);Check(!DisplayServer.WindowIsFocused() ? !ControlBindings.Held(0) : ControlBindings.Held(0),"rebound throttle or inactive-window input guard failed");await KeyEvent(Key.K);
    binding.EmitSignal(BaseButton.SignalName.Pressed);await KeyEvent(Key.S);Check(ControlBindings.Get(0)==Key.K,"conflicting brake key accepted");
    await KeyEvent(Key.Escape);Check(IsInstanceValid(panel)&&!panel.IsQueuedForDeletion(),"cancel closed the entire dialog");
    binding.EmitSignal(BaseButton.SignalName.Pressed);await KeyEvent(Key.Tab);Check(ControlBindings.Get(0)==Key.K,"reserved pause key accepted");await KeyEvent(Key.Escape);
-   panel.GetNode<Button>("RestoreDefaults").EmitSignal(BaseButton.SignalName.Pressed);Check(ControlBindings.Get(0)==Key.W,"reset did not restore controls");
+   panel.GetNode<Button>("Content/RestoreDefaults").EmitSignal(BaseButton.SignalName.Pressed);Check(ControlBindings.Get(0)==Key.W,"reset did not restore controls");
    if(DisplayServer.GetName()!="headless")GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT")??"outputs/cloud-game/controls.png");
    await KeyEvent(Key.Escape);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);Check(!IsInstanceValid(panel),"back did not close controls");
    bool originalScreen=Settings.Get("screen_controls",true);
