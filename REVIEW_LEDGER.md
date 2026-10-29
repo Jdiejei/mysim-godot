@@ -63,3 +63,4 @@
 - 2026-10-29 after upscale+saturation+UV: sheet s00 re-reviewed: signage right, kerbs natural, Brands Hatch black wire line gone. Open: BMW M4 livery has grey smudge near rear lower body; Bathurst thin green wing-height ribbon; Sebring wedge; Yas black rects; bush blob Silverstone Southern.
 - Sebring dark wedge = long sun shadow of a floodlight pole (not a defect). Placeholder A/B/C sponsor strips hidden on gantries/flags (re-rendered, verified Silverstone).
 - Pace note: F1 sustained lateral accel measured 1.1-1.5g (expected ~2g with downforce); steady-state corner shows a yaw wobble at full lock. Tyre model tuning item: raise peak slip-angle stiffness / check rear traction share. AI cornering plan is not the limiter.
+- Yas Marina black rectangles gone after UV/placeholder fixes (verified t28). Remaining visual items: Silverstone Southern bush blob, BMW livery smudge.
