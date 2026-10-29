@@ -103,3 +103,9 @@ Keybinding source compiled in cloud run 40924474375; actual controls-screen inte
 
 - Full-car geometry run 40925874695 PASSED at bef4bae. Evidence downloaded cloud/geometry-fixed. This validates assembly geometry, not art acceptance or finished 3D suspension.
 - Latest resume regression 40927885165 (60fce6d) and surface comparison 40927606656 still running; adopt rather than duplicate. Input transport 40/316 uploaded+dispatched, zero transfer failures at this snapshot.
+
+## Latest authorized iteration
+Owner requests continued repair with early checks before expensive work; no extra routine questions. No paid capacity or duplicate jobs.
+- Failed batch 40927356755: 307/308 converted; remaining object had a main __program_3 object plus __LOD1/2/3 and __original_collision with equal topology. Batch00001 had five equivalent selection failures. Fixed deterministic explicit main-root lookup and exclusion of generated helper suffixes from topology fallback. Preserve ambiguity failures for multiple roots; do not weaken quality validation.
+- New loader pilot 40929682955 (755ead0), mesh-part00001, runs a lightweight selection regression before downloads/decryption/Blender conversion. Original failures remain in plan/history; do not edit the plan while the transport writer is live. Inspect pilot before enqueueing a distinct loader-fix campaign for affected failed batches.
+- Added controls guard against binding a reserved steering arrow to throttle/brake/etc; fixed arrow shortcuts would otherwise trigger two actions. Needs cloud controls regression.

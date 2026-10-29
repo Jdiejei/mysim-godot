@@ -15,6 +15,7 @@ public partial class ControlsScenario : Node {
    Check(ControlBindings.Get(0)==Key.K,"new throttle key not stored");
    Input.ParseInputEvent(new InputEventKey {Keycode=Key.K,PhysicalKeycode=Key.K,Pressed=true});await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);Check(!DisplayServer.WindowIsFocused() ? !ControlBindings.Held(0) : ControlBindings.Held(0),"rebound throttle or inactive-window input guard failed");await KeyEvent(Key.K);
    binding.EmitSignal(BaseButton.SignalName.Pressed);await KeyEvent(Key.S);Check(ControlBindings.Get(0)==Key.K,"conflicting brake key accepted");
+   await KeyEvent(Key.Left);Check(ControlBindings.Get(0)==Key.K,"reserved steering arrow bound to throttle");
    await KeyEvent(Key.Escape);Check(IsInstanceValid(panel)&&!panel.IsQueuedForDeletion(),"cancel closed the entire dialog");
    binding.EmitSignal(BaseButton.SignalName.Pressed);await KeyEvent(Key.Tab);Check(ControlBindings.Get(0)==Key.K,"reserved pause key accepted");await KeyEvent(Key.Escape);
    panel.GetNode<Button>("Content/RestoreDefaults").EmitSignal(BaseButton.SignalName.Pressed);Check(ControlBindings.Get(0)==Key.W,"reset did not restore controls");

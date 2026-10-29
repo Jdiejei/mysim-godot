@@ -28,6 +28,8 @@ public partial class ControlsPanel : CanvasLayer {
   if(key.Keycode==Key.Escape){if(waiting<0)QueueFree();else{waiting=-1;Refresh();message.Text="Binding cancelled.";}GetViewport().SetInputAsHandled();return;}
   if(waiting<0)return;GetViewport().SetInputAsHandled();Key physical=key.PhysicalKeycode!=Key.None?key.PhysicalKeycode:key.Keycode;
   if(physical==Key.Tab){message.Text="Tab is reserved for pause.";return;}
+  int arrow=physical==Key.Up?0:physical==Key.Down?1:physical==Key.Left?2:physical==Key.Right?3:-1;
+  if(arrow>=0&&arrow!=waiting){message.Text="Arrow keys are reserved for their driving direction.";return;}
   int conflict=ControlBindings.Conflict(waiting,physical);if(conflict>=0){message.Text="Already assigned to "+ControlBindings.Actions[conflict]+". Choose another key.";return;}
   Settings.Set("key_"+waiting,(long)physical);waiting=-1;Refresh();message.Text="Binding saved.";
  }

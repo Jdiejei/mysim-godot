@@ -5,6 +5,7 @@ def select_candidate(objects, request):
  name=request['mesh']
  exact=[o for o in objects if o.name==name or o.data.name==name]
  if len(exact)==1:return exact[0],'name'
+ if len(exact)>1:raise ValueError('ambiguous exact candidate names: '+repr([o.name for o in exact]))
  # The pipeline appends a program suffix to the authored render object; helpers append another suffix.
  pattern=re.compile(re.escape(name)+r'__program_\d+$')
  roots=[o for o in objects if pattern.fullmatch(o.name)]
