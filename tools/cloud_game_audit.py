@@ -3,6 +3,10 @@ r=pathlib.Path.cwd();out=r/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=
 def run(label,values,args=None,timeout=300):
  env=dict(os.environ,**values,MYSIM_BINDING_AUDIT=str(out/label));log=out/(label+'.log')
  for attempt in (1,2):
+  shot=pathlib.Path(values['MYSIM_SHOT']).resolve() if values.get('MYSIM_SHOT') else None
+  if shot is not None:
+   if not shot.is_relative_to(out):raise ValueError('Screenshot must stay in this run output directory')
+   if shot.exists():shot.rename(shot.with_name(shot.stem+f'-previous-attempt{attempt}'+shot.suffix))
   with (out/(label+f'-{attempt}.log')).open('w') as f:
    try:p=subprocess.run([g,'--path',str(r),'--resolution','960x540','--no-window','--fixed-fps','60','--audio-driver','Dummy']+(args or []),env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
    except subprocess.TimeoutExpired:code=-1

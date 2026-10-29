@@ -34,7 +34,7 @@ while True:
    job=jobs['full-races'];run=json.loads(call(['gh','run','view',str(job['databaseId']),'--repo',repo,'--json','status,conclusion,url,headSha']));job.update(run)
    if run['status']=='completed' and run['conclusion']=='failure' and not job.get('retried'):
     call(['gh','run','rerun',str(job['databaseId']),'--failed','--repo',repo]);job['retried']=True;job['status']='retry_requested'
-  state={'assets_uploaded':sum(p['status']=='uploaded' for p in assets),'assets_total':len(assets),'ready':ready,'jobs':jobs,'updated':time.time()};statefile.write_text(json.dumps(state,indent=2))
+  state={'assets_uploaded':sum(p['status']=='uploaded' for p in assets),'assets_total':len(assets),'ready':ready,'jobs':jobs,'updated':time.time()};temp=statefile.with_name(statefile.name+'.writing-'+str(os.getpid()));temp.write_text(json.dumps(state,indent=2));os.replace(temp,statefile)
   if jobs and all(j.get('status')=='completed' for j in jobs.values()):print('GAME_WORKFLOWS_TERMINAL',time.time());break
  except Exception:traceback.print_exc()
  time.sleep(60)

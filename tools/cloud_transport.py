@@ -34,8 +34,12 @@ else:
   if size+n>512*1024*1024:flush('assets')
   bucket.append({'path':str(p),'member':p.relative_to(ROOT).as_posix()});size+=n
  flush('assets');planfile.write_text(json.dumps(parts))
+def atomic_json(path,value):
+ path=pathlib.Path(path);temp=path.with_name(path.name+'.writing-'+str(os.getpid()))
+ with temp.open('w',encoding='utf-8') as f:json.dump(value,f);f.flush();os.fsync(f.fileno())
+ os.replace(temp,path)
 def save():
- planfile.write_text(json.dumps(parts));summary={'state':'transporting','parts':len(parts),'uploaded':sum(p['status']=='uploaded' for p in parts),'failed':sum(p['status']=='failed' for p in parts),'dispatched':sum(bool(p.get('dispatched')) for p in parts),'updated':time.time(),'plan':str(planfile),'repo':REPO,'branch':'codex/repair-20261029'};STATE.write_text(json.dumps(summary,indent=2))
+ atomic_json(planfile,parts);summary={'state':'transporting','parts':len(parts),'uploaded':sum(p['status']=='uploaded' for p in parts),'failed':sum(p['status']=='failed' for p in parts),'dispatched':sum(bool(p.get('dispatched')) for p in parts),'updated':time.time(),'plan':str(planfile),'repo':REPO,'branch':'codex/repair-20261029'};atomic_json(STATE,summary)
 class EncryptWriter:
  def __init__(self,path):
   self.f=open(path,'wb');nonce=os.urandom(12);self.f.write(b'MYSIMENC1'+nonce);self.c=Cipher(algorithms.AES(key),modes.GCM(nonce)).encryptor()
@@ -99,7 +103,7 @@ while True:
  try:
   reconcile_reviews()
   terminal=sum(p.get('review_status') in ['completed','failed_after_retry'] for p in parts if p['status']=='uploaded')
-  snapshot=json.loads(STATE.read_text());snapshot['state']='review_outputs_ready' if terminal==sum(p['status']=='uploaded' for p in parts) else 'cloud_reviews_pending';snapshot['reviews_terminal']=terminal;snapshot['manual_reviewed']=0;STATE.write_text(json.dumps(snapshot,indent=2))
+  snapshot=json.loads(STATE.read_text());snapshot['state']='review_outputs_ready' if terminal==sum(p['status']=='uploaded' for p in parts) else 'cloud_reviews_pending';snapshot['reviews_terminal']=terminal;snapshot['manual_reviewed']=0;atomic_json(STATE,snapshot)
   if snapshot['state']=='review_outputs_ready':break
  except Exception as e:print('review monitor',type(e).__name__,flush=True)
  time.sleep(60)
