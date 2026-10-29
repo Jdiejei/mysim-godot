@@ -33,6 +33,7 @@ Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/shee
 - Headless lap matrix: 1,438 of 1,440 pairs pass (misses: car 7 on tracks 28 and 51).
 - All 60 tracks rendered and reviewed 4-up; signage reads correctly, colours natural, ground textures upscaled (Real-ESRGAN; originals in `upscale_backup`).
 - Pit stops work in game (enter, service, tyres reset, rejoin). 13 layouts whose shipped pit data does not overlap their track (29,33,34,36,37,41,42,44,46,47,50,52,58) use an on-track fallback stop beside the start/finish line.
+- AI rivals: 5 AI cars start behind the player on the grid (setting `rivals`, env `MYSIM_RIVALS`; 0 for the old solo mode; none in AUTODRIVE/AI test runs). HUD shows race position POS n/6. Rivals use their own car models and the same physics; they are not wall-checked (they follow the centreline).
 - Time of day and weather (src/Conditions.cs): sun/sky/fog/ambient presets, rain particles, headlights at night/rain, rain lowers grip (tyre wetness 0.15/0.75). Not tuned per track.
 - Audio from recovered assets only: engine idle loop (pitch follows RPM), transmission whine, pit sounds, UI sounds. No recovered tyre-squeal or crash sounds exist.
 - Fixed 2026-10-29: in-game physics always used car 0 (now uses the selected car); F1 wheel-guard meshes were spun with the wheels (glassy bubbles); front/rear F1 wheel meshes split by axle.

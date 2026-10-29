@@ -7,7 +7,7 @@ public partial class DriveController : Node3D {
  public int CarIndex; public Race Race; public Vehicle Player; public Node3D Car; public Camera3D Cam; public bool AutoDrive; public float AutoSeconds = 8; public Hud Hud; float? lastGroundY, prevY; float groundSmooth; bool groundInit; float minY = 1e9f, maxY = -1e9f, maxDy; float steerCmd; public Vector3 CarSize = new Vector3(2, 1.2f, 4.7f); public int TrackIndex; public Node3D[] WheelPivots; float spinAngle; public int Laps = 3; public bool AiTest; string lastSt = ""; float finT;
  int CamMode = int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAM") ?? "0"); bool cWas; bool tabWas; ulong pausedAt; float t, camYaw; int shownMode = -1; bool camInit;
  public override void _Ready() {
-  Race = new Race(TrackIndex, Laps, Conditions.WetnessValue); Player = Race.Add("PLAYER", true, Compound.Medium); Player.carModel = CarIndex; Race.countdown = 0; Race.started = true; Player.Place(Race.track, float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_STARTP") ?? "0.988", System.Globalization.CultureInfo.InvariantCulture), 0f); CallDeferred(nameof(BindHud));
+  Race = new Race(TrackIndex, Laps, Conditions.WetnessValue); Player = Race.Add("PLAYER", true, Compound.Medium); Player.carModel = CarIndex; Race.countdown = 0; Race.started = true; Player.Place(Race.track, float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_STARTP") ?? "0.988", System.Globalization.CultureInfo.InvariantCulture), 0f); { int nr = System.Environment.GetEnvironmentVariable("MYSIM_RIVALS") != null ? int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_RIVALS")) : (AutoDrive || AiTest ? 0 : Settings.Get("rivals", 5)); for (int ri = 0; ri < nr; ri++) { var rv = Race.Add("AI " + (ri + 1), false, Compound.Medium); rv.carModel = (CarIndex + 1 + ri * 5) % CarCatalog.Count; rivals.Add(new Rival { V = rv, LastY = float.NaN }); } } CallDeferred(nameof(BindHud));
  }
  void BindHud() { if (Hud != null) { Hud.Race = Race; Hud.Player = Player; } }
  void ResolveWalls(Vec start) { if (Contact.Walls(GetWorld3D().DirectSpaceState, Player, start, Car.Position.Y, new Vector3(1.96f, 1.0f, 4.06f))) WallHits++; }
@@ -53,6 +53,21 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   if (e >= 0) { for (int i = 0; i < 4; i++) { float off = 1.0f + i * 0.6f, on = 3.4f + i * 0.6f; if (lastE < off && e >= off) PlaySfx("wheel_gun_loosen.wav"); if (lastE < off + 0.4f && e >= off + 0.4f) PlaySfx("wheel_set_down.wav"); if (lastE < on && e >= on) PlaySfx("wheel_gun_tighten.wav"); } if (lastE < 6.6f && e >= 6.6f) PlaySfx("jack_release.wav"); }
   lastE = e;
  }
+ class Rival { public Vehicle V; public Node3D Node; public Node3D[] Pivots; public float LastY, Spin; }
+ readonly System.Collections.Generic.List<Rival> rivals = new System.Collections.Generic.List<Rival>();
+ void EnsureRivals() {
+  foreach (var r in rivals) { if (r.Node != null) continue; int ci = r.V.carModel; r.Node = CarLoader.Load(CarCatalog.Folders[ci]); Car.GetParent().AddChild(r.Node); CarLoader.ApplyExact(r.Node, ci); r.Pivots = CarLoader.AttachWheels(r.Node, ci); r.Node.Visible = false; }
+ }
+ void UpdateRivals(float delta) {
+  if (rivals.Count == 0) return; EnsureRivals(); var space = GetWorld3D().DirectSpaceState;
+  foreach (var r in rivals) {
+   var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY; var gr = Contact.Ground(space, w, refY, 1.0f);
+   float y = gr.found ? gr.y : refY; r.LastY = y; Vector3 n = gr.found && gr.normal.Y > 0.7f ? gr.normal : Vector3.Up;
+   var fw = new Vector3(Mathf.Sin(v.heading), 0, Mathf.Cos(v.heading)); var f2 = (fw - n * fw.Dot(n)).Normalized(); var cx = n.Cross(f2).Normalized();
+   r.Node.Position = new Vector3(w.X, y + 0.05f, w.Z); r.Node.Basis = new Basis(cx, n, f2); r.Node.Visible = true;
+   if (r.Pivots != null) { r.Spin += v.speed * delta / 0.34f; for (int wi = 0; wi < 4; wi++) { var sp = r.Pivots[wi].GetNodeOrNull<Node3D>("Spin"); if (sp == null) continue; float sgn = r.Pivots[wi].Position.X < 0 ? -1f : 1f; sp.Rotation = new Vector3(r.Spin * sgn, 0, 0); } }
+  }
+ }
   float PitSequence(float e) {
   if (WheelPivots == null) return 0; if (e < 0) { foreach (var wp in WheelPivots) wp.Visible = true; return 0; }
   float lift = e < 0.8f ? 0.14f * (e / 0.8f) : e < 6.4f ? 0.14f : 0.14f * (1f - Mathf.Clamp((e - 6.4f) / 0.8f, 0, 1));
@@ -77,7 +92,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   bool padSteer = Input.GetConnectedJoypads().Count > 0 && Mathf.Abs(Input.GetJoyAxis(Input.GetConnectedJoypads()[0], JoyAxis.LeftX)) > 0.08f;
   if (!padSteer && !AutoDrive) { float rate = Mathf.Abs(steer) > 0.01f ? 2.6f : 5.0f; if (Mathf.Sign(steer) != Mathf.Sign(steerCmd) && Mathf.Abs(steer) > 0.01f) rate = 5.0f; steerCmd = Mathf.MoveToward(steerCmd, steer, rate * (float)delta); float lim = Mathf.Clamp(1.0f - Player.speed / 120f, 0.35f, 1f); steer = steerCmd * lim; } else steerCmd = steer;
   Player.input = new DriverInput(thr, brk, steer) { handbrake = Input.IsKeyPressed(Key.Space) };
-  var startPos = Player.position; Race.Advance((float)delta); if (Player.dbgPush > 0.002f) pushFrames++; frames++; ResolveWalls(startPos);
+  var startPos = Player.position; Race.Advance((float)delta); if (Player.dbgPush > 0.002f) pushFrames++; frames++; ResolveWalls(startPos); UpdateRivals((float)delta);
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   // Ground = drive-surface layer only (mask 1), continuous with the previous height. The old ray started at y=60 with the default (all-layer) mask, so it landed on barrier tops, bridges and stacked decks (car "flew").
   float refY = lastGroundY.HasValue ? lastGroundY.Value : Car.Position.Y;
