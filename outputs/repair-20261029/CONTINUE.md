@@ -94,3 +94,6 @@ Keybinding source compiled in cloud run 40924474375; actual controls-screen inte
 
 - Resize/HUD/diagnostic source 561a328 compiled and passed controls/contact regression in run 40927287312. Main sets a 1280x720 logical canvas, so previous dialog fit that default; new fitting also handles smaller logical viewports. Do not overstate this as a proven default-window clipping failure.
 - Inspected full-resolution track-05 and shard5 ten-layout mosaic from old source 1f3e3cc: roads extremely dark, car detail poor, HUD/buttons low contrast against light sky/dark road. No visual acceptance. Added isolated surfaces comparison depth (tracks 5/23/59; authored UV versus procedural and shadows on/off) to distinguish material shading from shadow problems before tuning. This is diagnostic, not accepted art.
+
+- Source e8eaf18 adds HUD contrast strip and bordered opaque driving buttons after actual track05 render inspection; compile/contact/control run 40927701674 pending. Surface comparison 40927606656 is source 4f82717, so it does NOT include this HUD styling.
+- Texture overview ledger now 1,300 textures (sheets0000?0012). No final integration/acceptance. Continue sheet0013.

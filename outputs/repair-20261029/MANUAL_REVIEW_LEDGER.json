@@ -1,5 +1,5 @@
 {
-  "coverage": "362 mesh candidates and 1,100 texture thumbnails overview-reviewed; none finally accepted",
+  "coverage": "362 mesh candidates and 1,300 texture thumbnails overview-reviewed; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -10995,6 +10995,2006 @@
       "asset": "assets/Indianapolis/textures/mat_fence_metal_catch.png",
       "part": "assets-part-00000.enc",
       "sheet": 10,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_fence_metal_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_fence_shade_cloth_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_fence_wire_06.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_grandstand_seats_b_silver.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_advert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_cable_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_checker.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_chrome.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_corrugated_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_corrugated_roof_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_galv_steel_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_grandstand_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_grandstand_base_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_rail_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_rail_a_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_support_painted_aqua.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_support_painted_blue_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_support_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_support_thin.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_metal_underside_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_plastic_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_window_block_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_window_large_a_h_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_window_large_d_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_window_small_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_cedar_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_cedar_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_cedar_a_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_cedar_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_cedar_c_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_b_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_b_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_b_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_b_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_c_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_d_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_d_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_d_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_d_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_tree_oak_d_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/org_treeline_mixed_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/prop_flag_america.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_caravan_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_crane_large.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_crane_large_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_fuel_truck_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_rv_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_trailer.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_truck_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/veh_van_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_barbergarage.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_boxoffice.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_boxoffice_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_cruisin.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_firstaid.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_office_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_office_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_office_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_office_multi.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_building_souvenirs.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_fuel_station_shell.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_genhouse_multi.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_grandstand_laguna_seca.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_hextower_plywood_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_hextower_wood_underside.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_hospital.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_house_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_house_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_kyosk.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_overpass_mazda_a_vinyl.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_overpass_mazda_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_overpass_mother_signs.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_overpass_yokahama_entry_sign.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_overpass_yokahama_tyre_edge.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_parkhouse.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_pit_garage_mazda_sign_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_pit_garage_mazda_sign_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_scoretower.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/arc_lagunaseca_toilet_block.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/crowd_sitting_a_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/crowd_sitting_female.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/crowd_sitting_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/crowd_standing_female.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/crowd_standing_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 11,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_asphalt_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_dirt_mud.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_gravel_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_painted_asphalt_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_road_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/gnd_startline.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_banners_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_banners_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_banners_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_a_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_a_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_a_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_a_mazdaspeed.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_b_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_b_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_b_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_c_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_billboard_wide_mazda.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_concrete_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_verticle_flag_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_verticle_flag_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_branding_verticle_flag_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_blue_roof_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_marquee_tent_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_white_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_white_roof_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_canvas_white_sheet_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_concrete_plaster_beach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_concrete_plate_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fabric_mesh.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fabric_vinyl_base_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fabric_vinyl_base_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fabric_vinyl_simple_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fabric_vinyl_simple_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fence_concrete_wall_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fence_concrete_wall_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fence_tyrewall_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fence_wire_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fence_wire_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_fence_wood_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_advert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_corrugated_roof_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_corrugated_silver.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_floor_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_galv_steel_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_grandstand_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_plate_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_pole_wire_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_rail_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_rail_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_rail_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_rail_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_rail_g.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_scafolding_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_scafolding_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_support_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_support_painted_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_support_painted_light_blue_rust.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_metal_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_plastic_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_tiles_terracotta_peach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_wood_panel_front.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_wood_plywood.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_wood_plywood_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_wood_plywood_orange.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_wood_support_natural.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/mat_wood_underside_natural.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_shrub_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_b_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_b_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_b_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_b_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_d_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_d_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_d_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_d_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_d_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 12,
       "tile": 99,
       "overview_reviewed": true,
       "full_resolution_reviewed": false,
