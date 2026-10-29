@@ -8,6 +8,9 @@ on:
       layout:
         description: 'run only this layout index (empty = all)'
         default: ''
+defaults:
+  run:
+    shell: bash
 jobs:
   crash:
     runs-on: ubuntu-latest
@@ -44,14 +47,21 @@ jobs:
         run: |
           G=$(find godot -name "Godot_v4.7.2*mono_linux*" -type f | head -1)
           chmod +x "$G"
-          "$G" --headless --path . --import > import.log 2>&1 || true
-          MYSIM_CRASHMAP=$LAYOUT MYSIM_CARS=${{ matrix.g }} MYSIM_COLDIR=data/col MYSIM_ONLYFLAGGED=1 MYSIM_SPACING=${{ github.event.inputs.spacing || '100' }} MYSIM_SHARD=${{ matrix.s }} MYSIM_SHARDS=1 MYSIM_CRASHOUT=crash_${LAYOUT}_${{ matrix.g }}_${{ matrix.s }}.jsonl "$G" --headless --path . 2>&1 | grep -E "CRASHBATCH|ERROR" | head -20
+          "$G" --headless --path . --import > import.log 2>&1
+          MYSIM_CRASHMAP=$LAYOUT MYSIM_CARS=${{ matrix.g }} MYSIM_COLDIR=data/col MYSIM_ONLYFLAGGED=1 MYSIM_SPACING=${{ github.event.inputs.spacing || '100' }} MYSIM_SHARD=${{ matrix.s }} MYSIM_SHARDS=1 MYSIM_CRASHOUT=crash_${LAYOUT}_${{ matrix.g }}_${{ matrix.s }}.jsonl "$G" --headless --path . > crash.log 2>&1
+          cat crash.log
+          grep -q "CRASHBATCH track=" crash.log
+          ! grep -q "ERROR:" crash.log
           ls -la crash_*.jsonl
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: crash-${{ env.LAYOUT }}-${{ matrix.g }}-${{ matrix.s }}
-          path: crash_*.jsonl
-          retention-days: 1
+          path: |
+            crash_*.jsonl
+            crash.log
+            import.log
+          retention-days: 14
 
 
 

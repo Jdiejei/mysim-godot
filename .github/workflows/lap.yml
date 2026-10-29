@@ -7,6 +7,9 @@ on:
       - 'src/Logic/**'
       - 'tools/LapRunner/**'
       - '.github/workflows/lap.yml'
+defaults:
+  run:
+    shell: bash
 jobs:
   laps:
     runs-on: ubuntu-latest

@@ -5,6 +5,9 @@ on:
       scope: {description: 'all or compile', type: choice, options: [all, compile], default: all}
 permissions: {contents: read}
 concurrency: {group: 'repair-${{ github.ref }}', cancel-in-progress: false}
+defaults:
+  run:
+    shell: bash
 jobs:
   core:
     if: inputs.scope != 'compile'
