@@ -1,0 +1,56 @@
+name: repair-verification
+on: {workflow_dispatch: {}}
+permissions: {contents: read}
+concurrency: {group: 'repair-${{ github.ref }}', cancel-in-progress: false}
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - run: dotnet run --project tools/CoreRunner -c Release | tee core.log
+      - run: dotnet run --project tools/RepairChecks -c Release | tee repair.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: repair-core, path: '*.log', retention-days: 14}
+  laps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9,10,11]}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - run: dotnet run --project tools/LapRunner -c Release -- ${{ matrix.shard }} 12 | tee lap.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: repair-lap-${{ matrix.shard }}
+          path: |
+            laps-*.jsonl
+            lap.log
+          retention-days: 14
+  contacts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - run: |
+          curl --fail -L -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_linux_x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          dotnet build -v quiet
+          G=$(find /tmp/godot -type f -name 'Godot_v4.7.2*mono_linux.x86_64' | head -1)
+          test -n "$G"
+          chmod +x "$G"
+          MYSIM_RUNTIME_CHECKS=1 MYSIM_CONTACT_ONLY=1 "$G" --headless --path . 2>&1 | tee contacts.log
+          grep -q 'PASS contact checks' contacts.log
+          ! grep -q 'FAIL' contacts.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: repair-contacts, path: contacts.log, retention-days: 14}

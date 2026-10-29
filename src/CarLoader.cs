@@ -68,11 +68,11 @@ static Godot.Collections.Dictionary carMap;
   }
   if (System.Environment.GetEnvironmentVariable("MYSIM_OLDRIMS") == null) for (int i = 0; i < 4; i++) {
    var spin = pivots[i].GetNode<Node3D>("Spin"); MeshInstance3D tyreDup = null; foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm) { string cn = cm.Name.ToString().ToUpperInvariant(); if (cn.Contains("TYRE") || cn.Contains("TIRE")) { if (tyreDup == null || cn.Contains("REAR") == (pts[i].AsGodotArray()[2].AsSingle() < 0)) tyreDup = cm; } }
-   if (tyreDup == null) continue; var tb = tyreDup.Transform * tyreDup.GetAabb(); var ctr = tb.GetCenter(); float outerR = Mathf.Max(tb.Size.Y, tb.Size.Z) * 0.5f, tw = tb.Size.X; if (outerR < 0.15f || outerR > 0.6f) continue;
-   foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm2) { string cn2 = cm2.Name.ToString().ToUpperInvariant(); if (cn2.StartsWith("LOD_A_WHEEL")) cm2.Visible = false; }
+   if (tyreDup == null) continue; var tb = tyreDup.Transform * tyreDup.GetAabb(); var ctr = tb.GetCenter(); float outerR = Mathf.Max(tb.Size.Y, tb.Size.Z) * 0.5f, tw = tb.Size.X; pivots[i].SetMeta("radius", outerR); if (outerR < 0.15f || outerR > 0.6f) continue;
+   foreach (var ch in spin.GetChildren()) if (ch is MeshInstance3D cm2) { string cn2 = cm2.Name.ToString().ToUpperInvariant(); if (cn2.StartsWith("LOD_A_WHEEL")) { cm2.Visible = false; cm2.SetMeta("wheel_hidden", true); } }
    bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.6f : 0.69f); var rim = BuildRim(rimR, tw, carIdx); rim.Position = new Vector3(ctr.X, ctr.Y, ctr.Z); spin.AddChild(rim);
   }
-  foreach (var w in wheelMeshes) w.Visible = false;
+  foreach (var w in wheelMeshes) { w.Visible = false; w.SetMeta("wheel_hidden", true); }
   GD.Print("WHEELS car=", carIdx, " parts=", wheelMeshes.Count);
   return pivots;
  }

@@ -12,8 +12,8 @@ public static class CrashBatch {
   var sp0 = System.Environment.GetEnvironmentVariable("MYSIM_SPACING"); if (sp0 != null) points = Mathf.Max(8, (int)(new Circuit(trackIdx).length / float.Parse(sp0, CultureInfo.InvariantCulture))); var sbAll = new StringBuilder(); int doneAll = 0, flaggedAll = 0;
   for (int carIdx = c0; carIdx <= c1; carIdx++) {
   var sb = new StringBuilder(); var speeds = new[] { 100f, 180f, 260f }; var angles = new[] { 10f, 25f, 45f, 90f, -10f, -25f, -45f, -90f };
-  var box = new Vector3(1.96f, 1.0f, 4.06f); const float dt = 1f / 120f; int done = 0, flagged = 0;
-  var plist = new List<float>(); { var ck = new Circuit(trackIdx); float L = ck.length, pos = 0; while (pos < L) { plist.Add(pos / L); float h0 = ck.Heading(pos / L), h1 = ck.Heading(Mathf.Min(pos + 25f, L - 0.01f) / L); float bend = Mathf.Abs(MathUtil.Wrap(h1 - h0)) * 57.2958f; pos += bend > 4f ? 10f : 25f; } }
+  var box = new Vector3(VehicleDimensions.Width[carIdx], Mathf.Clamp(VehicleDimensions.Height[carIdx], .6f, 1.5f), VehicleDimensions.Length[carIdx]); const float dt = 1f / 120f; int done = 0, flagged = 0;
+  var plist = new List<float>(); { var ck = new Circuit(trackIdx); float L = ck.length, pos = 0; while (pos < L) { plist.Add(pos / L); float h0 = ck.Heading(pos / L), h1 = ck.Heading(Mathf.Min(pos + 25f, L - 0.01f) / L); float bend = Mathf.Abs(MathUtil.Wrap(h1 - h0)) * 57.2958f; float spacing = sp0 != null ? float.Parse(sp0, CultureInfo.InvariantCulture) : L / Mathf.Max(8, points); if (!float.IsFinite(spacing) || spacing <= 0) throw new System.ArgumentException("Crash spacing must be positive and finite"); pos += bend > 4f ? spacing * .4f : spacing; } }
   for (int pi = 0; pi < plist.Count; pi++) {
    if (pi % shards != shard) continue; float p = plist[pi];
    foreach (var sp in speeds) foreach (var ang in angles) {
@@ -27,13 +27,13 @@ public static class CrashBatch {
     int jumps = 0, voids = 0, wallHits = 0, steps = 0, contained = 0, hitGain = 0; float maxY = y, minY = y, maxLat = 0, maxDy = 0, hitX = 0, hitY = 0, hitZ = 0; bool nonFinite = false; float crashStartT = 5f; float tSim = 0; bool crashing = false; int crashSteps = 0; float maxSpeedAfter = 0;
     int total = (int)((5f + 4f) / dt);
     for (int i = 0; i < total; i++) {
-     tSim = i * dt; if (!crashing && tSim >= crashStartT) { crashing = true; float h = v.heading + ang * Mathf.Pi / 180f; v.heading = h; float spd = Mathf.Max(v.speed, sp / 3.6f); v.velocity = new Vec(Mathf.Sin(h) * spd, Mathf.Cos(h) * spd); v.speed = spd; v.yawRate = 0; }
+     tSim = i * dt; if (!crashing && tSim >= crashStartT) { crashing = true; float h = v.heading + ang * Mathf.Pi / 180f; v.heading = h; float spd = Mathf.Max(v.speed, sp / 3.6f); v.velocity = new Vec(Mathf.Sin(h) * spd, Mathf.Cos(h) * spd); v.speed = spd; v.yawRate = 0; v.dyn = null; v.hasIntegrated = false; }
      if (crashing) { v.human = true; v.input = new DriverInput(1f, 0f, 0f); crashSteps++; } else v.human = false;
      var start = v.position; race.Step(dt);
      if (!float.IsFinite(v.position.x) || !float.IsFinite(v.position.z) || !float.IsFinite(v.speed)) { nonFinite = true; break; }
      float spBefore = v.speed; if (Contact.Walls(space, v, start, lastY, box)) { wallHits++; if (v.speed > spBefore + 0.05f) hitGain++; }
      var w = Contact.ToWorld(v.position, 0); var g = Contact.Ground(space, w, lastY, 0.6f); if (Contact.Contain(v, start, g.near, 30f)) { contained++; w = Contact.ToWorld(v.position, 0); g = Contact.Ground(space, w, lastY, 0.6f); }
-     Contact.MarkGood(v, g.near); if (!g.found) voids++; else { if (g.clamped) { jumps++; if (jumps == 1) { hitX = w.X; hitY = g.rawY; hitZ = w.Z; } } maxDy = Mathf.Max(maxDy, Mathf.Abs(g.rawY - lastY)); lastY = g.y; }
+     Contact.MarkGood(v, g.near && Mathf.Abs(v.lateral) <= 30f); if (!g.found) voids++; else { if (g.clamped) { jumps++; if (jumps == 1) { hitX = w.X; hitY = g.rawY; hitZ = w.Z; } } maxDy = Mathf.Max(maxDy, Mathf.Abs(g.rawY - lastY)); lastY = g.y; }
      maxY = Mathf.Max(maxY, lastY); minY = Mathf.Min(minY, lastY); maxLat = Mathf.Max(maxLat, Mathf.Abs(v.lateral)); if (crashing) maxSpeedAfter = Mathf.Max(maxSpeedAfter, v.speed); steps++;
     }
     var flags = new List<string>();

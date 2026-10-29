@@ -7,5 +7,6 @@ namespace MySimulator.Rebuild {
   public static readonly string[] Names={"FERRARI 488 GT3","AUDI R8 GT4","BMW M4 GT4","CAMARO GT4.R","BMW M8 GTE","CAMARO ZL1 1LE",
    "HURACAN GT3","MERCEDES-AMG GT3","McLAREN 650S GT3","ACURA NSX GT3","BMW M6 GT3","PORSCHE 911 RSR","FORD GT LM","ASTON MARTIN GTE","CORVETTE C7.R",
    "MERCEDES W10","FERRARI SF90","RED BULL RB15","McLAREN MCL34","McLAREN P1 GTR","BUGATTI CHIRON","PORSCHE 919 EVO","ORECA 07 LMP2","PORSCHE 911 GT3 RS"};
+  public static int RaceClass(int car) => car >= 15 && car <= 18 ? 1 : car == 21 || car == 22 ? 2 : car == 19 || car == 20 || car == 23 ? 3 : 0;
   public static int Count{get{return Folders.Length;}}
  }}

@@ -15,21 +15,21 @@ namespace MySimulator.Verification
             foreach(int variant in new[]{0,1,2})
             {
                 var r=new Race(variant,2,0);r.countdown=0;var v=r.Add("Autopilot",false,Compound.Medium);
-                float worst=0;for(int i=0;i<40000&&!v.finished;i++){r.Step(.02f);worst=Math.Max(worst,Math.Abs(v.lateral));Check(MathUtil.Finite(v.position.x)&&MathUtil.Finite(v.speed),"Non-finite dynamics");}
+                float worst=0;for(int i=0;i<40000&&!v.finished;i++){r.Advance(.02f);worst=Math.Max(worst,Math.Abs(v.lateral));Check(MathUtil.Finite(v.position.x)&&MathUtil.Finite(v.speed),"Non-finite dynamics");}
                 Check(v.finished&&v.completedLaps==2,"AI failed to complete circuit "+variant);Check(v.bestLap>10,"Invalid lap timing");Check(worst<15,"AI departed circuit "+variant);
                 log.Add("PASS two complete laps, circuit "+variant+", finish "+v.finishTime.ToString("0.00")+"s, max lateral "+worst.ToString("0.00")+"m");
             }
             foreach(float wetness in new[]{0f,.85f})
             {
                 var field=new Race(0,1,wetness){countdown=0};for(int i=0;i<6;i++)field.Add("AI "+i,false,wetness>0?Compound.Wet:Compound.Medium);
-                bool done=false;for(int i=0;i<12000&&!done;i++){field.Step(.02f);done=true;foreach(var v in field.cars){done&=v.finished;Check(MathUtil.Finite(v.position.x),"Traffic dynamics invalid");}}
+                bool done=false;for(int i=0;i<12000&&!done;i++){field.Advance(.02f);done=true;foreach(var v in field.cars){done&=v.finished;Check(MathUtil.Finite(v.position.x),"Traffic dynamics invalid");}}
                 Check(done,"Six-car traffic race failed, wetness="+wetness);log.Add("PASS complete six-car traffic race, wetness "+wetness);
             }
             var track=new Circuit(0);var manual=new Vehicle();manual.Place(track,0,0);manual.input=new DriverInput(1,0,0);
-            for(int i=0;i<160;i++)manual.Step(track,.02f,0,true,i*.02f,1);
+            for(int i=0;i<384;i++)manual.Step(track,MySimulator.Rebuild.Race.FixedDt,0,true,i*MySimulator.Rebuild.Race.FixedDt,1);
             Check(manual.speed>12,"Throttle did not accelerate vehicle");manual.input=new DriverInput(0,1,0);
-            for(int i=0;i<350;i++)manual.Step(track,.02f,0,true,8+i*.02f,1);
-            Check(manual.speed<.1f,"Brake did not stop vehicle");manual.input=new DriverInput(1,0,0){reverse=true};for(int i=0;i<100;i++)manual.Step(track,.02f,0,true,20+i*.02f,1);Check(Vec.Dot(manual.velocity,manual.Forward)<-2&&manual.gear==-1,"Reverse did not engage");log.Add("PASS acceleration, braking and reverse");
+            for(int i=0;i<840;i++)manual.Step(track,MySimulator.Rebuild.Race.FixedDt,0,true,8+i*MySimulator.Rebuild.Race.FixedDt,1);
+            Check(manual.speed<.1f,"Brake did not stop vehicle");manual.input=new DriverInput(1,0,0){reverse=true};for(int i=0;i<240;i++)manual.Step(track,MySimulator.Rebuild.Race.FixedDt,0,true,20+i*MySimulator.Rebuild.Race.FixedDt,1);Check(Vec.Dot(manual.velocity,manual.Forward)<-2&&manual.gear==-1,"Reverse did not engage");log.Add("PASS acceleration, braking and reverse");
             var tyre=new Tyre{compound=Compound.Soft,temperature=88};float fresh=tyre.Grip(0);
             for(int i=0;i<15000;i++)tyre.Step(.02f,38,.3f,1,0);
             Check(tyre.wear>.25f,"Tyre did not wear");Check(tyre.Grip(0)<fresh,"Tyre wear did not reduce grip");Check(tyre.temperature>=20&&tyre.temperature<=170,"Tyre temperature unbounded");tyre.Replace(Compound.Wet);Check(tyre.wear==0&&tyre.compound==Compound.Wet,"Tyre replacement failed");

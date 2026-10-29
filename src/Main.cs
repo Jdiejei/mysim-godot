@@ -5,6 +5,8 @@ namespace MySim {
 public partial class Main : Node3D {
  static readonly float ColorContrast = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CONTRAST") ?? "1.14", System.Globalization.CultureInfo.InvariantCulture), ColorSat = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SAT") ?? "1.1", System.Globalization.CultureInfo.InvariantCulture); Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; Button menuStart; bool menuGoWas; float menuAge; bool resultsShown, escWas; float finShown, resultsArmed;
  public override void _Ready() {
+  if (System.Environment.GetEnvironmentVariable("MYSIM_RUNTIME_CHECKS") != null) { AddChild(new RuntimeChecks()); return; }
+  if (System.Environment.GetEnvironmentVariable("MYSIM_FLOWCHECKS") != null) AddChild(new RaceFlowScenario { GetDrive=()=>drive, ResultsVisible=()=>resultsShown, MenuVisible=()=>ui!=null&&drive==null&&!resultsShown, Restart=()=>StartRace(lastTrack,lastCar,lastLaps), Menu=ShowMenu });
   var win = GetWindow(); win.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems; win.ContentScaleSize = new Vector2I(1280, 720); win.ContentScaleAspect = Window.ContentScaleAspectEnum.Expand;
   var env = new Godot.Environment { BackgroundMode = Godot.Environment.BGMode.Sky, AmbientLightSource = Godot.Environment.AmbientSource.Color, AmbientLightColor = new Color(0.62f, 0.66f, 0.72f), AmbientLightEnergy = 1.0f, TonemapMode = Godot.Environment.ToneMapper.Aces, TonemapExposure = 1.0f, TonemapWhite = 6f, FogEnabled = true, FogLightColor = new Color(0.63f, 0.70f, 0.76f), FogDensity = 0.00025f, FogSkyAffect = 0.4f, GlowEnabled = System.Environment.GetEnvironmentVariable("MYSIM_NOGLOW") == null, GlowIntensity = 0.5f, GlowStrength = 0.9f, GlowBloom = 0.04f, GlowHdrThreshold = 1.1f, AdjustmentEnabled = true, AdjustmentContrast = ColorContrast, AdjustmentSaturation = ColorSat };
   var skyMat = new ProceduralSkyMaterial(); env.Sky = new Sky { SkyMaterial = skyMat }; AddChild(new WorldEnvironment { Environment = env });
@@ -103,21 +105,47 @@ public partial class Main : Node3D {
   var space = GetWorld3D().DirectSpaceState; foreach (var p in new[] { new Vector3(-266.6f, 0, -266.1f), new Vector3(-247.1f, 0, -291.4f), new Vector3(-30f, 0, -460f) }) { var q = PhysicsRayQueryParameters3D.Create(new Vector3(p.X, 100, p.Z), new Vector3(p.X, -100, p.Z)); q.CollisionMask = 8; q.HitBackFaces = true; var r = space.IntersectRay(q); if (r.Count == 0) { GD.Print("ROADRAY none at ", p); continue; } var body = (Node)r["collider"]; var mi = GetNode<MeshInstance3D>(body.GetMeta("mesh").AsString()); string mats = ""; for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) mats += (mi.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? "null") + "|"; GD.Print("ROADRAY ", p, " hit y=", ((Vector3)r["position"]).Y.ToString("0.00"), " mesh=", mi.Name, " mats=", mats, " active=", mi.GetActiveMaterial(0) is StandardMaterial3D sm ? (sm.AlbedoTexture != null ? sm.AlbedoTexture.ResourcePath : "color") : "none"); }
  }
  void EndRace() { world?.QueueFree(); world = null; drive = null; }
- void StartRace(int trackIdx, int carIdx, int laps) {
+ bool loadingRace;
+ async System.Threading.Tasks.Task<PackedScene> LoadSceneAsync(string path) {
+  var error=ResourceLoader.LoadThreadedRequest(path,"PackedScene",true);
+  if(error!=Error.Ok) throw new System.Exception("Cannot load "+path+": "+error);
+  while(ResourceLoader.LoadThreadedGetStatus(path)==ResourceLoader.ThreadLoadStatus.InProgress) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+  var scene=ResourceLoader.LoadThreadedGet(path) as PackedScene;
+  return scene ?? throw new System.Exception("Scene load failed: "+path);
+ }
+ async void StartRace(int trackIdx, int carIdx, int laps) {
+  if(loadingRace)return;loadingRace=true;
+  try {
+
   EndRace(); ClearUi(); lastTrack = trackIdx; lastCar = carIdx; lastLaps = laps; resultsShown = false; finShown = 0; Settings.Set("track", trackIdx); Settings.Set("car", carIdx); Settings.Set("laps", laps);
+  menuStart=null;
+  ui=new CanvasLayer { Layer=30 };AddChild(ui);
+  ui.AddChild(new ColorRect { Color=new Color(.025f,.035f,.05f),AnchorRight=1,AnchorBottom=1 });
+  var loading=new Label { Text="LOADING CIRCUIT",Position=new Vector2(48,300) };loading.AddThemeFontSizeOverride("font_size",32);ui.AddChild(loading);
+  await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
   world = new Node3D { Name = "World" }; AddChild(world);
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
   string mp = tl["map"].AsString(), lay = tl["layout"].AsString(), scn = tl["scene"].AsString();
-  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); world.AddChild(track);
-  var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vps = GD.Load<PackedScene>(rp); if (vps == null) { GD.Print("VARIATION import failed ", rp); continue; } var vn = vps.Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, 100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
+  var trackScene=await LoadSceneAsync("res://assets/RealRacing/Source/" + mp + "/" + scn); var track=trackScene.Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); world.AddChild(track);
+  var layers = new System.Collections.Generic.List<Node3D> { track }; foreach (var vp in tl["variationPaths"].AsGodotArray()) { string rp = "res://" + vp.AsString().Replace("Assets/RealRacing/Source/", "assets/RealRacing/Source/"); if (EmptyVariations.Paths.Contains(rp)) { GD.Print("VARIATION empty source layer ", rp); continue; } if (!ResourceLoader.Exists(rp)) { GD.Print("VARIATION missing ", rp); continue; } var vps = await LoadSceneAsync(rp); if (vps == null) { GD.Print("VARIATION import failed ", rp); continue; } var vn = vps.Instantiate<Node3D>(); vn.Scale = new Vector3(100f, 100f, 100f); world.AddChild(vn); layers.Add(vn); GD.Print("VARIATION loaded ", rp); }
+  loading.Text="PREPARING CAR";await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+  string carDir="res://assets/RealRacing/Source/"+CarCatalog.Folders[carIdx]+"/";
+  foreach(var part in Assets.Files(carDir))if(part.EndsWith(".fbx"))await LoadSceneAsync(carDir+part);
   var car = CarLoader.Load(CarCatalog.Folders[carIdx]); world.AddChild(car); CarLoader.ApplyExact(car, carIdx); var wheelPivots = CarLoader.AttachWheels(car, carIdx);
+  loading.Text="PREPARING TRACK SURFACES";await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { WindingFixer.Fix(L, out int wchk); GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);
   string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; world.AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
   if (System.Environment.GetEnvironmentVariable("MYSIM_DEBUGROAD") != null) DebugRoad(track);
   var cam = new Camera3D { Fov = 46, Current = true, Far = 4000 }; world.AddChild(cam);
   var carSize = CarLoader.MeasureSize(car); GD.Print("CARSIZE ", carIdx, " ", carSize.ToString("0.00")); drive = new DriveController { CarIndex = carIdx, CarSize = carSize, Car = car, WheelPivots = wheelPivots, TrackIndex = trackIdx, Laps = laps, Cam = cam, AutoDrive = System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE") != null, AiTest = System.Environment.GetEnvironmentVariable("MYSIM_AI") != null, AutoSeconds = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS") ?? "8") };
-  var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); world.AddChild(hud); world.AddChild(new TouchControls());
+  var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); if (System.Environment.GetEnvironmentVariable("MYSIM_INPUTCHECKS") != null) world.AddChild(new DrivingScenario { Drive=drive }); world.AddChild(hud); world.AddChild(new TouchControls());
+  ClearUi();GD.Print("RACE_READY track=",trackIdx," car=",carIdx);
+  } catch(System.Exception e) {
+   GD.PrintErr("RACE_LOAD_FAILED ",e);EndRace();ClearUi();ui=new CanvasLayer();AddChild(ui);
+   var errorLabel=new Label { Text="Could not load this race. See game log for details.",Position=new Vector2(48,300) };ui.AddChild(errorLabel);
+   var back=new Button { Text="BACK TO MENU",Position=new Vector2(48,360) };back.Pressed+=ShowMenu;ui.AddChild(back);
+  } finally { loadingRace=false; }
  }
  public override void _Process(double delta) {
   PauseUi();
@@ -132,8 +160,8 @@ public partial class Main : Node3D {
   resultsShown = true; var layer = new CanvasLayer(); world.AddChild(layer);
   var p = drive.Player; var panel = new ColorRect { Color = new Color(0, 0, 0, 0.7f), AnchorRight = 1, AnchorBottom = 1 }; layer.AddChild(panel);
   var l = new Label { Position = new Vector2(420, 90) }; l.AddThemeFontSizeOverride("font_size", 30);
-  var order = new System.Collections.Generic.List<Vehicle>(drive.Race.cars); order.Sort((x, y) => { float kx = x.finished ? x.finishTime : 1e6f - (x.totalDistance - x.id * 0.008f * drive.Race.track.length), ky = y.finished ? y.finishTime : 1e6f - (y.totalDistance - y.id * 0.008f * drive.Race.track.length); return kx.CompareTo(ky); });
-  string board = ""; for (int i = 0; i < order.Count; i++) { var o = order[i]; string who = o == p ? "YOU" : o.driver; float gapM = (p.totalDistance - p.id * 0.008f * drive.Race.track.length) - (o.totalDistance - o.id * 0.008f * drive.Race.track.length); string tm = o.finished ? o.finishTime.ToString("0.0") + " s" : (o == p ? "" : "+" + (gapM > 0 ? gapM : 0).ToString("0") + " m"); board += (i + 1) + ".  " + who.PadRight(8) + " " + tm + "\n"; }
+  var order = drive.Race.Standings();
+  string board = ""; for (int i = 0; i < order.Count; i++) { var o = order[i]; string who = o == p ? "YOU" : o.driver; float gapM = (drive.Race.DistanceScore(p) - drive.Race.DistanceScore(o)) * drive.Race.track.length; string tm = o.finished ? o.finishTime.ToString("0.0") + " s" : (o == p ? "" : "+" + (gapM > 0 ? gapM : 0).ToString("0") + " m"); board += (i + 1) + ".  " + who.PadRight(8) + " " + tm + "\n"; }
   int place = order.IndexOf(p) + 1;
   l.Text = "RESULTS   P" + place + " of " + order.Count + "\n\n" + (order.Count > 1 ? board + "\n" : "") + "TIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu    (pad: A restart, B menu)"; layer.AddChild(l);
  }

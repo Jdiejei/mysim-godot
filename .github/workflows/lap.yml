@@ -2,6 +2,7 @@ name: lap-matrix
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'src/Logic/**'
       - 'tools/LapRunner/**'

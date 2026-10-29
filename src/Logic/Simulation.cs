@@ -335,22 +335,37 @@ namespace MySimulator.Rebuild
         {
             for(int i=0;i<cars.Count;i++)for(int j=i+1;j<cars.Count;j++)
             {
-                Vehicle a=cars[i],b=cars[j];if(a.externalPhysics||b.externalPhysics||a.retired||b.retired)continue;Vec delta=b.position-a.position;float distance=delta.Magnitude;
-                if(distance<5.1f)
-                {
-                    float closest=float.MaxValue;Vec contact=delta;
-                    for(int ai=-1;ai<=1;ai++)for(int bi=-1;bi<=1;bi++){Vec gap=(b.position+b.Forward*(bi*1.05f))-(a.position+a.Forward*(ai*1.05f));float d=gap.Magnitude;if(d<closest){closest=d;contact=gap;}}
-                    delta=contact;distance=closest;
+                Vehicle a=cars[i],b=cars[j];if(a.externalPhysics||b.externalPhysics||a.retired||b.retired)continue;
+                int ac=Math.Max(0,Math.Min(CarCatalog.Count-1,a.carModel)),bc=Math.Max(0,Math.Min(CarCatalog.Count-1,b.carModel));
+                Vec delta=b.position-a.position;
+                float al=VehicleDimensions.Length[ac]*.5f,aw=VehicleDimensions.Width[ac]*.5f;
+                float bl=VehicleDimensions.Length[bc]*.5f,bw=VehicleDimensions.Width[bc]*.5f;
+                if(delta.Magnitude>al+aw+bl+bw)continue;
+                Vec af=a.Forward,ar=a.Right,bf=b.Forward,br=b.Right,normal=new Vec(1,0);float overlap=float.MaxValue;bool separated=false;
+                // Separating-axis test of both oriented footprints; no circular contacts outside a car's body.
+                foreach(Vec axis in new[]{af,ar,bf,br}) {
+                    float ra=al*Math.Abs(Vec.Dot(af,axis))+aw*Math.Abs(Vec.Dot(ar,axis));
+                    float rb=bl*Math.Abs(Vec.Dot(bf,axis))+bw*Math.Abs(Vec.Dot(br,axis));
+                    float d=Vec.Dot(delta,axis),depth=ra+rb-Math.Abs(d);
+                    if(depth<=0){separated=true;break;}
+                    if(depth<overlap){overlap=depth;normal=axis*(d<0?-1:1);}
                 }
-                if(distance<2.05f)
-                {
-                    Vec centres=b.position-a.position;Vec normal=distance>.001f&&Vec.Dot(delta,centres)>=0?delta/distance:centres.Normalized;
-                    float overlap=2.05f-distance;a.position-=normal*overlap*.5f;b.position+=normal*overlap*.5f;
-                    float approach=Vec.Dot(a.velocity-b.velocity,normal);
-                    if(approach>0){a.velocity-=normal*approach*.65f;b.velocity+=normal*approach*.65f;float damage=MathUtil.Clamp(approach*.005f,0,.1f);a.damage=MathUtil.Clamp(a.damage+damage,0,1);b.damage=MathUtil.Clamp(b.damage+damage,0,1);}
+                if(separated)continue;
+                float invA=1/RecoveredVehicleProfiles.Mass[ac],invB=1/RecoveredVehicleProfiles.Mass[bc],invSum=invA+invB;
+                a.position-=normal*(overlap*invA/invSum);b.position+=normal*(overlap*invB/invSum);
+                float approach=Vec.Dot(a.velocity-b.velocity,normal);
+                if(approach>0) {
+                    float impulse=approach*1.1f/invSum;
+                    a.velocity-=normal*(impulse*invA);b.velocity+=normal*(impulse*invB);
+                    float damage=MathUtil.Clamp(approach*.005f,0,.1f);
+                    a.damage=MathUtil.Clamp(a.damage+damage,0,1);b.damage=MathUtil.Clamp(b.damage+damage,0,1);
                 }
+                a.speed=a.velocity.Magnitude;b.speed=b.velocity.Magnitude;
+                // Contact correction is already resolved; do not apply the generic external-position penalty again.
+                a.lastIntegrated=a.position;b.lastIntegrated=b.position;
             }
         }
+        public float DistanceScore(Vehicle v) => v.completedLaps + v.progress - (v.nextGate == 1 && v.progress > .75f ? 1 : 0);
         public List<Vehicle> Standings()
         {
             List<Vehicle> sorted=new List<Vehicle>(cars);
@@ -358,7 +373,7 @@ namespace MySimulator.Rebuild
             {
                 if(a.finished&&b.finished)return a.finishTime.CompareTo(b.finishTime);
                 if(a.finished)return -1;if(b.finished)return 1;
-                return (b.completedLaps+b.progress).CompareTo(a.completedLaps+a.progress);
+                return DistanceScore(b).CompareTo(DistanceScore(a));
             });return sorted;
         }
         public int ResetCount;public void Reset(Vehicle v)
