@@ -2,7 +2,8 @@
 one mosaic of all 60 plus labelled 4-up sheets. Usage: python tools/bulk_render.py [car] [seconds]"""
 import os, subprocess, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from hidden import run_hidden, sys, json, time
+from hidden import run_hidden
+import json, time
 from PIL import Image, ImageDraw
 car = sys.argv[1] if len(sys.argv) > 1 else '16'; secs = sys.argv[2] if len(sys.argv) > 2 else '10'
 G = open('.godotpath').read().strip(); os.makedirs('bulk', exist_ok=True)
