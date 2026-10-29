@@ -48,6 +48,15 @@ class EncryptWriter:
 def reconcile_reviews():
  runs=json.loads(cmd(['gh','api',f'repos/{REPO}/actions/workflows/mesh-review.yml/runs?per_page=100'],env=env).stdout)['workflow_runs']
  active=sum(r['status']!='completed' for r in runs)
+ # Account for other game workflows as well as mesh reviews; leave capacity for interactive fixes.
+ occupied=0
+ for status in ('in_progress','queued'):
+  fleet=json.loads(cmd(['gh','api',f'repos/{REPO}/actions/runs?status={status}&per_page=100'],env=env).stdout)['workflow_runs']
+  for workflow in fleet:
+   jobs=json.loads(cmd(['gh','api',f'repos/{REPO}/actions/runs/{workflow["id"]}/jobs?per_page=100'],env=env).stdout)['jobs']
+   occupied+=sum(job['status']!='completed' for job in jobs)
+ budget=max(0,20-occupied)
+
  byname={}
  legacy=sorted([r for r in runs if r.get('display_title')=='mesh-and-texture-review'],key=lambda r:r['created_at'])
  for run in runs:
@@ -69,8 +78,8 @@ def reconcile_reviews():
      cmd(['gh','run','rerun',str(run['id']),'--failed','--repo',REPO],env=env);part['review_status']='retry_requested';active+=1
     elif run.get('run_attempt',1)>=2:part['review_status']='failed_after_retry'
     else:part['review_status']='retry_requested'
-  if part['status']=='uploaded' and not part.get('dispatched') and active<8:
-   cmd(['gh','workflow','run','mesh-review.yml','--repo',REPO,'--ref','codex/repair-20261029','-f','part='+part['name'],'-f','kind='+part['kind']],env=env);part['dispatched']=True;active+=1
+  if part['status']=='uploaded' and not part.get('dispatched') and budget>0:
+   cmd(['gh','workflow','run','mesh-review.yml','--repo',REPO,'--ref','codex/repair-20261029','-f','part='+part['name'],'-f','kind='+part['kind']],env=env);part['dispatched']=True;active+=1;budget-=1
  save()
 
 # Upload existing archives and source assets only; geometry/render work runs exclusively on GitHub.
