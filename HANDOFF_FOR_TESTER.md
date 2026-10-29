@@ -1,49 +1,66 @@
-# MySim (Godot port) - tester handoff (updated 2026-10-29)
+# MySim (Godot port) - handoff (updated 2026-10-29, end of session)
 
-Machine: Windows 11, NVIDIA RTX 4050 laptop, Godot 4.7.2 mono (.NET 8).
+Machine: Windows 11, NVIDIA RTX 4050 laptop, Godot 4.7.2 mono (.NET 8). Written for the next person or agent picking this up.
 
-## What this is
-A racing game rebuilt in Godot 4 from the recovered MySim assets (Real Racing 3-style). 24 cars, 60 track layouts (29 circuits), menu with settings and track previews, race with laps/timing/results, pit stops with crew and sound, HUD (speed, gear, lap, position, tyres, fuel, damage, minimap with rival dots), four cameras, keyboard/gamepad/touch input, audio. Physics is a new four-wheel model (`src/Logic/Dynamics.cs`: Magic-Formula tyres, load transfer, downforce, ABS/TC) on top of the recovered race rules.
+## 1. What this is
+A racing game rebuilt in Godot 4 from the recovered MySim assets (a Real Racing 3-style game). 24 cars, 60 track layouts (29 circuits), menu with settings and track previews, races with laps/timing/results, pit stops with crew and sound, HUD with minimap, four cameras, keyboard/gamepad/touch input, audio, time of day and weather, AI rivals. Physics is a new four-wheel model (`src/Logic/Dynamics.cs`: Magic-Formula tyres, load transfer, downforce, ABS/TC) on top of the recovered race rules (`src/Logic/Simulation.cs`).
 
-## Where everything is
+## 2. How to play it right now (the thing the owner keeps asking for)
+- Double-click `C:\Users\shash\Documents\MySimGodot\PLAY_SILVERSTONE_F1.bat`. It opens a normal window: Silverstone, Ferrari F1, 5 AI rivals, 3 laps. It runs the live project source, so it always has the latest code and assets.
+- Controls: W/Up throttle, S/Down brake (hold at a standstill to reverse), A/D or arrows steer, Space handbrake, P pit, C camera (chase/far/cockpit/bonnet), Esc/Tab pause, M sound (muted by default). Gamepad: left stick, RT/LT, A pit, Y camera, Start pause.
+- The exported exe is `build\MySim.exe` (+ `MySim.pck`, `data_MySimGodot_windows_x86_64`). It is OLDER than the project source: it predates the clean road texture, clearcoat paint and glow. Re-export with `bash tools/export_only.sh` (10+ minutes, writes `export5.log`).
+
+## 3. What the owner reported most recently (all still open)
+1. "It froze." The owner launched the game (visible window, 1600x900, Silverstone F1, 5 rivals) and it froze. NOT reproduced: headless runs of the same setup held 140+ fps with no frame spike over 14 s (`MYSIM_FPS=1` prints fps/frame time). Suspects, in order: (a) a connected gamepad or virtual joystick reporting Start pressed, which toggles pause every frame (`DriveController.cs`, `startBtn`), (b) pressing Esc/Tab pauses by design (looks frozen), (c) a real-window-only problem (vsync/GPU). Next step: run the game visibly with `MYSIM_FPS=1` and stdout redirected to a file, and watch `Race.paused`.
+2. "The wheels are stretched out and ugly." Not diagnosed. The rims are procedural (`CarLoader.BuildRim`, sized from the tyre mesh bounds); the tyres are the recovered meshes, matte black, no tread or sidewall detail. Check the chase camera field of view and the wheel mesh scale at 16:9; compare in-game against the showroom render (`MYSIM_CARVIEW=16`).
+3. "The car is shit / looks like slop / raw machines / unrealistic." Cars are the original recovered LOD_A meshes with simple materials. Some GT cars show engine or mechanical parts through the wheel arches (visible on the BMW M4, Camaro). The 98,553 "enhanced mesh" candidates in `D:\MySim-processed` are exact copies of the originals (none quality-accepted), so there is no better source geometry in hand. The owner wants F1 24/F1 25-level realism (colour, physics, car detail); that is a large art/content gap, not a tuning gap.
+4. Car sizes: all 24 were measured. Lengths and wheelbases match real cars within about 3%. Widths are 0.1 to 0.2 m large on six cars (Ferrari 488, Ford GT, Aston GTE, Bugatti, Huracan) and heights are inflated by roof items. No fix applied.
+
+## 4. Where everything is
 | What | Path |
 |---|---|
-| Project (open this) | `C:\Users\shash\Documents\MySimGodot` |
-| Playable exe | `...\MySimGodot\build\MySim.exe` (+ `MySim.pck`, `data_MySimGodot_windows_x86_64`) |
-| Godot binary | path in `.godotpath` (console build) |
-| Code | `src` (Main, DriveController, Contact, CarLoader, UnityMaterialBinder, Hud, TouchControls, Settings) and `src/Logic` (Simulation, Dynamics, ...) |
-| Assets | `...\MySimGodot\assets` (4.4 GB, real files); backup copy `D:\MySim-godot-assets\assets` |
+| Project | `C:\Users\shash\Documents\MySimGodot` |
+| Godot binary | path in `.godotpath` (console build; the non-console one is the same name without `_console`) |
+| Code | `src` (Main, DriveController, Contact, CarLoader, UnityMaterialBinder, Hud, TouchControls, Settings, Conditions) and `src/Logic` (Simulation, Dynamics, ...) |
+| Assets | `assets` (4.4 GB, real files); backup `D:\MySim-godot-assets\assets` |
 | Originals (do not modify) | `D:\MySim-recovered`, `D:\My Sim` |
-| Review notes | `REVIEW_LEDGER.md`, `AUDIT.md`, `PORT-CHECKLIST.md`; renders `shots\t0..t59.png`, 4-up sheets `shots4\` |
-| Hourly code backups | `D:\MySim-backups\godot-*` |
+| Notes | `REVIEW_LEDGER.md` (findings log), `AUDIT.md`, `PORT-CHECKLIST.md`, `DELETION_LIST.md` |
+| Backups | hourly code copies in `D:\MySim-backups\godot-*` |
+| Git | local repo; also pushed to the three public repos `instagramshashank8-bot`, `Jdiejei`, `blackwingftc-lang` / `mysim-godot` |
 
-## Run
-Exe: double-click `build\MySim.exe`. Windowless test: `MySim.exe --no-window --resolution 960x540` plus env vars below.
-Project: run the Godot binary with `--path C:\Users\shash\Documents\MySimGodot`.
+## 5. Tools (use these instead of one-off manual runs)
+- `tools/bulk_render.py [car] [seconds]`: renders all 60 tracks (AI drives the chosen car) into `bulk/` and a mosaic `bulk/mosaic_all60.png`.
+- `tools/bulk_cars.py`: all 24 cars, front/side/rear mosaics in `bulk/`.
+- `tools/bulk_audit.py`: contact sheets of all 527 unique ground textures in `audit/`.
+- `tools/bulk_declean.py`: removes baked tyre-skid streaks from 78 road textures (originals in `audit/orig/`). Already applied.
+- `tools/hidden.py`: runs Godot with no window/console and low priority. Use it for every automated run so nothing pops over the owner's windows. NEVER kill or relaunch the owner's own game window.
+- `tools/LapRunner`: headless physics/AI (`dotnet run -c Release -- 0 1` = all 1,440 car/track pairs; probes `trace`, `pit`, `pitroute`, `pack`, `steptest`).
+- Cloud: `.github/workflows/lap.yml`, `core.yml`, `crash.yml`.
+- Env test hooks: `MYSIM_TRACK`, `MYSIM_CAR`, `MYSIM_LAPS`, `MYSIM_CAM`, `MYSIM_RIVALS`, `MYSIM_AUTODRIVE`, `MYSIM_AI`, `MYSIM_NOPIT`, `MYSIM_SECONDS`, `MYSIM_SHOT`, `MYSIM_TRACE`, `MYSIM_FPS`, `MYSIM_CARVIEW`/`MYSIM_CAMPOS`, `MYSIM_TOD`, `MYSIM_WET`, `MYSIM_STARTP`, `MYSIM_CONTRAST`/`MYSIM_SAT`, `MYSIM_NOGLOW`, `MYSIM_UVROAD`, `MYSIM_OLDRIMS`, `MYSIM_LEGACY_PHYS`, tuning `MYSIM_GSLOPE/GMAX/DOWNM/LATCAP/PDK`.
 
-## Controls
-W/Up throttle, S/Down brake (hold it when stopped to reverse, up to ~40 km/h), A/D or arrows steer, Space handbrake, P request pit, C camera (chase/far/cockpit/bonnet), Tab/Esc pause, M sound on/off (muted by default). Gamepad: left stick (response curve), RT/LT, A = pit, Y = camera. Touch: on-screen pads; accelerometer tilt steering via the `tilt` setting. Menu: Enter (or gamepad Start) begins the race; settings row: rivals (Solo-5), time of day (Noon/Morning/Sunset/Night), weather (Clear/Overcast/Rain), sound, ABS, traction control, tilt.
+## 6. Status (verified this session)
+- Headless lap matrix: 1,440 / 1,440 pairs pass.
+- Six-car AI packs on 12 layouts: all classified, no resets.
+- All 60 tracks and all 24 cars rendered and reviewed (some reviewed before the later road fix; the full bulk re-render was in progress, 47 of 60 done, results in `bulk/`).
+- Fixed this session: in-game physics used car 0 for every car; F1 wheel bubbles; sponsor placeholder banners; text mirrored on signs; foliage rotated onto bark; pit lane wall/containment bug; reverse; results-screen controls; skid-streaked road texture (`gnd_road_dark.png` replaced by clean asphalt, 78 road textures de-streaked); car paint now clearcoat; scene glow; contrast 1.14 / saturation 1.1.
+- F1 pace: Silverstone about 112 s (real about 85 s), Brands Hatch about 42 s.
+- Not verified: any control on real hardware (gamepad, touch, tilt), the freeze above, night headlight beam, audio by ear.
 
-## Test hooks (environment variables)
-`MYSIM_TRACK` 0-59, `MYSIM_CAR` 0-23, `MYSIM_LAPS`, `MYSIM_CAM`, `MYSIM_AUTODRIVE=1` (needed for timed runs), `MYSIM_AI=1` (AI drives; requests a pit each lap unless `MYSIM_NOPIT=1`), `MYSIM_SECONDS`, `MYSIM_SHOT=<png>`, `MYSIM_TRACE=1` (progress/speed every 4 s), `MYSIM_CARVIEW=<car>` (+ `MYSIM_CAMPOS=x,y,z`), `MYSIM_MENUSHOT=<png>`, `MYSIM_CLOSE=1` (side camera), `MYSIM_TOD=0-3`, `MYSIM_WET=0-2`, `MYSIM_STARTP=<progress>`, `MYSIM_WHEELDBG=1`, `MYSIM_LEGACY_PHYS=1` (old physics model).
-Headless physics: `tools\LapRunner` (`dotnet run -c Release -- 0 1` = all 1,440 car/track pairs; `-- 0 1 <track> <car>` one pair; probes `trace`, `pit`, `pitroute`, `steptest`).
-Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/sheet4.py`.
+## 7. Known problems / not done
+- The freeze and the "stretched wheels" complaint (section 3).
+- Car visual quality: no tyre tread/sidewall art, no carbon/vent/wing detail, sponsor banners are plain grey (original filled them at runtime from content not in the recovered files).
+- Wheels use simple per-wheel droop; no real suspension.
+- Pit crew are placeholder capsule figures (no jack or air gun models).
+- Not built: multiplayer UI, championship, Android build, key-rebinding screen, Monoposto side-by-side (emulator removed).
+- Windows blocked deleting `C:\Program Files\Unity` (23 GB) and `...\Unity Hub` (0.6 GB): they need administrator rights; uninstall via Windows Settings > Apps.
 
-## Status
-- Headless lap matrix: 1,440 of 1,440 pairs pass (2026-10-29, AI planned-braking factor 0.38).
-- All 60 tracks rendered and reviewed 4-up; signage reads correctly, colours natural, ground textures upscaled (Real-ESRGAN; originals in `upscale_backup`).
-- Pit stops work in game (enter, service, tyres reset, rejoin). 13 layouts whose shipped pit data does not overlap their track (29,33,34,36,37,41,42,44,46,47,50,52,58) use an on-track fallback stop beside the start/finish line.
-- AI rivals: up to 5 AI cars (chosen from the cars closest to the player's car in top speed and 0-60 time) start behind the player on the grid (setting `rivals`, env `MYSIM_RIVALS`; 0 for the old solo mode; none in AUTODRIVE/AI test runs). HUD shows race position POS n/6. Rivals use their own car models and the same physics; they are not wall-checked (they follow the centreline).
-- Time of day and weather (src/Conditions.cs): sun/sky/fog/ambient presets, rain particles, headlights at night/rain, rain lowers grip (tyre wetness 0.15/0.75). Not tuned per track.
-- Audio from recovered assets only: engine idle loop (pitch follows RPM), transmission whine, pit sounds, UI sounds. No recovered tyre-squeal or crash sounds exist.
-- Fixed 2026-10-29: in-game physics always used car 0 (now uses the selected car); F1 wheel-guard meshes were spun with the wheels (glassy bubbles); front/rear F1 wheel meshes split by axle.
-- Cars are the original recovered LOD_A meshes. The 98,553 "enhanced mesh" candidates in `D:\MySim-processed` are faithful copies (no added detail, none quality-accepted) and are NOT used.
+## 8. Cloud and repos
+- The three mysim-godot repos were made PUBLIC on the owner's instruction (this exposes game-derived data: track routes, baked collision, renders, asset IDs). Public repos get free Actions minutes.
+- Crash campaign (100 m spacing, about 1.3 million crashes, current physics) was started on all three accounts: 240 jobs; about 23 had finished with 0 failures when last checked. When done: download the `crash-*` artifacts (1-day retention), review flagged crashes with `tools/crash_report.py`, then delete the downloads. The owner's earlier wish was 25 m / 10 m-bend spacing (about 5.2 million crashes).
 
-## Known problems
-- F1 AI laps are still slower than real (Silverstone ~112 s vs ~85 s real, Brands Hatch ~42 s) after the 2026-10-29 grip rework (Dynamics.GripMul shared by physics and AI plan; env MYSIM_GSLOPE/GMAX, default 1.2/2.8, with downforce x2 via MYSIM_DOWNM and an absolute 50 m/s2 corner-speed cap MYSIM_LATCAP; more grip or power makes cars leave the road on track 54). Power model still comes from the 0-60 time.
-- Pit crew are placeholder capsule figures; no jack/air-gun models.
-- (fixed) Silverstone floating tree blob and plank-like trees were caused by the signage UV rotation hitting foliage.
-- Wheels: rims are procedural (spokes, lip, hub; `MYSIM_OLDRIMS=1` restores the recovered dark rim mesh) and tyres are matte black with no tread/sidewall text. They are stylised, not the recovered model.
-- Chassis follows the ground planar from four wheel samples, so a wheel can hover over crests/drops (no suspension).
-- Cloud lap/crash campaigns are blocked by GitHub billing on the working accounts; all testing is local.
-- Not done: multiplayer UI, championship, weather visuals, Android build, key-rebinding screen, Monoposto side-by-side (emulator removed).
+## 9. Owner preferences (important)
+- Terse replies; short bullet points. Do not stop to ask; decide and proceed, but ask before anything destructive or public.
+- Never show pop-up windows from automated runs; use `--no-window` and `tools/hidden.py`. Do not close or relaunch the owner's open windows.
+- Do not add Claude as co-author on commits.
+- Prefer bulk scripts and reviewing many renders at once over one-by-one manual checks.
+- Deleted so far (approved): `D:\MySim-processed\local-unity`, `Documents\Codex\2026-10-25`, Unity settings folders. Everything in `D:\MySim-recovered`, `D:\My Sim`, `D:\MySim-godot-assets` is kept.
