@@ -5,6 +5,7 @@ namespace MySim {
 public partial class DrivingScenario : Node {
  public DriveController Drive; double elapsed; int stage=-1; bool checkedReverse,checkedPause,checkedResume;
  void KeyState(Key key,bool pressed){Input.ParseInputEvent(new InputEventKey { Keycode=key,PhysicalKeycode=key,Pressed=pressed });}
+ public override void _ExitTree(){KeyState(Key.S,false);KeyState(Key.W,false);KeyState(Key.Escape,false);KeyState(Key.C,false);}
  public override void _Process(double delta){
   elapsed+=delta;int next=elapsed<.8?0:elapsed<4.5?1:elapsed<8?2:elapsed<8.15?3:elapsed<9?4:elapsed<9.15?5:elapsed<11?6:elapsed<11.15?7:8;
   if(next!=stage){ KeyState(Key.S,false);KeyState(Key.W,false);KeyState(Key.Escape,false);KeyState(Key.C,false);stage=next;

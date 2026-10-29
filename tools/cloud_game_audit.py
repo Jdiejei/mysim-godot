@@ -1,7 +1,7 @@
 import os,pathlib,subprocess,json,sys
 r=pathlib.Path.cwd();out=r/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True);g=os.environ['GODOT_BIN'];shard=int(os.environ.get('SHARD','0'));rows=[]
 def run(label,values,args=None,timeout=300):
- env=dict(os.environ,**values,MYSIM_BINDING_AUDIT=str(out/label));log=out/(label+'.log')
+ env={k:v for k,v in os.environ.items() if not k.startswith('MYSIM_')};env.update(values);env['MYSIM_BINDING_AUDIT']=str(out/label);log=out/(label+'.log')
  for attempt in (1,2):
   shot=pathlib.Path(values['MYSIM_SHOT']).resolve() if values.get('MYSIM_SHOT') else None
   if shot is not None:
@@ -30,6 +30,10 @@ if shard<3 and os.environ.get('FULL_RACES')!='1':
  for car in range(24):
   label=f'car-{car:02}-view-{shard}';shot=out/(label+'.png');run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot)});assert shot.exists()
 if shard==0 and os.environ.get('FULL_RACES')!='1':
+ for resolution in ('960x540','1600x900'):
+  label='menu-'+resolution
+  text=run(label,{'MYSIM_MENUSHOT':str(out/(label+'.png'))},['--resolution',resolution]);assert (out/(label+'.png')).exists()
+ text=run('input-controls',{'MYSIM_TRACK':'24','MYSIM_CAR':'16','MYSIM_RIVALS':'0','MYSIM_INPUTCHECKS':'1','MYSIM_TOUCH':'1','MYSIM_SHOT':str(out/'input-controls.png')});assert 'PASS playable input' in text
  for track in (0,4,24):
   for mode in ('0','1'):
    label=f'ground-{track:02}-authored-{mode}';run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'8','MYSIM_AUTHORED_GROUND':mode,'MYSIM_SHOT':str(out/(label+'.png'))})
