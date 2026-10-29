@@ -90,8 +90,21 @@ namespace MySimulator.Rebuild
             }
             return progress;
         }
-        public Vec[] PitRoute {get{return SourcePitRoutes.Points[variant];}}
-        public int PitServiceIndex {get{return SourcePitRoutes.ServiceIndex[variant];}}
+        Vec[] pitRouteOv;int pitSvcOv=-1;
+        public Vec[] PitRoute {get{if(pitRouteOv==null)ResolvePit();return pitRouteOv;}}
+        public int PitServiceIndex {get{if(pitRouteOv==null)ResolvePit();return pitSvcOv;}}
+        // 13 layouts ship pit data in a frame that does not overlap their track; those get an on-track fallback stop beside the start/finish line.
+        void ResolvePit()
+        {
+            Vec[] r=SourcePitRoutes.Points[variant];int svc=SourcePitRoutes.ServiceIndex[variant];float l1,l2;Find(r[0],out l1);Find(r[r.Length-1],out l2);
+            if(Math.Abs(l1)>=20f||Math.Abs(l2)>=20f)
+            {
+                int n=60;r=new Vec[n];float half=90f/length;
+                for(int i=0;i<n;i++){float t=i/(float)(n-1);float ramp=Math.Min(1f,Math.Min(t/.25f,(1-t)/.25f));ramp=ramp*ramp*(3-2*ramp);r[i]=Lane(MathUtil.Wrap01(0.0f-half+2*half*t),4.2f*ramp);}
+                svc=n/2;
+            }
+            pitRouteOv=r;pitSvcOv=svc;
+        }
         public Vec PitBox {get{return PitRoute[PitServiceIndex];}}
         public Vec PitPoint(float index){index=MathUtil.Clamp(index,0,PitRoute.Length-1);int i=(int)index;return PitRoute[i]+(PitRoute[Math.Min(i+1,PitRoute.Length-1)]-PitRoute[i])*(index-i);}
         public float FindPit(Vec p,out float distance){float best=float.MaxValue,index=0;for(int i=0;i<PitRoute.Length-1;i++){Vec a=PitRoute[i],d=PitRoute[i+1]-a;float t=MathUtil.Clamp(Vec.Dot(p-a,d)/Math.Max(.001f,Vec.Dot(d,d)),0,1);float sq=Vec.Dot(p-a-d*t,p-a-d*t);if(sq<best){best=sq;index=i+t;}}distance=(float)Math.Sqrt(best);return index;}
