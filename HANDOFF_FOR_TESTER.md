@@ -3,7 +3,7 @@
 Machine: Windows 11, NVIDIA RTX 4050 laptop, Godot 4.7.2 mono (.NET 8).
 
 ## What this is
-A racing game rebuilt in Godot 4 from the recovered MySim assets (Real Racing 3-style). 24 cars, 60 track layouts (29 circuits), menu with settings and track previews, race with laps/timing/results, pit stops with crew and sound, HUD, four cameras, keyboard/gamepad/touch input, audio. Physics is a new four-wheel model (`src/Logic/Dynamics.cs`: Magic-Formula tyres, load transfer, downforce, ABS/TC) on top of the recovered race rules.
+A racing game rebuilt in Godot 4 from the recovered MySim assets (Real Racing 3-style). 24 cars, 60 track layouts (29 circuits), menu with settings and track previews, race with laps/timing/results, pit stops with crew and sound, HUD (speed, gear, lap, position, tyres, fuel, damage, minimap with rival dots), four cameras, keyboard/gamepad/touch input, audio. Physics is a new four-wheel model (`src/Logic/Dynamics.cs`: Magic-Formula tyres, load transfer, downforce, ABS/TC) on top of the recovered race rules.
 
 ## Where everything is
 | What | Path |

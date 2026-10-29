@@ -6,7 +6,7 @@ public partial class Hud : CanvasLayer {
  public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear;
  public override void _Ready() {
   var root = new Control { AnchorRight = 1, AnchorBottom = 1, MouseFilter = Control.MouseFilterEnum.Ignore }; AddChild(root);
-  speed = Make(root, 64, new Vector2(-300, -140), true); gear = Make(root, 40, new Vector2(-300, -210), true); info = Make(root, 22, new Vector2(24, 20), false);
+  speed = Make(root, 64, new Vector2(-300, -140), true); gear = Make(root, 40, new Vector2(-300, -210), true); info = Make(root, 22, new Vector2(24, 20), false); mini = new MiniMap { H = this, Size = new Vector2(190, 150) }; mini.AnchorLeft = 0; mini.AnchorTop = 1; mini.AnchorRight = 0; mini.AnchorBottom = 1; mini.OffsetLeft = 20; mini.OffsetTop = -170; mini.OffsetRight = 210; mini.OffsetBottom = -20; root.AddChild(mini);
  }
  static bool touchMode => DisplayServer.IsTouchscreenAvailable() || System.Environment.GetEnvironmentVariable("MYSIM_TOUCH") != null;
  static Label Make(Control p, int size, Vector2 off, bool bottomRight) {
@@ -15,6 +15,20 @@ public partial class Hud : CanvasLayer {
   else { l.Position = off; }
   p.AddChild(l); return l;
  }
+partial class MiniMap : Control {
+  public Hud H; Vector2[] pts; Vector2 mn, mx;
+  public override void _Ready() { MouseFilter = MouseFilterEnum.Ignore; }
+  void Build() { var c = H.Race.track; int n = c.points.Length; pts = new Vector2[n + 1]; mn = new Vector2(1e9f, 1e9f); mx = new Vector2(-1e9f, -1e9f); for (int i = 0; i < n; i++) { var p = c.points[i]; pts[i] = new Vector2(p.x, -p.z); mn = new Vector2(Mathf.Min(mn.X, pts[i].X), Mathf.Min(mn.Y, pts[i].Y)); mx = new Vector2(Mathf.Max(mx.X, pts[i].X), Mathf.Max(mx.Y, pts[i].Y)); } pts[n] = pts[0]; }
+  Vector2 Map(Vector2 w) { float pad = 10f, sw = Size.X - 2 * pad, sh = Size.Y - 2 * pad; float sc = Mathf.Min(sw / Mathf.Max(1f, mx.X - mn.X), sh / Mathf.Max(1f, mx.Y - mn.Y)); var ctr = (mn + mx) * 0.5f; return new Vector2(Size.X * 0.5f, Size.Y * 0.5f) + (w - ctr) * sc; }
+  public override void _Process(double delta) { if (H.Race != null && pts == null) Build(); QueueRedraw(); }
+  public override void _Draw() {
+   if (pts == null || H.Player == null) return; DrawRect(new Rect2(Vector2.Zero, Size), new Color(0, 0, 0, 0.35f));
+   var m = new Vector2[pts.Length]; for (int i = 0; i < pts.Length; i++) m[i] = Map(pts[i]); DrawPolyline(m, new Color(1, 1, 1, 0.75f), 3f, true);
+   foreach (var v in H.Race.cars) { if (v == H.Player) continue; DrawCircle(Map(new Vector2(v.position.x, -v.position.z)), 3.5f, new Color(0.95f, 0.75f, 0.2f)); }
+   DrawCircle(Map(new Vector2(H.Player.position.x, -H.Player.position.z)), 5f, new Color(0.2f, 0.9f, 0.35f));
+  }
+ }
+ MiniMap mini;
  public override void _Process(double delta) {
   if (Player == null) return;
   if (Paused) { info.Text = "PAUSED  (Tab to resume, Esc for menu)"; return; }
