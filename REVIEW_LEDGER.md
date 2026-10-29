@@ -66,3 +66,4 @@
 - Yas Marina black rectangles gone after UV/placeholder fixes (verified t28). Remaining visual items: Silverstone Southern bush blob, BMW livery smudge.
 - BMW M4 'smudge' is the baked AO islands in the livery texture (by design). Pit crew: 5 placeholder figures during service.
 - 2026-10-29 BUG FIXED: in-game Player.carModel was never set, so every car drove with car 0 (Ferrari 488) mass/power/downforce/brakes. Now set from the selected car; in-game lap trace matches headless sim exactly (Brands Hatch F1 p=.274 at t=16).
+- Cars: F1 wheel-guard meshes were duplicated onto every wheel (glassy bubbles) and rear tyre/wheel meshes onto all four wheels; fixed: guards stay on body, front/rear wheel meshes split by axle.
