@@ -28,6 +28,20 @@ public static class Contact {
   v.position = lastGood.TryGetValue(v, out var g0) ? g0.Position : start; v.velocity = new Vec(-v.velocity.x * 0.3f, -v.velocity.z * 0.3f); v.yawRate = 0; v.speed = Mathf.Sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z); v.damage = Mathf.Min(1f, v.damage + 0.01f); return true;
  }
  // Box sweep against barrier colliders (layer 2). Returns true if a wall was hit. carY = current car height.
+ // A deeply embedded planar box can receive a vertical minimum-separation normal. Search only
+ // horizontal, bounded exits using the real shape; never lift the car or invent a wall normal.
+ static Vector3 PlanarExit(PhysicsDirectSpaceState3D space,PhysicsShapeQueryParameters3D query,Vector3 origin,Vector3 size){
+  var original=query.Transform;Vector3 best=Vector3.Zero;float bestDistance=float.PositiveInfinity,limit=Mathf.Max(size.X,size.Z)+.5f;
+  for(int direction=0;direction<16;direction++){
+   float angle=direction*Mathf.Tau/16;var axis=new Vector3(Mathf.Cos(angle),0,Mathf.Sin(angle));float blocked=0;
+   for(float distance=.1f;distance<=limit*2;distance*=2){
+    float probe=Mathf.Min(distance,limit);if(probe>=bestDistance)break;query.Transform=new Transform3D(original.Basis,origin+axis*probe);
+    if(space.IntersectShape(query,1).Count==0){float clear=probe;for(int refine=0;refine<8;refine++){float mid=(blocked+clear)*.5f;query.Transform=new Transform3D(original.Basis,origin+axis*mid);if(space.IntersectShape(query,1).Count==0)clear=mid;else blocked=mid;}float gap=clear+.02f;query.Transform=new Transform3D(original.Basis,origin+axis*gap);if(space.IntersectShape(query,1).Count==0&&gap<bestDistance){bestDistance=gap;best=axis*gap;}break;}
+    blocked=probe;if(probe>=limit)break;
+   }
+  }
+  query.Transform=original;return best;
+ }
  public static bool Walls(PhysicsDirectSpaceState3D space, Vehicle v, Vec start, float carY, Vector3 boxSize, Vector3 localCenter=default) {
   if (v.servicing || v.pitActive) return false;
   var motion = ToWorld(v.position - start, 0);var basis=new Basis(Vector3.Up,v.heading);var offset=basis*new Vector3(localCenter.X,0,localCenter.Z); var s3 = ToWorld(start, carY + (localCenter.Y>0?localCenter.Y:boxSize.Y*.5f))+offset;
@@ -36,7 +50,7 @@ public static class Contact {
   // CastMotion ignores shapes already overlapping at the start. Resolve those explicitly, even at rest.
   for(int iteration=0;iteration<8;iteration++) {
    q.Transform=new Transform3D(q.Transform.Basis,s3);var rest=space.GetRestInfo(q);if(rest.Count==0)break;
-   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f)break;
+   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f){var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());touched=true;continue;}
    var pts=space.CollideShape(q,16);float depth=0;for(int i=0;i+1<pts.Count;i+=2)depth=Mathf.Max(depth,Mathf.Abs((pts[i]-pts[i+1]).Dot(n)));
    s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);touched=true;
   }
