@@ -52,7 +52,8 @@ static Godot.Collections.Dictionary carMap;
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;
  }
- public static Vector3 MeasureSize(Node3D car) { Aabb bb = new Aabb(); bool first = true; foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; if (!mi.Visible || !mi.HasMeta("grp") || mi.GetMeta("grp").AsString() != "ext") continue; var b = mi.GlobalTransform * mi.GetAabb(); if (first) { bb = b; first = false; } else bb = bb.Merge(b); } return bb.Size; }
+ public static Aabb MeasureBounds(Node3D car) { Aabb bb=new();bool first=true;var inv=car.GlobalTransform.AffineInverse();foreach(var node in car.FindChildren("*","MeshInstance3D",true,false)){var mesh=(MeshInstance3D)node;if(!mesh.Visible||!mesh.HasMeta("grp")||mesh.GetMeta("grp").AsString()!="ext")continue;var box=(inv*mesh.GlobalTransform)*mesh.GetAabb();bb=first?box:bb.Merge(box);first=false;}return bb; }
+ public static Vector3 MeasureSize(Node3D car)=>MeasureBounds(car).Size;
  public static void ForceUnshaded(Node3D car) { foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var ov = mi.GetSurfaceOverrideMaterial(s) as ShaderMaterial; var tex = ov?.GetShaderParameter("base").As<Texture2D>(); if (tex != null) mi.SetSurfaceOverrideMaterial(s, new StandardMaterial3D { ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded, AlbedoTexture = tex, CullMode = BaseMaterial3D.CullModeEnum.Disabled, Uv1Scale = new Vector3(1, -1, 1), Uv1Offset = new Vector3(0, 1, 0) }); } } }
  // Some Unity car materials have an empty _BaseMap (assigned at runtime in Unity): fall back to the car's own livery/slot texture by node suffix.
  static string FallbackTex(int carIdx, string nodeName) {
@@ -84,7 +85,7 @@ static Godot.Collections.Dictionary carMap;
    bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.6f : 0.69f); var rim = BuildRim(rimR, tw, carIdx); rim.Position = Vector3.Zero; spin.AddChild(rim);
   }
   foreach (var w in wheelMeshes) { w.Visible = false; w.SetMeta("wheel_hidden", true); }
-  var measured=MeasureSize(car); MySimulator.Rebuild.VehicleDimensions.Width[carIdx]=measured.X; MySimulator.Rebuild.VehicleDimensions.Height[carIdx]=measured.Y; MySimulator.Rebuild.VehicleDimensions.Length[carIdx]=measured.Z;
+  var measuredBounds=MeasureBounds(car);var measured=measuredBounds.Size;var center=measuredBounds.GetCenter();MySimulator.Rebuild.VehicleDimensions.CenterX[carIdx]=center.X;MySimulator.Rebuild.VehicleDimensions.CenterY[carIdx]=center.Y;MySimulator.Rebuild.VehicleDimensions.CenterZ[carIdx]=center.Z; MySimulator.Rebuild.VehicleDimensions.Width[carIdx]=measured.X; MySimulator.Rebuild.VehicleDimensions.Height[carIdx]=measured.Y; MySimulator.Rebuild.VehicleDimensions.Length[carIdx]=measured.Z;
   GD.Print("WHEELS car=", carIdx, " parts=", wheelMeshes.Count);
   return pivots;
  }

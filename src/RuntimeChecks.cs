@@ -27,6 +27,7 @@ public partial class RuntimeChecks : Node3D {
     var v=new Vehicle { position=new Vec(0,-.5f),velocity=new Vec(0,speed),speed=Math.Abs(speed) };
     Check(Contact.Walls(space,v,new Vec(0,-.5f),0,new Vector3(2,1,4)),"initial overlap ignored");Check(v.position.z < -2f,"initial overlap not cleared");Check(v.speed<=Math.Abs(speed)+.01f,"overlap added energy");
    }
+   var offsetHit=new Vehicle {position=new Vec(0,8),velocity=new Vec(0,80),speed=80};Check(Contact.Walls(space,offsetHit,new Vec(0,-8),0,new Vector3(2,1,4),new Vector3(0,.5f,1)),"offset body missed wall");Check(offsetHit.position.z < -3f,"visual nose crossed wall despite collision");
    var buildingHit=new Vehicle {position=new Vec(20,0),velocity=new Vec(0,80),speed=80};Check(Contact.Walls(space,buildingHit,new Vec(20,-14),0,new Vector3(2,1,4)),"drive-through architecture");Check(buildingHit.position.z < -9f,"car entered building footprint");
    var g=Contact.Ground(space,new Vector3(4,0,-4),0);Check(g.near&&Math.Abs(g.y)<.01f,"ground height incorrect");
    var contained=new Vehicle {position=new Vec(0,-4),velocity=new Vec(10,0),speed=10,lateral=0}; Contact.MarkGood(contained,true);

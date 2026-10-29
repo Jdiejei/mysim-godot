@@ -337,7 +337,7 @@ namespace MySimulator.Rebuild
             {
                 Vehicle a=cars[i],b=cars[j];if(a.externalPhysics||b.externalPhysics||a.retired||b.retired)continue;
                 int ac=Math.Max(0,Math.Min(CarCatalog.Count-1,a.carModel)),bc=Math.Max(0,Math.Min(CarCatalog.Count-1,b.carModel));
-                Vec delta=b.position-a.position;
+                Vec aCentre=a.position+a.Right*VehicleDimensions.CenterX[ac]+a.Forward*VehicleDimensions.CenterZ[ac],bCentre=b.position+b.Right*VehicleDimensions.CenterX[bc]+b.Forward*VehicleDimensions.CenterZ[bc];Vec delta=bCentre-aCentre;
                 float al=VehicleDimensions.Length[ac]*.5f,aw=VehicleDimensions.Width[ac]*.5f;
                 float bl=VehicleDimensions.Length[bc]*.5f,bw=VehicleDimensions.Width[bc]*.5f;
                 if(delta.Magnitude>al+aw+bl+bw)continue;

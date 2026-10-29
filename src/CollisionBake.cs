@@ -7,7 +7,7 @@ public static class CollisionBake {
   var tris = new System.Collections.Generic.List<Vector3>();
   foreach (var node in track.FindChildren("*", "MeshInstance3D", true, false)) {
    var mi = (MeshInstance3D)node; if (!WallBuilder.IsSolid(mi)) continue; var xf = mi.GlobalTransform;
-   for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var arr = mi.Mesh.SurfaceGetArrays(s); var vtx = (Vector3[])arr[(int)Mesh.ArrayType.Vertex]; var idx = (int[])arr[(int)Mesh.ArrayType.Index]; if (vtx == null || idx == null) continue; for (int i = 0; i < idx.Length; i++) tris.Add(xf * vtx[idx[i]]); }
+   for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var arr = mi.Mesh.SurfaceGetArrays(s); var vtx = (Vector3[])arr[(int)Mesh.ArrayType.Vertex]; var idx = (int[])arr[(int)Mesh.ArrayType.Index]; if (vtx == null) continue; if (idx == null || idx.Length==0) { foreach(var vertex in vtx)tris.Add(xf*vertex); } else for (int i = 0; i < idx.Length; i++) tris.Add(xf * vtx[idx[i]]); }
   }
   using (var fs = new System.IO.FileStream(ProjectSettings.GlobalizePath(path), FileMode.Create)) using (var bw = new BinaryWriter(fs)) { bw.Write(tris.Count / 3); foreach (var v in tris) { bw.Write(v.X); bw.Write(v.Y); bw.Write(-v.Z); } /* bins stay in raw (mirrored) coordinates */ }
   return tris.Count / 3;
