@@ -42,7 +42,7 @@ $env:Path += ";C:\Program Files\dotnet"; dotnet build
 ## Controls
 Keyboard: W/Up throttle, S/Down brake, A/D or Left/Right steer, Space handbrake, P request pit stop, C change camera (chase, far chase, cockpit, bonnet), Tab pause, Esc back to menu.
 Gamepad: left stick steer (0.08 deadzone), right trigger throttle, left trigger brake, A pit request, Y camera. (Gamepad code exists but has not been tested with a real pad.)
-Audio is muted by default (no sound implemented yet).
+Audio is muted by default; press M to unmute. Engine (recovered EngineIdle.wav, pitch follows RPM), transmission whine and pit sounds (jack, wheel gun) play from recovered assets.
 
 ## Skip the menu (automated tests, environment variables)
 `MYSIM_TRACK=<0-59>`, `MYSIM_CAR=<0-23>`, `MYSIM_LAPS=<n>`, `MYSIM_CAM=<0-3>`; `MYSIM_AUTODRIVE=1` full throttle, straight; `MYSIM_AI=1` AI drives the player car; `MYSIM_SECONDS=<n>` run length; `MYSIM_SHOT=<png path>` save a screenshot and quit. `MYSIM_CARVIEW=<car>` shows one car in a showroom.
