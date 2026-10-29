@@ -71,8 +71,14 @@ static Godot.Collections.Dictionary carMap;
   for (int i = 0; i < 4; i++) {
    var p = pts[i].AsGodotArray(); var pivot = new Node3D { Name = "WheelPivot" + i, Position = new Vector3((float)p[0], (float)p[1], (float)p[2]) }; car.AddChild(pivot);
    var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin);var fixedBrake=new Node3D {Name="BrakeAssembly"};pivot.AddChild(fixedBrake); if ((float)p[0] < 0) pivot.RotationDegrees = new Vector3(0, 180, 0);
-   bool rearAxle = (float)p[2] < 0; bool anyRear = false; foreach (var w0 in wheelMeshes) if (w0.Name.ToString().ToUpperInvariant().Contains("_REAR")) anyRear = true;
-   foreach (var w in wheelMeshes) { bool isRearMesh = w.Name.ToString().ToUpperInvariant().Contains("_REAR"); if (anyRear && isRearMesh != rearAxle) continue; var d = (MeshInstance3D)w.Duplicate();if(w.Name.ToString().ToUpperInvariant().Contains("CALIPER"))fixedBrake.AddChild(d);else spin.AddChild(d); d.Transform = inv * w.GlobalTransform; d.Visible = true; }
+   bool rearAxle=(float)p[2]<0;
+   string Family(MeshInstance3D mesh) { string name=mesh.Name.ToString().ToUpperInvariant();int material=name.IndexOf("_MM_",System.StringComparison.Ordinal);if(material>=0)name=name.Substring(0,material);return name.Replace("_REAR","").Replace("_FRONT",""); }
+   foreach(var source in wheelMeshes){
+    string name=source.Name.ToString().ToUpperInvariant(),family=Family(source);bool hasRear=false;
+    foreach(var candidate in wheelMeshes)if(Family(candidate)==family&&candidate.Name.ToString().ToUpperInvariant().Contains("_REAR"))hasRear=true;
+    if(hasRear&&name.Contains("_REAR")!=rearAxle)continue;
+    var duplicate=(MeshInstance3D)source.Duplicate();if(name.Contains("CALIPER"))fixedBrake.AddChild(duplicate);else spin.AddChild(duplicate);duplicate.Transform=inv*source.GlobalTransform;duplicate.Visible=true;
+   }
    pivots[i] = pivot;
   }
   for (int i = 0; i < 4; i++) {

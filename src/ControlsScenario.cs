@@ -8,7 +8,7 @@ public partial class ControlsScenario : Node {
  public override async void _Ready(){
   var original=new Key[ControlBindings.Actions.Length];for(int i=0;i<original.Length;i++)original[i]=ControlBindings.Get(i);
   try {
-   ControlBindings.Reset();var panel=new ControlsPanel();GetTree().Root.AddChild(panel);
+   ControlBindings.Reset();var panel=new ControlsPanel();AddChild(panel);
    await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
    var binding=panel.GetNode<Button>("Binding0");binding.EmitSignal(BaseButton.SignalName.Pressed);KeyEvent(Key.K);
    Check(ControlBindings.Get(0)==Key.K,"new throttle key not stored");
