@@ -138,3 +138,5 @@ Found WindingFixer used cross/normal dot<0 as a reason to flip. Godot explicitly
 - Deep-corner recovery and controls/contact regression40933009962 PASSED. Preserve original failing40932590391. Full-height regression40932308989 alsoPASSED.
 
 - Current winding-fix runs: regression40933457055 and surface visuals40933461700 at1bb1968. No duplicate dispatch needed. Geometry-space synthetic corner recovery40933009962 already passed; saved native logs are distinct from full game visuals. Texture overview now1400 (sheets0000?0013), none finally accepted.
+
+- Winding regression40933457055 PASSED:47 native contact/height/corner/winding assertions plus controls/dialog checks. Downloaded cloud/winding-regression. Surface run40933461700 still needs actual image review. Transfer pythonw process3596 remains active; original game watcher14356 has exited after old preview terminal failure. Do NOT describe it as running or relaunch its old failed generation; next game orchestration must adopt new-source evidence and wait for visual diagnosis. Three-hour continuation automation remains ACTIVE.
