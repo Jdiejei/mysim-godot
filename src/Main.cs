@@ -21,6 +21,7 @@ public partial class Main : Node3D {
   if (t != null) StartRace(int.Parse(t), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAR") ?? "8"), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_LAPS") ?? "3")); else { ShowMenu(); var ms = System.Environment.GetEnvironmentVariable("MYSIM_MENUSHOT"); if (ms != null) MenuShot(ms); }
  }
  async void MenuShot(string path) { for (int i = 0; i < 20; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetViewport().GetTexture().GetImage().SavePng(path); GetTree().Quit(); }
+ void Ui(string n) { var st = GD.Load<AudioStream>("res://assets/Resources/RecoveredGUI/Audio/" + n + ".wav"); if (st == null) return; var pl = new AudioStreamPlayer { Stream = st, VolumeDb = -6f }; AddChild(pl); pl.Finished += () => pl.QueueFree(); pl.Play(); }
  async void CarView(int ci) {
   var floor = new MeshInstance3D { Mesh = new PlaneMesh { Size = new Vector2(60, 60) }, MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(0.3f, 0.3f, 0.32f) } }; AddChild(floor);
   var car = CarLoader.Load(CarCatalog.Folders[ci]); AddChild(car); if (System.Environment.GetEnvironmentVariable("MYSIM_UVAUDIT") != null) { foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; string nm = mi.Name.ToString(); if (!(nm.StartsWith("LOD_A_BODY") || nm.StartsWith("LOD_A_DOOR_LEFT_mm") || nm.StartsWith("LOD_A_HOOD_mm") || nm.StartsWith("LOD_A_CHASSIS"))) continue; for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) { var arr = mi.Mesh.SurfaceGetArrays(s); var u0 = (Vector2[])arr[(int)Mesh.ArrayType.TexUV]; var u1 = (Vector2[])arr[(int)Mesh.ArrayType.TexUV2]; string D(Vector2[] u) { if (u == null || u.Length == 0) return "none"; float x0 = 9e9f, y0 = 9e9f, x1 = -9e9f, y1 = -9e9f; foreach (var v in u) { x0 = Mathf.Min(x0, v.X); y0 = Mathf.Min(y0, v.Y); x1 = Mathf.Max(x1, v.X); y1 = Mathf.Max(y1, v.Y); } return "[" + x0.ToString("0.00") + ".." + x1.ToString("0.00") + ", " + y0.ToString("0.00") + ".." + y1.ToString("0.00") + "]"; } GD.Print("UVAUDIT ", nm, " s", s, " UV0=", D(u0), " UV1=", D(u1)); } } GetTree().Quit(); return; }
@@ -35,9 +36,9 @@ public partial class Main : Node3D {
   if (paused && pauseLayer == null) { pauseLayer = new CanvasLayer { Layer = 20 }; AddChild(pauseLayer); var dim = new ColorRect { Color = new Color(0, 0, 0, 0.6f), AnchorRight = 1, AnchorBottom = 1 }; pauseLayer.AddChild(dim);
    var box = new VBoxContainer { Position = new Vector2(540, 250), CustomMinimumSize = new Vector2(200, 0) }; pauseLayer.AddChild(box);
    var t = new Label { Text = "PAUSED" }; t.AddThemeFontSizeOverride("font_size", 44); box.AddChild(t);
-   var rs = new Button { Text = "RESUME (Esc / Tab)" }; rs.Pressed += () => { drive.Race.paused = false; }; box.AddChild(rs);
-   var rt = new Button { Text = "RESTART" }; rt.Pressed += () => { RemovePause(); StartRace(lastTrack, lastCar, lastLaps); }; box.AddChild(rt);
-   var mn = new Button { Text = "MAIN MENU" }; mn.Pressed += () => { RemovePause(); ShowMenu(); }; box.AddChild(mn); rs.GrabFocus(); }
+   var rs = new Button { Text = "RESUME (Esc / Tab)" }; rs.Pressed += () => { Ui("click"); drive.Race.paused = false; }; box.AddChild(rs);
+   var rt = new Button { Text = "RESTART" }; rt.Pressed += () => { Ui("click"); RemovePause(); StartRace(lastTrack, lastCar, lastLaps); }; box.AddChild(rt);
+   var mn = new Button { Text = "MAIN MENU" }; mn.Pressed += () => { Ui("back"); RemovePause(); ShowMenu(); }; box.AddChild(mn); rs.GrabFocus(); }
   else if (!paused && pauseLayer != null) RemovePause();
  }
  void RemovePause() { pauseLayer?.QueueFree(); pauseLayer = null; }
@@ -82,10 +83,10 @@ public partial class Main : Node3D {
   var laps = new SpinBox { MinValue = 1, MaxValue = 20, Value = lastLaps, Position = new Vector2(1060, 140) }; ui.AddChild(laps);
   var infoLbl = new Label { Position = new Vector2(1060, 290), Size = new Vector2(200, 300), AutowrapMode = TextServer.AutowrapMode.WordSmart }; ui.AddChild(infoLbl);
   System.Action refreshInfo = () => { var ts0 = tracks.GetSelectedItems(); var cs0 = cars.GetSelectedItems(); int ti = ts0.Length > 0 ? ts0[0] : 0, ci2 = cs0.Length > 0 ? cs0[0] : 0; var circ = new Circuit(ti); infoLbl.Text = "TRACK\n" + SourceRoutes.Names[ti] + "\nLength " + (circ.length / 1000f).ToString("0.00") + " km\nWidth " + circ.width.ToString("0") + " m\n\nCAR\n" + CarCatalog.Names[ci2] + "\nMass " + RecoveredVehicleProfiles.Mass[ci2].ToString("0") + " kg\nTop speed " + (RecoveredVehicleProfiles.Speed[ci2] * 1.609f).ToString("0") + " km/h\n0-60 mph " + RecoveredVehicleProfiles.Acceleration[ci2].ToString("0.0") + " s\nWheelbase " + RecoveredGeometry.Wheelbase[ci2].ToString("0.00") + " m"; };
-  tracks.ItemSelected += i => refreshInfo(); cars.ItemSelected += i => refreshInfo(); refreshInfo();
+  tracks.ItemSelected += i => { Ui("toggle"); refreshInfo(); }; cars.ItemSelected += i => { Ui("toggle"); refreshInfo(); }; refreshInfo();
   var hint = new Label { Text = "Pick track and car, then START.  Drive: WASD/arrows, Space handbrake, P pit, C camera, Esc pause", Position = new Vector2(48, 650) }; ui.AddChild(hint);
   var start = new Button { Text = "START RACE", Position = new Vector2(1060, 200), Size = new Vector2(180, 56) };
-  start.Pressed += () => { var ts = tracks.GetSelectedItems(); var cs = cars.GetSelectedItems(); StartRace(ts.Length > 0 ? ts[0] : 0, cs.Length > 0 ? cs[0] : 0, (int)laps.Value); };
+  start.Pressed += () => { Ui("swoosh"); var ts = tracks.GetSelectedItems(); var cs = cars.GetSelectedItems(); StartRace(ts.Length > 0 ? ts[0] : 0, cs.Length > 0 ? cs[0] : 0, (int)laps.Value); };
   ui.AddChild(start); tracks.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed); cars.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed);
  }
  async void DebugRoad(Node3D track) {
