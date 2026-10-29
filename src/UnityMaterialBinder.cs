@@ -21,6 +21,7 @@ void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv
  static string NoSkid(string p) { if (p == null) return null; string f = System.IO.Path.GetFileName(p); if (f == "gnd_asphalt_01.png") return p.Replace(f, "gnd_asphalt_noskids_01.png"); if (f == "gnd_asphalt_03.png") return p.Replace(f, "gnd_asphalt_noskids_03.png"); if (f == "gnd_asphalt_dusty_01.png") return p.Replace(f, "gnd_asphalt_dusty_noskids_01.png"); if (f == "gnd_road_dark.png") return p.Replace("surface/road/gnd_road_dark.png", "surface/asphalt/gnd_asphalt_noskids_01.png"); return p; }
  // Per-surface detail: fine grain and large-scale variation tuned for each ground type so tiling reads as real surface instead of one repeated image.
  static void GroundClass(ShaderMaterial sm, string path) {
+  if(System.Environment.GetEnvironmentVariable("MYSIM_AUTHORED_GROUND")=="1") { sm.SetShaderParameter("world_scale",0f);sm.SetShaderParameter("detail_amp",0f);sm.SetShaderParameter("macro_amp",0f);sm.SetShaderParameter("macro_tint",Vector3.One);return; }
   string n = System.IO.Path.GetFileName(path ?? "").ToLowerInvariant();
   if (System.Environment.GetEnvironmentVariable("MYSIM_UVROAD") == null && (n.StartsWith("gnd_asphalt") || n.StartsWith("gnd_grass") || n.StartsWith("gnd_sand") || n.StartsWith("gnd_gravel"))) sm.SetShaderParameter("world_scale", n.StartsWith("gnd_asphalt") ? 0.16f : 0.12f);
   if (n.Contains("asphalt") || n.Contains("road")) { sm.SetShaderParameter("detail_scale", 90f); sm.SetShaderParameter("detail_amp", 0.10f); sm.SetShaderParameter("macro_scale", 0.18f); sm.SetShaderParameter("macro_amp", 0.07f); sm.SetShaderParameter("macro_tint", new Vector3(0.96f, 0.96f, 0.98f)); }
@@ -45,7 +46,7 @@ void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv
    if (placeholderBrand) { mi.Visible = false; continue; } // sponsor-slot placeholder sheets (big black A/B/C letters in RR3 are replaced by sponsor art at runtime)
    bool ground = nm.ToLowerInvariant().StartsWith("gnd_") || nm.ToLowerInvariant().StartsWith("road") || nm.ToLowerInvariant().StartsWith("geo_terrain");
    for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) {
-    total++; if (guids.Count == 0) continue; string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); string key = g + (ground ? "|g" : "");
+    total++; if (guids.Count == 0) continue; string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); string key = g + (ground ? "|g" : "") + (nm.StartsWith("org_",System.StringComparison.OrdinalIgnoreCase)||nm.StartsWith("crowd",System.StringComparison.OrdinalIgnoreCase)?"|organic":"|structure");
     if (!cache.TryGetValue(key, out var mat)) {
      mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); string tp = mi2.ContainsKey("tex") ? Res(NoSkid(mi2["tex"].AsString())) : null; Texture2D tex = tp != null && ResourceLoader.Exists(tp) ? GD.Load<Texture2D>(tp) : null;
       Color col = Colors.White; if (mi2.ContainsKey("color")) { var c = mi2["color"].AsGodotArray(); col = new Color((float)c[0], (float)c[1], (float)c[2], (float)c[3]); }

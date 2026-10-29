@@ -1,0 +1,2 @@
+{"runs": [40914022371, 40914030343], "event": "failed_validation", "cause": "Invalid hardcoded Vulkan ICD and empty GUI-executable stdout capture", "evidence": ["game-failure-attempt1.log", "windows-failure-attempt1.log"], "recorded": 1793294862.8303468}
+{"runs": [40920221225, 40920226494], "event": "distinct_fix_validation", "source_commit": "1f3e3cc", "fix": "Discover real installed ICD; explicit subprocess waits and engine log files", "recorded": 1793294862.8303752}
