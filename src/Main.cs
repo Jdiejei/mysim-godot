@@ -127,7 +127,7 @@ public partial class Main : Node3D {
   var p = drive.Player; var panel = new ColorRect { Color = new Color(0, 0, 0, 0.7f), AnchorRight = 1, AnchorBottom = 1 }; layer.AddChild(panel);
   var l = new Label { Position = new Vector2(420, 90) }; l.AddThemeFontSizeOverride("font_size", 30);
   var order = new System.Collections.Generic.List<Vehicle>(drive.Race.cars); order.Sort((x, y) => { float kx = x.finished ? x.finishTime : 1e6f - (x.totalDistance - x.id * 0.008f * drive.Race.track.length), ky = y.finished ? y.finishTime : 1e6f - (y.totalDistance - y.id * 0.008f * drive.Race.track.length); return kx.CompareTo(ky); });
-  string board = ""; for (int i = 0; i < order.Count; i++) { var o = order[i]; string who = o == p ? "YOU" : o.driver; string tm = o.finished ? o.finishTime.ToString("0.0") + " s" : "not finished"; board += (i + 1) + ".  " + who.PadRight(8) + " " + tm + "\n"; }
+  string board = ""; for (int i = 0; i < order.Count; i++) { var o = order[i]; string who = o == p ? "YOU" : o.driver; float gapM = (p.totalDistance - p.id * 0.008f * drive.Race.track.length) - (o.totalDistance - o.id * 0.008f * drive.Race.track.length); string tm = o.finished ? o.finishTime.ToString("0.0") + " s" : (o == p ? "" : "+" + (gapM > 0 ? gapM : 0).ToString("0") + " m"); board += (i + 1) + ".  " + who.PadRight(8) + " " + tm + "\n"; }
   int place = order.IndexOf(p) + 1;
   l.Text = "RESULTS   P" + place + " of " + order.Count + "\n\n" + (order.Count > 1 ? board + "\n" : "") + "TIME  " + p.finishTime.ToString("0.00") + " s\nBEST LAP  " + p.bestLap.ToString("0.00") + " s\nPENALTY  " + p.penalty.ToString("0.0") + " s\nDAMAGE  " + (int)(p.damage * 100) + "%\n\nENTER restart    ESC menu"; layer.AddChild(l);
  }
