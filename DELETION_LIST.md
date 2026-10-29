@@ -15,7 +15,7 @@ Written 2026-10-29. The Godot port runs without any of the items below: it uses 
 | Item | Size | Why keep |
 |---|---|---|
 | `D:\MySim-recovered` (incl. `full-game-build`, 63.1 GB) | 63+ GB | the only copy of the recovered source game; the Godot `assets` folder holds just the 4.4 GB the port uses. Audio, GUI sounds and pit sounds were copied from here. Deleting it means anything not yet ported is gone for good. |
-| `D:\My Sim` | not measured | original recovered folder |
+| `D:\My Sim` | 62.2 GB | original recovered folder (similar size to full-game-build; likely overlapping) |
 | `D:\MySim-processed` (final manifest, 94 GB of candidate `.blend` meshes in zips) | large | the "enhanced mesh" candidates; not used by the game (exact copies of the originals, none quality-accepted). Safe to delete if you do not want them, but they took 5 days of compute to make. |
 
 ## C. Keep
