@@ -64,3 +64,4 @@
 - Sebring dark wedge = long sun shadow of a floodlight pole (not a defect). Placeholder A/B/C sponsor strips hidden on gantries/flags (re-rendered, verified Silverstone).
 - Pace note: F1 sustained lateral accel measured 1.1-1.5g (expected ~2g with downforce); steady-state corner shows a yaw wobble at full lock. Tyre model tuning item: raise peak slip-angle stiffness / check rear traction share. AI cornering plan is not the limiter.
 - Yas Marina black rectangles gone after UV/placeholder fixes (verified t28). Remaining visual items: Silverstone Southern bush blob, BMW livery smudge.
+- BMW M4 'smudge' is the baked AO islands in the livery texture (by design). Pit crew: 5 placeholder figures during service.
