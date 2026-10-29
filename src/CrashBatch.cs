@@ -12,7 +12,7 @@ public static class CrashBatch {
   var sp0 = System.Environment.GetEnvironmentVariable("MYSIM_SPACING"); if (sp0 != null) points = Mathf.Max(8, (int)(new Circuit(trackIdx).length / float.Parse(sp0, CultureInfo.InvariantCulture))); var sbAll = new StringBuilder(); int doneAll = 0, flaggedAll = 0;
   for (int carIdx = c0; carIdx <= c1; carIdx++) {
   var sb = new StringBuilder(); var speeds = new[] { 100f, 180f, 260f }; var angles = new[] { 10f, 25f, 45f, 90f, -10f, -25f, -45f, -90f };
-  var box = new Vector3(VehicleDimensions.Width[carIdx], Mathf.Clamp(VehicleDimensions.Height[carIdx], .6f, 1.5f), VehicleDimensions.Length[carIdx]); const float dt = 1f / 120f; int done = 0, flagged = 0;
+  var box = Contact.BodySize(carIdx); const float dt = 1f / 120f; int done = 0, flagged = 0;
   var plist = new List<float>(); { var ck = new Circuit(trackIdx); float L = ck.length, pos = 0; while (pos < L) { plist.Add(pos / L); float h0 = ck.Heading(pos / L), h1 = ck.Heading(Mathf.Min(pos + 25f, L - 0.01f) / L); float bend = Mathf.Abs(MathUtil.Wrap(h1 - h0)) * 57.2958f; float spacing = sp0 != null ? float.Parse(sp0, CultureInfo.InvariantCulture) : L / Mathf.Max(8, points); if (!float.IsFinite(spacing) || spacing <= 0) throw new System.ArgumentException("Crash spacing must be positive and finite"); pos += bend > 4f ? spacing * .4f : spacing; } }
   for (int pi = 0; pi < plist.Count; pi++) {
    if (pi % shards != shard) continue; float p = plist[pi];

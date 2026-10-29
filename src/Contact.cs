@@ -3,6 +3,8 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Shared ground + wall contact logic used by both the playable DriveController and the headless CrashBatch.
 public static class Contact {
+ public static Vector3 BodySize(int car)=>BodySize(new Vector3(VehicleDimensions.Width[car],VehicleDimensions.Height[car],VehicleDimensions.Length[car]));
+ public static Vector3 BodySize(Vector3 measured){if(!measured.IsFinite()||measured.X<=0||measured.Y<=0||measured.Z<=0)throw new System.ArgumentException("Invalid measured collision dimensions");return measured;}
  public static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, p.z);
  public struct GroundResult { public bool found, near; public float y, rawY; public Vector3 normal; public bool clamped; }
  // Ground = drive-surface layer only (mask 1), continuous with the previous height (+-dyMax per call).
