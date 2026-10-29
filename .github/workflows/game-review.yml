@@ -3,7 +3,7 @@ run-name: full game art and runtime review
 on:
   workflow_dispatch:
     inputs:
-      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry], default: preview}
+      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces], default: preview}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.depth }}', cancel-in-progress: false}
 jobs:
@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       max-parallel: 6
       matrix:
-        shard: ${{ fromJSON(inputs.depth == 'geometry' && '[0]' || '[0,1,2,3,4,5]') }}
+        shard: ${{ fromJSON((inputs.depth == 'geometry' || inputs.depth == 'surfaces') && '[0]' || '[0,1,2,3,4,5]') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -56,6 +56,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           GEOMETRY_ONLY: ${{ inputs.depth == 'geometry' && '1' || '0' }}
+          SURFACE_REVIEW: ${{ inputs.depth == 'surfaces' && '1' || '0' }}
           FULL_RACES: ${{ inputs.depth == 'full_races' && '1' || '0' }}
         run: xvfb-run -a python tools/cloud_game_audit.py
       - name: Preserve encrypted visual evidence

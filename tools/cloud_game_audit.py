@@ -15,6 +15,14 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('SURFACE_REVIEW')=='1':
+ for track in (5,23,59):
+  for authored,shadows in ((False,True),(True,True),(False,False),(True,False)):
+   label=f'surface-{track:02}-authored-{int(authored)}-shadows-{int(shadows)}';shot=out/(label+'.png')
+   values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'2','MYSIM_AUTHORED_GROUND':str(int(authored)),'MYSIM_SHOT':str(shot)}
+   if not shadows:values['MYSIM_NOSHADOW']='1'
+   text=run(label,values,timeout=300);assert shot.exists() and 'onSurface=True' in text
+ print('PASS surface comparison capture (visual acceptance pending)',flush=True);sys.exit(0)
 if shard==0:
  text=run('geometry',{'MYSIM_RUNTIME_CHECKS':'1','MYSIM_GEOMETRYOUT':str(out/'geometry.json')},['--headless']);assert 'PASS runtime' in text
 if os.environ.get('GEOMETRY_ONLY')=='1':

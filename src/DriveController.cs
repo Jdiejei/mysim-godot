@@ -83,7 +83,8 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
  static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, p.z);
  void CaptureShot(string fallback) {
   if (DisplayServer.GetName()=="headless") { GD.Print("SCREENSHOT_SKIPPED headless (logic check only)"); return; }
-  GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? fallback);
+  string path=System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? fallback;GD.Print("SCREENSHOT_BEGIN ",path);
+  var image=GetViewport().GetTexture().GetImage();var error=image.SavePng(path);GD.Print("SCREENSHOT_END ",error," size=",image.GetWidth(),"x",image.GetHeight());if(error!=Error.Ok)throw new System.IO.IOException("Screenshot failed: "+error);
  }
  ulong lastHeartbeat; double worstRenderMs;
  public override void _Process(double delta) {
