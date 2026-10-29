@@ -53,7 +53,7 @@ namespace MySimulator.Rebuild
             // pedals -> wheel torques
             float wMean=(st.w[2]+st.w[3])*.5f;
             float driveTotal=Math.Min(power/Math.Max(Math.Max(wMean*R,u),6f),mass*G*2.2f)*inp.throttle+HybridDeployment.Step(v,inp,dt)*inp.throttle;
-            if(inp.reverse)driveTotal=-Math.Min(mass*2.5f,mass*G*.4f)*(inp.throttle+inp.brake)*.5f;
+            if(inp.reverse)driveTotal=u<-11f?0f:-Math.Min(mass*3.5f,mass*G*.4f)*(inp.throttle+inp.brake)*.5f;
             float brakeDecel=26.82f*26.82f/(2*stop60);float brakeTotal=(inp.reverse?0:inp.brake)*brakeDecel*mass*(road?1:.7f);
             if(inp.handbrake)brakeTotal+=mass*3;
             float fxB=0,fyB=0,mz=0;float slipAcc=0;

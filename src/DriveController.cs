@@ -11,7 +11,7 @@ public partial class DriveController : Node3D {
  }
  void BindHud() { if (Hud != null) { Hud.Race = Race; Hud.Player = Player; } }
  void ResolveWalls(Vec start) { if (Contact.Walls(GetWorld3D().DirectSpaceState, Player, start, Car.Position.Y, new Vector3(1.96f, 1.0f, 4.06f))) WallHits++; }
- public int WallHits; int lastTrace = -1; bool floatScanned, settingsApplied, condsApplied; int pushFrames, frames;
+ public int WallHits; int lastTrace = -1; bool floatScanned, settingsApplied, condsApplied; float revHold; int pushFrames, frames;
  Vector3 ObstructCam(Vector3 from, Vector3 want) { var q = PhysicsRayQueryParameters3D.Create(from, want); q.CollisionMask = 2; q.HitBackFaces = true; var hit = GetWorld3D().DirectSpaceState.IntersectRay(q); if (hit.Count == 0) return want; var p = (Vector3)hit["position"]; var n = (Vector3)hit["normal"]; var dir = (want - from).Normalized(); float dist = Mathf.Max(0.8f, from.DistanceTo(p) - 0.35f); return from + dir * dist; }
 float lastLift; Node3D crew; Node3D[] crewFig; Vector3[] crewHome;
  void BuildCrew() {
@@ -91,7 +91,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   // Analog-style steering: keyboard digital input ramps up/down and the available lock shrinks with speed (no instant full-lock snap-spins).
   bool padSteer = Input.GetConnectedJoypads().Count > 0 && Mathf.Abs(Input.GetJoyAxis(Input.GetConnectedJoypads()[0], JoyAxis.LeftX)) > 0.08f;
   if (!padSteer && !AutoDrive) { float rate = Mathf.Abs(steer) > 0.01f ? 2.6f : 5.0f; if (Mathf.Sign(steer) != Mathf.Sign(steerCmd) && Mathf.Abs(steer) > 0.01f) rate = 5.0f; steerCmd = Mathf.MoveToward(steerCmd, steer, rate * (float)delta); float lim = Mathf.Clamp(1.0f - Player.speed / 120f, 0.35f, 1f); steer = steerCmd * lim; } else steerCmd = steer;
-  Player.input = new DriverInput(thr, brk, steer) { handbrake = Input.IsKeyPressed(Key.Space) };
+  bool wantReverse = !AutoDrive && !AiTest && Player.human && brk > 0.1f && thr < 0.05f && Player.speed < 1.2f; if (wantReverse) { revHold += (float)delta; } else if (Player.speed > 2f || thr > 0.05f) revHold = 0; Player.input = new DriverInput(wantReverse && revHold > 0.25f ? 0 : thr, brk, steer) { handbrake = Input.IsKeyPressed(Key.Space), reverse = wantReverse && revHold > 0.25f };
   var startPos = Player.position; Race.Advance((float)delta); if (Player.dbgPush > 0.002f) pushFrames++; frames++; ResolveWalls(startPos); UpdateRivals((float)delta);
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   // Ground = drive-surface layer only (mask 1), continuous with the previous height. The old ray started at y=60 with the default (all-layer) mask, so it landed on barrier tops, bridges and stacked decks (car "flew").
