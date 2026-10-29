@@ -46,6 +46,11 @@ jobs:
         run: |
           python tools/cloud_encrypt_output.py /tmp/review-output "/tmp/review-$PART"
           gh release upload repair-review-20261029 "/tmp/review-$PART" --repo "$GITHUB_REPOSITORY" --clobber
+          mkdir -p /tmp/sheet-review
+          cp -r /tmp/review-output/sheets /tmp/sheet-review/
+          cp /tmp/review-output/summary.json /tmp/sheet-review/
+          python tools/cloud_encrypt_output.py /tmp/sheet-review "/tmp/sheets-$PART"
+          gh release upload repair-review-20261029 "/tmp/sheets-$PART" --repo "$GITHUB_REPOSITORY" --clobber
       - uses: actions/upload-artifact@v4
         if: always()
         with:
