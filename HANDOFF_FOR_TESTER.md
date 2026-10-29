@@ -43,7 +43,7 @@ Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/shee
 - F1 AI laps are slow on long circuits (Silverstone ~147 s); the power model (from the 0-60 time) understates F1 power. Needs a combined power/drag/gearing retune.
 - Pit crew are placeholder capsule figures; no jack/air-gun models.
 - (fixed) Silverstone floating tree blob and plank-like trees were caused by the signage UV rotation hitting foliage.
-- Car rims look near-black (the recovered wheel texture is dark); tyres are plain dark.
+- Wheels: rims are procedural (spokes, lip, hub; `MYSIM_OLDRIMS=1` restores the recovered dark rim mesh) and tyres are matte black with no tread/sidewall text. They are stylised, not the recovered model.
 - Chassis follows the ground planar from four wheel samples, so a wheel can hover over crests/drops (no suspension).
 - Cloud lap/crash campaigns are blocked by GitHub billing on the working accounts; all testing is local.
 - Not done: multiplayer UI, championship, weather visuals, Android build, key-rebinding screen, Monoposto side-by-side (emulator removed).
