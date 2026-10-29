@@ -32,7 +32,7 @@ Render all tracks windowless: `bash tools/shoot_all.sh`, then `python tools/shee
 ## Status
 - Headless lap matrix: 1,438 of 1,440 pairs pass (misses: car 7 on tracks 28 and 51).
 - All 60 tracks rendered and reviewed 4-up; signage reads correctly, colours natural, ground textures upscaled (Real-ESRGAN; originals in `upscale_backup`).
-- Pit stops work in game (enter, service, tyres reset, rejoin) on Brands Hatch, Silverstone, Monza; 13 layouts have no pit lane data ("no pit lane").
+- Pit stops work in game (enter, service, tyres reset, rejoin). 13 layouts whose shipped pit data does not overlap their track (29,33,34,36,37,41,42,44,46,47,50,52,58) use an on-track fallback stop beside the start/finish line.
 - Audio from recovered assets only: engine idle loop (pitch follows RPM), transmission whine, pit sounds, UI sounds. No recovered tyre-squeal or crash sounds exist.
 - Fixed 2026-10-29: in-game physics always used car 0 (now uses the selected car); F1 wheel-guard meshes were spun with the wheels (glassy bubbles); front/rear F1 wheel meshes split by axle.
 - Cars are the original recovered LOD_A meshes. The 98,553 "enhanced mesh" candidates in `D:\MySim-processed` are faithful copies (no added detail, none quality-accepted) and are NOT used.
