@@ -1,9 +1,13 @@
 name: repair-verification
-on: {workflow_dispatch: {}}
+on:
+  workflow_dispatch:
+    inputs:
+      scope: {description: 'all or compile', type: choice, options: [all, compile], default: all}
 permissions: {contents: read}
 concurrency: {group: 'repair-${{ github.ref }}', cancel-in-progress: false}
 jobs:
   core:
+    if: inputs.scope != 'compile'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -16,6 +20,7 @@ jobs:
         if: always()
         with: {name: repair-core, path: '*.log', retention-days: 14}
   laps:
+    if: inputs.scope != 'compile'
     runs-on: ubuntu-latest
     timeout-minutes: 40
     strategy:

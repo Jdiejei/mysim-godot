@@ -53,6 +53,11 @@ def reconcile_reviews():
  for part in parts:
   run=byname.get(part['name'])
   if run:
+   old_heads={'7d3b1fd5e62c46b6a925d5596a758f083b3d658a','6c24491','563f447'}
+   obsolete=part['kind']=='mesh' and any(run['head_sha'].startswith(h) for h in old_heads)
+   if obsolete and run['status']=='completed' and not part.get('compatibility_upgrade'):
+    part.setdefault('review_failures',[]).append({'run':run['id'],'reason':'Old Blender cannot read the 4.5 candidate libraries; fixed loader generation'})
+    cmd(['gh','workflow','run','mesh-review.yml','--repo',REPO,'--ref','codex/repair-20261029','-f','part='+part['name'],'-f','kind='+part['kind']],env=env);part['compatibility_upgrade']=True;part['review_status']='upgrade_queued';active+=1;continue
    part['run_id']=run['id'];part['review_status']=run['status'];part['review_conclusion']=run['conclusion']
    if run['status']=='completed' and run['conclusion'] not in ['success','cancelled']:
     if not part.get('review_retry'):

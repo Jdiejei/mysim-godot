@@ -23,7 +23,8 @@ public static class CarLoader {
   return root;
  }
 static Godot.Collections.Dictionary carMap;
- static readonly Shader CarShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D base : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform sampler2D mask : hint_default_white; uniform vec3 ambient_tint = vec3(1.0); uniform float use_mask = 0.0; uniform float alpha_mode = 0.0; void fragment() { vec2 uv = vec2(1.0 - UV.x, 1.0 - UV.y); vec4 b = texture(base, uv); vec4 m = texture(mask, uv); float mk = mix(0.5, m.r, use_mask); ALBEDO = b.rgb * ambient_tint; ROUGHNESS = mix(0.62, 0.38, mk); SPECULAR = mix(0.3, 0.5, mk); CLEARCOAT = mix(0.15, 0.85, mk); CLEARCOAT_ROUGHNESS = 0.06; METALLIC = 0.0; if (alpha_mode > 0.5) { ALPHA = b.a; ALPHA_SCISSOR_THRESHOLD = 0.5; } }" };
+ static readonly Shader CarShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D base : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform sampler2D mask : hint_default_white; uniform vec3 ambient_tint = vec3(1.0); uniform float use_mask = 0.0; uniform float alpha_mode = 0.0; uniform float base_roughness=0.5; uniform float base_metallic=0.0; uniform float clearcoat_weight=0.0; uniform float clearcoat_roughness=0.1; void fragment() { vec2 uv = vec2(1.0 - UV.x, 1.0 - UV.y); vec4 b = texture(base, uv); vec4 m = texture(mask, uv); float mk = mix(0.5, m.r, use_mask); ALBEDO = b.rgb * ambient_tint; ROUGHNESS = clamp(base_roughness * (0.8 + 0.4 * mk),0.03,0.98); SPECULAR = mix(0.3, 0.5, mk); CLEARCOAT = clearcoat_weight; CLEARCOAT_ROUGHNESS = clearcoat_roughness; METALLIC = base_metallic; if (alpha_mode > 0.5) { ALPHA = b.a; ALPHA_SCISSOR_THRESHOLD = 0.5; } }" };
+ static float MaterialFloat(Godot.Collections.Dictionary values,string key,float fallback) => values!=null && values.ContainsKey(key) ? values[key].AsSingle() : fallback;
  static string Res(string p) { if (p == null) return null; int i = p.IndexOf("Assets/RealRacing/"); return i < 0 ? null : "res://assets/" + p.Substring(i + "Assets/".Length); }
  // Exact Unity assignment from Car{n}.prefab: renderer name -> material guids -> textures (base + mask), colours and alpha mode.
  public static int ApplyExact(Node3D root, int carIdx) {
@@ -34,11 +35,18 @@ static Godot.Collections.Dictionary carMap;
    for (int s = 0; s < mi.Mesh.GetSurfaceCount() && guids.Count > 0; s++) {
     string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); if (!cache.TryGetValue(g, out var mat)) {
      mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); var texs = mi2.ContainsKey("texs") ? mi2["texs"].AsGodotDictionary() : null; string bp = texs != null && texs.ContainsKey("_BaseMap") ? Res(texs["_BaseMap"].AsString()) : (texs != null && texs.ContainsKey("_MainTex") ? Res(texs["_MainTex"].AsString()) : null);
-      if (bp == null) bp = FallbackTex(carIdx, nm); if (bp != null && ResourceLoader.Exists(bp)) { var sm = new ShaderMaterial { Shader = CarShader }; sm.SetShaderParameter("base", GD.Load<Texture2D>(bp)); string mp = texs.ContainsKey("_MaskMap") ? Res(texs["_MaskMap"].AsString()) : null; if (mp != null && ResourceLoader.Exists(mp)) sm.SetShaderParameter("mask", GD.Load<Texture2D>(mp));
-       var fl = mi2.ContainsKey("floats") ? mi2["floats"].AsGodotDictionary() : null; if (fl != null && fl.ContainsKey("_UseMask")) sm.SetShaderParameter("use_mask", (float)fl["_UseMask"].AsDouble());
+      if (bp == null) bp = FallbackTex(carIdx, nm); if (bp != null && ResourceLoader.Exists(bp)) { var sm = new ShaderMaterial { Shader = CarShader }; sm.SetShaderParameter("base", GD.Load<Texture2D>(bp)); string mp = texs != null && texs.ContainsKey("_MaskMap") ? Res(texs["_MaskMap"].AsString()) : null; if (mp != null && ResourceLoader.Exists(mp)) sm.SetShaderParameter("mask", GD.Load<Texture2D>(mp));
+       var fl = mi2.ContainsKey("floats") ? mi2["floats"].AsGodotDictionary() : null; if (fl != null && fl.ContainsKey("_UseMask")) sm.SetShaderParameter("use_mask", (float)fl["_UseMask"].AsDouble()); sm.SetShaderParameter("base_roughness", Mathf.Clamp(1f-MaterialFloat(fl,"_Smoothness",.5f),.03f,.98f)); sm.SetShaderParameter("base_metallic", MaterialFloat(fl,"_Metallic",0)); sm.SetShaderParameter("clearcoat_weight", MaterialFloat(fl,"_ClearCoatMask",0)); sm.SetShaderParameter("clearcoat_roughness", Mathf.Clamp(1f-MaterialFloat(fl,"_ClearCoatSmoothness",.9f),.03f,1f));
        var cols = mi2.ContainsKey("colors") ? mi2["colors"].AsGodotDictionary() : null; if (cols != null && cols.ContainsKey("_AmbientColour")) { var a = cols["_AmbientColour"].AsGodotArray(); sm.SetShaderParameter("ambient_tint", new Vector3((float)a[0], (float)a[1], (float)a[2]) * 1.15f); }
        string ln = nm.ToLowerInvariant(); long q = mi2.ContainsKey("queue") ? (long)mi2["queue"].AsInt64() : -1; if (ln.Contains("badge") || ln.Contains("scratch") || ln.Contains("light") || ln.Contains("glow") || q > 2450) sm.SetShaderParameter("alpha_mode", 1f); mat = sm; } }
-     cache[g] = mat; }
+     if (mat == null && mats.ContainsKey(g)) {
+     var descriptor=mats[g].AsGodotDictionary();var colors=descriptor.ContainsKey("colors")?descriptor["colors"].AsGodotDictionary():null;var floats=descriptor.ContainsKey("floats")?descriptor["floats"].AsGodotDictionary():null;
+     if(colors!=null && colors.ContainsKey("_BaseColor")) {
+      var c=colors["_BaseColor"].AsGodotArray();var color=new Color(c[0].AsSingle(),c[1].AsSingle(),c[2].AsSingle(),c[3].AsSingle());bool transparent=MaterialFloat(floats,"_Surface",0)>.5f;
+      mat=new StandardMaterial3D { AlbedoColor=color, Roughness=Mathf.Clamp(1f-MaterialFloat(floats,"_Smoothness",.5f),.03f,.98f), Metallic=MaterialFloat(floats,"_Metallic",0), CullMode=BaseMaterial3D.CullModeEnum.Disabled, Transparency=transparent?BaseMaterial3D.TransparencyEnum.Alpha:BaseMaterial3D.TransparencyEnum.Disabled };
+     }
+    }
+    cache[g] = mat; }
     if (mat != null) { mi.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }

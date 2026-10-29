@@ -1,0 +1,67 @@
+name: windows-game-build
+run-name: Windows build and native smoke checks
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+concurrency: {group: windows-game-build, cancel-in-progress: false}
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Restore source assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+        shell: pwsh
+        run: |
+          pip install cryptography
+          $release = gh release view repair-inputs-20261029 --json assets | ConvertFrom-Json
+          $parts = $release.assets | Where-Object name -like 'assets-part-*' | Sort-Object name
+          if (!$parts) { throw 'No asset inputs uploaded' }
+          foreach ($part in $parts) {
+            gh release download repair-inputs-20261029 --pattern $part.name --dir "$env:RUNNER_TEMP/parts"
+            python tools/cloud_decrypt.py "$env:RUNNER_TEMP/parts/$($part.name)" .
+            if ($LASTEXITCODE -ne 0) { throw 'Input authentication failed' }
+            Remove-Item -LiteralPath "$env:RUNNER_TEMP/parts/$($part.name)"
+          }
+      - name: Install Godot and matching Windows templates
+        shell: pwsh
+        run: |
+          curl.exe --fail -L -o "$env:RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_win64.zip
+          Expand-Archive -LiteralPath "$env:RUNNER_TEMP/godot.zip" -DestinationPath "$env:RUNNER_TEMP/godot"
+          $g = Get-ChildItem "$env:RUNNER_TEMP/godot" -Recurse -Filter '*_console.exe' | Select-Object -First 1
+          "GODOT_BIN=$($g.FullName)" >> $env:GITHUB_ENV
+          curl.exe --fail -L -o "$env:RUNNER_TEMP/templates.tpz" https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_export_templates.tpz
+          python -c "import zipfile,os,pathlib; z=zipfile.ZipFile(os.environ['RUNNER_TEMP']+'/templates.tpz'); d=pathlib.Path(os.environ['APPDATA'])/'Godot/export_templates/4.7.2.stable.mono'; d.mkdir(parents=True,exist_ok=True); [(d/pathlib.Path(n).name).write_bytes(z.read(n)) for n in z.namelist() if pathlib.Path(n).name in ['windows_debug_x86_64.exe','windows_release_x86_64.exe']]"
+          Remove-Item -LiteralPath "$env:RUNNER_TEMP/templates.tpz"
+      - name: Export current source and run the native player
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path build-cloud -Force | Out-Null
+          & $env:GODOT_BIN --headless --path . --export-release 'Windows Desktop' build-cloud/MySim.exe *> windows-export.log
+          if ($LASTEXITCODE -ne 0) { throw 'Export failed' }
+          $env:MYSIM_RUNTIME_CHECKS='1'; $env:MYSIM_CONTACT_ONLY='1'
+          & ./build-cloud/MySim.exe --headless *> windows-contact.log
+          if ($LASTEXITCODE -ne 0) { throw 'Native contact checks failed' }
+          Remove-Item Env:MYSIM_RUNTIME_CHECKS,Env:MYSIM_CONTACT_ONLY
+          $env:MYSIM_TRACK='24';$env:MYSIM_CAR='16';$env:MYSIM_RIVALS='5';$env:MYSIM_AI='1';$env:MYSIM_AUTODRIVE='1';$env:MYSIM_NOPIT='1';$env:MYSIM_SECONDS='8'
+          & ./build-cloud/MySim.exe --headless --fixed-fps 60 *> windows-player.log
+          if ($LASTEXITCODE -ne 0 -or !(Select-String windows-player.log -Pattern 'onSurface=True')) { throw 'Native player failed' }
+      - name: Preserve encrypted Windows build in release parts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+        run: python tools/cloud_package_windows.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-build-diagnostics
+          path: |
+            windows-*.log
+            windows-build-manifest.json
+          retention-days: 14
