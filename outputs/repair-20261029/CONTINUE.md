@@ -100,3 +100,6 @@ Keybinding source compiled in cloud run 40924474375; actual controls-screen inte
 
 - HUD/button styling compiled and passed controls/contact checks in 40927701674 (e8eaf18). No current-source screenshot acceptance yet.
 - Found GUI pause could only pause, with keyboard required to resume. Changed its action to toggle with PAUSE/RESUME feedback and added regression for safely resuming with released pedals. This requires its own cloud regression; do not report validated before that completes.
+
+- Full-car geometry run 40925874695 PASSED at bef4bae. Evidence downloaded cloud/geometry-fixed. This validates assembly geometry, not art acceptance or finished 3D suspension.
+- Latest resume regression 40927885165 (60fce6d) and surface comparison 40927606656 still running; adopt rather than duplicate. Input transport 40/316 uploaded+dispatched, zero transfer failures at this snapshot.
