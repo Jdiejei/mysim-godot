@@ -12,7 +12,7 @@ public partial class ControlsScenario : Node {
    await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
    var binding=panel.GetNode<Button>("Binding0");binding.EmitSignal(BaseButton.SignalName.Pressed);KeyEvent(Key.K);
    Check(ControlBindings.Get(0)==Key.K,"new throttle key not stored");
-   Input.ParseInputEvent(new InputEventKey {Keycode=Key.K,PhysicalKeycode=Key.K,Pressed=true});Check(ControlBindings.Held(0),"rebound throttle doesn't reach driving input");KeyEvent(Key.K);
+   Input.ParseInputEvent(new InputEventKey {Keycode=Key.K,PhysicalKeycode=Key.K,Pressed=true});Check(DisplayServer.GetName()=="headless" ? !ControlBindings.Held(0) : ControlBindings.Held(0),"rebound throttle or inactive-window input guard failed");KeyEvent(Key.K);
    binding.EmitSignal(BaseButton.SignalName.Pressed);KeyEvent(Key.S);Check(ControlBindings.Get(0)==Key.K,"conflicting brake key accepted");
    KeyEvent(Key.Escape);Check(IsInstanceValid(panel)&&!panel.IsQueuedForDeletion(),"cancel closed the entire dialog");
    binding.EmitSignal(BaseButton.SignalName.Pressed);KeyEvent(Key.Tab);Check(ControlBindings.Get(0)==Key.K,"reserved pause key accepted");KeyEvent(Key.Escape);

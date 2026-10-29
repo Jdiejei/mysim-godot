@@ -1,5 +1,5 @@
 {
-  "coverage": "362 candidate meshes (1,448 views) and 700 source texture thumbnails overview-reviewed; no final asset acceptance",
+  "coverage": "362 mesh candidates and 1,100 texture thumbnails overview-reviewed; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -6995,6 +6995,4006 @@
       "asset": "assets/Dubai_Autodrome/textures/mat_fence_armco_orange.png",
       "part": "assets-part-00000.enc",
       "sheet": 6,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_armco_silver.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_concrete_wall_06.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_short_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_small_catch_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_tyrewall_cover_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_tyrewall_cover_white_red_arrow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_tyrewall_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_fence_wire_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_glass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_advert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_advert_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_beige.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_cable_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_corrugated_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_corrugated_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_corrugated_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_corrugated_roof_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_corrugated_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_corrugated_white_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_floor_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_galv_steel_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_painted_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_painted_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_painted_red_burnt.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_rail_v.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_sheet_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_metal_support_painted_aqua.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_plastic_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_tiles_floor_cream.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_window_large_a_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_window_large_m.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_window_large_x.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_window_large_z.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_window_small_a_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/mat_window_small_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_bush_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_bush_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_bush_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_bush_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_palm_tree_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_palm_tree_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_shrub_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_shrub_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_tree_oak_desert_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_tree_oak_desert_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_tree_oak_desert_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_tree_oak_desert_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/org_treeline_oak_desert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/overlay_dust_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/prop_light_post_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/prop_powerbox_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/prop_traffic_light_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/prop_truck_tv_speaker.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/prop_truck_tv_sponsor.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/props_dubai_highway_signs.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_ambulance.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_crane_large.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_fuel_truck_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_rv_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_trailer.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_truck_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Dubai_Autodrome/textures/veh_van_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_a_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_a_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_a_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_b_door.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_b_garage.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_b_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_b_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_building_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_clock.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_clock_rail.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_corner_door_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_corner_metal_supports.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_corner_slats.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_corner_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_door_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_railling_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_window_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_window_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_window_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_grandstand_main_window_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_hospital_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_hospital_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 7,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_hospital_cross.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_hospital_garage.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_hospital_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_merc_grandstand_metal_supports.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_merc_grandstand_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_merc_lookout_bottom.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_merc_lookout_conc_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_merc_lookout_merc_logo.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_merc_lookout_rail_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_building_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_building_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_building_bottle.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_building_brick_bottom.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_building_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_building_hockenheim_logo.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_side_building_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_side_building_a_garage.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_side_building_air_duct.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_side_building_b_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_pit_side_building_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_solar_panels.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_tunnels_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/arc_hockenheim_water_containers.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/crowd_sitting_female.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/crowd_sitting_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/crowd_standing_female.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/crowd_standing_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/fence_barrier_red_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/fence_barrier_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gm_cone.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_grass_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_gravel_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_painted_asphalt_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_painted_asphalt_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_road_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_road_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/gnd_startline.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_banners_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_banners_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_banners_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_a_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_a_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_a_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_b_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_b_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_b_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_c_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_c_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_billboard_c_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_concrete_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_verticle_flag_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_verticle_flag_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_branding_verticle_flag_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_blue_roof_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_marquee_tent_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_red_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_white_roof_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_canvas_white_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_concrete_clean_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_concrete_grandstand_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_concrete_layered.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_concrete_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fabric_vinyl_simple_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fence_concrete_wall_plain.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fence_metal_catch.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fence_small_catch_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fence_tyrewall_cover_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fence_tyrewall_cover_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_fence_tyrewall_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_grandstand_seats_a_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_advert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_corrugated_roof_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_corrugated_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_corrugated_white_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_fence_cyclone.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_rail_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_rail_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_rail_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_support_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_support_painted_aqua.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_support_painted_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_support_painted_light_blue_rust.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/mat_metal_white_panel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/matt_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_bush_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 8,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_bush_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_bush_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_bush_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_shrub_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_cedar_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_cedar_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_cedar_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_cedar_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_cedar_a_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_d_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_d_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_d_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_d_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_oak_d_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_springgreen_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_springgreen_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_springgreen_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_springgreen_a_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_tree_springgreen_a_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/org_treeline_spruce_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/overlay_dust_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/overlay_road_seams.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/overlay_road_seams_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/overlay_skids_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/overlay_wall_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_building_lights.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_flag_germany.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_antenna_a_1.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_antenna_a_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_antenna_a_3.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_antenna_b_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_bridge_horizontal_span.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_container_shipping_door.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_container_shipping_roller_door.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_container_shipping_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_container_shipping_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_gas_station_support.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_light_pole.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_marshal_post_medium_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_marshal_post_medium_start_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_marshall_post_small_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_marshall_post_small_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_marshall_post_small_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_start_light_box.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_start_light_digital_sign_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_hockenheim_start_line_lookout_panel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/prop_portaloo_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_ambulance.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_bus.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_caravan_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_caravan_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_crane_large.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_emergency_pickup.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_fuel_truck.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_trailer.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_truck_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hockenheim/textures/veh_truck_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_far_east_finance_centre.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_aia.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_corporate.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_former_legislative_council.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_harbour_edge_bench.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_hutchison_house.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_observation_wheel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_peir.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_st_georges_building.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_tamar_park_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/arc_hongkong_unknown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/crowd_group.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/fence_turn_barrier_round.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/gnd_concrete_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/gnd_road_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_fence_concrete_hongkong_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_fence_concrete_hongkong_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_metal_grandstand_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_metal_rail_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_metal_rail_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_metal_rail_s.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/mat_metal_scafolding_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_palm_tree_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_palm_tree_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_palm_tree_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_oak_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 9,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_oak_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_pine_fine_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_pine_fine_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_springgreen_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_springgreen_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_springgreen_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_springgreen_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_springgreen_a_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_springgreen_a_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/org_tree_spruce_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_hongkong_building_poles.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_hongkong_evillage.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_hongkong_overpass_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_hongkong_overpass_l.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_hongkong_overpass_l_001.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_hongkong_traffic_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/prop_truck_tv_trailer_combined.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_bus.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_bus_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_truck_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_truck_b_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Hongkong/textures/veh_van_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_g.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_garages.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_building_pit_rear_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_hall_of_fame_logo.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_hall_of_fame_text.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_medical_centre.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_new_flagstand.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_back_level.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_blue_support.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_garage.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_logo.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_scoreboard.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_sun_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_pit_building_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_podium.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_scoreboard_metal.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_scoreboard_numbers.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_scoreboard_square.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_toilet_block_textures.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/arc_indianapolis_tv_board_gril.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/crowd_grandstand.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/crowd_group.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/fence_indianapolis_catch_fence_poles.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/fence_indianapolis_concrete_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/fence_indianapolis_safer_barrier.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/gnd_startline.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_banners_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_banners_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_banners_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_a_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_a_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_a_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_b_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_b_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_b_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_c_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_c_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_billboard_c_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_verticle_flag_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_verticle_flag_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_branding_verticle_flag_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_brick_large_painted_beige.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_brick_large_painted_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_brick_sandstone.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_brick_sandstone_block.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_brick_square.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_canvas_blue_roof_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_canvas_marquee_tent_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_canvas_red_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_canvas_white_roof_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_checkered.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_clean_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_grandstand_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_plate_white_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_concrete_white_tiled.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_door_double_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_door_double_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_door_garage_beige.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_door_vented.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_fence_armco_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Indianapolis/textures/mat_fence_metal_catch.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 10,
       "tile": 99,
       "overview_reviewed": true,
       "full_resolution_reviewed": false,

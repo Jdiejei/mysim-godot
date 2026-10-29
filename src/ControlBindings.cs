@@ -4,7 +4,7 @@ public static class ControlBindings {
  public static readonly string[] Actions={"Throttle","Brake / reverse","Steer left","Steer right","Handbrake","Pit request","Camera","Mute"};
  public static readonly Key[] Defaults={Key.W,Key.S,Key.A,Key.D,Key.Space,Key.P,Key.C,Key.M};
  public static Key Get(int action)=>(Key)Settings.Get("key_"+action,(long)Defaults[action]);
- public static bool Held(int action){bool key=Input.IsPhysicalKeyPressed(Get(action));return key||(action==0&&Input.IsKeyPressed(Key.Up))||(action==1&&Input.IsKeyPressed(Key.Down))||(action==2&&Input.IsKeyPressed(Key.Left))||(action==3&&Input.IsKeyPressed(Key.Right));}
+ public static bool Held(int action){if(!DisplayServer.WindowIsFocused())return false;bool key=Input.IsPhysicalKeyPressed(Get(action));return key||(action==0&&Input.IsKeyPressed(Key.Up))||(action==1&&Input.IsKeyPressed(Key.Down))||(action==2&&Input.IsKeyPressed(Key.Left))||(action==3&&Input.IsKeyPressed(Key.Right));}
  public static int Conflict(int action,Key key){for(int i=0;i<Actions.Length;i++)if(i!=action&&Get(i)==key)return i;return -1;}
  public static void Reset(){for(int i=0;i<Actions.Length;i++)Settings.Set("key_"+i,(long)Defaults[i]);}
 }
