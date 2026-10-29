@@ -11,7 +11,7 @@ public partial class DriveController : Node3D {
  }
  void BindHud() { if (Hud != null) { Hud.Race = Race; Hud.Player = Player; } }
  void ResolveWalls(Vec start) { if (Contact.Walls(GetWorld3D().DirectSpaceState, Player, start, Car.Position.Y, new Vector3(1.96f, 1.0f, 4.06f))) WallHits++; }
- public int WallHits; int lastTrace = -1; bool floatScanned, settingsApplied, condsApplied; float revHold; MeshInstance3D treeTarget; int pushFrames, frames;
+ public int WallHits; int lastTrace = -1; bool floatScanned, settingsApplied, condsApplied; float revHold; float[] basePivotY; float[] wheelTravel = new float[4]; MeshInstance3D treeTarget; int pushFrames, frames;
  Vector3 ObstructCam(Vector3 from, Vector3 want) { var q = PhysicsRayQueryParameters3D.Create(from, want); q.CollisionMask = 2; q.HitBackFaces = true; var hit = GetWorld3D().DirectSpaceState.IntersectRay(q); if (hit.Count == 0) return want; var p = (Vector3)hit["position"]; var n = (Vector3)hit["normal"]; var dir = (want - from).Normalized(); float dist = Mathf.Max(0.8f, from.DistanceTo(p) - 0.35f); return from + dir * dist; }
 float lastLift; Node3D crew; Node3D[] crewFig; Vector3[] crewHome;
  void BuildCrew() {
@@ -112,7 +112,10 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
    { // keep every wheel at or above the surface: lower/raise the chassis so the lowest wheel just touches (no hovering wheel, no wheel in the road)
      var f3 = (fwd - n * fwd.Dot(n)).Normalized(); var cx = n.Cross(f3).Normalized(); var bas = new Basis(cx, n, f3); float minGap = 1e9f;
      for (int wi = 0; wi < 4; wi++) { var pl = WheelPivots[wi].Position; float gap = carPos.Y + (bas * pl).Y - pl.Y - cp[wi].Y; if (gap < minGap) minGap = gap; }
-     if (ok == 4 && System.Environment.GetEnvironmentVariable("MYSIM_NOWHEELFIT") == null) carPos.Y -= Mathf.Clamp(minGap, -0.4f, 0.4f); }
+     if (ok == 4 && System.Environment.GetEnvironmentVariable("MYSIM_NOWHEELFIT") == null) carPos.Y -= Mathf.Clamp(minGap, -0.4f, 0.4f);
+     // independent wheel travel: a wheel over a drop droops down to the road, one over a crest compresses, so no wheel hovers (simple suspension look)
+     if (basePivotY == null) { basePivotY = new float[4]; for (int wi = 0; wi < 4; wi++) basePivotY[wi] = WheelPivots[wi].Position.Y; }
+     for (int wi = 0; wi < 4; wi++) { var pl = WheelPivots[wi].Position; float rest = basePivotY[wi]; float gap = carPos.Y + (bas * new Vector3(pl.X, rest, pl.Z)).Y - rest - cp[wi].Y; float target = ok == 4 ? Mathf.Clamp(-gap, -0.12f, 0.3f) : 0f; wheelTravel[wi] = Mathf.Lerp(wheelTravel[wi], target, 1f - Mathf.Exp(-30f * (float)delta)); WheelPivots[wi].Position = new Vector3(pl.X, rest + wheelTravel[wi], pl.Z); } }
   }
   // Pit stop sequence (service time 7.5 s): jack up, remove and refit each wheel in turn, lower, release. Driven by the real service timer.
   float lift = PitSequence(Player.servicing ? 7.5f - Player.serviceRemaining : -1f); carPos += new Vector3(0, lift, 0); lastLift = lift; UpdateCrew(Player.servicing ? 7.5f - Player.serviceRemaining : -1f); if (!condsApplied) { condsApplied = true; if (Conditions.Wet == 2) Conditions.AddRain(Cam); if (Conditions.Tod == 3 || Conditions.Wet == 2) { foreach (float sx in new[] { -0.7f, 0.7f }) { var hl = new SpotLight3D { SpotRange = 90f, SpotAngle = 32f, LightEnergy = 45f, SpotAttenuation = 0.6f, LightColor = new Color(1f, 0.96f, 0.85f), ShadowEnabled = false, Position = new Vector3(sx, 0.55f, CarSize.Z * 0.45f), RotationDegrees = new Vector3(-6, 180, 0) }; Car.AddChild(hl); } } } if (!settingsApplied && !AiTest) { settingsApplied = true; Player.abs = Settings.Get("abs", true); Player.traction = Settings.Get("tc", true); } UpdateAudio(Player.servicing ? 7.5f - Player.serviceRemaining : -1f);
