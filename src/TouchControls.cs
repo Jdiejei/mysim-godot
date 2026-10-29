@@ -3,10 +3,10 @@ namespace MySim {
 // Mouse/touch controls are visible by default and can be disabled in Settings.
 public partial class TouchControls : CanvasLayer {
  public DriveController Drive;
- public static float Steer,Throttle,Brake;public static bool Active;bool leftHeld,rightHeld;
+ public static float Steer,Throttle,Brake;public static bool Active;bool leftHeld,rightHeld;Window inputWindow;
  public override void _Ready(){
   Layer=5;Clear();Active=Settings.Get("screen_controls",true)||DisplayServer.IsTouchscreenAvailable()||System.Environment.GetEnvironmentVariable("MYSIM_TOUCH")!=null;
-  GetWindow().FocusExited+=Clear;
+  inputWindow=GetWindow();inputWindow.FocusExited+=Clear;
   if(!Active)return;
   var root=new Control { AnchorRight=1,AnchorBottom=1,MouseFilter=Control.MouseFilterEnum.Ignore };AddChild(root);
   Make(root,"LEFT",new Vector2(32,562),new Vector2(130,118),v=>{leftHeld=v;UpdateSteer();});
@@ -19,7 +19,7 @@ public partial class TouchControls : CanvasLayer {
  }
  void UpdateSteer()=>Steer=(rightHeld?1:0)-(leftHeld?1:0);
  void Clear(){Steer=Throttle=Brake=0;leftHeld=rightHeld=false;}
- public override void _ExitTree(){GetWindow().FocusExited-=Clear;Clear();Active=false;}
+ public override void _ExitTree(){if(IsInstanceValid(inputWindow))inputWindow.FocusExited-=Clear;Clear();Active=false;}
  static void Make(Control parent,string text,Vector2 pos,Vector2 size,System.Action<bool> set){
   var button=new Button {Text=text,Position=pos,Size=size,Modulate=new Color(1,1,1,.75f),FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
   button.ButtonDown+=()=>set(true);button.ButtonUp+=()=>set(false);parent.AddChild(button);
