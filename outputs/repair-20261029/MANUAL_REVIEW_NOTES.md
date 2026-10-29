@@ -26,3 +26,9 @@ Viewed both full sheets. Cedar/oak foliage atlases, crowd cards and wire fences 
 
 ### Runtime render review
 Viewed preview shard5 mosaic (tracks 05,11,17,23,29,35,41,47,53,59) and track05 full resolution. Source 1f3e3cc, older than current wheel/material fixes. Roads nearly black on most layouts; HUD text lacks a stable backdrop and driving buttons blend into dark asphalt. Added opaque HUD strip and explicit bordered button styles; cloud compilation and current-source visual inspection required. These screenshots are not game acceptance.
+
+### Texture sheet0013 indices1300?1399
+Viewed full sheet: Laguna/Leipzig building/service atlases, trackside vehicle skins, sponsor arrows and lettering, drain/curb/grate textures and metal/window materials. Preserve recovered atlas rotations; e.g directional safety chevrons must agree with scene orientation. Tire walls/wire/window cards require material-specific alpha rather than global transparency guessing. Several overlays are intentional dirt/paint wear: earlier global cleanup can remove needed scene detail. No full-resolution or assembled acceptance.
+
+### Controlled dark-road comparison40927606656
+Viewed three full-resolution track05 frames: default+shadows, default without shadows, authored UV+shadows. Road blackness persists while building illumination changes with shadows. Authored UV switch does not restore roadway lighting. Identified incorrect clockwise/front-face sign in WindingFixer (official ArrayMesh docs linked in CONTINUE.md); corrected with native PlaneMesh regression. Visual validation of new source remains pending.

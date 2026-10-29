@@ -1,5 +1,5 @@
 {
-  "coverage": "362 mesh candidates and 1,300 texture thumbnails overview-reviewed; none finally accepted",
+  "coverage": "362 mesh candidates and 1,400 texture thumbnails overview-reviewed; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -12995,6 +12995,1006 @@
       "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert_type_c.png",
       "part": "assets-part-00000.enc",
       "sheet": 12,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/org_tree_oak_desert_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/overlay_dust_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/overlay_wall_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_blimp.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_flag_america.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_laguna_seca_billboard_ground.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_lagunaseca_billbord_facilities_map.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_lagunaseca_marshal_hut_a_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_lagunaseca_portal_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_lagunaseca_powerbox.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_lagunaseca_powerpole.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_lagunaseca_trailer_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_powerbox_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_truck_tv_speaker.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/prop_truck_tv_sponsor.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_ambulance.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_caravan_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_caravan_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_caravan_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_caravan_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_fuel_truck_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_rv_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_truck_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_van_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/veh_van_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Laguna_Seca/textures/water_lake_green_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/arc_leipzig_service_centre_slat.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/fence_barrier_blue_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/fence_barrier_red_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/fence_barrier_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gm_cone.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_base_drain_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_base_drain_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_dirt_path_trans_grass_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_drain_sand.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_grass_patchy_trans_dirt_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_grate_green_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_gravel_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_painted_asphalt_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_ripple_curb_red_white_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_ripple_curb_red_white_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_ripple_end_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/gnd_ripple_speed_bump.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_branding_michelin.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_branding_mobil.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_branding_porsche_school.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_barrier.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_cream_stucco.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_grandstand_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_grey_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_painted_white_lines.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_concrete_plate_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_door_double_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fence_armco_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fence_tyrewall_cover_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fence_tyrewall_cover_white_red_arrow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fence_tyrewall_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fence_tyrewall_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fence_wire_06.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_fibreglass_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_advert_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_corrugated_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_corrugated_deep_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_corrugated_white_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_floor_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_galv_steel_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_painted_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_painted_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_painted_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_painted_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_panel_painted_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_rail_j.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_sheet_ad_base_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_sheet_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_sheet_black_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_support_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_underside_steps_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_metal_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_plastic_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_plastic_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_tiles_wall_off_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_large_a_d_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_large_a_f_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_large_m.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Leipzig/textures/mat_window_large_u.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 13,
       "tile": 99,
       "overview_reviewed": true,
       "full_resolution_reviewed": false,
