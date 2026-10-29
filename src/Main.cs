@@ -97,6 +97,7 @@ public partial class Main : Node3D {
     sp.AddChild(new Label { Text = "Time" }); Opt("tod", Conditions.TodNames); sp.AddChild(new Label { Text = " Weather" }); Opt("wet", Conditions.WetNames);
     Chk("Sound on (M in race)", "mute", true, true, Settings.ApplyAudio); Chk("Screen controls", "screen_controls", true, false); Chk("ABS", "abs", true, false); Chk("Traction control", "tc", true, false); Chk("Tilt steering (touch)", "tilt", false, false); }
   tracks.GrabFocus(); menuStart = start;
+  var controls=new Button {Text="CONTROLS / KEY BINDINGS",Position=new Vector2(600,590),Size=new Vector2(420,36)};controls.Pressed+=()=>AddChild(new ControlsPanel());ui.AddChild(controls);
   ui.AddChild(start); tracks.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed); cars.ItemActivated += i => start.EmitSignal(BaseButton.SignalName.Pressed);
  }
  async void DebugRoad(Node3D track) {
@@ -150,7 +151,7 @@ public partial class Main : Node3D {
  public override void _Process(double delta) {
   PauseUi();
   if (drive != null && !resultsShown && drive.Race != null && drive.Player != null && drive.Player.finished) { finShown += (float)GetProcessDeltaTime(); if (drive.Race.cars.Count <= 1 || drive.Race.AllFinished || finShown > 12f) ShowResults(); }
-  if (ui != null && menuStart != null && IsInstanceValid(menuStart) && !resultsShown && (drive == null || !IsInstanceValid(drive) || drive.GetParent() == null)) { var pd0 = Input.GetConnectedJoypads(); bool go = Input.IsKeyPressed(Key.Enter) || (pd0.Count > 0 && Input.IsJoyButtonPressed(pd0[0], JoyButton.Start)); if (go && !menuGoWas && menuAge > 0.4f) menuStart.EmitSignal(BaseButton.SignalName.Pressed); menuGoWas = go; menuAge += (float)GetProcessDeltaTime(); }
+  if (ui != null && menuStart != null && IsInstanceValid(menuStart) && !resultsShown && (drive == null || !IsInstanceValid(drive) || drive.GetParent() == null)) { var pd0 = Input.GetConnectedJoypads(); bool go = Input.IsKeyPressed(Key.Enter) || (pd0.Count > 0 && Input.IsJoyButtonPressed(pd0[0], JoyButton.Start)); if (go && !menuGoWas && menuAge > 0.4f && GetTree().Root.FindChildren("*","ControlsPanel",true,false).Count==0) menuStart.EmitSignal(BaseButton.SignalName.Pressed); menuGoWas = go; menuAge += (float)GetProcessDeltaTime(); }
   { bool padA = false, padB = false; var pads = Input.GetConnectedJoypads(); if (pads.Count > 0) { padA = Input.IsJoyButtonPressed(pads[0], JoyButton.A); padB = Input.IsJoyButtonPressed(pads[0], JoyButton.B); }
     bool escNow = Input.IsKeyPressed(Key.Escape) || padB;
     if (resultsShown && resultsArmed > 0.6f) { if (Input.IsKeyPressed(Key.Enter) || padA) { StartRace(lastTrack, lastCar, lastLaps); } else if (escNow && !escWas) { ShowMenu(); } }
