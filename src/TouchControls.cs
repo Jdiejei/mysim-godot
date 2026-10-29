@@ -3,7 +3,7 @@ namespace MySim {
 // Mouse/touch controls are visible by default and can be disabled in Settings.
 public partial class TouchControls : CanvasLayer {
  public DriveController Drive;
- public static float Steer,Throttle,Brake;public static bool Active;static TouchControls current;bool leftHeld,rightHeld;Window inputWindow;
+ public static float Steer,Throttle,Brake;public static bool Active;static TouchControls current;bool leftHeld,rightHeld;Window inputWindow;Button pauseButton;
  public override void _Ready(){
   Layer=5;current=this;Clear();Active=Settings.Get("screen_controls",true)||DisplayServer.IsTouchscreenAvailable()||System.Environment.GetEnvironmentVariable("MYSIM_TOUCH")!=null;
   inputWindow=GetWindow();inputWindow.FocusExited+=Clear;
@@ -15,8 +15,9 @@ public partial class TouchControls : CanvasLayer {
   Make(root,"BRAKE",new Vector2(940,562),new Vector2(148,118),v=>Brake=v?1:0);
   Action(root,"PIT",new Vector2(24,80),()=>{if(Drive?.Player!=null)Drive.Player.pitRequested=true;});
   Action(root,"CAMERA",new Vector2(132,80),()=>Drive?.CycleCamera());
-  Action(root,"PAUSE",new Vector2(264,80),()=>{if(Drive?.Race!=null){Drive.Race.paused=true;Clear();}});
+  pauseButton=Action(root,"PAUSE",new Vector2(264,80),()=>{if(Drive?.Race!=null){Drive.Race.paused=!Drive.Race.paused;Clear();}});
  }
+ public override void _Process(double delta){if(pauseButton!=null&&Drive?.Race!=null)pauseButton.Text=Drive.Race.paused?"RESUME":"PAUSE";}
  void UpdateSteer()=>Steer=(rightHeld?1:0)-(leftHeld?1:0);
  void Clear(){leftHeld=rightHeld=false;if(current==this)Steer=Throttle=Brake=0;}
  public override void _ExitTree(){if(IsInstanceValid(inputWindow))inputWindow.FocusExited-=Clear;Clear();if(current==this){current=null;Active=false;}}
@@ -28,6 +29,6 @@ public partial class TouchControls : CanvasLayer {
   button.AddThemeColorOverride("font_color",Colors.White);button.AddThemeColorOverride("font_hover_color",Colors.White);button.AddThemeColorOverride("font_pressed_color",Colors.White);
   foreach(string state in new[]{"normal","hover","pressed"})button.AddThemeStyleboxOverride(state,new StyleBoxFlat {BgColor=state=="pressed"?new Color(.06f,.35f,.42f,.98f):new Color(.035f,.05f,.07f,.92f),BorderColor=new Color(.45f,.62f,.7f,.9f),BorderWidthLeft=1,BorderWidthRight=1,BorderWidthTop=1,BorderWidthBottom=1,CornerRadiusTopLeft=8,CornerRadiusTopRight=8,CornerRadiusBottomLeft=8,CornerRadiusBottomRight=8});
  }
- static void Action(Control parent,string text,Vector2 pos,System.Action action){var button=new Button {Name=text,Text=text,Position=pos,Size=new Vector2(100,40),FocusMode=Control.FocusModeEnum.None};Style(button);button.Pressed+=action;parent.AddChild(button);}
+ static Button Action(Control parent,string text,Vector2 pos,System.Action action){var button=new Button {Name=text,Text=text,Position=pos,Size=new Vector2(100,40),FocusMode=Control.FocusModeEnum.None};Style(button);button.Pressed+=action;parent.AddChild(button);return button;}
 }
 }

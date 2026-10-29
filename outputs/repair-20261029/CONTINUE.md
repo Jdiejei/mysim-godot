@@ -97,3 +97,6 @@ Keybinding source compiled in cloud run 40924474375; actual controls-screen inte
 
 - Source e8eaf18 adds HUD contrast strip and bordered opaque driving buttons after actual track05 render inspection; compile/contact/control run 40927701674 pending. Surface comparison 40927606656 is source 4f82717, so it does NOT include this HUD styling.
 - Texture overview ledger now 1,300 textures (sheets0000?0012). No final integration/acceptance. Continue sheet0013.
+
+- HUD/button styling compiled and passed controls/contact checks in 40927701674 (e8eaf18). No current-source screenshot acceptance yet.
+- Found GUI pause could only pause, with keyboard required to resume. Changed its action to toggle with PAUSE/RESUME feedback and added regression for safely resuming with released pedals. This requires its own cloud regression; do not report validated before that completes.

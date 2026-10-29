@@ -34,6 +34,7 @@ public partial class ControlsScenario : Node {
     Find("LEFT").EmitSignal(BaseButton.SignalName.ButtonDown);Find("RIGHT").EmitSignal(BaseButton.SignalName.ButtonDown);Check(TouchControls.Steer==0,"opposite steering buttons conflict");Find("LEFT").EmitSignal(BaseButton.SignalName.ButtonUp);Check(TouchControls.Steer==1,"steering release loses other held button");Find("RIGHT").EmitSignal(BaseButton.SignalName.ButtonUp);
     Find("PIT").EmitSignal(BaseButton.SignalName.Pressed);Check(player.pitRequested,"GUI pit request missing");
     Find("PAUSE").EmitSignal(BaseButton.SignalName.Pressed);Check(car.paused&&TouchControls.Throttle==0&&TouchControls.Steer==0,"GUI pause did not clear pedals");
+    Find("PAUSE").EmitSignal(BaseButton.SignalName.Pressed);Check(!car.paused&&TouchControls.Throttle==0,"GUI resume did not restore racing safely");
     newControls.QueueFree();await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);Check(!TouchControls.Active&&TouchControls.Throttle==0,"screen controls leak after exit");drive.Free();
     GD.Print("PASS screen controls throttle/release, simultaneous steering, pit, pause and restart lifecycle");
    }finally{Settings.Set("screen_controls",originalScreen);}
