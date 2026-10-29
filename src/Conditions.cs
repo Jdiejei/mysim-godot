@@ -13,7 +13,7 @@ public static class Conditions {
   if (tod == 1) { rot = new Vector3(-20, -60, 0); sunCol = new Color(1f, 0.86f, 0.68f); sunE = 1.5f; amb = new Color(0.56f, 0.6f, 0.7f); fog = new Color(0.82f, 0.78f, 0.74f); top = new Color(0.42f, 0.56f, 0.8f); hor = new Color(0.95f, 0.82f, 0.68f); }
   else if (tod == 2) { rot = new Vector3(-9, -120, 0); sunCol = new Color(1f, 0.58f, 0.32f); sunE = 1.3f; amb = new Color(0.48f, 0.42f, 0.5f); fog = new Color(0.86f, 0.62f, 0.45f); top = new Color(0.28f, 0.34f, 0.58f); hor = new Color(1f, 0.6f, 0.34f); }
   else if (tod == 3) { rot = new Vector3(-38, -35, 0); sunCol = new Color(0.6f, 0.7f, 1f); sunE = 0.7f; amb = new Color(0.3f, 0.35f, 0.55f); ambE = 1.5f; expo = 1.5f; fog = new Color(0.05f, 0.07f, 0.12f); top = new Color(0.01f, 0.02f, 0.06f); hor = new Color(0.05f, 0.07f, 0.13f); }
-  float fogD = 0.00025f;
+  float fogD = 0.00012f;
   if (wet == 1) { sunE *= 0.5f; amb = amb.Lerp(new Color(0.6f, 0.62f, 0.66f), 0.5f); fog = fog.Lerp(new Color(0.62f, 0.64f, 0.67f), 0.6f); top = top.Lerp(new Color(0.55f, 0.58f, 0.63f), 0.7f); hor = hor.Lerp(new Color(0.66f, 0.68f, 0.7f), 0.7f); fogD = 0.0007f; }
   else if (wet == 2) { sunE *= 0.25f; amb = amb.Lerp(new Color(0.42f, 0.44f, 0.48f), 0.6f); fog = fog.Lerp(new Color(0.42f, 0.44f, 0.47f), 0.7f); top = top.Lerp(new Color(0.34f, 0.36f, 0.4f), 0.8f); hor = hor.Lerp(new Color(0.46f, 0.48f, 0.5f), 0.8f); fogD = 0.0018f; }
   env.AmbientLightColor = amb; env.AmbientLightEnergy = ambE; env.FogLightColor = fog; env.FogDensity = fogD; env.TonemapExposure = expo;
