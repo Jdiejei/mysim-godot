@@ -345,7 +345,7 @@ namespace MySimulator.Rebuild
                     Vec centres=b.position-a.position;Vec normal=distance>.001f&&Vec.Dot(delta,centres)>=0?delta/distance:centres.Normalized;
                     float overlap=2.05f-distance;a.position-=normal*overlap*.5f;b.position+=normal*overlap*.5f;
                     float approach=Vec.Dot(a.velocity-b.velocity,normal);
-                    if(approach>0){a.velocity-=normal*approach*.65f;b.velocity+=normal*approach*.65f;float damage=MathUtil.Clamp(approach*.013f,0,.3f);a.damage=MathUtil.Clamp(a.damage+damage,0,1);b.damage=MathUtil.Clamp(b.damage+damage,0,1);}
+                    if(approach>0){a.velocity-=normal*approach*.65f;b.velocity+=normal*approach*.65f;float damage=MathUtil.Clamp(approach*.005f,0,.1f);a.damage=MathUtil.Clamp(a.damage+damage,0,1);b.damage=MathUtil.Clamp(b.damage+damage,0,1);}
                 }
             }
         }
