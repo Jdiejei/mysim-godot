@@ -48,11 +48,12 @@ public partial class Main : Node3D {
  async void BakeCollision(int trackIdx) {
   var tl = Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray()[trackIdx].AsGodotDictionary();
   string mp = tl["map"].AsString(), scn = tl["scene"].AsString();
-  var track = GD.Load<PackedScene>("res://assets/RealRacing/Source/" + mp + "/" + scn).Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); AddChild(track);
-  WindingFixer.Fix(track, out int wc); GroundFixer.Fix(track);
+  using var source=ResourceLoader.Load<PackedScene>("res://assets/RealRacing/Source/"+mp+"/"+scn,cacheMode:ResourceLoader.CacheMode.IgnoreDeep);
+  var track=source.Instantiate<Node3D>(); track.Scale = new Vector3(100f, 100f, 100f); AddChild(track);
+  // The bake stores positions only and reads with BackfaceCollision=true; visual normal/winding rewrites are unnecessary.
   string outp = System.Environment.GetEnvironmentVariable("MYSIM_BAKEOUT") ?? ("user://col_" + mp + ".bin");
   int tris = CollisionBake.Write(track, outp); GD.Print("BAKECOL map=", mp, " tris=", tris, " out=", outp);
-  track.Free();track=null;
+  track.Free();track=null;source.Dispose();
   // Finish the initiating Ready frame and release temporary managed mesh wrappers before engine teardown.
   await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
   System.GC.Collect();System.GC.WaitForPendingFinalizers();System.GC.Collect();GetTree().Quit();
