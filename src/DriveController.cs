@@ -94,6 +94,10 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
    float tgtY = ok > 0 ? avg : y; groundSmooth = groundInit ? Mathf.Lerp(groundSmooth, tgtY, 1f - Mathf.Exp(-40f * (float)delta)) : tgtY; groundInit = true;
    carPos = new Vector3(w.X, groundSmooth, w.Z);
    var nn = front.Cross(side).Normalized(); if (nn.Y < 0) nn = -nn; if (ok == 4 && nn.Y > 0.7f) n = nn;
+   { // keep every wheel at or above the surface: lower/raise the chassis so the lowest wheel just touches (no hovering wheel, no wheel in the road)
+     var f3 = (fwd - n * fwd.Dot(n)).Normalized(); var cx = n.Cross(f3).Normalized(); var bas = new Basis(cx, n, f3); float minGap = 1e9f;
+     for (int wi = 0; wi < 4; wi++) { var pl = WheelPivots[wi].Position; float gap = carPos.Y + (bas * pl).Y - pl.Y - cp[wi].Y; if (gap < minGap) minGap = gap; }
+     if (ok == 4 && System.Environment.GetEnvironmentVariable("MYSIM_NOWHEELFIT") == null) carPos.Y -= Mathf.Clamp(minGap, -0.4f, 0.4f); }
   }
   // Pit stop sequence (service time 7.5 s): jack up, remove and refit each wheel in turn, lower, release. Driven by the real service timer.
   float lift = PitSequence(Player.servicing ? 7.5f - Player.serviceRemaining : -1f); carPos += new Vector3(0, lift, 0); lastLift = lift; UpdateCrew(Player.servicing ? 7.5f - Player.serviceRemaining : -1f); if (!settingsApplied && !AiTest) { settingsApplied = true; Player.abs = Settings.Get("abs", true); Player.traction = Settings.Get("tc", true); } UpdateAudio(Player.servicing ? 7.5f - Player.serviceRemaining : -1f);
