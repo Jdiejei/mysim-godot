@@ -1,20 +1,13 @@
 # Run with Blender --background --disable-autoexec --python this_file -- request.json result.json
 import bpy,sys,json,math,hashlib,pathlib
 assert bpy.app.version >= (4,5,0), 'Candidate libraries require Blender 4.5 or newer'
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
+from candidate_selection import select_candidate
 args=sys.argv[sys.argv.index('--')+1:];request=json.load(open(args[0]));rows=[]
 for r in request:
  try:
   bpy.ops.wm.open_mainfile(filepath=r['blend_path'],load_ui=False)
-  objects=[o for o in bpy.data.objects if o.type=='MESH'];matches=[o for o in objects if o.name==r['mesh'] or o.data.name==r['mesh']]
-  matched_by='name'
-  if not matches:
-   matches=[o for o in objects if str(o.get('source_mesh',''))==r['mesh'] or r['procedure_id'] in o.name];matched_by='provenance'
-  if not matches:
-   matches=[o for o in objects if len(o.data.vertices)==int(r['vertices']) and len(o.data.polygons)==int(r['faces'])];matched_by='unique_manifest_topology'
-  if len(matches)!=1:
-   if len(objects)==1:matches=objects;matched_by='single_checksum_verified_candidate'
-   else:raise ValueError('ambiguous candidate objects: '+repr([(o.name,len(o.data.vertices),len(o.data.polygons)) for o in objects[:16]]))
-  o=matches[0];m=o.data;finite=all(math.isfinite(c) for v in m.vertices for c in v.co);uv_finite=all(math.isfinite(c) for layer in m.uv_layers for u in layer.data for c in u.uv)
+  objects=[o for o in bpy.data.objects if o.type=='MESH'];o,matched_by=select_candidate(objects,r);m=o.data;finite=all(math.isfinite(c) for v in m.vertices for c in v.co);uv_finite=all(math.isfinite(c) for layer in m.uv_layers for u in layer.data for c in u.uv)
   if not finite or not uv_finite:raise ValueError('nonfinite geometry or UV')
   h=hashlib.sha256()
   for v in m.vertices:h.update((','.join(format(float(c),'.9g') for c in v.co)+';').encode())
