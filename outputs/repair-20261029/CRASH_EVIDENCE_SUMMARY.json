@@ -1,0 +1,5788 @@
+{
+  "scope": "Old-source crash diagnostics; not current-source acceptance. Only currently downloadable completed artifacts.",
+  "totals": {
+    "crashes": 2822256,
+    "flagged": 1425648
+  },
+  "flags": {
+    "STUCK_AT_WALL": 604096,
+    "NO_WALL_CONTACT_AT_HIGH_ANGLE": 411850,
+    "ESCAPED_TRACK": 940778,
+    "GROUND_JUMP": 6649,
+    "VOID_GROUND": 19479,
+    "HEIGHT_RANGE": 1822
+  },
+  "tracks": {
+    "40": {
+      "crashes": 156672,
+      "flagged": 94952
+    },
+    "41": {
+      "crashes": 97920,
+      "flagged": 45558
+    },
+    "42": {
+      "crashes": 134784,
+      "flagged": 65234
+    },
+    "43": {
+      "crashes": 77760,
+      "flagged": 22855
+    },
+    "44": {
+      "crashes": 56448,
+      "flagged": 37772
+    },
+    "45": {
+      "crashes": 126720,
+      "flagged": 76725
+    },
+    "46": {
+      "crashes": 93312,
+      "flagged": 63962
+    },
+    "47": {
+      "crashes": 93312,
+      "flagged": 60708
+    },
+    "48": {
+      "crashes": 50688,
+      "flagged": 36257
+    },
+    "49": {
+      "crashes": 92160,
+      "flagged": 41634
+    },
+    "50": {
+      "crashes": 122688,
+      "flagged": 51194
+    },
+    "51": {
+      "crashes": 177408,
+      "flagged": 73632
+    },
+    "52": {
+      "crashes": 63936,
+      "flagged": 35683
+    },
+    "53": {
+      "crashes": 137088,
+      "flagged": 87934
+    },
+    "55": {
+      "crashes": 92736,
+      "flagged": 45196
+    },
+    "56": {
+      "crashes": 23040,
+      "flagged": 11462
+    },
+    "57": {
+      "crashes": 20160,
+      "flagged": 9993
+    },
+    "58": {
+      "crashes": 50112,
+      "flagged": 19525
+    },
+    "20": {
+      "crashes": 84096,
+      "flagged": 22316
+    },
+    "21": {
+      "crashes": 69408,
+      "flagged": 36312
+    },
+    "22": {
+      "crashes": 50688,
+      "flagged": 15991
+    },
+    "23": {
+      "crashes": 205632,
+      "flagged": 84417
+    },
+    "25": {
+      "crashes": 87840,
+      "flagged": 23466
+    },
+    "26": {
+      "crashes": 59616,
+      "flagged": 21218
+    },
+    "28": {
+      "crashes": 44352,
+      "flagged": 18215
+    },
+    "29": {
+      "crashes": 57456,
+      "flagged": 32400
+    },
+    "30": {
+      "crashes": 85536,
+      "flagged": 43992
+    },
+    "31": {
+      "crashes": 91008,
+      "flagged": 55419
+    },
+    "32": {
+      "crashes": 54000,
+      "flagged": 33484
+    },
+    "33": {
+      "crashes": 144288,
+      "flagged": 86987
+    },
+    "34": {
+      "crashes": 47952,
+      "flagged": 28314
+    },
+    "35": {
+      "crashes": 73440,
+      "flagged": 42841
+    }
+  },
+  "files": [
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-40-0-5-0\\crash_40_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 40,
+          "car": 0,
+          "crashes": 6528,
+          "flagged": 3993,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 1,
+          "crashes": 6528,
+          "flagged": 3967,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 2,
+          "crashes": 6528,
+          "flagged": 3972,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 3,
+          "crashes": 6528,
+          "flagged": 3962,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 4,
+          "crashes": 6528,
+          "flagged": 3950,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 5,
+          "crashes": 6528,
+          "flagged": 3970,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7630,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 8577,
+        "ESCAPED_TRACK": 16938,
+        "GROUND_JUMP": 11
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-40-12-17-0\\crash_40_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 40,
+          "car": 12,
+          "crashes": 6528,
+          "flagged": 3978,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 13,
+          "crashes": 6528,
+          "flagged": 3944,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 14,
+          "crashes": 6528,
+          "flagged": 3975,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 15,
+          "crashes": 6528,
+          "flagged": 3936,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 16,
+          "crashes": 6528,
+          "flagged": 3907,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 17,
+          "crashes": 6528,
+          "flagged": 3928,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9454,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 8687,
+        "ESCAPED_TRACK": 17450,
+        "GROUND_JUMP": 505
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-40-18-23-0\\crash_40_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 40,
+          "car": 18,
+          "crashes": 6528,
+          "flagged": 3906,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 19,
+          "crashes": 6528,
+          "flagged": 3939,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 20,
+          "crashes": 6528,
+          "flagged": 3989,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 21,
+          "crashes": 6528,
+          "flagged": 3828,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 22,
+          "crashes": 6528,
+          "flagged": 3894,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 23,
+          "crashes": 6528,
+          "flagged": 4001,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 8349,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 8676,
+        "ESCAPED_TRACK": 17231,
+        "GROUND_JUMP": 329
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-40-6-11-0\\crash_40_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 40,
+          "car": 6,
+          "crashes": 6528,
+          "flagged": 3987,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 7,
+          "crashes": 6528,
+          "flagged": 3993,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 8,
+          "crashes": 6528,
+          "flagged": 3994,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 9,
+          "crashes": 6528,
+          "flagged": 3985,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 10,
+          "crashes": 6528,
+          "flagged": 3965,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 40,
+          "car": 11,
+          "crashes": 6528,
+          "flagged": 3989,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7575,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 8585,
+        "ESCAPED_TRACK": 17001,
+        "GROUND_JUMP": 10
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-41-0-5-0\\crash_41_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 41,
+          "car": 0,
+          "crashes": 4080,
+          "flagged": 1833,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 1,
+          "crashes": 4080,
+          "flagged": 1831,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 2,
+          "crashes": 4080,
+          "flagged": 1811,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 3,
+          "crashes": 4080,
+          "flagged": 1807,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 4,
+          "crashes": 4080,
+          "flagged": 1814,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 5,
+          "crashes": 4080,
+          "flagged": 1808,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 4604,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 5019,
+        "VOID_GROUND": 1334,
+        "STUCK_AT_WALL": 2989,
+        "GROUND_JUMP": 38
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-41-12-17-0\\crash_41_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 41,
+          "car": 12,
+          "crashes": 4080,
+          "flagged": 1817,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 13,
+          "crashes": 4080,
+          "flagged": 1808,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 14,
+          "crashes": 4080,
+          "flagged": 1832,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 15,
+          "crashes": 4080,
+          "flagged": 2211,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 16,
+          "crashes": 4080,
+          "flagged": 2234,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 17,
+          "crashes": 4080,
+          "flagged": 2261,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 4800,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 5148,
+        "STUCK_AT_WALL": 5727,
+        "VOID_GROUND": 1623,
+        "GROUND_JUMP": 83
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-41-18-23-0\\crash_41_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 41,
+          "car": 18,
+          "crashes": 4080,
+          "flagged": 2215,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 19,
+          "crashes": 4080,
+          "flagged": 1798,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 20,
+          "crashes": 4080,
+          "flagged": 1816,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 21,
+          "crashes": 4080,
+          "flagged": 2094,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 22,
+          "crashes": 4080,
+          "flagged": 1822,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 23,
+          "crashes": 4080,
+          "flagged": 1813,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4521,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 5111,
+        "VOID_GROUND": 1478,
+        "ESCAPED_TRACK": 4718,
+        "GROUND_JUMP": 76
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-41-6-11-0\\crash_41_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 41,
+          "car": 6,
+          "crashes": 4080,
+          "flagged": 1807,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 7,
+          "crashes": 4080,
+          "flagged": 1813,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 8,
+          "crashes": 4080,
+          "flagged": 1828,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 9,
+          "crashes": 4080,
+          "flagged": 1836,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 10,
+          "crashes": 4080,
+          "flagged": 1812,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 41,
+          "car": 11,
+          "crashes": 4080,
+          "flagged": 1837,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 4581,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 5053,
+        "STUCK_AT_WALL": 3038,
+        "VOID_GROUND": 1334,
+        "GROUND_JUMP": 34
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-42-0-5-0\\crash_42_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 42,
+          "car": 0,
+          "crashes": 5616,
+          "flagged": 2750,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 1,
+          "crashes": 5616,
+          "flagged": 2735,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 2,
+          "crashes": 5616,
+          "flagged": 2723,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 3,
+          "crashes": 5616,
+          "flagged": 2728,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 4,
+          "crashes": 5616,
+          "flagged": 2761,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 5,
+          "crashes": 5616,
+          "flagged": 2744,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7286,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4006,
+        "ESCAPED_TRACK": 10150
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-42-12-17-0\\crash_42_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 42,
+          "car": 12,
+          "crashes": 5616,
+          "flagged": 2756,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 13,
+          "crashes": 5616,
+          "flagged": 2763,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 14,
+          "crashes": 5616,
+          "flagged": 2755,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 15,
+          "crashes": 5616,
+          "flagged": 2661,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 16,
+          "crashes": 5616,
+          "flagged": 2612,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 17,
+          "crashes": 5616,
+          "flagged": 2648,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7688,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4247,
+        "ESCAPED_TRACK": 10918,
+        "GROUND_JUMP": 17
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-42-18-23-0\\crash_42_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 42,
+          "car": 18,
+          "crashes": 5616,
+          "flagged": 2642,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 19,
+          "crashes": 5616,
+          "flagged": 2732,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 20,
+          "crashes": 5616,
+          "flagged": 2736,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 21,
+          "crashes": 5616,
+          "flagged": 2545,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 22,
+          "crashes": 5616,
+          "flagged": 2741,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 23,
+          "crashes": 5616,
+          "flagged": 2730,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7268,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4142,
+        "ESCAPED_TRACK": 10618,
+        "GROUND_JUMP": 15
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-42-6-11-0\\crash_42_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 42,
+          "car": 6,
+          "crashes": 5616,
+          "flagged": 2752,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 7,
+          "crashes": 5616,
+          "flagged": 2741,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 8,
+          "crashes": 5616,
+          "flagged": 2783,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 9,
+          "crashes": 5616,
+          "flagged": 2725,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 10,
+          "crashes": 5616,
+          "flagged": 2738,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 42,
+          "car": 11,
+          "crashes": 5616,
+          "flagged": 2733,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7184,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4020,
+        "ESCAPED_TRACK": 10238
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-43-0-5-0\\crash_43_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 43,
+          "car": 0,
+          "crashes": 3240,
+          "flagged": 1013,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 1,
+          "crashes": 3240,
+          "flagged": 1020,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 2,
+          "crashes": 3240,
+          "flagged": 1000,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 3,
+          "crashes": 3240,
+          "flagged": 1011,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 4,
+          "crashes": 3240,
+          "flagged": 998,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 5,
+          "crashes": 3240,
+          "flagged": 1010,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4660,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 486,
+        "VOID_GROUND": 12,
+        "ESCAPED_TRACK": 1738,
+        "GROUND_JUMP": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-43-12-17-0\\crash_43_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 43,
+          "car": 12,
+          "crashes": 3240,
+          "flagged": 1000,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 13,
+          "crashes": 3240,
+          "flagged": 1027,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 14,
+          "crashes": 3240,
+          "flagged": 1008,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 15,
+          "crashes": 3240,
+          "flagged": 741,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 16,
+          "crashes": 3240,
+          "flagged": 766,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 17,
+          "crashes": 3240,
+          "flagged": 755,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3883,
+        "VOID_GROUND": 26,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 504,
+        "ESCAPED_TRACK": 1957,
+        "GROUND_JUMP": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-43-18-23-0\\crash_43_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 43,
+          "car": 18,
+          "crashes": 3240,
+          "flagged": 760,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 19,
+          "crashes": 3240,
+          "flagged": 993,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 20,
+          "crashes": 3240,
+          "flagged": 1024,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 21,
+          "crashes": 3240,
+          "flagged": 677,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 22,
+          "crashes": 3240,
+          "flagged": 988,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 23,
+          "crashes": 3240,
+          "flagged": 1023,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4044,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 495,
+        "VOID_GROUND": 13,
+        "ESCAPED_TRACK": 1863
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-43-6-11-0\\crash_43_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 43,
+          "car": 6,
+          "crashes": 3240,
+          "flagged": 1007,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 7,
+          "crashes": 3240,
+          "flagged": 1016,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 8,
+          "crashes": 3240,
+          "flagged": 1011,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 9,
+          "crashes": 3240,
+          "flagged": 998,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 10,
+          "crashes": 3240,
+          "flagged": 997,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 43,
+          "car": 11,
+          "crashes": 3240,
+          "flagged": 1012,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4698,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 467,
+        "ESCAPED_TRACK": 1694,
+        "VOID_GROUND": 13
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-44-0-5-0\\crash_44_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 44,
+          "car": 0,
+          "crashes": 2352,
+          "flagged": 1542,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 1,
+          "crashes": 2352,
+          "flagged": 1524,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 2,
+          "crashes": 2352,
+          "flagged": 1536,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 3,
+          "crashes": 2352,
+          "flagged": 1529,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 4,
+          "crashes": 2352,
+          "flagged": 1567,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 5,
+          "crashes": 2352,
+          "flagged": 1545,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 7573,
+        "STUCK_AT_WALL": 2879,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2289,
+        "VOID_GROUND": 69,
+        "GROUND_JUMP": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-44-12-17-0\\crash_44_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 44,
+          "car": 12,
+          "crashes": 2352,
+          "flagged": 1551,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 13,
+          "crashes": 2352,
+          "flagged": 1553,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 14,
+          "crashes": 2352,
+          "flagged": 1552,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 15,
+          "crashes": 2352,
+          "flagged": 1679,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 16,
+          "crashes": 2352,
+          "flagged": 1681,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 17,
+          "crashes": 2352,
+          "flagged": 1678,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 8074,
+        "STUCK_AT_WALL": 3927,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2495,
+        "VOID_GROUND": 90,
+        "GROUND_JUMP": 13,
+        "HEIGHT_RANGE": 30
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-44-18-23-0\\crash_44_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 44,
+          "car": 18,
+          "crashes": 2352,
+          "flagged": 1694,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 19,
+          "crashes": 2352,
+          "flagged": 1525,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 20,
+          "crashes": 2352,
+          "flagged": 1557,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 21,
+          "crashes": 2352,
+          "flagged": 1698,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 22,
+          "crashes": 2352,
+          "flagged": 1543,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 23,
+          "crashes": 2352,
+          "flagged": 1555,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 7939,
+        "STUCK_AT_WALL": 3403,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2426,
+        "HEIGHT_RANGE": 18,
+        "VOID_GROUND": 85,
+        "GROUND_JUMP": 12
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-44-6-11-0\\crash_44_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 44,
+          "car": 6,
+          "crashes": 2352,
+          "flagged": 1540,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 7,
+          "crashes": 2352,
+          "flagged": 1537,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 8,
+          "crashes": 2352,
+          "flagged": 1544,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 9,
+          "crashes": 2352,
+          "flagged": 1550,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 10,
+          "crashes": 2352,
+          "flagged": 1540,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 44,
+          "car": 11,
+          "crashes": 2352,
+          "flagged": 1552,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 7680,
+        "STUCK_AT_WALL": 2769,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2280,
+        "VOID_GROUND": 69,
+        "GROUND_JUMP": 6
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-45-0-5-0\\crash_45_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 45,
+          "car": 0,
+          "crashes": 5280,
+          "flagged": 3162,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 1,
+          "crashes": 5280,
+          "flagged": 3178,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 2,
+          "crashes": 5280,
+          "flagged": 3183,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 3,
+          "crashes": 5280,
+          "flagged": 3160,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 4,
+          "crashes": 5280,
+          "flagged": 3159,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 5,
+          "crashes": 5280,
+          "flagged": 3191,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5564,
+        "ESCAPED_TRACK": 15645,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 5877,
+        "GROUND_JUMP": 13,
+        "VOID_GROUND": 8
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-45-12-17-0\\crash_45_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 45,
+          "car": 12,
+          "crashes": 5280,
+          "flagged": 3177,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 13,
+          "crashes": 5280,
+          "flagged": 3174,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 14,
+          "crashes": 5280,
+          "flagged": 3204,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 15,
+          "crashes": 5280,
+          "flagged": 3264,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 16,
+          "crashes": 5280,
+          "flagged": 3296,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 17,
+          "crashes": 5280,
+          "flagged": 3287,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7181,
+        "ESCAPED_TRACK": 16412,
+        "GROUND_JUMP": 30,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6075,
+        "VOID_GROUND": 7,
+        "HEIGHT_RANGE": 5
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-45-18-23-0\\crash_45_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 45,
+          "car": 18,
+          "crashes": 5280,
+          "flagged": 3267,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 19,
+          "crashes": 5280,
+          "flagged": 3146,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 20,
+          "crashes": 5280,
+          "flagged": 3209,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 21,
+          "crashes": 5280,
+          "flagged": 3311,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 22,
+          "crashes": 5280,
+          "flagged": 3174,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 23,
+          "crashes": 5280,
+          "flagged": 3153,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6409,
+        "ESCAPED_TRACK": 16141,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6000,
+        "GROUND_JUMP": 22,
+        "HEIGHT_RANGE": 2,
+        "VOID_GROUND": 8
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-45-6-11-0\\crash_45_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 45,
+          "car": 6,
+          "crashes": 5280,
+          "flagged": 3166,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 7,
+          "crashes": 5280,
+          "flagged": 3164,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 8,
+          "crashes": 5280,
+          "flagged": 3173,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 9,
+          "crashes": 5280,
+          "flagged": 3179,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 10,
+          "crashes": 5280,
+          "flagged": 3192,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 45,
+          "car": 11,
+          "crashes": 5280,
+          "flagged": 3156,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5433,
+        "ESCAPED_TRACK": 15691,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 5861,
+        "GROUND_JUMP": 9,
+        "VOID_GROUND": 4
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-46-12-17-0\\crash_46_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 46,
+          "car": 12,
+          "crashes": 7776,
+          "flagged": 5298,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 13,
+          "crashes": 7776,
+          "flagged": 5330,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 14,
+          "crashes": 7776,
+          "flagged": 5327,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 15,
+          "crashes": 7776,
+          "flagged": 5393,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 16,
+          "crashes": 7776,
+          "flagged": 5371,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 17,
+          "crashes": 7776,
+          "flagged": 5356,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 10833,
+        "ESCAPED_TRACK": 27993,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 12816,
+        "VOID_GROUND": 3
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-46-6-11-0\\crash_46_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 46,
+          "car": 6,
+          "crashes": 7776,
+          "flagged": 5301,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 7,
+          "crashes": 7776,
+          "flagged": 5319,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 8,
+          "crashes": 7776,
+          "flagged": 5318,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 9,
+          "crashes": 7776,
+          "flagged": 5320,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 10,
+          "crashes": 7776,
+          "flagged": 5294,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 46,
+          "car": 11,
+          "crashes": 7776,
+          "flagged": 5335,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7671,
+        "ESCAPED_TRACK": 26861,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 12540,
+        "VOID_GROUND": 5
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-47-0-5-0\\crash_47_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 47,
+          "car": 0,
+          "crashes": 3888,
+          "flagged": 2503,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 1,
+          "crashes": 3888,
+          "flagged": 2501,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 2,
+          "crashes": 3888,
+          "flagged": 2506,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 3,
+          "crashes": 3888,
+          "flagged": 2506,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 4,
+          "crashes": 3888,
+          "flagged": 2502,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 5,
+          "crashes": 3888,
+          "flagged": 2514,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3866,
+        "ESCAPED_TRACK": 12056,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6060
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-47-12-17-0\\crash_47_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 47,
+          "car": 12,
+          "crashes": 3888,
+          "flagged": 2490,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 13,
+          "crashes": 3888,
+          "flagged": 2506,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 14,
+          "crashes": 3888,
+          "flagged": 2488,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 15,
+          "crashes": 3888,
+          "flagged": 2631,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 16,
+          "crashes": 3888,
+          "flagged": 2643,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 17,
+          "crashes": 3888,
+          "flagged": 2607,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5616,
+        "ESCAPED_TRACK": 12476,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6168
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-47-18-23-0\\crash_47_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 47,
+          "car": 18,
+          "crashes": 3888,
+          "flagged": 2614,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 19,
+          "crashes": 3888,
+          "flagged": 2502,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 20,
+          "crashes": 3888,
+          "flagged": 2520,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 21,
+          "crashes": 3888,
+          "flagged": 2613,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 22,
+          "crashes": 3888,
+          "flagged": 2483,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 23,
+          "crashes": 3888,
+          "flagged": 2520,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4785,
+        "ESCAPED_TRACK": 12368,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6113
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-47-6-11-0\\crash_47_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 47,
+          "car": 6,
+          "crashes": 3888,
+          "flagged": 2492,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 7,
+          "crashes": 3888,
+          "flagged": 2496,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 8,
+          "crashes": 3888,
+          "flagged": 2534,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 9,
+          "crashes": 3888,
+          "flagged": 2524,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 10,
+          "crashes": 3888,
+          "flagged": 2514,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 47,
+          "car": 11,
+          "crashes": 3888,
+          "flagged": 2499,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3818,
+        "ESCAPED_TRACK": 12073,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6010
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-48-12-17-0\\crash_48_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 48,
+          "car": 12,
+          "crashes": 4224,
+          "flagged": 3001,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 13,
+          "crashes": 4224,
+          "flagged": 2996,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 14,
+          "crashes": 4224,
+          "flagged": 2977,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 15,
+          "crashes": 4224,
+          "flagged": 3085,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 16,
+          "crashes": 4224,
+          "flagged": 3087,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 17,
+          "crashes": 4224,
+          "flagged": 3069,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6431,
+        "ESCAPED_TRACK": 15296,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 7599,
+        "GROUND_JUMP": 1,
+        "VOID_GROUND": 2
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-48-18-23-0\\crash_48_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 48,
+          "car": 18,
+          "crashes": 4224,
+          "flagged": 3060,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 19,
+          "crashes": 4224,
+          "flagged": 2955,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 20,
+          "crashes": 4224,
+          "flagged": 2991,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 21,
+          "crashes": 4224,
+          "flagged": 3034,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 22,
+          "crashes": 4224,
+          "flagged": 3011,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 48,
+          "car": 23,
+          "crashes": 4224,
+          "flagged": 2991,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 15054,
+        "STUCK_AT_WALL": 5404,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 7494,
+        "GROUND_JUMP": 2,
+        "VOID_GROUND": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-49-0-5-0\\crash_49_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 49,
+          "car": 0,
+          "crashes": 3840,
+          "flagged": 1714,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 1,
+          "crashes": 3840,
+          "flagged": 1737,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 2,
+          "crashes": 3840,
+          "flagged": 1734,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 3,
+          "crashes": 3840,
+          "flagged": 1745,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 4,
+          "crashes": 3840,
+          "flagged": 1709,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 5,
+          "crashes": 3840,
+          "flagged": 1744,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4957,
+        "ESCAPED_TRACK": 5931,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2215,
+        "VOID_GROUND": 2
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-49-12-17-0\\crash_49_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 49,
+          "car": 12,
+          "crashes": 3840,
+          "flagged": 1712,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 13,
+          "crashes": 3840,
+          "flagged": 1701,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 14,
+          "crashes": 3840,
+          "flagged": 1697,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 15,
+          "crashes": 3840,
+          "flagged": 1798,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 16,
+          "crashes": 3840,
+          "flagged": 1816,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 17,
+          "crashes": 3840,
+          "flagged": 1834,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5604,
+        "VOID_GROUND": 3,
+        "ESCAPED_TRACK": 6456,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2165,
+        "GROUND_JUMP": 15
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-49-18-23-0\\crash_49_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 49,
+          "car": 18,
+          "crashes": 3840,
+          "flagged": 1826,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 19,
+          "crashes": 3840,
+          "flagged": 1673,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 20,
+          "crashes": 3840,
+          "flagged": 1696,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 21,
+          "crashes": 3840,
+          "flagged": 1796,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 22,
+          "crashes": 3840,
+          "flagged": 1697,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 23,
+          "crashes": 3840,
+          "flagged": 1710,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5259,
+        "ESCAPED_TRACK": 6141,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2196,
+        "GROUND_JUMP": 10,
+        "VOID_GROUND": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-49-6-11-0\\crash_49_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 49,
+          "car": 6,
+          "crashes": 3840,
+          "flagged": 1724,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 7,
+          "crashes": 3840,
+          "flagged": 1718,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 8,
+          "crashes": 3840,
+          "flagged": 1718,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 9,
+          "crashes": 3840,
+          "flagged": 1716,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 10,
+          "crashes": 3840,
+          "flagged": 1719,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 49,
+          "car": 11,
+          "crashes": 3840,
+          "flagged": 1700,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4825,
+        "ESCAPED_TRACK": 5948,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2206,
+        "GROUND_JUMP": 2,
+        "VOID_GROUND": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-50-0-5-0\\crash_50_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 50,
+          "car": 0,
+          "crashes": 5112,
+          "flagged": 2137,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 1,
+          "crashes": 5112,
+          "flagged": 2231,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 2,
+          "crashes": 5112,
+          "flagged": 2222,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 3,
+          "crashes": 5112,
+          "flagged": 2222,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 4,
+          "crashes": 5112,
+          "flagged": 2106,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 5,
+          "crashes": 5112,
+          "flagged": 2225,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5877,
+        "VOID_GROUND": 93,
+        "GROUND_JUMP": 202,
+        "ESCAPED_TRACK": 7672,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3411
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-50-12-17-0\\crash_50_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 50,
+          "car": 12,
+          "crashes": 5112,
+          "flagged": 2086,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 13,
+          "crashes": 5112,
+          "flagged": 2097,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 14,
+          "crashes": 5112,
+          "flagged": 2094,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 15,
+          "crashes": 5112,
+          "flagged": 2090,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 16,
+          "crashes": 5112,
+          "flagged": 2088,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 17,
+          "crashes": 5112,
+          "flagged": 2102,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5948,
+        "VOID_GROUND": 112,
+        "ESCAPED_TRACK": 8147,
+        "GROUND_JUMP": 220,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3435
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-50-18-23-0\\crash_50_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 50,
+          "car": 18,
+          "crashes": 5112,
+          "flagged": 2136,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 19,
+          "crashes": 5112,
+          "flagged": 2078,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 20,
+          "crashes": 5112,
+          "flagged": 2225,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 21,
+          "crashes": 5112,
+          "flagged": 2015,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 22,
+          "crashes": 5112,
+          "flagged": 2046,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 23,
+          "crashes": 5112,
+          "flagged": 2185,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "VOID_GROUND": 102,
+        "STUCK_AT_WALL": 5700,
+        "ESCAPED_TRACK": 8024,
+        "GROUND_JUMP": 225,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3416
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-50-6-11-0\\crash_50_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 50,
+          "car": 6,
+          "crashes": 5112,
+          "flagged": 2102,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 7,
+          "crashes": 5112,
+          "flagged": 2142,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 8,
+          "crashes": 5112,
+          "flagged": 2173,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 9,
+          "crashes": 5112,
+          "flagged": 2126,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 10,
+          "crashes": 5112,
+          "flagged": 2160,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 50,
+          "car": 11,
+          "crashes": 5112,
+          "flagged": 2106,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5475,
+        "VOID_GROUND": 81,
+        "ESCAPED_TRACK": 7702,
+        "GROUND_JUMP": 219,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3403
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-51-0-5-0\\crash_51_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 51,
+          "car": 0,
+          "crashes": 7392,
+          "flagged": 3089,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 1,
+          "crashes": 7392,
+          "flagged": 3130,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 2,
+          "crashes": 7392,
+          "flagged": 3172,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 3,
+          "crashes": 7392,
+          "flagged": 3111,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 4,
+          "crashes": 7392,
+          "flagged": 3071,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 5,
+          "crashes": 7392,
+          "flagged": 3140,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 10561,
+        "ESCAPED_TRACK": 10184,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3012
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-51-12-17-0\\crash_51_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 51,
+          "car": 12,
+          "crashes": 7392,
+          "flagged": 3078,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 13,
+          "crashes": 7392,
+          "flagged": 3093,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 14,
+          "crashes": 7392,
+          "flagged": 3110,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 15,
+          "crashes": 7392,
+          "flagged": 2921,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 16,
+          "crashes": 7392,
+          "flagged": 2939,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 17,
+          "crashes": 7392,
+          "flagged": 2890,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9934,
+        "ESCAPED_TRACK": 11345,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3016,
+        "GROUND_JUMP": 55
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-51-18-23-0\\crash_51_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 51,
+          "car": 18,
+          "crashes": 7392,
+          "flagged": 2924,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 19,
+          "crashes": 7392,
+          "flagged": 3068,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 20,
+          "crashes": 7392,
+          "flagged": 3172,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 21,
+          "crashes": 7392,
+          "flagged": 2883,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 22,
+          "crashes": 7392,
+          "flagged": 3094,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 23,
+          "crashes": 7392,
+          "flagged": 3084,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9930,
+        "ESCAPED_TRACK": 10977,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3026,
+        "GROUND_JUMP": 38
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-51-6-11-0\\crash_51_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 51,
+          "car": 6,
+          "crashes": 7392,
+          "flagged": 3113,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 7,
+          "crashes": 7392,
+          "flagged": 3125,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 8,
+          "crashes": 7392,
+          "flagged": 3097,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 9,
+          "crashes": 7392,
+          "flagged": 3110,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 10,
+          "crashes": 7392,
+          "flagged": 3098,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 51,
+          "car": 11,
+          "crashes": 7392,
+          "flagged": 3120,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 10416,
+        "ESCAPED_TRACK": 10212,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3004,
+        "GROUND_JUMP": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-52-0-5-0\\crash_52_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 52,
+          "car": 0,
+          "crashes": 2664,
+          "flagged": 1461,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 1,
+          "crashes": 2664,
+          "flagged": 1489,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 2,
+          "crashes": 2664,
+          "flagged": 1487,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 3,
+          "crashes": 2664,
+          "flagged": 1480,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 4,
+          "crashes": 2664,
+          "flagged": 1473,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 5,
+          "crashes": 2664,
+          "flagged": 1507,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 5936,
+        "STUCK_AT_WALL": 3675,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2378
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-52-12-17-0\\crash_52_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 52,
+          "car": 12,
+          "crashes": 2664,
+          "flagged": 1487,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 13,
+          "crashes": 2664,
+          "flagged": 1485,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 14,
+          "crashes": 2664,
+          "flagged": 1478,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 15,
+          "crashes": 2664,
+          "flagged": 1515,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 16,
+          "crashes": 2664,
+          "flagged": 1528,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 17,
+          "crashes": 2664,
+          "flagged": 1481,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 6681,
+        "STUCK_AT_WALL": 4102,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2483,
+        "GROUND_JUMP": 10
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-52-18-23-0\\crash_52_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 52,
+          "car": 18,
+          "crashes": 2664,
+          "flagged": 1511,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 19,
+          "crashes": 2664,
+          "flagged": 1453,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 20,
+          "crashes": 2664,
+          "flagged": 1476,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 21,
+          "crashes": 2664,
+          "flagged": 1536,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 22,
+          "crashes": 2664,
+          "flagged": 1486,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 23,
+          "crashes": 2664,
+          "flagged": 1470,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 6390,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2452,
+        "STUCK_AT_WALL": 3790,
+        "GROUND_JUMP": 4
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-52-6-11-0\\crash_52_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 52,
+          "car": 6,
+          "crashes": 2664,
+          "flagged": 1463,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 7,
+          "crashes": 2664,
+          "flagged": 1490,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 8,
+          "crashes": 2664,
+          "flagged": 1491,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 9,
+          "crashes": 2664,
+          "flagged": 1478,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 10,
+          "crashes": 2664,
+          "flagged": 1489,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 52,
+          "car": 11,
+          "crashes": 2664,
+          "flagged": 1469,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 6019,
+        "STUCK_AT_WALL": 3656,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2375,
+        "GROUND_JUMP": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-53-0-5-0\\crash_53_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 53,
+          "car": 0,
+          "crashes": 5712,
+          "flagged": 3601,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 1,
+          "crashes": 5712,
+          "flagged": 3571,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 2,
+          "crashes": 5712,
+          "flagged": 3610,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 3,
+          "crashes": 5712,
+          "flagged": 3607,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 4,
+          "crashes": 5712,
+          "flagged": 3617,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 5,
+          "crashes": 5712,
+          "flagged": 3631,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6904,
+        "ESCAPED_TRACK": 15579,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6786,
+        "HEIGHT_RANGE": 8,
+        "GROUND_JUMP": 3
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-53-12-17-0\\crash_53_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 53,
+          "car": 12,
+          "crashes": 5712,
+          "flagged": 3604,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 13,
+          "crashes": 5712,
+          "flagged": 3632,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 14,
+          "crashes": 5712,
+          "flagged": 3600,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 15,
+          "crashes": 5712,
+          "flagged": 3891,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 16,
+          "crashes": 5712,
+          "flagged": 3897,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 17,
+          "crashes": 5712,
+          "flagged": 3873,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9352,
+        "ESCAPED_TRACK": 16846,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 7072,
+        "HEIGHT_RANGE": 123,
+        "GROUND_JUMP": 55
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-53-18-23-0\\crash_53_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 53,
+          "car": 18,
+          "crashes": 5712,
+          "flagged": 3879,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 19,
+          "crashes": 5712,
+          "flagged": 3554,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 20,
+          "crashes": 5712,
+          "flagged": 3589,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 21,
+          "crashes": 5712,
+          "flagged": 3795,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 22,
+          "crashes": 5712,
+          "flagged": 3615,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 23,
+          "crashes": 5712,
+          "flagged": 3658,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 8110,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6934,
+        "ESCAPED_TRACK": 16389,
+        "GROUND_JUMP": 31,
+        "HEIGHT_RANGE": 79
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-53-6-11-0\\crash_53_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 53,
+          "car": 6,
+          "crashes": 5712,
+          "flagged": 3598,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 7,
+          "crashes": 5712,
+          "flagged": 3641,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 8,
+          "crashes": 5712,
+          "flagged": 3616,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 9,
+          "crashes": 5712,
+          "flagged": 3640,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 10,
+          "crashes": 5712,
+          "flagged": 3605,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 53,
+          "car": 11,
+          "crashes": 5712,
+          "flagged": 3610,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6803,
+        "ESCAPED_TRACK": 15713,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6789,
+        "HEIGHT_RANGE": 16,
+        "GROUND_JUMP": 3,
+        "VOID_GROUND": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-55-0-5-0\\crash_55_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 55,
+          "car": 0,
+          "crashes": 3864,
+          "flagged": 1856,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 1,
+          "crashes": 3864,
+          "flagged": 1861,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 2,
+          "crashes": 3864,
+          "flagged": 1854,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 3,
+          "crashes": 3864,
+          "flagged": 1868,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 4,
+          "crashes": 3864,
+          "flagged": 1865,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 5,
+          "crashes": 3864,
+          "flagged": 1872,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4439,
+        "ESCAPED_TRACK": 7063,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3173,
+        "VOID_GROUND": 89
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-55-12-17-0\\crash_55_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 55,
+          "car": 12,
+          "crashes": 3864,
+          "flagged": 1875,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 13,
+          "crashes": 3864,
+          "flagged": 1856,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 14,
+          "crashes": 3864,
+          "flagged": 1851,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 15,
+          "crashes": 3864,
+          "flagged": 1971,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 16,
+          "crashes": 3864,
+          "flagged": 1946,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 17,
+          "crashes": 3864,
+          "flagged": 1956,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5287,
+        "ESCAPED_TRACK": 7701,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3280,
+        "VOID_GROUND": 107,
+        "GROUND_JUMP": 2
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-55-18-23-0\\crash_55_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 55,
+          "car": 18,
+          "crashes": 3864,
+          "flagged": 1971,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 19,
+          "crashes": 3864,
+          "flagged": 1833,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 20,
+          "crashes": 3864,
+          "flagged": 1887,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 21,
+          "crashes": 3864,
+          "flagged": 1928,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 22,
+          "crashes": 3864,
+          "flagged": 1840,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 23,
+          "crashes": 3864,
+          "flagged": 1889,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4898,
+        "ESCAPED_TRACK": 7458,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3234,
+        "VOID_GROUND": 97,
+        "GROUND_JUMP": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-55-6-11-0\\crash_55_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 55,
+          "car": 6,
+          "crashes": 3864,
+          "flagged": 1858,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 7,
+          "crashes": 3864,
+          "flagged": 1896,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 8,
+          "crashes": 3864,
+          "flagged": 1866,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 9,
+          "crashes": 3864,
+          "flagged": 1866,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 10,
+          "crashes": 3864,
+          "flagged": 1867,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 55,
+          "car": 11,
+          "crashes": 3864,
+          "flagged": 1864,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4391,
+        "ESCAPED_TRACK": 7148,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3192,
+        "VOID_GROUND": 73
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-56-18-23-0\\crash_56_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 56,
+          "car": 18,
+          "crashes": 3840,
+          "flagged": 1997,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 56,
+          "car": 19,
+          "crashes": 3840,
+          "flagged": 1847,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 56,
+          "car": 20,
+          "crashes": 3840,
+          "flagged": 1878,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 56,
+          "car": 21,
+          "crashes": 3840,
+          "flagged": 1958,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 56,
+          "car": 22,
+          "crashes": 3840,
+          "flagged": 1889,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 56,
+          "car": 23,
+          "crashes": 3840,
+          "flagged": 1893,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4849,
+        "ESCAPED_TRACK": 7620,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3369,
+        "VOID_GROUND": 117,
+        "GROUND_JUMP": 2
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-57-12-17-0\\crash_57_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 57,
+          "car": 12,
+          "crashes": 3360,
+          "flagged": 1654,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 57,
+          "car": 13,
+          "crashes": 3360,
+          "flagged": 1636,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 57,
+          "car": 14,
+          "crashes": 3360,
+          "flagged": 1637,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 57,
+          "car": 15,
+          "crashes": 3360,
+          "flagged": 1692,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 57,
+          "car": 16,
+          "crashes": 3360,
+          "flagged": 1687,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 57,
+          "car": 17,
+          "crashes": 3360,
+          "flagged": 1687,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4576,
+        "ESCAPED_TRACK": 6868,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2970,
+        "VOID_GROUND": 89,
+        "GROUND_JUMP": 8
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-58-12-17-0\\crash_58_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 58,
+          "car": 12,
+          "crashes": 4176,
+          "flagged": 1614,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 13,
+          "crashes": 4176,
+          "flagged": 1641,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 14,
+          "crashes": 4176,
+          "flagged": 1617,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 15,
+          "crashes": 4176,
+          "flagged": 1632,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 16,
+          "crashes": 4176,
+          "flagged": 1646,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 17,
+          "crashes": 4176,
+          "flagged": 1626,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6285,
+        "ESCAPED_TRACK": 3933,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 1991
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\Jdiejei\\crash-58-6-11-0\\crash_58_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 58,
+          "car": 6,
+          "crashes": 4176,
+          "flagged": 1606,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 7,
+          "crashes": 4176,
+          "flagged": 1654,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 8,
+          "crashes": 4176,
+          "flagged": 1638,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 9,
+          "crashes": 4176,
+          "flagged": 1608,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 10,
+          "crashes": 4176,
+          "flagged": 1636,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 58,
+          "car": 11,
+          "crashes": 4176,
+          "flagged": 1607,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5728,
+        "ESCAPED_TRACK": 3533,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2172
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-20-0-5-0\\crash_20_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 20,
+          "car": 0,
+          "crashes": 3504,
+          "flagged": 923,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 1,
+          "crashes": 3504,
+          "flagged": 953,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 2,
+          "crashes": 3504,
+          "flagged": 953,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 3,
+          "crashes": 3504,
+          "flagged": 989,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 4,
+          "crashes": 3504,
+          "flagged": 897,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 5,
+          "crashes": 3504,
+          "flagged": 976,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 4051,
+        "ESCAPED_TRACK": 623,
+        "VOID_GROUND": 1405,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 13
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-20-12-17-0\\crash_20_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 20,
+          "car": 12,
+          "crashes": 3504,
+          "flagged": 891,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 13,
+          "crashes": 3504,
+          "flagged": 907,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 14,
+          "crashes": 3504,
+          "flagged": 906,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 15,
+          "crashes": 3504,
+          "flagged": 947,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 16,
+          "crashes": 3504,
+          "flagged": 938,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 17,
+          "crashes": 3504,
+          "flagged": 977,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3960,
+        "ESCAPED_TRACK": 921,
+        "VOID_GROUND": 1251,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 25
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-20-18-23-0\\crash_20_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 20,
+          "car": 18,
+          "crashes": 3504,
+          "flagged": 936,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 19,
+          "crashes": 3504,
+          "flagged": 901,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 20,
+          "crashes": 3504,
+          "flagged": 971,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 21,
+          "crashes": 3504,
+          "flagged": 905,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 22,
+          "crashes": 3504,
+          "flagged": 851,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 23,
+          "crashes": 3504,
+          "flagged": 939,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3871,
+        "ESCAPED_TRACK": 811,
+        "VOID_GROUND": 1327,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 24
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-20-6-11-0\\crash_20_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 20,
+          "car": 6,
+          "crashes": 3504,
+          "flagged": 907,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 7,
+          "crashes": 3504,
+          "flagged": 950,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 8,
+          "crashes": 3504,
+          "flagged": 935,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 9,
+          "crashes": 3504,
+          "flagged": 939,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 10,
+          "crashes": 3504,
+          "flagged": 930,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 20,
+          "car": 11,
+          "crashes": 3504,
+          "flagged": 895,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3949,
+        "ESCAPED_TRACK": 632,
+        "VOID_GROUND": 1366,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 13
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-21-18-23-0\\crash_21_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 21,
+          "car": 18,
+          "crashes": 5784,
+          "flagged": 2769,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 19,
+          "crashes": 5784,
+          "flagged": 3013,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 20,
+          "crashes": 5784,
+          "flagged": 3083,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 21,
+          "crashes": 5784,
+          "flagged": 2748,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 22,
+          "crashes": 5784,
+          "flagged": 3094,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 23,
+          "crashes": 5784,
+          "flagged": 3103,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7263,
+        "ESCAPED_TRACK": 13098,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4874,
+        "HEIGHT_RANGE": 149,
+        "GROUND_JUMP": 26
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-21-6-11-0\\crash_21_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 21,
+          "car": 6,
+          "crashes": 5784,
+          "flagged": 3085,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 7,
+          "crashes": 5784,
+          "flagged": 3088,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 8,
+          "crashes": 5784,
+          "flagged": 3084,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 9,
+          "crashes": 5784,
+          "flagged": 3069,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 10,
+          "crashes": 5784,
+          "flagged": 3081,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 21,
+          "car": 11,
+          "crashes": 5784,
+          "flagged": 3095,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7490,
+        "ESCAPED_TRACK": 12600,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4801,
+        "HEIGHT_RANGE": 35,
+        "GROUND_JUMP": 7
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-22-0-5-0\\crash_22_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 22,
+          "car": 0,
+          "crashes": 2112,
+          "flagged": 679,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 1,
+          "crashes": 2112,
+          "flagged": 664,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 2,
+          "crashes": 2112,
+          "flagged": 669,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 3,
+          "crashes": 2112,
+          "flagged": 655,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 4,
+          "crashes": 2112,
+          "flagged": 671,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 5,
+          "crashes": 2112,
+          "flagged": 671,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 2914,
+        "ESCAPED_TRACK": 934,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 442,
+        "GROUND_JUMP": 295
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-22-12-17-0\\crash_22_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 22,
+          "car": 12,
+          "crashes": 2112,
+          "flagged": 695,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 13,
+          "crashes": 2112,
+          "flagged": 671,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 14,
+          "crashes": 2112,
+          "flagged": 670,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 15,
+          "crashes": 2112,
+          "flagged": 647,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 16,
+          "crashes": 2112,
+          "flagged": 673,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 17,
+          "crashes": 2112,
+          "flagged": 696,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 2548,
+        "ESCAPED_TRACK": 968,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 461,
+        "GROUND_JUMP": 776
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-22-18-23-0\\crash_22_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 22,
+          "car": 18,
+          "crashes": 2112,
+          "flagged": 653,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 19,
+          "crashes": 2112,
+          "flagged": 669,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 20,
+          "crashes": 2112,
+          "flagged": 627,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 21,
+          "crashes": 2112,
+          "flagged": 654,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 22,
+          "crashes": 2112,
+          "flagged": 654,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 23,
+          "crashes": 2112,
+          "flagged": 655,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 2587,
+        "ESCAPED_TRACK": 935,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 452,
+        "GROUND_JUMP": 594
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-22-6-11-0\\crash_22_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 22,
+          "car": 6,
+          "crashes": 2112,
+          "flagged": 676,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 7,
+          "crashes": 2112,
+          "flagged": 666,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 8,
+          "crashes": 2112,
+          "flagged": 682,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 9,
+          "crashes": 2112,
+          "flagged": 673,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 10,
+          "crashes": 2112,
+          "flagged": 652,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 22,
+          "car": 11,
+          "crashes": 2112,
+          "flagged": 669,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 2863,
+        "ESCAPED_TRACK": 949,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 467,
+        "GROUND_JUMP": 312
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-23-0-5-0\\crash_23_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 23,
+          "car": 0,
+          "crashes": 8568,
+          "flagged": 3614,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 1,
+          "crashes": 8568,
+          "flagged": 3577,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 2,
+          "crashes": 8568,
+          "flagged": 3605,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 3,
+          "crashes": 8568,
+          "flagged": 3577,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 4,
+          "crashes": 8568,
+          "flagged": 3550,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 5,
+          "crashes": 8568,
+          "flagged": 3558,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 12883,
+        "ESCAPED_TRACK": 10137,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3578
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-23-12-17-0\\crash_23_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 23,
+          "car": 12,
+          "crashes": 8568,
+          "flagged": 3569,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 13,
+          "crashes": 8568,
+          "flagged": 3555,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 14,
+          "crashes": 8568,
+          "flagged": 3562,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 15,
+          "crashes": 8568,
+          "flagged": 3301,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 16,
+          "crashes": 8568,
+          "flagged": 3304,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 17,
+          "crashes": 8568,
+          "flagged": 3327,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 12330,
+        "ESCAPED_TRACK": 11066,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3729
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-23-18-23-0\\crash_23_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 23,
+          "car": 18,
+          "crashes": 8568,
+          "flagged": 3277,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 19,
+          "crashes": 8568,
+          "flagged": 3512,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 20,
+          "crashes": 8568,
+          "flagged": 3532,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 21,
+          "crashes": 8568,
+          "flagged": 3394,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 22,
+          "crashes": 8568,
+          "flagged": 3575,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 23,
+          "crashes": 8568,
+          "flagged": 3574,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 12305,
+        "ESCAPED_TRACK": 10736,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3702
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-23-6-11-0\\crash_23_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 23,
+          "car": 6,
+          "crashes": 8568,
+          "flagged": 3571,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 7,
+          "crashes": 8568,
+          "flagged": 3532,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 8,
+          "crashes": 8568,
+          "flagged": 3574,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 9,
+          "crashes": 8568,
+          "flagged": 3620,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 10,
+          "crashes": 8568,
+          "flagged": 3587,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 23,
+          "car": 11,
+          "crashes": 8568,
+          "flagged": 3570,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 12693,
+        "ESCAPED_TRACK": 10220,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3606
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-25-0-5-0\\crash_25_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 25,
+          "car": 0,
+          "crashes": 7320,
+          "flagged": 1915,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 1,
+          "crashes": 7320,
+          "flagged": 2017,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 2,
+          "crashes": 7320,
+          "flagged": 1989,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 3,
+          "crashes": 7320,
+          "flagged": 1991,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 4,
+          "crashes": 7320,
+          "flagged": 1912,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 5,
+          "crashes": 7320,
+          "flagged": 2026,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9988,
+        "ESCAPED_TRACK": 1338,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 153,
+        "VOID_GROUND": 857
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-25-6-11-0\\crash_25_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 25,
+          "car": 6,
+          "crashes": 7320,
+          "flagged": 1896,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 7,
+          "crashes": 7320,
+          "flagged": 1936,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 8,
+          "crashes": 7320,
+          "flagged": 1987,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 9,
+          "crashes": 7320,
+          "flagged": 1928,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 10,
+          "crashes": 7320,
+          "flagged": 1962,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 25,
+          "car": 11,
+          "crashes": 7320,
+          "flagged": 1907,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9770,
+        "ESCAPED_TRACK": 1336,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 156,
+        "VOID_GROUND": 848
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-26-12-17-0\\crash_26_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 26,
+          "car": 12,
+          "crashes": 9936,
+          "flagged": 3635,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 26,
+          "car": 13,
+          "crashes": 9936,
+          "flagged": 3599,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 26,
+          "car": 14,
+          "crashes": 9936,
+          "flagged": 3543,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 26,
+          "car": 15,
+          "crashes": 9936,
+          "flagged": 3491,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 26,
+          "car": 16,
+          "crashes": 9936,
+          "flagged": 3466,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 26,
+          "car": 17,
+          "crashes": 9936,
+          "flagged": 3484,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 12026,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2598,
+        "ESCAPED_TRACK": 9295,
+        "VOID_GROUND": 457,
+        "HEIGHT_RANGE": 1357,
+        "GROUND_JUMP": 1365
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-28-18-23-0\\crash_28_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 28,
+          "car": 18,
+          "crashes": 7392,
+          "flagged": 2930,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 28,
+          "car": 19,
+          "crashes": 7392,
+          "flagged": 3065,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 28,
+          "car": 20,
+          "crashes": 7392,
+          "flagged": 3167,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 28,
+          "car": 21,
+          "crashes": 7392,
+          "flagged": 2879,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 28,
+          "car": 22,
+          "crashes": 7392,
+          "flagged": 3095,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 28,
+          "car": 23,
+          "crashes": 7392,
+          "flagged": 3079,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9922,
+        "ESCAPED_TRACK": 10980,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 3026,
+        "GROUND_JUMP": 37
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-29-0-5-0\\crash_29_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 29,
+          "car": 0,
+          "crashes": 3192,
+          "flagged": 1815,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 1,
+          "crashes": 3192,
+          "flagged": 1781,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 2,
+          "crashes": 3192,
+          "flagged": 1784,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 3,
+          "crashes": 3192,
+          "flagged": 1791,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 4,
+          "crashes": 3192,
+          "flagged": 1823,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 5,
+          "crashes": 3192,
+          "flagged": 1800,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5092,
+        "ESCAPED_TRACK": 7237,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 1446,
+        "VOID_GROUND": 186,
+        "GROUND_JUMP": 10
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-29-18-23-0\\crash_29_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 29,
+          "car": 18,
+          "crashes": 3192,
+          "flagged": 1789,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 19,
+          "crashes": 3192,
+          "flagged": 1775,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 20,
+          "crashes": 3192,
+          "flagged": 1757,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 21,
+          "crashes": 3192,
+          "flagged": 1839,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 22,
+          "crashes": 3192,
+          "flagged": 1798,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 23,
+          "crashes": 3192,
+          "flagged": 1791,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 7518,
+        "STUCK_AT_WALL": 5148,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 1612,
+        "GROUND_JUMP": 59,
+        "VOID_GROUND": 219
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-29-6-11-0\\crash_29_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 29,
+          "car": 6,
+          "crashes": 3192,
+          "flagged": 1812,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 7,
+          "crashes": 3192,
+          "flagged": 1807,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 8,
+          "crashes": 3192,
+          "flagged": 1797,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 9,
+          "crashes": 3192,
+          "flagged": 1808,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 10,
+          "crashes": 3192,
+          "flagged": 1799,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 29,
+          "car": 11,
+          "crashes": 3192,
+          "flagged": 1834,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 5004,
+        "ESCAPED_TRACK": 7302,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 1459,
+        "VOID_GROUND": 200,
+        "GROUND_JUMP": 9
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-30-0-5-0\\crash_30_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 30,
+          "car": 0,
+          "crashes": 4752,
+          "flagged": 2416,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 1,
+          "crashes": 4752,
+          "flagged": 2448,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 2,
+          "crashes": 4752,
+          "flagged": 2440,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 3,
+          "crashes": 4752,
+          "flagged": 2425,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 4,
+          "crashes": 4752,
+          "flagged": 2428,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 5,
+          "crashes": 4752,
+          "flagged": 2420,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6562,
+        "ESCAPED_TRACK": 9296,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4264,
+        "GROUND_JUMP": 31,
+        "VOID_GROUND": 4
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-30-12-17-0\\crash_30_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 30,
+          "car": 12,
+          "crashes": 4752,
+          "flagged": 2441,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 13,
+          "crashes": 4752,
+          "flagged": 2435,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 14,
+          "crashes": 4752,
+          "flagged": 2429,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 15,
+          "crashes": 4752,
+          "flagged": 2545,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 16,
+          "crashes": 4752,
+          "flagged": 2496,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 17,
+          "crashes": 4752,
+          "flagged": 2501,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7805,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4320,
+        "ESCAPED_TRACK": 9975,
+        "GROUND_JUMP": 62,
+        "VOID_GROUND": 10
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-30-6-11-0\\crash_30_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 30,
+          "car": 6,
+          "crashes": 4752,
+          "flagged": 2429,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 7,
+          "crashes": 4752,
+          "flagged": 2418,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 8,
+          "crashes": 4752,
+          "flagged": 2439,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 9,
+          "crashes": 4752,
+          "flagged": 2432,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 10,
+          "crashes": 4752,
+          "flagged": 2419,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 30,
+          "car": 11,
+          "crashes": 4752,
+          "flagged": 2431,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6501,
+        "ESCAPED_TRACK": 9346,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 4239,
+        "GROUND_JUMP": 32,
+        "VOID_GROUND": 5
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-31-0-5-0\\crash_31_0-5_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 31,
+          "car": 0,
+          "crashes": 7584,
+          "flagged": 4540,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 1,
+          "crashes": 7584,
+          "flagged": 4559,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 2,
+          "crashes": 7584,
+          "flagged": 4584,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 3,
+          "crashes": 7584,
+          "flagged": 4569,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 4,
+          "crashes": 7584,
+          "flagged": 4536,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 5,
+          "crashes": 7584,
+          "flagged": 4576,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6122,
+        "ESCAPED_TRACK": 18127,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 14476,
+        "GROUND_JUMP": 92,
+        "VOID_GROUND": 603
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-31-18-23-0\\crash_31_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 31,
+          "car": 18,
+          "crashes": 7584,
+          "flagged": 5003,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 19,
+          "crashes": 7584,
+          "flagged": 4613,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 20,
+          "crashes": 7584,
+          "flagged": 4595,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 21,
+          "crashes": 7584,
+          "flagged": 4817,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 22,
+          "crashes": 7584,
+          "flagged": 4475,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 31,
+          "car": 23,
+          "crashes": 7584,
+          "flagged": 4552,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9129,
+        "ESCAPED_TRACK": 18436,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 14556,
+        "GROUND_JUMP": 219,
+        "VOID_GROUND": 696
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-32-12-17-0\\crash_32_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 32,
+          "car": 12,
+          "crashes": 9000,
+          "flagged": 5322,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 32,
+          "car": 13,
+          "crashes": 9000,
+          "flagged": 5386,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 32,
+          "car": 14,
+          "crashes": 9000,
+          "flagged": 5386,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 32,
+          "car": 15,
+          "crashes": 9000,
+          "flagged": 5830,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 32,
+          "car": 16,
+          "crashes": 9000,
+          "flagged": 5761,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 32,
+          "car": 17,
+          "crashes": 9000,
+          "flagged": 5799,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 21248,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 17334,
+        "STUCK_AT_WALL": 12538,
+        "GROUND_JUMP": 298,
+        "VOID_GROUND": 2890
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-33-12-17-0\\crash_33_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 33,
+          "car": 12,
+          "crashes": 8016,
+          "flagged": 4884,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 13,
+          "crashes": 8016,
+          "flagged": 4844,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 14,
+          "crashes": 8016,
+          "flagged": 4839,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 15,
+          "crashes": 8016,
+          "flagged": 4778,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 16,
+          "crashes": 8016,
+          "flagged": 4814,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 17,
+          "crashes": 8016,
+          "flagged": 4818,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 10484,
+        "ESCAPED_TRACK": 24767,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 9568,
+        "GROUND_JUMP": 24
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-33-18-23-0\\crash_33_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 33,
+          "car": 18,
+          "crashes": 8016,
+          "flagged": 4789,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 19,
+          "crashes": 8016,
+          "flagged": 4777,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 20,
+          "crashes": 8016,
+          "flagged": 4856,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 21,
+          "crashes": 8016,
+          "flagged": 4831,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 22,
+          "crashes": 8016,
+          "flagged": 4840,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 23,
+          "crashes": 8016,
+          "flagged": 4872,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 9493,
+        "ESCAPED_TRACK": 24116,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 9437,
+        "GROUND_JUMP": 16
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-33-6-11-0\\crash_33_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 33,
+          "car": 6,
+          "crashes": 8016,
+          "flagged": 4846,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 7,
+          "crashes": 8016,
+          "flagged": 4836,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 8,
+          "crashes": 8016,
+          "flagged": 4843,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 9,
+          "crashes": 8016,
+          "flagged": 4840,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 10,
+          "crashes": 8016,
+          "flagged": 4840,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 33,
+          "car": 11,
+          "crashes": 8016,
+          "flagged": 4840,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 8543,
+        "ESCAPED_TRACK": 23151,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 9344
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-34-12-17-0\\crash_34_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 34,
+          "car": 12,
+          "crashes": 2664,
+          "flagged": 1548,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 13,
+          "crashes": 2664,
+          "flagged": 1546,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 14,
+          "crashes": 2664,
+          "flagged": 1555,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 15,
+          "crashes": 2664,
+          "flagged": 1602,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 16,
+          "crashes": 2664,
+          "flagged": 1644,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 17,
+          "crashes": 2664,
+          "flagged": 1638,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3688,
+        "ESCAPED_TRACK": 7789,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2763,
+        "GROUND_JUMP": 17
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-34-18-23-0\\crash_34_18-23_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 34,
+          "car": 18,
+          "crashes": 2664,
+          "flagged": 1634,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 19,
+          "crashes": 2664,
+          "flagged": 1540,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 20,
+          "crashes": 2664,
+          "flagged": 1543,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 21,
+          "crashes": 2664,
+          "flagged": 1667,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 22,
+          "crashes": 2664,
+          "flagged": 1559,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 23,
+          "crashes": 2664,
+          "flagged": 1544,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "ESCAPED_TRACK": 7551,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2651,
+        "STUCK_AT_WALL": 3423,
+        "VOID_GROUND": 1,
+        "GROUND_JUMP": 7
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-34-6-11-0\\crash_34_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 34,
+          "car": 6,
+          "crashes": 2664,
+          "flagged": 1554,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 7,
+          "crashes": 2664,
+          "flagged": 1539,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 8,
+          "crashes": 2664,
+          "flagged": 1541,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 9,
+          "crashes": 2664,
+          "flagged": 1548,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 10,
+          "crashes": 2664,
+          "flagged": 1550,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 34,
+          "car": 11,
+          "crashes": 2664,
+          "flagged": 1562,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 3086,
+        "ESCAPED_TRACK": 7190,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 2524
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-35-12-17-0\\crash_35_12-17_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 35,
+          "car": 12,
+          "crashes": 6120,
+          "flagged": 3597,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 13,
+          "crashes": 6120,
+          "flagged": 3607,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 14,
+          "crashes": 6120,
+          "flagged": 3615,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 15,
+          "crashes": 6120,
+          "flagged": 3470,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 16,
+          "crashes": 6120,
+          "flagged": 3515,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 17,
+          "crashes": 6120,
+          "flagged": 3462,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 7825,
+        "ESCAPED_TRACK": 17910,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6755,
+        "GROUND_JUMP": 18,
+        "VOID_GROUND": 1
+      }
+    },
+    {
+      "path": "D:\\MySim-transport\\repair-20261029\\crash-evidence\\blackwingftc-lang\\crash-35-6-11-0\\crash_35_6-11_0.jsonl",
+      "summaries": [
+        {
+          "summary": true,
+          "track": 35,
+          "car": 6,
+          "crashes": 6120,
+          "flagged": 3595,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 7,
+          "crashes": 6120,
+          "flagged": 3591,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 8,
+          "crashes": 6120,
+          "flagged": 3626,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 9,
+          "crashes": 6120,
+          "flagged": 3570,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 10,
+          "crashes": 6120,
+          "flagged": 3600,
+          "flags": []
+        },
+        {
+          "summary": true,
+          "track": 35,
+          "car": 11,
+          "crashes": 6120,
+          "flagged": 3593,
+          "flags": []
+        }
+      ],
+      "flags": {
+        "STUCK_AT_WALL": 6926,
+        "ESCAPED_TRACK": 16793,
+        "NO_WALL_CONTACT_AT_HIGH_ANGLE": 6501,
+        "GROUND_JUMP": 7,
+        "VOID_GROUND": 1
+      }
+    }
+  ]
+}

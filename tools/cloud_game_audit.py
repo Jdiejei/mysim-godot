@@ -15,6 +15,24 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('COLLISION_PROBE')=='1':
+ # Reproduce a heavily flagged layout with fresh source collision, not the obsolete campaign bins.
+ track=48;track_list=json.loads((r/'assets/RealRacing/TrackList.json').read_text())['tracks'];map_name=track_list[track]['map']
+ folder=out/'fresh-collision';folder.mkdir(exist_ok=True);baked=folder/('col_'+map_name+'.bin')
+ text=run('collision-bake',{'MYSIM_BAKECOL':str(track),'MYSIM_BAKEOUT':str(baked)},['--headless'],timeout=600);assert 'BAKECOL map=' in text and baked.exists()
+ import hashlib,struct,collections
+ data=baked.read_bytes();triangles=struct.unpack('<i',data[:4])[0];assert triangles>0 and len(data)==4+triangles*36
+ report={'track':track,'triangles':triangles,'collision_sha256':hashlib.sha256(data).hexdigest(),'scope':'fresh live/baked diagnostic comparison, not game acceptance','results':{}}
+ for mode in ('live','baked'):
+  result=out/('crash-'+mode+'.jsonl');values={'MYSIM_CRASHMAP':str(track),'MYSIM_CARS':'16','MYSIM_CRASHPTS':'8','MYSIM_ONLYFLAGGED':'1','MYSIM_CRASHOUT':str(result)}
+  if mode=='baked':values['MYSIM_COLDIR']=str(folder)
+  text=run('collision-'+mode,values,['--headless'],timeout=1800);assert 'CRASHBATCH track=' in text and result.exists()
+  records=[json.loads(line) for line in result.read_text().splitlines()];summaries=[x for x in records if x.get('summary')];assert len(summaries)==1 and summaries[0]['crashes']>0
+  flags=collections.Counter(flag for row in records if not row.get('summary') for flag in row['flags']);report['results'][mode]={'summary':summaries[0],'flags':dict(flags)}
+  (out/'collision-comparison.json').write_text(json.dumps(report,indent=2))
+ # Flags remain visible and require diagnosis; running a diagnostic is never quality acceptance.
+ assert report['results']['live']['summary']['crashes']==report['results']['baked']['summary']['crashes']
+ print('COMPLETE collision diagnostics; inspect flags and live/baked parity',flush=True);sys.exit(0)
 if os.environ.get('SURFACE_REVIEW')=='1':
  for track in (5,23,59):
   for authored,shadows in ((False,True),(True,True),(False,False),(True,False)):
