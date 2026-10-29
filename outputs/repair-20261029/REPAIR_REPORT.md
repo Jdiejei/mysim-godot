@@ -44,3 +44,6 @@ New Windows candidate: D:/MySim-builds/repair-20261029/MySim.exe
 Evidence: outputs/repair-20261029
 Originals remain under D:/MySim-recovered, D:/My Sim and D:/MySim-godot-assets.
 Further computation: GitHub Actions. Local work is limited to editing, reading evidence and transporting local inputs needed by those runners.
+
+## Subsequent cloud phase
+Cloud full verification run 40901218060 passed; later compile/contact run 40907166421 also passed. Cloud intake part 00000 converted all 362 candidates successfully in run 40903767442 after correcting Blender version/library loading. Source now also centres templates at hub pivots and recovers source material scalar/colour/glass values; full visual acceptance and the rebuilt current Windows player remain pending. Local terminal popups were caused by child CLI launch flags; the transfer and watcher now use CREATE_NO_WINDOW and hidden single-instance pythonw services. See CONTINUE.md and the actual state files for live progress.

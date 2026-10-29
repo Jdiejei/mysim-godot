@@ -2,13 +2,13 @@ import os,pathlib,csv,json,collections,subprocess,tarfile,io,hashlib,time,traceb
 from cryptography.hazmat.primitives.ciphers import Cipher,algorithms,modes
 ROOT=pathlib.Path(__file__).resolve().parents[1];BASE=pathlib.Path('D:/MySim-transport/repair-20261029');BASE.mkdir(parents=True,exist_ok=True)
 REPO='instagramshashank8-bot/mysim-godot';TAG='repair-inputs-20261029';STATE=ROOT/'outputs/repair-20261029/cloud-intake-state.json'
-def cmd(args,**kw):return subprocess.run(args,check=True,capture_output=True,text=True,**kw)
+def cmd(args,**kw):return subprocess.run(args,check=True,capture_output=True,text=True,creationflags=subprocess.CREATE_NO_WINDOW,**kw)
 env=dict(os.environ);env['GH_TOKEN']=cmd(['gh','auth','token','-u','instagramshashank8-bot']).stdout.strip()
 keyfile=BASE/'intake.key'
 if not keyfile.exists():keyfile.write_bytes(os.urandom(32))
 key=keyfile.read_bytes();cmd(['gh','secret','set','MYSIM_INTAKE_KEY','--repo',REPO],input=key.hex(),env=env)
 for tag in [TAG,'repair-review-20261029']:
- exists=subprocess.run(['gh','release','view',tag,'--repo',REPO],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
+ exists=subprocess.run(['gh','release','view',tag,'--repo',REPO],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=subprocess.CREATE_NO_WINDOW).returncode==0
  if not exists:cmd(['gh','release','create',tag,'--repo',REPO,'--title',tag,'--prerelease','--latest=false','--notes','Encrypted project compute inputs/review outputs. The key is stored only as an Actions secret and locally outside the repository.'],env=env)
 planfile=BASE/'plan.json'
 if planfile.exists():parts=json.loads(planfile.read_text())
