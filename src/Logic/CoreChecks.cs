@@ -12,6 +12,12 @@ namespace MySimulator.Verification
         public static string Run()
         {
             count=0;var log=new List<string>();
+            foreach(float mass in new[]{600f,1200f,2000f})foreach(float service in new[]{0f,500f,15000f}){
+                float front=Dynamics.WheelBrakeForce(service,mass,true,true),rear=Dynamics.WheelBrakeForce(service,mass,false,true);
+                Check(Math.Abs(front-Dynamics.WheelBrakeForce(service,mass,true,false))<.001f,"handbrake applies front-wheel torque");
+                Check(Math.Abs(2*(front+rear)-(service+mass*3))<.01f,"handbrake force counted twice");
+                Check(Math.Abs(2*(Dynamics.WheelBrakeForce(service,mass,true,false)+Dynamics.WheelBrakeForce(service,mass,false,false))-service)<.01f,"service brake force is not conserved");
+            }
             foreach(float speed in new[]{-20f,0f,8f,18f,40f,70f})foreach(float fraction in new[]{-1f,-.8f,-.3f,0f,.3f,.8f,1f}){
                 float limit=Dynamics.SteeringLock(speed),requested=limit*fraction;float commanded=Dynamics.SteeringCommand(requested,speed);
                 Check(Math.Abs(Dynamics.SteeringTarget(commanded,speed)-requested)<.00001f,"AI steering does not request the actual model wheel angle");
