@@ -65,7 +65,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
    if (r.Node == null) continue; var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY;
    Contact.Walls(space,v,r.Start,refY,Contact.BodySize(v.carModel),new Vector3(VehicleDimensions.CenterX[v.carModel],VehicleDimensions.CenterY[v.carModel],VehicleDimensions.CenterZ[v.carModel]));w=ToWorld(v.position,0);
    var gr = Contact.Ground(space, w, refY, 1.0f);
-   if(Contact.Contain(v,r.Start,gr.near,30f)){w=ToWorld(v.position,0);gr=Contact.Ground(space,w,refY,1f);}Contact.MarkGood(v,gr.near&&Mathf.Abs(v.lateral)<=30f);
+   if(Contact.Contain(v,r.Start,gr.near,30f,Race.track)){w=ToWorld(v.position,0);gr=Contact.Ground(space,w,refY,1f);}Contact.MarkGood(v,gr.near&&Mathf.Abs(v.lateral)<=30f);
    float y = gr.found ? gr.y : refY; r.LastY = y; Vector3 n = gr.found && gr.normal.Y > 0.7f ? gr.normal : Vector3.Up;
    var fw = new Vector3(Mathf.Sin(v.heading), 0, Mathf.Cos(v.heading)); var f2 = (fw - n * fw.Dot(n)).Normalized(); var cx = n.Cross(f2).Normalized();
    r.Node.Position = new Vector3(w.X, y + 0.05f, w.Z); r.Node.Basis = new Basis(cx, n, f2); r.Node.Visible = true;
@@ -114,7 +114,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   var space = GetWorld3D().DirectSpaceState; var w = ToWorld(Player.position, 0);
   // Ground = drive-surface layer only (mask 1), continuous with the previous height. The old ray started at y=60 with the default (all-layer) mask, so it landed on barrier tops, bridges and stacked decks (car "flew").
   float refY = lastGroundY.HasValue ? lastGroundY.Value : Car.Position.Y;
-  var gr = Contact.Ground(space, w, refY, 0.6f); if (Contact.Contain(Player, startPos, gr.near, 30f)) { WallHits++; w = ToWorld(Player.position, 0); gr = Contact.Ground(space, w, refY, 0.6f); } Contact.MarkGood(Player, gr.near && Mathf.Abs(Player.lateral) <= 30f);
+  var gr = Contact.Ground(space, w, refY, 0.6f); if (Contact.Contain(Player, startPos, gr.near, 30f,Race.track)) { WallHits++; w = ToWorld(Player.position, 0); gr = Contact.Ground(space, w, refY, 0.6f); } Contact.MarkGood(Player, gr.near && Mathf.Abs(Player.lateral) <= 30f);
   var hit = gr.found ? new Godot.Collections.Dictionary() { { "p", 1 } } : new Godot.Collections.Dictionary();
   float y = gr.y; lastGroundY = y; if (y < minY) minY = y; if (y > maxY) maxY = y; if (prevY.HasValue) maxDy = Mathf.Max(maxDy, Mathf.Abs(y - prevY.Value)); prevY = y; Vector3 n = gr.normal;
   float h = Player.heading; var fwd = new Vector3(Mathf.Sin(h), 0, Mathf.Cos(h));
