@@ -1,5 +1,5 @@
 {
-  "coverage": "1011 mesh candidates and 1,800 texture thumbnails overview-reviewed; none finally accepted",
+  "coverage": "1011 mesh candidates and 2,200 texture thumbnails overview-reviewed; two source car textures viewed at full resolution; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -18000,6 +18000,4006 @@
       "full_resolution_reviewed": false,
       "in_game_reviewed": false,
       "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_pit_building_podium_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_pit_building_podium_wall_backing.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_pit_building_roof_tile.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_pit_building_walkway_sign.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_pit_building_wall_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_pit_building_wall_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/fence_barrier_red_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/fence_barrier_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/fence_monza_cement.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/fence_monza_high_pole_tall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/gnd_painted_asphalt_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/gnd_painted_asphalt_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/gnd_painted_asphalt_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_branding_banners_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_branding_banners_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_branding_billboard_a_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_branding_concrete_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_brick_white_stacked.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_canvas_marquee_tent_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_canvas_white_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_canvas_white_roof_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_canvas_white_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_clean_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_dark_dirty_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_dirty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_floor_old_peach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_grandstand_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_grandstand_steps_blue_seat.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_grandstand_steps_gold.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_painted_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_painted_white_dirty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_concrete_plate_dirty_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_door_double_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_door_white_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_door_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_armco_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_armco_b_orange.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_concrete_wall_peach_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_concrete_wall_white_dotted.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_metal_catch_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_tyrewall_cover_pit_entrance_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_tyrewall_cover_white_red_arrow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_tyrewall_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_tyrewall_green_red_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_tyrewall_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_wire_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_wire_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_fence_wire_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_grandstand_seats_a_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_grandstand_seats_a_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_advert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_advert_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_corrugated_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_corrugated_roof_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_floor_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_galv_steel_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_grandstand_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_grandstand_base_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_light_grey_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_painted_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_panel_painted_white_rust.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_panel_painted_white_rust_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_pole_spiral_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_i.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_l.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_q.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_r.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_rail_s.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_scafolding_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_scafolding_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_scafolding_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_sheet_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_sheet_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_sheet_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_support_painted_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_support_painted_blue_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_support_painted_dark_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_support_painted_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_support_painted_light_blue_rust.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_support_painted_white_rust.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_underside_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 18,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_underside_steps_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_metal_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_plastic_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_scafolding_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_window_large_a_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_window_large_f_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_window_large_k_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_window_large_l_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_window_large_m_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_wood_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/mat_wood_panel_back.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_grass_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_hedge_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_shrub_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_shrub_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_cedar_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_cedar_a_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_cedar_a_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_monza_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_b_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_b_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_b_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_c_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_c_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_c_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_c_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_c_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_d_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_d_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_oak_d_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_pine_fine_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_springgreen_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_springgreen_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_springgreen_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_springgreen_a_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/org_tree_springgreen_a_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/overlay_dust_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/overlay_skids_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/overlay_starting_line.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/prop_flag_italy.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/prop_overhead_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/prop_powerbox_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/prop_startlights.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/prop_truck_tv_speaker.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/road_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_ambulance.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_bus.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_crane_large.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_emergency_pickup.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_trailer.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_truck_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_truck_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/veh_van_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_container_terminal_dock.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_brick_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_detail_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_detail_a_detail_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_fireescape.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_rollerdoor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_a_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_c_weatherboard.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_j.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_block_k.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_large_a_windows_etc.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_large_d_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_large_d_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_large_d_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_large_d_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_small_a_01_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_small_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_small_b_transformer.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_small_c_02_misc.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_building_small_c_03_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_city_housing_authority_01base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_cranes_boom.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_cruise_terminal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_difama_brickbake.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_difama_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 19,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_fineart_concrete_001.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_firebuilding.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_firebuilding_fence.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_firebuilding_walls.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_food_first.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_harbour_building_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_idea_nuova.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_imlay_a_02_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_imlay_a_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_pioneer_works_d_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_pioneer_works_d_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_pioneer_works_d_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_racecontrol.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_red_hook_labs_black_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_red_hook_labs_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_red_hook_labs_red_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_red_hook_labs_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_shed_party_misc.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_shed_party_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_sheds_a_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_sheds_a_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_truck_garage_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_warehouse_a_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_newyork_warehouse_a_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_ny_b_block_g_2_misc.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/arc_statue_of_liberty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/crowd_grandstand.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/crowd_group.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/gnd_bay_rocks.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/gnd_road_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_brick_large_off_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_canvas_blue_roof_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_canvas_red_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_concrete_black_roofing.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_concrete_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_concrete_painted_beach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_armco_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_banners_formulae_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_banners_formulae_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_concrete_formulae_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_concrete_formulae_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_concrete_formulae_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_fence_wire_formulae.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_corrugated_huge_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_corrugated_panel_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_corrugated_panel_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_corrugated_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_corrugated_roof_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_grandstand_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_rail_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_rail_s.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_metal_scafolding_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_tiles_wall_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/mat_wood_plain.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_bush_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_bush_lemans.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_d_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_d_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_d_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_d_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_oak_d_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_pine_fine_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/org_tree_pine_fine_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/overlay_skids_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_formulae_overpass_l.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_lights_all.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_boats.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_overpass_007.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_overpass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_overpass_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_overpass_08_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_post_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_post_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_post_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_post_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_powerline.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_shelter.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_shipping_container.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_newyork_signs.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_portaloo_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_powerbox_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/prop_truck_tv_trailer_combined.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/veh_bus_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 20,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_container_terminal_dock.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_brick_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_detail_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_detail_a_detail_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_fireescape.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_rollerdoor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_a_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_j.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_block_k.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_large_d_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_large_d_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_large_d_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_large_d_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_small_a_01_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_small_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_small_b_transformer.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_building_small_c_03_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_city_housing_authority_01base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_cranes_boom.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_cruise_terminal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_difama_brickbake.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_difama_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_fineart_concrete_001.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_firebuilding.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_firebuilding_fence.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_firebuilding_walls.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_food_first.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_harbour_building_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_idea_nuova.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_imlay_a_02_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_imlay_a_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_pioneer_works_d_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_pioneer_works_d_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_pioneer_works_d_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_racecontrol.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_red_hook_labs_black_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_red_hook_labs_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_red_hook_labs_red_brick.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_shed_party_misc.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_shed_party_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_sheds_a_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_sheds_a_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_truck_garage_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_warehouse_a_details.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_newyork_warehouse_a_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_ny_b_block_g_2_misc.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/arc_statue_of_liberty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/crowd_grandstand.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/crowd_group.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_bay_rocks.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_painted_asphalt_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/gnd_road_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_brick_large_off_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_canvas_blue_roof_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_canvas_red_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_canvas_white_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_canvas_white_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_canvas_white_roof_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_canvas_white_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_concrete_black_roofing.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_concrete_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_concrete_painted_beach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_armco_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_banners_formulae_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_banners_formulae_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_concrete_formulae_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_concrete_formulae_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_concrete_formulae_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_fence_wire_formulae.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_corrugated_huge_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_corrugated_panel_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_corrugated_panel_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_corrugated_roof.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_corrugated_roof_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_grandstand_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_rail_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_rail_o_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_rail_s.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_metal_scafolding_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_tiles_wall_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/mat_wood_plain.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/org_bush_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/org_bush_lemans.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/org_tree_oak_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/NewYork2021/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 21,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
     }
   ],
   "meshes": [
@@ -35189,6 +39189,20 @@
       "assembled_scene_reviewed": false,
       "quality_accepted": false,
       "finding": "Four-view component overview inspected; source assembly, UV/material/alpha and scene collision still need acceptance. White/clipped and black-backed details remain unresolved."
+    }
+  ],
+  "full_resolution_source_reviews": [
+    {
+      "asset": "assets/RealRacing/Source/2018_lamborghini_huracan_gt3/2018_lamborghini_huracan_gt3_misc.png",
+      "full_resolution_reviewed": true,
+      "quality_accepted": false,
+      "finding": "Source atlas inspected alongside native assembled material comparisons; production UV mapping unresolved."
+    },
+    {
+      "asset": "assets/RealRacing/Source/2018_lamborghini_huracan_gt3/livery/2018_lamborghini_huracan_gt3_ext_fictional_08.png",
+      "full_resolution_reviewed": true,
+      "quality_accepted": false,
+      "finding": "Source atlas inspected alongside native assembled material comparisons; production UV mapping unresolved."
     }
   ]
 }
