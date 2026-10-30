@@ -64,7 +64,7 @@ public partial class RuntimeChecks : Node3D {
      Check(Math.Abs(bound.GetCenter().X)<.08f,"wheel assembly offset from hub car "+ci);Check(!first,"missing wheel geometry car "+ci);Check(bound.Size.Y>.3f&&bound.Size.Y<1.5f,"wheel diameter invalid car "+ci);
      Check(Math.Abs(bound.Size.Y-bound.Size.Z)<.18f,"wheel radial bounds not circular car "+ci+" wheel "+wi+" bounds="+bound);
     }
-    rows.Add(new {car=ci,name=CarCatalog.Names[ci],width=dims.X,height=dims.Y,length=dims.Z,wheels=wr,parts=partAudit});car.Free();
+    rows.Add(new {car=ci,name=CarCatalog.Names[ci],width=dims.X,height=dims.Y,length=dims.Z,wheels=wr,parts=partAudit,visibleMaterials=CarMaterialAudit.Describe(car)});car.Free();
    }
    System.IO.File.WriteAllText(System.Environment.GetEnvironmentVariable("MYSIM_GEOMETRYOUT")??"outputs/repair-20261029/geometry.json",System.Text.Json.JsonSerializer.Serialize(rows,new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));
    GD.Print("PASS runtime contact and geometry ",count," assertions");GetTree().Quit();
