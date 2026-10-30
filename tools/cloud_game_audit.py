@@ -39,11 +39,12 @@ if os.environ.get('WHEEL_ORIENTATION')=='1':
   for mode in ('legacy','source'):
    label=f'wheel-facing-car-{car:02}-{mode}';shot=out/(label+'.png');run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_CAMPOS':'6,1.2,0','MYSIM_WHEEL_MIRROR':mode,'MYSIM_SHOT':str(shot)});assert shot.exists()
  print('COMPLETE source/legacy wheel-facing comparison; production choice pending',flush=True);sys.exit(0)
-if os.environ.get('NATIVE_RACES')=='1':
+if os.environ.get('NATIVE_RACES')=='1' or os.environ.get('NATIVE_FOCUS')=='1':
  import re
  cars=[int(x) for x in os.environ.get('NATIVE_CARS','16').split(',')];assert len(set(cars))==len(cars) and all(0<=car<24 for car in cars)
- for track in range(shard,60,12):
-  for car in cars:
+ focus=json.loads(pathlib.Path('data/native_shutdown_recovery.json').read_text())['cases'] if os.environ.get('NATIVE_FOCUS')=='1' else None
+ for track in (sorted(set(x['track'] for x in focus)) if focus else range(shard,60,12)):
+  for car in ([x['car'] for x in focus if x['track']==track] if focus else cars):
    label=f'native-car-{car:02}-track-{track:02}'
    try:
     text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000'},['--headless'],timeout=1800)

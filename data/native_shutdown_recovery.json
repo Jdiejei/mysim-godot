@@ -1,0 +1,51 @@
+{
+  "prior_runs": [
+    41012651158,
+    41014089393,
+    41014039754,
+    41014052630
+  ],
+  "distinct_fix": "CleanExit phased teardown; scoped disposal of per-frame contact queries/shapes",
+  "cases": [
+    {
+      "car": 7,
+      "track": 22,
+      "reason": "shutdown error after clean lap"
+    },
+    {
+      "car": 14,
+      "track": 22,
+      "reason": "shutdown error after clean lap"
+    },
+    {
+      "car": 16,
+      "track": 20,
+      "reason": "not reported"
+    },
+    {
+      "car": 16,
+      "track": 32,
+      "reason": "not reported"
+    },
+    {
+      "car": 16,
+      "track": 44,
+      "reason": "not reported"
+    },
+    {
+      "car": 16,
+      "track": 56,
+      "reason": "not reported"
+    },
+    {
+      "car": 18,
+      "track": 11,
+      "reason": "shutdown error after clean lap"
+    },
+    {
+      "car": 22,
+      "track": 40,
+      "reason": "shutdown error after clean lap"
+    }
+  ]
+}
