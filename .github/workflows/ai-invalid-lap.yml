@@ -1,0 +1,28 @@
+name: targeted-ai-invalid-lap-diagnostic
+on: {workflow_dispatch: {}}
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    env:
+      FRAMEDT: '0.008333333'
+      MYSIM_TRACE_INVALID: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - name: Compare unchanged default and experimental controller on the failing pair
+        shell: bash
+        run: |
+          set +e
+          MYSIM_PRECISE_AI=0 dotnet run -c Release --project tools/LapRunner -- 0 1 54 17 > invalid-default.log 2>&1
+          baseline=$?
+          MYSIM_PRECISE_AI=3 dotnet run -c Release --project tools/LapRunner -- 0 1 54 17 > invalid-ai3.log 2>&1
+          candidate=$?
+          printf '{"baseline_exit":%s,"candidate_exit":%s,"scope":"diagnostic only; preserve failure"}\n' "$baseline" "$candidate" > invalid-summary.json
+          cat invalid-summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: invalid-lap-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: invalid-*
+          retention-days: 14
