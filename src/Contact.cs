@@ -3,6 +3,11 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Shared ground + wall contact logic used by both the playable DriveController and the headless CrashBatch.
 public static class Contact {
+ static void Trace(Vehicle vehicle,string phase,Vector3 corrected,Vector3 normal,Godot.Collections.Dictionary info=null){
+  string file=System.Environment.GetEnvironmentVariable("MYSIM_CONTACT_TRACE");if(string.IsNullOrEmpty(file))return;string collider=null;
+  if(info!=null&&info.ContainsKey("collider_id")){var node=GodotObject.InstanceFromId((ulong)info["collider_id"].AsInt64()) as Node;if(GodotObject.IsInstanceValid(node))collider=node.GetPath().ToString();}
+  var row=new {phase,car=vehicle.carModel,position=new[]{vehicle.position.x,vehicle.position.z},corrected=new[]{corrected.X,corrected.Y,corrected.Z},normal=new[]{normal.X,normal.Y,normal.Z},speed=vehicle.speed,lateral=vehicle.lateral,damage=vehicle.damage,collider};System.IO.File.AppendAllText(file,System.Text.Json.JsonSerializer.Serialize(row)+"\n");
+ }
  public static Vector3 BodySize(int car)=>BodySize(new Vector3(VehicleDimensions.Width[car],VehicleDimensions.Height[car],VehicleDimensions.Length[car]));
  public static Vector3 BodySize(Vector3 measured){if(!measured.IsFinite()||measured.X<=0||measured.Y<=0||measured.Z<=0)throw new System.ArgumentException("Invalid measured collision dimensions");return measured;}
  public static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, p.z);
@@ -26,7 +31,7 @@ public static class Contact {
   if (v.pitActive || v.servicing) return false; // pit lane may lie off the drive-surface mesh; the pit sequence is scripted
   if (groundNear && Mathf.Abs(v.lateral) <= limit) return false;
   if (groundNear == false && Mathf.Abs(v.lateral) <= 6f) return false; // holes inside the road are not walls
-  v.position = lastGood.TryGetValue(v, out var g0) ? g0.Position : start; v.velocity = new Vec(-v.velocity.x * 0.3f, -v.velocity.z * 0.3f); v.yawRate = 0; v.speed = Mathf.Sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z); v.damage = Mathf.Min(1f, v.damage + 0.01f);v.lastIntegrated=v.position;if(circuit!=null)v.progress=circuit.Find(v.position,out v.lateral);return true;
+  v.position = lastGood.TryGetValue(v, out var g0) ? g0.Position : start; v.velocity = new Vec(-v.velocity.x * 0.3f, -v.velocity.z * 0.3f); v.yawRate = 0; v.speed = Mathf.Sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z); v.damage = Mathf.Min(1f, v.damage + 0.01f);Trace(v,"containment",ToWorld(v.position,0),Vector3.Zero);v.lastIntegrated=v.position;if(circuit!=null)v.progress=circuit.Find(v.position,out v.lateral);return true;
  }
  // Box sweep against barrier colliders (layer 2). Returns true if a wall was hit. carY = current car height.
  // A deeply embedded planar box can receive a vertical minimum-separation normal. Search only
@@ -51,9 +56,9 @@ public static class Contact {
   // CastMotion ignores shapes already overlapping at the start. Resolve those explicitly, even at rest.
   for(int iteration=0;iteration<8;iteration++) {
    q.Transform=new Transform3D(q.Transform.Basis,s3);var rest=space.GetRestInfo(q);if(rest.Count==0)break;
-   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f){var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());touched=true;continue;}
+   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f){var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());Trace(v,"deep_overlap",s3,exit.Normalized(),rest);touched=true;continue;}
    var pts=space.CollideShape(q,16);float depth=0;for(int i=0;i+1<pts.Count;i+=2)depth=Mathf.Max(depth,Mathf.Abs((pts[i]-pts[i+1]).Dot(n)));
-   s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);touched=true;
+   s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);Trace(v,"initial_overlap",s3,n,rest);touched=true;
   }
   float dist=motion.Length();if(dist<.0001f){v.position=start;v.lastIntegrated=v.position;return touched;}
   q.Transform=new Transform3D(q.Transform.Basis,s3);q.Motion=motion;
@@ -62,7 +67,7 @@ public static class Contact {
   q.Transform=new Transform3D(q.Transform.Basis,s3+motion*unsafeF);q.Motion=Vector3.Zero;
   var info=space.GetRestInfo(q);Vector3 normal=info.Count>0?(Vector3)info["normal"]:-motion.Normalized();normal.Y=0;normal=normal.Normalized();if(normal.Dot(motion)>0)normal=-normal;
   var stop=s3+motion*(Mathf.Max(0,safe*dist-.02f)/dist);v.position=new Vec(stop.X-offset.X,stop.Z-offset.Z);
-  Respond(v,normal);return true;
+  Respond(v,normal);Trace(v,"sweep",stop,normal,info);return true;
  }
  static void Respond(Vehicle v,Vector3 normal) {
   Vec n=new Vec(normal.X,normal.Z);float into=Vec.Dot(v.velocity,n);

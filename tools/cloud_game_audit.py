@@ -15,6 +15,17 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('CONTACT_TRACE')=='1':
+ import re
+ for track in (20,43):
+  label=f'trace-track-{track:02}'
+  try:
+   text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl'))},['--headless'],timeout=1800)
+   finish=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text);rows.append({'track':track,'ok':bool(finish) and float(finish[1])>0 and int(finish[2])==0 and float(finish[3])==0,'finish':finish[0] if finish else None})
+  except RuntimeError as error:rows.append({'track':track,'ok':False,'error':str(error)})
+  (out/'contact-trace-status.json').write_text(json.dumps(rows,indent=2))
+ assert all(row['ok'] for row in rows)
+ print('PASS targeted native scene regression',flush=True);sys.exit(0)
 if os.environ.get('WHEEL_ORIENTATION')=='1':
  for car in (1,6,16):
   for mode in ('legacy','source'):

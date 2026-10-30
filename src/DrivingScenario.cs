@@ -21,9 +21,9 @@ public partial class DrivingScenario : Node {
    if(Vec.Dot(v.velocity,v.Forward)<1.2f){Fail("forward throttle did not restore forward motion");return;}
    foreach(var node in Drive.Car.FindChildren("*","MeshInstance3D",true,false)){var m=(MeshInstance3D)node;if(m.HasMeta("wheel_hidden")&&m.Visible){Fail("camera reenabled a hidden wheel template");return;}}
    GD.Print("PASS playable input reverse, forward, pause/resume, camera visibility; wallHits=",Drive.WallHits," damage=",v.damage," speed=",v.speed);
-   if(DisplayServer.GetName()=="headless")GD.Print("SCREENSHOT_SKIPPED headless input logic only");else GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT")??"outputs/repair-20261029/input.png");GetTree().Quit();SetProcess(false);
+   if(DisplayServer.GetName()=="headless")GD.Print("SCREENSHOT_SKIPPED headless input logic only");else GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT")??"outputs/repair-20261029/input.png");CleanExit.Request(this);SetProcess(false);
   }
  }
- void Fail(string why){GD.PrintErr("FAIL input scenario ",why);GetTree().Quit(1);SetProcess(false);}
+ void Fail(string why){GD.PrintErr("FAIL input scenario ",why);CleanExit.Request(this,1);SetProcess(false);}
 }
 }
