@@ -69,3 +69,6 @@ Inspected exact512misc and1024livery08 Lamborghini PNGs. Misc contains tan seat,
 
 ### Texture sheets0018-0021 (indices1800-2199)
 Viewed400additional thumbnails. Monza pit facades, reflective windows, tirewalls/chevrons, rail/wire/scaffold alpha patterns, substantial tree/foliage atlas sets, lights/service vehicle atlases, NewYork port/warehouse/city facades, crowd rows, signs and sponsor banners. Some apparent duplication is reused surface art across map folders; do not delete referenced resources. AAA/BBB/CCC placeholders and source upside-down/mirrored signage remain scene-context issues; opaque black foliage/crowd backing must not become structural geometry. Metal wire/cable/grille tiles need proper alpha/mips at distance. Overview only, not fullres or in-game acceptance. Nexttexturesheet0022.
+
+### Mesh part00003 sheets0000-0003 (100objects/400views)
+Viewed all4sheets: tyre/rim with outward spokes and dark inwardface, car inner door/body frames, needles/wires, fences and barriers, chevrons, sign/advertising boxes, building facade fragments and foliage cards. RR/BBB placeholder signage persists. Some preview closeups show seat/interior textures on detached panels; must match exact original submesh/material instead of guessing from isolated shape. Opaque black foliage backs and washed-out white details remain unaccepted. Nextsheet0004.

@@ -1,5 +1,5 @@
 {
-  "coverage": "1011 mesh candidates and 2,200 texture thumbnails overview-reviewed; two source car textures viewed at full resolution; none finally accepted",
+  "coverage": "1111 mesh candidates and 2,200 texture thumbnails overview-reviewed; two source car textures viewed at full resolution; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -39189,6 +39189,1706 @@
       "assembled_scene_reviewed": false,
       "quality_accepted": false,
       "finding": "Four-view component overview inspected; source assembly, UV/material/alpha and scene collision still need acceptance. White/clipped and black-backed details remain unresolved."
+    },
+    {
+      "id": "11c2e1566545b2b40c6e63f2",
+      "source_mesh": "LOD_A_WING_REAR_mm_badges__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "274d2be4d5d4d00ccb753639",
+      "source_mesh": "LOD_A_FRONTBUMPER_mm_badges__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "46d6fc0ba29728fb29634c0b",
+      "source_mesh": "LOD_A_BRAKES_LEFT_mm_lights__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "4b2e28455bc76126a231ae71",
+      "source_mesh": "LOD_A_MIRROR_RIGHT_mm_misc__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "96c03bb94c8a00655a5357ff",
+      "source_mesh": "LOD_A_BRAKES_RIGHT_mm_lights__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "9c33764d6a222cb1d544c36f",
+      "source_mesh": "LOD_A_GLASS_RIGHT_QUARTER_mm_windows__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "a3431b8cfefb66354a46fdfa",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_LEFT_mm_lights__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "a478a74e52ab3823d43586fd",
+      "source_mesh": "LOD_A_MIRROR_LEFT_mm_misc__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "c59bde83f38eae1c4ee06604",
+      "source_mesh": "LOD_A_DOOR_RIGHT_mm_cab__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "cb64dde72bb988d686812263",
+      "source_mesh": "LOD_A_DOOR_LEFT_mm_cab__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        36,
+        37,
+        38,
+        39
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "e6fa2cf3cfeb4d2485e8849e",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_RIGHT_mm_lights__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "11ff7f579da601771c71fe36",
+      "source_mesh": "arc_hongkong_unknown_00__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        44,
+        45,
+        46,
+        47
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "12096dc22a0842340ba2c28e",
+      "source_mesh": "arc_melbourne_qbh_00_mm3__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        48,
+        49,
+        50,
+        51
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1264c6f7a937e5097627efb0",
+      "source_mesh": "arc_richmond_tower_00__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        52,
+        53,
+        54,
+        55
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1282ce3cbe6e48f1b4f7efd8",
+      "source_mesh": "arc_lemans_grandstand_main_mm17__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        56,
+        57,
+        58,
+        59
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "13320441f9864af208037a9e",
+      "source_mesh": "arc_melbourne_flinders_station_mm5__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        60,
+        61,
+        62,
+        63
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "13646f5ff34a37489d148b67",
+      "source_mesh": "LOD_A_INT_DOOR_LEFT_mm_int__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        64,
+        65,
+        66,
+        67
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "138d8eb882ed71402c7d4c55",
+      "source_mesh": "arc_lemans_building_k_00_mm6__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        68,
+        69,
+        70,
+        71
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "139f774b24117df1dc31f943",
+      "source_mesh": "org_melbourne_hedge_box_015__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        72,
+        73,
+        74,
+        75
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "13be5640a3d9f4a3a3379917",
+      "source_mesh": "arc_indianapolis_grandstand_surrounding_main_a_00_mm6__program_",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        76,
+        77,
+        78,
+        79
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "14fc217b3327f8207d2b0a5e",
+      "source_mesh": "org_tree_x_cedar_d_type_c_055__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        80,
+        81,
+        82,
+        83
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "150663fdeb882c27fa4c917d",
+      "source_mesh": "arc_lemans_overpass_a_00_mm11__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        84,
+        85,
+        86,
+        87
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "121cf6c8014936a599c547c6",
+      "source_mesh": "LOD_A_INT_STEERING_WHEEL_LED_EMISSIVE_mm_sw__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        88,
+        89,
+        90,
+        91
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "186767c2f6f18f7d9928bc25",
+      "source_mesh": "LOD_A_INT_STEERING_WHEEL_SHIFT_LIT_02_mm_sw__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        92,
+        93,
+        94,
+        95
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "19d556384fd9e5ec6c45d6f8",
+      "source_mesh": "LOD_A_INT_STEERING_WHEEL_SHIFT_LIT_03_mm_sw__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        96,
+        97,
+        98,
+        99
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1f3b800137915cfad3b455a0",
+      "source_mesh": "LOD_A_INT_BODY_mm_ext__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        100,
+        101,
+        102,
+        103
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "b746a89dde071c8f60c01a19",
+      "source_mesh": "LOD_A_INT_DOOR_RIGHT_mm_int__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        104,
+        105,
+        106,
+        107
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "bdb5ebd3ae8080b7caa027dc",
+      "source_mesh": "LOD_A_INT_INTERIOR_mm_mat00__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        108,
+        109,
+        110,
+        111
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "bfd8a2785fe3002a3896eddc",
+      "source_mesh": "LOD_A_INT_LED_mm_int__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        112,
+        113,
+        114,
+        115
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "d79f1ea8d67477d75f740c62",
+      "source_mesh": "LOD_A_INT_SHIFT_LIT_12_mm_int__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        116,
+        117,
+        118,
+        119
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "da4cbbb187f440cc71072801",
+      "source_mesh": "LOD_A_INT_SHIFT_LIT_04_mm_int__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        120,
+        121,
+        122,
+        123
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "e8e5ee628a7b5b0dcfb1edad",
+      "source_mesh": "LOD_A_INT_HAND_GEAR__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        124,
+        125,
+        126,
+        127
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "ec1508a978b5ed3c5e631656",
+      "source_mesh": "LOD_A_INT_SHIFT_LIT_05_mm_int__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        128,
+        129,
+        130,
+        131
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "ef474c6923543a57c88eb5f9",
+      "source_mesh": "LOD_A_INT_SHIFT_LIT_11_mm_int__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        132,
+        133,
+        134,
+        135
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "154a1a5125fdb560820d2bd1",
+      "source_mesh": "LOD_A_FRONTBUMPER_mm_lights__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        136,
+        137,
+        138,
+        139
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "157d3793cead4d8f40af4b4b",
+      "source_mesh": "fence_lagunaseca_wall_concrete_59_mm3__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        140,
+        141,
+        142,
+        143
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "15adbb0ecea89afd266a255d",
+      "source_mesh": "LOD_A_INT_HAND_STEER__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        144,
+        145,
+        146,
+        147
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "15671705813ece6b5264397a",
+      "source_mesh": "LOD_A_INT_NEEDLE_RPM_EMISSIVE_mm_int__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        148,
+        149,
+        150,
+        151
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1a6519e77b358bc09f1d8b76",
+      "source_mesh": "LOD_A_INT_BODY_mm_int__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        152,
+        153,
+        154,
+        155
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1c34ee3cb3e1513f771a60ba",
+      "source_mesh": "LOD_A_INT_DOOR_LEFT_mm_mat05__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        156,
+        157,
+        158,
+        159
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1c85ceece531021cded63ad7",
+      "source_mesh": "LOD_A_INT_HAND_GEAR__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        160,
+        161,
+        162,
+        163
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "2e80801cb331e110a146a27d",
+      "source_mesh": "LOD_A_INT_SHIFT_LIT_03_mm_int__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        164,
+        165,
+        166,
+        167
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "30d10cbfb3f2fdeafb3ff5a6",
+      "source_mesh": "LOD_A_INT_INTERIOR_mm_int__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        168,
+        169,
+        170,
+        171
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "337e83d5d89ecd7d64a34866",
+      "source_mesh": "LOD_A_INT_INTERIOR_mm_mat05__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        172,
+        173,
+        174,
+        175
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "33f59db3edbe633c8bf74255",
+      "source_mesh": "LOD_A_INT_DOOR_RIGHT_mm_mat01__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        176,
+        177,
+        178,
+        179
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "3d5c2746549d544f665bf304",
+      "source_mesh": "LOD_A_INT_GLASS_CRACKED_FRONT_02_mm_windows_cracked__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        180,
+        181,
+        182,
+        183
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "3f9c96a91a5930595db174fa",
+      "source_mesh": "LOD_A_INT_HOOD_mm_ext__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        184,
+        185,
+        186,
+        187
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "4faf038490a78c040b14fe77",
+      "source_mesh": "LOD_A_INT_MIRROR_GLASS_LEFT_mm_int__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        188,
+        189,
+        190,
+        191
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1596a91dc3d3357222d533c1",
+      "source_mesh": "LOD_A_WHEEL_mm_wheel__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        192,
+        193,
+        194,
+        195
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "baf32f27ee2893dfc1a908e9",
+      "source_mesh": "LOD_A_FRONTBUMPER_mm_misc__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        196,
+        197,
+        198,
+        199
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "c73dc0036e8b478b31dd8183",
+      "source_mesh": "LOD_A_STRUT_LOWER_FRONT_LEFT_mm_misc__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        200,
+        201,
+        202,
+        203
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "d153af60717c6f95faac3285",
+      "source_mesh": "LOD_A_STRUT_LOWER_REAR_RIGHT_mm_misc__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        204,
+        205,
+        206,
+        207
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "d518d8534794b74a45d59358",
+      "source_mesh": "LOD_A_MIRROR_LEFT_mm_badges__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        208,
+        209,
+        210,
+        211
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "d83f29967dd5b672537cbf45",
+      "source_mesh": "LOD_A_WHEELGUARD_FRONT_RIGHT_mm_chassis__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        212,
+        213,
+        214,
+        215
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "dc49886fe280449068902921",
+      "source_mesh": "LOD_A_STRUT_UPPER_FRONT_LEFT_mm_ext__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        216,
+        217,
+        218,
+        219
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "dd70a7c39b6ff05c6f5c8d79",
+      "source_mesh": "LOD_A_MIRROR_GLASS_RIGHT_mm_misc__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        220,
+        221,
+        222,
+        223
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "e08b8015a5b7d32d64ac46a5",
+      "source_mesh": "LOD_A_DOOR_RIGHT_mm_ext__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        224,
+        225,
+        226,
+        227
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "e9ac74e483039a72363b3ea6",
+      "source_mesh": "LOD_A_DOOR_LEFT_mm_ext__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        228,
+        229,
+        230,
+        231
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "f4181146f4b17bd16c7b267d",
+      "source_mesh": "LOD_A_BODY_mm_ext__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        232,
+        233,
+        234,
+        235
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "fafc693ff8e4091722f3bc79",
+      "source_mesh": "LOD_A_MIRROR_RIGHT_mm_ext__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        236,
+        237,
+        238,
+        239
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "15f17e87efa782953fa68f5a",
+      "source_mesh": "arc_hockenheim_grandstand_b_seats_1_mm4__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        240,
+        241,
+        242,
+        243
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1646bd4fa6289c0a02c33edb",
+      "source_mesh": "LOD_A_INT_DOOR_LEFT_mm_ext__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        244,
+        245,
+        246,
+        247
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "164c05421219acb7e8c4a891",
+      "source_mesh": "fence_lagunaseca_wall_concrete_49_mm3__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        248,
+        249,
+        250,
+        251
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "16986faf1daf155cfae8a403",
+      "source_mesh": "org_bush_lemans_c_flat_068__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        252,
+        253,
+        254,
+        255
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "16b7c62cd34fb7532173f134",
+      "source_mesh": "org_bush_lemans_c_flat_007__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        256,
+        257,
+        258,
+        259
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "16bd8e6c199c67d1e11d4cd6",
+      "source_mesh": "arc_sebring_pit_bldg_mm15__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        260,
+        261,
+        262,
+        263
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "16cd17ce524b01b389a0000c",
+      "source_mesh": "overlay_startgrid_007_mm9__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        264,
+        265,
+        266,
+        267
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1740f345860b57e883885e4b",
+      "source_mesh": "prop_billboard_b_base_b_004_mm2__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        268,
+        269,
+        270,
+        271
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1745efe1f66a745b24f93a06",
+      "source_mesh": "prop_bathurst_marshall_shelter_29__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        272,
+        273,
+        274,
+        275
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "15f3dcef898ff53c5fb60ba6",
+      "source_mesh": "fence_armco004_mm10__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        276,
+        277,
+        278,
+        279
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "18c608ba86e0a6c683cc1cd6",
+      "source_mesh": "fence_armco003_mm11__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        280,
+        281,
+        282,
+        283
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "3fa98f97880258db74a78a17",
+      "source_mesh": "fence_armco004_mm11__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        284,
+        285,
+        286,
+        287
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "485c8157a58fe41344551c2e",
+      "source_mesh": "LOD_A_TYRE_REAR_mm_tyre__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        288,
+        289,
+        290,
+        291
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "8567bdbe4e421963b97d80ac",
+      "source_mesh": "fence_turnBarrier009_mm2__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        292,
+        293,
+        294,
+        295
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "a491237991ba0c108728dd8b",
+      "source_mesh": "prop_turn_arrow_010_mm3__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        296,
+        297,
+        298,
+        299
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "ab30de8956b02cff31ef0e07",
+      "source_mesh": "prop_turn_arrow_010_mm2__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        300,
+        301,
+        302,
+        303
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "c3a580812f8788a909e678c5",
+      "source_mesh": "prop_turn_arrow_010__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        304,
+        305,
+        306,
+        307
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "cf3dcc5ba53c74fc1b5517bd",
+      "source_mesh": "fence_turnBarrier009__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        308,
+        309,
+        310,
+        311
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "def9582b8d77ee38bc3a59c4",
+      "source_mesh": "gnd_track_15_overlay_mm2__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        312,
+        313,
+        314,
+        315
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "fd7d07860e5baff9fc8dd391",
+      "source_mesh": "fence_armco003_mm10__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        316,
+        317,
+        318,
+        319
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1649937a39363815891b9857",
+      "source_mesh": "LOD_A_DOOR_RIGHT_mm_cab__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        320,
+        321,
+        322,
+        323
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "196dab00c611609b8a904ef0",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_LEFT_mm_windows__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        324,
+        325,
+        326,
+        327
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "1c6624111bb84100f9a3b82a",
+      "source_mesh": "LOD_A_MIRROR_LEFT_mm_misc__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        328,
+        329,
+        330,
+        331
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "29ba353153b5784aa9e1cd61",
+      "source_mesh": "LOD_A_BODY_mm_lights__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        332,
+        333,
+        334,
+        335
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "2f56e2820f11b80d070b94c5",
+      "source_mesh": "LOD_A_GLASS_FRONT_mm_windows__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        336,
+        337,
+        338,
+        339
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "300df709b7c82c8c3f8ba3dc",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_RIGHT_mm_windows__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        340,
+        341,
+        342,
+        343
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "31da60cbb3c5ae1807e8bd2a",
+      "source_mesh": "LOD_A_GLASS_LEFT_QUARTER_mm_windows__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        344,
+        345,
+        346,
+        347
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "36fb9217c8739beb073a4ec6",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_BROKEN_B_RIGHT_mm_windows__program_10",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        348,
+        349,
+        350,
+        351
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "3a407b33166b0b4272a09a62",
+      "source_mesh": "LOD_A_GLASS_RIGHT_QUARTER_mm_windows__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        352,
+        353,
+        354,
+        355
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "165aa846f4dfdde560eb1a2c",
+      "source_mesh": "LOD_A_GLASS_RIGHT_mm_windows__program_0",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        356,
+        357,
+        358,
+        359
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "172203b7c289d3894abd05ed",
+      "source_mesh": "LOD_A_REARBUMPER_mm_misc__program_1",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        360,
+        361,
+        362,
+        363
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "194168ea9e30f829c35ebaa8",
+      "source_mesh": "LOD_A_CHASSIS_mm_misc__program_2",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        364,
+        365,
+        366,
+        367
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "2bf6d6f2f22663d42414dba2",
+      "source_mesh": "LOD_A_MIRROR_LEFT_mm_misc__program_3",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        368,
+        369,
+        370,
+        371
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "2f30e0a3f74a8f5b9791325d",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_LEFT_mm_windows__program_4",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        372,
+        373,
+        374,
+        375
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "2fbd632d013598c7252dcce4",
+      "source_mesh": "LOD_A_GLASS_RIGHT_QUARTER_mm_windows__program_5",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        376,
+        377,
+        378,
+        379
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "33a6d63de7c6c2309ec0768f",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_LEFT_mm_lights__program_6",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        380,
+        381,
+        382,
+        383
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "342f8a0287f73e37d622b730",
+      "source_mesh": "LOD_A_HOOD_mm_misc__program_7",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        384,
+        385,
+        386,
+        387
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "34fd261dbd2a51a0da687171",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_BROKEN_B_RIGHT_mm_windows__program_8",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        388,
+        389,
+        390,
+        391
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "3ec3bee4ac2756c281f87c84",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_BROKEN_A_LEFT_mm_lights__program_9",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        392,
+        393,
+        394,
+        395
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
+    },
+    {
+      "id": "44f235caa3b1c0aac4c5e5a5",
+      "source_mesh": "LOD_A_FRONTBUMPER_mm_badges__program_11",
+      "category": "unverified source classification",
+      "part": "mesh-part-00003.enc",
+      "image_tiles": [
+        396,
+        397,
+        398,
+        399
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four views inspected; isolated frames, body parts, wire/fence, wheel and foliage cards require assembled material/alpha/UV checks. White clipped previews are insufficient for acceptance."
     }
   ],
   "full_resolution_source_reviews": [
