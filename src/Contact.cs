@@ -51,7 +51,10 @@ public static class Contact {
  public static bool Walls(PhysicsDirectSpaceState3D space, Vehicle v, Vec start, float carY, Vector3 boxSize, Vector3 localCenter=default) {
   if (v.servicing || v.pitActive) return false;
   var motion = ToWorld(v.position - start, 0);var basis=new Basis(Vector3.Up,v.heading);var offset=basis*new Vector3(localCenter.X,0,localCenter.Z); var s3 = ToWorld(start, carY + (localCenter.Y>0?localCenter.Y:boxSize.Y*.5f))+offset;
-  var q = new PhysicsShapeQueryParameters3D { Shape = new BoxShape3D { Size=boxSize }, Transform = new Transform3D(new Basis(Vector3.Up,v.heading),s3), CollisionMask=2, Margin=.01f };
+  // Wheel/ground support is handled on layer1. Keep the chassis sweep slightly above
+  // its contact patch, preserving the measured roof and every vertical side face.
+  float clearance=Mathf.Min(.04f,boxSize.Y*.1f);var chassisSize=boxSize;chassisSize.Y-=clearance;s3.Y+=clearance*.5f;
+  var q = new PhysicsShapeQueryParameters3D { Shape = new BoxShape3D { Size=chassisSize }, Transform = new Transform3D(new Basis(Vector3.Up,v.heading),s3), CollisionMask=2, Margin=.01f };
   bool touched=false;
   // CastMotion ignores shapes already overlapping at the start. Resolve those explicitly, even at rest.
   for(int iteration=0;iteration<8;iteration++) {
