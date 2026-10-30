@@ -26,3 +26,9 @@
 {"event": "bridge_clearance_not_universal", "run": 41022274596, "passed": 13, "failed": 10, "recorded": 1793349332.5600307}
 {"event": "source_steering_inverse_clean_monaco", "run": 41024496292, "track15": "pass zero contacts zero damage", "track43": "fail one old-policy floor contact", "production_enabled": false, "recorded": 1793349332.5600402}
 {"event": "bonnet_panel_visual_fix_accepted", "run": 41023270551, "whole_car_accepted": false, "recorded": 1793349332.5600476}
+{"event": "windows_native_export_smoke_pass", "run": 41024170238, "source": "98e7759", "latest_game_accepted": false, "recorded": 1793350488.5567043}
+{"event": "ai3_monaco_models", "run": 41026878998, "passed": 22, "failed": 1, "failure_car": 20, "actual_contact_damage": 0.004467497, "recorded": 1793350488.5567305}
+{"event": "exact_invalid_lap_comparison", "run": 41028789075, "car": 17, "track": 54, "default_pass": true, "ai3_pass": false, "recorded": 1793350488.5567453}
+{"event": "ai4_exact_pair_pass", "run": 41029042149, "car": 17, "track": 54, "recorded": 1793350488.5567524}
+{"event": "ai4_full_logic_dispatched", "runs": [41029530004, 41029537859, 41029544530], "source": "ed6007f", "recorded": 1793350488.556757}
+{"event": "geometry_fixture_retry", "prior": 41026067232, "fix": "9f654d7", "run": 41028506616, "recorded": 1793350488.5567622}
