@@ -16,6 +16,13 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('CAR_PANEL_UV')=='1':
+ for view,camera in enumerate(('5.2,1.8,5.6','5.2,1.5,-5.6')):
+  for mode in ('baseline','hood'):
+   label=f'panel-car-06-{view}-{mode}';shot=out/(label+'.png');values={'MYSIM_CARVIEW':'6','MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot)}
+   if mode=='hood':values.update(MYSIM_CAR_UV='v',MYSIM_CAR_UV_NODE='LOD_A_HOOD_mm_misc')
+   run(label,values);assert shot.exists()
+ print('COMPLETE single-panel UV comparison; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_ROLES')=='1':
  for car in (1,6,16):
   for scope in ('baseline','misc','nonlivery'):
