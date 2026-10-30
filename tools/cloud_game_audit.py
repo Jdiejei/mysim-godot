@@ -15,6 +15,15 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('NATIVE_RACES')=='1':
+ import re
+ for track in range(shard,60,12):
+  text=run(f'native-track-{track:02}',{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000'},['--headless'],timeout=1800)
+  finished=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text)
+  ok=bool(finished) and float(finished[1])>0 and int(finished[2])==0 and float(finished[3])==0
+  rows.append({'track':track,'scope':'native full-scene physics lap; no visual performance acceptance','ok':ok,'finish':finished[0] if finished else None});(out/'native-race-status.json').write_text(json.dumps(rows,indent=2))
+ assert all(x['ok'] for x in rows)
+ print('PASS native full-scene race shard (visual gates separate)',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_REVIEW')=='1':
  for car in (1,6,16):
   for mode in ('both','none','u','v'):

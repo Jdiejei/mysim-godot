@@ -3,7 +3,7 @@ run-name: full game art and runtime review
 on:
   workflow_dispatch:
     inputs:
-      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv], default: preview}
+      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races], default: preview}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.depth }}', cancel-in-progress: false}
 jobs:
@@ -12,9 +12,9 @@ jobs:
     timeout-minutes: 300
     strategy:
       fail-fast: false
-      max-parallel: 6
+      max-parallel: 12
       matrix:
-        shard: ${{ fromJSON((inputs.depth == 'geometry' || inputs.depth == 'surfaces' || inputs.depth == 'collision_probe' || inputs.depth == 'car_materials' || inputs.depth == 'input_physics' || inputs.depth == 'car_uv') && '[0]' || '[0,1,2,3,4,5]') }}
+        shard: ${{ fromJSON(inputs.depth == 'native_races' && '[0,1,2,3,4,5,6,7,8,9,10,11]' || (inputs.depth == 'geometry' || inputs.depth == 'surfaces' || inputs.depth == 'collision_probe' || inputs.depth == 'car_materials' || inputs.depth == 'input_physics' || inputs.depth == 'car_uv') && '[0]' || '[0,1,2,3,4,5]') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -63,6 +63,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           GEOMETRY_ONLY: ${{ inputs.depth == 'geometry' && '1' || '0' }}
+          NATIVE_RACES: ${{ inputs.depth == 'native_races' && '1' || '0' }}
           CAR_UV_REVIEW: ${{ inputs.depth == 'car_uv' && '1' || '0' }}
           INPUT_PHYSICS: ${{ inputs.depth == 'input_physics' && '1' || '0' }}
           CAR_MATERIAL_REVIEW: ${{ inputs.depth == 'car_materials' && '1' || '0' }}
