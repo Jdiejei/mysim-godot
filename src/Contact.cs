@@ -48,6 +48,11 @@ public static class Contact {
   }
   query.Transform=original;return best;
  }
+ static bool BlockOverlap(Vehicle v,Vec start,Vector3 body,Godot.Collections.Dictionary info){
+  // A confirmed deep overlap may have no safe exit within the bounded recovery radius.
+  // Keep it blocked without teleporting through a large structure or adding energy.
+  v.position=start;v.lastIntegrated=start;v.velocity=new Vec();v.speed=0;v.yawRate=0;Trace(v,"blocked_overlap",body,Vector3.Zero,info);return true;
+ }
  public static bool Walls(PhysicsDirectSpaceState3D space, Vehicle v, Vec start, float carY, Vector3 boxSize, Vector3 localCenter=default) {
   if (v.servicing || v.pitActive) return false;
   var motion = ToWorld(v.position - start, 0);var basis=new Basis(Vector3.Up,v.heading);var offset=basis*new Vector3(localCenter.X,0,localCenter.Z); var s3 = ToWorld(start, carY + (localCenter.Y>0?localCenter.Y:boxSize.Y*.5f))+offset;
@@ -64,10 +69,10 @@ public static class Contact {
     // Concave surfaces can overlap a convex box without supplying a rest normal.
     // Require the exact overlap query before using the same bounded planar separation.
     var overlaps=space.IntersectShape(q,1);if(overlaps.Count==0)break;
-    var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;
+    var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)return BlockOverlap(v,start,s3,overlaps[0]);
     s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());Trace(v,"overlap_without_rest",s3,exit.Normalized(),overlaps[0]);touched=true;continue;
    }
-   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f){var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());Trace(v,"deep_overlap",s3,exit.Normalized(),rest);touched=true;continue;}
+   var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f){var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)return BlockOverlap(v,start,s3,rest);s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());Trace(v,"deep_overlap",s3,exit.Normalized(),rest);touched=true;continue;}
    var pts=space.CollideShape(q,16);float depth=0;for(int i=0;i+1<pts.Count;i+=2)depth=Mathf.Max(depth,Mathf.Abs((pts[i]-pts[i+1]).Dot(n)));
    s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);Trace(v,"initial_overlap",s3,n,rest);touched=true;
   }
