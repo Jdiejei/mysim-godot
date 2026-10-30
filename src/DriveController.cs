@@ -62,7 +62,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
  void UpdateRivals(float delta) {
   if (rivals.Count == 0) return; EnsureRivals(); var space = GetWorld3D().DirectSpaceState;
   foreach (var r in rivals) {
-   if (r.Node == null) continue; var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY;
+   if (r.Node == null) continue; var v = r.V; var w = ToWorld(v.position, 0); float refY = float.IsNaN(r.LastY) ? Car.Position.Y : r.LastY;if(float.IsNaN(r.LastY)){var seed=Contact.Ground(space,w,refY,float.MaxValue);if(!seed.found)continue;r.LastY=refY=seed.y;r.Node.Position=ToWorld(v.position,seed.y);Contact.MarkGood(v,true);}
    Contact.Walls(space,v,r.Start,refY,Contact.BodySize(v.carModel),new Vector3(VehicleDimensions.CenterX[v.carModel],VehicleDimensions.CenterY[v.carModel],VehicleDimensions.CenterZ[v.carModel]));w=ToWorld(v.position,0);
    var gr = Contact.Ground(space, w, refY, 1.0f);
    if(Contact.Contain(v,r.Start,gr.near,30f,Race.track)){w=ToWorld(v.position,0);gr=Contact.Ground(space,w,refY,1f);}Contact.MarkGood(v,gr.near&&Mathf.Abs(v.lateral)<=30f);
@@ -95,6 +95,8 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   lastHeartbeat = now; worstRenderMs = 0;
  }
  public override void _PhysicsProcess(double delta) {
+  if(!lastGroundY.HasValue){var seed=Contact.Ground(GetWorld3D().DirectSpaceState,ToWorld(Player.position,0),Car.Position.Y,float.MaxValue);if(!seed.found)return;lastGroundY=prevY=seed.y;groundSmooth=seed.y;groundInit=true;Car.Position=ToWorld(Player.position,seed.y);Contact.MarkGood(Player,true);GD.Print("SPAWN_GROUND y=",seed.y," clamped=",seed.clamped);}
+
   bool startBtn = false; { var pd = Input.GetConnectedJoypads(); if (pd.Count > 0) { bool raw = Input.IsJoyButtonPressed(pd[0], JoyButton.Start); if (!padStartSeen) { padStartSeen = true; padStartStuck = raw; } startBtn = raw && !padStartStuck; if (!raw) padStartStuck = false; } } bool tabNow = Input.IsKeyPressed(Key.Tab) || Input.IsKeyPressed(Key.Escape) || startBtn; if (tabNow && !tabWas) Race.paused = !Race.paused; tabWas = tabNow; if (Hud != null) Hud.Paused = Race.paused; if (System.Environment.GetEnvironmentVariable("MYSIM_PAUSETEST") != null) { if (!Race.paused && t > 2f && pausedAt == 0) { Race.paused = true; pausedAt = Time.GetTicksMsec(); } if (Race.paused && Time.GetTicksMsec() - pausedAt > 1500) { CaptureShot("pause.png"); CleanExit.Request(this); } } if (Race.paused) { UpdateAudio(-1f); return; }
   t += (float)delta;
   float thr = ControlBindings.Held(0) ? 1 : 0, brk = ControlBindings.Held(1) ? 1 : 0;
