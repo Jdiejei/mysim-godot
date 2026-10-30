@@ -1,5 +1,5 @@
 {
-  "distinct_fix": "4cm chassis contact-patch clearance; floor/parapet/roof checks passed; car16 already passed default-AI pilot41020126304",
+  "distinct_fix": "Every source bridge triangle retained; upward support separated from sides/soffits; confirmed deep overlap remains blocked. Full 24-car regression required for this new role policy.",
   "cases": [
     {
       "car": 0,
@@ -63,6 +63,10 @@
     },
     {
       "car": 15,
+      "track": 43
+    },
+    {
+      "car": 16,
       "track": 43
     },
     {

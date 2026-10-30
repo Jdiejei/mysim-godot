@@ -2,6 +2,10 @@
 import os,json,pathlib,re
 root=pathlib.Path.cwd();depth=os.environ.get('IMPORT_REVIEW_DEPTH','');out=root/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True)
 scopes={'car_panel_uv':([6],[]),'car_uv_roles':([1,6,16],[]),'car_uv':([1,6,16],[]),'precise_ai':([16],[43,15]),'contact_trace':([16],[43,15])}
+if depth=='native_focus':
+ caseSet=os.environ.get('IMPORT_CASE_SET','shutdown');assert caseSet in ('shutdown','bridge')
+ manifest='data/native_bridge_regression.json' if caseSet=='bridge' else 'data/native_shutdown_recovery.json'
+ cases=json.loads((root/manifest).read_text())['cases'];scopes[depth]=(sorted(set(x['car'] for x in cases)),sorted(set(x['track'] for x in cases)))
 if depth not in scopes:
  print('Full source import retained for',depth);raise SystemExit(0)
 cars,tracks=scopes[depth]

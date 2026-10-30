@@ -50,6 +50,7 @@ jobs:
       - name: Scope import only for isolated diagnostics
         env:
           IMPORT_REVIEW_DEPTH: ${{ inputs.depth }}
+          IMPORT_CASE_SET: ${{ inputs.case_set || 'shutdown' }}
         run: python tools/cloud_scope_import.py
       - name: Install software renderer and Godot
         run: |
