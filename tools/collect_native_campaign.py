@@ -31,7 +31,13 @@ while True:
   for repo,run,cars in fleet:
    status=json.loads(call(['gh','run','view',str(run),'--repo',repo,'--json','status,conclusion,headSha,url']));runs.append(dict(status,repo=repo,run_id=run,cars=cars))
    artifacts=json.loads(call(['gh','api',f'repos/{repo}/actions/runs/{run}/artifacts?per_page=100']))['artifacts']
-   tasks += [(repo,run,a,cars) for a in artifacts if a['name'].startswith('game-runtime-') and not a['expired']]
+   latest={}
+   for artifact in artifacts:
+    match=re.fullmatch(r'game-runtime-(\d+)(?:-attempt-(\d+))?',artifact['name'])
+    if not match or artifact['expired']:continue
+    shard=int(match[1]);attempt=int(match[2] or 1)
+    if shard not in latest or attempt>latest[shard][0]:latest[shard]=(attempt,artifact)
+   tasks += [(repo,run,item[1],cars) for item in latest.values()]
   cases={};errors=[]
   with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
    futures=[pool.submit(retrieve,t) for t in tasks]

@@ -2,8 +2,12 @@ import json,pathlib,subprocess,concurrent.futures,sys,time
 rows=json.loads(pathlib.Path('data/review_campaign_20261030.json').read_text());base=pathlib.Path('/tmp/intake-verification');base.mkdir(exist_ok=True)
 def check(row):
  result=dict(row,ok=False);dest=base/row['part'];dest.mkdir(exist_ok=True)
+ listing=subprocess.run(['gh','api',f"repos/instagramshashank8-bot/mysim-godot/actions/runs/{row['run_id']}/artifacts?per_page=100"],capture_output=True,text=True,check=True)
+ available=[a for a in json.loads(listing.stdout)['artifacts'] if a['name'].startswith('summary-'+row['part']) and not a['expired']]
+ if not available:result['error']='No unexpired summary artifact';return result
+ artifact=max(available,key=lambda a:a['created_at'])['name']
  for attempt in (1,2):
-  p=subprocess.run(['gh','run','download',str(row['run_id']),'--repo','instagramshashank8-bot/mysim-godot','--name','summary-'+row['part'],'--dir',str(dest)],capture_output=True,text=True)
+  p=subprocess.run(['gh','run','download',str(row['run_id']),'--repo','instagramshashank8-bot/mysim-godot','--name',artifact,'--dir',str(dest)],capture_output=True,text=True)
   if p.returncode==0:break
   if attempt==2:result['error']=p.stderr[-1000:];return result
   time.sleep(2)

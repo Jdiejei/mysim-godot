@@ -90,7 +90,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: game-runtime-${{ matrix.shard }}
+          name: game-runtime-${{ matrix.shard }}-attempt-${{ github.run_attempt }}
           path: |
             outputs/cloud-game/*.json
             outputs/cloud-game/*.jsonl

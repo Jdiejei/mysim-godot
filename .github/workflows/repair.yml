@@ -65,7 +65,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: repair-contacts
+          name: repair-contacts-attempt-${{ github.run_attempt }}
           path: |
             contacts.log
             controls.log
