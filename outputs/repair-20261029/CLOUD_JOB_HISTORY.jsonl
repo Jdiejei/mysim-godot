@@ -17,3 +17,5 @@
 {"runs": [40983774577], "event": "containment_projection_regression_pass", "recorded": 1793322500.2077978}
 {"runs": [41010361846, 41010364315, 41010818699], "event": "complete_intake_verified", "parts": 316, "mesh_candidates": 98553, "production_accepted": 0, "recorded": 1793340148.9176629}
 {"runs": [41011183304, 41011186207, 41011189170], "event": "three_texture_references_repaired", "geometry_unchanged": true, "missing_textures": 0, "recorded": 1793340148.9176645}
+{"runs": [41010486283, 41010675541, 41010488965], "event": "car_geometry_and_native_controls_pass_visual_car_rejected", "recorded": 1793340756.5142884}
+{"runs": [41012252391, 41012478558, 41012651158], "event": "controlled_uv_chassis_and_all_layout_native_campaigns_started", "recorded": 1793340756.5142891}
