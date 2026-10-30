@@ -56,7 +56,7 @@ if os.environ.get('NATIVE_RACES')=='1' or os.environ.get('NATIVE_FOCUS')=='1':
   for car in ([x['car'] for x in focus if x['track']==track] if focus else cars):
    label=f'native-car-{car:02}-track-{track:02}'
    try:
-    text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_PRECISE_AI':'3' if focus and caseSet=='monaco_ai3' else '0','MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl'))},['--headless'],timeout=1800)
+    text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_PRECISE_AI':'3' if focus and caseSet=='monaco_ai3' else os.environ.get('NATIVE_AI_MODE','0'),'MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl')) if focus else ''},['--headless'],timeout=1800)
     finished=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text)
     ok=bool(finished) and float(finished[1])>0 and int(finished[2])==0 and float(finished[3])==0
     row={'track':track,'car':car,'ok':ok,'finish':finished[0] if finished else None}

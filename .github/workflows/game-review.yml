@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation, contact_trace, car_uv_roles, precise_ai, native_focus, car_panel_uv], default: preview}
+      native_ai: {description: 'Apply explicit experimental AI mode during native regression only', type: boolean, default: false}
       case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge, monaco_ai3], default: shutdown}
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
@@ -77,6 +78,7 @@ jobs:
           CAR_UV_ROLES: ${{ inputs.depth == 'car_uv_roles' && '1' || '0' }}
           CONTACT_TRACE: ${{ inputs.depth == 'contact_trace' && '1' || '0' }}
           WHEEL_ORIENTATION: ${{ inputs.depth == 'wheel_orientation' && '1' || '0' }}
+          NATIVE_AI_MODE: ${{ inputs.native_ai && inputs.ai_mode || '0' }}
           NATIVE_CARS: ${{ inputs.cars || '16' }}
           NATIVE_CASE_SET: ${{ inputs.case_set || 'shutdown' }}
           NATIVE_FOCUS: ${{ inputs.depth == 'native_focus' && '1' || '0' }}
