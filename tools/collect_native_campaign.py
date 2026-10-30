@@ -1,11 +1,18 @@
 """Collect completed native-game evidence only; never dispatch/retry or alter running jobs."""
 import os,sys,json,pathlib,subprocess,tempfile,concurrent.futures,re,time,msvcrt
 root=pathlib.Path(__file__).resolve().parents[1];os.chdir(root);out=root/'outputs/repair-20261029';base=pathlib.Path('D:/MySim-transport/repair-20261029/native-evidence');base.mkdir(parents=True,exist_ok=True)
-lock=(base/'collector.lock').open('a+b');lock.write(b'0');lock.flush();lock.seek(0)
+config=json.loads(pathlib.Path(sys.argv[1]).read_text()) if len(sys.argv)>1 else None
+tag=config['tag'] if config else 'baseline';assert re.fullmatch('[a-z0-9-]+',tag)
+lock=(base/(tag+'-collector.lock')).open('a+b');lock.write(b'0');lock.flush();lock.seek(0)
 try:msvcrt.locking(lock.fileno(),msvcrt.LK_NBLCK,1)
 except OSError:sys.exit(0)
-sys.stdout=(out/'native-collector.log').open('a',buffering=1);sys.stderr=sys.stdout;(out/'native-collector.pid').write_text(str(os.getpid()))
+sys.stdout=(out/(tag+'-native-collector.log')).open('a',buffering=1);sys.stderr=sys.stdout;(out/(tag+'-native-collector.pid')).write_text(str(os.getpid()))
 fleet=[('instagramshashank8-bot/mysim-godot',41012651158,[16]),('instagramshashank8-bot/mysim-godot',41014089393,list(range(17,24))),('Jdiejei/mysim-godot',41014039754,list(range(8))),('blackwingftc-lang/mysim-godot',41014052630,list(range(8,16)))]
+if config:fleet=[(x['repo'],x['run_id'],x['cars']) for x in config['runs']]
+expected=config.get('expected',1440) if config else 1440
+progress=config['progress_file'] if config else 'NATIVE_CASE_PROGRESS.json'
+if pathlib.Path(progress).name!=progress:raise ValueError('Invalid progress path')
+
 def call(args):return subprocess.run(args,check=True,capture_output=True,text=True,creationflags=subprocess.CREATE_NO_WINDOW).stdout
 def retrieve(task):
  repo,run,artifact,cars=task;safe=re.sub('[^a-zA-Z0-9_-]','_',artifact['name']);dest=base/repo.replace('/','_')/str(run)/safe
@@ -49,8 +56,8 @@ while True:
       cases[key]=row
     except Exception as e:errors.append(str(e))
   passed=sum(bool(r['ok']) for r in cases.values());failed=len(cases)-passed
-  report={'scope':'native full-scene physics only; no final art or game acceptance','expected':1440,'passed':passed,'failed':failed,'not_reported':1440-len(cases),'all_campaigns_terminal':all(r['status']=='completed' for r in runs),'runs':runs,'cases':cases,'errors':errors,'updated':time.time()}
-  path=out/'NATIVE_CASE_PROGRESS.json';tmp=path.with_suffix('.writing');tmp.write_text(json.dumps(report,indent=2));os.replace(tmp,path);print('NATIVE_PROGRESS',passed,failed,report['not_reported'],flush=True)
+  report={'scope':'native full-scene physics only; no final art or game acceptance','expected':expected,'passed':passed,'failed':failed,'not_reported':expected-len(cases),'all_campaigns_terminal':all(r['status']=='completed' for r in runs),'runs':runs,'cases':cases,'errors':errors,'updated':time.time()}
+  path=out/progress;tmp=path.with_suffix('.writing');tmp.write_text(json.dumps(report,indent=2));os.replace(tmp,path);print('NATIVE_PROGRESS',passed,failed,report['not_reported'],flush=True)
   if report['all_campaigns_terminal']:break
  except Exception as e:print('COLLECTOR_ERROR',repr(e),flush=True)
  time.sleep(60)
