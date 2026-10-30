@@ -21,7 +21,7 @@ public static class CrashBatch {
     float runIn = Mathf.Clamp(sp / 3.6f * 4f / race.track.length, 0.004f, 0.08f); v.Place(race.track, ((p - runIn) % 1f + 1f) % 1f, 0f);
     var w0 = Contact.ToWorld(v.position, 0); var g0 = Contact.Ground(space, new Vector3(w0.X, 0, w0.Z), 0f, 1e9f);
     // find the starting height with a wide ray
-    var rq = PhysicsRayQueryParameters3D.Create(new Vector3(w0.X, 400, w0.Z), new Vector3(w0.X, -400, w0.Z)); rq.CollisionMask = 1; rq.HitBackFaces = true; var h0 = space.IntersectRay(rq);
+    using var rq = PhysicsRayQueryParameters3D.Create(new Vector3(w0.X, 400, w0.Z), new Vector3(w0.X, -400, w0.Z)); rq.CollisionMask = 1; rq.HitBackFaces = true; var h0 = space.IntersectRay(rq);
     if (h0.Count == 0) { sb.Append("{\"track\":").Append(trackIdx).Append(",\"car\":").Append(carIdx).Append(",\"p\":").Append(F(p)).Append(",\"speed\":").Append(F(sp)).Append(",\"angle\":").Append(F(ang)).Append(",\"flags\":[\"NO_START_GROUND\"]}\n"); flagged++; done++; continue; }
     float y = ((Vector3)h0["position"]).Y; float lastY = y; float prevRef = y;
     int jumps = 0, voids = 0, wallHits = 0, steps = 0, contained = 0, hitGain = 0; float maxY = y, minY = y, maxLat = 0, maxDy = 0, hitX = 0, hitY = 0, hitZ = 0; bool nonFinite = false; float crashStartT = 5f; float tSim = 0; bool crashing = false; int crashSteps = 0; float maxSpeedAfter = 0;

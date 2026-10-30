@@ -19,3 +19,6 @@
 {"runs": [41011183304, 41011186207, 41011189170], "event": "three_texture_references_repaired", "geometry_unchanged": true, "missing_textures": 0, "recorded": 1793340148.9176645}
 {"runs": [41010486283, 41010675541, 41010488965], "event": "car_geometry_and_native_controls_pass_visual_car_rejected", "recorded": 1793340756.5142884}
 {"runs": [41012252391, 41012478558, 41012651158], "event": "controlled_uv_chassis_and_all_layout_native_campaigns_started", "recorded": 1793340756.5142891}
+{"event": "native_campaigns_terminal", "passed": 1385, "failed": 51, "not_reported": 4, "expected": 1440, "runs": [41012651158, 41014089393, 41014039754, 41014052630], "scope": "native-scene physics only; older source; not final acceptance", "recorded": 1793345673.3973312}
+{"event": "compile_name_conflict_corrected", "failed_runs": [41018991999, 41018994516], "fix": "f3ca3bf", "verified_run": 41019418511, "recorded": 1793345673.3973582}
+{"event": "scoped_contact_query_disposal", "commit": "c7c3a05", "verified_run": 41019838220, "focus_run": 41019841063, "default_trace_run": 41020126304, "experimental_trace_run": 41019421386, "recorded": 1793345673.3973677}
