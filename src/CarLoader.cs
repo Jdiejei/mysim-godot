@@ -31,6 +31,14 @@ static Godot.Collections.Dictionary carMap;
   string mode=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV");if(mode==null)return;Vector2 scale=mode=="none"?Vector2.One:mode=="u"?new Vector2(-1,1):mode=="v"?new Vector2(1,-1):new Vector2(-1,-1);var offset=new Vector2(scale.X<0?1:0,scale.Y<0?1:0);
   if(material is ShaderMaterial shader){shader.SetShaderParameter("uv_scale",scale);shader.SetShaderParameter("uv_offset",offset);}else if(material is StandardMaterial3D standard){standard.Uv1Scale=new Vector3(scale.X,scale.Y,1);standard.Uv1Offset=new Vector3(offset.X,offset.Y,0);}
  }
+ static Godot.Collections.Dictionary surfaceUvRepairs;
+ static Material SurfaceUV(Material material,int car,string renderer,string guid){
+  if(System.Environment.GetEnvironmentVariable("MYSIM_DISABLE_SURFACE_UV_REPAIRS")=="1")return material;
+  surfaceUvRepairs??=Json.ParseString(FileAccess.GetFileAsString("res://data/car_surface_uv_repairs.json")).AsGodotDictionary();string key=car+"/"+renderer;if(!surfaceUvRepairs.ContainsKey(key))return material;
+  var spec=surfaceUvRepairs[key].AsGodotDictionary();var shader=material as ShaderMaterial;var texture=shader?.GetShaderParameter("base").As<Texture2D>();
+  if(shader==null||guid!=spec["source_guid"].AsString()||texture?.ResourcePath!=spec["texture"].AsString())throw new System.InvalidOperationException("Reviewed surface UV repair source mismatch: "+key);
+  var repaired=(ShaderMaterial)shader.Duplicate();var scale=spec["scale"].AsGodotArray();var offset=spec["offset"].AsGodotArray();repaired.SetShaderParameter("uv_scale",new Vector2(scale[0].AsSingle(),scale[1].AsSingle()));repaired.SetShaderParameter("uv_offset",new Vector2(offset[0].AsSingle(),offset[1].AsSingle()));GD.Print("SURFACE_UV_REPAIR ",key);return repaired;
+ }
  static float MaterialFloat(Godot.Collections.Dictionary values,string key,float fallback) => values!=null && values.ContainsKey(key) ? values[key].AsSingle() : fallback;
  static string Res(string p) { if (p == null) return null; int i = p.IndexOf("Assets/RealRacing/"); return i < 0 ? null : "res://assets/" + p.Substring(i + "Assets/".Length); }
  // Exact Unity assignment from Car{n}.prefab: renderer name -> material guids -> textures (base + mask), colours and alpha mode.
@@ -54,7 +62,7 @@ static Godot.Collections.Dictionary carMap;
      }
     }
     cache[g] = mat; }
-    if (mat != null) { var assigned=mat;string auditNode=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV_NODE");if(!string.IsNullOrEmpty(auditNode)&&auditNode==nm)assigned=(Material)mat.Duplicate();AuditUV(assigned,nm.Contains("_mm_")?nm.Substring(nm.LastIndexOf("_mm_")+4):"",nm);assigned.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s,assigned);bound++; }
+    if (mat != null) { var assigned=SurfaceUV(mat,carIdx,nm,g);string auditNode=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV_NODE");if(!string.IsNullOrEmpty(auditNode)&&auditNode==nm)assigned=(Material)mat.Duplicate();AuditUV(assigned,nm.Contains("_mm_")?nm.Substring(nm.LastIndexOf("_mm_")+4):"",nm);assigned.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s,assigned);bound++; }
    }
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;

@@ -1,0 +1,16 @@
+{
+  "6/LOD_A_HOOD_mm_misc": {
+    "source_guid": "73c5434059a2bbe3b97e4f9115bfeba3",
+    "texture": "res://assets/RealRacing/Source/2018_lamborghini_huracan_gt3/2018_lamborghini_huracan_gt3_misc.png",
+    "scale": [
+      1,
+      -1
+    ],
+    "offset": [
+      0,
+      1
+    ],
+    "evidence": "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41023270551",
+    "finding": "Front bonnet now samples original carbon island instead of seat upholstery; rear wing and livery unchanged in two native views."
+  }
+}

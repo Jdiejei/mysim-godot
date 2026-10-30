@@ -61,6 +61,7 @@ public partial class RuntimeChecks : Node3D {
    var rows=new List<object>();
    for(int ci=0;ci<CarCatalog.Count;ci++) {
     var car=CarLoader.Load(CarCatalog.Folders[ci]);AddChild(car);CarLoader.ApplyExact(car,ci);var wheels=CarLoader.AttachWheels(car,ci);
+    if(ci==6){ShaderMaterial hood=null,other=null;foreach(var node in car.FindChildren("*","MeshInstance3D",true,false)){var mesh=(MeshInstance3D)node;if(mesh.Name=="LOD_A_HOOD_mm_misc")hood=mesh.GetActiveMaterial(0) as ShaderMaterial;else if(mesh.Name.ToString().EndsWith("_mm_misc"))other=mesh.GetActiveMaterial(0) as ShaderMaterial;}Check(hood!=null&&hood.GetShaderParameter("uv_scale").AsVector2()==new Vector2(1,-1),"reviewed bonnet UV missing");Check(other!=null&&hood!=other,"bonnet repair mutated shared misc material");var otherScale=other.GetShaderParameter("uv_scale");Check(otherScale.VariantType==Variant.Type.Nil||otherScale.AsVector2()==new Vector2(-1,-1),"bonnet repair changed other misc panels");}
     var dims=CarLoader.MeasureSize(car);var wr=new List<object>();var partAudit=new List<object>();
     for(int wi=0;wi<4;wi++) {
      var spin=wheels[wi].GetNode<Node3D>("Spin"); var bound=new Aabb();bool first=true;

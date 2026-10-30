@@ -19,7 +19,7 @@ def run(label,values,args=None,timeout=300):
 if os.environ.get('CAR_PANEL_UV')=='1':
  for view,camera in enumerate(('5.2,1.8,5.6','5.2,1.5,-5.6')):
   for mode in ('baseline','hood'):
-   label=f'panel-car-06-{view}-{mode}';shot=out/(label+'.png');values={'MYSIM_CARVIEW':'6','MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot)}
+   label=f'panel-car-06-{view}-{mode}';shot=out/(label+'.png');values={'MYSIM_CARVIEW':'6','MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot),'MYSIM_DISABLE_SURFACE_UV_REPAIRS':'1'}
    if mode=='hood':values.update(MYSIM_CAR_UV='v',MYSIM_CAR_UV_NODE='LOD_A_HOOD_mm_misc')
    run(label,values);assert shot.exists()
  print('COMPLETE single-panel UV comparison; production unchanged',flush=True);sys.exit(0)
