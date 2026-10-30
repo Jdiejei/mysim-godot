@@ -1,0 +1,39 @@
+name: opt-in-ai-logic-regression
+run-name: 'AI mode ${{ inputs.mode }} pure-logic lap regression'
+on:
+  workflow_dispatch:
+    inputs:
+      mode: {description: 'Experimental AI mode; production default unchanged', type: choice, options: ['1', '2', '3'], default: '3'}
+jobs:
+  laps:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11]
+    env:
+      MYSIM_PRECISE_AI: ${{ inputs.mode }}
+      FRAMEDT: '0.008333333'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - name: Verify assigned car-track shard without assist or reset
+        shell: bash
+        run: |
+          case '${{ github.repository_owner }}' in
+            instagramshashank8-bot) offset=0;;
+            blackwingftc-lang) offset=12;;
+            Jdiejei) offset=24;;
+            *) exit 1;;
+          esac
+          shard=$((offset + ${{ matrix.shard }}))
+          dotnet run -c Release --project tools/LapRunner -- "$shard" 36 | tee ai-logic.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-logic-${{ github.run_id }}-attempt-${{ github.run_attempt }}-shard-${{ matrix.shard }}
+          path: |
+            laps-*.jsonl
+            ai-logic.log
+          retention-days: 14
