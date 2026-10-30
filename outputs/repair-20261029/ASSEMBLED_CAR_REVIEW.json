@@ -1,0 +1,30 @@
+{
+  "run": 40963789675,
+  "source": "55d7841",
+  "views": [
+    {
+      "car": 1,
+      "view": 0,
+      "image": "cloud/car-review-current/review/car-01-view-0.png",
+      "full_resolution_reviewed": true,
+      "quality_accepted": false,
+      "finding": "Very dark wheel faces, material detail needs closer review"
+    },
+    {
+      "car": 6,
+      "view": 0,
+      "image": "cloud/car-review-current/review/car-06-view-0.png",
+      "full_resolution_reviewed": true,
+      "quality_accepted": false,
+      "finding": "Dark mismatched body panels and windshield/interior presentation require assembly audit"
+    },
+    {
+      "car": 16,
+      "view": 0,
+      "image": "cloud/car-review-current/review/car-16-view-0.png",
+      "full_resolution_reviewed": true,
+      "quality_accepted": false,
+      "finding": "Discontinuous body/wing shading and unfinished wheel detail"
+    }
+  ]
+}
