@@ -17,9 +17,11 @@ public partial class DrivingScenario : Node {
   if(stage==4&&!checkedPause){checkedPause=true;if(!Drive.Race.paused){Fail("Escape did not pause");return;}GD.Print("PASS pause remains responsive");}
   if(stage==6&&!checkedResume){checkedResume=true;if(Drive.Race.paused){Fail("Escape did not resume");return;}GD.Print("PASS resume");}
   if(elapsed>13){
+   if(!checkedReverse||!checkedPause||!checkedResume){Fail("input scenario skipped a required phase");return;}
+   if(Vec.Dot(v.velocity,v.Forward)<1.2f){Fail("forward throttle did not restore forward motion");return;}
    foreach(var node in Drive.Car.FindChildren("*","MeshInstance3D",true,false)){var m=(MeshInstance3D)node;if(m.HasMeta("wheel_hidden")&&m.Visible){Fail("camera reenabled a hidden wheel template");return;}}
    GD.Print("PASS playable input reverse, forward, pause/resume, camera visibility; wallHits=",Drive.WallHits," damage=",v.damage," speed=",v.speed);
-   GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT")??"outputs/repair-20261029/input.png");GetTree().Quit();SetProcess(false);
+   if(DisplayServer.GetName()=="headless")GD.Print("SCREENSHOT_SKIPPED headless input logic only");else GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT")??"outputs/repair-20261029/input.png");GetTree().Quit();SetProcess(false);
   }
  }
  void Fail(string why){GD.PrintErr("FAIL input scenario ",why);GetTree().Quit(1);SetProcess(false);}

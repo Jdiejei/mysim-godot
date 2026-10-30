@@ -15,6 +15,10 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('INPUT_PHYSICS')=='1':
+ text=run('input-physics',{'MYSIM_TRACK':'24','MYSIM_CAR':'16','MYSIM_RIVALS':'0','MYSIM_INPUTCHECKS':'1','MYSIM_TOUCH':'1'},['--headless'],timeout=300)
+ assert 'PASS playable input' in text and 'SCREENSHOT_SKIPPED headless input logic only' in text
+ print('PASS native game input/physics (headless; visual timeout remains unresolved)',flush=True);sys.exit(0)
 if os.environ.get('CAR_MATERIAL_REVIEW')=='1':
  for car in (1,6,16):
   for view,camera in enumerate(('5.2,1.8,5.6','6,1.2,0','5.2,1.5,-5.6')):
