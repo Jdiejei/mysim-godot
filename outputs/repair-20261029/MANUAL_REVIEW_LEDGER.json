@@ -1,5 +1,5 @@
 {
-  "coverage": "362 mesh candidates and 1,500 texture thumbnails overview-reviewed; none finally accepted",
+  "coverage": "362 mesh candidates and 1,800 texture thumbnails overview-reviewed; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -14995,6 +14995,3006 @@
       "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_a_window_b.png",
       "part": "assets-part-00000.enc",
       "sheet": 14,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_a_window_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_b_panel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_b_window_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_front_a_wall_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_office_front_a_wall_03.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_shopfront_b_top_section.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_generic_shopfront_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_highrise_anz_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_highrise_central_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_highrise_pitcher_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_highrise_podium_windows_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_immigration_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_immigration_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_immigration_window_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_kingedward.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_meatandwine_window_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_meatandwine_window_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_mtc_theatre_window_pattern.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_nicholas_building_windows.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_platform1_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_riverview_citigate_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_riverview_citigate_window_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_riverview_citigate_window_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_transport_bar_logo.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_uni_lodge_windows_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_uni_lodge_windows_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_vic_uni_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_vic_uni_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_youngandjackson_runners.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_youngandjackson_sign.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_youngandjackson_vent.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_youngandjackson_wall_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_melbourne_youngandjackson_wall_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_detail.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_wall_1.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_wall_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_wall_3.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_wall_4.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_wall_pattern.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_g.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/arc_st_pauls_cathedral_window_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/crowd_sitting_female.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/crowd_sitting_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/crowd_standing_female.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/crowd_standing_male.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/fence_barrier_red_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/fence_barrier_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_base_asphalt_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_concrete_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_dirt_soil.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_grass_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_grass_patchy_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_gravel_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_painted_asphalt_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_ripple_curb_red_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/gnd_road_asphalt_runoff_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_banners_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_banners_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_banners_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_banners_melbourne.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_a_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_a_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_a_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_b_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_b_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_b_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_c_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_c_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_billboard_c_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_concrete_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_concrete_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_concrete_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_other_ainslie.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_other_degenhardt.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_television_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_verticle_flag_base_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_verticle_flag_base_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_branding_verticle_flag_base_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_floor_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_floor_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_gutter.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_large_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_large_grey_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_large_grey_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_old_dirty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_red_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_sandstone_tall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_brick_stacked_beach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_beige_stucco.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_black_roofing.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 15,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_clean_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_clean_panels.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_cream_stucco.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_dirty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_dirty_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_grandstand_steps.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_grey_clean.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_layered.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_natural_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_beach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_beach_dirty.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_black_tile.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_purple.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_painted_white_lines.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_panels_beach.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_plaster_beach_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_plaster_beige.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_plaster_tan.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_plate_darker_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_concrete_white_tiled.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_brown_metal.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_double_black_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_green_pub.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_heavy.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_roller_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_white_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_door_window_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_armco_b_orange.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_armco_b_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_armco_b_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_armco_b_white_arrow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_concrete_wall_04.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_concrete_wall_arrow_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_concrete_wall_arrow_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_high_post_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_metal_catch.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_fence_tyrewall_cover_white_red_arrow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_grandstand_seats_a_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_advert.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_advert_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_advert_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_advert_orange.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_advert_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_advert_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_beige.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_brown_worn.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_cable.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_cable_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_chrome.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_corrugated_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_corrugated_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_corrugated_huge_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_corrugated_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_corrugated_roof_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_corrugated_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_floor_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_galv_steel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_galv_steel_2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_garage_door_tan.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_grate_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_light_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_overpass_underside.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_orange.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_red_burnt.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_painted_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_panel_painted_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_plate_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_a_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_j.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_l.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_o.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_ornamental_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_r.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_rail_s_red.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_scafolding_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_scafolding_g.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_scafolding_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_blue2.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_blue3.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_light_blue.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_sheet_white_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_smooth_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 16,
+      "tile": 99,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_support_painted_aqua.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 0,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_support_painted_silver_rust.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 1,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 2,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_metal_white_panel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 3,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_plastic_black.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 4,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_rock_marble.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 5,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_rock_marble_dark.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 6,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_scafolding_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 7,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_scafolding_b_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 8,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_scafolding_b_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 9,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_floor_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 10,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_roof_slate_dark_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 11,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_wall_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 12,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_wall_dark_beige_offset.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 13,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_wall_dark_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 14,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_wall_grey.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 15,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_wall_off_white.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 16,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_tiles_wall_off_white_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 17,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 18,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_a_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 19,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_a_d_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 20,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_a_e_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 21,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_a_g_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 22,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_a_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 23,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_a_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 24,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_c_glass.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 25,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_o.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 26,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_large_z.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 27,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_small_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 28,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_small_h.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 29,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_small_j.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 30,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_window_small_k.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 31,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_wood_panel_brown_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 32,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_wood_panel_front.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 33,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_wood_panel_painted_brown.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 34,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/mat_wood_underside_natural.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 35,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/melbourne_cityscape_01.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 36,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/melbourne_cityscape_02.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 37,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/melbourne_ferriswheel.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 38,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_hedge_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 39,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 40,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 41,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_a_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 42,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 43,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 44,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_b_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 45,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_b_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 46,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_b_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 47,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_b_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 48,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_b_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 49,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 50,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 51,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 52,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 53,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 54,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 55,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_c_type_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 56,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 57,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_d_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 58,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_d_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 59,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_d_type_c.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 60,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_d_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 61,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_oak_d_type_e.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 62,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_springgreen_a_type_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 63,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_springgreen_a_type_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 64,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_tree_springgreen_a_type_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 65,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/org_treeline_spring_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 66,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/overlay_starting_line_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 67,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_construction_crane_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 68,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_flag_australia.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 69,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_lamp_post_light.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 70,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_bench.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 71,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_bollards.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 72,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_information.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 73,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_sculpture.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 74,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_sculpture_art_base.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 75,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_sculpture_flower.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 76,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_street_signs_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 77,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_street_signs_f.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 78,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_telephone.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 79,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_tram.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 80,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_tram_line_metal.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 81,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_tram_line_wires.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 82,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_melbourne_tram_old.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 83,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_powerbox_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 84,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_traffic_light_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 85,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_traffic_light_d.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 86,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_truck_tv_speaker.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 87,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/prop_truck_tv_sponsor.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 88,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/veh_food_vendor_a.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 89,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/veh_food_vendor_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 90,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Melbourne/textures/veh_fuel_truck_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 91,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_banners_sign_back_green.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 92,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_banners_sign_back_yellow.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 93,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_bridge_c_window.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 94,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_distance_marker.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 95,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_distance_marker_b.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 96,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_grandstand_main_a_wall_door.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 97,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_grandstand_main_b_wall.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
+      "tile": 98,
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "in_game_reviewed": false,
+      "quality_accepted": false
+    },
+    {
+      "asset": "assets/Monza/textures/arc_monza_grandstand_main_c_extension.png",
+      "part": "assets-part-00000.enc",
+      "sheet": 17,
       "tile": 99,
       "overview_reviewed": true,
       "full_resolution_reviewed": false,

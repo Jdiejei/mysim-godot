@@ -15,3 +15,5 @@
 {"runs": [40963723475, 40963728163, 40963789675, 40963793971], "event": "new_source_validation_dispatched", "source_commit": "55d7841", "recorded": 1793311861.842489}
 {"runs": [40963723475], "event": "fresh_collision_diagnostics_complete", "live_cases": 312, "live_flagged": 233, "baked_flagged": 232, "accepted": false, "recorded": 1793322500.2077703}
 {"runs": [40983774577], "event": "containment_projection_regression_pass", "recorded": 1793322500.2077978}
+{"runs": [41010361846, 41010364315, 41010818699], "event": "complete_intake_verified", "parts": 316, "mesh_candidates": 98553, "production_accepted": 0, "recorded": 1793340148.9176629}
+{"runs": [41011183304, 41011186207, 41011189170], "event": "three_texture_references_repaired", "geometry_unchanged": true, "missing_textures": 0, "recorded": 1793340148.9176645}
