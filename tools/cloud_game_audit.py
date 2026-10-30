@@ -28,7 +28,7 @@ if os.environ.get('CONTACT_TRACE')=='1' or os.environ.get('PRECISE_AI')=='1':
  for track in (43,15):
   label=f'trace-track-{track:02}'
   try:
-   text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl')),'MYSIM_PRECISE_AI':'1' if os.environ.get('PRECISE_AI')=='1' else '0'},['--headless'],timeout=1800)
+   text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl')),'MYSIM_PRECISE_AI':os.environ.get('AI_MODE','1') if os.environ.get('PRECISE_AI')=='1' else '0'},['--headless'],timeout=1800)
    finish=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text);rows.append({'track':track,'ok':bool(finish) and float(finish[1])>0 and int(finish[2])==0 and float(finish[3])==0,'finish':finish[0] if finish else None})
   except RuntimeError as error:rows.append({'track':track,'ok':False,'error':str(error)})
   (out/'contact-trace-status.json').write_text(json.dumps(rows,indent=2))

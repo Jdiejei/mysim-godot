@@ -260,10 +260,11 @@ namespace MySimulator.Rebuild
         public int recoveries;public float dbgA,dbgB,dbgC,dbgAcc,dbgRes,dbgDriveF,dbgBrakeF,dbgLong,dbgPush;public DriverInput Autopilot(Circuit track,float pace=1,List<Vehicle> traffic=null)
         {
             float look=MathUtil.Clamp(4+speed*.5f,4,40),offset=0;
-            if(Environment.GetEnvironmentVariable("MYSIM_PRECISE_AI")=="1"){
+            string aiProbe=Environment.GetEnvironmentVariable("MYSIM_PRECISE_AI");
+            if(aiProbe=="1"||aiProbe=="2"){
                 float step=Math.Max(.0001f,Math.Min(.002f,4f/track.length));Vec p0=track.Point(progress),p1=track.Point(progress+step),p2=track.Point(progress+2*step);Vec d0=p1-p0,d1=p2-p1;
                 float angle=Math.Abs(MathUtil.Wrap((float)Math.Atan2(d1.x,d1.z)-(float)Math.Atan2(d0.x,d0.z)));float pathCurvature=angle/Math.Max(.5f,(d0.Magnitude+d1.Magnitude)*.5f);
-                look=Math.Min(look,Math.Max(4f,.5f/Math.Max(.001f,pathCurvature)));
+                look=Math.Min(look,Math.Max(aiProbe=="2"?8f:4f,(aiProbe=="2"?.8f:.5f)/Math.Max(.001f,pathCurvature)));
             }
             Vehicle obstruction=null;float aheadDistance=float.MaxValue;
             if(traffic!=null&&!pitActive)foreach(var other in traffic)

@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation, contact_trace, car_uv_roles, precise_ai, native_focus], default: preview}
+      ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}', cancel-in-progress: false}
@@ -64,6 +65,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           GEOMETRY_ONLY: ${{ inputs.depth == 'geometry' && '1' || '0' }}
+          AI_MODE: ${{ inputs.ai_mode || '1' }}
           PRECISE_AI: ${{ inputs.depth == 'precise_ai' && '1' || '0' }}
           CAR_UV_ROLES: ${{ inputs.depth == 'car_uv_roles' && '1' || '0' }}
           CONTACT_TRACE: ${{ inputs.depth == 'contact_trace' && '1' || '0' }}
