@@ -22,7 +22,13 @@ public partial class RuntimeChecks : Node3D {
    var building=new MeshInstance3D {Name="arc_brick_test",Mesh=new BoxMesh {Size=new Vector3(3,3,3)},Position=new Vector3(20,1.5f,-6)};objects.AddChild(building);
    var road=new MeshInstance3D {Name="gnd_concrete_test",Mesh=new PlaneMesh()};objects.AddChild(road);
    var decal=new MeshInstance3D {Name="overlay_wall_scuff",Mesh=new PlaneMesh()};objects.AddChild(decal);
-   Check(WallBuilder.IsSolid(building),"architecture lacks a solid role");Check(!WallBuilder.IsSolid(road),"road became a phantom wall");Check(!WallBuilder.IsSolid(decal),"decal became a phantom wall");Check(WallBuilder.Build(objects)==1,"physical role coverage wrong");
+   Check(WallBuilder.IsSolid(building),"architecture lacks a solid role");Check(!WallBuilder.IsSolid(road),"road became a phantom wall");Check(!WallBuilder.IsSolid(decal),"decal became a phantom wall");
+   var bridgeFaces=new List<Vector3>();foreach(var spec in new[]{(size:new Vector3(8,.2f,8),at:new Vector3(0,-.1f,0)),(size:new Vector3(.2f,2,8),at:new Vector3(3.5f,1,0)),(size:new Vector3(8,.2f,8),at:new Vector3(0,2,0))})foreach(var point in new BoxMesh {Size=spec.size}.GetFaces())bridgeFaces.Add(point+spec.at);
+   var bridgeMesh=new ArrayMesh();var bridgeArrays=new Godot.Collections.Array();bridgeArrays.Resize((int)Mesh.ArrayType.Max);bridgeArrays[(int)Mesh.ArrayType.Vertex]=bridgeFaces.ToArray();bridgeMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles,bridgeArrays);
+   var authoredBridge=new MeshInstance3D {Name="arc_authored_bridge_test",Mesh=bridgeMesh,Position=new Vector3(120,0,-35)};objects.AddChild(authoredBridge);
+   var sideFaces=WallBuilder.WallFaces(authoredBridge,out var supportFaces);Check(sideFaces.Length+supportFaces.Length==bridgeFaces.Count,"bridge partition lost source collision triangles");Check(supportFaces.Length==18,"bridge upward faces were not partitioned as support");
+   Check(WallBuilder.Build(objects)==2,"physical role coverage wrong");
+   string bridgeBin=ProjectSettings.GlobalizePath("user://bridge-collision-regression.bin");CollisionBake.Write(objects,bridgeBin);var bakedBridge=CollisionBake.Read(bridgeBin);Check(bakedBridge.GetNodeOrNull<StaticBody3D>("BakedBridgeSupport")?.CollisionLayer==1,"baked bridge lost support layer");bakedBridge.Free();
    for(int i=0;i<3;i++) await ToSignal(GetTree(),SceneTree.SignalName.PhysicsFrame);
    var space=GetWorld3D().DirectSpaceState;
    foreach(float length in new[]{4.06f,5.55f}) foreach(float angle in new[]{0f,.35f,-.35f}) {
@@ -42,6 +48,10 @@ public partial class RuntimeChecks : Node3D {
    var clearance=new PhysicsShapeQueryParameters3D {Shape=new BoxShape3D {Size=new Vector3(2,1,4)},Transform=new Transform3D(Basis.Identity,new Vector3(wedged.position.x,.5f,wedged.position.z)),CollisionMask=2,Margin=.01f};Check(space.IntersectShape(clearance).Count==0,"initial overlap remains against second corner wall");Check((wedged.lastIntegrated-wedged.position).Magnitude<.001f,"stationary corner recovery leaves stale integration pose");
    var g=Contact.Ground(space,new Vector3(4,0,-4),0);Check(g.near&&Math.Abs(g.y)<.01f,"ground height incorrect");
    var supported=new Vehicle {position=new Vec(70,-35)};Check(!Contact.Walls(space,supported,supported.position,0,new Vector3(2,1,4)),"walkable bridge support became a side-wall collision");var parapet=new Vehicle {position=new Vec(80,-35),velocity=new Vec(40,0),speed=40};Check(Contact.Walls(space,parapet,new Vec(70,-35),0,new Vector3(2,1,4)),"bridge parapet was ignored with its deck");Check(parapet.position.x<72.5f,"car passed through bridge parapet");
+   var deckGround=Contact.Ground(space,new Vector3(120,0,-35),0);Check(deckGround.near&&Math.Abs(deckGround.y)<.01f,"authored bridge deck lost its actual ground support");
+   var deckCar=new Vehicle {position=new Vec(120,-35)};Check(!Contact.Walls(space,deckCar,deckCar.position,0,new Vector3(2,1,4)),"authored bridge floor still creates a side impact");
+   var railCar=new Vehicle {position=new Vec(130,-35),velocity=new Vec(40,0),speed=40};Check(Contact.Walls(space,railCar,new Vec(120,-35),0,new Vector3(2,1,4)),"partitioned bridge parapet became permeable");Check(railCar.position.x<122.5f,"car crossed partitioned bridge parapet");
+   var roofCar=new Vehicle {position=new Vec(120,-35)};Check(Contact.Walls(space,roofCar,roofCar.position,0,new Vector3(2,2.2f,4)),"bridge underside lost tall-car roof collision");
    var seedGround=Contact.Ground(space,new Vector3(80,0,35),0,float.MaxValue);Check(seedGround.found&&!seedGround.clamped&&Math.Abs(seedGround.y-25)<.01f,"initial road height was clamped toward world zero");var seeded=Contact.Ground(space,new Vector3(80,seedGround.y,35),seedGround.y);Check(seeded.near&&!seeded.clamped,"spawn did not begin on the actual driving surface");
    var contained=new Vehicle {position=new Vec(0,-4),velocity=new Vec(10,0),speed=10,lateral=0}; Contact.MarkGood(contained,true);
    contained.position=new Vec(40,-4);contained.lateral=40;Check(Contact.Contain(contained,new Vec(39,-4),true,30),"containment missed");Check(contained.position.x==0,"containment did not restore last valid point");

@@ -17,14 +17,32 @@ public static class WallBuilder {
   for(int i=0;i<mesh.Mesh.GetSurfaceCount();i++)if(Barrier.IsMatch(mesh.Mesh.SurfaceGetMaterial(i)?.ResourceName??""))return true;
   return false;
  }
+ // Keep every source triangle: upward bridge deck faces support the car on layer1;
+ // sides and downward soffits remain walls on layer2. Never exclude the whole bridge RID.
+ public static Vector3[] WallFaces(MeshInstance3D mesh,out Vector3[] support) {
+  var walls=new System.Collections.Generic.List<Vector3>();var floor=new System.Collections.Generic.List<Vector3>();
+  bool bridge=mesh.Name.ToString().Contains("bridge",System.StringComparison.OrdinalIgnoreCase);
+  var xf=mesh.GlobalTransform;
+  var faces=mesh.Mesh.GetFaces();
+  for(int i=0;i+2<faces.Length;i+=3){
+   var a=xf*faces[i];var b=xf*faces[i+1];var c=xf*faces[i+2];
+   // Godot front faces are clockwise, so the geometric cross points inward.
+   var outward=-(b-a).Cross(c-a).Normalized();var target=bridge&&outward.Y>.98f?floor:walls;
+   target.Add(faces[i]);target.Add(faces[i+1]);target.Add(faces[i+2]);
+  }
+  support=floor.ToArray();return walls.ToArray();
+ }
+ static void AddFaces(MeshInstance3D mesh,Vector3[] faces,uint layer,string name){
+  if(faces.Length==0)return;var shape=new ConcavePolygonShape3D {Data=faces,BackfaceCollision=true};
+  var body=new StaticBody3D {Name=name,CollisionLayer=layer,CollisionMask=0};body.AddChild(new CollisionShape3D {Shape=shape});mesh.AddChild(body);
+ }
  public static int Build(Node3D track) {
-  int count=0;
+  int count=0,supportTriangles=0;
   foreach(var node in track.FindChildren("*","MeshInstance3D",true,false)) {
    var mesh=(MeshInstance3D)node;if(!IsSolid(mesh))continue;
-   mesh.CreateTrimeshCollision();count++;
-   foreach(var child in mesh.GetChildren())if(child is StaticBody3D body){body.CollisionLayer=2;body.CollisionMask=0;foreach(var shapeNode in body.GetChildren())if(shapeNode is CollisionShape3D cs&&cs.Shape is ConcavePolygonShape3D shape)shape.BackfaceCollision=true;}
+   var walls=WallFaces(mesh,out var support);AddFaces(mesh,walls,2,mesh.Name+"_col");AddFaces(mesh,support,1,mesh.Name+"_support");count++;supportTriangles+=support.Length/3;
   }
-  GD.Print("WALLS physical meshes=",count);return count;
+  GD.Print("WALLS physical meshes=",count," bridge support triangles=",supportTriangles);return count;
  }
 }
 }
