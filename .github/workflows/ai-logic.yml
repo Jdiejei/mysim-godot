@@ -3,7 +3,7 @@ run-name: 'AI mode ${{ inputs.mode }} pure-logic lap regression'
 on:
   workflow_dispatch:
     inputs:
-      mode: {description: 'Experimental AI mode; production default unchanged', type: choice, options: ['1', '2', '3'], default: '3'}
+      mode: {description: 'Experimental AI mode; production default unchanged', type: choice, options: ['1', '2', '3', '4'], default: '3'}
 jobs:
   laps:
     runs-on: ubuntu-latest
