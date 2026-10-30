@@ -59,7 +59,14 @@ public static class Contact {
   bool touched=false;
   // CastMotion ignores shapes already overlapping at the start. Resolve those explicitly, even at rest.
   for(int iteration=0;iteration<8;iteration++) {
-   q.Transform=new Transform3D(q.Transform.Basis,s3);var rest=space.GetRestInfo(q);if(rest.Count==0)break;
+   q.Transform=new Transform3D(q.Transform.Basis,s3);var rest=space.GetRestInfo(q);
+   if(rest.Count==0){
+    // Concave surfaces can overlap a convex box without supplying a rest normal.
+    // Require the exact overlap query before using the same bounded planar separation.
+    var overlaps=space.IntersectShape(q,1);if(overlaps.Count==0)break;
+    var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;
+    s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());Trace(v,"overlap_without_rest",s3,exit.Normalized(),overlaps[0]);touched=true;continue;
+   }
    var n=(Vector3)rest["normal"];n.Y=0;n=n.Normalized();if(n.LengthSquared()<=.1f){var exit=PlanarExit(space,q,s3,boxSize);if(exit.LengthSquared()<.0001f)break;s3+=exit;start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,exit.Normalized());Trace(v,"deep_overlap",s3,exit.Normalized(),rest);touched=true;continue;}
    var pts=space.CollideShape(q,16);float depth=0;for(int i=0;i+1<pts.Count;i+=2)depth=Mathf.Max(depth,Mathf.Abs((pts[i]-pts[i+1]).Dot(n)));
    s3+=n*(depth+.02f);start=new Vec(s3.X-offset.X,s3.Z-offset.Z);Respond(v,n);Trace(v,"initial_overlap",s3,n,rest);touched=true;

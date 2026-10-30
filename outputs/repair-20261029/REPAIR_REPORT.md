@@ -1,4 +1,21 @@
-# Repair record — 2026-10-29
+# Current verification status - 2026-10-30
+
+The game is unfinished. Earlier sections below are retained as history, not certification of the latest game.
+
+- Independent cloud intake41010818699 passed316/316batches,98,553mesh conversions. Conversion is not implementation or visual acceptance.
+- Three exact original timberlamp textures repaired with unchanged geometry hashes; no automatic candidate promotion.
+- Visually reviewed fixes: original shared chassis atlas, source right-wheel180degree orientation, preserved tyre/rotor materials. Car panel UVs, glass and overall material fidelity remain unfinished; damaging UV experiments were rejected.
+- Native baseline:1385passed,51failed,4notreported of1440car/layout cases. Follow-up41019841063 passed all8shutdown/missing cases; default-AI41020126304 passed MonzaJunior car16 but Monaco still3contacts/.03damage. Combined specific newer outcomes with old baseline:1394passed,46failed,0missing. MIXED-REVISION physics evidence; not a current-release or game completion percentage.
+- Contact/control41022181257 passed. Explicit query disposal, phased automated teardown and4cm contactpatch clearance retained. Bridge trianglepartition failed roof validation and was withdrawn; failure history retained.
+- Adopt running jobs: AIexperiment2=41022184319; remaining23Monzacars=41022274596; all24car material/UV audit=41021060145. Original aggressiveAI41019421386 failed and remains disabled.
+- Manual review:1011mesh overviews,1800texture thumbnails; zero final accepted candidates. Source assembly, full-resolution UV/materials, collision and actual in-game acceptance remain separate.
+- Remaining: Monaco/roof and any further defects; inspect remaining assets; integrate validated assemblies; verify every car/track/weather/camera, gameplay flow, recordings and current Windows player; complete outstanding hardware/audio/performance/features. Earlier candidates do not satisfy these gates.
+
+All further simulation/render/build computation runs on GitHub; local work is editing, manual evidence review and necessary encrypted transfer. Originals/UVs remain preserved. See CONTINUE.md for exact active jobs and failure history.
+
+---
+
+# Repair record â€” 2026-10-29
 
 Status: engineering repair completed for the verified items below; whole-game art/content acceptance remains open. No claim of a completed or perfect game.
 
@@ -43,7 +60,7 @@ Source: C:/Users/shash/Documents/MySimGodot
 New Windows candidate: D:/MySim-builds/repair-20261029/MySim.exe
 Evidence: outputs/repair-20261029
 Originals remain under D:/MySim-recovered, D:/My Sim and D:/MySim-godot-assets.
-Further computation: GitHub Actions. Local work is limited to editing, reading evidence and transporting local inputs needed by those runners.
-
-## Subsequent cloud phase
-Cloud full verification run 40901218060 passed; later compile/contact run 40907166421 also passed. Cloud intake part 00000 converted all 362 candidates successfully in run 40903767442 after correcting Blender version/library loading. Source now also centres templates at hub pivots and recovers source material scalar/colour/glass values; full visual acceptance and the rebuilt current Windows player remain pending. Local terminal popups were caused by child CLI launch flags; the transfer and watcher now use CREATE_NO_WINDOW and hidden single-instance pythonw services. See CONTINUE.md and the actual state files for live progress.
+Further computation: GitHub Actions. Local work is limited to editing, reading evidence and transporting local inputs needed by those runners.
+
+## Subsequent cloud phase
+Cloud full verification run 40901218060 passed; later compile/contact run 40907166421 also passed. Cloud intake part 00000 converted all 362 candidates successfully in run 40903767442 after correcting Blender version/library loading. Source now also centres templates at hub pivots and recovers source material scalar/colour/glass values; full visual acceptance and the rebuilt current Windows player remain pending. Local terminal popups were caused by child CLI launch flags; the transfer and watcher now use CREATE_NO_WINDOW and hidden single-instance pythonw services. See CONTINUE.md and the actual state files for live progress.
