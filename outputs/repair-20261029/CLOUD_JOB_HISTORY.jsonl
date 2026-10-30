@@ -22,3 +22,7 @@
 {"event": "native_campaigns_terminal", "passed": 1385, "failed": 51, "not_reported": 4, "expected": 1440, "runs": [41012651158, 41014089393, 41014039754, 41014052630], "scope": "native-scene physics only; older source; not final acceptance", "recorded": 1793345673.3973312}
 {"event": "compile_name_conflict_corrected", "failed_runs": [41018991999, 41018994516], "fix": "f3ca3bf", "verified_run": 41019418511, "recorded": 1793345673.3973582}
 {"event": "scoped_contact_query_disposal", "commit": "c7c3a05", "verified_run": 41019838220, "focus_run": 41019841063, "default_trace_run": 41020126304, "experimental_trace_run": 41019421386, "recorded": 1793345673.3973677}
+{"event": "fresh_native_full_sweep_terminal", "source": "9640f0b", "runs": [41023372225, 41023379285, 41023382589], "passed": 1406, "failed": 34, "not_reported": 0, "failure_layouts": {"15": 24, "43": 10}, "scope": "native scene physics only", "recorded": 1793349332.5599988}
+{"event": "bridge_clearance_not_universal", "run": 41022274596, "passed": 13, "failed": 10, "recorded": 1793349332.5600307}
+{"event": "source_steering_inverse_clean_monaco", "run": 41024496292, "track15": "pass zero contacts zero damage", "track43": "fail one old-policy floor contact", "production_enabled": false, "recorded": 1793349332.5600402}
+{"event": "bonnet_panel_visual_fix_accepted", "run": 41023270551, "whole_car_accepted": false, "recorded": 1793349332.5600476}
