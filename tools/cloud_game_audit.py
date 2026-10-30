@@ -25,7 +25,7 @@ if os.environ.get('CAR_UV_ROLES')=='1':
  print('COMPLETE material-role UV comparison; production UV remains unchanged',flush=True);sys.exit(0)
 if os.environ.get('CONTACT_TRACE')=='1':
  import re
- for track in (20,43):
+ for track in (43,15):
   label=f'trace-track-{track:02}'
   try:
    text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl'))},['--headless'],timeout=1800)
