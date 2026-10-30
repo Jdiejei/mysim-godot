@@ -25,7 +25,8 @@ public static class CarLoader {
  }
 static Godot.Collections.Dictionary carMap;
  static readonly Shader CarShader = new Shader { Code = "shader_type spatial; render_mode cull_disabled; uniform sampler2D base : source_color, repeat_enable, filter_linear_mipmap_anisotropic; uniform sampler2D mask : hint_default_white; uniform vec2 uv_scale=vec2(-1.0); uniform vec2 uv_offset=vec2(1.0); uniform vec3 ambient_tint = vec3(1.0); uniform float use_mask = 0.0; uniform float alpha_mode = 0.0; uniform float base_roughness=0.5; uniform float base_metallic=0.0; uniform float clearcoat_weight=0.0; uniform float clearcoat_roughness=0.1; void fragment() { vec2 uv = UV * uv_scale + uv_offset; vec4 b = texture(base, uv); vec4 m = texture(mask, uv); float mk = mix(0.5, m.r, use_mask); ALBEDO = b.rgb * ambient_tint; ROUGHNESS = clamp(base_roughness * (0.8 + 0.4 * mk),0.03,0.98); SPECULAR = mix(0.3, 0.5, mk); CLEARCOAT = clearcoat_weight; CLEARCOAT_ROUGHNESS = clearcoat_roughness; METALLIC = base_metallic; if (alpha_mode > 0.5) { ALPHA = b.a; ALPHA_SCISSOR_THRESHOLD = 0.5; } }" };
- static void AuditUV(Material material){
+ static void AuditUV(Material material,string role=""){
+  string scope=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV_SCOPE");if(scope=="misc"&&role!="misc")return;if(scope=="nonlivery"&&(role=="ext"||material is not ShaderMaterial))return;
   string mode=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV");if(mode==null)return;Vector2 scale=mode=="none"?Vector2.One:mode=="u"?new Vector2(-1,1):mode=="v"?new Vector2(1,-1):new Vector2(-1,-1);var offset=new Vector2(scale.X<0?1:0,scale.Y<0?1:0);
   if(material is ShaderMaterial shader){shader.SetShaderParameter("uv_scale",scale);shader.SetShaderParameter("uv_offset",offset);}else if(material is StandardMaterial3D standard){standard.Uv1Scale=new Vector3(scale.X,scale.Y,1);standard.Uv1Offset=new Vector3(offset.X,offset.Y,0);}
  }
@@ -52,7 +53,7 @@ static Godot.Collections.Dictionary carMap;
      }
     }
     cache[g] = mat; }
-    if (mat != null) { AuditUV(mat);mat.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s, mat); bound++; }
+    if (mat != null) { AuditUV(mat,nm.Contains("_mm_")?nm.Substring(nm.LastIndexOf("_mm_")+4):"");mat.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;
@@ -76,7 +77,7 @@ static Godot.Collections.Dictionary carMap;
   var pivots = new Node3D[4]; var inv = car.GlobalTransform.AffineInverse();
   for (int i = 0; i < 4; i++) {
    var p = pts[i].AsGodotArray(); var pivot = new Node3D { Name = "WheelPivot" + i, Position = new Vector3((float)p[0], (float)p[1], (float)p[2]) }; car.AddChild(pivot);
-   var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin);var fixedBrake=new Node3D {Name="BrakeAssembly"};pivot.AddChild(fixedBrake); bool sourceMirror=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_MIRROR")=="source";if(sourceMirror?(float)p[0]>0:(float)p[0]<0)pivot.RotationDegrees=new Vector3(0,180,0);
+   var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin);var fixedBrake=new Node3D {Name="BrakeAssembly"};pivot.AddChild(fixedBrake); bool sourceMirror=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_MIRROR")!="legacy";if(sourceMirror?(float)p[0]>0:(float)p[0]<0)pivot.RotationDegrees=new Vector3(0,180,0);
    bool rearAxle=(float)p[2]<0;
    string Family(MeshInstance3D mesh) { string name=mesh.Name.ToString().ToUpperInvariant();int material=name.IndexOf("_MM_",System.StringComparison.Ordinal);if(material>=0)name=name.Substring(0,material);return name.Replace("_REAR","").Replace("_FRONT",""); }
    foreach(var source in wheelMeshes){
@@ -130,7 +131,7 @@ static Godot.Collections.Dictionary carMap;
   if (ResourceLoader.Exists(tex)) mat.AlbedoTexture = GD.Load<Texture2D>(tex); else mat.AlbedoColor = new Color(0.12f, 0.12f, 0.13f);
   if (suf == "lights" || suf == "badges" || suf == "scratches") mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
   if (suf == "lights") { mat.EmissionEnabled = false; }
-  AuditUV(mat);return mat;
+  AuditUV(mat,suf);return mat;
  }
 }}
 

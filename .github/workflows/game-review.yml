@@ -3,7 +3,7 @@ run-name: '${{ inputs.depth }} cars ${{ inputs.cars || ''16'' }}'
 on:
   workflow_dispatch:
     inputs:
-      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation, contact_trace], default: preview}
+      depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation, contact_trace, car_uv_roles], default: preview}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}', cancel-in-progress: false}
@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       max-parallel: 12
       matrix:
-        shard: ${{ fromJSON(inputs.depth == 'native_races' && '[0,1,2,3,4,5,6,7,8,9,10,11]' || (inputs.depth == 'geometry' || inputs.depth == 'surfaces' || inputs.depth == 'collision_probe' || inputs.depth == 'car_materials' || inputs.depth == 'input_physics' || inputs.depth == 'car_uv' || inputs.depth == 'wheel_orientation' || inputs.depth == 'contact_trace') && '[0]' || '[0,1,2,3,4,5]') }}
+        shard: ${{ fromJSON(inputs.depth == 'native_races' && '[0,1,2,3,4,5,6,7,8,9,10,11]' || (inputs.depth == 'geometry' || inputs.depth == 'surfaces' || inputs.depth == 'collision_probe' || inputs.depth == 'car_materials' || inputs.depth == 'input_physics' || inputs.depth == 'car_uv' || inputs.depth == 'wheel_orientation' || inputs.depth == 'contact_trace' || inputs.depth == 'car_uv_roles') && '[0]' || '[0,1,2,3,4,5]') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -64,6 +64,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           GEOMETRY_ONLY: ${{ inputs.depth == 'geometry' && '1' || '0' }}
+          CAR_UV_ROLES: ${{ inputs.depth == 'car_uv_roles' && '1' || '0' }}
           CONTACT_TRACE: ${{ inputs.depth == 'contact_trace' && '1' || '0' }}
           WHEEL_ORIENTATION: ${{ inputs.depth == 'wheel_orientation' && '1' || '0' }}
           NATIVE_CARS: ${{ inputs.cars || '16' }}

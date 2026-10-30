@@ -16,6 +16,13 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('CAR_UV_ROLES')=='1':
+ for car in (1,6,16):
+  for scope in ('baseline','misc','nonlivery'):
+   label=f'uv-roles-car-{car:02}-{scope}';shot=out/(label+'.png');values={'MYSIM_CARVIEW':str(car),'MYSIM_CAMPOS':'5.2,1.8,5.6','MYSIM_SHOT':str(shot)}
+   if scope!='baseline':values.update(MYSIM_CAR_UV='v',MYSIM_CAR_UV_SCOPE=scope)
+   run(label,values);assert shot.exists()
+ print('COMPLETE material-role UV comparison; production UV remains unchanged',flush=True);sys.exit(0)
 if os.environ.get('CONTACT_TRACE')=='1':
  import re
  for track in (20,43):
