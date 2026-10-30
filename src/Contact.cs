@@ -21,11 +21,12 @@ public static class Contact {
  sealed class GroundHistory { public Vec Position; }
  static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Vehicle, GroundHistory> lastGood = new();
  public static void MarkGood(Vehicle v, bool groundNear) { if (groundNear) lastGood.GetOrCreateValue(v).Position = v.position; }
- public static bool Contain(Vehicle v, Vec start, bool groundNear, float limit) {
+ public static bool Contain(Vehicle v, Vec start, bool groundNear, float limit,Circuit circuit=null) {
+  if(circuit!=null)v.progress=circuit.Find(v.position,out v.lateral);
   if (v.pitActive || v.servicing) return false; // pit lane may lie off the drive-surface mesh; the pit sequence is scripted
   if (groundNear && Mathf.Abs(v.lateral) <= limit) return false;
   if (groundNear == false && Mathf.Abs(v.lateral) <= 6f) return false; // holes inside the road are not walls
-  v.position = lastGood.TryGetValue(v, out var g0) ? g0.Position : start; v.velocity = new Vec(-v.velocity.x * 0.3f, -v.velocity.z * 0.3f); v.yawRate = 0; v.speed = Mathf.Sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z); v.damage = Mathf.Min(1f, v.damage + 0.01f); return true;
+  v.position = lastGood.TryGetValue(v, out var g0) ? g0.Position : start; v.velocity = new Vec(-v.velocity.x * 0.3f, -v.velocity.z * 0.3f); v.yawRate = 0; v.speed = Mathf.Sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z); v.damage = Mathf.Min(1f, v.damage + 0.01f);v.lastIntegrated=v.position;if(circuit!=null)v.progress=circuit.Find(v.position,out v.lateral);return true;
  }
  // Box sweep against barrier colliders (layer 2). Returns true if a wall was hit. carY = current car height.
  // A deeply embedded planar box can receive a vertical minimum-separation normal. Search only

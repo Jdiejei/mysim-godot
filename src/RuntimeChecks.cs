@@ -41,6 +41,8 @@ public partial class RuntimeChecks : Node3D {
    var g=Contact.Ground(space,new Vector3(4,0,-4),0);Check(g.near&&Math.Abs(g.y)<.01f,"ground height incorrect");
    var contained=new Vehicle {position=new Vec(0,-4),velocity=new Vec(10,0),speed=10,lateral=0}; Contact.MarkGood(contained,true);
    contained.position=new Vec(40,-4);contained.lateral=40;Check(Contact.Contain(contained,new Vec(39,-4),true,30),"containment missed");Check(contained.position.x==0,"containment did not restore last valid point");
+   Check((contained.lastIntegrated-contained.position).Magnitude<.001f,"containment leaves stale integration pose");
+   var testCircuit=new Circuit(0);var stale=new Vehicle {position=testCircuit.Point(.2f),lateral=40};Check(!Contact.Contain(stale,stale.position,true,30f,testCircuit),"stale pre-contact lateral coordinate caused false containment");Check(Math.Abs(stale.lateral)<.01f,"containment did not project corrected position");
    if (System.Environment.GetEnvironmentVariable("MYSIM_CONTACT_ONLY") != null) { GD.Print("PASS contact checks ",count," assertions"); GetTree().Quit(); return; }
    var rows=new List<object>();
    for(int ci=0;ci<CarCatalog.Count;ci++) {

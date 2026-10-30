@@ -32,7 +32,7 @@ public static class CrashBatch {
      var start = v.position; race.Step(dt);
      if (!float.IsFinite(v.position.x) || !float.IsFinite(v.position.z) || !float.IsFinite(v.speed)) { nonFinite = true; break; }
      float spBefore = v.speed; if (Contact.Walls(space, v, start, lastY, box,new Vector3(VehicleDimensions.CenterX[carIdx],VehicleDimensions.CenterY[carIdx],VehicleDimensions.CenterZ[carIdx]))) { wallHits++; if (v.speed > spBefore + 0.05f) hitGain++; }
-     var w = Contact.ToWorld(v.position, 0); var g = Contact.Ground(space, w, lastY, 0.6f); if (Contact.Contain(v, start, g.near, 30f)) { contained++; w = Contact.ToWorld(v.position, 0); g = Contact.Ground(space, w, lastY, 0.6f); }
+     var w = Contact.ToWorld(v.position, 0); var g = Contact.Ground(space, w, lastY, 0.6f); if (Contact.Contain(v, start, g.near, 30f,race.track)) { contained++; w = Contact.ToWorld(v.position, 0); g = Contact.Ground(space, w, lastY, 0.6f); }
      Contact.MarkGood(v, g.near && Mathf.Abs(v.lateral) <= 30f); if (!g.found) voids++; else { if (g.clamped) { jumps++; if (jumps == 1) { hitX = w.X; hitY = g.rawY; hitZ = w.Z; } } maxDy = Mathf.Max(maxDy, Mathf.Abs(g.rawY - lastY)); lastY = g.y; }
      maxY = Mathf.Max(maxY, lastY); minY = Mathf.Min(minY, lastY); maxLat = Mathf.Max(maxLat, Mathf.Abs(v.lateral)); if (crashing) maxSpeedAfter = Mathf.Max(maxSpeedAfter, v.speed); steps++;
     }
