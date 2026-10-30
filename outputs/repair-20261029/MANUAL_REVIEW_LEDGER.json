@@ -1,5 +1,5 @@
 {
-  "coverage": "462 mesh candidates and 1,800 texture thumbnails overview-reviewed; none finally accepted",
+  "coverage": "562 mesh candidates and 1,800 texture thumbnails overview-reviewed; none finally accepted",
   "textures": [
     {
       "asset": "assets/BH/textures/arc_brands_hatch_building_a.png",
@@ -25856,6 +25856,1706 @@
       "assembled_scene_reviewed": false,
       "quality_accepted": false,
       "finding": "Four-view component overview seen. Require complete source-assembly placement, original material/UV checks and role classification; isolated panels/cards/frames are not complete enhanced cars."
+    },
+    {
+      "id": "fad2d1cc8408e563e77703e7",
+      "source_mesh": "LOD_A_CHASSIS_mm_chassis",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        400,
+        401,
+        402,
+        403
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "fdfce536caa8672b4c1cd273",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_LEFT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        404,
+        405,
+        406,
+        407
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "03c8cf6f1406e72758a08425",
+      "source_mesh": "veh_emergency_pickup_00",
+      "category": "vehicle",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        408,
+        409,
+        410,
+        411
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "06fc71aa6631e78ca927b463",
+      "source_mesh": "LOD_A_TYRE_mm_tyre",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        412,
+        413,
+        414,
+        415
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "123db9a980bb144b330f2cd1",
+      "source_mesh": "fence_monza_barrier_jnr_01",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        416,
+        417,
+        418,
+        419
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "1b929c273f59c27496533989",
+      "source_mesh": "prop_turn_arrow_jnr_02_mm2",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        420,
+        421,
+        422,
+        423
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "5d9cf048cfa78b55c5db8056",
+      "source_mesh": "fence_turnbarrier_high_jnr_01",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        424,
+        425,
+        426,
+        427
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "6053eb3b3806568878cdbecd",
+      "source_mesh": "overlay_monza_jnr_01_mm5",
+      "category": "decal",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        428,
+        429,
+        430,
+        431
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "66b0316b5b816550f753d61e",
+      "source_mesh": "crowd_marshal_c_04_001",
+      "category": "crowd",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        432,
+        433,
+        434,
+        435
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "6844923936a9d06e3f9b0c58",
+      "source_mesh": "crowd_marshal_c_00_001",
+      "category": "crowd",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        436,
+        437,
+        438,
+        439
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "6866b963c134f54b38060282",
+      "source_mesh": "prop_turn_arrow_jnr_01",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        440,
+        441,
+        442,
+        443
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "03cb4d91e2201010f64c5b77",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_RIGHT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        444,
+        445,
+        446,
+        447
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "070e1930374c9ada378f493d",
+      "source_mesh": "LOD_A_REARBUMPER_mm_lights",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        448,
+        449,
+        450,
+        451
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0a7baafece1d3f4418ca786a",
+      "source_mesh": "LOD_A_GLASS_FRONT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        452,
+        453,
+        454,
+        455
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0c2f4e181bfb640188977170",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_BROKEN_B_LEFT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        456,
+        457,
+        458,
+        459
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "10ccc06cf0d77e92ab685c56",
+      "source_mesh": "LOD_A_GLASS_RIGHT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        460,
+        461,
+        462,
+        463
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "1ab730401dad5659e4ed96d2",
+      "source_mesh": "LOD_A_BODY_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        464,
+        465,
+        466,
+        467
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "1fb53244334a083edfeed5e7",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_BROKEN_B_LEFT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        468,
+        469,
+        470,
+        471
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "231a49ed30dc246a7893e2e4",
+      "source_mesh": "LOD_A_BRAKES_LEFT_mm_lights",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        472,
+        473,
+        474,
+        475
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "26073c112b0a1f0cc5e83d86",
+      "source_mesh": "LOD_A_TAILLIGHT_LENS_LEFT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        476,
+        477,
+        478,
+        479
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2c89200037768a2bc0a995d7",
+      "source_mesh": "LOD_A_MIRROR_RIGHT_mm_lights",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        480,
+        481,
+        482,
+        483
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "03e0ab63a1e0228f1c001231",
+      "source_mesh": "LOD_A_INT_INTERIOR_mm_mat04",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        484,
+        485,
+        486,
+        487
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "4efa7290377d4121ba9767a5",
+      "source_mesh": "LOD_A_INT_GLASS_FRONT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        488,
+        489,
+        490,
+        491
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "ffa46195f54436057ddcf889",
+      "source_mesh": "arc_dubai_pit_building_fence_018_mm14",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        492,
+        493,
+        494,
+        495
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "ffba9849210dbddc239874f0",
+      "source_mesh": "overlay_dubai_edge_17_mm2",
+      "category": "decal",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        496,
+        497,
+        498,
+        499
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "ffc31b7056fc0848dd4f0fc3",
+      "source_mesh": "prop_vinyl_banner_base_small_c_132",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        500,
+        501,
+        502,
+        503
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "ffd4738df0b45fa32b2b167f",
+      "source_mesh": "org_shrub_x_shrub_c_042",
+      "category": "vegetation",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        504,
+        505,
+        506,
+        507
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "03f783fa2b9a79126e4931f4",
+      "source_mesh": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        508,
+        509,
+        510,
+        511
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "047da806ea51a2a47d2ec4d9",
+      "source_mesh": "LOD_A_INT_DOOR_RIGHT_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        512,
+        513,
+        514,
+        515
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2b50d1b41c6f55e2888adc3d",
+      "source_mesh": "LOD_A_INT_MIRROR_GLASS_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        516,
+        517,
+        518,
+        519
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2f902e28fd08a22b1defba80",
+      "source_mesh": "LOD_A_INT_GLASS_CRACKED_FRONT_04_mm_windows_cracked",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        520,
+        521,
+        522,
+        523
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "33d8c9d745335dc65fa457a7",
+      "source_mesh": "LOD_A_INT_SHIFT_LIT_02_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        524,
+        525,
+        526,
+        527
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "3a3b5fb2ed1422b84ea4412b",
+      "source_mesh": "LOD_A_INT_BODY_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        528,
+        529,
+        530,
+        531
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "3c9aa40faf7229dd03df211e",
+      "source_mesh": "LOD_A_INT_GLASS_RIGHT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        532,
+        533,
+        534,
+        535
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "3da9a06275f09d9db2e6490b",
+      "source_mesh": "LOD_A_INT_INTERIOR_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        536,
+        537,
+        538,
+        539
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f7f71eb5ef29a2830eca5ad7",
+      "source_mesh": "fence_nuerburgring_FENCE_SPRINT_02",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        540,
+        541,
+        542,
+        543
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f9884e19e3811f1ceba5ff4a",
+      "source_mesh": "prop_turn_arrow_SPRINT_05",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        544,
+        545,
+        546,
+        547
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "03fbf503fc13622986ea4140",
+      "source_mesh": "LOD_A_INT_DOOR_RIGHT_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        548,
+        549,
+        550,
+        551
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "073d4ec437efa7de26d4ab4c",
+      "source_mesh": "LOD_A_INT_DOOR_LEFT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        552,
+        553,
+        554,
+        555
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "19404157f2bd7f042f70f4dd",
+      "source_mesh": "LOD_A_INT_HAND_STEER",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        556,
+        557,
+        558,
+        559
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2d9469630d887af1179a3588",
+      "source_mesh": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        560,
+        561,
+        562,
+        563
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "6cfb7945668ce1376ba2dd36",
+      "source_mesh": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        564,
+        565,
+        566,
+        567
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "9c10a4659d0f386b6d736078",
+      "source_mesh": "LOD_A_INT_BODY_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        568,
+        569,
+        570,
+        571
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "aaa77ec94cea0587a71ba76f",
+      "source_mesh": "LOD_A_BODY_mm_badges",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        572,
+        573,
+        574,
+        575
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "b634b849266d2f0b81fe4d82",
+      "source_mesh": "LOD_A_BODY_mm_lights",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        576,
+        577,
+        578,
+        579
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "c507e081e438de72b45489b3",
+      "source_mesh": "LOD_A_INT_DOOR_LEFT_mm_int",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        580,
+        581,
+        582,
+        583
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f4f1c41ff0416b5c405eb9bb",
+      "source_mesh": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        584,
+        585,
+        586,
+        587
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "fbaf23991127dbfd4f6e3163",
+      "source_mesh": "LOD_A_BODY_mm_chassis",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        588,
+        589,
+        590,
+        591
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "fe2abbb0f1c8d6bc1bfbc605",
+      "source_mesh": "LOD_A_INT_HAND_GEAR",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        592,
+        593,
+        594,
+        595
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "040844ee5af5f0f6160d4b67",
+      "source_mesh": "LOD_A_BODY_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        596,
+        597,
+        598,
+        599
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "041a9d146e488e539243f1da",
+      "source_mesh": "LOD_A_HEADLIGHT_LENS_BROKEN_A_LEFT_mm_windows",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        600,
+        601,
+        602,
+        603
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04444b4b71f6f450922dcd0a",
+      "source_mesh": "arc_berlin_terminal_01_mm10",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        604,
+        605,
+        606,
+        607
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "044ad752b3fc7e507d075e36",
+      "source_mesh": "arc_lemans_building_e_b_00_mm3",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        608,
+        609,
+        610,
+        611
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04589763308e209c07097c2c",
+      "source_mesh": "arc_silverstone_building_c_2_mm4",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        612,
+        613,
+        614,
+        615
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0475a6637f993b60cced2130",
+      "source_mesh": "prop_black_transport_box_a_001_mm2",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        616,
+        617,
+        618,
+        619
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04b55c36e455fe26d9796956",
+      "source_mesh": "fence_branner_08_mm5",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        620,
+        621,
+        622,
+        623
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04d861a2b8f8880d7498a2a7",
+      "source_mesh": "LOD_A_REARBUMPER_mm_badges",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        624,
+        625,
+        626,
+        627
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04152f3e260c08b45f019dec",
+      "source_mesh": "LOD_A_MIRROR_GLASS_LEFT_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        628,
+        629,
+        630,
+        631
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "08e8551801e249034fb6e482",
+      "source_mesh": "LOD_A_DOOR_RIGHT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        632,
+        633,
+        634,
+        635
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0e12958e495704f240797f5e",
+      "source_mesh": "LOD_A_DOOR_LEFT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        636,
+        637,
+        638,
+        639
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "14dcde6682b27e6b147213a7",
+      "source_mesh": "LOD_A_BOOT_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        640,
+        641,
+        642,
+        643
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "166c033b2294826e509de21a",
+      "source_mesh": "LOD_A_BODY_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        644,
+        645,
+        646,
+        647
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "21a3d8ca115e66a02b31cc88",
+      "source_mesh": "LOD_A_REARBUMPER_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        648,
+        649,
+        650,
+        651
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "24cf9d85ec78451d0a1fa9b1",
+      "source_mesh": "LOD_A_BODY_mm_lights",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        652,
+        653,
+        654,
+        655
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2e2581795e195982367c2dad",
+      "source_mesh": "LOD_A_REARBUMPER_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        656,
+        657,
+        658,
+        659
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f3e40d1ee3de50ef17f8a327",
+      "source_mesh": "fence_tyres_05_mm5",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        660,
+        661,
+        662,
+        663
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "fec37eb0f6052e9c67b98704",
+      "source_mesh": "fence_plastic_barrier_42_mm3",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        664,
+        665,
+        666,
+        667
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04949390b3ffa7cea06d2b8a",
+      "source_mesh": "gnd_track_15_mm201",
+      "category": "ground",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        668,
+        669,
+        670,
+        671
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04e78d9f08d0c3bd4ae9db98",
+      "source_mesh": "gnd_track_00_mm302",
+      "category": "grass",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        672,
+        673,
+        674,
+        675
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0b2c6a3f5300b6ee79337eab",
+      "source_mesh": "gnd_track_15",
+      "category": "ground",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        676,
+        677,
+        678,
+        679
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2269adc38de1dde23370ad73",
+      "source_mesh": "LOD_A_TYRE_mm_tyre",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        680,
+        681,
+        682,
+        683
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "ed19b8d7624bc5f07429259f",
+      "source_mesh": "fence_plastic_barrier_34_mm3",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        684,
+        685,
+        686,
+        687
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f4a22d351dea23e8174d48d7",
+      "source_mesh": "fence_plastic_barrier_24_mm3",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        688,
+        689,
+        690,
+        691
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f57031a3a04addfad433e0f3",
+      "source_mesh": "fence_plastic_barrier_24",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        692,
+        693,
+        694,
+        695
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f65d858ad6f614c5e71dd839",
+      "source_mesh": "overlay_variation_03",
+      "category": "decal",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        696,
+        697,
+        698,
+        699
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "f7e79007b49d2464ffcd0e0e",
+      "source_mesh": "fence_tyres_11_mm5",
+      "category": "barrier",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        700,
+        701,
+        702,
+        703
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "fceea5c8cba489e04fbdab20",
+      "source_mesh": "prop_turn_arrow_08_mm3",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        704,
+        705,
+        706,
+        707
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04cfb71d1f4806598a28bde4",
+      "source_mesh": "prop_billboard_board_006_mm24",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        708,
+        709,
+        710,
+        711
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04e586b5ba91c4d39731fd87",
+      "source_mesh": "arc_melbourne_generic_hotel_d_00_mm11",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        712,
+        713,
+        714,
+        715
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "057045ca7f5cad1f3c5f9d42",
+      "source_mesh": "LOD_A_REARBUMPER_mm_badges",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        716,
+        717,
+        718,
+        719
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0570db69e2958058815dee83",
+      "source_mesh": "arc_indianapolis_toilet_block001",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        720,
+        721,
+        722,
+        723
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "058c1cd3e7a7132ea5362f4b",
+      "source_mesh": "LOD_A_WHEEL_mm_wheel",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        724,
+        725,
+        726,
+        727
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "05b7209fd9d15994f9f36e1d",
+      "source_mesh": "arc_red_bull_marshal_box_04",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        728,
+        729,
+        730,
+        731
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "05d4fe305051f9fc639ddca7",
+      "source_mesh": "prop_yasmarina_track_saftey_light003",
+      "category": "props",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        732,
+        733,
+        734,
+        735
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "05dbe86e4c93c90e889f3159",
+      "source_mesh": "arc_indianapolis_podium_00_mm7",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        736,
+        737,
+        738,
+        739
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "064a702e1219cbbbdaf76a80",
+      "source_mesh": "arc_lagunaseca_hextower_00",
+      "category": "architecture",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        740,
+        741,
+        742,
+        743
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0665aebbe90b37abd1a8cc66",
+      "source_mesh": "LOD_A_DOOR_LEFT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        744,
+        745,
+        746,
+        747
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04dfe42e9c7baf56f1ae6a62",
+      "source_mesh": "LOD_A_BODY_mm_chassis",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        748,
+        749,
+        750,
+        751
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "05d2dcc4924147bd9edce647",
+      "source_mesh": "LOD_A_WHEELGUARD_FRONT_LEFT_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        752,
+        753,
+        754,
+        755
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "083d5001e03fcbe8068ea929",
+      "source_mesh": "LOD_A_MIRROR_RIGHT_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        756,
+        757,
+        758,
+        759
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "279d0843e4c01947bc9c287d",
+      "source_mesh": "LOD_A_WHEELGUARD_FRONT_RIGHT_mm_chassis",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        760,
+        761,
+        762,
+        763
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "29c59e6acf3d26c43168c2fa",
+      "source_mesh": "LOD_A_CHASSIS_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        764,
+        765,
+        766,
+        767
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "2b7f55d96bfa577fb569884a",
+      "source_mesh": "LOD_A_STRUT_UPPER_FRONT_LEFT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        768,
+        769,
+        770,
+        771
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "41de6ba7e3dcf40f4e89ebd9",
+      "source_mesh": "LOD_A_STEERING_ARM_LEFT_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        772,
+        773,
+        774,
+        775
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "56b27de9b9a2ec9765143518",
+      "source_mesh": "LOD_A_DOOR_LEFT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        776,
+        777,
+        778,
+        779
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "5e1e78fb7dc41f913906a539",
+      "source_mesh": "LOD_A_STRUT_LOWER_REAR_RIGHT_mm_misc",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        780,
+        781,
+        782,
+        783
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "04f18110105d9685aaeb6beb",
+      "source_mesh": "LOD_A_FRONTBUMPER_mm_badges",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        784,
+        785,
+        786,
+        787
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "060c76ab1f8478736d39f9d8",
+      "source_mesh": "LOD_A_TYRE_mm_tyre",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        788,
+        789,
+        790,
+        791
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0713b96c778f9f7a0e054639",
+      "source_mesh": "LOD_A_MIRROR_RIGHT_mm_ext",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        792,
+        793,
+        794,
+        795
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
+    },
+    {
+      "id": "0c1371bb186c547ac9a16431",
+      "source_mesh": "LOD_A_WHEEL_REAR_mm_wheel",
+      "category": "car",
+      "part": "mesh-part-00001.enc",
+      "image_tiles": [
+        796,
+        797,
+        798,
+        799
+      ],
+      "overview_reviewed": true,
+      "full_resolution_reviewed": false,
+      "assembled_scene_reviewed": false,
+      "quality_accepted": false,
+      "finding": "Four-view overview inspected. Resolve assembled scale, role, pivots, source PBR/alpha and UVs; isolated white/black templates and clipped closeups are not acceptance."
     }
   ]
 }
