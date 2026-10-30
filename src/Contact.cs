@@ -15,7 +15,7 @@ public static class Contact {
  // Ground = drive-surface layer only (mask 1), continuous with the previous height (+-dyMax per call).
  public static GroundResult Ground(PhysicsDirectSpaceState3D space, Vector3 w, float refY, float dyMax = 0.6f) {
   var g = new GroundResult { y = refY, rawY = refY, normal = Vector3.Up };
-  using var rq = PhysicsRayQueryParameters3D.Create(new Vector3(w.X, refY + 2.5f, w.Z), new Vector3(w.X, refY - 6f, w.Z)); rq.CollisionMask = 1; rq.HitBackFaces = true;
+  using var rq = PhysicsRayQueryParameters3D.Create(new Vector3(w.X, refY + 0.6f, w.Z), new Vector3(w.X, refY - 6f, w.Z)); rq.CollisionMask = 1; rq.HitBackFaces = true;
   var hit = space.IntersectRay(rq); bool nearHit = hit.Count > 0;
   if (hit.Count == 0) { using var rq2 = PhysicsRayQueryParameters3D.Create(new Vector3(w.X, refY + 40f, w.Z), new Vector3(w.X, refY - 80f, w.Z)); rq2.CollisionMask = 1; rq2.HitBackFaces = true; hit = space.IntersectRay(rq2); }
   if (hit.Count == 0) return g;
