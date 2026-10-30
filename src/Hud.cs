@@ -6,7 +6,7 @@ public partial class Hud : CanvasLayer {
  public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear;
  public override void _Ready() {
   var root = new Control { AnchorRight = 1, AnchorBottom = 1, MouseFilter = Control.MouseFilterEnum.Ignore }; AddChild(root);
-  speed = Make(root, 48, new Vector2(-300, -140), true); gear = Make(root, 26, new Vector2(-300, -210), true); info = Make(root, 18, new Vector2(24, 20), false); mini = new MiniMap { H = this, Size = new Vector2(190, 150) }; mini.AnchorLeft = 0; mini.AnchorTop = 1; mini.AnchorRight = 0; mini.AnchorBottom = 1; mini.OffsetLeft = touchMode ? 540 : 20; mini.OffsetTop = -170; mini.OffsetRight = touchMode ? 730 : 210; mini.OffsetBottom = -20; root.AddChild(mini);
+  speed = Make(root, 48, new Vector2(-300, -140), true); gear = Make(root, 26, new Vector2(-300, -210), true); info = Make(root, 18, new Vector2(24, 20), false); mini = new MiniMap { H = this, Size = new Vector2(190, 150) }; mini.AnchorLeft = touchMode ? .5f : 0; mini.AnchorTop = 1; mini.AnchorRight = touchMode ? .5f : 0; mini.AnchorBottom = 1; mini.OffsetLeft = touchMode ? -100 : 20; mini.OffsetTop = -170; mini.OffsetRight = touchMode ? 90 : 210; mini.OffsetBottom = -20; root.AddChild(mini);
  }
  static bool touchMode => DisplayServer.IsTouchscreenAvailable() || Settings.Get("screen_controls", true) || System.Environment.GetEnvironmentVariable("MYSIM_TOUCH") != null;
  static Label Make(Control p, int size, Vector2 off, bool bottomRight) {

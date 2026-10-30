@@ -22,7 +22,7 @@ public partial class TouchControls : CanvasLayer {
  void Clear(){leftHeld=rightHeld=false;if(current==this)Steer=Throttle=Brake=0;}
  public override void _ExitTree(){if(IsInstanceValid(inputWindow))inputWindow.FocusExited-=Clear;Clear();if(current==this){current=null;Active=false;}}
  static void Make(Control parent,string text,Vector2 pos,Vector2 size,System.Action<bool> set){
-  var button=new Button {Name=text,Text=text,Position=pos,Size=size,FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
+  bool right=text=="GAS"||text=="BRAKE";float left=pos.X-(right?1280:0),top=pos.Y-720;var button=new Button {Name=text,Text=text,AnchorLeft=right?1:0,AnchorRight=right?1:0,AnchorTop=1,AnchorBottom=1,OffsetLeft=left,OffsetRight=left+size.X,OffsetTop=top,OffsetBottom=top+size.Y,FocusMode=Control.FocusModeEnum.None};button.AddThemeFontSizeOverride("font_size",22);
   Style(button);button.ButtonDown+=()=>set(true);button.ButtonUp+=()=>set(false);parent.AddChild(button);
  }
  static void Style(Button button){
