@@ -13,7 +13,16 @@ expected=config.get('expected',1440) if config else 1440
 progress=config['progress_file'] if config else 'NATIVE_CASE_PROGRESS.json'
 if pathlib.Path(progress).name!=progress:raise ValueError('Invalid progress path')
 
-def call(args):return subprocess.run(args,check=True,capture_output=True,text=True,creationflags=subprocess.CREATE_NO_WINDOW).stdout
+tokens={}
+def call(args):
+ env=dict(os.environ);repo=args[args.index('--repo')+1] if '--repo' in args else next((x.split('/')[1] for x in args if x.startswith('repos/')),None)
+ owner=repo.split('/')[0] if repo else None
+ if owner:
+  if owner not in tokens:
+   authEnv=dict(os.environ);authEnv.pop('GH_TOKEN',None);authEnv.pop('GITHUB_TOKEN',None)
+   tokens[owner]=subprocess.run(['gh','auth','token','-u',owner],check=True,capture_output=True,text=True,env=authEnv,creationflags=subprocess.CREATE_NO_WINDOW).stdout.strip()
+  env['GH_TOKEN']=tokens[owner]
+ return subprocess.run(args,check=True,capture_output=True,text=True,env=env,creationflags=subprocess.CREATE_NO_WINDOW).stdout
 def retrieve(task):
  repo,run,artifact,cars=task;safe=re.sub('[^a-zA-Z0-9_-]','_',artifact['name']);dest=base/repo.replace('/','_')/str(run)/safe
  marker=dest/'download-complete'
@@ -59,5 +68,5 @@ while True:
   report={'scope':'native full-scene physics only; no final art or game acceptance','expected':expected,'passed':passed,'failed':failed,'not_reported':expected-len(cases),'all_campaigns_terminal':all(r['status']=='completed' for r in runs),'runs':runs,'cases':cases,'errors':errors,'updated':time.time()}
   path=out/progress;tmp=path.with_suffix('.writing');tmp.write_text(json.dumps(report,indent=2));os.replace(tmp,path);print('NATIVE_PROGRESS',passed,failed,report['not_reported'],flush=True)
   if report['all_campaigns_terminal']:break
- except Exception as e:print('COLLECTOR_ERROR',repr(e),flush=True)
+ except Exception as e:print('COLLECTOR_ERROR',repr(e),getattr(e,'stderr','')[-1000:],flush=True)
  time.sleep(60)
