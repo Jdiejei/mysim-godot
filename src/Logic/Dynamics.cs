@@ -32,6 +32,11 @@ namespace MySimulator.Rebuild
         public static float SteeringTarget(float command,float speed){float limit=SteeringLock(speed);return MathUtil.Clamp(command*330f/256f*limit,-limit,limit);}
         public static float SteeringCommand(float angle,float speed)=>MathUtil.Clamp(angle/(330f/256f*SteeringLock(speed)),-1,1);
         public static float WheelBrakeForce(float serviceForce,float mass,bool front,bool handbrake)=>serviceForce*(front?.29f:.21f)+(!front&&handbrake?mass*3f*.5f:0f);
+        public static void NormalLoads(float mass,float wheelbase,float track,float height,float down,float ax,float ay,float[] loads){
+            float total=mass*G+Math.Max(0,down),front=MathUtil.Clamp(mass*G*.52f+Math.Max(0,down)*AeroF-mass*ax*height/wheelbase,0,total),rear=total-front;
+            float lf=MathUtil.Clamp(front*.5f+mass*ay*height/track*.55f,0,front),lr=MathUtil.Clamp(rear*.5f+mass*ay*height/track*.45f,0,rear);
+            loads[0]=lf;loads[1]=front-lf;loads[2]=lr;loads[3]=rear-lr;
+        }
         public static void Step(Vehicle v,float dt,float wetness,Circuit circuit)
         {
             int m=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,v.carModel));
@@ -51,13 +56,7 @@ namespace MySimulator.Rebuild
             // power, drag, aero
             float pmul=PowerMulEnv;float power=mass*26.82f*26.82f/(2*t60)*1.35f*pmul,dragK=power/pmul/(vmax*vmax*vmax);
             float down=DownK(v.carModel)*speed*speed;
-            float staticF=mass*G*b/L,staticR=mass*G*a/L;
-            float axleF=staticF-mass*st.ax*h/L+down*AeroF,axleR=staticR+mass*st.ax*h/L+down*(1-AeroF);
-            axleF=Math.Max(axleF,mass*G*.05f);axleR=Math.Max(axleR,mass*G*.05f);
-            float latF=mass*st.ay*h/track*.55f,latR=mass*st.ay*h/track*.45f; // ay>0 = accel to the right => load moves left
-            float[] fz=st.fz;fz[0]=axleF*.5f+latF;fz[1]=axleF*.5f-latF;fz[2]=axleR*.5f+latR;fz[3]=axleR*.5f-latR;
-            float fz0=mass*G*.25f;
-            for(int i=0;i<4;i++)fz[i]=MathUtil.Clamp(fz[i],fz0*.05f,fz0*4f);
+            float[] fz=st.fz;NormalLoads(mass,L,track,h,down,st.ax,st.ay,fz);float fz0=mass*G*.25f;
             // pedals -> wheel torques
             float wMean=(st.w[2]+st.w[3])*.5f;
             float driveTotal=Math.Min(power/Math.Max(Math.Max(wMean*R,u),6f),mass*G*2.2f)*inp.throttle+HybridDeployment.Step(v,inp,dt)*inp.throttle;

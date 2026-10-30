@@ -12,6 +12,10 @@ namespace MySimulator.Verification
         public static string Run()
         {
             count=0;var log=new List<string>();
+            foreach(float mass in new[]{600f,2000f})foreach(float down in new[]{0f,20000f})foreach(float ax in new[]{-100f,0f,100f})foreach(float ay in new[]{-100f,0f,100f}){
+                var loads=new float[4];Dynamics.NormalLoads(mass,2.8f,1.6f,.35f,down,ax,ay,loads);float sum=0;foreach(float load in loads){Check(float.IsFinite(load)&&load>=0,"negative/nonfinite tyre normal load");sum+=load;}Check(Math.Abs(sum-(mass*9.81f+down))<.02f,"load transfer invented vertical force");
+                var mirror=new float[4];Dynamics.NormalLoads(mass,2.8f,1.6f,.35f,down,ax,-ay,mirror);Check(Math.Abs(loads[0]-mirror[1])<.01f&&Math.Abs(loads[2]-mirror[3])<.01f,"left-right load transfer is asymmetric");
+            }
             foreach(float mass in new[]{600f,1200f,2000f})foreach(float service in new[]{0f,500f,15000f}){
                 float front=Dynamics.WheelBrakeForce(service,mass,true,true),rear=Dynamics.WheelBrakeForce(service,mass,false,true);
                 Check(Math.Abs(front-Dynamics.WheelBrakeForce(service,mass,true,false))<.001f,"handbrake applies front-wheel torque");
