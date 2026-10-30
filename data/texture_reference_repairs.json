@@ -1,0 +1,23 @@
+{
+  "candidates": {
+    "bc4d3e8055cbcb47444baaf6": "mesh-part-00001.enc",
+    "1d9832501ae7659d44c85124": "mesh-part-00003.enc",
+    "07c8b09269f999a2364c4338": "mesh-part-00287.enc"
+  },
+  "textures": {
+    "mat_wood_green.png": {
+      "path": "assets/RealRacing/Source/common/mat/wood/mat_wood_green.png",
+      "sha256": "bcd92cc02393f622eddd9f0c25fdcb6535ff77fa93b5f9199d1f3125dc565f1e",
+      "parts": [
+        "assets-part-00003.enc"
+      ]
+    },
+    "prop_bathurst_light.png": {
+      "path": "assets/RealRacing/Source/Bathurst/resources/props/prop_bathurst_light_pole/prop_bathurst_light.png",
+      "sha256": "77cd40330aa63d5d39019cfb614913dde02086b81ae3d0f5ea13ef9b8918142f",
+      "parts": [
+        "assets-part-00002.enc"
+      ]
+    }
+  }
+}

@@ -30,6 +30,24 @@ jobs:
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
           PART: ${{ inputs.part }}
         run: python tools/cloud_decrypt.py "/tmp/input/$PART" /tmp/review-input
+      - name: Restore exact recovered textures for the three Bathurst lamp candidates
+        if: inputs.kind == 'mesh'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+          PART: ${{ inputs.part }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,subprocess
+          repair=json.loads(pathlib.Path('data/texture_reference_repairs.json').read_text())
+          if os.environ['PART'] in repair['candidates'].values():
+              dest=pathlib.Path('/tmp/recovered-texture-input');dest.mkdir(exist_ok=True)
+              for part in sorted({p for texture in repair['textures'].values() for p in texture['parts']}):
+                  subprocess.run(['gh','release','download','repair-inputs-20261029','--repo',os.environ['GITHUB_REPOSITORY'],'--pattern',part,'--dir','/tmp/texture-parts'],check=True)
+                  subprocess.run(['python','tools/cloud_decrypt.py','/tmp/texture-parts/'+part,str(dest)],check=True)
+                  pathlib.Path('/tmp/texture-parts/'+part).unlink()
+              with open(os.environ['GITHUB_ENV'],'a') as f:f.write('MYSIM_TEXTURE_ROOT='+str(dest)+'\n')
+          PY
       - name: Convert and inspect mesh candidates
         if: inputs.kind == 'mesh'
         run: |

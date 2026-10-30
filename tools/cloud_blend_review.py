@@ -1,8 +1,9 @@
 # Run with Blender --background --disable-autoexec --python this_file -- request.json result.json
-import bpy,sys,json,math,hashlib,pathlib
+import bpy,sys,json,math,hashlib,pathlib,os
 assert bpy.app.version >= (4,5,0), 'Candidate libraries require Blender 4.5 or newer'
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
 from candidate_selection import select_candidate
+repairs=json.loads((pathlib.Path(__file__).resolve().parents[1]/'data/texture_reference_repairs.json').read_text())
 args=sys.argv[sys.argv.index('--')+1:];request=json.load(open(args[0]));rows=[]
 for r in request:
  try:
@@ -11,11 +12,20 @@ for r in request:
   if not finite or not uv_finite:raise ValueError('nonfinite geometry or UV')
   h=hashlib.sha256()
   for v in m.vertices:h.update((','.join(format(float(c),'.9g') for c in v.co)+';').encode())
+  repaired=[]
+  if r['procedure_id'] in repairs['candidates']:
+   texture_root=pathlib.Path(os.environ['MYSIM_TEXTURE_ROOT'])
+   for image in bpy.data.images:
+    spec=repairs['textures'].get(image.name)
+    if spec is None:continue
+    source=texture_root/spec['path']
+    if not source.is_file() or hashlib.sha256(source.read_bytes()).hexdigest()!=spec['sha256']:raise ValueError('recovered texture checksum mismatch: '+image.name)
+    image.filepath=str(source);image.reload();image.pack();repaired.append(image.name)
   missing=[im.name for im in bpy.data.images if im.source=='FILE' and not im.packed_file and im.filepath and not pathlib.Path(bpy.path.abspath(im.filepath)).exists()]
   if o.name not in bpy.context.view_layer.objects:bpy.context.scene.collection.objects.link(o)
   bpy.ops.object.select_all(action='DESELECT');o.hide_set(False);o.hide_viewport=False;o.select_set(True);bpy.context.view_layer.objects.active=o
   dest=pathlib.Path(r['glb_path']);dest.parent.mkdir(parents=True,exist_ok=True)
   bpy.ops.export_scene.gltf(filepath=str(dest),export_format='GLB',use_selection=True,export_apply=False,export_texcoords=True,export_normals=True)
-  rows.append({'id':r['procedure_id'],'ok':True,'matched_by':matched_by,'object':o.name,'vertices':len(m.vertices),'faces':len(m.polygons),'uv_layers':len(m.uv_layers),'geometry_sha256':h.hexdigest(),'missing_textures':missing,'quality_accepted':False,'manual_reviewed':False,'glb':str(dest)})
+  rows.append({'id':r['procedure_id'],'ok':True,'matched_by':matched_by,'object':o.name,'vertices':len(m.vertices),'faces':len(m.polygons),'uv_layers':len(m.uv_layers),'geometry_sha256':h.hexdigest(),'missing_textures':missing,'repaired_textures':repaired,'quality_accepted':False,'manual_reviewed':False,'glb':str(dest)})
  except Exception as e:rows.append({'id':r['procedure_id'],'ok':False,'error':str(e),'quality_accepted':False,'manual_reviewed':False})
 pathlib.Path(args[1]).write_text(json.dumps(rows,indent=2))
