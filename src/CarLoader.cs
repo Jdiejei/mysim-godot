@@ -47,7 +47,7 @@ static Godot.Collections.Dictionary carMap;
      }
     }
     cache[g] = mat; }
-    if (mat != null) { mi.SetSurfaceOverrideMaterial(s, mat); bound++; }
+    if (mat != null) { mat.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;
@@ -66,7 +66,7 @@ static Godot.Collections.Dictionary carMap;
   var wheelMeshes = new System.Collections.Generic.List<MeshInstance3D>();
   foreach (var n in car.FindChildren("*", "MeshInstance3D", true, false)) { var mi = (MeshInstance3D)n; string up = mi.Name.ToString().ToUpperInvariant(); if (System.Text.RegularExpressions.Regex.IsMatch(up, "^LOD_A_(WHEEL|TYRE|TIRE|CALIPER|BRAKE_DISC|DISC|HUB|ROTOR)") && !up.Contains("BLUR") && !up.Contains("GUARD")) wheelMeshes.Add(mi); }
   if (System.Environment.GetEnvironmentVariable("MYSIM_WHEELDBG") != null) foreach (var wm in wheelMeshes) for (int si = 0; si < wm.Mesh.GetSurfaceCount(); si++) { var am = wm.GetActiveMaterial(si); string ds = am is StandardMaterial3D sm0 ? "std tex=" + (sm0.AlbedoTexture != null ? sm0.AlbedoTexture.ResourcePath : "none") + " col=" + sm0.AlbedoColor + " met=" + sm0.Metallic + " rough=" + sm0.Roughness + " unsh=" + sm0.ShadingMode : (am == null ? "null" : am.GetType().Name + (am is ShaderMaterial shm ? " shader" : "")); GD.Print("WHEELPART ", wm.Name, " s", si, " ", ds); }
-  foreach (var wm in wheelMeshes) { string wn = wm.Name.ToString().ToUpperInvariant(); bool tyre = wn.Contains("TYRE") || wn.Contains("TIRE"); bool rotor = wn.Contains("ROTOR") || wn.Contains("DISC"); if (!tyre && !rotor) continue; for (int si = 0; si < wm.Mesh.GetSurfaceCount(); si++) { var tm = new StandardMaterial3D { AlbedoColor = tyre ? new Color(0.055f, 0.055f, 0.06f) : new Color(0.32f, 0.32f, 0.34f), Roughness = tyre ? 0.96f : 0.5f, Metallic = tyre ? 0f : 0.7f, MetallicSpecular = tyre ? 0.05f : 0.5f, CullMode = BaseMaterial3D.CullModeEnum.Disabled }; wm.SetSurfaceOverrideMaterial(si, tm); } }
+  foreach (var wm in wheelMeshes) { string wn = wm.Name.ToString().ToUpperInvariant(); bool tyre = wn.Contains("TYRE") || wn.Contains("TIRE"); bool rotor = wn.Contains("ROTOR") || wn.Contains("DISC"); if (!tyre && !rotor) continue; for (int si = 0; si < wm.Mesh.GetSurfaceCount(); si++) { var authored=wm.GetActiveMaterial(si);if(authored is ShaderMaterial shader&&shader.GetShaderParameter("base").VariantType==Variant.Type.Object&&shader.GetShaderParameter("base").As<Texture2D>()!=null)continue;if(authored is StandardMaterial3D standard&&standard.AlbedoTexture!=null)continue;if(authored!=null&&authored.HasMeta("source_material_guid"))continue;var tm = new StandardMaterial3D { AlbedoColor = tyre ? new Color(0.055f, 0.055f, 0.06f) : new Color(0.32f, 0.32f, 0.34f), Roughness = tyre ? 0.96f : 0.5f, Metallic = tyre ? 0f : 0.7f, MetallicSpecular = tyre ? 0.05f : 0.5f, CullMode = BaseMaterial3D.CullModeEnum.Disabled }; wm.SetSurfaceOverrideMaterial(si, tm); } }
   var pivots = new Node3D[4]; var inv = car.GlobalTransform.AffineInverse();
   for (int i = 0; i < 4; i++) {
    var p = pts[i].AsGodotArray(); var pivot = new Node3D { Name = "WheelPivot" + i, Position = new Vector3((float)p[0], (float)p[1], (float)p[2]) }; car.AddChild(pivot);
