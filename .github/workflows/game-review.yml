@@ -47,6 +47,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
         run: python tools/cloud_asset_patches.py
+      - name: Scope import only for isolated diagnostics
+        env:
+          IMPORT_REVIEW_DEPTH: ${{ inputs.depth }}
+        run: python tools/cloud_scope_import.py
       - name: Install software renderer and Godot
         run: |
           sudo apt-get update -qq
