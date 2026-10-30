@@ -62,8 +62,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: windows-build-diagnostics
+          name: windows-build-diagnostics-${{ github.run_id }}-attempt-${{ github.run_attempt }}
           path: |
             windows-*.log
-            windows-build-manifest.json
+            windows*-manifest.json
+            windows-smoke-results.json
           retention-days: 14

@@ -1,11 +1,11 @@
 # Encrypt a Windows build to release parts without creating a second full-size archive.
 import pathlib,os,tarfile,subprocess,hashlib,json
 from cryptography.hazmat.primitives.ciphers import Cipher,algorithms,modes
-root=pathlib.Path('build-cloud');parts=[]
+root=pathlib.Path('build-cloud');parts=[];run=str(os.environ['GITHUB_RUN_ID']);attempt=str(os.environ.get('GITHUB_RUN_ATTEMPT','1'))
 class Writer:
  def __init__(self):self.f=None;self.size=0
  def open(self):
-  self.path=pathlib.Path(os.environ.get('RUNNER_TEMP','/tmp'))/f'windows-build-{len(parts):05}.enc.part';self.f=self.path.open('wb');self.size=0;self.sha=hashlib.sha256()
+  self.path=pathlib.Path(os.environ.get('RUNNER_TEMP','/tmp'))/f'windows-build-{run}-{attempt}-{len(parts):05}.enc.part';self.f=self.path.open('wb');self.size=0;self.sha=hashlib.sha256()
  def flushpart(self):
   if not self.f:return
   self.f.close()
@@ -27,3 +27,5 @@ class Encrypt:
 with tarfile.open(fileobj=Encrypt(),mode='w|') as tar:tar.add(root,arcname='MySim')
 writer.write(cipher.finalize());writer.write(cipher.tag);writer.flushpart()
 p=pathlib.Path('windows-build-manifest.json');p.write_text(json.dumps({'parts':parts,'source_commit':os.environ['GITHUB_SHA'],'format':'concatenate parts, then AES-GCM decrypt with the project intake key','verified_windows_logic':True,'visual_acceptance':False},indent=2));subprocess.run(['gh','release','upload','repair-review-20261029',str(p),'--clobber'],check=True)
+
+versioned=p.with_name(f'windows-build-{run}-{attempt}-manifest.json');versioned.write_bytes(p.read_bytes());subprocess.run(['gh','release','upload','repair-review-20261029',str(versioned),'--clobber'],check=True)
