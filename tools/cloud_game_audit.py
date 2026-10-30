@@ -15,6 +15,11 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('WHEEL_ORIENTATION')=='1':
+ for car in (1,6,16):
+  for mode in ('legacy','source'):
+   label=f'wheel-facing-car-{car:02}-{mode}';shot=out/(label+'.png');run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_CAMPOS':'6,1.2,0','MYSIM_WHEEL_MIRROR':mode,'MYSIM_SHOT':str(shot)});assert shot.exists()
+ print('COMPLETE source/legacy wheel-facing comparison; production choice pending',flush=True);sys.exit(0)
 if os.environ.get('NATIVE_RACES')=='1':
  import re
  for track in range(shard,60,12):

@@ -76,7 +76,7 @@ static Godot.Collections.Dictionary carMap;
   var pivots = new Node3D[4]; var inv = car.GlobalTransform.AffineInverse();
   for (int i = 0; i < 4; i++) {
    var p = pts[i].AsGodotArray(); var pivot = new Node3D { Name = "WheelPivot" + i, Position = new Vector3((float)p[0], (float)p[1], (float)p[2]) }; car.AddChild(pivot);
-   var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin);var fixedBrake=new Node3D {Name="BrakeAssembly"};pivot.AddChild(fixedBrake); if ((float)p[0] < 0) pivot.RotationDegrees = new Vector3(0, 180, 0);
+   var spin = new Node3D { Name = "Spin" }; pivot.AddChild(spin);var fixedBrake=new Node3D {Name="BrakeAssembly"};pivot.AddChild(fixedBrake); bool sourceMirror=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_MIRROR")=="source";if(sourceMirror?(float)p[0]>0:(float)p[0]<0)pivot.RotationDegrees=new Vector3(0,180,0);
    bool rearAxle=(float)p[2]<0;
    string Family(MeshInstance3D mesh) { string name=mesh.Name.ToString().ToUpperInvariant();int material=name.IndexOf("_MM_",System.StringComparison.Ordinal);if(material>=0)name=name.Substring(0,material);return name.Replace("_REAR","").Replace("_FRONT",""); }
    foreach(var source in wheelMeshes){
