@@ -7,7 +7,9 @@ public static class CollisionBake {
   var tris = new System.Collections.Generic.List<Vector3>();var support=new System.Collections.Generic.List<Vector3>();
   foreach (var node in track.FindChildren("*", "MeshInstance3D", true, false)) {
    var mi = (MeshInstance3D)node; if (!WallBuilder.IsSolid(mi)) continue; var xf = mi.GlobalTransform;
-   foreach(var vertex in WallBuilder.WallFaces(mi,out var deck))tris.Add(xf*vertex);foreach(var vertex in deck)support.Add(xf*vertex);
+   var wallFaces=WallBuilder.WallFaces(mi,out var deck);
+   foreach(var vertex in wallFaces)tris.Add(xf*vertex);
+   foreach(var vertex in deck)support.Add(xf*vertex);
   }
   WriteFaces(ProjectSettings.GlobalizePath(path),tris);WriteFaces(ProjectSettings.GlobalizePath(path)+".support",support);
   return tris.Count / 3;
