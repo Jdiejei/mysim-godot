@@ -31,6 +31,11 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw 'Input authentication failed' }
             Remove-Item -LiteralPath "$env:RUNNER_TEMP/parts/$($part.name)"
           }
+      - name: Restore checksum-verified supplemental recovered assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+        run: python tools/cloud_asset_patches.py
       - name: Install Godot and matching Windows templates
         shell: pwsh
         run: |

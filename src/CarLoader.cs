@@ -63,6 +63,7 @@ static Godot.Collections.Dictionary carMap;
  // Some Unity car materials have an empty _BaseMap (assigned at runtime in Unity): fall back to the car's own livery/slot texture by node suffix.
  static string FallbackTex(int carIdx, string nodeName) {
   string folder = MySimulator.Rebuild.CarCatalog.Folders[carIdx]; string dir = "res://assets/RealRacing/Source/" + folder + "/"; int k = nodeName.LastIndexOf("_mm_"); if (k < 0) return null; string suf = nodeName.Substring(k + 4);
+  if(suf=="chassis"&&ResourceLoader.Exists("res://assets/RealRacing/VehicleShaderData/car_chassis.png"))return "res://assets/RealRacing/VehicleShaderData/car_chassis.png";
   if (suf == "ext") { foreach (var f in Assets.Files(dir + "livery/")) if (f.EndsWith(".png")) return dir + "livery/" + f; return null; }
   string p = dir + folder + "_" + suf + ".png"; return ResourceLoader.Exists(p) ? p : null;
  }
@@ -125,7 +126,7 @@ static Godot.Collections.Dictionary carMap;
  }
  static StandardMaterial3D Build(string dir, string car, string suf) {
   var mat = new StandardMaterial3D { Roughness = 0.45f, Metallic = 0.2f };
-  string tex = dir + car + "_" + suf + ".png"; if (suf == "ext") tex = dir + "livery/" + car + "_ext_59.png";
+  string tex = dir + car + "_" + suf + ".png"; if(suf=="chassis")tex="res://assets/RealRacing/VehicleShaderData/car_chassis.png"; if (suf == "ext") tex = dir + "livery/" + car + "_ext_59.png";
   if (ResourceLoader.Exists(tex)) mat.AlbedoTexture = GD.Load<Texture2D>(tex); else mat.AlbedoColor = new Color(0.12f, 0.12f, 0.13f);
   if (suf == "lights" || suf == "badges" || suf == "scratches") mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
   if (suf == "lights") { mat.EmissionEnabled = false; }
