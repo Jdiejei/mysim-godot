@@ -3,6 +3,7 @@ r=pathlib.Path.cwd();out=r/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=
 def run(label,values,args=None,timeout=300):
  env={k:v for k,v in os.environ.items() if not k.startswith('MYSIM_')};env.update(values);env['MYSIM_BINDING_AUDIT']=str(out/label);log=out/(label+'.log')
  for attempt in (1,2):
+  env['MYSIM_PROBE_ATTEMPT']=str(attempt)
   shot=pathlib.Path(values['MYSIM_SHOT']).resolve() if values.get('MYSIM_SHOT') else None
   if shot is not None:
    if not shot.is_relative_to(out):raise ValueError('Screenshot must stay in this run output directory')

@@ -1,0 +1,12 @@
+[
+  {
+    "repo": "Jdiejei/mysim-godot",
+    "cars": "0,1,2,3,4,5,6,7",
+    "dispatch": "https://github.com/Jdiejei/mysim-godot/actions/runs/41014039754"
+  },
+  {
+    "repo": "blackwingftc-lang/mysim-godot",
+    "cars": "8,9,10,11,12,13,14,15",
+    "dispatch": "https://github.com/blackwingftc-lang/mysim-godot/actions/runs/41014052630"
+  }
+]

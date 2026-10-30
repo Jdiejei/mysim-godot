@@ -6,7 +6,7 @@ public static class Contact {
  static void Trace(Vehicle vehicle,string phase,Vector3 corrected,Vector3 normal,Godot.Collections.Dictionary info=null){
   string file=System.Environment.GetEnvironmentVariable("MYSIM_CONTACT_TRACE");if(string.IsNullOrEmpty(file))return;string collider=null;
   if(info!=null&&info.ContainsKey("collider_id")){var node=GodotObject.InstanceFromId((ulong)info["collider_id"].AsInt64()) as Node;if(GodotObject.IsInstanceValid(node))collider=node.GetPath().ToString();}
-  var row=new {phase,car=vehicle.carModel,position=new[]{vehicle.position.x,vehicle.position.z},corrected=new[]{corrected.X,corrected.Y,corrected.Z},normal=new[]{normal.X,normal.Y,normal.Z},speed=vehicle.speed,lateral=vehicle.lateral,damage=vehicle.damage,collider};System.IO.File.AppendAllText(file,System.Text.Json.JsonSerializer.Serialize(row)+"\n");
+  var row=new {phase,attempt=System.Environment.GetEnvironmentVariable("MYSIM_PROBE_ATTEMPT"),car=vehicle.carModel,position=new[]{vehicle.position.x,vehicle.position.z},corrected=new[]{corrected.X,corrected.Y,corrected.Z},normal=new[]{normal.X,normal.Y,normal.Z},speed=vehicle.speed,lateral=vehicle.lateral,damage=vehicle.damage,collider};System.IO.File.AppendAllText(file,System.Text.Json.JsonSerializer.Serialize(row)+"\n");
  }
  public static Vector3 BodySize(int car)=>BodySize(new Vector3(VehicleDimensions.Width[car],VehicleDimensions.Height[car],VehicleDimensions.Length[car]));
  public static Vector3 BodySize(Vector3 measured){if(!measured.IsFinite()||measured.X<=0||measured.Y<=0||measured.Z<=0)throw new System.ArgumentException("Invalid measured collision dimensions");return measured;}
