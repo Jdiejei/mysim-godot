@@ -47,7 +47,7 @@ public partial class RuntimeChecks : Node3D {
    var rows=new List<object>();
    for(int ci=0;ci<CarCatalog.Count;ci++) {
     var car=CarLoader.Load(CarCatalog.Folders[ci]);AddChild(car);CarLoader.ApplyExact(car,ci);var wheels=CarLoader.AttachWheels(car,ci);
-    var dims=CarLoader.MeasureSize(car);var wr=new List<object>();
+    var dims=CarLoader.MeasureSize(car);var wr=new List<object>();var partAudit=new List<object>();
     for(int wi=0;wi<4;wi++) {
      var spin=wheels[wi].GetNode<Node3D>("Spin"); var bound=new Aabb();bool first=true;
      foreach(var node in spin.GetChildren()) if(node is MeshInstance3D mesh && mesh.Visible) {
@@ -55,11 +55,12 @@ public partial class RuntimeChecks : Node3D {
       var sc=mesh.Transform.Basis.Scale;Check(float.IsFinite(sc.X)&&Math.Abs(sc.X)>0,"invalid wheel transform");
      }
      GD.Print("WHEEL_GEOMETRY car=",ci," wheel=",wi," center=",bound.GetCenter()," size=",bound.Size);
+     foreach(var child in spin.GetChildren())if(child is MeshInstance3D part&&part.Visible){var bounds=part.Transform*part.GetAabb();var materials=new List<object>();for(int si=0;si<part.Mesh.GetSurfaceCount();si++){var material=part.GetActiveMaterial(si);materials.Add(new {surface=si,type=material?.GetType().Name,texture=(material as StandardMaterial3D)?.AlbedoTexture?.ResourcePath});}partAudit.Add(new {wheel=wi,name=part.Name.ToString(),center=bounds.GetCenter().ToString(),size=bounds.Size.ToString(),materials});}
      wr.Add(new { wheel=wi, x=bound.Size.X,y=bound.Size.Y,z=bound.Size.Z,center=bound.GetCenter().ToString() });
      Check(Math.Abs(bound.GetCenter().X)<.08f,"wheel assembly offset from hub car "+ci);Check(!first,"missing wheel geometry car "+ci);Check(bound.Size.Y>.3f&&bound.Size.Y<1.5f,"wheel diameter invalid car "+ci);
      Check(Math.Abs(bound.Size.Y-bound.Size.Z)<.18f,"wheel radial bounds not circular car "+ci+" wheel "+wi+" bounds="+bound);
     }
-    rows.Add(new {car=ci,name=CarCatalog.Names[ci],width=dims.X,height=dims.Y,length=dims.Z,wheels=wr});car.Free();
+    rows.Add(new {car=ci,name=CarCatalog.Names[ci],width=dims.X,height=dims.Y,length=dims.Z,wheels=wr,parts=partAudit});car.Free();
    }
    System.IO.File.WriteAllText(System.Environment.GetEnvironmentVariable("MYSIM_GEOMETRYOUT")??"outputs/repair-20261029/geometry.json",System.Text.Json.JsonSerializer.Serialize(rows,new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));
    GD.Print("PASS runtime contact and geometry ",count," assertions");GetTree().Quit();

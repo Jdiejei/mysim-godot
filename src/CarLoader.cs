@@ -20,6 +20,7 @@ public static class CarLoader {
     m.SetSurfaceOverrideMaterial(s, mat);
    }
   }
+  WindingFixer.Fix(root,out int windingSurfaces);
   return root;
  }
 static Godot.Collections.Dictionary carMap;
