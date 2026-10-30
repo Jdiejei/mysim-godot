@@ -22,7 +22,8 @@ public partial class RuntimeChecks : Node3D {
    var building=new MeshInstance3D {Name="arc_brick_test",Mesh=new BoxMesh {Size=new Vector3(3,3,3)},Position=new Vector3(20,1.5f,-6)};objects.AddChild(building);
    var road=new MeshInstance3D {Name="gnd_concrete_test",Mesh=new PlaneMesh()};objects.AddChild(road);
    var decal=new MeshInstance3D {Name="overlay_wall_scuff",Mesh=new PlaneMesh()};objects.AddChild(decal);
-   Check(WallBuilder.IsSolid(building),"architecture lacks a solid role");Check(!WallBuilder.IsSolid(road),"road became a phantom wall");Check(!WallBuilder.IsSolid(decal),"decal became a phantom wall");Check(WallBuilder.Build(objects)==1,"physical role coverage wrong");
+   var concaveRoof=new MeshInstance3D {Name="arc_concave_roof_test",Mesh=new BoxMesh {Size=new Vector3(8,.2f,8)},Position=new Vector3(120,2,-35)};objects.AddChild(concaveRoof);
+   Check(WallBuilder.IsSolid(building),"architecture lacks a solid role");Check(!WallBuilder.IsSolid(road),"road became a phantom wall");Check(!WallBuilder.IsSolid(decal),"decal became a phantom wall");Check(WallBuilder.Build(objects)==2,"physical role coverage wrong");
    for(int i=0;i<3;i++) await ToSignal(GetTree(),SceneTree.SignalName.PhysicsFrame);
    var space=GetWorld3D().DirectSpaceState;
    foreach(float length in new[]{4.06f,5.55f}) foreach(float angle in new[]{0f,.35f,-.35f}) {
@@ -42,6 +43,8 @@ public partial class RuntimeChecks : Node3D {
    var clearance=new PhysicsShapeQueryParameters3D {Shape=new BoxShape3D {Size=new Vector3(2,1,4)},Transform=new Transform3D(Basis.Identity,new Vector3(wedged.position.x,.5f,wedged.position.z)),CollisionMask=2,Margin=.01f};Check(space.IntersectShape(clearance).Count==0,"initial overlap remains against second corner wall");Check((wedged.lastIntegrated-wedged.position).Magnitude<.001f,"stationary corner recovery leaves stale integration pose");
    var g=Contact.Ground(space,new Vector3(4,0,-4),0);Check(g.near&&Math.Abs(g.y)<.01f,"ground height incorrect");
    var supported=new Vehicle {position=new Vec(70,-35)};Check(!Contact.Walls(space,supported,supported.position,0,new Vector3(2,1,4)),"walkable bridge support became a side-wall collision");var parapet=new Vehicle {position=new Vec(80,-35),velocity=new Vec(40,0),speed=40};Check(Contact.Walls(space,parapet,new Vec(70,-35),0,new Vector3(2,1,4)),"bridge parapet was ignored with its deck");Check(parapet.position.x<72.5f,"car passed through bridge parapet");
+   var embeddedRoof=new Vehicle {position=new Vec(120,-35)};Check(Contact.Walls(space,embeddedRoof,embeddedRoof.position,0,new Vector3(2,2.2f,4)),"actual concave imported roof overlap was ignored");
+   var enteringRoof=new Vehicle {position=new Vec(120,-35),velocity=new Vec(0,30),speed=30};Check(Contact.Walls(space,enteringRoof,new Vec(120,-45),0,new Vector3(2,2.2f,4)),"actual concave imported roof sweep was ignored");Check(enteringRoof.position.z<-40,"car crossed actual concave roof edge");
    var seedGround=Contact.Ground(space,new Vector3(80,0,35),0,float.MaxValue);Check(seedGround.found&&!seedGround.clamped&&Math.Abs(seedGround.y-25)<.01f,"initial road height was clamped toward world zero");var seeded=Contact.Ground(space,new Vector3(80,seedGround.y,35),seedGround.y);Check(seeded.near&&!seeded.clamped,"spawn did not begin on the actual driving surface");
    var contained=new Vehicle {position=new Vec(0,-4),velocity=new Vec(10,0),speed=10,lateral=0}; Contact.MarkGood(contained,true);
    contained.position=new Vec(40,-4);contained.lateral=40;Check(Contact.Contain(contained,new Vec(39,-4),true,30),"containment missed");Check(contained.position.x==0,"containment did not restore last valid point");
