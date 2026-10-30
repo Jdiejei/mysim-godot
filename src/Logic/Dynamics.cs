@@ -28,6 +28,9 @@ namespace MySimulator.Rebuild
         public static readonly float AeroF=float.Parse(Environment.GetEnvironmentVariable("MYSIM_AEROF")??"0.42",System.Globalization.CultureInfo.InvariantCulture);
         public static readonly float GripSlope=float.Parse(Environment.GetEnvironmentVariable("MYSIM_GSLOPE")??"1.2",System.Globalization.CultureInfo.InvariantCulture),GripMax=float.Parse(Environment.GetEnvironmentVariable("MYSIM_GMAX")??"2.8",System.Globalization.CultureInfo.InvariantCulture);
         public static readonly float DownM=float.Parse(Environment.GetEnvironmentVariable("MYSIM_DOWNM")??"2",System.Globalization.CultureInfo.InvariantCulture);
+        public static float SteeringLock(float speed){float vs=Math.Max(Math.Abs(speed),.1f),frac=MathUtil.Clamp((45f-vs)/37f,0,1);return Math.Max(frac*(.55f-.085f)+.085f,1f/8192f);}
+        public static float SteeringTarget(float command,float speed){float limit=SteeringLock(speed);return MathUtil.Clamp(command*330f/256f*limit,-limit,limit);}
+        public static float SteeringCommand(float angle,float speed)=>MathUtil.Clamp(angle/(330f/256f*SteeringLock(speed)),-1,1);
         public static void Step(Vehicle v,float dt,float wetness,Circuit circuit)
         {
             int m=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,v.carModel));
@@ -40,8 +43,8 @@ namespace MySimulator.Rebuild
             var inp=v.input;
             bool road=circuit.OnRoad(v.progress,v.lateral)||v.onDrivingSurface;
             // steering: RR3 speed-sensitive lock, rate-limited
-            float vs=Math.Max(Math.Abs(u),.1f),frac=MathUtil.Clamp((45f-vs)/37f,0,1),maxSteer=Math.Max(frac*(.55f-.085f)+.085f,1f/8192f);
-            v.currentMaxSteer=maxSteer;float target=MathUtil.Clamp(inp.steer*330f/256f*maxSteer,-maxSteer,maxSteer);
+            float maxSteer=SteeringLock(u);
+            v.currentMaxSteer=maxSteer;float target=SteeringTarget(inp.steer,u);
             float stp=3.2f*dt,prev=v.steering;v.steering+=MathUtil.Clamp(target-v.steering,-stp,stp);if((target-v.steering)*(target-prev)<0)v.steering=target;
             float delta=v.steering,cd=(float)Math.Cos(delta),sd=(float)Math.Sin(delta);
             // power, drag, aero

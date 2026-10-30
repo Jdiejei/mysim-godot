@@ -261,10 +261,10 @@ namespace MySimulator.Rebuild
         {
             float look=MathUtil.Clamp(4+speed*.5f,4,40),offset=0;
             string aiProbe=Environment.GetEnvironmentVariable("MYSIM_PRECISE_AI");
-            if(aiProbe=="1"||aiProbe=="2"){
+            if(aiProbe=="1"||aiProbe=="2"||aiProbe=="3"){
                 float step=Math.Max(.0001f,Math.Min(.002f,4f/track.length));Vec p0=track.Point(progress),p1=track.Point(progress+step),p2=track.Point(progress+2*step);Vec d0=p1-p0,d1=p2-p1;
                 float angle=Math.Abs(MathUtil.Wrap((float)Math.Atan2(d1.x,d1.z)-(float)Math.Atan2(d0.x,d0.z)));float pathCurvature=angle/Math.Max(.5f,(d0.Magnitude+d1.Magnitude)*.5f);
-                look=Math.Min(look,Math.Max(aiProbe=="2"?8f:4f,(aiProbe=="2"?.8f:.5f)/Math.Max(.001f,pathCurvature)));
+                look=Math.Min(look,Math.Max(aiProbe!="1"?8f:4f,(aiProbe!="1"?.8f:.5f)/Math.Max(.001f,pathCurvature)));
             }
             Vehicle obstruction=null;float aheadDistance=float.MaxValue;
             if(traffic!=null&&!pitActive)foreach(var other in traffic)
@@ -277,6 +277,7 @@ namespace MySimulator.Rebuild
             float localX=Vec.Dot(diff,Right),d=diff.Magnitude;
             float desiredSteer=(float)Math.Atan2(2*RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))]*localX,Math.Max(1,d*d));
             float steer=desiredSteer/((externalPhysics||physicalHandling)?PhysicalSteeringLimit(speed):Math.Max(.05f,currentMaxSteer));
+            if(aiProbe=="3"&&UseDynamics&&!externalPhysics)steer=Dynamics.SteeringCommand(desiredSteer,Vec.Dot(velocity,Forward));
             float turn=Math.Abs(MathUtil.Wrap(track.Heading(progress+.04f)-track.Heading(progress)))/(.04f*track.length);
             for(int j=0;j<6;j++){float p=progress+j*.012f;turn=Math.Max(turn,Math.Abs(MathUtil.Wrap(track.Heading(p+.012f)-track.Heading(p)))/(.012f*track.length));}
             int cm=Math.Max(0,Math.Min(RecoveredVehicleProfiles.Count-1,carModel));float gripMul=Dynamics.GripMul(cm),paceCap=MathUtil.Lerp(.75f,.97f,MathUtil.Clamp((gripMul-1)/.45f,0,1)),latAcc=CornerLateralAccel*gripMul*Math.Min(pace,paceCap);float aDown=Dynamics.DownK(cm)/RecoveredVehicleProfiles.Mass[cm]*latAcc/9.81f;float topAi=Math.Max(TopAiSpeed,RecoveredVehicleProfiles.Speed[cm]*.44704f*.92f);float planDecel=MathUtil.Clamp(26.82f*26.82f/(2*RecoveredVehicleProfiles.Brakes[cm]*.3048f)*PlanDecelK,5f,14f);float desired=MathUtil.Clamp(SpeedAhead(track,progress,latAcc,planDecel,aDown),10,topAi);

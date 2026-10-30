@@ -12,6 +12,12 @@ namespace MySimulator.Verification
         public static string Run()
         {
             count=0;var log=new List<string>();
+            foreach(float speed in new[]{-20f,0f,8f,18f,40f,70f})foreach(float fraction in new[]{-1f,-.8f,-.3f,0f,.3f,.8f,1f}){
+                float limit=Dynamics.SteeringLock(speed),requested=limit*fraction;float commanded=Dynamics.SteeringCommand(requested,speed);
+                Check(Math.Abs(Dynamics.SteeringTarget(commanded,speed)-requested)<.00001f,"AI steering does not request the actual model wheel angle");
+                float previous=MathUtil.Clamp((45f-Math.Max(Math.Abs(speed),.1f))/37f,0,1)*(.55f-.085f)+.085f;
+                Check(Math.Abs(Dynamics.SteeringTarget(commanded,speed)-MathUtil.Clamp(commanded*330f/256f*previous,-previous,previous))<.00001f,"steering target refactor changed driver response");
+            }
             foreach(int variant in new[]{0,1,2})
             {
                 var r=new Race(variant,2,0);r.countdown=0;var v=r.Add("Autopilot",false,Compound.Medium);
