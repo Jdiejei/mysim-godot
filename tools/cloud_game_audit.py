@@ -42,7 +42,8 @@ if os.environ.get('WHEEL_ORIENTATION')=='1':
 if os.environ.get('NATIVE_RACES')=='1' or os.environ.get('NATIVE_FOCUS')=='1':
  import re
  cars=[int(x) for x in os.environ.get('NATIVE_CARS','16').split(',')];assert len(set(cars))==len(cars) and all(0<=car<24 for car in cars)
- focus=json.loads(pathlib.Path('data/native_shutdown_recovery.json').read_text())['cases'] if os.environ.get('NATIVE_FOCUS')=='1' else None
+ caseSet=os.environ.get('NATIVE_CASE_SET','shutdown');assert caseSet in ('shutdown','bridge')
+ focus=json.loads(pathlib.Path('data/native_bridge_regression.json' if caseSet=='bridge' else 'data/native_shutdown_recovery.json').read_text())['cases'] if os.environ.get('NATIVE_FOCUS')=='1' else None
  for track in (sorted(set(x['track'] for x in focus)) if focus else range(shard,60,12)):
   for car in ([x['car'] for x in focus if x['track']==track] if focus else cars):
    label=f'native-car-{car:02}-track-{track:02}'

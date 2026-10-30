@@ -1,0 +1,97 @@
+{
+  "distinct_fix": "4cm chassis contact-patch clearance; floor/parapet/roof checks passed; car16 already passed default-AI pilot41020126304",
+  "cases": [
+    {
+      "car": 0,
+      "track": 43
+    },
+    {
+      "car": 1,
+      "track": 43
+    },
+    {
+      "car": 2,
+      "track": 43
+    },
+    {
+      "car": 3,
+      "track": 43
+    },
+    {
+      "car": 4,
+      "track": 43
+    },
+    {
+      "car": 5,
+      "track": 43
+    },
+    {
+      "car": 6,
+      "track": 43
+    },
+    {
+      "car": 7,
+      "track": 43
+    },
+    {
+      "car": 8,
+      "track": 43
+    },
+    {
+      "car": 9,
+      "track": 43
+    },
+    {
+      "car": 10,
+      "track": 43
+    },
+    {
+      "car": 11,
+      "track": 43
+    },
+    {
+      "car": 12,
+      "track": 43
+    },
+    {
+      "car": 13,
+      "track": 43
+    },
+    {
+      "car": 14,
+      "track": 43
+    },
+    {
+      "car": 15,
+      "track": 43
+    },
+    {
+      "car": 17,
+      "track": 43
+    },
+    {
+      "car": 18,
+      "track": 43
+    },
+    {
+      "car": 19,
+      "track": 43
+    },
+    {
+      "car": 20,
+      "track": 43
+    },
+    {
+      "car": 21,
+      "track": 43
+    },
+    {
+      "car": 22,
+      "track": 43
+    },
+    {
+      "car": 23,
+      "track": 43
+    }
+  ]
+}
