@@ -49,13 +49,14 @@ if os.environ.get('WHEEL_ORIENTATION')=='1':
 if os.environ.get('NATIVE_RACES')=='1' or os.environ.get('NATIVE_FOCUS')=='1':
  import re
  cars=[int(x) for x in os.environ.get('NATIVE_CARS','16').split(',')];assert len(set(cars))==len(cars) and all(0<=car<24 for car in cars)
- caseSet=os.environ.get('NATIVE_CASE_SET','shutdown');assert caseSet in ('shutdown','bridge')
- focus=json.loads(pathlib.Path('data/native_bridge_regression.json' if caseSet=='bridge' else 'data/native_shutdown_recovery.json').read_text())['cases'] if os.environ.get('NATIVE_FOCUS')=='1' else None
+ caseSet=os.environ.get('NATIVE_CASE_SET','shutdown');assert caseSet in ('shutdown','bridge','monaco_ai3')
+ focusPath={'bridge':'data/native_bridge_regression.json','shutdown':'data/native_shutdown_recovery.json','monaco_ai3':'data/native_monaco_ai3.json'}[caseSet]
+ focus=json.loads(pathlib.Path(focusPath).read_text())['cases'] if os.environ.get('NATIVE_FOCUS')=='1' else None
  for track in (sorted(set(x['track'] for x in focus)) if focus else range(shard,60,12)):
   for car in ([x['car'] for x in focus if x['track']==track] if focus else cars):
    label=f'native-car-{car:02}-track-{track:02}'
    try:
-    text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000'},['--headless'],timeout=1800)
+    text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000','MYSIM_PRECISE_AI':'3' if focus and caseSet=='monaco_ai3' else '0','MYSIM_CONTACT_TRACE':str(out/(label+'-contacts.jsonl'))},['--headless'],timeout=1800)
     finished=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text)
     ok=bool(finished) and float(finished[1])>0 and int(finished[2])==0 and float(finished[3])==0
     row={'track':track,'car':car,'ok':ok,'finish':finished[0] if finished else None}

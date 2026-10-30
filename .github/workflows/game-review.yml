@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation, contact_trace, car_uv_roles, precise_ai, native_focus, car_panel_uv], default: preview}
-      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge], default: shutdown}
+      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge, monaco_ai3], default: shutdown}
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
