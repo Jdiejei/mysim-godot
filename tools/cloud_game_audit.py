@@ -22,11 +22,17 @@ if os.environ.get('WHEEL_ORIENTATION')=='1':
  print('COMPLETE source/legacy wheel-facing comparison; production choice pending',flush=True);sys.exit(0)
 if os.environ.get('NATIVE_RACES')=='1':
  import re
+ cars=[int(x) for x in os.environ.get('NATIVE_CARS','16').split(',')];assert len(set(cars))==len(cars) and all(0<=car<24 for car in cars)
  for track in range(shard,60,12):
-  text=run(f'native-track-{track:02}',{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000'},['--headless'],timeout=1800)
-  finished=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text)
-  ok=bool(finished) and float(finished[1])>0 and int(finished[2])==0 and float(finished[3])==0
-  rows.append({'track':track,'scope':'native full-scene physics lap; no visual performance acceptance','ok':ok,'finish':finished[0] if finished else None});(out/'native-race-status.json').write_text(json.dumps(rows,indent=2))
+  for car in cars:
+   label=f'native-car-{car:02}-track-{track:02}'
+   try:
+    text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_LAPS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'1000'},['--headless'],timeout=1800)
+    finished=re.search(r'FINISHED.*best=([0-9.]+).*wallHits=([0-9]+).*damage=([0-9.]+)',text)
+    ok=bool(finished) and float(finished[1])>0 and int(finished[2])==0 and float(finished[3])==0
+    row={'track':track,'car':car,'ok':ok,'finish':finished[0] if finished else None}
+   except RuntimeError as e:row={'track':track,'car':car,'ok':False,'error':str(e)}
+   row['scope']='native full-scene physics lap; no visual performance acceptance';rows.append(row);(out/'native-race-status.json').write_text(json.dumps(rows,indent=2))
  assert all(x['ok'] for x in rows)
  print('PASS native full-scene race shard (visual gates separate)',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_REVIEW')=='1':

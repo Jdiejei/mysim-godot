@@ -1,11 +1,12 @@
 name: game-art-and-runtime-review
-run-name: full game art and runtime review
+run-name: '${{ inputs.depth }} cars ${{ inputs.cars || ''16'' }}'
 on:
   workflow_dispatch:
     inputs:
       depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation], default: preview}
+      cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
-concurrency: {group: 'game-art-review-${{ inputs.depth }}', cancel-in-progress: false}
+concurrency: {group: 'game-art-review-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}', cancel-in-progress: false}
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -29,13 +30,13 @@ jobs:
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
         run: |
           pip install cryptography Pillow
-          gh release view repair-inputs-20261029 --json assets > /tmp/assets.json
+          gh release view repair-inputs-20261029 --repo instagramshashank8-bot/mysim-godot --json assets > /tmp/assets.json
           python - <<'PY'
           import json,subprocess,pathlib
           names=sorted(a['name'] for a in json.load(open('/tmp/assets.json'))['assets'] if a['name'].startswith('assets-part-'))
           assert names, 'No game asset parts uploaded'
           for name in names:
-              subprocess.run(['gh','release','download','repair-inputs-20261029','--pattern',name,'--dir','/tmp/parts'],check=True)
+              subprocess.run(['gh','release','download','repair-inputs-20261029','--repo','instagramshashank8-bot/mysim-godot','--pattern',name,'--dir','/tmp/parts'],check=True)
               subprocess.run(['python','tools/cloud_decrypt.py','/tmp/parts/'+name,'.'],check=True)
               pathlib.Path('/tmp/parts/'+name).unlink()
           PY
@@ -64,6 +65,7 @@ jobs:
           SHARD: ${{ matrix.shard }}
           GEOMETRY_ONLY: ${{ inputs.depth == 'geometry' && '1' || '0' }}
           WHEEL_ORIENTATION: ${{ inputs.depth == 'wheel_orientation' && '1' || '0' }}
+          NATIVE_CARS: ${{ inputs.cars || '16' }}
           NATIVE_RACES: ${{ inputs.depth == 'native_races' && '1' || '0' }}
           CAR_UV_REVIEW: ${{ inputs.depth == 'car_uv' && '1' || '0' }}
           INPUT_PHYSICS: ${{ inputs.depth == 'input_physics' && '1' || '0' }}
