@@ -28,7 +28,7 @@ public sealed class NativeTraffic {
  }
  public void Pause(bool pause){foreach(var e in entries){if(e.Body==null)continue;if(pause&&!e.Paused){e.Velocity=e.Body.LinearVelocity;e.Angular=e.Body.AngularVelocity;e.Body.Freeze=true;e.Paused=true;}else if(!pause&&e.Paused){e.Body.Freeze=e.Parked;e.Body.LinearVelocity=e.Velocity;e.Body.AngularVelocity=e.Angular;e.Paused=false;}}}
  public void Apply(float dt){foreach(var e in entries){var b=e.Body;var v=e.RaceCar;if(v.externalResetRequested&&!Place(e,true))throw new Exception("Native opponent reset has no drive surface");if(v.servicing&&!e.Parked){if(!Place(e,false))throw new Exception("Native opponent pit has no drive surface");b.Freeze=true;e.Parked=true;}else if(!v.servicing&&e.Parked){b.Freeze=false;e.Parked=false;TyreAppearance.Apply(e.Wheels,v.tyres[0].compound);}
-   b.Water=owner.Race.wetness;b.TractionControl=v.traction;b.BrakeStabilityAssist=v.abs;b.Controls=v.servicing?new DriverInput(0,1,0):v.input;
+   b.Water=owner.Race.wetness;b.TractionControl=v.traction;b.BrakeStabilityAssist=v.abs;b.Controls=v.servicing?new DriverInput(0,1,0):v.input;b.HybridDriveForce=v.servicing?0:HybridDeployment.Step(v,v.input,dt)*v.input.throttle;
    e.Model.GlobalTransform=new Transform3D(b.GlobalBasis,b.GlobalPosition-b.GlobalBasis.Y*.65f);e.Travel+=b.LinearVelocity.Dot(b.GlobalBasis.Z)*dt;WheelAnimation.Update(e.Wheels,e.Travel,b.WheelAngle);for(int i=0;i<4;i++)e.Wheels[i].Position=e.Homes[i]+Vector3.Up*(b.RestLength-b.StaticSag-b.SpringLength[i]);
   }}
  public object Evidence=>entries.ConvertAll(e=>(object)new {car=e.RaceCar.carModel,distance=e.RaceCar.totalDistance,speed=e.RaceCar.speed,contacts=e.Body?.Contacts,positionFinite=e.Body!=null&&e.Body.GlobalPosition.IsFinite()});
