@@ -10,7 +10,7 @@ public partial class WallGeometryScenario : Node3D {
   foreach(var variation in track["variationPaths"].AsGodotArray()){string resource="res://"+variation.AsString().Replace("Assets/RealRacing/Source/","assets/RealRacing/Source/");if(EmptyVariations.Paths.Contains(resource)||!ResourceLoader.Exists(resource))continue;var layer=GD.Load<PackedScene>(resource).Instantiate<Node3D>();layer.Scale=Vector3.One*100;AddChild(layer);}
   foreach(var child in GetChildren())if(child is Node3D layer){WindingFixer.Fix(layer,out _);GroundFixer.Fix(layer);}
   var rows=new List<object>();var suspects=new List<(MeshInstance3D Mesh,Vector3 Centre,Vector3 Normal)>();
-  using var meshes=FindChildren("*","MeshInstance3D",true,false);
+  var meshes=FindChildren("*","MeshInstance3D",true,false);
   foreach(var node in meshes){var mesh=(MeshInstance3D)node;if(!mesh.Name.ToString().Contains("prop_turn_sign_a_35_mm5",StringComparison.OrdinalIgnoreCase))continue;
    var faces=WallBuilder.WallFaces(mesh,out var support);float localMin=float.PositiveInfinity,worldMin=float.PositiveInfinity,maxWorldArea=0;int zeroArea=0;Vector3 probeCentre=Vector3.Zero,probeNormal=Vector3.Zero;
    for(int i=0;i<faces.Length;i+=3){var local=(faces[i+1]-faces[i]).Cross(faces[i+2]-faces[i]);var a=mesh.GlobalTransform*faces[i];var b=mesh.GlobalTransform*faces[i+1];var c=mesh.GlobalTransform*faces[i+2];var world=(b-a).Cross(c-a);localMin=Math.Min(localMin,local.Length());worldMin=Math.Min(worldMin,world.Length());if(world.LengthSquared()==0)zeroArea++;if(world.Length()>maxWorldArea){maxWorldArea=world.Length();probeCentre=(a+b+c)/3;probeNormal=world.Normalized();}}
