@@ -5,7 +5,7 @@ scopes={'wall_geometry_diagnostic':([],[49]),'rain_focus':([6,16],[0]),'rear_pan
 if depth=='native_geometry_recovery':
  cases=[x for x in json.loads((root/'data/native_geometry_recovery.json').read_text())['cases'] if x['track']%12==int(os.environ.get('SHARD','0'))];scopes[depth]=(sorted({x['car'] for x in cases}),sorted({x['track'] for x in cases}))
 if depth=='native_hull_recovery':scopes[depth]=(sorted(set(x['car'] for x in json.loads((root/'data/native_hull_recovery.json').read_text())['cases'])),[])
-if depth in ('native_traffic_lap','native_traffic_diagnostic'):scopes[depth]=([[0,1],[16,17]][int(os.environ.get('SHARD','0'))],[[0,43][int(os.environ.get('SHARD','0'))]])
+if depth in ('native_traffic_lap','native_traffic_diagnostic','native_ccd_diagnostic'):scopes[depth]=([[0,1],[16,17]][int(os.environ.get('SHARD','0'))],[[0,43][int(os.environ.get('SHARD','0'))]])
 if depth=='native_mounted_laps':scopes[depth]=([int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')],list(range(int(os.environ.get('SHARD','0')),60,12)))
 if depth=='native_ai_diagnostic':scopes[depth]=([16],[22])
 if depth=='native_hull_matrix':scopes[depth]=(list(range(int(os.environ.get('SHARD','0'))*2,int(os.environ.get('SHARD','0'))*2+2)),[])
