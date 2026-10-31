@@ -42,6 +42,7 @@ public partial class ControlsScenario : Node {
     Find("PIT").EmitSignal(BaseButton.SignalName.Pressed);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
     var strategy=hud.PitStrategy;Check(strategy.Open&&strategy.Visible,"GUI pit options failed to open");
     var compound=(OptionButton)strategy.FindChild("COMPOUND",true,false);compound.Select(3);compound.EmitSignal(OptionButton.SignalName.ItemSelected,3L);
+    ((CheckBox)strategy.FindChild("REPAIR",true,false)).EmitSignal(BaseButton.SignalName.Toggled,true);Check(player.repairRequested,"GUI repair selection not bound to race service");
     ((Button)strategy.FindChild("REQUEST",true,false)).EmitSignal(BaseButton.SignalName.Pressed);Check(player.pitRequested&&player.nextCompound==MySimulator.Rebuild.Compound.Wet&&!strategy.Open,"GUI pit request/compound/close flow failed");
     Find("PAUSE").EmitSignal(BaseButton.SignalName.Pressed);Check(car.paused&&TouchControls.Throttle==0&&TouchControls.Steer==0,"GUI pause did not clear pedals");
     Find("PAUSE").EmitSignal(BaseButton.SignalName.Pressed);Check(!car.paused&&TouchControls.Throttle==0,"GUI resume did not restore racing safely");

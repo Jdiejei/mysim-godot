@@ -2,6 +2,8 @@ using System;
 namespace MySimulator.Rebuild {
 // One deterministic service clock for visual actions, wheel motion and sound triggers.
 public static class PitServiceTimeline {
+ public static float RepairDuration {get;private set;}=8f;
+ public static void Configure(string json){using var data=System.Text.Json.JsonDocument.Parse(json);float seconds=data.RootElement.GetProperty("bodyworkRepairSeconds").GetSingle();if(!float.IsFinite(seconds)||seconds<0||seconds>120)throw new ArgumentOutOfRangeException("bodyworkRepairSeconds");RepairDuration=seconds;}
  public const float Duration=7.5f,LiftEnd=.8f,LowerStart=6.4f,LowerEnd=7.2f;
  public static float Loosen(int wheel)=>1f+wheel*.6f;
  public static float Remove(int wheel)=>Loosen(wheel)+.4f;

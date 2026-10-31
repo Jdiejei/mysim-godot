@@ -11,8 +11,8 @@ public partial class PitServiceDisplay : PanelContainer {
   progress=new ProgressBar {ShowPercentage=false,MaxValue=PitServiceTimeline.Duration,CustomMinimumSize=new Vector2(330,8)};stack.AddChild(progress);Visible=false;
  }
  public override void _Process(double delta){
-  Visible=Player!=null&&Player.servicing;if(!Visible)return;float elapsed=PitServiceTimeline.Duration-Player.serviceRemaining;
-  title.Text=PitServiceTimeline.Stage(elapsed);clock.Text=$"{elapsed:0.0}s  /  {PitServiceTimeline.Duration:0.0}s    {Player.nextCompound.ToString().ToUpperInvariant()} TYRES";progress.Value=elapsed;
+  Visible=Player!=null&&Player.servicing;if(!Visible)return;float elapsed=Player.ServiceElapsed;
+  title.Text=Player.ServiceStage;progress.MaxValue=Player.serviceDuration;clock.Text=$"{elapsed:0.0}s  /  {Player.serviceDuration:0.0}s    {Player.nextCompound.ToString().ToUpperInvariant()} TYRES";progress.Value=elapsed;
   string[] names={"FRONT LEFT","FRONT RIGHT","REAR LEFT","REAR RIGHT"};for(int i=0;i<4;i++){
    string state=elapsed<PitServiceTimeline.Loosen(i)?"WAIT":elapsed<PitServiceTimeline.Remove(i)?"LOOSEN":elapsed<PitServiceTimeline.Fit(i)?"CHANGE":elapsed<PitServiceTimeline.Secure(i)?"SECURE":"READY";
    wheels[i].Text=names[i]+"  "+state;wheels[i].Modulate=state=="READY"?new Color(.3f,1,.6f):Colors.White;

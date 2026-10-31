@@ -126,7 +126,9 @@ namespace MySimulator.Rebuild
         public float[] damageRegions=new float[15];
         public Tyre[] tyres={new Tyre(),new Tyre(),new Tyre(),new Tyre()};
         public bool pitRequested,pitActive,servicing,pitDone,finished,retired;
-        public float serviceRemaining,stuckTime;
+        public float serviceRemaining,stuckTime,serviceDuration=PitServiceTimeline.Duration;public bool repairRequested,repairForService,tyresReplaced,bodyRepaired;
+        public float ServiceElapsed=>servicing?Math.Max(0,serviceDuration-serviceRemaining):-1;
+        public string ServiceStage=>!servicing?"READY":serviceRemaining<=0?"WAITING FOR RELEASE":repairForService&&ServiceElapsed>=PitServiceTimeline.Duration?"REPAIR BODYWORK":PitServiceTimeline.Stage(ServiceElapsed);
         public Compound nextCompound=Compound.Medium;
         public DriverInput input;
         public bool abs=true,traction=true,steerAssist=false;public float ersCharge=1;public bool ersAuto=true,ersOvertake,ersActive;public float currentMaxSteer=.5f;public Vec lastIntegrated;public bool hasIntegrated;public DynState dyn;public static bool UseDynamics=Environment.GetEnvironmentVariable("MYSIM_LEGACY_PHYS")!="1";
@@ -142,18 +144,21 @@ namespace MySimulator.Rebuild
         {
             dyn=null;hasBodyPose=false;externalResetRequested=externalPhysics;position=circuit.Lane(p,offset);heading=circuit.Heading(p);velocity=new Vec();yawRate=0;speed=0;progress=previousProgress=p;nextGate=1;lapElapsed=0;
         }
-        public void ReplaceTyres(){foreach(Tyre t in tyres)t.Replace(nextCompound);damage*=.2f;}
+        public void ReplaceTyres(){foreach(Tyre t in tyres)t.Replace(nextCompound);}
+        public void RepairBodywork(){damage=0;Array.Clear(damageRegions,0,damageRegions.Length);}
         public void Step(Circuit circuit,float dt,float wetness,bool running,float time,int laps,bool serviceAllowed=true,bool releaseAllowed=true)
         {
             recoveryRemaining=Math.Max(0,recoveryRemaining-dt);input=input.Safe();float oldProgress=progress;progress=circuit.Find(position,out lateral);
             if(running&&!finished&&!retired&&pitRequested&&!pitDone&&circuit.PitValid&&(position-circuit.PitRoute[0]).Magnitude<16)pitActive=true;
             if(serviceAllowed&&running&&!finished&&!retired&&pitActive&&!pitDone&&!servicing&&(position-circuit.PitBox).Magnitude<1.2f&&speed<1.2f)
-            {servicing=true;serviceRemaining=PitServiceTimeline.Duration;position=circuit.PitBox;Vec pitDirection=(circuit.PitPoint(circuit.PitServiceIndex+2)-circuit.PitPoint(circuit.PitServiceIndex-2)).Normalized;heading=(float)Math.Atan2(pitDirection.x,pitDirection.z);velocity=new Vec();yawRate=0;}
+            {servicing=true;repairForService=repairRequested&&damage>0;serviceDuration=PitServiceTimeline.Duration+(repairForService?PitServiceTimeline.RepairDuration:0);serviceRemaining=serviceDuration;tyresReplaced=bodyRepaired=false;position=circuit.PitBox;Vec pitDirection=(circuit.PitPoint(circuit.PitServiceIndex+2)-circuit.PitPoint(circuit.PitServiceIndex-2)).Normalized;heading=(float)Math.Atan2(pitDirection.x,pitDirection.z);velocity=new Vec();yawRate=0;}
             if(!running){velocity=new Vec();yawRate=0;return;}
             if(servicing)
             {
                 serviceRemaining=Math.Max(0,serviceRemaining-dt);velocity=new Vec();speed=0;
-                if(serviceRemaining<=0&&releaseAllowed){ReplaceTyres();servicing=false;pitDone=true;pitRequested=false;}
+                if(!tyresReplaced&&ServiceElapsed>=PitServiceTimeline.Duration){ReplaceTyres();tyresReplaced=true;}
+                if(repairForService&&!bodyRepaired&&serviceRemaining<=0){RepairBodywork();bodyRepaired=true;}
+                if(serviceRemaining<=0&&releaseAllowed){servicing=false;pitDone=true;pitRequested=false;}
                 if(running&&!finished&&!retired)lapElapsed+=dt;return;
             }
             float pitDistance;float pitIndex=circuit.FindPit(position,out pitDistance);
