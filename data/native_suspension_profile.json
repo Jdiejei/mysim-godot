@@ -1,7 +1,7 @@
 {
-  "scope": "Authored experimental suspension setup, not measured manufacturer calibration. Original source mesh and tyre dimensions preserved.",
+  "scope": "Authored experimental suspension setup, not measured manufacturer calibration. Original source mesh and tyre dimensions preserved. Reserve includes the explicit CI CCD penetration allowance10mm plus5mm penetration slop; dynamic clearance still requires actual contact/race evidence.",
   "minimumStaticClearance": 0.035,
   "maximumPreload": 0.12,
-  "bumpStopReserve": 0.01,
+  "bumpStopReserve": 0.02,
   "bumpStopRateMultiplier": 12
 }
