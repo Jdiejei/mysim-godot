@@ -16,7 +16,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public string[] ContactParts=Array.Empty<string>(),ContactSurfaces=Array.Empty<string>();public int ChassisContacts;public readonly Vector3[] ContactForces=new Vector3[4],ContactNormals=new Vector3[4];
  public readonly bool[] Grounded=new bool[4];public readonly float[] Loads=new float[4];public readonly float[] SpringLength=new float[4];
  public Vector3[] RecoveredWheelCentres;public float[] RecoveredWheelRadii;
- public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
+ public float SuspensionPreload;public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
  public float TyreLoadRatio {get{float sum=0;foreach(float load in Loads)sum+=load;return sum/(Mass*9.81f);}}
  public Tyre[] Tyres=>tyres;
  Vector3[] mounts=new Vector3[4];float[] radii=new float[4];Tyre[] tyres={new Tyre(),new Tyre(),new Tyre(),new Tyre()};float power,drag,brakeDecel;
@@ -27,6 +27,10 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   if((RecoveredWheelCentres==null)!=(RecoveredWheelRadii==null)||RecoveredWheelCentres!=null&&(RecoveredWheelCentres.Length!=4||RecoveredWheelRadii.Length!=4))throw new InvalidOperationException("Recovered wheel contact configuration incomplete");
   for(int i=0;i<4;i++){radii[i]=RecoveredWheelRadii==null?WheelRadius:RecoveredWheelRadii[i];if(!float.IsFinite(radii[i])||radii[i]<.15f||radii[i]>.6f)throw new InvalidOperationException("Recovered wheel radius invalid");mounts[i]=RecoveredWheelCentres==null?new Vector3(i%2==0?-track*.5f:track*.5f,-.32f+RestLength-StaticSag,i<2?wheelbase*.5f:-wheelbase*.5f):RecoveredWheelCentres[i]+Vector3.Up*(RestLength-StaticSag);tyres[i].Replace(Compound);}
   if(!NativeCarColliders.Install(this,CarIndex)){AddChild(new CollisionShape3D {Shape=new BoxShape3D {Size=new Vector3(track,.5f,wheelbase+.5f)}});GD.Print("NATIVE_COLLISION_FIXTURE_PROXY car=",CarIndex);}
+  if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_RIDE_HEIGHT")=="1"){
+   string path="res://assets/generated_native_car_hulls/car-"+CarIndex.ToString("00")+".json";using var manifest=System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString(path));float bottom=float.PositiveInfinity;foreach(var part in manifest.RootElement.GetProperty("partBounds").EnumerateArray()){string name=part.GetProperty("part").GetString();if(manifest.RootElement.GetProperty("mountedHubs").TryGetProperty(name,out _))continue;bottom=Mathf.Min(bottom,part.GetProperty("minimumY").GetSingle());}
+   float tyreBottom=float.PositiveInfinity;for(int i=0;i<4;i++)tyreBottom=Mathf.Min(tyreBottom,RecoveredWheelCentres[i].Y-radii[i]);SuspensionPreload=Mathf.Max(0,.035f-(tyreBottom-bottom));if(!float.IsFinite(SuspensionPreload)||SuspensionPreload>.12f)throw new Exception("Source clearance requires unsupported suspension extension");GD.Print("NATIVE_STATIC_CLEARANCE preload=",SuspensionPreload," original=",tyreBottom-bottom," target=",.035f);
+  }
   float vmax=RecoveredVehicleProfiles.Speed[CarIndex]*.44704f;power=Mass*26.82f*26.82f/(2*RecoveredVehicleProfiles.Acceleration[CarIndex])*1.35f;drag=power/(vmax*vmax*vmax);brakeDecel=26.82f*26.82f/(2*RecoveredVehicleProfiles.Brakes[CarIndex]*.3048f);
  }
  public override void _IntegrateForces(PhysicsDirectBodyState3D state){
@@ -40,12 +44,12 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   Contacts=0;ChassisContacts=state.GetContactCount();ContactParts=new string[ChassisContacts];ContactSurfaces=new string[ChassisContacts];for(int c=0;c<ChassisContacts;c++){int shape=state.GetContactLocalShape(c);uint owner=ShapeFindOwner(shape);ContactParts[c]=(ShapeOwnerGetOwner(owner) as Node)?.Name.ToString()??"UnknownBodyShape";ContactSurfaces[c]=(state.GetContactColliderObject(c) as Node)?.GetPath().ToString()??"UnknownContactBody";}
   for(int i=0;i<4;i++){
    Grounded[i]=false;Loads[i]=0;ContactForces[i]=Vector3.Zero;ContactNormals[i]=Vector3.Zero;SpringLength[i]=RestLength+.15f;var mount=pose*mounts[i];
-   using var query=PhysicsRayQueryParameters3D.Create(mount,mount-up*(radii[i]+RestLength+.15f),1);
+   using var query=PhysicsRayQueryParameters3D.Create(mount,mount-up*(radii[i]+RestLength+SuspensionPreload+.15f),1);
    var hit=state.GetSpaceState().IntersectRay(query);if(hit.Count==0){FreeWheel(i,input,engine,state.Step);continue;}
    var point=(Vector3)hit["position"];var normal=((Vector3)hit["normal"]).Normalized();ContactNormals[i]=normal;hit.Clear();
    float length=Mathf.Max(0,mount.DistanceTo(point)-radii[i]);SpringLength[i]=length;
    var arm=point-pose.Origin;var velocity=state.GetVelocityAtLocalPosition(arm);
-   float load=Mathf.Clamp(spring*(RestLength-length)-damper*velocity.Dot(normal),0,Mass*gravity);if(load<=0){FreeWheel(i,input,engine,state.Step);continue;}
+   float load=Mathf.Clamp(spring*(RestLength+SuspensionPreload-length)-damper*velocity.Dot(normal),0,Mass*gravity);if(load<=0){FreeWheel(i,input,engine,state.Step);continue;}
    Grounded[i]=true;Loads[i]=load;Contacts++;state.ApplyForce(normal*load,arm);
    var rolling=(i<2?forward.Rotated(up,WheelAngle):forward);rolling=(rolling-normal*rolling.Dot(normal)).Normalized();var right=rolling.Cross(normal).Normalized();
    float u=velocity.Dot(rolling),side=velocity.Dot(right),mu=tyres[i].Grip(Water)*1.18f*Dynamics.GripMul(CarIndex),capacity=mu*load;
