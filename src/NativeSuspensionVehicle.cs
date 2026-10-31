@@ -5,7 +5,8 @@ namespace MySim {
 // Experimental force-driven native rigid body. No pose snapping, height clamping or heading assignment.
 // Not production-integrated until suspension, tyre/contact and real-track gates pass.
 public partial class NativeSuspensionVehicle : RigidBody3D {
- public void BindRaceControls(Vehicle vehicle,float dt){Controls=vehicle.servicing?new DriverInput(0,1,0):vehicle.input;TractionControl=vehicle.traction;BrakeStabilityAssist=vehicle.abs;if(vehicle.servicing){HybridDriveForce=0;vehicle.ersActive=false;}else HybridDriveForce=HybridDeployment.Step(vehicle,vehicle.input,dt)*vehicle.input.throttle;}
+ Vehicle raceVehicle;
+ public void BindRaceControls(Vehicle vehicle,float dt){raceVehicle=vehicle;Controls=vehicle.servicing?new DriverInput(0,1,0):vehicle.input;TractionControl=vehicle.traction;BrakeStabilityAssist=vehicle.abs;if(vehicle.servicing){HybridDriveForce=0;vehicle.ersActive=false;}else HybridDriveForce=HybridDeployment.Step(vehicle,vehicle.input,dt)*vehicle.input.throttle;}
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
  public override void _PhysicsProcess(double delta){foreach(var entry in MountedShapes){int hub=entry.Hub;var centre=RecoveredWheelCentres[hub];var rotation=new Basis(Vector3.Up,hub<2?WheelAngle:0);var offset=Vector3.Up*(RestLength-StaticSag-SpringLength[hub]);entry.Shape.Transform=new Transform3D(rotation,centre+offset-rotation*centre);}}
@@ -29,7 +30,8 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   WheelAngle=Mathf.MoveToward(WheelAngle,Dynamics.SteeringTarget(input.steer,longitudinal),3.2f*state.Step);
   float gravity=state.TotalGravity.Length(),spring=Mass*gravity/(4*StaticSag),damper=2*DampingRatio*Mathf.Sqrt(spring*Mass*.25f);
   float engine=input.reverse?-Mass*3.5f*(input.throttle+input.brake)*.5f:Mathf.Min(power/Mathf.Max(Mathf.Abs(longitudinal),6),Mass*gravity*2.2f)*input.throttle;
-  if(!input.reverse)engine+=Mathf.Max(0,HybridDriveForce);
+  if(raceVehicle!=null&&raceVehicle.fuel<=0)engine=0;float combustionForce=engine;
+  if(!input.reverse)engine+=Mathf.Max(0,HybridDriveForce);float combustionShare=Mathf.Abs(engine)>.001f?Mathf.Abs(combustionForce/engine):0,combustionWork=0;
   Contacts=0;ChassisContacts=state.GetContactCount();ContactParts=new string[ChassisContacts];for(int c=0;c<ChassisContacts;c++){int shape=state.GetContactLocalShape(c);uint owner=ShapeFindOwner(shape);ContactParts[c]=(ShapeOwnerGetOwner(owner) as Node)?.Name.ToString()??"UnknownBodyShape";}
   for(int i=0;i<4;i++){
    Grounded[i]=false;Loads[i]=0;ContactForces[i]=Vector3.Zero;ContactNormals[i]=Vector3.Zero;SpringLength[i]=RestLength+.15f;var mount=pose*mounts[i];
@@ -57,10 +59,12 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
    // Include angular inertia at the contact lever, then share the budget over all four patches.
    var lateralLever=(arm-state.CenterOfMass).Cross(right);float inverseEffectiveMass=state.InverseMass+lateralLever.Dot(state.InverseInertiaTensor*lateralLever);
    float lateralStop=Mathf.Abs(side)/(4*Mathf.Max(state.Step,.00001f)*Mathf.Max(inverseEffectiveMass,.0000001f));fy=Mathf.Clamp(fy,-lateralStop,lateralStop);
+   if(i>=2)combustionWork+=Mathf.Max(0,Mathf.Sign(engine)*fx)*Mathf.Abs(u)*state.Step*combustionShare;
    float roll=Mathf.Min(load*.014f,Mathf.Abs(u)*Mass/(4*Mathf.Max(state.Step,.00001f)));
    var tangentialForce=rolling*(fx-Mathf.Sign(u)*roll)+right*fy;ContactForces[i]=normal*load+tangentialForce;state.ApplyForce(tangentialForce,arm);
    tyres[i].Step(state.Step,Mathf.Abs(u),Mathf.Abs(alpha),load/Mathf.Max(1,Mass*gravity*.25f),Water);
   }
+  if(raceVehicle!=null)NativeFuelUse.Consume(raceVehicle,combustionWork,state.Step);
   state.ApplyCentralForce(-state.LinearVelocity*speed*drag-up*(Dynamics.DownK(CarIndex)*speed*speed));
  }
 }

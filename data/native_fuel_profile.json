@@ -1,0 +1,6 @@
+{
+  "scope": "Provisional authored combustion energy parameters, not recovered per-car fuel calibration. Consumption follows actual positive combustion wheel work plus idle use. Fuel mass is not added to recovered vehicle mass until that mass convention is verified.",
+  "joulesPerLitre": 34000000,
+  "wheelEfficiency": 0.33,
+  "idleLitresPerSecond": 0.0003
+}
