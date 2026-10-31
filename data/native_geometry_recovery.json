@@ -1,0 +1,110 @@
+{
+  "sourceRun": 41238298409,
+  "scope": "Only prior engine-error cases after world-metre collider representation fix; prior74passes preserved separately",
+  "cases": [
+    {
+      "track": 8,
+      "car": 0
+    },
+    {
+      "track": 8,
+      "car": 16
+    },
+    {
+      "track": 42,
+      "car": 0
+    },
+    {
+      "track": 42,
+      "car": 16
+    },
+    {
+      "track": 54,
+      "car": 0
+    },
+    {
+      "track": 54,
+      "car": 16
+    },
+    {
+      "track": 41,
+      "car": 0
+    },
+    {
+      "track": 41,
+      "car": 16
+    },
+    {
+      "track": 3,
+      "car": 0
+    },
+    {
+      "track": 3,
+      "car": 16
+    },
+    {
+      "track": 27,
+      "car": 0
+    },
+    {
+      "track": 27,
+      "car": 16
+    },
+    {
+      "track": 39,
+      "car": 0
+    },
+    {
+      "track": 39,
+      "car": 16
+    },
+    {
+      "track": 14,
+      "car": 0
+    },
+    {
+      "track": 14,
+      "car": 16
+    },
+    {
+      "track": 38,
+      "car": 0
+    },
+    {
+      "track": 38,
+      "car": 16
+    },
+    {
+      "track": 50,
+      "car": 0
+    },
+    {
+      "track": 50,
+      "car": 16
+    },
+    {
+      "track": 11,
+      "car": 0
+    },
+    {
+      "track": 11,
+      "car": 16
+    },
+    {
+      "track": 49,
+      "car": 0
+    },
+    {
+      "track": 49,
+      "car": 16
+    },
+    {
+      "track": 12,
+      "car": 0
+    },
+    {
+      "track": 12,
+      "car": 16
+    }
+  ]
+}
