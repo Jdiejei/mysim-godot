@@ -17,3 +17,9 @@ if result.returncode or 'ERROR:' in text:
  raise SystemExit(1)
 rows=json.loads((out/'native-hull-summary.json').read_text());assert {x['car'] for x in rows}==set(cars) and all(x['sourceContainmentVerified'] and x['parts']>0 for x in rows)
 for row in rows:print('SOURCE_HULL_BAKE car',row['car'],'parts',row['parts'],'paddedParts',len(row['conservativePaddedParts']),flush=True)
+
+# Bounds-only evidence for intact steering-link assemblies; raw hull vertices remain encrypted.
+for row in rows:
+ for part in row['partBounds']:
+  if 'STEERING_ARM' in part['part'].upper():
+   print('STEERING_LINK_BOUNDS',json.dumps({'car':row['car'],'part':part,'wheelCentres':row['wheelCentres'],'wheelRadii':row['wheelRadii']}),flush=True)
