@@ -32,7 +32,7 @@ public static class WallBuilder {
   }
   support=floor.ToArray();return walls.ToArray();
  }
- static void AddFaces(MeshInstance3D mesh,Vector3[] faces,uint layer,string name){
+ internal static void AddFaces(MeshInstance3D mesh,Vector3[] faces,uint layer,string name){
   if(faces.Length==0)return;
   bool metres=System.Environment.GetEnvironmentVariable("MYSIM_METRE_WALL_COLLIDERS")!="0";var data=faces;
   if(metres){data=new Vector3[faces.Length];for(int i=0;i<faces.Length;i++)data[i]=mesh.GlobalBasis*faces[i];}

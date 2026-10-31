@@ -174,6 +174,7 @@ public partial class Main : Node3D {
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { WindingFixer.Fix(L, out int wchk); GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);
   string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; world.AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
+  if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_RUNOFF_SUPPORT")=="1")foreach(var layer in layers)SourceRunoffSupport.Build(layer);
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_TRACK_TRIAL") is string nativeTrial){world.AddChild(new NativeTrackTrial {TrackIndex=trackIdx,CarIndex=carIdx,Car=car,Wheels=wheelPivots,Destination=nativeTrial});ClearUi();return;}
   if (System.Environment.GetEnvironmentVariable("MYSIM_DEBUGROAD") != null) DebugRoad(track);
   var cam = new Camera3D { Fov = 46, Current = true, Far = 4000 }; world.AddChild(cam);
