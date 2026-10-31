@@ -12,6 +12,13 @@ def run(label,values,args=None,timeout=300):
   with (out/(label+f'-{attempt}.log')).open('w') as f:
    try:p=subprocess.run([g,'--path',str(r),'--resolution','960x540','--no-window','--fixed-fps','60','--audio-driver','Dummy']+(args or []),env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
    except subprocess.TimeoutExpired:code=-1;timed_out=True
+  # Keep each failed/successful attempt's actual report, not only the last retry's file.
+  for key,value in values.items():
+   if key.endswith('_REPORT') and value:
+    report=pathlib.Path(value).resolve()
+    if report.is_relative_to(out) and report.is_file():
+     import shutil
+     shutil.copyfile(report,report.with_name(report.stem+f'-attempt-{attempt}'+report.suffix))
   text=(out/(label+f'-{attempt}.log')).read_text(errors='replace')
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
