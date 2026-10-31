@@ -1,7 +1,7 @@
 """Limit only isolated diagnostics' importer scope; full-game/Windows campaigns stay complete."""
 import os,json,pathlib,re
 root=pathlib.Path.cwd();depth=os.environ.get('IMPORT_REVIEW_DEPTH','');out=root/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True)
-scopes={'rain_focus':([6,16],[0]),'rear_panel_uv':([6],[]),'livery_uv':([0,6,12,18],[]),'gui_review':([],[]),'wheel_compounds':([1,6,16],[]),'car_panel_uv':([6],[]),'car_uv_roles':([1,6,16],[]),'car_uv':([1,6,16],[]),'precise_ai':([16],[43,15]),'contact_trace':([16],[43,15]),'geometry':(list(range(24)),[])}
+scopes={'wall_geometry_diagnostic':([],[49]),'rain_focus':([6,16],[0]),'rear_panel_uv':([6],[]),'livery_uv':([0,6,12,18],[]),'gui_review':([],[]),'wheel_compounds':([1,6,16],[]),'car_panel_uv':([6],[]),'car_uv_roles':([1,6,16],[]),'car_uv':([1,6,16],[]),'precise_ai':([16],[43,15]),'contact_trace':([16],[43,15]),'geometry':(list(range(24)),[])}
 if depth=='native_hull_recovery':scopes[depth]=(sorted(set(x['car'] for x in json.loads((root/'data/native_hull_recovery.json').read_text())['cases'])),[])
 if depth in ('native_traffic_lap','native_traffic_diagnostic'):scopes[depth]=([[0,1],[16,17]][int(os.environ.get('SHARD','0'))],[[0,43][int(os.environ.get('SHARD','0'))]])
 if depth=='native_mounted_laps':scopes[depth]=([int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')],list(range(int(os.environ.get('SHARD','0')),60,12)))

@@ -33,8 +33,15 @@ public static class WallBuilder {
   support=floor.ToArray();return walls.ToArray();
  }
  static void AddFaces(MeshInstance3D mesh,Vector3[] faces,uint layer,string name){
-  if(faces.Length==0)return;var shape=new ConcavePolygonShape3D {Data=faces,BackfaceCollision=true};
-  var body=new StaticBody3D {Name=name,CollisionLayer=layer,CollisionMask=0};body.AddChild(new CollisionShape3D {Shape=shape});mesh.AddChild(body);
+  if(faces.Length==0)return;
+  bool metres=System.Environment.GetEnvironmentVariable("MYSIM_METRE_WALL_COLLIDERS")=="1";var data=faces;
+  if(metres){data=new Vector3[faces.Length];for(int i=0;i<faces.Length;i++)data[i]=mesh.GlobalBasis*faces[i];}
+  var shape=new ConcavePolygonShape3D {Data=data,BackfaceCollision=true};
+  var body=new StaticBody3D {Name=name,CollisionLayer=layer,CollisionMask=0};
+  // Bake only the basis into collision vertices, keeping translation separate for precision.
+  // This preserves every source triangle and its world pose while testing solver-unit conditioning.
+  if(metres){body.TopLevel=true;body.Transform=new Transform3D(Basis.Identity,mesh.GlobalPosition);}
+  body.AddChild(new CollisionShape3D {Shape=shape});mesh.AddChild(body);
  }
  public static int Build(Node3D track) {
   int count=0,supportTriangles=0;

@@ -16,6 +16,16 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('WALL_GEOMETRY_DIAGNOSTIC')=='1':
+ results=[]
+ for metres in (False,True):
+  label='wall-geometry-'+('metres' if metres else 'source-units');report=out/(label+'.json');env={k:v for k,v in os.environ.items() if not k.startswith('MYSIM_')};env.update(MYSIM_WALL_GEOMETRY_CHECKS=str(report),MYSIM_METRE_WALL_COLLIDERS='1' if metres else '0')
+  with (out/(label+'.log')).open('w') as stream:p=subprocess.run([g,'--headless','--path',str(r),'--fixed-fps','60'],env=env,stdout=stream,stderr=subprocess.STDOUT,timeout=600)
+  log=(out/(label+'.log')).read_text(errors='replace');errors=[line for line in log.splitlines() if 'ERROR:' in line];data=json.loads(report.read_text()) if report.exists() else None
+  results.append({'metres':metres,'code':p.returncode,'errors':errors,'result':data});(out/'wall-geometry-comparison.json').write_text(json.dumps(results,indent=2))
+ assert results[0]['result'] is not None,'Source diagnostic did not produce geometry evidence'
+ assert results[1]['code']==0 and not results[1]['errors'] and results[1]['result']['all'],'Metre representation remains unverified; keep original failure evidence'
+ print('PASS exact source-sign metre-representation/two-sided contacts; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('NATIVE_AI_DIAGNOSTIC')=='1':
  label='native-ai-diagnostic-track-22-car-16';report=out/(label+'.json');error=None
  try:text=run(label,{'MYSIM_TRACK':'22','MYSIM_CAR':'16','MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'180','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':'3','MYSIM_ERS_AUTO':'0','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report)},['--headless'],timeout=600)
