@@ -7,8 +7,8 @@ public partial class WallGeometryScenario : Node3D {
  readonly List<object> rows=new();readonly List<(MeshInstance3D Mesh,Vector3 Centre,Vector3 Normal)> suspects=new();int frames;
  public override void _Ready(){try{
   var table=Json.ParseString(FileAccess.GetFileAsString("res://assets/RealRacing/TrackList.json")).AsGodotDictionary()["tracks"].AsGodotArray();var track=table[49].AsGodotDictionary();
-  var source=GD.Load<PackedScene>("res://assets/RealRacing/Source/"+track["map"].AsString()+"/"+track["scene"].AsString()).Instantiate<Node3D>();source.Scale=Vector3.One*100;AddChild(source);
-  foreach(var variation in track["variationPaths"].AsGodotArray()){string resource="res://"+variation.AsString().Replace("Assets/RealRacing/Source/","assets/RealRacing/Source/");if(EmptyVariations.Paths.Contains(resource)||!ResourceLoader.Exists(resource))continue;var layer=GD.Load<PackedScene>(resource).Instantiate<Node3D>();layer.Scale=Vector3.One*100;AddChild(layer);}
+  using var packed=GD.Load<PackedScene>("res://assets/RealRacing/Source/"+track["map"].AsString()+"/"+track["scene"].AsString());var source=packed.Instantiate<Node3D>();source.Scale=Vector3.One*100;AddChild(source);
+  foreach(var variation in track["variationPaths"].AsGodotArray()){string resource="res://"+variation.AsString().Replace("Assets/RealRacing/Source/","assets/RealRacing/Source/");if(EmptyVariations.Paths.Contains(resource)||!ResourceLoader.Exists(resource))continue;using var variationScene=GD.Load<PackedScene>(resource);var layer=variationScene.Instantiate<Node3D>();layer.Scale=Vector3.One*100;AddChild(layer);}
   foreach(var child in GetChildren())if(child is Node3D layer){WindingFixer.Fix(layer,out _);GroundFixer.Fix(layer);}
   var meshes=FindChildren("*","MeshInstance3D",true,false);
   foreach(var node in meshes){var mesh=(MeshInstance3D)node;if(!mesh.Name.ToString().Contains("prop_turn_sign_a_35_mm5",StringComparison.OrdinalIgnoreCase))continue;
