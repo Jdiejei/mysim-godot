@@ -16,6 +16,14 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('NATIVE_AI_DIAGNOSTIC')=='1':
+ label='native-ai-diagnostic-track-22-car-16';report=out/(label+'.json');error=None
+ try:text=run(label,{'MYSIM_TRACK':'22','MYSIM_CAR':'16','MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'180','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':'3','MYSIM_ERS_AUTO':'0','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report)},['--headless'],timeout=600)
+ except RuntimeError as e:error=e
+ if report.exists():subprocess.run([sys.executable,'tools/cloud_plot_native_route.py',str(report)],check=True)
+ if error:raise error
+ assert json.loads(report.read_text())['ok'],'Diagnostic does not waive legal-lap/no-rescue gates'
+ sys.exit(0)
 if os.environ.get('NATIVE_RETIREMENT')=='1':
  track=(0,43)[shard];car=(0,16)[shard];label=f'empty-fuel-retirement-track-{track:02}-car-{car:02}'
  text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_RETIREMENT_CHECKS':'1','MYSIM_START_FUEL':'0','MYSIM_RIVALS':'0'},['--headless'],timeout=180)
