@@ -16,6 +16,12 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('NATIVE_RETIREMENT')=='1':
+ track=(0,43)[shard];car=(0,16)[shard];label=f'empty-fuel-retirement-track-{track:02}-car-{car:02}'
+ text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_RETIREMENT_CHECKS':'1','MYSIM_START_FUEL':'0','MYSIM_RIVALS':'0'},['--headless'],timeout=180)
+ assert 'PASS actual empty-fuel native retirement and DNF results' in text and 'PASS retirement to fresh restart' in text and 'PASS retirement restart to main menu' in text
+ assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
+ print('PASS actual native empty-fuel retirement/results/restart/menu; no completed-lap substitution',flush=True);sys.exit(0)
 if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
  for track in range(shard,60,12):
   for car in (0,16):

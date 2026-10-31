@@ -115,7 +115,7 @@ namespace MySimulator.Rebuild
     [Serializable] public class Vehicle
     {
         public int id;
-        public string driver="Driver";
+        public string driver="Driver";public string retirementReason="";
         public bool human;
         public bool hasBodyPose;public float bodyHeight,bodyQx,bodyQy,bodyQz,bodyQw=1;
         public Vec position,velocity;
