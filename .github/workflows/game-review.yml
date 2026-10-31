@@ -35,6 +35,8 @@ jobs:
         run: dotnet build -v quiet
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
+      - name: Validate Python orchestration before asset downloads
+        run: python -m py_compile tools/cloud_game_audit.py tools/cloud_scope_import.py tools/cloud_bake_car_hulls.py
       - name: Restore source assets from encrypted transport
         if: inputs.depth != 'gui_review'
         env:
@@ -67,6 +69,7 @@ jobs:
         if: inputs.depth != 'route_parity' && inputs.depth != 'gui_review'
         env:
           SHARD: ${{ matrix.shard }}
+          NATIVE_CARS: ${{ inputs.cars || '16' }}
           IMPORT_REVIEW_DEPTH: ${{ inputs.depth }}
           IMPORT_CASE_SET: ${{ inputs.case_set || 'shutdown' }}
         run: python tools/cloud_scope_import.py
@@ -95,6 +98,7 @@ jobs:
       - name: Bake source body compound convex shapes on cloud only
         if: inputs.depth == 'native_ai_diagnostic' || inputs.depth == 'native_mounted_visual' || inputs.depth == 'native_retirement' || inputs.depth == 'native_mounted_laps' || inputs.depth == 'native_mounted_gameplay' || inputs.depth == 'native_traffic_lap' || inputs.depth == 'native_hull_recovery' || inputs.depth == 'native_hull_ai_lap' || inputs.depth == 'native_hull_gameplay' || inputs.depth == 'native_hull_contact' || inputs.depth == 'native_hull_matrix'
         env:
+          NATIVE_CARS: ${{ inputs.cars || '16' }}
           HULL_REVIEW_DEPTH: ${{ inputs.depth }}
           HULL_REVIEW_SHARD: ${{ matrix.shard }}
         run: python tools/cloud_bake_car_hulls.py
