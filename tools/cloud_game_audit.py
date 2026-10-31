@@ -68,7 +68,10 @@ if os.environ.get('NATIVE_GAMEPLAY')=='1':
  values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_NATIVE_GAMEPLAY_CHECKS':'1','MYSIM_NATIVE_GAMEPLAY_REPORT':str(out/(label+'.json')),'MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'11','MYSIM_RIVALS':'0'}
  if os.environ.get('NATIVE_HULL_GAMEPLAY')=='1':values['MYSIM_REQUIRE_NATIVE_CAR_HULLS']='1'
  if os.environ.get('NATIVE_COMPONENT_MOUNTS')=='1':values.update(MYSIM_COMPONENT_MOUNTS='1',MYSIM_COMPONENT_MOUNT_REPORT=str(out/(label+'-component-mounts.json')))
- text=run(label,values,['--headless'],timeout=360)
+ visual=os.environ.get('NATIVE_MOUNTED_VISUAL')=='1'
+ if visual:values.update(MYSIM_COMPONENT_MOUNTS='1',MYSIM_DEFER_NATIVE_RENDER='1',MYSIM_SHOT=str(out/(label+'.png')),MYSIM_COMPONENT_MOUNT_REPORT=str(out/(label+'-component-mounts.json')))
+ text=run(label,values,['--rendering-method','gl_compatibility','--rendering-driver','opengl3'] if visual else ['--headless'],timeout=360)
+ if visual:assert (out/(label+'.png')).exists() and 'PASS actual integrated native scene capture' in text
  if os.environ.get('NATIVE_HULL_GAMEPLAY')=='1':assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
  assert json.loads((out/(label+'.json')).read_text())['ok']
  assert 'PASS integrated native pause, clock, resume, pit options and four camera modes' in text
