@@ -49,8 +49,9 @@ if os.environ.get('NATIVE_AI_LAP')=='1':
  track=(0,43)[shard];car=(0,16)[shard];label=f'native-ai-lap-track-{track:02}-car-{car:02}';report=out/(label+'.json')
  values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'480','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':'3','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report)}
  if os.environ.get('NATIVE_HULL_GAMEPLAY')=='1':values['MYSIM_REQUIRE_NATIVE_CAR_HULLS']='1'
+ if os.environ.get('NATIVE_PIT_SERVICE')=='1':values.update(MYSIM_NATIVE_PIT_CHECKS='1',MYSIM_COMPONENT_MOUNTS='1',MYSIM_SECONDS='1200')
  if os.environ.get('NATIVE_TRAFFIC_LAP')=='1':values.update(MYSIM_NATIVE_TRAFFIC='1',MYSIM_RIVALS='1',MYSIM_NATIVE_GAMEPLAY_CHECKS='1',MYSIM_COMPONENT_MOUNTS='1')
- text=run(label,values,['--headless'],timeout=1200)
+ text=run(label,values,['--headless'],timeout=1800 if os.environ.get('NATIVE_PIT_SERVICE')=='1' else 1200)
  if os.environ.get('NATIVE_HULL_GAMEPLAY')=='1':assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
  assert json.loads(report.read_text())['ok'] and 'PASS native force-driven valid lap and results UI' in text
  print('COMPLETE genuine solo native AI lap/results; full hull/traffic/game gates separate',flush=True);sys.exit(0)
