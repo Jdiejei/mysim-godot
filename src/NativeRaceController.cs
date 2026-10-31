@@ -34,7 +34,7 @@ public partial class NativeRaceController : DriveController {
   // Human controls only own the car outside pit assist and terminal race states.
   if(Player.human&&!Player.pitActive&&!Player.finished&&!Player.retired)Player.input=pedalsNative.Update(throttle,brake,SteeringInput.ToSimulation(steering.Step(requested,(float)delta,analog)),ControlBindings.Held(4),body.LinearVelocity.Dot(body.GlobalBasis.Z),(float)delta,!AutoDrive);
   bool pit=ControlBindings.Held(5)||(pads.Count>0&&Input.IsJoyButtonPressed(pads[0],JoyButton.A));if(pit&&!pitWas)Hud.TogglePitStrategy();pitWas=pit;
-  Race.Advance((float)delta);traffic.Apply((float)delta);if(Player.externalResetRequested&&!PlaceBody("race-rule-reset"))throw new Exception("Native race reset lacks drive surface");
+  Race.Advance((float)delta);Player.totalDistance=actualPoseDistance;traffic.Apply((float)delta);if(Player.externalResetRequested&&!PlaceBody("race-rule-reset"))throw new Exception("Native race reset lacks drive surface");
   if(Player.servicing&&!parked){if(!PlaceBody("pit-box-alignment"))throw new Exception("Pit box has no physical surface");body.SeedRollingVelocity(Vector3.Zero);body.AngularVelocity=Vector3.Zero;body.Freeze=true;parked=true;}else if(!Player.servicing&&parked){body.Freeze=false;parked=false;TyreAppearance.Apply(WheelPivots,Player.tyres[0].compound);}
   body.BindRaceControls(Player,(float)delta);
   if(WheelPivots[0].GetMeta("displayed_compound").AsInt32()!=(int)Player.tyres[0].compound)TyreAppearance.Apply(WheelPivots,Player.tyres[0].compound);
