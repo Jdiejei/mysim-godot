@@ -14,6 +14,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public readonly bool[] Grounded=new bool[4];public readonly float[] Loads=new float[4];public readonly float[] SpringLength=new float[4];
  public Vector3[] RecoveredWheelCentres;public float[] RecoveredWheelRadii;
  public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
+ public float TyreLoadRatio {get{float sum=0;foreach(float load in Loads)sum+=load;return sum/(Mass*9.81f);}}
  public Tyre[] Tyres=>tyres;
  Vector3[] mounts=new Vector3[4];float[] radii=new float[4];Tyre[] tyres={new Tyre(),new Tyre(),new Tyre(),new Tyre()};float power,drag,brakeDecel;
  public override void _Ready(){
