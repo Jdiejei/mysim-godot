@@ -6,6 +6,7 @@ public partial class Main : Node3D {
  public bool ResultsVisible=>resultsShown;
  static readonly float ColorContrast = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CONTRAST") ?? "1.14", System.Globalization.CultureInfo.InvariantCulture), ColorSat = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SAT") ?? "1.1", System.Globalization.CultureInfo.InvariantCulture); Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; Button menuStart; bool menuGoWas; float menuAge; bool resultsShown, escWas; float finShown, resultsArmed;
  public override void _Ready() {
+  if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_LEGALITY_CHECKS")!=null){AddChild(new NativeSurfaceLegalityScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_DAMAGE_CHECKS")!=null){AddChild(new NativeDamageScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_HYBRID_CHECKS")!=null){AddChild(new NativeHybridScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_HULL_CONTACT_CHECKS") is string hullContactCar){AddChild(new NativeHullContactChecks {CarIndex=int.Parse(hullContactCar)});return;}
