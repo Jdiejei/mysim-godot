@@ -155,7 +155,7 @@ jobs:
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
-          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_REVIEW_KEY || secrets.MYSIM_INTAKE_KEY }}
           SHARD: ${{ matrix.shard }}
         run: |
           if [ -d outputs/cloud-game ]; then
