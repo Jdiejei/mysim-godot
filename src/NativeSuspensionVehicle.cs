@@ -13,7 +13,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
  public override void _PhysicsProcess(double delta){foreach(var entry in MountedShapes){int hub=entry.Hub;var centre=RecoveredWheelCentres[hub];var rotation=new Basis(Vector3.Up,hub<2?WheelAngle:0);var offset=Vector3.Up*(RestLength-StaticSag-SpringLength[hub]);entry.Shape.Transform=new Transform3D(rotation,centre+offset-rotation*centre);}}
- public string[] ContactParts=Array.Empty<string>();public int ChassisContacts;public readonly Vector3[] ContactForces=new Vector3[4],ContactNormals=new Vector3[4];
+ public string[] ContactParts=Array.Empty<string>(),ContactSurfaces=Array.Empty<string>();public int ChassisContacts;public readonly Vector3[] ContactForces=new Vector3[4],ContactNormals=new Vector3[4];
  public readonly bool[] Grounded=new bool[4];public readonly float[] Loads=new float[4];public readonly float[] SpringLength=new float[4];
  public Vector3[] RecoveredWheelCentres;public float[] RecoveredWheelRadii;
  public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
@@ -37,7 +37,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   float engine=input.reverse?-Mass*3.5f*(input.throttle+input.brake)*.5f:Mathf.Min(power/Mathf.Max(motorSpeed,6),Mass*gravity*2.2f)*input.throttle;
   if(raceVehicle!=null&&(raceVehicle.fuel<=0||raceVehicle.retired||raceVehicle.finished)){engine=0;if(raceVehicle.retired||raceVehicle.finished)HybridDriveForce=0;}if(DamageEnabled&&raceVehicle!=null)engine*=NativeImpactDamage.PowerFactor(raceVehicle);float combustionForce=engine;
   if(!input.reverse)engine+=Mathf.Max(0,HybridDriveForce);float combustionShare=Mathf.Abs(engine)>.001f?Mathf.Abs(combustionForce/engine):0,combustionWork=0;
-  Contacts=0;ChassisContacts=state.GetContactCount();ContactParts=new string[ChassisContacts];for(int c=0;c<ChassisContacts;c++){int shape=state.GetContactLocalShape(c);uint owner=ShapeFindOwner(shape);ContactParts[c]=(ShapeOwnerGetOwner(owner) as Node)?.Name.ToString()??"UnknownBodyShape";}
+  Contacts=0;ChassisContacts=state.GetContactCount();ContactParts=new string[ChassisContacts];ContactSurfaces=new string[ChassisContacts];for(int c=0;c<ChassisContacts;c++){int shape=state.GetContactLocalShape(c);uint owner=ShapeFindOwner(shape);ContactParts[c]=(ShapeOwnerGetOwner(owner) as Node)?.Name.ToString()??"UnknownBodyShape";ContactSurfaces[c]=(state.GetContactColliderObject(c) as Node)?.GetPath().ToString()??"UnknownContactBody";}
   for(int i=0;i<4;i++){
    Grounded[i]=false;Loads[i]=0;ContactForces[i]=Vector3.Zero;ContactNormals[i]=Vector3.Zero;SpringLength[i]=RestLength+.15f;var mount=pose*mounts[i];
    using var query=PhysicsRayQueryParameters3D.Create(mount,mount-up*(radii[i]+RestLength+.15f),1);
