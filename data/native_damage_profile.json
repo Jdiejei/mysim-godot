@@ -1,0 +1,10 @@
+{
+  "scope": "Provisional gameplay damage from measured chassis velocity jumps during real contacts. Not a structural crash certification or calibrated vehicle damage model. Jolt estimated contact impulses are not treated as exact energy measurements.",
+  "minimumDeltaV": 2.0,
+  "fullDamageDeltaV": 40.0,
+  "eventCooldownSeconds": 0.15,
+  "angularRadiusWheelbaseFraction": 0.25,
+  "frontRearAeroLoss": 0.35,
+  "rearPowerLoss": 0.5,
+  "dragIncrease": 0.3
+}

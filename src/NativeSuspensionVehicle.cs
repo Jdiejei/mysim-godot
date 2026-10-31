@@ -5,10 +5,10 @@ namespace MySim {
 // Experimental force-driven native rigid body. No pose snapping, height clamping or heading assignment.
 // Not production-integrated until suspension, tyre/contact and real-track gates pass.
 public partial class NativeSuspensionVehicle : RigidBody3D {
- Vehicle raceVehicle;float emptyStoppedTime;
+ Vehicle raceVehicle;float emptyStoppedTime;public bool DamageEnabled;public readonly NativeImpactDamage Impacts=new();
  public void BindRaceControls(Vehicle vehicle,float dt){raceVehicle=vehicle;Controls=vehicle.servicing||vehicle.retired?new DriverInput(0,1,0):vehicle.input;TractionControl=vehicle.traction;BrakeStabilityAssist=vehicle.abs;if(vehicle.servicing||vehicle.retired){HybridDriveForce=0;vehicle.ersActive=false;}else HybridDriveForce=HybridDeployment.Step(vehicle,vehicle.input,dt)*vehicle.input.throttle;}
  public bool RotationalTyres;public readonly float[] WheelOmega=new float[4],WheelRotation=new float[4],LongitudinalSlip=new float[4],LateralSlipAngle=new float[4];
- public void SeedRollingVelocity(Vector3 velocity){LinearVelocity=velocity;float speed=velocity.Dot(GlobalBasis.Z);for(int i=0;i<4;i++){WheelOmega[i]=speed/radii[i];LongitudinalSlip[i]=0;}}
+ public void SeedRollingVelocity(Vector3 velocity){Impacts.ResetHistory();LinearVelocity=velocity;float speed=velocity.Dot(GlobalBasis.Z);for(int i=0;i<4;i++){WheelOmega[i]=speed/radii[i];LongitudinalSlip[i]=0;}}
  void FreeWheel(int i,DriverInput input,float engine,float dt){if(!RotationalTyres)return;float brake=(input.reverse?0:input.brake)*brakeDecel*Mass*(i<2?.29f:.21f)+(input.handbrake&&i>=2?Mass*1.5f:0);float inertia=1.6f*radii[i]*radii[i]/(.33f*.33f);RotationalTyreContact.Airborne(ref WheelOmega[i],radii[i],inertia,i>=2?engine*.5f:0,brake,dt);WheelRotation[i]=Mathf.Wrap(WheelRotation[i]+WheelOmega[i]*dt,-Mathf.Pi,Mathf.Pi);}
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
@@ -21,7 +21,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public Tyre[] Tyres=>tyres;
  Vector3[] mounts=new Vector3[4];float[] radii=new float[4];Tyre[] tyres={new Tyre(),new Tyre(),new Tyre(),new Tyre()};float power,drag,brakeDecel;
  public override void _Ready(){
-  RotationalTyres=System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_ROTATIONAL_TYRES")=="1";CarIndex=Math.Clamp(CarIndex,0,23);NativeCarColliders.ConfigureWheels(this,CarIndex);Mass=RecoveredVehicleProfiles.Mass[CarIndex];CanSleep=false;ContinuousCd=true;MaxContactsReported=16;LinearDamp=0;AngularDamp=.15f;CollisionLayer=4;CollisionMask=7;
+  DamageEnabled|=System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_DAMAGE")=="1";RotationalTyres=System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_ROTATIONAL_TYRES")=="1";CarIndex=Math.Clamp(CarIndex,0,23);NativeCarColliders.ConfigureWheels(this,CarIndex);Mass=RecoveredVehicleProfiles.Mass[CarIndex];CanSleep=false;ContinuousCd=true;MaxContactsReported=16;LinearDamp=0;AngularDamp=.15f;CollisionLayer=4;CollisionMask=7;
   CenterOfMassMode=CenterOfMassModeEnum.Custom;CenterOfMass=new Vector3(0,-.3f,0);
   float wheelbase=RecoveredGeometry.Wheelbase[CarIndex],track=VehicleDimensions.Width[CarIndex]*.8f;
   if((RecoveredWheelCentres==null)!=(RecoveredWheelRadii==null)||RecoveredWheelCentres!=null&&(RecoveredWheelCentres.Length!=4||RecoveredWheelRadii.Length!=4))throw new InvalidOperationException("Recovered wheel contact configuration incomplete");
@@ -30,12 +30,12 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   float vmax=RecoveredVehicleProfiles.Speed[CarIndex]*.44704f;power=Mass*26.82f*26.82f/(2*RecoveredVehicleProfiles.Acceleration[CarIndex])*1.35f;drag=power/(vmax*vmax*vmax);brakeDecel=26.82f*26.82f/(2*RecoveredVehicleProfiles.Brakes[CarIndex]*.3048f);
  }
  public override void _IntegrateForces(PhysicsDirectBodyState3D state){
-  var input=Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
+  if(DamageEnabled)Impacts.Observe(state,raceVehicle,CarIndex);var input=Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
   WheelAngle=Mathf.MoveToward(WheelAngle,Dynamics.SteeringTarget(input.steer,longitudinal),3.2f*state.Step);
   float gravity=state.TotalGravity.Length(),spring=Mass*gravity/(4*StaticSag),damper=2*DampingRatio*Mathf.Sqrt(spring*Mass*.25f);
   float motorSpeed=RotationalTyres?Mathf.Max(Mathf.Abs(longitudinal),Mathf.Abs((WheelOmega[2]*radii[2]+WheelOmega[3]*radii[3])*.5f)):Mathf.Abs(longitudinal);
   float engine=input.reverse?-Mass*3.5f*(input.throttle+input.brake)*.5f:Mathf.Min(power/Mathf.Max(motorSpeed,6),Mass*gravity*2.2f)*input.throttle;
-  if(raceVehicle!=null&&raceVehicle.fuel<=0)engine=0;float combustionForce=engine;
+  if(raceVehicle!=null&&(raceVehicle.fuel<=0||raceVehicle.retired)){engine=0;if(raceVehicle.retired)HybridDriveForce=0;}if(DamageEnabled&&raceVehicle!=null)engine*=NativeImpactDamage.PowerFactor(raceVehicle);float combustionForce=engine;
   if(!input.reverse)engine+=Mathf.Max(0,HybridDriveForce);float combustionShare=Mathf.Abs(engine)>.001f?Mathf.Abs(combustionForce/engine):0,combustionWork=0;
   Contacts=0;ChassisContacts=state.GetContactCount();ContactParts=new string[ChassisContacts];for(int c=0;c<ChassisContacts;c++){int shape=state.GetContactLocalShape(c);uint owner=ShapeFindOwner(shape);ContactParts[c]=(ShapeOwnerGetOwner(owner) as Node)?.Name.ToString()??"UnknownBodyShape";}
   for(int i=0;i<4;i++){
@@ -71,7 +71,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
    tyres[i].Step(state.Step,Mathf.Abs(u),Mathf.Sqrt(alpha*alpha+(RotationalTyres?.25f*LongitudinalSlip[i]*LongitudinalSlip[i]:0)),load/Mathf.Max(1,Mass*gravity*.25f),Water);
   }
   if(raceVehicle!=null){NativeFuelUse.Consume(raceVehicle,combustionWork,state.Step);if(!raceVehicle.finished&&!raceVehicle.retired&&!raceVehicle.servicing&&raceVehicle.fuel<=0&&state.LinearVelocity.Length()<.5f){emptyStoppedTime+=state.Step;if(emptyStoppedTime>=2){raceVehicle.retired=true;raceVehicle.retirementReason="OUT OF FUEL";}}else emptyStoppedTime=0;}
-  state.ApplyCentralForce(-state.LinearVelocity*speed*drag-up*(Dynamics.DownK(CarIndex)*speed*speed));
+  float damageDrag=DamageEnabled&&raceVehicle!=null?NativeImpactDamage.DragFactor(raceVehicle):1,damageAero=DamageEnabled&&raceVehicle!=null?NativeImpactDamage.AeroFactor(raceVehicle):1;state.ApplyCentralForce(-state.LinearVelocity*speed*drag*damageDrag-up*(Dynamics.DownK(CarIndex)*speed*speed*damageAero));
  }
 }
 }
