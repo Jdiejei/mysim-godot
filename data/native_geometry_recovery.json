@@ -1,6 +1,6 @@
 {
   "sourceRun": 41238298409,
-  "scope": "Only prior engine-error cases after world-metre collider representation fix; prior74passes preserved separately",
+  "scope": "Only22 previously unexecuted cases; track49 both and track12F1 passes retained, track12GT actual lap failure separate",
   "cases": [
     {
       "track": 8,
@@ -89,22 +89,8 @@
     {
       "track": 11,
       "car": 16
-    },
-    {
-      "track": 49,
-      "car": 0
-    },
-    {
-      "track": 49,
-      "car": 16
-    },
-    {
-      "track": 12,
-      "car": 0
-    },
-    {
-      "track": 12,
-      "car": 16
     }
-  ]
+  ],
+  "previousAttemptRun": 41243292725,
+  "distinctFix": "a4d42fc selects manifest cars before default two-shard indexing"
 }
