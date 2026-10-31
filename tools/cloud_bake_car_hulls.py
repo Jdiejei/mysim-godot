@@ -3,11 +3,11 @@ import os,pathlib,json,subprocess
 out=pathlib.Path('outputs/cloud-game');out.mkdir(parents=True,exist_ok=True)
 shard=int(os.environ['HULL_REVIEW_SHARD']);depth=os.environ['HULL_REVIEW_DEPTH'];cars=[int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')] if depth=='native_mounted_laps' else [shard*2,shard*2+1] if depth=='native_hull_matrix' else [[0,16][shard]]
 if depth=='native_hull_recovery':cars=sorted(set(x['car'] for x in json.loads(pathlib.Path('data/native_hull_recovery.json').read_text())['cases']))
-if depth=='native_traffic_lap':cars=[[0,1],[16,17]][shard]
+if depth in ('native_traffic_diagnostic','native_traffic_lap','native_traffic_diagnostic'):cars=[[0,1],[16,17]][shard]
 if depth=='native_ai_diagnostic':cars=[16]
 assert cars and len(set(cars))==len(cars) and all(0<=car<24 for car in cars),'Invalid hull car scope'
 env=dict(os.environ);env['MYSIM_NATIVE_HULL_BAKE']=','.join(map(str,cars));log=out/'hull-bake.log'
-if os.environ.get('NATIVE_PIT_SERVICE')=='1' or depth in ('native_traffic_lap','native_mounted_gameplay','native_mounted_laps','native_retirement','native_mounted_visual','native_ai_diagnostic'):env.update(MYSIM_COMPONENT_MOUNTS='1')
+if os.environ.get('NATIVE_PIT_SERVICE')=='1' or depth in ('native_traffic_diagnostic','native_traffic_lap','native_mounted_gameplay','native_mounted_laps','native_retirement','native_mounted_visual','native_ai_diagnostic'):env.update(MYSIM_COMPONENT_MOUNTS='1')
 with log.open('w') as stream:result=subprocess.run([os.environ['GODOT_BIN'],'--headless','--path','.'],env=env,stdout=stream,stderr=subprocess.STDOUT,timeout=1200)
 text=log.read_text(errors='replace')
 if result.returncode or 'ERROR:' in text:
