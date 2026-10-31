@@ -2,6 +2,7 @@ name: experimental-native-suspension-and-tyre-forces
 on:
   workflow_dispatch:
     inputs:
+      trial_suite: {description: 'Distinct native fixture suite', type: choice, options: [suspension, hybrid], default: suspension}
       physics_backend: {description: 'Explicit isolated solver comparison', type: choice, options: [source, jolt], default: source}
       physics_hz: {description: 'Experimental native time resolution', type: choice, options: ['120', '240'], default: '120'}
 permissions: {contents: read}
@@ -32,9 +33,10 @@ jobs:
           "$G" --headless --editor --path . --import > outputs/native-suspension/import.log 2>&1
       - name: Native rigid body suspension and tyre-force trials
         env:
-          MYSIM_NATIVE_SUSPENSION_CHECKS: outputs/native-suspension/results.json
+          NATIVE_TRIAL_SUITE: ${{ inputs.trial_suite || 'suspension' }}
           MYSIM_NATIVE_PHYSICS_HZ: ${{ inputs.physics_hz || '120' }}
         run: |
+          if [ "$NATIVE_TRIAL_SUITE" = hybrid ]; then export MYSIM_NATIVE_HYBRID_CHECKS=outputs/native-suspension/results.json; else export MYSIM_NATIVE_SUSPENSION_CHECKS=outputs/native-suspension/results.json; fi
           "$GODOT_BIN" --headless --path . --fixed-fps "$MYSIM_NATIVE_PHYSICS_HZ" > outputs/native-suspension/runtime.log 2>&1
           cat outputs/native-suspension/results.json
           ! grep -q 'ERROR:' outputs/native-suspension/runtime.log

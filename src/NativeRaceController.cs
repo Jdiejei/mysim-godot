@@ -33,7 +33,7 @@ public partial class NativeRaceController : DriveController {
   bool pit=ControlBindings.Held(5)||(pads.Count>0&&Input.IsJoyButtonPressed(pads[0],JoyButton.A));if(pit&&!pitWas)Hud.TogglePitStrategy();pitWas=pit;
   Race.Advance((float)delta);traffic.Apply((float)delta);if(Player.externalResetRequested&&!PlaceBody("race-rule-reset"))throw new Exception("Native race reset lacks drive surface");
   if(Player.servicing&&!parked){if(!PlaceBody("pit-box-alignment"))throw new Exception("Pit box has no physical surface");body.LinearVelocity=body.AngularVelocity=Vector3.Zero;body.Freeze=true;parked=true;}else if(!Player.servicing&&parked){body.Freeze=false;parked=false;TyreAppearance.Apply(WheelPivots,Player.tyres[0].compound);}
-  body.Controls=Player.servicing?new DriverInput(0,1,0):Player.input;body.HybridDriveForce=Player.servicing?0:HybridDeployment.Step(Player,Player.input,(float)delta)*Player.input.throttle;
+  body.BindRaceControls(Player,(float)delta);
   float service=Player.servicing?PitServiceTimeline.Duration-Player.serviceRemaining:-1;lastLift=PitSequence(service);Car.GlobalTransform=new Transform3D(body.GlobalBasis,body.GlobalPosition-body.GlobalBasis.Y*.65f+Vector3.Up*lastLift);UpdateCrew(service);UpdateAudio(service);
   travel+=body.LinearVelocity.Dot(body.GlobalBasis.Z)*(float)delta;WheelAnimation.Update(WheelPivots,travel,body.WheelAngle);for(int i=0;i<4;i++)WheelPivots[i].Position=homes[i]+Vector3.Up*(body.RestLength-body.StaticSag-body.SpringLength[i]);
   bool camera=ControlBindings.Held(6)||(pads.Count>0&&Input.IsJoyButtonPressed(pads[0],JoyButton.Y));if(camera&&!cameraWas)CycleCamera();cameraWas=camera;UpdateView();
