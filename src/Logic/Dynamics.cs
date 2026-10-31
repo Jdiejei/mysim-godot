@@ -13,7 +13,7 @@ namespace MySimulator.Rebuild
     {
         const float R=.33f,Iw=1.6f,Kappa0=.11f,Alpha0=.12f,PB=1.75f,PC=1.5f,PE=.2f,G=9.81f;
         // combined slip: one normalised slip vector, one Magic-Formula magnitude, split along the slip direction
-        static void Tyre(float fz,float mu,float kappa,float alpha,out float fx,out float fy)
+        public static void ContactTyreForces(float fz,float mu,float kappa,float alpha,out float fx,out float fy)
         {
             float kn=kappa/Kappa0,an=alpha/Alpha0,s=(float)Math.Sqrt(kn*kn+an*an);
             if(s<1e-5f){fx=0;fy=0;return;}
@@ -82,7 +82,7 @@ namespace MySimulator.Rebuild
                 float mu=mu0*MathUtil.Clamp(1-.12f*(fz[i]/fz0-1),.7f,1.15f);
                 float vref=Math.Max(Math.Abs(vxw),2f),vlat=Math.Max(Math.Abs(vxw),4f);
                 float alpha=(float)Math.Atan2(vyw,vlat),kappa=(st.w[i]*R-vxw)/vref;
-                float fx0,fy0,fx1,fy1;Tyre(fz[i],mu,kappa,alpha,out fx0,out fy0);Tyre(fz[i],mu,kappa+.02f,alpha,out fx1,out fy1);
+                float fx0,fy0,fx1,fy1;ContactTyreForces(fz[i],mu,kappa,alpha,out fx0,out fy0);ContactTyreForces(fz[i],mu,kappa+.02f,alpha,out fx1,out fy1);
                 float k=Math.Max(0,(fx1-fx0)/.02f);
                 // torques: rear-wheel drive with TC, front-biased brakes with ABS
                 float td=front?0:driveTotal*.5f*R;if(!front&&v.traction&&!inp.reverse)td*=MathUtil.Clamp(1-(st.kappa[i]-.14f)/.1f,.1f,1f);
@@ -97,7 +97,7 @@ namespace MySimulator.Rebuild
                 float brakeImpulse=dt/Iw*tb/denominator;
                 float wn=Math.Sign(freeWheel)*Math.Max(0,Math.Abs(freeWheel)-brakeImpulse);
                 st.w[i]=wn;float kn=(wn*R-vxw)/vref;st.kappa[i]=kn;
-                float fx,fy;Tyre(fz[i],mu,kn,alpha,out fx,out fy);st.alpha[i]=alpha;
+                float fx,fy;ContactTyreForces(fz[i],mu,kn,alpha,out fx,out fy);st.alpha[i]=alpha;
                 float fbx=fx*c-fy*s,fby=fx*s+fy*c;
                 fxB+=fbx;fyB+=fby;mz+=xi*fby-yi*fbx;
                 slipAcc=Math.Max(slipAcc,(float)Math.Sqrt(alpha*alpha+.25f*kn*kn));
