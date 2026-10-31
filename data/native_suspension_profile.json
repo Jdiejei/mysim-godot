@@ -1,0 +1,7 @@
+{
+  "scope": "Authored experimental suspension setup, not measured manufacturer calibration. Original source mesh and tyre dimensions preserved.",
+  "minimumStaticClearance": 0.035,
+  "maximumPreload": 0.12,
+  "bumpStopReserve": 0.01,
+  "bumpStopRateMultiplier": 12
+}

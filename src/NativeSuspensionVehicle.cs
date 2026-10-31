@@ -16,7 +16,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public string[] ContactParts=Array.Empty<string>(),ContactSurfaces=Array.Empty<string>();public int ChassisContacts;public readonly Vector3[] ContactForces=new Vector3[4],ContactNormals=new Vector3[4];
  public readonly bool[] Grounded=new bool[4];public readonly float[] Loads=new float[4];public readonly float[] SpringLength=new float[4];
  public Vector3[] RecoveredWheelCentres;public float[] RecoveredWheelRadii;
- public float SuspensionPreload;public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
+ public float SuspensionPreload;float bumpStopTravel=float.PositiveInfinity,bumpStopRate;public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
  public float TyreLoadRatio {get{float sum=0;foreach(float load in Loads)sum+=load;return sum/(Mass*9.81f);}}
  public Tyre[] Tyres=>tyres;
  Vector3[] mounts=new Vector3[4];float[] radii=new float[4];Tyre[] tyres={new Tyre(),new Tyre(),new Tyre(),new Tyre()};float power,drag,brakeDecel;
@@ -28,8 +28,9 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   for(int i=0;i<4;i++){radii[i]=RecoveredWheelRadii==null?WheelRadius:RecoveredWheelRadii[i];if(!float.IsFinite(radii[i])||radii[i]<.15f||radii[i]>.6f)throw new InvalidOperationException("Recovered wheel radius invalid");mounts[i]=RecoveredWheelCentres==null?new Vector3(i%2==0?-track*.5f:track*.5f,-.32f+RestLength-StaticSag,i<2?wheelbase*.5f:-wheelbase*.5f):RecoveredWheelCentres[i]+Vector3.Up*(RestLength-StaticSag);tyres[i].Replace(Compound);}
   if(!NativeCarColliders.Install(this,CarIndex)){AddChild(new CollisionShape3D {Shape=new BoxShape3D {Size=new Vector3(track,.5f,wheelbase+.5f)}});GD.Print("NATIVE_COLLISION_FIXTURE_PROXY car=",CarIndex);}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_RIDE_HEIGHT")=="1"){
+   using var setup=System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString("res://data/native_suspension_profile.json"));var settings=setup.RootElement;float clearance=settings.GetProperty("minimumStaticClearance").GetSingle(),maximum=settings.GetProperty("maximumPreload").GetSingle(),reserve=settings.GetProperty("bumpStopReserve").GetSingle();bumpStopRate=settings.GetProperty("bumpStopRateMultiplier").GetSingle();if(!float.IsFinite(clearance)||clearance<=0||clearance>.2f||!float.IsFinite(reserve)||reserve<=0||reserve>=clearance||!float.IsFinite(bumpStopRate)||bumpStopRate<1||bumpStopRate>100||!float.IsFinite(maximum)||maximum<=0||maximum>.2f)throw new Exception("Invalid experimental suspension profile");bumpStopTravel=clearance-reserve;
    string path="res://assets/generated_native_car_hulls/car-"+CarIndex.ToString("00")+".json";using var manifest=System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString(path));float bottom=float.PositiveInfinity;foreach(var part in manifest.RootElement.GetProperty("partBounds").EnumerateArray()){string name=part.GetProperty("part").GetString();if(manifest.RootElement.GetProperty("mountedHubs").TryGetProperty(name,out _))continue;bottom=Mathf.Min(bottom,part.GetProperty("minimumY").GetSingle());}
-   float tyreBottom=float.PositiveInfinity;for(int i=0;i<4;i++)tyreBottom=Mathf.Min(tyreBottom,RecoveredWheelCentres[i].Y-radii[i]);float sourceClearance=bottom-tyreBottom;SuspensionPreload=Mathf.Max(0,.035f-sourceClearance);if(!float.IsFinite(SuspensionPreload)||SuspensionPreload>.12f)throw new Exception("Source clearance requires unsupported suspension extension");GD.Print("NATIVE_STATIC_CLEARANCE preload=",SuspensionPreload," original=",sourceClearance," target=",.035f);
+   float tyreBottom=float.PositiveInfinity;for(int i=0;i<4;i++)tyreBottom=Mathf.Min(tyreBottom,RecoveredWheelCentres[i].Y-radii[i]);float sourceClearance=bottom-tyreBottom;SuspensionPreload=Mathf.Max(0,clearance-sourceClearance);if(!float.IsFinite(SuspensionPreload)||SuspensionPreload>maximum)throw new Exception("Source clearance requires unsupported suspension extension");GD.Print("NATIVE_STATIC_CLEARANCE preload=",SuspensionPreload," original=",sourceClearance," target=",clearance);
   }
   float vmax=RecoveredVehicleProfiles.Speed[CarIndex]*.44704f;power=Mass*26.82f*26.82f/(2*RecoveredVehicleProfiles.Acceleration[CarIndex])*1.35f;drag=power/(vmax*vmax*vmax);brakeDecel=26.82f*26.82f/(2*RecoveredVehicleProfiles.Brakes[CarIndex]*.3048f);
  }
@@ -49,7 +50,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
    var point=(Vector3)hit["position"];var normal=((Vector3)hit["normal"]).Normalized();ContactNormals[i]=normal;hit.Clear();
    float length=Mathf.Max(0,mount.DistanceTo(point)-radii[i]);SpringLength[i]=length;
    var arm=point-pose.Origin;var velocity=state.GetVelocityAtLocalPosition(arm);
-   float load=Mathf.Clamp(spring*(RestLength+SuspensionPreload-length)-damper*velocity.Dot(normal),0,Mass*gravity);if(load<=0){FreeWheel(i,input,engine,state.Step);continue;}
+   float compression=RestLength+SuspensionPreload-StaticSag-length;float bumpForce=spring*bumpStopRate*Mathf.Max(0,compression-bumpStopTravel);float load=Mathf.Clamp(spring*(RestLength+SuspensionPreload-length)+bumpForce-damper*velocity.Dot(normal),0,Mass*gravity);if(load<=0){FreeWheel(i,input,engine,state.Step);continue;}
    Grounded[i]=true;Loads[i]=load;Contacts++;state.ApplyForce(normal*load,arm);
    var rolling=(i<2?forward.Rotated(up,WheelAngle):forward);rolling=(rolling-normal*rolling.Dot(normal)).Normalized();var right=rolling.Cross(normal).Normalized();
    float u=velocity.Dot(rolling),side=velocity.Dot(right),mu=tyres[i].Grip(Water)*1.18f*Dynamics.GripMul(CarIndex),capacity=mu*load;
