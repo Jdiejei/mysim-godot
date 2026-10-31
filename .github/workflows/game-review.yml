@@ -175,8 +175,15 @@ jobs:
         run: |
           if [ -d outputs/cloud-game ]; then
             python tools/cloud_encrypt_output.py outputs/cloud-game "/tmp/game-review-${{ github.run_id }}-${{ github.run_attempt }}-$SHARD.enc"
-            gh release upload repair-review-20261029 "/tmp/game-review-${{ github.run_id }}-${{ github.run_attempt }}-$SHARD.enc" --clobber
+            python tools/cloud_publish_review.py "/tmp/game-review-${{ github.run_id }}-${{ github.run_attempt }}-$SHARD.enc"
           fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: encrypted-review-${{ matrix.shard }}-attempt-${{ github.run_attempt }}
+          path: /tmp/game-review-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.shard }}.enc
+          if-no-files-found: ignore
+          retention-days: 14
       - uses: actions/upload-artifact@v4
         if: always()
         with:
