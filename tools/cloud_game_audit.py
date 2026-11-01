@@ -126,7 +126,7 @@ if os.environ.get('CAR_PAINT_CANDIDATE')=='1':
  for candidate in ('0','1'):
   for view,camera in enumerate(('4,2.5,4','-4,2.5,4','4,2.5,-4')):
    label=f'paint-candidate-{candidate}-view-{view}';shot=out/(label+'.png')
-   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_PAINT_CANDIDATE':candidate,'MYSIM_REBUILT_RIMS':candidate,'MYSIM_REBUILT_TYRES':candidate,'MYSIM_WHEEL_LETTERING':candidate,'MYSIM_SHOT':str(shot)})
+   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_PAINT_CANDIDATE':candidate,'MYSIM_REBUILT_RIMS':candidate,'MYSIM_REBUILT_TYRES':candidate,'MYSIM_WHEEL_LETTERING':candidate,'MYSIM_TYRE_LINEAR_REFLECTANCE':candidate,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and 'PASS complete visible car framing' in text
  print('COMPLETE paint candidate comparison; not art acceptance',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':

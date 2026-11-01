@@ -30,7 +30,7 @@ public static class TyreMeshBuilder {
   void Vertex(int angle,int cross){int j=(cross+section.Length)%section.Length;var around=Point(angle+1,j)-Point(angle-1,j);var across=Point(angle,j+1)-Point(angle,j-1);var normal=around.Cross(across).Normalized();tool.SetNormal(normal);tool.SetUV(new Vector2(angle/(float)segments,j/(float)section.Length));tool.AddVertex(Point(angle,j));}
   for(int i=0;i<segments;i++)for(int j=0;j<section.Length;j++){Vertex(i,j);Vertex(i,j+1);Vertex(i+1,j);Vertex(i+1,j);Vertex(i,j+1);Vertex(i+1,j+1);}tool.Index();return tool.Commit();
  }
- public static MeshInstance3D Create(float radius,float width,bool wet){var part=new MeshInstance3D {Name="RebuiltRubberTyre",Mesh=Build(radius,width,wet),MaterialOverride=new StandardMaterial3D {AlbedoColor=new Color(.025f,.027f,.029f),Roughness=.88f,Metallic=0,MetallicSpecular=.22f,CullMode=BaseMaterial3D.CullModeEnum.Disabled}};part.SetMeta("radius",radius);part.SetMeta("width",width);part.SetMeta("wet",wet);return part;}
+ public static MeshInstance3D Create(float radius,float width,bool wet){var rubber=new Color(.025f,.027f,.029f);if(System.Environment.GetEnvironmentVariable("MYSIM_TYRE_LINEAR_REFLECTANCE")=="1")rubber=rubber.LinearToSrgb();var part=new MeshInstance3D {Name="RebuiltRubberTyre",Mesh=Build(radius,width,wet),MaterialOverride=new StandardMaterial3D {AlbedoColor=rubber,Roughness=.88f,Metallic=0,MetallicSpecular=.22f,CullMode=BaseMaterial3D.CullModeEnum.Disabled}};part.SetMeta("radius",radius);part.SetMeta("width",width);part.SetMeta("wet",wet);return part;}
  public static void SetWet(MeshInstance3D part,bool wet){if(part.GetMeta("wet").AsBool()==wet)return;part.Mesh=Build(part.GetMeta("radius").AsSingle(),part.GetMeta("width").AsSingle(),wet);part.SetMeta("wet",wet);}
 }
 }
