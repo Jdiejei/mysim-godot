@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using MySimulator.Rebuild;
 namespace MySim {
 // Explicit visual comparison only. Native contacts/radii and original source resources are unchanged.
 public static class RecoveredWetTyreCandidate {
