@@ -105,6 +105,7 @@ jobs:
         run: |
           mkdir -p assets outputs/cloud-game
           touch assets/.gdignore
+          python -m pip install cryptography Pillow
           python -c "import pathlib,json;pathlib.Path('outputs/cloud-game/gui-isolation.json').write_text(json.dumps({'scope':'UI interaction/layout only; no imported car, track or collision acceptance','sourceAssetsImported':False}))"
       - name: Install software renderer and Godot
         if: inputs.depth != 'route_parity'
@@ -135,7 +136,7 @@ jobs:
         if: inputs.depth == 'native_ai_diagnostic'
         run: python -m pip install pillow
       - name: Render layouts and cars; test real scene transitions
-        if: inputs.depth != 'route_parity' && inputs.depth != 'gui_review'
+        if: inputs.depth != 'route_parity'
         env:
           SHARD: ${{ matrix.shard }}
           NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
