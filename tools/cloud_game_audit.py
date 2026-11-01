@@ -90,7 +90,8 @@ if os.environ.get('NATIVE_HULL_CONTACT')=='1':
   except RuntimeError as e:error=str(e)
   path=out/'native-hull-contact-results.json';result=json.loads(path.read_text()) if path.exists() else {}
   if path.exists():path.rename(out/(label+'.json'))
-  if error or not result.get('all') or 'PASS recovered compound hull bumper coverage' not in text:failures.append({'car':car,'error':error or 'Collision gates failed'})
+  expected_hz=int(values.get('MYSIM_NATIVE_CONTACT_HZ',os.environ.get('NATIVE_PHYSICS_HZ','120')))
+  if error or result.get('physicsHz')!=expected_hz or not result.get('all') or 'PASS recovered compound hull bumper coverage' not in text:failures.append({'car':car,'error':error or 'Collision gates failed'})
   (out/'hull-case-failures.json').write_text(json.dumps(failures,indent=2))
  assert not failures, 'See preserved per-car results; all selected cars were attempted'
  print('COMPLETE recovered compound body wall impacts; wheel and full-game gates remain open',flush=True);sys.exit(0)
