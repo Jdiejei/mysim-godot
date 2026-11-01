@@ -1,35 +1,85 @@
 {
-  "scope": "OnlyfailedF1damagecases afterCCD.1; sourcehulls/damage/norescue/lapgates retained",
+  "scope": "OnlyremainingGTfailures forindependentheadingcontrollerexperiment; allsourcephysics/gates unchanged",
   "cases": [
     {
-      "car": 16,
+      "car": 0,
+      "track": 8,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
       "track": 32,
-      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
     },
     {
-      "car": 16,
-      "track": 4,
-      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
+      "car": 0,
+      "track": 31,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
     },
     {
-      "car": 16,
-      "track": 3,
-      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
+      "car": 0,
+      "track": 43,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
     },
     {
-      "car": 16,
-      "track": 50,
-      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
+      "car": 0,
+      "track": 6,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
     },
     {
-      "car": 16,
-      "track": 58,
-      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
+      "car": 0,
+      "track": 54,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
     },
     {
-      "car": 16,
-      "track": 25,
-      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
+      "car": 0,
+      "track": 5,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 41,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 53,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 15,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 2,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 38,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 23,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 59,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 46,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+    },
+    {
+      "car": 0,
+      "track": 12,
+      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
     }
   ]
 }

@@ -55,7 +55,7 @@ if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
  for track in (sorted({x['track'] for x in recovery}) if recovery is not None else range(shard,60,12)):
   for car in ([x['car'] for x in recovery if x['track']==track] if recovery is not None else cars):
    label=f'mounted-native-lap-track-{track:02}-car-{car:02}';report=out/(label+'.json')
-   values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'1200','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':'3','MYSIM_NATIVE_GAMEPLAY_CHECKS':'1','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report),'MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json'))}
+   values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'1200','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':os.environ.get('NATIVE_AI_MODE','3') if os.environ.get('NATIVE_AI_ENABLED')=='1' else '3','MYSIM_NATIVE_GAMEPLAY_CHECKS':'1','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report),'MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json'))}
    try:
     text=run(label,values,['--headless'],timeout=1800);result=json.loads(report.read_text());ok=result['ok'] and 'PASS native force-driven valid lap and results UI' in text and 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text and 'RECONSTRUCTED_COMPONENT_MOUNTS' in text
     row={'track':track,'car':car,'ok':bool(ok),'result':result}

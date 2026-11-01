@@ -288,6 +288,13 @@ namespace MySimulator.Rebuild
             float pitDistance,pitIndex=track.FindPit(position,out pitDistance);Vec target=pitActive?track.PitPoint(Math.Min(!pitDone?track.PitServiceIndex:track.PitRoute.Length-1,pitIndex+MathUtil.Clamp(2+speed*.13f,2,4))):track.Lane(progress+look/track.length,offset);Vec diff=target-position;
             float localX=Vec.Dot(diff,Right),d=diff.Magnitude;
             float desiredSteer=(float)Math.Atan2(2*RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))]*localX,Math.Max(1,d*d));
+            // Experimental front-axle heading/cross-track control avoids chasing a point behind the car.
+            if(aiProbe=="6"&&externalPhysics&&!pitActive){
+                float axle=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))]*.5f;
+                float frontLateral;float frontProgress=track.Find(position+Forward*axle,out frontLateral);
+                float headingError=MathUtil.Wrap(track.Heading(frontProgress)-heading);
+                desiredSteer=MathUtil.Clamp(headingError+(float)Math.Atan2(1.5f*(offset-frontLateral),Math.Max(2f,speed)),-Dynamics.SteeringLock(speed),Dynamics.SteeringLock(speed));
+            }
             float steer=desiredSteer/((externalPhysics||physicalHandling)?PhysicalSteeringLimit(speed):Math.Max(.05f,currentMaxSteer));
             if(nativeTyreSteering||((aiProbe=="3"||aiProbe=="4"||aiProbe=="5")&&UseDynamics&&!externalPhysics))steer=Dynamics.SteeringCommand(desiredSteer,Vec.Dot(velocity,Forward));
             float turn=Math.Abs(MathUtil.Wrap(track.Heading(progress+.04f)-track.Heading(progress)))/(.04f*track.length);
@@ -298,7 +305,7 @@ namespace MySimulator.Rebuild
             float wheelbase=RecoveredGeometry.Wheelbase[Math.Max(0,Math.Min(RecoveredGeometry.Wheelbase.Length-1,carModel))];
             float curvature=Math.Abs((float)Math.Tan(desiredSteer))/Math.Max(1,wheelbase);
             desired=Math.Min(desired,(float)Math.Sqrt(latAcc/Math.Max(.001f,curvature-aDown)));
-            if(Vec.Dot(diff,Forward)<0){desired=Math.Min(desired,4);steer=localX>=0?1:-1;}
+            if(Vec.Dot(diff,Forward)<0&&aiProbe!="6"){desired=Math.Min(desired,4);steer=localX>=0?1:-1;}
             if(pitRequested&&!pitDone&&!pitActive&&track.PitValid){Vec entry=track.PitRoute[0];float entryLat;float entryP=track.Find(entry,out entryLat);float toEntry=MathUtil.Wrap01(entryP-progress)*track.length;if(toEntry<500)desired=Math.Min(desired,(float)Math.Sqrt(13f*13f+2*6f*Math.Max(0,toEntry-25)));}
             if(pitActive){desired=Math.Min(desired,PitLaneAiSpeed);Vec before=track.PitPoint(pitIndex),ahead=track.PitPoint(pitIndex+2),later=track.PitPoint(pitIndex+4);Vec aDir=(ahead-before).Normalized,bDir=(later-ahead).Normalized;float corner=Math.Abs(MathUtil.Wrap((float)Math.Atan2(aDir.x,aDir.z)-(float)Math.Atan2(bDir.x,bDir.z)));desired=Math.Min(desired,MathUtil.Lerp(PitLaneAiSpeed,4,corner));if(!pitDone&&pitIndex>track.PitServiceIndex-12){float remaining=(position-track.PitBox).Magnitude;desired=Math.Min(desired,(float)Math.Sqrt(Math.Max(0,remaining-.25f)*2.5f));if(remaining<1.1f)desired=0;}}
             if(obstruction!=null&&aheadDistance<8)desired=Math.Min(desired,Math.Max(0,obstruction.speed-2));

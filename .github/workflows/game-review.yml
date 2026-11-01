@@ -15,7 +15,7 @@ on:
       rotational_tyres: {description: 'Explicit physical wheel angular-state experiment', type: boolean, default: false}
       native_ai: {description: 'Apply explicit experimental AI mode during native regression only', type: boolean, default: false}
       case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco], default: shutdown}
-      ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5'], default: '1'}
+      ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5', '6'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}', cancel-in-progress: false}
@@ -118,6 +118,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
+          NATIVE_AI_ENABLED: ${{ inputs.native_ai && '1' || '0' }}
           NATIVE_DAMAGE: ${{ inputs.native_damage && '1' || '0' }}
           NATIVE_ROTATIONAL_TYRES: ${{ inputs.rotational_tyres && '1' || '0' }}
           NATIVE_PHYSICS_HZ: ${{ inputs.physics_hz || '120' }}
