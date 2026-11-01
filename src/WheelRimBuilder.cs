@@ -36,7 +36,7 @@ public static class WheelRimBuilder {
  }
  public static Node3D Build(float radius,float tyreWidth,int design,int car=-1){
   if(!float.IsFinite(radius)||radius<.1f||radius>.45f||tyreWidth<.1f||tyreWidth>.7f)throw new ArgumentOutOfRangeException("Recovered wheel dimensions invalid");
-  var root=new Node3D {Name="RebuiltForgedRim"};float width=tyreWidth*.8f;var metal=Metal(new Color(.24f,.27f,.30f),.24f);var edge=Metal(new Color(.48f,.51f,.54f),.2f);var hubMetal=Metal(new Color(.12f,.14f,.16f),.35f);
+  var root=new Node3D {Name="RebuiltForgedRim"};float width=tyreWidth*.8f;var metal=Metal(new Color(.24f,.27f,.30f),.24f);var edge=Metal(new Color(.36f,.38f,.40f),.32f);var hubMetal=Metal(new Color(.12f,.14f,.16f),.35f);
   float sweep=.16f,spokeWidth=.062f;
   if(car>=15&&car<=18){
    using var document=System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString("res://data/f1_wheel_profiles.json"));var spec=document.RootElement.GetProperty("cars").GetProperty(car.ToString());var colour=spec.GetProperty("metal");sweep=spec.GetProperty("sweep").GetSingle();spokeWidth=spec.GetProperty("spokeWidth").GetSingle();float roughness=spec.GetProperty("roughness").GetSingle();

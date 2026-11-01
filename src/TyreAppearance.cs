@@ -3,7 +3,7 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Compound markings are separate geometry; source tyres, rims, textures and UVs stay intact.
 public static class TyreAppearance {
- public static Color Colour(Compound compound)=>compound switch {Compound.Soft=>new Color(.9f,.06f,.04f),Compound.Medium=>new Color(1f,.78f,.04f),Compound.Hard=>new Color(.92f,.93f,.94f),_=>new Color(.08f,.38f,.95f)};
+ public static Color Colour(Compound compound)=>compound switch {Compound.Soft=>new Color(.76f,.05f,.035f),Compound.Medium=>new Color(.84f,.65f,.035f),Compound.Hard=>new Color(.78f,.79f,.80f),_=>new Color(.065f,.31f,.80f)};
  static ArrayMesh FlatMarking(float radius,float side){
   using var tool=new SurfaceTool();tool.Begin(Mesh.PrimitiveType.Triangles);const int segments=192;
   void V(int angle,float radial){float theta=Mathf.Tau*angle/segments;tool.SetNormal(Vector3.Right*side);tool.AddVertex(new Vector3(0,radius*radial*Mathf.Cos(theta),radius*radial*Mathf.Sin(theta)));}

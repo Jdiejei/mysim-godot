@@ -16,7 +16,7 @@ public static class TyreMeshBuilder {
    for(int j=0;j<5;j++)detailed.Add(section[j]);
     foreach(float x in crown){
      float y=1;for(int j=4;j<14;j++)if(x>=section[j].X&&x<=section[j+1].X){y=Mathf.Lerp(section[j].Y,section[j+1].Y,(x-section[j].X)/(section[j+1].X-section[j].X));break;}
-     float depth=0;foreach(float channel in new[]{-.27f,-.09f,.09f,.27f})depth=Mathf.Max(depth,Mathf.Clamp((.023f-Mathf.Abs(x-channel))/.011f,0,1)*.006f);
+     float depth=0;foreach(float channel in new[]{-.27f,-.09f,.09f,.27f})depth=Mathf.Max(depth,Mathf.Clamp((.023f-Mathf.Abs(x-channel))/.011f,0,1)*.008f);
      detailed.Add(new Vector2(x,y-depth/radius));
     }
    for(int j=14;j<section.Length;j++)detailed.Add(section[j]);section=detailed.ToArray();
@@ -24,7 +24,7 @@ public static class TyreMeshBuilder {
   const int segments=384;using var tool=new SurfaceTool();tool.Begin(Mesh.PrimitiveType.Triangles);
   Vector3 Point(int angle,int cross){int j=(cross+section.Length)%section.Length;float theta=Mathf.Tau*angle/segments;var p=section[j];float r=p.Y*radius;
    // Paired angled channels connect the four longitudinal channels to the shoulders.
-   if(wet&&Mathf.Abs(p.X)<.46f){float phase=Mathf.PosMod(angle-Mathf.Abs(p.X)*48f,16f);float edge=Mathf.Min(phase,16f-phase);r-=Mathf.Clamp((1.4f-edge)/.8f,0,1)*.004f;}
+   if(wet&&Mathf.Abs(p.X)<.46f){float phase=Mathf.PosMod(angle-Mathf.Abs(p.X)*48f,16f);float edge=Mathf.Min(phase,16f-phase);r-=Mathf.Clamp((1.4f-edge)/.8f,0,1)*.006f;}
    return new Vector3(p.X*width,r*Mathf.Cos(theta),r*Mathf.Sin(theta));
   }
   void Vertex(int angle,int cross){int j=(cross+section.Length)%section.Length;var around=Point(angle+1,j)-Point(angle-1,j);var across=Point(angle,j+1)-Point(angle,j-1);var normal=around.Cross(across).Normalized();tool.SetNormal(normal);tool.SetUV(new Vector2(angle/(float)segments,j/(float)section.Length));tool.AddVertex(Point(angle,j));}
