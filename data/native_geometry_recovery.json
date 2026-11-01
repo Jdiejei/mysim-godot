@@ -1,55 +1,20 @@
 {
-  "scope": "Only10GTcasesunexecutedbecauseoldhardcodedmatrix; sixactualAI6passesnotrepeated",
+  "scope": "ThreepersistingF1impactfailures instrumentationonly, nofixclaim",
   "cases": [
     {
-      "car": 0,
-      "track": 31,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+      "car": 16,
+      "track": 32,
+      "reason": "Exactphysics-tick impact evidence after measuredsuspension; no damagegatewaiver"
     },
     {
-      "car": 0,
-      "track": 43,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+      "car": 16,
+      "track": 4,
+      "reason": "Exactphysics-tick impact evidence after measuredsuspension; no damagegatewaiver"
     },
     {
-      "car": 0,
-      "track": 6,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 54,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 5,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 41,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 53,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 23,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 59,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
-    },
-    {
-      "car": 0,
-      "track": 12,
-      "reason": "ActualremainingGTfailure; experimentalfrontaxleheading/cross-trackAI, no bounds/contact relaxation"
+      "car": 16,
+      "track": 50,
+      "reason": "Exactphysics-tick impact evidence after measuredsuspension; no damagegatewaiver"
     }
   ]
 }
