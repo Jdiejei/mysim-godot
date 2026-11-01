@@ -152,6 +152,12 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
+if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
+ for mode in ('baseline','coverage_off','shadows_off'):
+  label='night25-cutout-'+mode;shot=out/(label+'.png')
+  text=run(label,{'MYSIM_TRACK':'25','MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
+  assert shot.exists() and 'TRACK_CUTOUT_DIAGNOSTIC' in text
+ print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
  for candidate in (0,1):
