@@ -31,7 +31,7 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  candidates=list(destination.rglob('*-preimpact-replay-attempt-1.json'));assert len(candidates)==1,'Require one exact first-attempt capture'
  capture=candidates[0];data=json.loads(capture.read_text());assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
  report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report)},['--headless'],timeout=180)
- result=json.loads(report.read_text());assert result['settingsMatched'] and len(result['trials'])==2 and 'COMPLETE reduced contact experiment' in text
+ result=json.loads(report.read_text());assert result['settingsMatched'] and len(result['trials'])==3 and 'COMPLETE reduced contact experiment' in text
  print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
 if os.environ.get('WALL_GEOMETRY_DIAGNOSTIC')=='1':
  results=[]
