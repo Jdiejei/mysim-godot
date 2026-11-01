@@ -32,6 +32,7 @@ public static class TrackMaterialBinder {
    }
   }
   trackMeshes.Clear();
+  TrackCutoutDiagnostic.Apply(track);
   var audit=System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT");if(!string.IsNullOrEmpty(audit)){System.IO.Directory.CreateDirectory(audit);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(audit,"bindings-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new {layer=track.Name.ToString(),fallbacks=missing,resolutions},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
   GD.Print("TRACKBIND fallbackGrey=", unbound, " unboundNames=", string.Join("|", UnboundNames.GetRange(0, System.Math.Min(40, UnboundNames.Count))));
   GD.Print("TRACKBIND bound=", bound, " of ", total, " surfaces; distinct textured materials=", cache.Count);
