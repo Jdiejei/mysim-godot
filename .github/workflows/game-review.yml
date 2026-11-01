@@ -11,6 +11,7 @@ on:
       physics_hz: {description: 'Explicit native time resolution experiment', type: choice, options: ['120', '240'], default: '120'}
       pit_service: {description: 'Require actual driven pit approach, tyre/repair service and exit for native hull AI laps', type: boolean, default: false}
       vertical_road_plan: {description: 'Opt-in AI preview of actual source road heights', type: boolean, default: false}
+      replay_capture_run: {description: 'Optional completed diagnostic run supplying schema2 damaging-contact capture; isolated replay only', type: string, default: ''}
       source_axle_fit: {description: 'Explicit source-suspension axle-placement experiment; defaults unchanged', type: boolean, default: false}
       native_ride_height: {description: 'Opt-in measured source clearance and force-based bump stops', type: boolean, default: false}
       native_damage: {description: 'Explicit native collision-damage experiment', type: boolean, default: false}
@@ -139,6 +140,8 @@ jobs:
         if: inputs.depth != 'route_parity'
         env:
           SHARD: ${{ matrix.shard }}
+          REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
+          GH_TOKEN: ${{ github.token }}
           NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
           SOURCE_AXLE_FIT: ${{ inputs.source_axle_fit && '1' || '0' }}
           NATIVE_AI_ENABLED: ${{ inputs.native_ai && '1' || '0' }}

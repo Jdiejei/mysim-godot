@@ -6,6 +6,7 @@ public partial class Main : Node3D {
  public bool ResultsVisible=>resultsShown;
  static readonly float ColorContrast = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CONTRAST") ?? "1.0", System.Globalization.CultureInfo.InvariantCulture), ColorSat = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SAT") ?? "1.1", System.Globalization.CultureInfo.InvariantCulture); Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; Button menuStart; bool menuGoWas; float menuAge; bool resultsShown, escWas; float finShown, resultsArmed;
  public override void _Ready() {
+  if(System.Environment.GetEnvironmentVariable("MYSIM_REDUCED_CONTACT_CAPTURE") is string contactCapture){NativePhysicsClock.Configure();AddChild(new NativeReducedContactReplay{CapturePath=contactCapture,OutputPath=System.Environment.GetEnvironmentVariable("MYSIM_REDUCED_CONTACT_REPORT")??"outputs/cloud-game/reduced-contact-replay.json"});return;}
   PitServiceTimeline.Configure(FileAccess.GetFileAsString("res://data/pit_service_profile.json"));
   if(System.Environment.GetEnvironmentVariable("MYSIM_WALL_GEOMETRY_CHECKS")!=null){AddChild(new WallGeometryScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_LEGALITY_CHECKS")!=null){AddChild(new NativeSurfaceLegalityScenario());return;}

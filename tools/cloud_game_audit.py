@@ -25,6 +25,14 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+if os.environ.get('REPLAY_CAPTURE_RUN'):
+ capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
+ destination=out/'replay-input';subprocess.run(['gh','run','download',capture_run,'--repo','instagramshashank8-bot/mysim-godot','-n',f'game-runtime-{shard}-attempt-1','-D',str(destination)],check=True)
+ candidates=list(destination.rglob('*-preimpact-replay-attempt-1.json'));assert len(candidates)==1,'Require one exact first-attempt capture'
+ capture=candidates[0];data=json.loads(capture.read_text());assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
+ report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report)},['--headless'],timeout=180)
+ result=json.loads(report.read_text());assert result['settingsMatched'] and len(result['trials'])==2 and 'COMPLETE reduced contact experiment' in text
+ print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
 if os.environ.get('WALL_GEOMETRY_DIAGNOSTIC')=='1':
  results=[]
  for metres in (False,True):
