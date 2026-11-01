@@ -9,7 +9,8 @@ public static class TrackMaterialBinder {
   var map = new Dictionary<string, string>();
   using (var f = FileAccess.Open(dir + "tex_by_material.json", FileAccess.ModeFlags.Read)) { var d = Json.ParseString(f.GetAsText()).AsGodotDictionary(); foreach (var k in d.Keys) map[k.AsString()] = d[k].AsString(); }
   var missing=new List<object>(); var resolutions=new List<object>(); var cache = new Dictionary<string, StandardMaterial3D>(); int bound = 0, total = 0, unbound = 0; UnboundNames.Clear();
-  foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) {
+  var trackMeshes=track.FindChildren("*", "MeshInstance3D", true, false);
+  foreach (var n in trackMeshes) {
    var m = (MeshInstance3D)n;
    for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) {
     total++; if (m.GetSurfaceOverrideMaterial(s) != null) { bound++; continue; } string name = m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? ""; if (name == "") continue;
@@ -30,6 +31,7 @@ public static class TrackMaterialBinder {
     m.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }
+  trackMeshes.Clear();
   var audit=System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT");if(!string.IsNullOrEmpty(audit)){System.IO.Directory.CreateDirectory(audit);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(audit,"bindings-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new {layer=track.Name.ToString(),fallbacks=missing,resolutions},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
   GD.Print("TRACKBIND fallbackGrey=", unbound, " unboundNames=", string.Join("|", UnboundNames.GetRange(0, System.Math.Min(40, UnboundNames.Count))));
   GD.Print("TRACKBIND bound=", bound, " of ", total, " surfaces; distinct textured materials=", cache.Count);

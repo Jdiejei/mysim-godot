@@ -8,7 +8,7 @@ public static class UnityMaterialBinder {
  static bool HasAlpha(Texture2D texture) {
   if(texture==null)return false;string path=texture.ResourcePath;
   if(alphaCache.TryGetValue(path,out bool alpha))return alpha;
-  var image=texture.GetImage();alpha=image!=null&&image.DetectAlpha()!=Image.AlphaMode.None;
+  using var image=texture.GetImage();alpha=image!=null&&image.DetectAlpha()!=Image.AlphaMode.None;
   alphaCache[path]=alpha;return alpha;
  }
 
@@ -47,7 +47,8 @@ void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv
   if (map == null) { if (!FileAccess.FileExists("res://assets/unity_map.json")) { GD.Print("UMAP file missing, using name matching"); return 0; } using var f = FileAccess.Open("res://assets/unity_map.json", FileAccess.ModeFlags.Read); map = Json.ParseString(f.GetAsText()).AsGodotDictionary(); }
   var tracks = map["tracks"].AsGodotDictionary(); string vk = variant.ToString(); if (!tracks.ContainsKey(vk)) { GD.Print("UMAP no variant ", vk); return 0; }
   var byName = tracks[vk].AsGodotDictionary(); CleanTrack(layer); var mats = map["materials"].AsGodotDictionary(); var used = new Dictionary<string, int>();
-  foreach (var node in layer.FindChildren("*", "MeshInstance3D", true, false)) {
+  var layerMeshes=layer.FindChildren("*", "MeshInstance3D", true, false);
+  foreach (var node in layerMeshes) {
    var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); Godot.Collections.Array lists = null;
    if (byName.ContainsKey(nm)) lists = byName[nm].AsGodotArray(); else { int k = nm.LastIndexOf('_'); string alt = nm; while (alt.Length > 0 && char.IsDigit(alt[alt.Length - 1])) alt = alt.Substring(0, alt.Length - 1); if (byName.ContainsKey(alt)) lists = byName[alt].AsGodotArray(); }
    if (lists == null || lists.Count == 0) { total += mi.Mesh.GetSurfaceCount(); continue; }
@@ -81,6 +82,7 @@ void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv
     if (mat != null) { mi.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }
+  layerMeshes.Clear();
   GD.Print("UMAP variant ", variant, " bound=", bound, " of ", total, " surfaces");
   return bound;
  }
