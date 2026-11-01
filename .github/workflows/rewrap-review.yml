@@ -20,6 +20,9 @@ jobs:
         run: python tools/cloud_rewrap_review.py
       - uses: actions/upload-artifact@v4
         if: always()
-        with: {name: review-rewrap-metadata, path: |
+        with:
+          name: review-rewrap-metadata
+          path: |
             review-rewrap-results.json
-            outputs/review-rewrap/*.enc, retention-days: 14}
+            outputs/review-rewrap/*.enc
+          retention-days: 14
