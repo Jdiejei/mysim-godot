@@ -1,32 +1,20 @@
 {
-  "scope": "Seven completed failed closed/prototype model cases; isolate existing AI6 against observed low-speed full-lock departure. Source-hulls/240/CCD.1/measured suspension/wheelpath planner/damage gates unchanged. No car17 ground-impact or car20 setup cases included.",
+  "scope": "Four confirmed remaining GT road strikes after measured suspension; add actual source-height wheelpath AI preview only. Keep source hulls, damage, AI6, 240Hz and CCD.1 unchanged.",
   "cases": [
     {
-      "car": 19,
+      "car": 13,
       "track": 8
     },
     {
-      "car": 23,
-      "track": 8
-    },
-    {
-      "car": 19,
+      "car": 13,
       "track": 32
     },
     {
-      "car": 22,
-      "track": 32
-    },
-    {
-      "car": 23,
-      "track": 32
-    },
-    {
-      "car": 19,
+      "car": 6,
       "track": 56
     },
     {
-      "car": 23,
+      "car": 13,
       "track": 56
     }
   ]
