@@ -35,6 +35,15 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   }
   return new {part=owner.Name.ToString(),triangles=faces.Length/3,phases,scope="Actual convex face centroids and edge midpoints at previous/mid/current integration poses; includes exact vertical hull intersection at raw contact XZ interpreted as world; frame interpretation and continuous collision remain separate"};
  }
+ public object RoadContactEvidence(Vector3 world){
+  var rows=new System.Collections.Generic.List<object>();var space=GetWorld3D().DirectSpaceState;
+  foreach(bool backfaces in new[]{false,true}){using var query=PhysicsRayQueryParameters3D.Create(world+Vector3.Up*.2f,world-Vector3.Up*2f,1);query.HitBackFaces=backfaces;var hit=space.IntersectRay(query);
+   if(hit.Count==0){rows.Add(new {backfaces,found=false});continue;}var position=hit["position"].AsVector3();var normal=hit["normal"].AsVector3();int face=hit.ContainsKey("face_index")?hit["face_index"].AsInt32():-1;float? sourceCrossY=null;int triangles=0;
+   if(hit["collider"].AsGodotObject() is CollisionObject3D collider&&hit.ContainsKey("shape")){var shapeNode=collider.ShapeOwnerGetOwner(collider.ShapeFindOwner(hit["shape"].AsInt32())) as CollisionShape3D;if(shapeNode?.Shape is ConcavePolygonShape3D concave){var data=concave.Data;triangles=data.Length/3;if(face>=0&&face*3+2<data.Length){var basis=shapeNode.GlobalBasis;var a=basis*data[face*3];var b=basis*data[face*3+1];var c=basis*data[face*3+2];sourceCrossY=(b-a).Cross(c-a).Normalized().Y;}}}
+   rows.Add(new {backfaces,found=true,face,triangles,sourceCrossY,normalY=normal.Y,groundY=position.Y,contactHeightAboveGround=world.Y-position.Y});hit.Clear();
+  }
+  return new {rows,scope="Actual source ground rays at raw contact interpreted in world coordinates; front/backface comparison only, source untouched"};
+ }
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
  public override void _PhysicsProcess(double delta){foreach(var entry in MountedShapes){int hub=entry.Hub;var centre=RecoveredWheelCentres[hub];var rotation=new Basis(Vector3.Up,hub<2?WheelAngle:0);var offset=Vector3.Up*(RestLength-StaticSag-SpringLength[hub]);entry.Shape.Transform=new Transform3D(rotation,centre+offset-rotation*centre);}}
