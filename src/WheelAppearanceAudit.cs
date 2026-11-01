@@ -11,7 +11,7 @@ public static class WheelAppearanceAudit {
    foreach(var node in nodes){var mesh=(MeshInstance3D)node;if(mesh.Mesh==null)continue;
     var surfaces=new List<object>();
     for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){
-     using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var normals=(Vector3[])arrays[(int)Mesh.ArrayType.Normal];int invalid=0;float minimum=1e9f,maximum=0;
+     using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var normals=(Vector3[])arrays[(int)Mesh.ArrayType.Normal]??System.Array.Empty<Vector3>();int invalid=0;float minimum=1e9f,maximum=0;
      foreach(var normal in normals){float length=normal.Length();if(!normal.IsFinite()||length<.5f||length>1.5f)invalid++;minimum=Mathf.Min(minimum,length);maximum=Mathf.Max(maximum,length);}
      var material=mesh.GetActiveMaterial(surface);var standard=material as StandardMaterial3D;
      surfaces.Add(new {surface,normalCount=normals.Length,invalidNormals=invalid,minimumNormalLength=minimum,maximumNormalLength=maximum,materialClass=material?.GetClass().ToString(),colour=standard?.AlbedoColor.ToString(),roughness=standard?.Roughness,shading=standard?.ShadingMode.ToString(),texture=standard?.AlbedoTexture?.ResourcePath});
@@ -23,3 +23,4 @@ public static class WheelAppearanceAudit {
  }
 }
 }
+
