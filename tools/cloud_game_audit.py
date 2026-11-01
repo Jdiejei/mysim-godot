@@ -123,8 +123,8 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
- for channel in ('0','1'):
-  for mode in ('both','none','u','v'):
+ for channel in (('0',) if os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('0','1')):
+  for mode in (('both',) if os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('both','none','u','v')):
    label=f'car16-channel-{channel}-{mode}';shot=out/(label+'.png')
    values={'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'4,2.5,4','MYSIM_CAR_UV_CHANNEL':channel,'MYSIM_CAR_UV':mode,'MYSIM_CAR_UV_SCOPE':'livery','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)}
    text=run(label,values);assert shot.exists() and 'PASS complete visible car framing' in text
@@ -294,7 +294,7 @@ if os.environ.get('NATIVE_RACES')=='1' or os.environ.get('NATIVE_FOCUS')=='1':
  print('PASS native full-scene race shard (visual gates separate)',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_REVIEW')=='1':
  for car in (1,6,16):
-  for mode in ('both','none','u','v'):
+  for mode in (('both',) if os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('both','none','u','v')):
    label=f'uv-car-{car:02}-{mode}';shot=out/(label+'.png');run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_CAMPOS':'5.2,1.8,5.6','MYSIM_CAR_UV':mode,'MYSIM_SHOT':str(shot)});assert shot.exists()
  print('COMPLETE controlled car UV comparisons; production UV unchanged',flush=True);sys.exit(0)
 if os.environ.get('INPUT_PHYSICS')=='1':
