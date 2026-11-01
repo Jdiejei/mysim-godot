@@ -142,6 +142,14 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
+if os.environ.get('F1_PAINT_REVIEW')=='1':
+ car=15+shard
+ for candidate in (0,1):
+  for view,camera in enumerate(('4,2.5,4','-4,2.5,-4','0,4,1')):
+   label=f'f1-paint-car-{car}-candidate-{candidate}-view-{view}';shot=out/(label+'.png')
+   text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_SOURCE_AXLE_FIT':'1','MYSIM_CAR_PAINT_CANDIDATE':str(candidate),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot)})
+   assert shot.exists() and 'PASS complete visible car framing' in text
+ print('COMPLETE four-car original MySim paint candidates; source atlases retained, no art acceptance',flush=True);sys.exit(0)
 if os.environ.get('RECOVERED_WET_REVIEW')=='1':
  for candidate in (0,1):
   for wheel in (0,2):

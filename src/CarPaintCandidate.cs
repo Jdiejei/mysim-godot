@@ -25,11 +25,13 @@ void fragment(){
  SPECULAR=0.5;CLEARCOAT=1.0-carbon;CLEARCOAT_ROUGHNESS=0.12;
 }"};
  public static void Apply(Node3D root,int car){
-  if(System.Environment.GetEnvironmentVariable("MYSIM_CAR_PAINT_CANDIDATE")!="1"||car!=16)return;
+  if(System.Environment.GetEnvironmentVariable("MYSIM_CAR_PAINT_CANDIDATE")!="1"||car<15||car>18)return;
+  using var profileDocument=System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString("res://data/f1_paint_profiles.json"));var profile=profileDocument.RootElement.GetProperty("cars").GetProperty(car.ToString());
+  Color Paint(string field){var rgb=profile.GetProperty(field);return new Color(rgb[0].GetSingle(),rgb[1].GetSingle(),rgb[2].GetSingle());}
   var nodes=root.FindChildren("*","MeshInstance3D",true,false);var inverse=root.GlobalTransform.AffineInverse();Aabb bounds=default;bool first=true;
   foreach(var node in nodes){var mesh=(MeshInstance3D)node;if(!mesh.IsVisibleInTree()||!mesh.Name.ToString().EndsWith("_mm_ext"))continue;var box=(inverse*mesh.GlobalTransform)*mesh.GetAabb();bounds=first?box:bounds.Merge(box);first=false;}
   if(first)throw new System.Exception("Paint candidate has no visible source livery geometry");
-  foreach(var node in nodes){var mesh=(MeshInstance3D)node;if(!mesh.IsVisibleInTree()||!mesh.Name.ToString().EndsWith("_mm_ext"))continue;var material=new ShaderMaterial{Shader=shader};material.SetShaderParameter("part_to_car",inverse*mesh.GlobalTransform);material.SetShaderParameter("bounds_min",bounds.Position);material.SetShaderParameter("bounds_size",bounds.Size);for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++)mesh.SetSurfaceOverrideMaterial(surface,material);}
+  foreach(var node in nodes){var mesh=(MeshInstance3D)node;if(!mesh.IsVisibleInTree()||!mesh.Name.ToString().EndsWith("_mm_ext"))continue;var material=new ShaderMaterial{Shader=shader};material.SetShaderParameter("primary_color",Paint("primary"));material.SetShaderParameter("accent_color",Paint("accent"));material.SetShaderParameter("part_to_car",inverse*mesh.GlobalTransform);material.SetShaderParameter("bounds_min",bounds.Position);material.SetShaderParameter("bounds_size",bounds.Size);for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++)mesh.SetSurfaceOverrideMaterial(surface,material);}
   nodes.Clear();GD.Print("CAR_PAINT_CANDIDATE source geometry and UVs preserved; art acceptance pending");
  }
 }
