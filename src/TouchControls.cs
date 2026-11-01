@@ -25,7 +25,13 @@ public partial class TouchControls : CanvasLayer {
   foreach(var pair in drivingButtons)((RaceControlButton)pair.Value).SetHeld(pair.Key=="LEFT"?Held("LEFT",leftHeld):pair.Key=="RIGHT"?Held("RIGHT",rightHeld):pair.Key=="GAS"?Throttle>0:Brake>0);
  }
  public override void _Input(InputEvent input){
-  if(!Active||input is not InputEventScreenTouch touch)return;
+  if(!Active)return;
+  if(input is InputEventScreenDrag drag){
+   if(!fingers.ContainsKey(drag.Index))return;
+   string action="";foreach(var pair in drivingButtons)if(pair.Value.GetGlobalRect().HasPoint(drag.Position)){action=pair.Key;break;}
+   fingers[drag.Index]=action;UpdateSteer();GetViewport().SetInputAsHandled();return;
+  }
+  if(input is not InputEventScreenTouch touch)return;
   if(!touch.Pressed){if(fingers.Remove(touch.Index)){UpdateSteer();GetViewport().SetInputAsHandled();}return;}
   foreach(var pair in drivingButtons)if(pair.Value.GetGlobalRect().HasPoint(touch.Position)){
    fingers[touch.Index]=pair.Key;UpdateSteer();GetViewport().SetInputAsHandled();return;

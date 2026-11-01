@@ -10,6 +10,12 @@ public partial class TouchControlsScenario : Node {
   void Finger(int id,string action,bool pressed)=>controls._Input(new InputEventScreenTouch {Index=id,Position=Centre(action),Pressed=pressed});
   Finger(11,"LEFT",true);Finger(22,"GAS",true);
   Check(TouchControls.Steer==-1&&TouchControls.Throttle==1,"Simultaneous steering/throttle failed");
+  controls._Input(new InputEventScreenDrag {Index=11,Position=Centre("RIGHT")});
+  Check(TouchControls.Steer==1&&TouchControls.Throttle==1,"Dragging between steering buttons did not change direction independently");
+  controls._Input(new InputEventScreenDrag {Index=11,Position=new Vector2(640,360)});
+  Check(TouchControls.Steer==0&&TouchControls.Throttle==1,"Dragging away left steering stuck or released another finger");
+  controls._Input(new InputEventScreenDrag {Index=11,Position=Centre("LEFT")});
+  Check(TouchControls.Steer==-1&&TouchControls.Throttle==1,"Captured finger could not re-enter steering control");
   Finger(11,"LEFT",false);Check(TouchControls.Steer==0&&TouchControls.Throttle==1,"Releasing steering released another finger");
   Finger(33,"BRAKE",true);Check(TouchControls.Brake==1&&TouchControls.Throttle==1,"Independent brake finger failed");
   Finger(22,"GAS",false);Check(TouchControls.Throttle==0&&TouchControls.Brake==1,"Releasing gas released brake");
