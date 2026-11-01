@@ -1,21 +1,9 @@
 {
-  "scope": "Four confirmed remaining GT road strikes after measured suspension; add actual source-height wheelpath AI preview only. Keep source hulls, damage, AI6, 240Hz and CCD.1 unchanged.",
+  "scope": "One diagnostic case: exact physics-tick bumper/body underside clearance at actual first road strike; no damage, geometry, suspension or speed-plan change.",
   "cases": [
     {
       "car": 13,
       "track": 8
-    },
-    {
-      "car": 13,
-      "track": 32
-    },
-    {
-      "car": 6,
-      "track": 56
-    },
-    {
-      "car": 13,
-      "track": 56
     }
   ]
 }
