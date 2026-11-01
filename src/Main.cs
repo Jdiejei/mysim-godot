@@ -56,7 +56,7 @@ public partial class Main : Node3D {
   var cam = new Camera3D { Fov = 40, Current = true, Position = new Vector3(5.2f, 1.8f, 5.6f) }; var cp = System.Environment.GetEnvironmentVariable("MYSIM_CAMPOS"); if (cp != null) { var q = cp.Split(','); cam.Position = new Vector3(float.Parse(q[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[2], System.Globalization.CultureInfo.InvariantCulture)); } AddChild(cam); cam.LookAt(new Vector3(0, 0.6f, 0));
   if(int.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_CLOSEUP"),out int wheelIndex)){
    var wheel=viewWheels[Mathf.Clamp(wheelIndex,0,3)];var target=wheel.GlobalPosition;float side=Mathf.Sign(target.X-car.GlobalPosition.X);
-   cam.Position=target+new Vector3(side*1.05f,.16f,.25f);cam.Fov=38;cam.LookAt(target);FitCarView(cam,wheel,target,"wheel");
+   bool oblique=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_OBLIQUE")=="1";cam.Position=target+new Vector3(side*1.05f,oblique?.48f:.16f,oblique?.70f:.25f);cam.Fov=38;cam.LookAt(target);FitCarView(cam,wheel,target,"wheel");
   }else if(System.Environment.GetEnvironmentVariable("MYSIM_FITVIEW")=="1")FitCarView(cam,car);
   for (int i = 0; i < 25; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
   GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "carview.png"); GetTree().Quit();

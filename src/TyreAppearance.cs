@@ -10,11 +10,11 @@ public static class TyreAppearance {
    var spin=pivot.GetNode<Node3D>("Spin");var rebuilt=spin.GetNodeOrNull<MeshInstance3D>("RebuiltRubberTyre");if(rebuilt!=null)TyreMeshBuilder.SetWet(rebuilt,compound==Compound.Wet);Node3D markings=spin.GetNodeOrNull<Node3D>("CompoundMarkings");
    if(markings==null){
     markings=new Node3D {Name="CompoundMarkings"};spin.AddChild(markings);
-    foreach(var node in spin.GetChildren())if(node is MeshInstance3D tyre&&(tyre.Name.ToString().Contains("TYRE")||tyre.Name.ToString().Contains("TIRE"))){
-     var bounds=tyre.Transform*tyre.GetAabb();var center=bounds.GetCenter();float radius=Mathf.Max(bounds.Size.Y,bounds.Size.Z)*.5f;
+    foreach(var node in spin.GetChildren())if(node is MeshInstance3D tyre&&(rebuilt!=null?tyre==rebuilt:tyre.Visible&&(tyre.Name.ToString().Contains("TYRE")||tyre.Name.ToString().Contains("TIRE")))){
+     var bounds=tyre.Transform*tyre.GetAabb();var center=bounds.GetCenter();float radius=rebuilt!=null?rebuilt.GetMeta("radius").AsSingle():Mathf.Max(bounds.Size.Y,bounds.Size.Z)*.5f;float sidewall=rebuilt!=null?rebuilt.GetMeta("width").AsSingle()*.525f:bounds.Size.X*.5f+.0015f;
      if(radius<.15f||radius>.6f)continue;
      foreach(float side in new[]{-1f,1f}){
-      var ring=new MeshInstance3D {Name=side<0?"InnerSidewall":"OuterSidewall",Mesh=new TorusMesh {InnerRadius=radius*.805f,OuterRadius=radius*.83f,Rings=96,RingSegments=8},Position=center+Vector3.Right*(side*(bounds.Size.X*.5f+.0015f)),Rotation=new Vector3(0,0,Mathf.Pi*.5f),CastShadow=GeometryInstance3D.ShadowCastingSetting.Off};
+      var ring=new MeshInstance3D {Name=side<0?"InnerSidewall":"OuterSidewall",Mesh=new TorusMesh {InnerRadius=radius*.805f,OuterRadius=radius*.83f,Rings=96,RingSegments=8},Position=center+Vector3.Right*(side*sidewall),Rotation=new Vector3(0,0,Mathf.Pi*.5f),CastShadow=GeometryInstance3D.ShadowCastingSetting.Off};
       markings.AddChild(ring);
      }
      break;
