@@ -22,7 +22,7 @@ public static class TyreAppearance {
  public static void Apply(Node3D[] pivots,Compound compound){
   if(pivots==null)return;
   foreach(var pivot in pivots){
-   var spin=pivot.GetNode<Node3D>("Spin");var rebuilt=spin.GetNodeOrNull<MeshInstance3D>("RebuiltRubberTyre");if(rebuilt!=null)TyreMeshBuilder.SetWet(rebuilt,compound==Compound.Wet);Node3D markings=spin.GetNodeOrNull<Node3D>("CompoundMarkings");
+   var spin=pivot.GetNode<Node3D>("Spin");var rebuilt=spin.GetNodeOrNull<MeshInstance3D>("RebuiltRubberTyre");if(rebuilt!=null)TyreMeshBuilder.SetWet(rebuilt,compound==Compound.Wet);Node3D markings=spin.GetNodeOrNull<Node3D>("CompoundMarkings");bool recovered=rebuilt!=null&&RecoveredWetTyreCandidate.Apply(spin,rebuilt,compound);
    if(markings==null){
     markings=new Node3D {Name="CompoundMarkings"};spin.AddChild(markings);
     foreach(var node in spin.GetChildren())if(node is MeshInstance3D tyre&&(rebuilt!=null?tyre==rebuilt:tyre.Visible&&(tyre.Name.ToString().Contains("TYRE")||tyre.Name.ToString().Contains("TIRE")))){
@@ -37,6 +37,7 @@ public static class TyreAppearance {
      break;
     }
    }
+   markings.Visible=!recovered;
    foreach(var child in markings.GetChildren())if(child is MeshInstance3D ring)ring.MaterialOverride=new StandardMaterial3D {AlbedoColor=Colour(compound),Roughness=.85f,MetallicSpecular=.1f};
    pivot.SetMeta("displayed_compound",(int)compound);
   }

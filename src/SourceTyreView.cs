@@ -6,7 +6,7 @@ public partial class Main {
  async void SourceTyreView(string asset){
   if(asset!="WetTyre"&&asset!="IntermediateTyre"&&asset!="DeepWetTyre")throw new InvalidOperationException("Unknown recovered tyre source");
   string path="res://assets/Resources/RealRacing/"+asset+".fbx";
-  var source=GD.Load<PackedScene>(path).Instantiate<Node3D>();source.Scale=Vector3.One*100f;AddChild(source);
+  var source=GD.Load<PackedScene>(path).Instantiate<Node3D>();source.Scale=Vector3.One;AddChild(source);
   Aabb bounds=default;bool first=true;var rows=new List<object>();
   foreach(var child in source.FindChildren("*","MeshInstance3D",true,false)){
    var mesh=(MeshInstance3D)child;if(mesh.Mesh==null||!mesh.IsVisibleInTree())continue;var box=mesh.GlobalTransform*mesh.GetAabb();bounds=first?box:bounds.Merge(box);first=false;
@@ -19,7 +19,7 @@ public partial class Main {
   AddChild(new MeshInstance3D{Mesh=new PlaneMesh{Size=new Vector2(8,8)},MaterialOverride=new StandardMaterial3D{AlbedoColor=new Color(.3f,.3f,.32f)}});
   int angle=int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_TYRE_REVIEW_ANGLE")??"0");var offset=angle switch{0=>new Vector3(2,.2f,.2f),1=>new Vector3(1.7f,.9f,1.5f),_=>new Vector3(-1.7f,.7f,-1.5f)};
   var camera=new Camera3D{Current=true,Fov=38,Position=target+offset};AddChild(camera);camera.LookAt(target);FitCarView(camera,source,target,"recovered tyre");
-  if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_TYRE_REPORT") is string report)System.IO.File.WriteAllText(report,System.Text.Json.JsonSerializer.Serialize(new {asset,path,prefabRootScale=100,scope="Recovered geometry, neutral tyre-body material for comparison only; original UVs/meshes unmodified; no integration or compound-physics acceptance",rows}));
+  if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_TYRE_REPORT") is string report)System.IO.File.WriteAllText(report,System.Text.Json.JsonSerializer.Serialize(new {asset,path,unityPrefabRootScale=100,godotPreviewRootScale=1,scope="Recovered geometry, neutral tyre-body material for comparison only; original UVs/meshes unmodified; no integration or compound-physics acceptance",rows}));
   for(int i=0;i<25;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
   GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT"));GD.Print("PASS recovered tyre source capture");GetTree().Quit();
  }

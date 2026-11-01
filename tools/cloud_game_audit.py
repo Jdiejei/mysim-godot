@@ -142,6 +142,14 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
+if os.environ.get('RECOVERED_WET_REVIEW')=='1':
+ for candidate in (0,1):
+  for wheel in (0,2):
+   label=f'recovered-wet-candidate-{candidate}-wheel-{wheel}';shot=out/(label+'.png')
+   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_WHEEL_LETTERING':'1','MYSIM_RECOVERED_WET_TYRE':str(candidate),'MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_SHOT':str(shot)})
+   assert shot.exists() and 'PASS complete visible wheel framing' in text
+   if candidate:assert 'RECOVERED_WET_TYRE sourceRadius=' in text
+ print('COMPLETE recovered wet source fit comparison; no production promotion',flush=True);sys.exit(0)
 if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
  for asset in ('WetTyre','IntermediateTyre','DeepWetTyre'):
   for angle in range(3):

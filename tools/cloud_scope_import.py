@@ -5,6 +5,7 @@ scopes={'wall_geometry_diagnostic':([],[49]),'rain_focus':([6,16],[0]),'rear_pan
 if depth in ('car_paint_candidate','car_uv_source_audit','car_uv_channel_diagnostic'):scopes[depth]=([16],[])
 if depth=='f1_wheel_diagnostic':scopes[depth]=([15],[])
 if depth in ('f1_wheel_review','wheel_fit_review'):scopes[depth]=([15+int(os.environ.get('SHARD','0'))],[])
+if depth=='recovered_wet_review':scopes[depth]=([15],[])
 if depth=='source_tyre_review':scopes[depth]=([],[])
 if depth=='night_light_review':scopes[depth]=([16],[(0,25,28)[int(os.environ.get('SHARD','0'))]])
 if depth=='native_geometry_recovery':
