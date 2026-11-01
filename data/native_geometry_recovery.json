@@ -1,251 +1,35 @@
 {
-  "scope": "Only30remaining failed actualsolo cases, new validatedCCD.1+actual240Hz; prior90historicalpasses not repeated here; canonicalfullsweep stillrequired",
+  "scope": "OnlyfailedF1damagecases afterCCD.1; sourcehulls/damage/norescue/lapgates retained",
   "cases": [
     {
       "car": 16,
-      "track": 45,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 8,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
       "track": 32,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "rule_reset",
-        "no_valid_lap",
-        "not_finished"
-      ]
-    },
-    {
-      "car": 16,
-      "track": 32,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 16,
-      "track": 19,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 31,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "rule_reset",
-        "no_valid_lap",
-        "not_finished"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 43,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 6,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 16,
-      "track": 42,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 54,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 5,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage",
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 41,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 53,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
+      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
     },
     {
       "car": 16,
       "track": 4,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
+      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
     },
     {
       "car": 16,
       "track": 3,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 15,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 27,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 2,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 38,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 50,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
+      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
     },
     {
       "car": 16,
       "track": 50,
-      "previousRun": 41244024488,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 23,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 35,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 59,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "rule_reset",
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 46,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
+      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
     },
     {
       "car": 16,
       "track": 58,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 16,
-      "track": 1,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
+      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
     },
     {
       "car": 16,
       "track": 25,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "impact_damage"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 12,
-      "previousRun": 41243292725,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
-    },
-    {
-      "car": 0,
-      "track": 24,
-      "previousRun": 41238298409,
-      "previousFailureCategories": [
-        "no_valid_lap"
-      ]
+      "reason": "ActualremainingF1ground/bodyimpact damage; test measured clearance+force-based bumpstop"
     }
   ]
 }
