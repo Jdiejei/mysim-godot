@@ -4,6 +4,7 @@ on:
     inputs:
       source_run: {type: string, required: true}
       cars: {type: string, required: true}
+      exact_manifest: {type: boolean, default: false}
 permissions: {contents: read, actions: read}
 jobs:
   summarize:
@@ -16,6 +17,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_RUN: ${{ inputs.source_run }}
           EXPECTED_CARS: ${{ inputs.cars }}
+          EXACT_MANIFEST: ${{ inputs.exact_manifest }}
         run: python tools/cloud_campaign_summary.py
       - uses: actions/upload-artifact@v4
         with:

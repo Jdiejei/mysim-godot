@@ -21,7 +21,15 @@ with tempfile.TemporaryDirectory() as temp:
    rows.append({'track':t,'car':c,'reportedOk':case.get('ok'),'strictPass':strict,**{k:result.get(k) for k in ('laps','bestLap','damage','impactEvents','ruleResets','resultVisible','actualPoseDistance','requiredDistance')},'error':case.get('error')})
   # Large telemetry remains in original artifacts, not duplicated across shards locally.
   import shutil;shutil.rmtree(dest)
-expected={(t,c) for t in range(60) for c in cars};actual=[(x['track'],x['car']) for x in rows]
+expected={(t,c) for t in range(60) for c in cars}
+if os.environ.get('EXACT_MANIFEST')=='true':
+ # Bind expected scope to immutable source-run commit, never the current moving manifest.
+ import base64
+ payload=json.loads(gh('api',f'repos/{repo}/contents/data/native_geometry_recovery.json?ref={state["headSha"]}'))
+ manifest=json.loads(base64.b64decode(payload['content']))
+ expected={(x['track'],x['car']) for x in manifest['cases']}
+ assert len(expected)==len(manifest['cases']) and all(c in cars and 0<=t<60 for t,c in expected)
+actual=[(x['track'],x['car']) for x in rows]
 assert len(actual)==len(set(actual)) and set(actual)==expected,'Missing/duplicate campaign coverage'
 out={'run':run,'source':state,'total':len(rows),'passed':sum(x['strictPass'] for x in rows),'coverageComplete':True,'shards':shards,'rows':rows,'scope':'Actual dry solo race artifacts only; failures preserved. No art, traffic, weather, human driving or whole-game acceptance.'}
 pathlib.Path('campaign-summary.json').write_text(json.dumps(out,indent=2));print('Actual coverage',len(rows),'strict passes',out['passed'])
