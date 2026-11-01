@@ -1,9 +1,29 @@
 {
-  "scope": "OnlyremainingF1track50groundstrikes; higherresolutionactualwheelpaths,allgatesretained",
+  "scope": "Six actual failed GT6/13 road-contact cases; isolate measured source-clearance and force bump stops. AI6 and all strict gates unchanged; vertical planner remains off.",
   "cases": [
     {
-      "car": 16,
-      "track": 50
+      "car": 6,
+      "track": 8
+    },
+    {
+      "car": 13,
+      "track": 8
+    },
+    {
+      "car": 6,
+      "track": 32
+    },
+    {
+      "car": 13,
+      "track": 32
+    },
+    {
+      "car": 6,
+      "track": 56
+    },
+    {
+      "car": 13,
+      "track": 56
     }
   ]
 }
