@@ -80,8 +80,8 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  }
  public override void _IntegrateForces(PhysicsDirectBodyState3D state){
   if(!Initialized)return;
-  contactReplay.Observe(this,state);
-  if(DamageEnabled)Impacts.Observe(state,raceVehicle,CarIndex,this);var input=Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
+  if(DamageEnabled)Impacts.Observe(state,raceVehicle,CarIndex,this);contactReplay.Observe(this,state);
+ var input=Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
   WheelAngle=Mathf.MoveToward(WheelAngle,Dynamics.SteeringTarget(input.steer,longitudinal),3.2f*state.Step);
   float gravity=state.TotalGravity.Length(),spring=Mass*gravity/(4*StaticSag),damper=2*DampingRatio*Mathf.Sqrt(spring*Mass*.25f);
   float motorSpeed=RotationalTyres?Mathf.Max(Mathf.Abs(longitudinal),Mathf.Abs((WheelOmega[2]*radii[2]+WheelOmega[3]*radii[3])*.5f)):Mathf.Abs(longitudinal);
