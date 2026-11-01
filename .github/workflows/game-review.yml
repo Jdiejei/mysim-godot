@@ -11,6 +11,7 @@ on:
       physics_hz: {description: 'Explicit native time resolution experiment', type: choice, options: ['120', '240'], default: '120'}
       pit_service: {description: 'Require actual driven pit approach, tyre/repair service and exit for native hull AI laps', type: boolean, default: false}
       vertical_road_plan: {description: 'Opt-in AI preview of actual source road heights', type: boolean, default: false}
+      source_axle_fit: {description: 'Explicit source-suspension axle-placement experiment; defaults unchanged', type: boolean, default: false}
       native_ride_height: {description: 'Opt-in measured source clearance and force-based bump stops', type: boolean, default: false}
       native_damage: {description: 'Explicit native collision-damage experiment', type: boolean, default: false}
       rotational_tyres: {description: 'Explicit physical wheel angular-state experiment', type: boolean, default: false}
@@ -126,6 +127,7 @@ jobs:
         env:
           NATIVE_CARS: ${{ inputs.cars || '16' }}
           NATIVE_PIT_SERVICE: ${{ (inputs.pit_service || inputs.depth == 'native_gt_pit_diagnostic') && '1' || '0' }}
+          SOURCE_AXLE_FIT: ${{ inputs.source_axle_fit && '1' || '0' }}
           HULL_REVIEW_DEPTH: ${{ inputs.depth }}
           HULL_REVIEW_SHARD: ${{ matrix.shard }}
         run: python tools/cloud_bake_car_hulls.py
@@ -137,6 +139,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
+          SOURCE_AXLE_FIT: ${{ inputs.source_axle_fit && '1' || '0' }}
           NATIVE_AI_ENABLED: ${{ inputs.native_ai && '1' || '0' }}
           NATIVE_DAMAGE: ${{ inputs.native_damage && '1' || '0' }}
           NATIVE_ROTATIONAL_TYRES: ${{ inputs.rotational_tyres && '1' || '0' }}
