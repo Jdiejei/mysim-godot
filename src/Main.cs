@@ -4,7 +4,7 @@ namespace MySim {
 // Game shell: menu (track/car/laps) -> race -> results -> restart/menu. Env MYSIM_TRACK skips the menu for automated tests.
 public partial class Main : Node3D {
  public bool ResultsVisible=>resultsShown;
- static readonly float ColorContrast = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CONTRAST") ?? "1.14", System.Globalization.CultureInfo.InvariantCulture), ColorSat = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SAT") ?? "1.1", System.Globalization.CultureInfo.InvariantCulture); Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; Button menuStart; bool menuGoWas; float menuAge; bool resultsShown, escWas; float finShown, resultsArmed;
+ static readonly float ColorContrast = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CONTRAST") ?? "1.0", System.Globalization.CultureInfo.InvariantCulture), ColorSat = float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SAT") ?? "1.1", System.Globalization.CultureInfo.InvariantCulture); Node3D world; CanvasLayer ui; DriveController drive; int lastTrack, lastCar, lastLaps = 3; Button menuStart; bool menuGoWas; float menuAge; bool resultsShown, escWas; float finShown, resultsArmed;
  public override void _Ready() {
   PitServiceTimeline.Configure(FileAccess.GetFileAsString("res://data/pit_service_profile.json"));
   if(System.Environment.GetEnvironmentVariable("MYSIM_WALL_GEOMETRY_CHECKS")!=null){AddChild(new WallGeometryScenario());return;}
