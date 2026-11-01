@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 namespace MySim {
-// Read-only fit evidence: actual wing triangle samples in each steered wheel frame.
+// Read-only fit evidence: actual body triangle samples in each steered wheel frame.
 // A detected penetration is actionable; no detected sample is NOT a clearance certificate.
 public static class WheelFitAudit {
  public static void Write(Node3D car,Node3D[] wheels,int index,string path){
@@ -13,7 +13,7 @@ public static class WheelFitAudit {
    if(!tyre.HasValue)throw new InvalidOperationException("Wheel fit audit has no visible tyre");
    var bounds=tyre.Value;var centre=bounds.GetCenter();float halfWidth=bounds.Size.X*.5f;var parts=new List<object>();
    foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){
-    var mesh=(MeshInstance3D)child;string name=mesh.Name.ToString().ToUpperInvariant();if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!name.Contains("WING"))continue;
+    var mesh=(MeshInstance3D)child;string name=mesh.Name.ToString().ToUpperInvariant();if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!name.StartsWith("LOD_A_"))continue;bool wheelPart=false;foreach(var hub in wheels)if(hub.IsAncestorOf(mesh)){wheelPart=true;break;}if(wheelPart)continue;
     var transform=wheel.GlobalTransform.AffineInverse()*mesh.GlobalTransform;int samples=0,inside=0;float deepest=0;
     void Probe(Vector3 p){p-=centre;samples++;float depth=Mathf.Min(halfWidth-Mathf.Abs(p.X),radius-Mathf.Sqrt(p.Y*p.Y+p.Z*p.Z));if(depth>.001f){inside++;deepest=Mathf.Max(deepest,depth);}}
     for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){
@@ -22,9 +22,9 @@ public static class WheelFitAudit {
     }
     if(inside>0)parts.Add(new {part=mesh.Name.ToString(),samples,inside,deepest});
    }
-   rows.Add(new {wheel=wheel.Name.ToString(),hub=new[]{wheel.Position.X,wheel.Position.Y,wheel.Position.Z},yaw=wheel.Rotation.Y,radius,width=2*halfWidth,tyreCentreOffset=new[]{centre.X,centre.Y,centre.Z},wingPenetrations=parts});
+   rows.Add(new {wheel=wheel.Name.ToString(),hub=new[]{wheel.Position.X,wheel.Position.Y,wheel.Position.Z},yaw=wheel.Rotation.Y,radius,width=2*halfWidth,tyreCentreOffset=new[]{centre.X,centre.Y,centre.Z},bodyEnvelopeCandidates=parts});
   }
-  System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Actual triangle samples against measured cylindrical tyre envelope; positive detections only, not exhaustive triangle collision certification",rows},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));GD.Print("PASS wheel fit evidence");
+  System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Actual triangle samples against measured cylindrical tyre envelope; body envelope candidates only: includes suspension joints and cylindrical hub void; requires actual mesh/role inspection, not collision certification",rows},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));GD.Print("PASS wheel fit evidence");
  }
 }
 }
