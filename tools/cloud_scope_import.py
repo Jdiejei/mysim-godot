@@ -2,6 +2,7 @@
 import os,json,pathlib,re
 root=pathlib.Path.cwd();depth=os.environ.get('IMPORT_REVIEW_DEPTH','');out=root/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True)
 scopes={'wall_geometry_diagnostic':([],[49]),'rain_focus':([6,16],[0]),'rear_panel_uv':([6],[]),'livery_uv':([0,6,12,18],[]),'gui_review':([],[]),'wheel_compounds':([1,6,16],[]),'car_panel_uv':([6],[]),'car_uv_roles':([1,6,16],[]),'car_uv':([1,6,16],[]),'precise_ai':([16],[43,15]),'contact_trace':([16],[43,15]),'geometry':(list(range(24)),[])}
+if depth=='car_uv_channel_diagnostic':scopes[depth]=([16],[])
 if depth=='f1_wheel_diagnostic':scopes[depth]=([15],[])
 if depth=='f1_wheel_review':scopes[depth]=([15+int(os.environ.get('SHARD','0'))],[])
 if depth=='native_geometry_recovery':

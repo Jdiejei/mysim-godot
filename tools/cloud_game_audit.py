@@ -122,6 +122,13 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  if steer:assert (out/(label+'.png')).exists()
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
+if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
+ for channel in ('0','1'):
+  for mode in ('both','none','u','v'):
+   label=f'car16-channel-{channel}-{mode}';shot=out/(label+'.png')
+   values={'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'4,2.5,4','MYSIM_CAR_UV_CHANNEL':channel,'MYSIM_CAR_UV':mode,'MYSIM_CAR_UV_SCOPE':'livery','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)}
+   text=run(label,values);assert shot.exists() and 'PASS complete visible car framing' in text
+ print('COMPLETE isolated source UV channel comparison; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
  for contrast in ('1.14','1.0'):
   label='wheel-grade-'+contrast;shot=out/(label+'.png')
