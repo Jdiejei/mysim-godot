@@ -1,9 +1,9 @@
 {
-    "cases":  [
-                  {
-                      "car":  19,
-                      "track":  59
-                  }
-              ],
-    "scope":  "One distinct diagnostic: car19layout59 first legality rejection, after173casecampaign172pass; preserve limits and source geometry."
+  "cases": [
+    {
+      "car": 13,
+      "track": 8
+    }
+  ],
+  "scope": "Distinct collider/body witness timing and source-road triangle diagnosis; prior5mm rejection and damage gates preserved, not a gameplay fix."
 }

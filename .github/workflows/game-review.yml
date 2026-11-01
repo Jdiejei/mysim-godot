@@ -52,6 +52,7 @@ jobs:
         with: {dotnet-version: '8.0.x'}
       - name: Select explicit cloud-only native physics backend
         env:
+          NATIVE_ROAD_FACE_EVIDENCE: ${{ inputs.depth == 'native_geometry_recovery' && '1' || '0' }}
           NATIVE_CCD_PENETRATION: ${{ inputs.ccd_penetration || '0.01' }}
           NATIVE_SPECULATIVE_DISTANCE: ${{ inputs.speculative_distance || '0.02' }}
           NATIVE_PHYSICS_BACKEND: ${{ inputs.physics_backend || 'source' }}
