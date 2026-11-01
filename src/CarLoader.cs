@@ -115,6 +115,7 @@ static Godot.Collections.Dictionary carMap;
    bool open = outerR < 0.37f && tw > 0.3f; float rimR = outerR * (carIdx >= 15 && carIdx <= 18 ? 0.6f : 0.69f); if(rebuild&&carIdx>=15&&carIdx<=18){bool found=false;foreach(var child in spin.GetChildren())if(child is MeshInstance3D part&&part.Name.ToString().ToUpperInvariant().StartsWith("LOD_A_WHEEL")){var rimBounds=part.Transform*part.GetAabb();rimR=Mathf.Max(rimBounds.Size.Y,rimBounds.Size.Z)*.5f;found=true;break;}if(!found||rimR<outerR*.35f||rimR>outerR*.9f)throw new System.InvalidOperationException("Custom F1 rim requires valid recovered source rim dimensions: car="+carIdx);}
    var rim = rebuild?WheelRimBuilder.Build(rimR,tw,carIdx>=15&&carIdx<=18?2:carIdx%2,carIdx):BuildRim(rimR, tw, carIdx); rim.Position = Vector3.Zero; spin.AddChild(rim); if(rebuild)WheelRimBuilder.BrakeCandidate(spin,brakes,rimR,tw);
   }
+  SourceAxleFitCandidate.Apply(car,pivots,carIdx);
   RecoveredComponentMounts.AttachToHubs(car,pivots);
   foreach (var w in wheelMeshes) { w.Visible = false; w.SetMeta("wheel_hidden", true); }
   var measuredBounds=MeasureBounds(car);var measured=measuredBounds.Size;var center=measuredBounds.GetCenter();MySimulator.Rebuild.VehicleDimensions.CenterX[carIdx]=center.X;MySimulator.Rebuild.VehicleDimensions.CenterY[carIdx]=center.Y;MySimulator.Rebuild.VehicleDimensions.CenterZ[carIdx]=center.Z; MySimulator.Rebuild.VehicleDimensions.Width[carIdx]=measured.X; MySimulator.Rebuild.VehicleDimensions.Height[carIdx]=measured.Y; MySimulator.Rebuild.VehicleDimensions.Length[carIdx]=measured.Z;
