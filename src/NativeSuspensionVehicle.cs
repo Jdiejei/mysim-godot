@@ -20,6 +20,16 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   foreach(var vertex in points){var world=pose*owner.Transform*vertex;var ground=Contact.Ground(GetWorld3D().DirectSpaceState,world,world.Y);if(!ground.found)continue;hits++;float clearance=world.Y-ground.rawY;if(clearance<minimum){minimum=clearance;lowest=world;}}
   return new {part=owner.Name.ToString(),vertices=points.Length,groundHits=hits,margin=convex.Margin,minimumVertexClearance=hits>0?(float?)minimum:null,minimumVertexWorld=new[]{lowest.X,lowest.Y,lowest.Z},scope="All vertices of the actual struck convex shape at physics pose; vertex rays do not cover edge/face intersections or certify collision freedom"};
  }
+ public object ImpactFaceEvidence(int shapeIndex,Transform3D previous,Transform3D current){
+  var owner=ShapeOwnerGetOwner(ShapeFindOwner(shapeIndex)) as CollisionShape3D;if(owner?.Shape is not ConvexPolygonShape3D convex)return null;
+  using var debug=convex.GetDebugMesh();var faces=debug.GetFaces();var phases=new System.Collections.Generic.List<object>();var space=GetWorld3D().DirectSpaceState;
+  foreach(float fraction in new[]{0f,.5f,1f}){var pose=previous.InterpolateWith(current,fraction)*owner.Transform;int hits=0,samples=0;float minimum=float.PositiveInfinity;Vector3 minimumWorld=Vector3.Zero;
+   void Probe(Vector3 local){samples++;var world=pose*local;var ground=Contact.Ground(space,world,world.Y);if(!ground.found)return;hits++;float clearance=world.Y-ground.rawY;if(clearance<minimum){minimum=clearance;minimumWorld=world;}}
+   for(int i=0;i+2<faces.Length;i+=3){var a=faces[i];var b=faces[i+1];var c=faces[i+2];Probe((a+b+c)/3);Probe((a+b)/2);Probe((b+c)/2);Probe((c+a)/2);}
+   phases.Add(new {fraction,samples,groundHits=hits,minimumSampleClearance=hits>0?(float?)minimum:null,minimumWorld=new[]{minimumWorld.X,minimumWorld.Y,minimumWorld.Z}});
+  }
+  return new {part=owner.Name.ToString(),triangles=faces.Length/3,phases,scope="Actual convex face centroids and edge midpoints at previous/mid/current integration poses; discrete diagnosis, not continuous collision certificate"};
+ }
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
  public override void _PhysicsProcess(double delta){foreach(var entry in MountedShapes){int hub=entry.Hub;var centre=RecoveredWheelCentres[hub];var rotation=new Basis(Vector3.Up,hub<2?WheelAngle:0);var offset=Vector3.Up*(RestLength-StaticSag-SpringLength[hub]);entry.Shape.Transform=new Transform3D(rotation,centre+offset-rotation*centre);}}
