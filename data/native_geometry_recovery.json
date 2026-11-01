@@ -1,96 +1,251 @@
 {
-  "sourceRun": 41238298409,
-  "scope": "Only22 previously unexecuted cases; track49 both and track12F1 passes retained, track12GT actual lap failure separate",
+  "scope": "Only30remaining failed actualsolo cases, new validatedCCD.1+actual240Hz; prior90historicalpasses not repeated here; canonicalfullsweep stillrequired",
   "cases": [
     {
+      "car": 16,
+      "track": 45,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 0,
       "track": 8,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 8,
-      "car": 16
+      "car": 0,
+      "track": 32,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "rule_reset",
+        "no_valid_lap",
+        "not_finished"
+      ]
     },
     {
+      "car": 16,
+      "track": 32,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 16,
+      "track": 19,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 31,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "rule_reset",
+        "no_valid_lap",
+        "not_finished"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 43,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 6,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
+    },
+    {
+      "car": 16,
       "track": 42,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
     },
     {
-      "track": 42,
-      "car": 16
-    },
-    {
+      "car": 0,
       "track": 54,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 54,
-      "car": 16
+      "car": 0,
+      "track": 5,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage",
+        "no_valid_lap"
+      ]
     },
     {
+      "car": 0,
       "track": 41,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 41,
-      "car": 16
+      "car": 0,
+      "track": 53,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
+      "car": 16,
+      "track": 4,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 16,
       "track": 3,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
     },
     {
-      "track": 3,
-      "car": 16
+      "car": 0,
+      "track": 15,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
     },
     {
+      "car": 0,
       "track": 27,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 27,
-      "car": 16
+      "car": 0,
+      "track": 2,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 39,
-      "car": 0
-    },
-    {
-      "track": 39,
-      "car": 16
-    },
-    {
-      "track": 14,
-      "car": 0
-    },
-    {
-      "track": 14,
-      "car": 16
-    },
-    {
+      "car": 0,
       "track": 38,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 38,
-      "car": 16
-    },
-    {
+      "car": 0,
       "track": 50,
-      "car": 0
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
+      "car": 16,
       "track": 50,
-      "car": 16
+      "previousRun": 41244024488,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
     },
     {
-      "track": 11,
-      "car": 0
+      "car": 0,
+      "track": 23,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     },
     {
-      "track": 11,
-      "car": 16
+      "car": 0,
+      "track": 35,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 59,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "rule_reset",
+        "no_valid_lap"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 46,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
+    },
+    {
+      "car": 16,
+      "track": 58,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 16,
+      "track": 1,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 16,
+      "track": 25,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "impact_damage"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 12,
+      "previousRun": 41243292725,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
+    },
+    {
+      "car": 0,
+      "track": 24,
+      "previousRun": 41238298409,
+      "previousFailureCategories": [
+        "no_valid_lap"
+      ]
     }
-  ],
-  "previousAttemptRun": 41243292725,
-  "distinctFix": "a4d42fc selects manifest cars before default two-shard indexing"
+  ]
 }
