@@ -17,6 +17,7 @@ with tempfile.TemporaryDirectory() as temp:
  for name in names:
   subprocess.run(['gh','release','download','repair-review-20261029','--repo',os.environ['GITHUB_REPOSITORY'],'--pattern',name,'--dir',temp],check=True)
   source=root/name;target=output/('reviewkey-'+name);digest=hashlib.sha256()
+  authenticated=False
   try:
    with source.open('rb') as reader,target.open('wb') as writer:
     if reader.read(9)!=b'MYSIMENC1':raise ValueError('Invalid review envelope')
@@ -25,9 +26,11 @@ with tempfile.TemporaryDirectory() as temp:
     while reader.tell()<end:
      plain=dec.update(reader.read(min(4*1024*1024,end-reader.tell())));digest.update(plain);writer.write(enc.update(plain))
     tail=dec.finalize();digest.update(tail);writer.write(enc.update(tail));writer.write(enc.finalize());writer.write(enc.tag)
+   authenticated=True
    # Only authenticated old plaintext may produce a published new envelope.
    subprocess.run(['gh','release','upload',release,str(target),'--repo',os.environ['GITHUB_REPOSITORY'],'--clobber'],check=True)
    rows.append({'release':release,'original':name,'rewrapped':target.name,'bytes':target.stat().st_size,'plaintextSha256':digest.hexdigest(),'reviewKeyFingerprint':hashlib.sha256(new).hexdigest()[:16],'originalPreserved':True})
   finally:
-   source.unlink(missing_ok=True) # Retain encrypted target as artifact fallback.
+   source.unlink(missing_ok=True)
+   if not authenticated:target.unlink(missing_ok=True) # Failed authentication must never leave a publishable fallback.
 pathlib.Path('review-rewrap-results.json').write_text(json.dumps(rows,indent=2));print('Authenticated review envelopes rewrapped:',len(rows))
