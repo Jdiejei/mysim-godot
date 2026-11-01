@@ -151,9 +151,17 @@ if os.environ.get('ALPHA_POLICY_REVIEW')=='1':
   assert shot.exists()
  print('COMPLETE alpha policy comparison; no production change accepted',flush=True);sys.exit(0)
 if os.environ.get('TRACK_SCENE_AUDIT')=='1':
- track=(0,5)[shard];label=f'track-scene-audit-{track:02}'
- text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_TRACK_SCENE_AUDIT':str(out/(label+'.json'))},['--headless'])
- assert 'PASS read-only track scene audit' in text
+ tracks=[t for t in range(shard,60,12) if t not in (0,5)] if os.environ.get('TRACK_SCENE_ALL')=='1' else [(0,5)[shard]]
+ results=[]
+ for track in tracks:
+  label=f'track-scene-audit-{track:02}';error=None
+  try:
+   text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_TRACK_SCENE_AUDIT':str(out/(label+'.json'))},['--headless'])
+   assert 'PASS read-only track scene audit' in text
+  except (RuntimeError,AssertionError) as exc:error=str(exc)
+  results.append({'track':track,'ok':error is None,'error':error})
+  (out/'track-scene-case-results.json').write_text(json.dumps(results,indent=2))
+ assert results and all(x['ok'] for x in results),'See exact preserved per-track audit failures'
  print('COMPLETE scene metadata audit; visual and duplicate acceptance separate',flush=True);sys.exit(0)
 if os.environ.get('CONTROLS_GAMEPLAY')=='1':
  label='controls-gameplay-crisp';shot=out/(label+'.png')
