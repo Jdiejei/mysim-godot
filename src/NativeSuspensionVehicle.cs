@@ -20,15 +20,20 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
   foreach(var vertex in points){var world=pose*owner.Transform*vertex;var ground=Contact.Ground(GetWorld3D().DirectSpaceState,world,world.Y);if(!ground.found)continue;hits++;float clearance=world.Y-ground.rawY;if(clearance<minimum){minimum=clearance;lowest=world;}}
   return new {part=owner.Name.ToString(),vertices=points.Length,groundHits=hits,margin=convex.Margin,minimumVertexClearance=hits>0?(float?)minimum:null,minimumVertexWorld=new[]{lowest.X,lowest.Y,lowest.Z},scope="All vertices of the actual struck convex shape at physics pose; vertex rays do not cover edge/face intersections or certify collision freedom"};
  }
- public object ImpactFaceEvidence(int shapeIndex,Transform3D previous,Transform3D current){
+ public object ImpactFaceEvidence(int shapeIndex,Transform3D previous,Transform3D current,Vector3 rawContact){
   var owner=ShapeOwnerGetOwner(ShapeFindOwner(shapeIndex)) as CollisionShape3D;if(owner?.Shape is not ConvexPolygonShape3D convex)return null;
   using var debug=convex.GetDebugMesh();var faces=debug.GetFaces();var phases=new System.Collections.Generic.List<object>();var space=GetWorld3D().DirectSpaceState;
   foreach(float fraction in new[]{0f,.5f,1f}){var pose=previous.InterpolateWith(current,fraction)*owner.Transform;int hits=0,samples=0;float minimum=float.PositiveInfinity;Vector3 minimumWorld=Vector3.Zero;
    void Probe(Vector3 local){samples++;var world=pose*local;var ground=Contact.Ground(space,world,world.Y);if(!ground.found)return;hits++;float clearance=world.Y-ground.rawY;if(clearance<minimum){minimum=clearance;minimumWorld=world;}}
    for(int i=0;i+2<faces.Length;i+=3){var a=faces[i];var b=faces[i+1];var c=faces[i+2];Probe((a+b+c)/3);Probe((a+b)/2);Probe((b+c)/2);Probe((c+a)/2);}
-   phases.Add(new {fraction,samples,groundHits=hits,minimumSampleClearance=hits>0?(float?)minimum:null,minimumWorld=new[]{minimumWorld.X,minimumWorld.Y,minimumWorld.Z}});
+   float contactBottom=float.PositiveInfinity;int contactIntersections=0;
+   for(int i=0;i+2<faces.Length;i+=3){var a=pose*faces[i];var b=pose*faces[i+1];var c=pose*faces[i+2];float d=(b.Z-c.Z)*(a.X-c.X)+(c.X-b.X)*(a.Z-c.Z);if(Mathf.Abs(d)<.0000001f)continue;
+    float u=((b.Z-c.Z)*(rawContact.X-c.X)+(c.X-b.X)*(rawContact.Z-c.Z))/d;float v=((c.Z-a.Z)*(rawContact.X-c.X)+(a.X-c.X)*(rawContact.Z-c.Z))/d;float w=1-u-v;if(u<-.0001f||v<-.0001f||w<-.0001f)continue;contactIntersections++;contactBottom=Mathf.Min(contactBottom,u*a.Y+v*b.Y+w*c.Y);
+   }
+   var contactGround=Contact.Ground(space,rawContact,rawContact.Y);
+   phases.Add(new {fraction,contactIntersections,contactColumnBottom=contactIntersections>0?(float?)contactBottom:null,contactGroundY=contactGround.found?(float?)contactGround.rawY:null,contactColumnClearance=contactIntersections>0&&contactGround.found?(float?)(contactBottom-contactGround.rawY):null,samples,groundHits=hits,minimumSampleClearance=hits>0?(float?)minimum:null,minimumWorld=new[]{minimumWorld.X,minimumWorld.Y,minimumWorld.Z}});
   }
-  return new {part=owner.Name.ToString(),triangles=faces.Length/3,phases,scope="Actual convex face centroids and edge midpoints at previous/mid/current integration poses; discrete diagnosis, not continuous collision certificate"};
+  return new {part=owner.Name.ToString(),triangles=faces.Length/3,phases,scope="Actual convex face centroids and edge midpoints at previous/mid/current integration poses; includes exact vertical hull intersection at raw contact XZ interpreted as world; frame interpretation and continuous collision remain separate"};
  }
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
