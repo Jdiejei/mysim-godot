@@ -4,6 +4,11 @@ namespace MySim {
 // Compound markings are separate geometry; source tyres, rims, textures and UVs stay intact.
 public static class TyreAppearance {
  public static Color Colour(Compound compound)=>compound switch {Compound.Soft=>new Color(.9f,.06f,.04f),Compound.Medium=>new Color(1f,.78f,.04f),Compound.Hard=>new Color(.92f,.93f,.94f),_=>new Color(.08f,.38f,.95f)};
+ static ArrayMesh FlatMarking(float radius,float side){
+  using var tool=new SurfaceTool();tool.Begin(Mesh.PrimitiveType.Triangles);const int segments=192;
+  void V(int angle,float radial){float theta=Mathf.Tau*angle/segments;tool.SetNormal(Vector3.Right*side);tool.AddVertex(new Vector3(0,radius*radial*Mathf.Cos(theta),radius*radial*Mathf.Sin(theta)));}
+  for(int i=0;i<segments;i++){if(side>0){V(i,.810f);V(i+1,.810f);V(i,.822f);V(i,.822f);V(i+1,.810f);V(i+1,.822f);}else{V(i,.810f);V(i,.822f);V(i+1,.810f);V(i,.822f);V(i+1,.822f);V(i+1,.810f);}}tool.Index();return tool.Commit();
+ }
  static void Lettering(Node3D markings,Vector3 centre,float radius,float sidewall){
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_LETTERING")!="1")return;
   foreach(float side in new[]{-1f,1f})foreach(var band in new[]{("MYSIM",Mathf.Pi*.5f),("RACING",Mathf.Pi*1.5f)}){
@@ -25,6 +30,7 @@ public static class TyreAppearance {
      if(radius<.15f||radius>.6f)continue;
      foreach(float side in new[]{-1f,1f}){
       var ring=new MeshInstance3D {Name=side<0?"InnerSidewall":"OuterSidewall",Mesh=new TorusMesh {InnerRadius=radius*.805f,OuterRadius=radius*.83f,Rings=96,RingSegments=8},Position=center+Vector3.Right*(side*sidewall),Rotation=new Vector3(0,0,Mathf.Pi*.5f),CastShadow=GeometryInstance3D.ShadowCastingSetting.Off};
+      if(System.Environment.GetEnvironmentVariable("MYSIM_FLAT_TYRE_MARKINGS")=="1"){ring.Mesh=FlatMarking(radius,side);ring.Rotation=Vector3.Zero;ring.Position=center+Vector3.Right*(side*(sidewall+.0002f));}
       markings.AddChild(ring);
      }
      if(rebuilt!=null)Lettering(markings,center,radius,sidewall);
