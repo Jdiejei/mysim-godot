@@ -8,13 +8,16 @@ public static class TrackMaterialBinder {
  public static void Apply(Node3D track, string dir) {
   var map = new Dictionary<string, string>();
   using (var f = FileAccess.Open(dir + "tex_by_material.json", FileAccess.ModeFlags.Read)) { var d = Json.ParseString(f.GetAsText()).AsGodotDictionary(); foreach (var k in d.Keys) map[k.AsString()] = d[k].AsString(); }
-  var missing=new List<object>(); var cache = new Dictionary<string, StandardMaterial3D>(); int bound = 0, total = 0, unbound = 0; UnboundNames.Clear();
+  var missing=new List<object>(); var resolutions=new List<object>(); var cache = new Dictionary<string, StandardMaterial3D>(); int bound = 0, total = 0, unbound = 0; UnboundNames.Clear();
   foreach (var n in track.FindChildren("*", "MeshInstance3D", true, false)) {
    var m = (MeshInstance3D)n;
    for (int s = 0; s < m.Mesh.GetSurfaceCount(); s++) {
     total++; if (m.GetSurfaceOverrideMaterial(s) != null) { bound++; continue; } string name = m.Mesh.SurfaceGetMaterial(s)?.ResourceName ?? ""; if (name == "") continue;
     if (!cache.TryGetValue(name, out var mat)) {
-     string tex = null; if (map.TryGetValue(name, out var t0)) tex = t0; else foreach (var kv in map) if (kv.Key.StartsWith(name + "_") || kv.Key.StartsWith(name)) { tex = kv.Value; break; }
+     string tex = null;string resolution="missing";var candidates=new List<string>();
+     if(map.TryGetValue(name,out var t0)){tex=t0;resolution="exact";}
+     else {var textures=new HashSet<string>();foreach(var kv in map)if(kv.Key.StartsWith(name+"_",System.StringComparison.Ordinal)){candidates.Add(kv.Key);textures.Add(kv.Value);}if(textures.Count==1){foreach(var texture in textures)tex=texture;resolution="unique-delimited-prefix";}else if(textures.Count>1)resolution="ambiguous-prefix-rejected";}
+     resolutions.Add(new {material=name,resolution,texture=tex,candidates});
      if (tex != null && ResourceLoader.Exists(dir + "textures/" + tex)) {
       mat = new StandardMaterial3D { AlbedoTexture = GD.Load<Texture2D>(dir + "textures/" + tex), Roughness = 1f, MetallicSpecular = 0.12f, TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic };
       string ln = name.ToLowerInvariant(); if (ln.Contains("overlay") || ln.Contains("alpha") || ln.Contains("fence") || ln.Contains("crowd")) mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
@@ -27,7 +30,7 @@ public static class TrackMaterialBinder {
     m.SetSurfaceOverrideMaterial(s, mat); bound++; }
    }
   }
-  var audit=System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT");if(!string.IsNullOrEmpty(audit)){System.IO.Directory.CreateDirectory(audit);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(audit,"bindings-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new {layer=track.Name.ToString(),fallbacks=missing},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
+  var audit=System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT");if(!string.IsNullOrEmpty(audit)){System.IO.Directory.CreateDirectory(audit);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(audit,"bindings-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new {layer=track.Name.ToString(),fallbacks=missing,resolutions},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
   GD.Print("TRACKBIND fallbackGrey=", unbound, " unboundNames=", string.Join("|", UnboundNames.GetRange(0, System.Math.Min(40, UnboundNames.Count))));
   GD.Print("TRACKBIND bound=", bound, " of ", total, " surfaces; distinct textured materials=", cache.Count);
  }
