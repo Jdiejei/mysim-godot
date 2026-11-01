@@ -1,0 +1,53 @@
+{
+  "scope": "Custom candidate art; not exact real-team rim replicas. Dimensions must be measured from recovered source rim and tyre.",
+  "cars": {
+    "15": {
+      "name": "W10",
+      "spokes": 10,
+      "sweep": 0.06,
+      "spokeWidth": 0.052,
+      "metal": [
+        0.19,
+        0.21,
+        0.23
+      ],
+      "roughness": 0.29
+    },
+    "16": {
+      "name": "SF90",
+      "spokes": 10,
+      "sweep": 0,
+      "spokeWidth": 0.063,
+      "metal": [
+        0.27,
+        0.26,
+        0.25
+      ],
+      "roughness": 0.26
+    },
+    "17": {
+      "name": "RB15",
+      "spokes": 10,
+      "sweep": 0.22,
+      "spokeWidth": 0.058,
+      "metal": [
+        0.12,
+        0.14,
+        0.16
+      ],
+      "roughness": 0.32
+    },
+    "18": {
+      "name": "MCL34",
+      "spokes": 10,
+      "sweep": 0.11,
+      "spokeWidth": 0.047,
+      "metal": [
+        0.3,
+        0.32,
+        0.34
+      ],
+      "roughness": 0.28
+    }
+  }
+}

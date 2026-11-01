@@ -123,11 +123,12 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
 if os.environ.get('REBUILT_WHEEL_REVIEW')=='1':
- car=(1,6,16)[shard]
+ custom=os.environ.get('F1_WHEEL_REVIEW')=='1';car=15+shard if custom else (1,6,16)[shard]
  for compound in range(4):
-  label=f'rebuilt-wheel-car-{car:02}-compound-{compound}';shot=out/(label+'.png')
-  text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_COMPOUND':str(compound),'MYSIM_SHOT':str(shot)})
-  assert shot.exists() and 'PASS complete visible wheel framing' in text
+  for wheel in ((0,2) if custom else (0,)):
+   label=f'rebuilt-wheel-car-{car:02}-compound-{compound}-wheel-{wheel}';shot=out/(label+'.png')
+   text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_COMPOUND':str(compound),'MYSIM_SHOT':str(shot)})
+   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE replacement wheel/compound closeups; manual acceptance required',flush=True);sys.exit(0)
 if os.environ.get('CAR_ASSEMBLY_AUDIT')=='1':
  car=(1,6,16)[shard]
