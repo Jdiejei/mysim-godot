@@ -122,6 +122,12 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  if steer:assert (out/(label+'.png')).exists()
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
+if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
+ for contrast in ('1.14','1.0'):
+  label='wheel-grade-'+contrast;shot=out/(label+'.png')
+  text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
+  assert shot.exists() and 'PASS complete visible wheel framing' in text
+ print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
 if os.environ.get('REBUILT_WHEEL_REVIEW')=='1':
  custom=os.environ.get('F1_WHEEL_REVIEW')=='1';car=15+shard if custom else (1,6,16)[shard]
  for compound in range(4):
