@@ -122,6 +122,13 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  if steer:assert (out/(label+'.png')).exists()
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
+if os.environ.get('CAR_PAINT_CANDIDATE')=='1':
+ for candidate in ('0','1'):
+  for view,camera in enumerate(('4,2.5,4','-4,2.5,4','4,2.5,-4')):
+   label=f'paint-candidate-{candidate}-view-{view}';shot=out/(label+'.png')
+   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_PAINT_CANDIDATE':candidate,'MYSIM_SHOT':str(shot)})
+   assert shot.exists() and 'PASS complete visible car framing' in text
+ print('COMPLETE paint candidate comparison; not art acceptance',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
  for channel in (('0',) if os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('0','1')):
   for mode in (('both',) if os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('both','none','u','v')):
