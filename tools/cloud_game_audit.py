@@ -142,6 +142,23 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
+if os.environ.get('NIGHT_LIGHT_REVIEW')=='1':
+ track=(0,25,28)[shard]
+ for wet in (0,1):
+  for candidate in (0,1):
+   label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}';shot=out/(label+'.png')
+   values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':str(wet),'MYSIM_TRACK_FLOODLIGHTS':str(candidate),'MYSIM_TRACK_LIGHT_AUDIT':str(out/(label+'-mounts.json')),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)}
+   text=run(label,values)
+   assert shot.exists()
+   if candidate:assert 'TRACK_FLOODLIGHTS candidate' in text
+ print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
+if os.environ.get('WHEEL_FIT_REVIEW')=='1':
+ car=15+shard
+ for steer in (-23,0,23):
+  label=f'wheel-fit-car-{car}-steer-{steer}';shot=out/(label+'.png');metadata=out/(label+'.json')
+  text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(metadata),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'3.5,4.5,5','MYSIM_SHOT':str(shot)})
+  assert shot.exists() and metadata.exists() and 'PASS wheel fit evidence' in text
+ print('COMPLETE wheel fit diagnostic; overlap findings require repair, not acceptance',flush=True);sys.exit(0)
 if os.environ.get('REBUILT_WHEEL_REVIEW')=='1':
  custom=os.environ.get('F1_WHEEL_REVIEW')=='1';car=15+shard if custom else (1,6,16)[shard]
  for compound in range(4):

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "note": "Opt-in night-track art candidate. Metres and provisional Godot light energy, not real circuit photometry. Mounts without source ground support are rejected.",
+  "spacing": 38,
+  "height": 14,
+  "routeOffset": 10,
+  "range": 55,
+  "coneAngle": 65,
+  "energy": 18,
+  "activeLights": 8
+}

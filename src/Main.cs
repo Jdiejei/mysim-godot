@@ -52,6 +52,8 @@ public partial class Main : Node3D {
   CarLoader.ApplyExact(car, ci); CarPaintCandidate.Apply(car,ci); var viewWheels=CarLoader.AttachWheels(car, ci);if(int.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_COMPOUND"),out int compound))TyreAppearance.Apply(viewWheels,(Compound)Mathf.Clamp(compound,0,3)); if (System.Environment.GetEnvironmentVariable("MYSIM_UNSHADED") != null) CarLoader.ForceUnshaded(car); car.Position = new Vector3(0, 0.0f, 0);
   if(System.Environment.GetEnvironmentVariable("MYSIM_REBUILT_BODY_PAINT")=="1")RecoveredBodyPaint.Apply(car,ci);
   if(System.Environment.GetEnvironmentVariable("MYSIM_NEUTRAL_CAR_MATERIAL")=="1"){var neutral=new StandardMaterial3D {AlbedoColor=new Color(.42f,.45f,.48f),Roughness=.65f,CullMode=BaseMaterial3D.CullModeEnum.Disabled};foreach(var n in car.FindChildren("*","MeshInstance3D",true,false)){var mesh=(MeshInstance3D)n;if(mesh.IsVisibleInTree())mesh.MaterialOverride=neutral;}}
+  if(float.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_STEER"),System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float fitSteer))WheelAnimation.Update(viewWheels,0,Mathf.DegToRad(fitSteer));
+  if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_AUDIT") is string fitPath)WheelFitAudit.Write(car,viewWheels,ci,fitPath);
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_APPEARANCE_AUDIT") is string wheelAudit)WheelAppearanceAudit.Write(viewWheels,wheelAudit);
   if(System.Environment.GetEnvironmentVariable("MYSIM_CAR_ASSEMBLY_AUDIT") is string assemblyPath)CarAssemblyAudit.Write(car,ci,assemblyPath);
   var cam = new Camera3D { Fov = 40, Current = true, Position = new Vector3(5.2f, 1.8f, 5.6f) }; var cp = System.Environment.GetEnvironmentVariable("MYSIM_CAMPOS"); if (cp != null) { var q = cp.Split(','); cam.Position = new Vector3(float.Parse(q[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[2], System.Globalization.CultureInfo.InvariantCulture)); } AddChild(cam); cam.LookAt(new Vector3(0, 0.6f, 0));
@@ -175,6 +177,7 @@ public partial class Main : Node3D {
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { WindingFixer.Fix(L, out int wchk); GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);
   string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; world.AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
+  if(Conditions.IsNight&&System.Environment.GetEnvironmentVariable("MYSIM_TRACK_FLOODLIGHTS")=="1")world.AddChild(new TrackNightLighting{Name="TrackFloodlightCandidate",TrackIndex=trackIdx});
   if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_RUNOFF_SUPPORT")=="1")foreach(var layer in layers)SourceRunoffSupport.Build(layer);
   if(System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_TRACK_TRIAL") is string nativeTrial){world.AddChild(new NativeTrackTrial {TrackIndex=trackIdx,CarIndex=carIdx,Car=car,Wheels=wheelPivots,Destination=nativeTrial});ClearUi();return;}
   if (System.Environment.GetEnvironmentVariable("MYSIM_DEBUGROAD") != null) DebugRoad(track);
