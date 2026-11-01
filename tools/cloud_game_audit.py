@@ -142,6 +142,13 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
+if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
+ for asset in ('WetTyre','IntermediateTyre','DeepWetTyre'):
+  for angle in range(3):
+   label=f'source-tyre-{asset}-angle-{angle}';shot=out/(label+'.png');metadata=out/(label+'.json')
+   text=run(label,{'MYSIM_SOURCE_TYRE_VIEW':asset,'MYSIM_TYRE_REVIEW_ANGLE':str(angle),'MYSIM_SOURCE_TYRE_REPORT':str(metadata),'MYSIM_SHOT':str(shot)})
+   assert shot.exists() and metadata.exists() and 'PASS recovered tyre source capture' in text
+ print('COMPLETE recovered tyre geometry comparison; no integration or compound acceptance',flush=True);sys.exit(0)
 if os.environ.get('NIGHT_LIGHT_REVIEW')=='1':
  track=(0,25,28)[shard]
  for wet in (0,1):
