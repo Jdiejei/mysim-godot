@@ -80,7 +80,7 @@ if os.environ.get('NATIVE_HULL_CONTACT')=='1':
  failures=[]
  for car in cars:
   label=f'native-hull-contact-car-{car:02}';values={'MYSIM_NATIVE_HULL_CONTACT_CHECKS':str(car),'MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1'}
-  if os.environ.get('NATIVE_HULL_MATRIX')=='1':values['MYSIM_NATIVE_HULL_CONTACT_SPEEDS']='60,120' if car in (0,16) else '20,60,120'
+  if os.environ.get('NATIVE_HULL_MATRIX')=='1':values.update(MYSIM_NATIVE_HULL_CONTACT_SPEEDS='20,60,120',MYSIM_COMPONENT_MOUNTS='1')
   if recovery:
    cases=[x for x in recovery if x['car']==car];assert len(set(x['hz'] for x in cases))==1
    values.update(MYSIM_NATIVE_HULL_CONTACT_SPEEDS=','.join(map(str,sorted(set(x['speed'] for x in cases)))),MYSIM_NATIVE_HULL_CONTACT_CASES=','.join(str(x['speed'])+(':'+('front' if x['front'] else 'rear')) for x in cases),MYSIM_NATIVE_CONTACT_HZ=str(cases[0]['hz']))
