@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       depth: {description: 'Preview coverage or full races with live mesh collision', type: choice, options: [preview, full_races, geometry, surfaces, collision_probe, car_materials, input_physics, car_uv, native_races, wheel_orientation, contact_trace, car_uv_roles, precise_ai, native_focus, car_panel_uv, wheel_compounds, assembly_review, weather_review, gui_review, livery_uv, rear_panel_uv, rain_focus, route_parity, ground_review, controls_gameplay, track_scene_audit, alpha_policy_review, rebuilt_rim_review, car_assembly_audit, rebuilt_wheel_review, car_shape_review, rebuilt_body_review, native_suspension_track, native_suspension_steer, native_suspension_capture_recovery, native_suspension_contact_recovery, native_gameplay, native_hull_gameplay, native_hull_contact, native_ai_lap, native_hull_matrix, native_hull_ai_lap, native_hull_recovery, native_traffic_lap, native_mounted_gameplay, native_mounted_laps, native_retirement, native_mounted_visual, native_ai_diagnostic, native_traffic_diagnostic, wall_geometry_diagnostic, native_gt_pit_diagnostic, native_geometry_recovery, native_ccd_diagnostic], default: preview}
+      visual_renderer: {description: 'Native mounted capture backend; production uses Mobile', type: choice, options: [gl_compatibility, mobile], default: gl_compatibility}
       physics_backend: {description: 'Explicit CI-only native solver experiment', type: choice, options: [source, jolt], default: source}
       ccd_penetration: {description: 'CI-only CCD inner-radius fraction comparison; wall acceptance unchanged', type: choice, options: ['0.01', '0.25'], default: '0.01'}
       speculative_distance: {description: 'CI-only speculative contact radius in metres; CCD remains enabled', type: choice, options: ['0.02', '0.005'], default: '0.02'}
@@ -16,7 +17,7 @@ on:
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
-concurrency: {group: 'game-art-review-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}', cancel-in-progress: false}
+concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}', cancel-in-progress: false}
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -73,6 +74,7 @@ jobs:
       - name: Scope import only for isolated diagnostics
         if: inputs.depth != 'route_parity' && inputs.depth != 'gui_review'
         env:
+          NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
           SHARD: ${{ matrix.shard }}
           NATIVE_CARS: ${{ inputs.cars || '16' }}
           IMPORT_REVIEW_DEPTH: ${{ inputs.depth }}

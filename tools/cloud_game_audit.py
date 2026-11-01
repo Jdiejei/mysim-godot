@@ -100,7 +100,10 @@ if os.environ.get('NATIVE_GAMEPLAY')=='1':
  if os.environ.get('NATIVE_COMPONENT_MOUNTS')=='1':values.update(MYSIM_COMPONENT_MOUNTS='1',MYSIM_COMPONENT_MOUNT_REPORT=str(out/(label+'-component-mounts.json')))
  visual=os.environ.get('NATIVE_MOUNTED_VISUAL')=='1'
  if visual:values.update(MYSIM_COMPONENT_MOUNTS='1',MYSIM_DEFER_NATIVE_RENDER='1',MYSIM_SHOT=str(out/(label+'.png')),MYSIM_COMPONENT_MOUNT_REPORT=str(out/(label+'-component-mounts.json')))
- text=run(label,values,['--rendering-method','gl_compatibility','--rendering-driver','opengl3'] if visual else ['--headless'],timeout=360)
+ renderer=os.environ.get('NATIVE_VISUAL_RENDERER','gl_compatibility');assert renderer in ('gl_compatibility','mobile')
+ render_args=['--rendering-method',renderer,'--rendering-driver','vulkan' if renderer=='mobile' else 'opengl3'] if visual else ['--headless']
+ (out/(label+'-render-request.json')).write_text(json.dumps({'visual':visual,'requestedRenderer':renderer if visual else 'headless','arguments':render_args,'scope':'Requested backend; verify actual engine startup log before visual acceptance'},indent=2))
+ text=run(label,values,render_args,timeout=360)
  if visual:assert (out/(label+'.png')).exists() and 'PASS actual integrated native scene capture' in text
  if os.environ.get('NATIVE_HULL_GAMEPLAY')=='1':assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
  assert json.loads((out/(label+'.json')).read_text())['ok']
