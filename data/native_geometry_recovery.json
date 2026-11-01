@@ -1,20 +1,9 @@
 {
-  "scope": "ThreepersistingF1impactfailures instrumentationonly, nofixclaim",
+  "scope": "OnlyremainingF1track50groundstrikes; higherresolutionactualwheelpaths,allgatesretained",
   "cases": [
     {
       "car": 16,
-      "track": 32,
-      "reason": "Exactphysics-tick impact evidence after measuredsuspension; no damagegatewaiver"
-    },
-    {
-      "car": 16,
-      "track": 4,
-      "reason": "Exactphysics-tick impact evidence after measuredsuspension; no damagegatewaiver"
-    },
-    {
-      "car": 16,
-      "track": 50,
-      "reason": "Exactphysics-tick impact evidence after measuredsuspension; no damagegatewaiver"
+      "track": 50
     }
   ]
 }
