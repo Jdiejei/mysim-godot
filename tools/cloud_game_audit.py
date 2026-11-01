@@ -147,7 +147,7 @@ if os.environ.get('REBUILT_WHEEL_REVIEW')=='1':
  for compound in range(4):
   for wheel in ((0,2) if custom else (0,)):
    label=f'rebuilt-wheel-car-{car:02}-compound-{compound}-wheel-{wheel}';shot=out/(label+'.png')
-   text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1' if custom else '0','MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_COMPOUND':str(compound),'MYSIM_SHOT':str(shot)})
+   text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_REBUILT_BRAKES':'1' if custom else '0','MYSIM_WHEEL_LETTERING':'1' if custom else '0','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1' if custom else '0','MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_COMPOUND':str(compound),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE replacement wheel/compound closeups; manual acceptance required',flush=True);sys.exit(0)
 if os.environ.get('CAR_ASSEMBLY_AUDIT')=='1':
