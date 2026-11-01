@@ -74,7 +74,6 @@ jobs:
       - name: Scope import only for isolated diagnostics
         if: inputs.depth != 'route_parity' && inputs.depth != 'gui_review'
         env:
-          NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
           SHARD: ${{ matrix.shard }}
           NATIVE_CARS: ${{ inputs.cars || '16' }}
           IMPORT_REVIEW_DEPTH: ${{ inputs.depth }}
@@ -117,6 +116,7 @@ jobs:
         if: inputs.depth != 'route_parity' && inputs.depth != 'gui_review'
         env:
           SHARD: ${{ matrix.shard }}
+          NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}
           NATIVE_DAMAGE: ${{ inputs.native_damage && '1' || '0' }}
           NATIVE_ROTATIONAL_TYRES: ${{ inputs.rotational_tyres && '1' || '0' }}
           NATIVE_PHYSICS_HZ: ${{ inputs.physics_hz || '120' }}
