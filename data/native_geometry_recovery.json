@@ -1,37 +1,9 @@
 {
   "cases": [
     {
-      "car": 15,
-      "track": 0
-    },
-    {
-      "car": 15,
-      "track": 43
-    },
-    {
-      "car": 16,
-      "track": 0
-    },
-    {
-      "car": 16,
-      "track": 43
-    },
-    {
-      "car": 17,
-      "track": 0
-    },
-    {
-      "car": 17,
-      "track": 43
-    },
-    {
-      "car": 18,
-      "track": 0
-    },
-    {
-      "car": 18,
-      "track": 43
+      "car": 13,
+      "track": 8
     }
   ],
-  "scope": "Eight actual native races with source-derived axle placement enabled for both hull-bake wheel centres and visible/runtime wheels. Preserve source hull/contact/damage/legal lap gates; experimental, not promotion."
+  "scope": "One distinct bounded preimpact-state capture for reduced source-road-patch causal replay; hull/force/damage gates unchanged, source axle fit disabled."
 }

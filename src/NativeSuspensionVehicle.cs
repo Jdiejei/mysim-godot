@@ -6,6 +6,7 @@ namespace MySim {
 // Not production-integrated until suspension, tyre/contact and real-track gates pass.
 public partial class NativeSuspensionVehicle : RigidBody3D {
  public readonly NativeRoadSpeedPlanner RoadPlanning=new();
+ readonly NativeContactReplayRecorder contactReplay=new();
  Vehicle raceVehicle;float emptyStoppedTime;public bool DamageEnabled;public readonly NativeImpactDamage Impacts=new();
  public void BindRaceControls(Vehicle vehicle,float dt,Circuit track=null){RoadPlanning.Step(vehicle,this,track,dt);raceVehicle=vehicle;Controls=vehicle.servicing||vehicle.retired||vehicle.finished?new DriverInput(0,1,0):vehicle.input;TractionControl=vehicle.traction;BrakeStabilityAssist=vehicle.abs;if(vehicle.servicing||vehicle.retired||vehicle.finished){HybridDriveForce=0;vehicle.ersActive=false;}else HybridDriveForce=HybridDeployment.Step(vehicle,vehicle.input,dt)*vehicle.input.throttle;}
  public bool RotationalTyres;public readonly float[] WheelOmega=new float[4],WheelRotation=new float[4],LongitudinalSlip=new float[4],LateralSlipAngle=new float[4];
@@ -79,6 +80,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  }
  public override void _IntegrateForces(PhysicsDirectBodyState3D state){
   if(!Initialized)return;
+  contactReplay.Observe(this,state);
   if(DamageEnabled)Impacts.Observe(state,raceVehicle,CarIndex,this);var input=Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
   WheelAngle=Mathf.MoveToward(WheelAngle,Dynamics.SteeringTarget(input.steer,longitudinal),3.2f*state.Step);
   float gravity=state.TotalGravity.Length(),spring=Mass*gravity/(4*StaticSag),damper=2*DampingRatio*Mathf.Sqrt(spring*Mass*.25f);

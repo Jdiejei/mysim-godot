@@ -19,6 +19,8 @@ def run(label,values,args=None,timeout=300):
     if report.is_relative_to(out) and report.is_file():
      import shutil
      shutil.copyfile(report,report.with_name(report.stem+f'-attempt-{attempt}'+report.suffix))
+     replay=report.with_name(report.stem+'-preimpact-replay.json')
+     if replay.is_file():shutil.copyfile(replay,replay.with_name(replay.stem+f'-attempt-{attempt}'+replay.suffix))
   text=(out/(label+f'-{attempt}.log')).read_text(errors='replace')
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
