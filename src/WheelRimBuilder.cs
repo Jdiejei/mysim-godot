@@ -22,6 +22,18 @@ public static class WheelRimBuilder {
   for(int i=0;i<steps;i++)for(int j=0;j<sides;j++){V(i,j);V(i,j+1);V(i+1,j);V(i+1,j);V(i,j+1);V(i+1,j+1);}
   return tool.Commit();
  }
+ public static void BrakeCandidate(Node3D spin,Node3D fixedBrake,float rimRadius,float tyreWidth){
+  if(System.Environment.GetEnvironmentVariable("MYSIM_REBUILT_BRAKES")!="1")return;
+  // Authored candidate packaging within the recovered rim envelope; not manufacturer measurements.
+  float outer=rimRadius*.85f,inner=rimRadius*.53f,thickness=Mathf.Min(.028f,tyreWidth*.1f);var ceramic=Metal(new Color(.23f,.24f,.25f),.72f);ceramic.Metallic=.22f;var iron=Metal(new Color(.12f,.13f,.14f),.55f);
+  foreach(var parent in new[]{spin,fixedBrake})foreach(var child in parent.GetChildren())if(child is MeshInstance3D source){string name=source.Name.ToString().ToUpperInvariant();if(name.Contains("CALIPER")||name.Contains("DISC")||name.Contains("ROTOR")){source.Visible=false;source.SetMeta("wheel_hidden",true);}}
+  var rotor=new Node3D{Name="RebuiltVentilatedBrake"};spin.AddChild(rotor);
+  foreach(float side in new[]{-1f,1f}){float x=side*thickness*.5f;var profile=new[]{new Vector2(x-.002f,inner),new Vector2(x-.002f,outer),new Vector2(x+.002f,outer),new Vector2(x+.002f,inner)};rotor.AddChild(new MeshInstance3D{Name="FrictionPlate",Mesh=Lathe(profile,128),MaterialOverride=ceramic});}
+  for(int i=0;i<32;i++){float angle=Mathf.Tau*i/32;var radial=new Vector3(0,Mathf.Cos(angle),Mathf.Sin(angle));rotor.AddChild(new MeshInstance3D{Name="CoolingVane",Mesh=new BoxMesh{Size=new Vector3(thickness,outer-inner,.0025f)},Position=radial*((inner+outer)*.5f),Rotation=new Vector3(angle,0,0),MaterialOverride=iron});}
+  var bell=new[]{new Vector2(-thickness*.5f,inner*.35f),new Vector2(-thickness*.5f,inner),new Vector2(thickness*.5f,inner),new Vector2(thickness*.5f,inner*.35f)};rotor.AddChild(new MeshInstance3D{Name="MountingBell",Mesh=Lathe(bell,96),MaterialOverride=iron});
+  var caliper=new Node3D{Name="RebuiltFixedCaliper"};fixedBrake.AddChild(caliper);var finish=Metal(new Color(.24f,.25f,.27f),.42f);
+  for(int i=-2;i<=2;i++){float angle=i*.11f;var radial=new Vector3(0,Mathf.Cos(angle),Mathf.Sin(angle));caliper.AddChild(new MeshInstance3D{Name="CaliperHousing",Mesh=new BoxMesh{Size=new Vector3(thickness*1.65f,outer*.19f,outer*.14f)},Position=radial*(outer*.94f),Rotation=new Vector3(angle,0,0),MaterialOverride=finish});}
+ }
  public static Node3D Build(float radius,float tyreWidth,int design,int car=-1){
   if(!float.IsFinite(radius)||radius<.1f||radius>.45f||tyreWidth<.1f||tyreWidth>.7f)throw new ArgumentOutOfRangeException("Recovered wheel dimensions invalid");
   var root=new Node3D {Name="RebuiltForgedRim"};float width=tyreWidth*.8f;var metal=Metal(new Color(.24f,.27f,.30f),.24f);var edge=Metal(new Color(.48f,.51f,.54f),.2f);var hubMetal=Metal(new Color(.12f,.14f,.16f),.35f);
