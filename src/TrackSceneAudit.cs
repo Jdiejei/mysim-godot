@@ -7,7 +7,7 @@ namespace MySim {
 // Read-only world-space geometry evidence. Duplicate candidates are never hidden/deleted.
 public static class TrackSceneAudit {
  public static void Write(List<Node3D> layers,int track,string destination){
-  var groups=new Dictionary<string,List<object>>();var lamps=new List<object>();int meshes=0,hidden=0;var objects=new List<object>();
+  var groups=new Dictionary<string,List<object>>();var lamps=new List<object>();int meshes=0,hidden=0,hiddenPhysical=0;var objects=new List<object>();
   foreach(var layer in layers){var children=layer.FindChildren("*","MeshInstance3D",true,false);foreach(var node in children){
    var mesh=(MeshInstance3D)node;if(mesh.Mesh==null)continue;if(mesh.IsVisibleInTree())meshes++;else hidden++;
    using var hash=IncrementalHash.CreateHash(HashAlgorithmName.SHA256);int vertices=0,indices=0;var materials=new List<object>();
@@ -22,7 +22,9 @@ public static class TrackSceneAudit {
     materials.Add(new {surface,name=material?.ResourceName,type=material?.GetClass(),appearance});
    }
    string key=Convert.ToHexString(hash.GetHashAndReset());var bounds=mesh.GlobalTransform*mesh.GetAabb();
-   var record=new {path=mesh.GetPath().ToString(),name=mesh.Name.ToString(),visible=mesh.Visible,visibleInTree=mesh.IsVisibleInTree(),castShadow=mesh.CastShadow.ToString(),vertices,indices,materials,centre=new[]{bounds.GetCenter().X,bounds.GetCenter().Y,bounds.GetCenter().Z},size=new[]{bounds.Size.X,bounds.Size.Y,bounds.Size.Z}};
+   int wallBodies=0;var meshChildren=mesh.GetChildren();foreach(var child in meshChildren)if(child is StaticBody3D body&&(body.CollisionLayer&2)!=0)wallBodies++;meshChildren.Clear();
+   if(wallBodies>0&&!mesh.IsVisibleInTree())hiddenPhysical++;
+   var record=new {wallBodies,placeholderCollisionRetained=mesh.HasMeta("placeholder_branding_visible_collision"),path=mesh.GetPath().ToString(),name=mesh.Name.ToString(),visible=mesh.Visible,visibleInTree=mesh.IsVisibleInTree(),castShadow=mesh.CastShadow.ToString(),vertices,indices,materials,centre=new[]{bounds.GetCenter().X,bounds.GetCenter().Y,bounds.GetCenter().Z},size=new[]{bounds.Size.X,bounds.Size.Y,bounds.Size.Z}};
    objects.Add(record);
    if(!groups.ContainsKey(key))groups[key]=new List<object>();groups[key].Add(record);
    string label=mesh.Name.ToString().ToLowerInvariant();if(label.Contains("lamp")||label.Contains("flood")||label.Contains("light"))lamps.Add(record);
@@ -30,7 +32,8 @@ public static class TrackSceneAudit {
   children.Clear();
   }
   var duplicates=new List<object>();foreach(var pair in groups)if(pair.Value.Count>1)duplicates.Add(new {worldGeometryHash=pair.Key,instances=pair.Value});
-  Directory.CreateDirectory(Path.GetDirectoryName(destination));System.IO.File.WriteAllText(destination,System.Text.Json.JsonSerializer.Serialize(new {track,visibleMeshes=meshes,hiddenMeshes=hidden,objects,duplicateGroups=duplicates,lightingNameCandidates=lamps,scope="Read-only geometry candidates quantized0.1mm; intentional overlays/LOD require manual review. No automatic hiding, deduplication or collision change."},new System.Text.Json.JsonSerializerOptions {WriteIndented=true}));
+  Directory.CreateDirectory(Path.GetDirectoryName(destination));System.IO.File.WriteAllText(destination,System.Text.Json.JsonSerializer.Serialize(new {track,visibleMeshes=meshes,hiddenMeshes=hidden,hiddenPhysicalMeshes=hiddenPhysical,objects,duplicateGroups=duplicates,lightingNameCandidates=lamps,scope="Read-only geometry candidates quantized0.1mm; intentional overlays/LOD require manual review. No automatic hiding, deduplication or collision change."},new System.Text.Json.JsonSerializerOptions {WriteIndented=true}));
+  if(hiddenPhysical>0)throw new InvalidOperationException("Prepared track retains invisible physical wall renderers: "+hiddenPhysical);
   GD.Print("PASS read-only track scene audit meshes=",meshes," duplicateGroups=",duplicates.Count," lightingCandidates=",lamps.Count);
  }
 }
