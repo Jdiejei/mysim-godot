@@ -111,6 +111,13 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
    float longitudinalBudget=reserveLateral?Mathf.Sqrt(Mathf.Max(0,capacity*capacity-lateralDemand*lateralDemand)):capacity;
    float fx=Mathf.Clamp(drive-Mathf.Sign(u)*service,-longitudinalBudget,longitudinalBudget);float remaining=Mathf.Sqrt(Mathf.Max(0,capacity*capacity-fx*fx));
    float fy=reserveLateral?lateralDemand:-remaining*(float)Math.Tanh(alpha/.12f);
+   if(RotationalTyres&&reserveLateral&&System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_COMBINED_ASSIST")=="1"){
+    // Manage requested wheel torque before angular integration, never overwrite contact forces.
+    // The rotational branch previously bypassed the lateral reserve used by the direct-force branch.
+    Dynamics.ContactTyreForces(load,mu,0,Mathf.Atan2(side,Mathf.Max(Mathf.Abs(u),2)),out _,out float pureLateral);
+    float torqueBudget=Mathf.Sqrt(Mathf.Max(0,capacity*capacity-pureLateral*pureLateral));
+    drive=Mathf.Clamp(drive,-torqueBudget,torqueBudget);service=Mathf.Min(service,torqueBudget);
+   }
    if(RotationalTyres){float inertia=1.6f*radii[i]*radii[i]/(.33f*.33f);RotationalTyreContact.Step(ref WheelOmega[i],radii[i],inertia,load,mu,u,side,drive,service,handbrake,TractionControl&&i>=2,BrakeStabilityAssist,state.Step,out fx,out fy,out LongitudinalSlip[i],out LateralSlipAngle[i]);alpha=LateralSlipAngle[i];WheelRotation[i]=Mathf.Wrap(WheelRotation[i]+WheelOmega[i]*state.Step,-Mathf.Pi,Mathf.Pi);}
    // Passive contact damping must not reverse a patch's lateral momentum in one solver step.
    // Include angular inertia at the contact lever, then share the budget over all four patches.
