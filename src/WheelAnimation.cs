@@ -1,13 +1,14 @@
 using Godot;
 namespace MySim {
 public static class WheelAnimation {
- public static void UpdateRotational(Node3D[] pivots,float[] angles,float steering){for(int i=0;i<4;i++){float baseYaw=pivots[i].GetMeta("steer_base_yaw").AsSingle();pivots[i].Rotation=new Vector3(0,baseYaw+(i<2?steering:0),0);pivots[i].GetNode<Node3D>("Spin").Rotation=new Vector3(angles[i]*Mathf.Cos(baseYaw),0,0);}}
+ public static void UpdateRotational(Node3D[] pivots,float[] angles,float steering){for(int i=0;i<4;i++){float baseYaw=pivots[i].GetMeta("steer_base_yaw").AsSingle();pivots[i].Rotation=new Vector3(0,baseYaw+(i<2?steering:0),0);pivots[i].GetNode<Node3D>("Spin").Rotation=new Vector3(angles[i]*Mathf.Cos(baseYaw),0,0);SourceKingpinVisualCandidate.Apply(pivots[i],i,steering,angles[i]*Mathf.Cos(baseYaw));}}
  // Preserve the side-dependent authored assembly orientation. Spin about world +X for forward +Z rolling.
  public static void Update(Node3D[] pivots,float distance,float steering){if(pivots==null)return;for(int i=0;i<pivots.Length;i++){
   var pivot=pivots[i];if(!pivot.HasMeta("steer_base_yaw"))throw new System.InvalidOperationException("Wheel assembly lacks authored base orientation");
   float baseYaw=pivot.GetMeta("steer_base_yaw").AsSingle(),radius=pivot.HasMeta("radius")?pivot.GetMeta("radius").AsSingle():.34f;
   var spin=pivot.GetNode<Node3D>("Spin");spin.Rotation=new Vector3(distance*Mathf.Cos(baseYaw)/radius,0,0);
   pivot.Rotation=new Vector3(0,baseYaw+(i<2?steering:0),0);
+  SourceKingpinVisualCandidate.Apply(pivot,i,steering,distance*Mathf.Cos(baseYaw)/radius);
  }}
 }
 }

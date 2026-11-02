@@ -224,6 +224,15 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
+if os.environ.get('SOURCE_KINGPIN_REVIEW')=='1':
+ for candidate in (0,1):
+  for steer in (-23,-12,0,12,23):
+   label=f'w10-kingpin-{candidate}-steer-{steer}';shot=out/(label+'.png');metadata=out/(label+'.json')
+   values={'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_SOURCE_AXLE_FIT':'1','MYSIM_SOURCE_KINGPIN_VISUAL':str(candidate),'MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(metadata),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'3.5,4.5,5','MYSIM_SHOT':str(shot)}
+   text=run(label,values)
+   assert shot.exists() and metadata.exists() and 'PASS wheel fit evidence' in text
+   if candidate:assert 'SOURCE_KINGPIN_VISUAL' in text,'Source joint rig did not initialize'
+ print('COMPLETE W10 matched visual steering rig evidence; native hub unchanged, not production acceptance',flush=True);sys.exit(0)
 if os.environ.get('WHEEL_FIT_REVIEW')=='1':
  car=15+shard
  for steer in (-23,0,23):
