@@ -1,6 +1,12 @@
 name: windows-game-build
 run-name: Windows build and native smoke checks
-on: {workflow_dispatch: {}}
+on:
+  workflow_dispatch:
+    inputs:
+      publication_tag:
+        description: 'Existing lightweight tag at this exact source commit, prepared through authenticated CLI'
+        required: true
+        type: string
 permissions: {contents: write}
 concurrency: {group: windows-game-build, cancel-in-progress: false}
 jobs:
@@ -9,6 +15,16 @@ jobs:
     timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
+      - name: Verify existing publication tag before expensive work
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WINDOWS_PUBLICATION_TAG: ${{ inputs.publication_tag }}
+        shell: pwsh
+        run: |
+          if ($env:WINDOWS_PUBLICATION_TAG -notmatch '^windows-candidate-[0-9a-f]{40}$') { throw 'Invalid publication tag' }
+          $ref = gh api "repos/$env:GITHUB_REPOSITORY/git/ref/tags/$env:WINDOWS_PUBLICATION_TAG" | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0 -or $ref.object.type -ne 'commit' -or $ref.object.sha -ne $env:GITHUB_SHA) { throw 'Publication tag must already point to this source commit' }
+          "WINDOWS_PUBLICATION_TAG=$env:WINDOWS_PUBLICATION_TAG" >> $env:GITHUB_ENV
       - uses: actions/setup-dotnet@v4
         with: {dotnet-version: '8.0.x'}
       - name: Early C# compilation before asset downloads

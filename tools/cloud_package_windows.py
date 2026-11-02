@@ -2,8 +2,12 @@
 import pathlib,os,tarfile,subprocess,hashlib,json
 from cryptography.hazmat.primitives.ciphers import Cipher,algorithms,modes
 root=pathlib.Path('build-cloud');parts=[];run=str(os.environ['GITHUB_RUN_ID']);attempt=str(os.environ.get('GITHUB_RUN_ATTEMPT','1'))
-release=f'windows-build-{run}-{attempt}'
-subprocess.run(['gh','release','create',release,'--title',f'Encrypted Windows candidate {run} attempt {attempt}','--notes','Encrypted candidate build and manifests; no complete-game or visual acceptance claimed.','--target',os.environ['GITHUB_SHA']],check=True)
+release=os.environ['WINDOWS_PUBLICATION_TAG']
+if release!='windows-candidate-'+os.environ['GITHUB_SHA']:raise RuntimeError('Publication tag/source identity mismatch')
+# The authenticated CLI prepares this exact-source ref before dispatch. The integration
+# only publishes against an existing tag; it does not create a workflow-bearing Git ref.
+if subprocess.run(['gh','release','view',release],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
+ subprocess.run(['gh','release','create',release,'--verify-tag','--prerelease','--title',f'Encrypted Windows candidate {run} attempt {attempt}','--notes','Encrypted candidate build and manifests; no complete-game or visual acceptance claimed.'],check=True)
 class Writer:
  def __init__(self):self.f=None;self.size=0
  def open(self):
