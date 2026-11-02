@@ -33,6 +33,7 @@ public partial class Main : Node3D {
   var crashT = System.Environment.GetEnvironmentVariable("MYSIM_CRASHMAP"); if (crashT != null) { CrashWorld(int.Parse(crashT)); return; }
   if(System.Environment.GetEnvironmentVariable("MYSIM_TOUCHCHECKS")!=null){AddChild(new TouchControlsScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NAVCHECKS")!=null){AddChild(new NavigationScenario());return;}
+  if(System.Environment.GetEnvironmentVariable("MYSIM_RESULTSCHECKS")!=null){CheckResultsLayout();return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_SETTINGSCHECKS")!=null){AddChild(new SettingsScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_CONTROLCHECKS")!=null){AddChild(new ControlsScenario());return;}
   var t = System.Environment.GetEnvironmentVariable("MYSIM_TRACK");
