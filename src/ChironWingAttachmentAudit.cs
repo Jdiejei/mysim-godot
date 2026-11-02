@@ -12,6 +12,7 @@ public static class ChironWingAttachmentAudit {
   var group=new Node3D{Name="AttachmentAudit_"+label,Position=point};car.AddChild(group);group.AddChild(new MeshInstance3D{Name="AuditMarker",Mesh=new SphereMesh{Radius=.018f,Height=.036f,RadialSegments=12,Rings=6},MaterialOverride=new StandardMaterial3D{AlbedoColor=colour,ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded}});group.AddChild(new Label3D{Text=label,Position=Vector3.Up*.045f,FontSize=32,PixelSize=.0015f,Billboard=BaseMaterial3D.BillboardModeEnum.Enabled,Modulate=colour,NoDepthTest=true});
  }
  public static void Write(Node3D car,int index,string path,bool showLabels=true){
+  if(showLabels&&System.Environment.GetEnvironmentVariable("MYSIM_CHIRON_WING_FOCUS")=="1"){ChironWingFocusedAttachmentAudit.Write(car,index,path);return;}
   if(index!=20||car.Name.ToString()!="2017_bugatti_chiron")throw new InvalidOperationException("Wing socket audit requires actual car20 Chiron source");
   var inverse=car.GlobalTransform.AffineInverse();var groups=new SortedDictionary<string,List<Vector3>>();
   foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){

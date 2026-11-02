@@ -226,10 +226,11 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
    if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
 if os.environ.get('CHIRON_WING_AUDIT')=='1':
- for angle,position in [('front','4,2,6'),('rear','-4,2,-6'),('side','7,1.5,0'),('overhead','0,8,0.01')]:
+ focused=os.environ.get('CHIRON_WING_FOCUS')=='1'
+ for angle,position in ([('rear','-4,2,-6'),('side','7,1.5,0'),('overhead','0,8,0.01')] if focused else [('front','4,2,6'),('rear','-4,2,-6'),('side','7,1.5,0'),('overhead','0,8,0.01')]):
   label='chiron-wing-'+angle;shot=out/(label+'.png');metadata=out/(label+'.json')
-  text=run(label,{'MYSIM_CARVIEW':'20','MYSIM_CHIRON_WING_AUDIT':str(metadata),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':position,'MYSIM_SHOT':str(shot)})
-  assert shot.exists() and metadata.exists() and 'PASS read-only Chiron' in text
+  text=run(label,{'MYSIM_CARVIEW':'20','MYSIM_CHIRON_WING_AUDIT':str(metadata),'MYSIM_CHIRON_WING_FOCUS':'1' if focused else '0','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':position,'MYSIM_SHOT':str(shot)})
+  assert shot.exists() and metadata.exists() and ('PASS focused Chiron' if focused else 'PASS read-only Chiron') in text
  print('COMPLETE Chiron source attachment evidence; sockets/mounts NOT verified',flush=True);sys.exit(0)
 if os.environ.get('RAIN_MOTION_REVIEW')=='1':
  from cloud_rain_motion import review
