@@ -2,8 +2,14 @@ using Godot;
 using System;
 using System.Collections.Generic;
 namespace MySim {
-// Isolated diagnostic: replace only the measured shared diagonal; never called by gameplay.
+// Measured alternate diagonal: diagnostic plus explicit opt-in full-race candidate. Defaults preserve source.
 public static class NativeSpinDiagonalExperiment {
+ public static Vector3[] ApplyCandidate(Vector3[] source,string resource){
+  if(Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SPIN_DIAGONAL")!="1")return source;
+  if(resource!="res://assets/Resources/brazil_circuit.txt"||Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SEAM_WELD")!="2")throw new Exception("Spin diagonal candidate requires exact mode2 Interlagos source");
+  var result=Build(source,Transform3D.Identity,out var evidence);
+  GD.Print("INTERLAGOS_SPIN_DIAGONAL candidate ",System.Text.Json.JsonSerializer.Serialize(evidence));return result;
+ }
  static double Cross(Vector3 a,Vector3 b,Vector3 c)=>(double)(b.X-a.X)*(c.Z-a.Z)-(double)(b.Z-a.Z)*(c.X-a.X);
  static double Height(Vector3 a,Vector3 b,Vector3 c,Vector3 p){double area=Cross(a,b,c);if(Math.Abs(area)<1e-9)throw new Exception("Degenerate projected spin face");double u=Cross(p,b,c)/area,v=Cross(a,p,c)/area;return u*a.Y+v*b.Y+(1-u-v)*c.Y;}
  public static Vector3[] Build(Vector3[] source,Transform3D transform,out object evidence){

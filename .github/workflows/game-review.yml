@@ -25,12 +25,12 @@ on:
       native_damage: {description: 'Explicit native collision-damage experiment', type: boolean, default: false}
       rotational_tyres: {description: 'Explicit physical wheel angular-state experiment', type: boolean, default: false}
       native_ai: {description: 'Apply explicit experimental AI mode during native regression only', type: boolean, default: false}
-      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [spin_contact_capture, seam_weld_regression, fleet_contact_replay, shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression, edge_fleet_regression, chiron_rebuilt_regression, chiron_remaining_tracks], default: shutdown}
+      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [spin_diagonal_regression, spin_contact_capture, seam_weld_regression, fleet_contact_replay, shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression, edge_fleet_regression, chiron_rebuilt_regression, chiron_remaining_tracks], default: shutdown}
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5', '6'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 env:
   MYSIM_CHIRON_RECONSTRUCTED_WING: ${{ (inputs.depth == 'chiron_wing_rebuild' || inputs.reconstructed_chiron_wing) && '1' || '0' }}
-  GEOMETRY_CASE_MANIFEST: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture') && 'data/native_seam_weld_regression.json' || inputs.case_set == 'fleet_contact_replay' && 'data/native_fleet_contact_replay.json' || inputs.case_set == 'chiron_remaining_tracks' && 'data/native_chiron_remaining_tracks.json' || inputs.case_set == 'chiron_rebuilt_regression' && 'data/native_chiron_rebuilt_regression.json' || inputs.case_set == 'edge_fleet_regression' && 'data/native_edge_fleet_regression.json' || inputs.case_set == 'edge_axle_regression' && 'data/native_edge_axle_regression.json' || inputs.case_set == 'edge_regression' && 'data/native_edge_regression.json' || 'data/native_geometry_recovery.json' }}
+  GEOMETRY_CASE_MANIFEST: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture' || inputs.case_set == 'spin_diagonal_regression') && 'data/native_seam_weld_regression.json' || inputs.case_set == 'fleet_contact_replay' && 'data/native_fleet_contact_replay.json' || inputs.case_set == 'chiron_remaining_tracks' && 'data/native_chiron_remaining_tracks.json' || inputs.case_set == 'chiron_rebuilt_regression' && 'data/native_chiron_rebuilt_regression.json' || inputs.case_set == 'edge_fleet_regression' && 'data/native_edge_fleet_regression.json' || inputs.case_set == 'edge_axle_regression' && 'data/native_edge_axle_regression.json' || inputs.case_set == 'edge_regression' && 'data/native_edge_regression.json' || 'data/native_geometry_recovery.json' }}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}-${{ inputs.replay_capture_run || ''none'' }}-${{ inputs.replay_legacy_edges || false }}', cancel-in-progress: false}
 jobs:
@@ -43,7 +43,7 @@ jobs:
       - id: scope
         env:
           SPIN_REPLAY_CASE: ${{ inputs.case_set == 'spin_contact_capture' && '1' || '0' }}
-          SEAM_WELD_CASE_ENABLE: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture') && '1' || '0' }}
+          SEAM_WELD_CASE_ENABLE: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture' || inputs.case_set == 'spin_diagonal_regression') && '1' || '0' }}
           SOURCE_AXLE_CASE_ENABLE: ${{ inputs.source_axle_fit && '1' || '0' }}
           REPLAY_INPUT_RUN: ${{ inputs.replay_capture_run }}
           REVIEW_INPUT_DEPTH: ${{ inputs.depth }}
@@ -169,9 +169,10 @@ jobs:
           SHARD: ${{ matrix.shard }}
           ROAD_COPLANAR_CANDIDATE: ${{ inputs.road_coplanar_candidate && '1' || '0' }}
           REPLAY_LEGACY_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
+          INTERLAGOS_SPIN_DIAGONAL: ${{ inputs.case_set == 'spin_diagonal_regression' && '1' || '0' }}
           CONTACT_CAPTURE_AFTER: ${{ inputs.case_set == 'spin_contact_capture' && '55' || '0' }}
           NATIVE_COMBINED_ASSIST: ${{ inputs.combined_slip_assist && '1' || '0' }}
-          INTERLAGOS_SEAM_WELD: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture') && (inputs.second_measured_seam && '2' || '1') || '0' }}
+          INTERLAGOS_SEAM_WELD: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture' || inputs.case_set == 'spin_diagonal_regression') && (inputs.second_measured_seam && '2' || '1') || '0' }}
           REPLAY_SOURCE_PLANE_ONLY: ${{ inputs.case_set == 'fleet_contact_replay' && '1' || '0' }}
           REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
           GH_TOKEN: ${{ github.token }}
