@@ -206,15 +206,16 @@ if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
    text=run(label,{'MYSIM_SOURCE_TYRE_VIEW':asset,'MYSIM_TYRE_REVIEW_ANGLE':str(angle),'MYSIM_SOURCE_TYRE_REPORT':str(metadata),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and metadata.exists() and 'PASS recovered tyre source capture' in text
  print('COMPLETE recovered tyre geometry comparison; no integration or compound acceptance',flush=True);sys.exit(0)
-if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1' or os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1':
- source_fixtures=os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1'
+if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1' or os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1' or os.environ.get('SOURCE_FIXTURE_PROBE')=='1':
+ fixture_probe=os.environ.get('SOURCE_FIXTURE_PROBE')=='1'
+ source_fixtures=os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1' or fixture_probe
  shutdown_case=os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1'
  track=(25,28)[shard] if source_fixtures else (28 if shutdown_case else (0,25,28)[shard])
  weather_profiles=json.loads((r/'data/weather_profiles.json').read_text())['profiles']
  rainy=next(i for i,profile in enumerate(weather_profiles) if profile['rainAmount']>0 and profile['initialWater']>0)
  (out/f'night-weather-coverage-{track}.json').write_text(json.dumps({'track':track,'profiles':[{'index':i,**weather_profiles[i]} for i in (0,rainy)],'scope':'Explicit dry and actual rainy/wet profiles; former profile1 was overcast with zero water/rain, not wet evidence'},indent=2))
- for wet in ((rainy,) if shutdown_case else (0,rainy)):
-  for candidate in ((1,) if shutdown_case else (0,1)):
+ for wet in ((0,) if fixture_probe else ((rainy,) if shutdown_case else (0,rainy))):
+  for candidate in ((1,) if shutdown_case or fixture_probe else (0,1)):
    label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}';shot=out/(label+'.png')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':str(wet),'MYSIM_TRACK_FLOODLIGHTS':str(candidate),'MYSIM_TRACK_LIGHT_AUDIT':str(out/(label+'-mounts.json')),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)}
    if source_fixtures:
