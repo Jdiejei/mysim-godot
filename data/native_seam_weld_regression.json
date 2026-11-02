@@ -1,97 +1,9 @@
 {
     "cases":  [
                   {
-                      "car":  0,
-                      "track":  4
-                  },
-                  {
-                      "car":  1,
-                      "track":  4
-                  },
-                  {
-                      "car":  2,
-                      "track":  4
-                  },
-                  {
-                      "car":  3,
-                      "track":  4
-                  },
-                  {
-                      "car":  4,
-                      "track":  4
-                  },
-                  {
-                      "car":  5,
-                      "track":  4
-                  },
-                  {
-                      "car":  6,
-                      "track":  4
-                  },
-                  {
-                      "car":  7,
-                      "track":  4
-                  },
-                  {
-                      "car":  8,
-                      "track":  4
-                  },
-                  {
-                      "car":  9,
-                      "track":  4
-                  },
-                  {
-                      "car":  10,
-                      "track":  4
-                  },
-                  {
-                      "car":  11,
-                      "track":  4
-                  },
-                  {
-                      "car":  12,
-                      "track":  4
-                  },
-                  {
-                      "car":  13,
-                      "track":  4
-                  },
-                  {
-                      "car":  14,
-                      "track":  4
-                  },
-                  {
-                      "car":  15,
-                      "track":  4
-                  },
-                  {
-                      "car":  16,
-                      "track":  4
-                  },
-                  {
-                      "car":  18,
-                      "track":  4
-                  },
-                  {
-                      "car":  19,
-                      "track":  4
-                  },
-                  {
                       "car":  20,
-                      "track":  4
-                  },
-                  {
-                      "car":  21,
-                      "track":  4
-                  },
-                  {
-                      "car":  22,
-                      "track":  4
-                  },
-                  {
-                      "car":  23,
                       "track":  4
                   }
               ],
-    "scope":  "Remaining 23 distinct car hulls on exact Interlagos seam candidate; completed car17 excluded. Strict legal race damage impact reset distance and results gates unchanged."
+    "scope":  "Only previously failed Chiron source-initialization case, now with already verified reconstructed wing explicitly enabled. Completed21 passes and car17 not repeated; car13 contact investigation remains separate."
 }
