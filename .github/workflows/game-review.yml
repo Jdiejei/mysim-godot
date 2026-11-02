@@ -11,6 +11,7 @@ on:
       physics_hz: {description: 'Explicit native time resolution experiment', type: choice, options: ['120', '240'], default: '120'}
       pit_service: {description: 'Require actual driven pit approach, tyre/repair service and exit for native hull AI laps', type: boolean, default: false}
       vertical_road_plan: {description: 'Opt-in AI preview of actual source road heights', type: boolean, default: false}
+      edge_gameplay_control_run: {description: 'Completed source-car sharp-edge control prerequisite for gameplay algorithm comparison', type: string, default: ''}
       replay_legacy_edges: {description: 'Controlled replay-only Jolt enhanced-edge algorithm ablation', type: boolean, default: false}
       replay_capture_run: {description: 'Optional completed diagnostic run supplying schema2 damaging-contact capture; isolated replay only', type: string, default: ''}
       road_coplanar_candidate: {description: 'Explicit generated road collision candidate; defaults unchanged', type: boolean, default: false}
@@ -56,7 +57,9 @@ jobs:
         with: {dotnet-version: '8.0.x'}
       - name: Select explicit cloud-only native physics backend
         env:
-          NATIVE_LEGACY_INTERNAL_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
+          NATIVE_LEGACY_INTERNAL_EDGES: ${{ (inputs.replay_legacy_edges || inputs.edge_gameplay_control_run != '') && '1' || '0' }}
+          NATIVE_EDGE_CONTROL_RUN: ${{ inputs.edge_gameplay_control_run }}
+          GH_TOKEN: ${{ github.token }}
           NATIVE_REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
           NATIVE_ROAD_FACE_EVIDENCE: ${{ inputs.depth == 'native_geometry_recovery' && '1' || '0' }}
           NATIVE_CCD_PENETRATION: ${{ inputs.ccd_penetration || '0.01' }}
