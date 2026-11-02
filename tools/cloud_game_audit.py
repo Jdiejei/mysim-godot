@@ -40,6 +40,7 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0')},['--headless'],timeout=180)
  result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1'
  assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
+ if ablation:assert result['sharpEdgeControl']['ok'] and 'PASS actual source-car perpendicular sharp-edge blockage/CCD controls' in text
  print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
 if os.environ.get('WALL_GEOMETRY_DIAGNOSTIC')=='1':
  results=[]
@@ -162,7 +163,8 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
 if os.environ.get('NIGHT_FIXTURE_AUDIT')=='1':
  track=(25,28)[shard];report=out/f'source-night-fixtures-{track}.json'
- text=run(f'source-night-fixtures-{track}',{'MYSIM_TRACK':str(track),'MYSIM_AUTODRIVE':'1','MYSIM_NIGHT_FIXTURE_AUDIT':str(report)},['--headless'],timeout=300)
+ text=run(f'source-night-fixtures-{track}',{'MYSIM_TRACK':str(track),'MYSIM_AUTODRIVE':'1','MYSIM_NIGHT_FIXTURE_AUDIT':str(report),'MYSIM_NIGHT_FIXTURE_VIEW':str(out/f'source-fixture-captures-{track}.json')},timeout=300)
+ captures=json.loads((out/f'source-fixture-captures-{track}.json').read_text());assert len(captures['captures'])>=4 and all(pathlib.Path(x['image']).exists() for x in captures['captures'])
  data=json.loads(report.read_text());assert data['track']==track and data['sourceMeshes'] and data['candidateAttachments'] and 'SOURCE_NIGHT_FIXTURE_AUDIT' in text
  assert all(not row['validated'] for row in data['candidateAttachments']),'Source extraction is not placement validation'
  print('COMPLETE source fixture component audit; all attachments remain unvalidated',flush=True);sys.exit(0)
