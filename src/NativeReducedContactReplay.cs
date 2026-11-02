@@ -31,8 +31,8 @@ public partial class NativeReducedContactReplay : Node3D {
   string road="res://assets/Resources/"+map+"_"+layout+".txt";if(!FileAccess.FileExists(road))road="res://assets/Resources/"+map+"_processed.txt";
   // Always load the original triangle source; recorded slab transforms belong to generated shapes,
   // and must never be multiplied into the original road vertices.
-  string previousCandidate=Environment.GetEnvironmentVariable("MYSIM_COPLANAR_ROAD_CANDIDATE");Environment.SetEnvironmentVariable("MYSIM_COPLANAR_ROAD_CANDIDATE","0");
-  StaticBody3D originalRoad;try{originalRoad=DriveSurfaceLoader.Load(road);}finally{Environment.SetEnvironmentVariable("MYSIM_COPLANAR_ROAD_CANDIDATE",previousCandidate);}
+  string previousCandidate=System.Environment.GetEnvironmentVariable("MYSIM_COPLANAR_ROAD_CANDIDATE");System.Environment.SetEnvironmentVariable("MYSIM_COPLANAR_ROAD_CANDIDATE","0");
+  StaticBody3D originalRoad;try{originalRoad=DriveSurfaceLoader.Load(road);}finally{System.Environment.SetEnvironmentVariable("MYSIM_COPLANAR_ROAD_CANDIDATE",previousCandidate);}
   bool capturedSlabs=false;foreach(var item in root.GetProperty("witnesses").EnumerateArray())if(item.GetProperty("colliderShape").GetInt32()>0)capturedSlabs=true;
   var originalShape=originalRoad.GetChild<CollisionShape3D>(0);var data=((ConcavePolygonShape3D)originalShape.Shape).Data;var roadTransform=T(witness.GetProperty("colliderTransform"));if(!capturedSlabs)roadTransform*=T(witness.GetProperty("colliderShapeTransform"));var contact=V(witness.GetProperty("colliderWitness"));
   const float patchHalfSize=12f;var patch=new List<Vector3>();
