@@ -161,7 +161,7 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
 if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
- for mode in ('baseline','unshaded','specular_off'):
+ for mode in ('baseline','opaque_metal_candidate'):
   label='night25-cutout-'+mode;shot=out/(label+'.png')
   text=run(label,{'MYSIM_TRACK':'25','MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'TRACK_CUTOUT_DIAGNOSTIC' in text
