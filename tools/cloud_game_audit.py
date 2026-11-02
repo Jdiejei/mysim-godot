@@ -8,9 +8,14 @@ def run(label,values,args=None,timeout=300):
   if shot is not None:
    if not shot.is_relative_to(out):raise ValueError('Screenshot must stay in this run output directory')
    if shot.exists():shot.rename(shot.with_name(shot.stem+f'-previous-attempt{attempt}'+shot.suffix))
+  attempt_args=list(args or [])
+  if '--write-movie' in attempt_args:
+   movie_index=attempt_args.index('--write-movie')+1;movie=pathlib.Path(attempt_args[movie_index]);attempt_args[movie_index]=str(movie.with_name(movie.stem+f'-attempt-{attempt}'+movie.suffix))
+  result_image=pathlib.Path(values['MYSIM_NATIVE_RESULT_CAPTURE']) if values.get('MYSIM_NATIVE_RESULT_CAPTURE') else None
+  if result_image is not None and result_image.exists():result_image.rename(result_image.with_name(result_image.stem+f'-previous-attempt{attempt}'+result_image.suffix))
   started=time.monotonic();timed_out=False
   with (out/(label+f'-{attempt}.log')).open('w') as f:
-   try:p=subprocess.run([g,'--path',str(r),'--resolution','960x540','--no-window','--fixed-fps','60','--audio-driver','Dummy']+(args or []),env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
+   try:p=subprocess.run([g,'--path',str(r),'--resolution','640x360' if values.get('MYSIM_NATIVE_RESULT_CAPTURE') else '960x540','--no-window','--fixed-fps','60','--audio-driver','Dummy']+attempt_args,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
    except subprocess.TimeoutExpired:code=-1;timed_out=True
   # Keep each failed/successful attempt's actual report, not only the last retry's file.
   for key,value in values.items():
@@ -25,6 +30,9 @@ def run(label,values,args=None,timeout=300):
   (out/(label+f'-{attempt}-process.json')).write_text(json.dumps({'returncode':code,'timed_out':timed_out,'elapsed_seconds':time.monotonic()-started,'timeout_seconds':timeout,'screenshot_exists':shot.exists() if shot else None,'error_lines':[line for line in text.splitlines() if 'ERROR:' in line]},indent=2))
   if code==0 and 'ERROR:' not in text:return text
  raise RuntimeError(label+' failed; see saved logs')
+def recorded_native_race(label,values):
+ from cloud_native_recording import record
+ return record(run,out,label,values,os.environ.get('NATIVE_VISUAL_RENDERER','gl_compatibility'))
 if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
  destination=out/'replay-input';subprocess.run(['gh','run','download',capture_run,'--repo','instagramshashank8-bot/mysim-godot','-n',f'game-runtime-{shard}-attempt-1','-D',str(destination)],check=True)
@@ -76,7 +84,7 @@ if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
    label=f'mounted-native-lap-track-{track:02}-car-{car:02}';report=out/(label+'.json')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'1200','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':os.environ.get('NATIVE_AI_MODE','3') if os.environ.get('NATIVE_AI_ENABLED')=='1' else '3','MYSIM_NATIVE_GAMEPLAY_CHECKS':'1','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report),'MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json'))}
    try:
-    text=run(label,values,['--headless'],timeout=1800);result=json.loads(report.read_text());ok=result['ok'] and 'PASS native force-driven valid lap and results UI' in text and 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text and 'RECONSTRUCTED_COMPONENT_MOUNTS' in text
+    text=recorded_native_race(label,values) if os.environ.get('NATIVE_RECORD_GAMEPLAY')=='1' else run(label,values,['--headless'],timeout=1800);result=json.loads(report.read_text());ok=result['ok'] and 'PASS native force-driven valid lap and results UI' in text and 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text and 'RECONSTRUCTED_COMPONENT_MOUNTS' in text
     row={'track':track,'car':car,'ok':bool(ok),'result':result}
    except RuntimeError as e:row={'track':track,'car':car,'ok':False,'error':str(e)}
    rows.append(row);(out/'mounted-native-layout-results.json').write_text(json.dumps(rows,indent=2))
@@ -198,16 +206,17 @@ if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
    text=run(label,{'MYSIM_SOURCE_TYRE_VIEW':asset,'MYSIM_TYRE_REVIEW_ANGLE':str(angle),'MYSIM_SOURCE_TYRE_REPORT':str(metadata),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and metadata.exists() and 'PASS recovered tyre source capture' in text
  print('COMPLETE recovered tyre geometry comparison; no integration or compound acceptance',flush=True);sys.exit(0)
-if os.environ.get('NIGHT_LIGHT_REVIEW')=='1':
- track=(0,25,28)[shard]
+if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1':
+ shutdown_case=os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1'
+ track=28 if shutdown_case else (0,25,28)[shard]
  weather_profiles=json.loads((r/'data/weather_profiles.json').read_text())['profiles']
  rainy=next(i for i,profile in enumerate(weather_profiles) if profile['rainAmount']>0 and profile['initialWater']>0)
  (out/f'night-weather-coverage-{track}.json').write_text(json.dumps({'track':track,'profiles':[{'index':i,**weather_profiles[i]} for i in (0,rainy)],'scope':'Explicit dry and actual rainy/wet profiles; former profile1 was overcast with zero water/rain, not wet evidence'},indent=2))
- for wet in (0,rainy):
-  for candidate in (0,1):
+ for wet in ((rainy,) if shutdown_case else (0,rainy)):
+  for candidate in ((1,) if shutdown_case else (0,1)):
    label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}';shot=out/(label+'.png')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':str(wet),'MYSIM_TRACK_FLOODLIGHTS':str(candidate),'MYSIM_TRACK_LIGHT_AUDIT':str(out/(label+'-mounts.json')),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)}
-   text=run(label,values)
+   text=run(label,values,timeout=600 if shutdown_case else 300)
    assert shot.exists()
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert 'TRACK_FLOODLIGHTS candidate' in text
