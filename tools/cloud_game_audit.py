@@ -51,7 +51,7 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
  report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0'),'MYSIM_REPLAY_SOURCE_PLANE_ONLY':'1' if source_plane_only else '0'},['--headless'],timeout=180)
  result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1'
- assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(3 if source_plane_only else 2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
+ assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(4 if source_plane_only else 2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
  if source_plane_only:assert result['sourcePlaneOnly'] and result['sourceTopology'] and result['enhancedInternalEdgeRemoval']=='false' and result['car']==17 and result['track']==4,'Fleet replay topology/settings evidence missing'
  if ablation:assert result['sharpEdgeControl']['ok'] and 'PASS actual source-car perpendicular sharp-edge blockage/CCD controls' in text
  print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
