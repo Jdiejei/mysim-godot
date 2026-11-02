@@ -1,0 +1,13 @@
+{
+    "cases":  [
+                  {
+                      "car":  20,
+                      "track":  0
+                  },
+                  {
+                      "car":  20,
+                      "track":  43
+                  }
+              ],
+    "scope":  "Fresh shared visual/hull reconstructed Chiron kit, strict measured preload/legal lap/damage gates; not recovered source pose or completecar acceptance."
+}
