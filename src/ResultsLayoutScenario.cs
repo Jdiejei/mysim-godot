@@ -8,7 +8,7 @@ public partial class Main {
    world=new Node3D();AddChild(world);var race=new Race(0,3,0);var player=race.Add("YOU",true,Compound.Medium);
    player.finished=true;player.completedLaps=3;player.finishTime=240;player.bestLap=78;
    for(int i=0;i<19;i++){var rival=race.Add("RIVAL "+i,false,Compound.Medium);rival.finished=true;rival.finishTime=241+i;}
-   drive=new DriveController{Race=race,Player=player};var hud=new Hud{Race=race,Player=player};drive.Hud=hud;world.AddChild(hud);var touch=new TouchControls{Drive=drive};world.AddChild(touch);
+   drive=new DriveController{Race=race,Player=player};var fixtureDriver=drive;var hud=new Hud{Race=race,Player=player};drive.Hud=hud;world.AddChild(hud);var touch=new TouchControls{Drive=drive};world.AddChild(touch);
    ShowResults();for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
    if(hud.Visible||touch.Visible||TouchControls.Active)throw new Exception("Driving overlay remains active over results");
    Button home=null,again=null;ScrollContainer scroll=null;
@@ -21,7 +21,7 @@ public partial class Main {
    if(DisplayServer.GetName()!="headless"){await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT"));}
    home.EmitSignal(BaseButton.SignalName.Pressed);for(int i=0;i<3;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
    if(resultsShown||drive!=null||ui==null)throw new Exception("Results main-menu action failed");
-   GD.Print("PASS actual results layout, scroll, overlay isolation and main-menu action; fixture race data, not driven race");CleanExit.Request(this);
+   fixtureDriver.Free();GD.Print("PASS actual results layout, scroll, overlay isolation and main-menu action; fixture race data, not driven race");CleanExit.Request(this);
   }catch(Exception error){GD.PushError(error.ToString());CleanExit.Request(this,1);}
  }
 }
