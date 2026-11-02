@@ -159,6 +159,12 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
   text=run(label,{'MYSIM_CARVIEW':'15','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_CLOSEUP':'0','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'3','MYSIM_CONTRAST':contrast,'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'PASS complete visible wheel framing' in text
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
+if os.environ.get('NIGHT_FIXTURE_AUDIT')=='1':
+ track=(25,28)[shard];report=out/f'source-night-fixtures-{track}.json'
+ text=run(f'source-night-fixtures-{track}',{'MYSIM_TRACK':str(track),'MYSIM_AUTODRIVE':'1','MYSIM_NIGHT_FIXTURE_AUDIT':str(report)},['--headless'],timeout=300)
+ data=json.loads(report.read_text());assert data['track']==track and data['sourceMeshes'] and data['candidateAttachments'] and 'SOURCE_NIGHT_FIXTURE_AUDIT' in text
+ assert all(not row['validated'] for row in data['candidateAttachments']),'Source extraction is not placement validation'
+ print('COMPLETE source fixture component audit; all attachments remain unvalidated',flush=True);sys.exit(0)
 if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
  for mode in ('baseline','opaque_metal_candidate'):
