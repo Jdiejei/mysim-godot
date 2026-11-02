@@ -11,6 +11,7 @@ on:
       physics_hz: {description: 'Explicit native time resolution experiment', type: choice, options: ['120', '240'], default: '120'}
       pit_service: {description: 'Require actual driven pit approach, tyre/repair service and exit for native hull AI laps', type: boolean, default: false}
       vertical_road_plan: {description: 'Opt-in AI preview of actual source road heights', type: boolean, default: false}
+      replay_legacy_edges: {description: 'Controlled replay-only Jolt enhanced-edge algorithm ablation', type: boolean, default: false}
       replay_capture_run: {description: 'Optional completed diagnostic run supplying schema2 damaging-contact capture; isolated replay only', type: string, default: ''}
       road_coplanar_candidate: {description: 'Explicit generated road collision candidate; defaults unchanged', type: boolean, default: false}
       source_axle_fit: {description: 'Explicit source-suspension axle-placement experiment; defaults unchanged', type: boolean, default: false}
@@ -22,7 +23,7 @@ on:
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5', '6'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 permissions: {contents: write}
-concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}-${{ inputs.replay_capture_run || ''none'' }}', cancel-in-progress: false}
+concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}-${{ inputs.replay_capture_run || ''none'' }}-${{ inputs.replay_legacy_edges || false }}', cancel-in-progress: false}
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -55,6 +56,8 @@ jobs:
         with: {dotnet-version: '8.0.x'}
       - name: Select explicit cloud-only native physics backend
         env:
+          NATIVE_LEGACY_INTERNAL_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
+          NATIVE_REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
           NATIVE_ROAD_FACE_EVIDENCE: ${{ inputs.depth == 'native_geometry_recovery' && '1' || '0' }}
           NATIVE_CCD_PENETRATION: ${{ inputs.ccd_penetration || '0.01' }}
           NATIVE_SPECULATIVE_DISTANCE: ${{ inputs.speculative_distance || '0.02' }}
@@ -142,6 +145,7 @@ jobs:
         env:
           SHARD: ${{ matrix.shard }}
           ROAD_COPLANAR_CANDIDATE: ${{ inputs.road_coplanar_candidate && '1' || '0' }}
+          REPLAY_LEGACY_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
           REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
           GH_TOKEN: ${{ github.token }}
           NATIVE_VISUAL_RENDERER: ${{ inputs.visual_renderer || 'gl_compatibility' }}

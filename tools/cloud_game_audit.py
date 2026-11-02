@@ -37,8 +37,9 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  assert len(candidates)==1,'Require one unambiguous preserved damaging-contact capture'
  (out/'replay-input-provenance.json').write_text(json.dumps({'run':capture_run,'artifactShard':shard,'selection':selection,'path':str(candidates[0])},indent=2))
  capture=candidates[0];data=json.loads(capture.read_text());assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
- report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report)},['--headless'],timeout=180)
- result=json.loads(report.read_text());assert result['settingsMatched'] and len(result['trials'])==5 and 'COMPLETE reduced contact experiment' in text
+ report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0')},['--headless'],timeout=180)
+ result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1'
+ assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
  print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
 if os.environ.get('WALL_GEOMETRY_DIAGNOSTIC')=='1':
  results=[]
