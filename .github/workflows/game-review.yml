@@ -85,7 +85,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Validate Python orchestration before asset downloads
-        run: python -m py_compile tools/cloud_game_audit.py tools/cloud_scope_import.py tools/cloud_bake_car_hulls.py tools/cloud_native_recording.py tools/cloud_rain_motion.py tools/build_car_map.py
+        run: python -m py_compile tools/cloud_game_audit.py tools/cloud_scope_import.py tools/cloud_bake_car_hulls.py tools/cloud_native_recording.py tools/cloud_rain_motion.py tools/build_car_map.py tools/build_unity_map.py
       - name: Restore source assets from encrypted transport
         if: inputs.depth != 'gui_review'
         env:
