@@ -1,0 +1,97 @@
+{
+    "cases":  [
+                  {
+                      "car":  0,
+                      "track":  5
+                  },
+                  {
+                      "car":  1,
+                      "track":  12
+                  },
+                  {
+                      "car":  2,
+                      "track":  19
+                  },
+                  {
+                      "car":  3,
+                      "track":  26
+                  },
+                  {
+                      "car":  4,
+                      "track":  33
+                  },
+                  {
+                      "car":  5,
+                      "track":  40
+                  },
+                  {
+                      "car":  6,
+                      "track":  47
+                  },
+                  {
+                      "car":  7,
+                      "track":  54
+                  },
+                  {
+                      "car":  8,
+                      "track":  1
+                  },
+                  {
+                      "car":  9,
+                      "track":  8
+                  },
+                  {
+                      "car":  10,
+                      "track":  15
+                  },
+                  {
+                      "car":  11,
+                      "track":  22
+                  },
+                  {
+                      "car":  12,
+                      "track":  29
+                  },
+                  {
+                      "car":  13,
+                      "track":  36
+                  },
+                  {
+                      "car":  14,
+                      "track":  43
+                  },
+                  {
+                      "car":  15,
+                      "track":  50
+                  },
+                  {
+                      "car":  16,
+                      "track":  57
+                  },
+                  {
+                      "car":  17,
+                      "track":  4
+                  },
+                  {
+                      "car":  18,
+                      "track":  11
+                  },
+                  {
+                      "car":  19,
+                      "track":  18
+                  },
+                  {
+                      "car":  21,
+                      "track":  32
+                  },
+                  {
+                      "car":  22,
+                      "track":  39
+                  },
+                  {
+                      "car":  23,
+                      "track":  46
+                  }
+              ],
+    "scope":  "Distinct fleet expansion under verified Jolt edge algorithm;23source cars on23new car/track pairs. Car20 excluded only until reconstructed kit passes strict preload/assembly checks. No full-game or all-track acceptance."
+}
