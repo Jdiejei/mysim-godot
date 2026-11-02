@@ -21,11 +21,11 @@ on:
       native_damage: {description: 'Explicit native collision-damage experiment', type: boolean, default: false}
       rotational_tyres: {description: 'Explicit physical wheel angular-state experiment', type: boolean, default: false}
       native_ai: {description: 'Apply explicit experimental AI mode during native regression only', type: boolean, default: false}
-      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression], default: shutdown}
+      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression], default: shutdown}
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5', '6'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 env:
-  GEOMETRY_CASE_MANIFEST: ${{ inputs.case_set == 'edge_regression' && 'data/native_edge_regression.json' || 'data/native_geometry_recovery.json' }}
+  GEOMETRY_CASE_MANIFEST: ${{ inputs.case_set == 'edge_axle_regression' && 'data/native_edge_axle_regression.json' || inputs.case_set == 'edge_regression' && 'data/native_edge_regression.json' || 'data/native_geometry_recovery.json' }}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}-${{ inputs.replay_capture_run || ''none'' }}-${{ inputs.replay_legacy_edges || false }}', cancel-in-progress: false}
 jobs:
@@ -36,9 +36,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: scope
+        env:
+          SOURCE_AXLE_CASE_ENABLE: ${{ inputs.source_axle_fit && '1' || '0' }}
         run: |
           python - <<'PY'
           import json,os,pathlib
+          if os.environ['GEOMETRY_CASE_MANIFEST'].endswith('native_edge_axle_regression.json'):assert os.environ['SOURCE_AXLE_CASE_ENABLE']=='1','Axle regression requires matching bake/runtime flag'
           cases=json.loads(pathlib.Path(os.environ['GEOMETRY_CASE_MANIFEST']).read_text())['cases']
           assert cases and all(0<=x['track']<60 and 0<=x['car']<24 for x in cases)
           shards=sorted({x['track']%12 for x in cases})

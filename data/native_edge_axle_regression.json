@@ -1,0 +1,37 @@
+{
+  "cases": [
+    {
+      "car": 15,
+      "track": 0
+    },
+    {
+      "car": 15,
+      "track": 43
+    },
+    {
+      "car": 16,
+      "track": 0
+    },
+    {
+      "car": 16,
+      "track": 43
+    },
+    {
+      "car": 17,
+      "track": 0
+    },
+    {
+      "car": 17,
+      "track": 43
+    },
+    {
+      "car": 18,
+      "track": 0
+    },
+    {
+      "car": 18,
+      "track": 43
+    }
+  ],
+  "scope": "Revalidate source-suspension-derived axle fit with repaired edge algorithm, including prior RB15 failures. Requires source_axle_fit true; all lap/damage/reset/distance gates unchanged."
+}
