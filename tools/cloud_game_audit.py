@@ -15,7 +15,7 @@ def run(label,values,args=None,timeout=300):
   if result_image is not None and result_image.exists():result_image.rename(result_image.with_name(result_image.stem+f'-previous-attempt{attempt}'+result_image.suffix))
   started=time.monotonic();timed_out=False
   with (out/(label+f'-{attempt}.log')).open('w') as f:
-   try:p=subprocess.run([g,'--path',str(r),'--resolution','640x360' if values.get('MYSIM_NATIVE_RESULT_CAPTURE') else '960x540','--no-window','--fixed-fps','60','--audio-driver','Dummy']+attempt_args,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
+   try:p=subprocess.run([g,'--path',str(r),'--resolution','640x360' if values.get('MYSIM_NATIVE_RESULT_CAPTURE') else '960x540','--no-window','--fixed-fps',values.get('MYSIM_NATIVE_RECORD_FPS','60'),'--audio-driver','Dummy']+attempt_args,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=p.returncode
    except subprocess.TimeoutExpired:code=-1;timed_out=True
   # Keep each failed/successful attempt's actual report, not only the last retry's file.
   for key,value in values.items():
