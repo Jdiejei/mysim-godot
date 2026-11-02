@@ -2,6 +2,8 @@ import os,re,json,sys,pathlib
 U='D:/MySim-recovered/full-game-build/project/Assets/'
 R=U+'RealRacing/'
 P='assets/Resources/RealRacing/'
+if not pathlib.Path(R).is_dir():
+ raise FileNotFoundError('Recovered source material root unavailable; existing unity_map.json must be preserved: '+R)
 guid2path={}
 def scan(base):
   for d,_,fs in os.walk(base):
@@ -64,6 +66,10 @@ for v in variants:
       byname.setdefault(names.get(go,''),[]).append(l)
       for g in l: mat_info(g)
   out[str(v)]=byname; print('track',v,len(byname),'names',flush=True)
-json.dump({'tracks':out,'materials':mats},open('assets/unity_map.json','w'))
+if not out or not mats:raise RuntimeError('Incomplete source mapping; refusing to replace existing unity_map.json')
+missing=[guid for guid,material in mats.items() if not material.get('path') or not pathlib.Path(material['path']).is_file()]
+if missing:raise RuntimeError(f'{len(missing)} referenced source materials unavailable; preserve existing map until complete inputs are restored')
+target=pathlib.Path('assets/unity_map.json');temporary=target.with_suffix('.json.pending')
+temporary.write_text(json.dumps({'tracks':out,'materials':mats}),encoding='utf-8');os.replace(temporary,target)
 have=sum(1 for m in mats.values() if m.get('tex')); print('materials',len(mats),'with texture',have)
 print('ALLDONE')
