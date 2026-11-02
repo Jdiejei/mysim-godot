@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 namespace MySim {
 // Read-only world-space geometry evidence. Duplicate candidates are never hidden/deleted.
 public static class TrackSceneAudit {
- static object UvSummary(Vector2[] uv,Vector3[] points,int[] indices,Transform3D transform){
+ internal static object UvSummary(Vector2[] uv,Vector3[] points,int[] indices,Transform3D transform){
   if(uv==null||uv.Length!=points.Length)return new{present=false,count=uv?.Length??0};
   var low=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var high=new Vector2(float.NegativeInfinity,float.NegativeInfinity);int nonfinite=0,collapsed=0;double area=0,uvArea=0;
   foreach(var p in uv){if(!p.IsFinite()){nonfinite++;continue;}low=new Vector2(Mathf.Min(low.X,p.X),Mathf.Min(low.Y,p.Y));high=new Vector2(Mathf.Max(high.X,p.X),Mathf.Max(high.Y,p.Y));}

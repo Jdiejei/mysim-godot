@@ -9,12 +9,12 @@ public static class CarMaterialAudit {
    var mesh=(MeshInstance3D)node;if(!mesh.IsVisibleInTree()||mesh.Mesh==null)continue;
    for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++) {
     var material=mesh.GetActiveMaterial(surface);var shader=material as ShaderMaterial;var standard=material as StandardMaterial3D;
-    var arrays=mesh.Mesh.SurfaceGetArrays(surface);var uv=(Vector2[])arrays[(int)Mesh.ArrayType.TexUV];
+    using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var points=(Vector3[])arrays[(int)Mesh.ArrayType.Vertex];var indices=(int[])arrays[(int)Mesh.ArrayType.Index];var uv=(Vector2[])arrays[(int)Mesh.ArrayType.TexUV];
     Vector2 minimum=new(float.PositiveInfinity,float.PositiveInfinity),maximum=new(float.NegativeInfinity,float.NegativeInfinity);
     if(uv!=null)foreach(var point in uv){minimum=minimum.Min(point);maximum=maximum.Max(point);}
     string texture=standard?.AlbedoTexture?.ResourcePath,mask=null;string scale=standard?.Uv1Scale.ToString(),offset=standard?.Uv1Offset.ToString();
     if(shader!=null){texture=shader.GetShaderParameter("base").As<Texture2D>()?.ResourcePath;mask=shader.GetShaderParameter("mask").As<Texture2D>()?.ResourcePath;scale=shader.GetShaderParameter("uv_scale").ToString();offset=shader.GetShaderParameter("uv_offset").ToString();}
-    rows.Add(new {renderer=mesh.Name.ToString(),path=car.GetPathTo(mesh).ToString(),surface,sourceMaterial=mesh.Mesh.SurfaceGetMaterial(surface)?.ResourceName,sourceGuid=material!=null&&material.HasMeta("source_material_guid")?material.GetMeta("source_material_guid").AsString():null,type=material?.GetType().Name,texture,mask,uvScale=scale,uvOffset=offset,uvCount=uv?.Length??0,uvMinimum=uv!=null&&uv.Length>0?minimum.ToString():null,uvMaximum=uv!=null&&uv.Length>0?maximum.ToString():null});
+    rows.Add(new {renderer=mesh.Name.ToString(),path=car.GetPathTo(mesh).ToString(),surface,sourceMaterial=mesh.Mesh.SurfaceGetMaterial(surface)?.ResourceName,sourceGuid=material!=null&&material.HasMeta("source_material_guid")?material.GetMeta("source_material_guid").AsString():null,type=material?.GetType().Name,texture,mask,uvScale=scale,uvOffset=offset,uv0=TrackSceneAudit.UvSummary(uv,points,indices,mesh.GlobalTransform),uv1=TrackSceneAudit.UvSummary((Vector2[])arrays[(int)Mesh.ArrayType.TexUV2],points,indices,mesh.GlobalTransform),uvCount=uv?.Length??0,uvMinimum=uv!=null&&uv.Length>0?minimum.ToString():null,uvMaximum=uv!=null&&uv.Length>0?maximum.ToString():null});
    }
   }
   return rows;
