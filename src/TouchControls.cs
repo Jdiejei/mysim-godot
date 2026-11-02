@@ -18,6 +18,7 @@ public partial class TouchControls : CanvasLayer {
   pauseButton=Action(root,"PAUSE",new Vector2(728,100),()=>{if(Drive?.Race!=null){Drive.Race.paused=!Drive.Race.paused;Clear();}});
  }
  public override void _Process(double delta){if(pauseButton!=null&&Drive?.Race!=null){var button=(RaceControlButton)pauseButton;string kind=Drive.Race.paused?"RESUME":"PAUSE";if(button.Kind!=kind){button.Kind=kind;button.QueueRedraw();}}}
+ public void SuspendForResults(){Clear();if(current==this)Active=false;Hide();}
  void UpdateSteer(){
   bool Held(string action,bool mouse)=>mouse||fingers.ContainsValue(action);
   Steer=(Held("RIGHT",rightHeld)?1:0)-(Held("LEFT",leftHeld)?1:0);
