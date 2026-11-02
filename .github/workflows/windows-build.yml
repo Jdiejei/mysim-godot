@@ -21,7 +21,7 @@ jobs:
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
         shell: pwsh
         run: |
-          pip install cryptography
+          pip install cryptography Pillow
           $release = gh release view repair-inputs-20261029 --json assets | ConvertFrom-Json
           $parts = $release.assets | Where-Object name -like 'assets-part-*' | Sort-Object name
           if (!$parts) { throw 'No asset inputs uploaded' }
@@ -54,6 +54,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Export failed' }
           python tools/cloud_windows_smoke.py
           if ($LASTEXITCODE -ne 0) { throw 'Native player checks failed' }
+          python tools/cloud_windows_render.py
+          if ($LASTEXITCODE -ne 0) { throw 'Rendered exported Windows player checks failed' }
       - name: Preserve encrypted Windows build in release parts
         env:
           GH_TOKEN: ${{ github.token }}
@@ -67,4 +69,5 @@ jobs:
             windows-*.log
             windows*-manifest.json
             windows-smoke-results.json
+            windows-render-results.json
           retention-days: 14
