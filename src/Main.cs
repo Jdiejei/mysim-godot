@@ -66,7 +66,10 @@ public partial class Main : Node3D {
    bool oblique=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_OBLIQUE")=="1";cam.Position=target+new Vector3(side*1.05f,oblique?.48f:.16f,oblique?.70f:.25f);cam.Fov=38;cam.LookAt(target);FitCarView(cam,wheel,target,"wheel");
   }else if(System.Environment.GetEnvironmentVariable("MYSIM_FITVIEW")=="1")FitCarView(cam,car);
   for (int i = 0; i < 25; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-  GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "carview.png"); GetTree().Quit();
+  GD.Print("CARVIEW_SAVE_BEGIN utc=",System.DateTime.UtcNow.ToString("O"));
+  var saveError=GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "carview.png");
+  GD.Print("CARVIEW_SAVE_END utc=",System.DateTime.UtcNow.ToString("O")," error=",saveError);
+  GD.Print("CARVIEW_QUIT_REQUEST utc=",System.DateTime.UtcNow.ToString("O")); GetTree().Quit(saveError==Error.Ok?0:1);
  }
  CanvasLayer pauseLayer;
  void PauseUi() {
