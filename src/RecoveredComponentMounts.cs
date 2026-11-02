@@ -15,6 +15,7 @@ public static class RecoveredComponentMounts {
   }nodes.Clear();
  }
  public static void Apply(Node3D car,int index){
+  ChironReconstructedWingKit.Apply(car,index);
   if(System.Environment.GetEnvironmentVariable("MYSIM_COMPONENT_MOUNTS")!="1")return;
   using var profiles=JsonDocument.Parse(FileAccess.GetFileAsString("res://data/component_mount_profiles.json"));
   var pts=Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()[index.ToString()].AsGodotArray();

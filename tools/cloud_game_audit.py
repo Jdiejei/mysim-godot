@@ -225,6 +225,13 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
+if os.environ.get('CHIRON_WING_REBUILD')=='1':
+ for angle,position in [('front','4,2,6'),('rear','-4,2,-6'),('side','7,1.5,0'),('overhead','0,8,0.01')]:
+  label='chiron-reconstructed-'+angle;shot=out/(label+'.png');report=out/(label+'-mount.json')
+  text=run(label,{'MYSIM_CARVIEW':'20','MYSIM_CHIRON_RECONSTRUCTED_WING':'1','MYSIM_CHIRON_WING_MOUNT_REPORT':str(report),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':position,'MYSIM_SHOT':str(shot)})
+  assert shot.exists() and report.exists() and 'CHIRON_RECONSTRUCTED_WING_KIT' in text
+  evidence=json.loads(report.read_text());assert evidence['car']==20 and evidence['selected']['minimumSourceVertexDeckGap']>=-.003
+ print('COMPLETE reconstructed Chiron kit render and fresh hull evidence; no original pose or full-game acceptance',flush=True);sys.exit(0)
 if os.environ.get('FIXTURE_LENS_EXIT')=='1':
  track=(25,28)[shard];label=f'fixture-lens-exit-{track}';destination=out/label
  text=run(label,{'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':'0','MYSIM_FIXTURE_LENS_EXIT':str(destination)},timeout=600)

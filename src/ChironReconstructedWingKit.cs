@@ -1,0 +1,42 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+namespace MySim {
+// Explicit reconstructed design, NOT recovered source deployment pose. Source mesh buffers,
+// UVs and files remain intact. Same rigid transform is applied before visual use and hull baking.
+public static class ChironReconstructedWingKit {
+ readonly struct Triangle {public readonly Vector3 A,B,C;public Triangle(Vector3 a,Vector3 b,Vector3 c){A=a;B=b;C=c;}}
+ static float[] A(Vector3 p)=>new[]{p.X,p.Y,p.Z};
+ static bool Support(List<Triangle> triangles,float x,float z,out float y,out float up){
+  y=float.NegativeInfinity;up=0;bool found=false;
+  foreach(var t in triangles){float d=(t.B.Z-t.C.Z)*(t.A.X-t.C.X)+(t.C.X-t.B.X)*(t.A.Z-t.C.Z);if(Mathf.Abs(d)<1e-10f)continue;float u=((t.B.Z-t.C.Z)*(x-t.C.X)+(t.C.X-t.B.X)*(z-t.C.Z))/d,v=((t.C.Z-t.A.Z)*(x-t.C.X)+(t.A.X-t.C.X)*(z-t.C.Z))/d,w=1-u-v;if(u<-.00001f||v<-.00001f||w<-.00001f)continue;float height=u*t.A.Y+v*t.B.Y+w*t.C.Y;if(height<=y)continue;var normal=(t.B-t.A).Cross(t.C-t.A).Normalized();y=height;up=Mathf.Abs(normal.Y);found=true;
+  }return found;
+ }
+ public static void Apply(Node3D car,int index){
+  if(index!=20||System.Environment.GetEnvironmentVariable("MYSIM_CHIRON_RECONSTRUCTED_WING")!="1"||car.HasMeta("chiron_reconstructed_wing_transform"))return;
+  if(car.Name.ToString()!="2017_bugatti_chiron")throw new Exception("Reconstructed kit must use actual source Chiron");
+  var inverse=car.GlobalTransform.AffineInverse();var kit=new List<MeshInstance3D>();var pointsByRole=new SortedDictionary<string,HashSet<Vector3>>();var support=new List<Triangle>();var candidateZ=new SortedSet<float>();float rearBodyZ=float.PositiveInfinity;
+  foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){
+   var mesh=(MeshInstance3D)child;if(!mesh.IsVisibleInTree()||mesh.Mesh==null)continue;string name=mesh.Name.ToString();int cut=name.IndexOf("_mm_",StringComparison.Ordinal);string role=cut>=0?name.Substring(0,cut):name;bool wing=role=="LOD_A_WING"||role=="LOD_A_WING_STRUT"||role=="LOD_A_WING_STRUT_REAR";bool deck=role=="LOD_A_BODY"||role=="LOD_A_BOOT";if(!wing&&!deck)continue;var transform=inverse*mesh.GlobalTransform;var faces=mesh.Mesh.GetFaces();if(wing){kit.Add(mesh);if(!pointsByRole.TryGetValue(role,out var unique)){unique=new();pointsByRole[role]=unique;}foreach(var p in faces)unique.Add(transform*p);}else for(int i=0;i+2<faces.Length;i+=3){var a=transform*faces[i];var b=transform*faces[i+1];var c=transform*faces[i+2];support.Add(new Triangle(a,b,c));rearBodyZ=Mathf.Min(rearBodyZ,Mathf.Min(a.Z,Mathf.Min(b.Z,c.Z)));candidateZ.Add(a.Z);candidateZ.Add(b.Z);candidateZ.Add(c.Z);candidateZ.Add((a.Z+b.Z+c.Z)/3f);}
+  }
+  foreach(string role in new[]{"LOD_A_WING","LOD_A_WING_STRUT","LOD_A_WING_STRUT_REAR"})if(!pointsByRole.ContainsKey(role))throw new Exception("Reconstructed wing kit missing source component:"+role);
+  float bottom=float.PositiveInfinity;foreach(var p in pointsByRole["LOD_A_WING_STRUT"])bottom=Mathf.Min(bottom,p.Y);var bases=new Vector3[2];var baseCounts=new int[2];foreach(var p in pointsByRole["LOD_A_WING_STRUT"])if(p.Y<=bottom+.01f){int side=p.X<0?0:1;bases[side]+=p;baseCounts[side]++;}for(int i=0;i<2;i++){if(baseCounts[i]<2)throw new Exception("Wing main-strut lower base cluster is ambiguous");bases[i]/=baseCounts[i];}
+  float spacing=bases[1].X-bases[0].X;if(spacing<.75f||spacing>.9f||Mathf.Abs(bases[0].Y-bases[1].Y)>.001f||Mathf.Abs(bases[0].Z-bases[1].Z)>.01f)throw new Exception("Source wing strut bases are not a coherent symmetric pair");
+  var pivots=Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()["20"].AsGodotArray();float rearAxleZ=pivots[2].AsGodotArray()[2].AsSingle();float minimumKitZ=float.PositiveInfinity;foreach(var group in pointsByRole.Values)foreach(var p in group)minimumKitZ=Mathf.Min(minimumKitZ,p.Z);
+  var sites=new List<float>();foreach(float z in candidateZ)if(z<rearAxleZ&&z>rearBodyZ+.02f&&z+minimumKitZ>=rearBodyZ-.10f)sites.Add(z);if(sites.Count==0)throw new Exception("No source rear-deck triangle stations support reconstructed wing design");
+  // Rearmost source-supported station is the authored design objective, not a recovered socket.
+  // Candidate count is bounded; positions are always sampled from actual source triangle Z coordinates.
+  var attempts=new List<object>();Vector3 translation=Vector3.Zero;bool selected=false;object accepted=null;int stride=Math.Max(1,(int)Math.Ceiling(sites.Count/128.0));
+  for(int station=0;station<sites.Count;station+=stride){float z=sites[station];float leftY,rightY,leftNormal,rightNormal;bool left=Support(support,bases[0].X,z+bases[0].Z,out leftY,out leftNormal),right=Support(support,bases[1].X,z+bases[1].Z,out rightY,out rightNormal);if(!left||!right||leftNormal<.8f||rightNormal<.8f||Mathf.Abs(leftY-rightY)>.004f){attempts.Add(new{z,accepted=false,reason="missing/sloped/asymmetric source deck support"});continue;}
+   var proposal=new Vector3(0,(leftY+rightY)*.5f-(bases[0].Y+bases[1].Y)*.5f+.001f,z);float footprintVariation=0;bool footprint=true;foreach(var b in bases)foreach(var offset in new[]{new Vector2(-.005f,0),new Vector2(.005f,0),new Vector2(0,-.005f),new Vector2(0,.005f)}){if(!Support(support,b.X+offset.X,b.Z+proposal.Z+offset.Y,out float y,out float normal)||normal<.8f){footprint=false;continue;}footprintVariation=Mathf.Max(footprintVariation,Mathf.Abs(y-(leftY+rightY)*.5f));}if(!footprint||footprintVariation>.006f){attempts.Add(new{z,accepted=false,reason="5mm base footprint unsupported or height variation",footprintVariation});continue;}
+   float minimumGap=float.PositiveInfinity;int measured=0;var roleGaps=new List<object>();foreach(var group in pointsByRole){float roleMinimum=float.PositiveInfinity;int hits=0;foreach(var p in group.Value){var mounted=p+proposal;if(!Support(support,mounted.X,mounted.Z,out float y,out _))continue;float gap=mounted.Y-y;roleMinimum=Mathf.Min(roleMinimum,gap);minimumGap=Mathf.Min(minimumGap,gap);hits++;measured++;}roleGaps.Add(new{role=group.Key,supportHits=hits,minimumSourceVertexDeckGap=hits>0?(float?)roleMinimum:null});}
+   if(measured==0||minimumGap<-.003f){attempts.Add(new{z,accepted=false,reason="source kit vertex intersects deck",minimumGap=measured>0?(float?)minimumGap:null,measured});continue;}
+   translation=proposal;selected=true;accepted=new{stationZ=z,leftDeckY=leftY,rightDeckY=rightY,leftSupportNormalY=leftNormal,rightSupportNormalY=rightNormal,baseGaps=new[]{bases[0].Y+proposal.Y-leftY,bases[1].Y+proposal.Y-rightY},footprintVariation,minimumSourceVertexDeckGap=minimumGap,measured,roleGaps};break;
+  }
+  if(!selected)throw new Exception("No source-supported reconstructed Chiron wing pose passed bounded attachment checks; no guard changed. "+JsonSerializer.Serialize(attempts));
+  var rigid=new Transform3D(Basis.Identity,translation);foreach(var mesh in kit){mesh.SetMeta("original_chiron_wing_transform",mesh.Transform);mesh.GlobalTransform=car.GlobalTransform*rigid*(inverse*mesh.GlobalTransform);mesh.SetMeta("reconstructed_chiron_wing",true);}car.SetMeta("chiron_reconstructed_wing_transform",rigid);
+  string report=System.Environment.GetEnvironmentVariable("MYSIM_CHIRON_WING_MOUNT_REPORT")??"outputs/cloud-game/chiron-reconstructed-wing-kit.json";var folder=System.IO.Path.GetDirectoryName(report);if(!string.IsNullOrEmpty(folder))System.IO.Directory.CreateDirectory(folder);System.IO.File.WriteAllText(report,JsonSerializer.Serialize(new{car=index,translation=A(translation),rotationDegrees=A(Vector3.Zero),sourceBaseClusters=new[]{A(bases[0]),A(bases[1])},sourceBaseSpacing=spacing,sourceBaseSamples=baseCounts,sourceRearAxleZ=rearAxleZ,sourceRearBodyZ=rearBodyZ,maximumAuthoredRearOverhang=.10f,stationCandidates=sites.Count,attemptStride=stride,attempts,selected=accepted,sourcePartCount=kit.Count,scope="RECONSTRUCTED car20 wing kit design, NOT recovered source socket/deployment pose. One rigid translation preserves component relative placement, original buffers/UV/files. Bases seat on actual source BODY/BOOT triangles with measured gaps/footprint/support. Vertex gap sampling does not certify complete triangle clearance, hydraulic animation or collision correctness. Shared source-loader hook must run before visual use and hull baking; full render/preload/race validation remains required."}));GD.Print("CHIRON_RECONSTRUCTED_WING_KIT translation=",translation," baseSpacing=",spacing," source geometry preserved; design review pending");
+ }
+}
+}
