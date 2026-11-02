@@ -23,6 +23,9 @@ public static class TyreAppearance {
   if(pivots==null)return;
   foreach(var pivot in pivots){
    var spin=pivot.GetNode<Node3D>("Spin");var rebuilt=spin.GetNodeOrNull<MeshInstance3D>("RebuiltRubberTyre");if(rebuilt!=null)TyreMeshBuilder.SetWet(rebuilt,compound==Compound.Wet);Node3D markings=spin.GetNodeOrNull<Node3D>("CompoundMarkings");bool recovered=rebuilt!=null&&RecoveredWetTyreCandidate.Apply(spin,rebuilt,compound);
+   // Formula compound paint belongs to the Formula fleet. Preserve road-car sidewalls
+   // instead of adding a fluorescent-looking ring to every recovered vehicle.
+   if(pivot.HasMeta("compound_sidewall_markings")&&!pivot.GetMeta("compound_sidewall_markings").AsBool()){if(markings!=null)markings.Hide();pivot.SetMeta("displayed_compound",(int)compound);continue;}
    if(markings==null){
     markings=new Node3D {Name="CompoundMarkings"};spin.AddChild(markings);
     foreach(var node in spin.GetChildren())if(node is MeshInstance3D tyre&&(rebuilt!=null?tyre==rebuilt:tyre.Visible&&(tyre.Name.ToString().Contains("TYRE")||tyre.Name.ToString().Contains("TIRE")))){
