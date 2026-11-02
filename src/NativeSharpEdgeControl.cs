@@ -10,7 +10,7 @@ public static partial class NativeSharpEdgeControl {
  static Vector3 V(JsonElement p)=>new(p[0].GetSingle(),p[1].GetSingle(),p[2].GetSingle());
  static float[] A(Vector3 p)=>new[]{p.X,p.Y,p.Z};
  public partial class Probe : RigidBody3D {
-  public int Steps,ContactSamples;public bool Finite=true;public float MaximumPenetration,MaximumOriginAdvance;public readonly List<object> Witnesses=new();public readonly List<CollisionShape3D> Hulls=new();public Vector3 LastVelocity;public bool XWallContact,ZWallContact;
+  public int Steps,ContactSamples;public bool Finite=true;public float MaximumPenetration;public float MaximumOriginAdvance=float.NegativeInfinity;public readonly List<object> Witnesses=new();public readonly List<CollisionShape3D> Hulls=new();public Vector3 LastVelocity;public bool XWallContact,ZWallContact;
   public override void _IntegrateForces(PhysicsDirectBodyState3D state){
    Steps++;LastVelocity=state.LinearVelocity;Finite&=state.Transform.Origin.IsFinite()&&state.LinearVelocity.IsFinite()&&state.AngularVelocity.IsFinite();MaximumOriginAdvance=Mathf.Max(MaximumOriginAdvance,Mathf.Max(state.Transform.Origin.X,state.Transform.Origin.Z));
    foreach(var shape in Hulls)foreach(var vertex in ((ConvexPolygonShape3D)shape.Shape).Points){var p=state.Transform*shape.Transform*vertex;MaximumPenetration=Mathf.Max(MaximumPenetration,Mathf.Max(p.X,p.Z));}
