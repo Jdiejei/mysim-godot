@@ -11,6 +11,16 @@ def mat_info(gd):
   for mm in re.finditer(r'- (_\w+):\s+m_Texture: \{fileID: \d+, guid: ([0-9a-f]{32})',t):
     if mm.group(2) in g: texs[mm.group(1)]=g[mm.group(2)]
   info['texs']=texs
+  # Preserve Unity texture-coordinate transforms. Older exports silently discarded these.
+  transforms={}
+  for block in re.finditer(r'- (_\w+):\s*\n(.*?)(?=\n\s*- _\w+:|\n\s*m_Ints:|\n\s*m_Floats:|\n\s*m_Colors:|\Z)',t,re.S):
+    body=block.group(2)
+    if 'm_Texture:' not in body: continue
+    scale=re.search(r'm_Scale: \{x: ([\d.eE+-]+), y: ([\d.eE+-]+)\}',body)
+    offset=re.search(r'm_Offset: \{x: ([\d.eE+-]+), y: ([\d.eE+-]+)\}',body)
+    if scale and offset: transforms[block.group(1)]={'scale':[float(v) for v in scale.groups()],'offset':[float(v) for v in offset.groups()]}
+  info['texTransforms']=transforms
+  info['textureTransformSource']='Actual source Unity m_TextureEnvs m_Scale/m_Offset; absent entries are unknown, not assumed identity'
   for key in ('_BaseMap','_MainTex'):
     if key in texs: info['tex']=texs[key];break
   cols={}

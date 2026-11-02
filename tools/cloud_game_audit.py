@@ -225,6 +225,15 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
+if os.environ.get('CHIRON_ATLAS_REVIEW')=='1':
+ assert shard in (0,1)
+ for mode in ('none','u','v','both'):
+  for view,camera in [('front','4,2,6'),('rear','-4,2,-6')]:
+   label=f'chiron-atlas-transpose-{shard}-{mode}-{view}';shot=out/(label+'.png')
+   values={'MYSIM_CARVIEW':'20','MYSIM_CHIRON_ATLAS_TRANSPOSE':str(shard),'MYSIM_CAR_UV':mode,'MYSIM_CAR_UV_SCOPE':'livery','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_SHOT':str(shot)}
+   text=run(label,values);assert shot.exists()
+   if shard:assert 'CHIRON_ATLAS_TRANSPOSE' in text,'Guarded transpose did not apply'
+ print('COMPLETE eight dihedral Chiron exterior mappings; manual reference review required',flush=True);sys.exit(0)
 if os.environ.get('CHIRON_WING_REBUILD')=='1':
  for angle,position in [('front','4,2,6'),('rear','-4,2,-6'),('side','7,1.5,0'),('overhead','0,8,0.01')]:
   label='chiron-reconstructed-'+angle;shot=out/(label+'.png');report=out/(label+'-mount.json')

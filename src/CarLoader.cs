@@ -65,7 +65,7 @@ static Godot.Collections.Dictionary carMap;
      }
     }
     cache[g] = mat; }
-    if (mat != null) { var assigned=SurfaceUV(mat,carIdx,nm,g);string auditNode=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV_NODE");if(!string.IsNullOrEmpty(auditNode)&&auditNode==nm)assigned=(Material)mat.Duplicate();AuditUV(assigned,nm.Contains("_mm_")?nm.Substring(nm.LastIndexOf("_mm_")+4):"",nm);assigned.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s,assigned);bound++; }
+    if (mat != null) { var assigned=SurfaceUV(mat,carIdx,nm,g);string auditNode=System.Environment.GetEnvironmentVariable("MYSIM_CAR_UV_NODE");if(!string.IsNullOrEmpty(auditNode)&&auditNode==nm)assigned=(Material)mat.Duplicate();AuditUV(assigned,nm.Contains("_mm_")?nm.Substring(nm.LastIndexOf("_mm_")+4):"",nm);assigned=CarAtlasTransposeDiagnostic.Apply(assigned,carIdx,nm,g);assigned.SetMeta("source_material_guid",g);mi.SetSurfaceOverrideMaterial(s,assigned);bound++; }
    }
   }
   GD.Print("CARMAP car=", carIdx, " bound=", bound); return bound;
