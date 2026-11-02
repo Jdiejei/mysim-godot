@@ -17,17 +17,18 @@ on:
       replay_capture_run: {description: 'Optional completed diagnostic run supplying schema2 damaging-contact capture; isolated replay only', type: string, default: ''}
       road_coplanar_candidate: {description: 'Explicit generated road collision candidate; defaults unchanged', type: boolean, default: false}
       reconstructed_chiron_wing: {description: 'Measured rear-deck reconstructed car20 wing design; originals unchanged', type: boolean, default: false}
+      reconstructed_fixture_lens: {description: 'Opt-in measured open-rim reconstructed lenses for source_fixture_lighting comparison; originals unchanged', type: boolean, default: false}
       source_axle_fit: {description: 'Explicit source-suspension axle-placement experiment; defaults unchanged', type: boolean, default: false}
       native_ride_height: {description: 'Opt-in measured source clearance and force-based bump stops', type: boolean, default: false}
       native_damage: {description: 'Explicit native collision-damage experiment', type: boolean, default: false}
       rotational_tyres: {description: 'Explicit physical wheel angular-state experiment', type: boolean, default: false}
       native_ai: {description: 'Apply explicit experimental AI mode during native regression only', type: boolean, default: false}
-      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression, edge_fleet_regression, chiron_rebuilt_regression, chiron_remaining_tracks], default: shutdown}
+      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [fleet_contact_replay, shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression, edge_fleet_regression, chiron_rebuilt_regression, chiron_remaining_tracks], default: shutdown}
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5', '6'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 env:
   MYSIM_CHIRON_RECONSTRUCTED_WING: ${{ (inputs.depth == 'chiron_wing_rebuild' || inputs.reconstructed_chiron_wing) && '1' || '0' }}
-  GEOMETRY_CASE_MANIFEST: ${{ inputs.case_set == 'chiron_remaining_tracks' && 'data/native_chiron_remaining_tracks.json' || inputs.case_set == 'chiron_rebuilt_regression' && 'data/native_chiron_rebuilt_regression.json' || inputs.case_set == 'edge_fleet_regression' && 'data/native_edge_fleet_regression.json' || inputs.case_set == 'edge_axle_regression' && 'data/native_edge_axle_regression.json' || inputs.case_set == 'edge_regression' && 'data/native_edge_regression.json' || 'data/native_geometry_recovery.json' }}
+  GEOMETRY_CASE_MANIFEST: ${{ inputs.case_set == 'fleet_contact_replay' && 'data/native_fleet_contact_replay.json' || inputs.case_set == 'chiron_remaining_tracks' && 'data/native_chiron_remaining_tracks.json' || inputs.case_set == 'chiron_rebuilt_regression' && 'data/native_chiron_rebuilt_regression.json' || inputs.case_set == 'edge_fleet_regression' && 'data/native_edge_fleet_regression.json' || inputs.case_set == 'edge_axle_regression' && 'data/native_edge_axle_regression.json' || inputs.case_set == 'edge_regression' && 'data/native_edge_regression.json' || 'data/native_geometry_recovery.json' }}
 permissions: {contents: write}
 concurrency: {group: 'game-art-review-${{ inputs.visual_renderer || ''gl_compatibility'' }}-${{ inputs.ccd_penetration || ''0.01'' }}-${{ inputs.speculative_distance || ''0.02'' }}-${{ inputs.physics_backend || ''source'' }}-${{ inputs.physics_hz || ''120'' }}-${{ inputs.rotational_tyres || false }}-${{ inputs.native_damage || false }}-${{ inputs.pit_service || false }}-${{ inputs.depth }}-${{ inputs.cars || ''16'' }}-${{ inputs.case_set || ''default'' }}-${{ inputs.native_ai && inputs.ai_mode || ''default'' }}-${{ inputs.replay_capture_run || ''none'' }}-${{ inputs.replay_legacy_edges || false }}', cancel-in-progress: false}
 jobs:
@@ -65,7 +66,7 @@ jobs:
         with: {dotnet-version: '8.0.x'}
       - name: Select explicit cloud-only native physics backend
         env:
-          NATIVE_LEGACY_INTERNAL_EDGES: ${{ (inputs.replay_legacy_edges || inputs.edge_gameplay_control_run != '') && '1' || '0' }}
+          NATIVE_LEGACY_INTERNAL_EDGES: ${{ (inputs.replay_legacy_edges || inputs.edge_gameplay_control_run != '' || inputs.case_set == 'fleet_contact_replay') && '1' || '0' }}
           NATIVE_EDGE_CONTROL_RUN: ${{ inputs.edge_gameplay_control_run }}
           GH_TOKEN: ${{ github.token }}
           NATIVE_REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
@@ -160,6 +161,7 @@ jobs:
           SHARD: ${{ matrix.shard }}
           ROAD_COPLANAR_CANDIDATE: ${{ inputs.road_coplanar_candidate && '1' || '0' }}
           REPLAY_LEGACY_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
+          REPLAY_SOURCE_PLANE_ONLY: ${{ inputs.case_set == 'fleet_contact_replay' && '1' || '0' }}
           REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
           GH_TOKEN: ${{ github.token }}
           NATIVE_RECORD_GAMEPLAY: ${{ inputs.record_native_race && '1' || '0' }}
@@ -181,6 +183,7 @@ jobs:
           NIGHT_RAIN_SHUTDOWN: ${{ inputs.depth == 'night_rain_shutdown' && '1' || '0' }}
           SOURCE_FIXTURE_PROBE: ${{ inputs.depth == 'source_fixture_probe' && '1' || '0' }}
           SOURCE_FIXTURE_LIGHT_REVIEW: ${{ inputs.depth == 'source_fixture_lighting' && '1' || '0' }}
+          RECONSTRUCTED_FIXTURE_LENS_REVIEW: ${{ inputs.depth == 'source_fixture_lighting' && inputs.reconstructed_fixture_lens && '1' || '0' }}
           NIGHT_LIGHT_REVIEW: ${{ inputs.depth == 'night_light_review' && '1' || '0' }}
           CHIRON_ATLAS_REVIEW: ${{ inputs.depth == 'chiron_atlas_review' && '1' || '0' }}
           CHIRON_WING_REBUILD: ${{ (inputs.depth == 'chiron_wing_rebuild' || inputs.reconstructed_chiron_wing) && '1' || '0' }}

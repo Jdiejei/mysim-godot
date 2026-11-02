@@ -35,6 +35,8 @@ def recorded_native_race(label,values):
  return record(run,out,label,values,os.environ.get('NATIVE_VISUAL_RENDERER','gl_compatibility'))
 if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
+ source_plane_only=os.environ.get('REPLAY_SOURCE_PLANE_ONLY')=='1'
+ if source_plane_only:assert capture_run=='41450839854' and shard==4 and os.environ.get('REPLAY_LEGACY_EDGES','0')=='0','Fleet replay requires exact existing shard4 capture and no settings ablation'
  destination=out/'replay-input';subprocess.run(['gh','run','download',capture_run,'--repo','instagramshashank8-bot/mysim-godot','-n',f'game-runtime-{shard}-attempt-1','-D',str(destination)],check=True)
  candidates=list(destination.rglob('*-preimpact-replay-attempt-1.json'))
  selection='explicit first-attempt copy'
@@ -44,10 +46,13 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
   candidates=list(destination.rglob('*-preimpact-replay.json'));selection='standalone final preserved capture; attempt identity unproven'
  assert len(candidates)==1,'Require one unambiguous preserved damaging-contact capture'
  (out/'replay-input-provenance.json').write_text(json.dumps({'run':capture_run,'artifactShard':shard,'selection':selection,'path':str(candidates[0])},indent=2))
- capture=candidates[0];data=json.loads(capture.read_text());assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
- report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0')},['--headless'],timeout=180)
+ capture=candidates[0];data=json.loads(capture.read_text());
+ if source_plane_only:assert data['car']==17 and data['configuration']['MYSIM_TRACK']=='4' and data['configuration']['MYSIM_SOURCE_AXLE_FIT']=='0' and data['configuration']['MYSIM_COPLANAR_ROAD_CANDIDATE']=='0','Wrong fleet source configuration'
+ assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
+ report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0'),'MYSIM_REPLAY_SOURCE_PLANE_ONLY':'1' if source_plane_only else '0'},['--headless'],timeout=180)
  result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1'
- assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
+ assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(2 if ablation or source_plane_only else 5) and 'COMPLETE reduced contact experiment' in text
+ if source_plane_only:assert result['sourcePlaneOnly'] and result['sourceTopology'] and result['enhancedInternalEdgeRemoval']=='false' and result['car']==17 and result['track']==4,'Fleet replay topology/settings evidence missing'
  if ablation:assert result['sharpEdgeControl']['ok'] and 'PASS actual source-car perpendicular sharp-edge blockage/CCD controls' in text
  print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
 if os.environ.get('WALL_GEOMETRY_DIAGNOSTIC')=='1':
@@ -209,6 +214,7 @@ if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
 if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1' or os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1' or os.environ.get('SOURCE_FIXTURE_PROBE')=='1':
  fixture_probe=os.environ.get('SOURCE_FIXTURE_PROBE')=='1'
  source_fixtures=os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1' or fixture_probe
+ reconstructed_lenses=source_fixtures and os.environ.get('RECONSTRUCTED_FIXTURE_LENS_REVIEW')=='1'
  shutdown_case=os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1'
  track=(25,28)[shard] if source_fixtures else (28 if shutdown_case else (0,25,28)[shard])
  weather_profiles=json.loads((r/'data/weather_profiles.json').read_text())['profiles']
@@ -216,14 +222,19 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
  (out/f'night-weather-coverage-{track}.json').write_text(json.dumps({'track':track,'profiles':[{'index':i,**weather_profiles[i]} for i in (0,rainy)],'scope':'Explicit dry and actual rainy/wet profiles; former profile1 was overcast with zero water/rain, not wet evidence'},indent=2))
  for wet in ((0,) if fixture_probe else ((rainy,) if shutdown_case else (0,rainy))):
   for candidate in ((1,) if shutdown_case or fixture_probe else (0,1)):
-   label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}';shot=out/(label+'.png')
+   label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}'+('-reconstructed-lens' if reconstructed_lenses else '');shot=out/(label+'.png')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':str(wet),'MYSIM_TRACK_FLOODLIGHTS':str(candidate),'MYSIM_TRACK_LIGHT_AUDIT':str(out/(label+'-mounts.json')),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)}
    if source_fixtures:
     values['MYSIM_TRACK_FLOODLIGHTS']='0';values['MYSIM_SOURCE_FIXTURE_LIGHTS']=str(candidate);values['MYSIM_SOURCE_FIXTURE_LIGHT_AUDIT']=str(out/(label+'-source-fixtures.json'))
+    values['MYSIM_RECONSTRUCTED_FIXTURE_LENS']='1' if reconstructed_lenses and candidate else '0'
    text=run(label,values,timeout=600 if shutdown_case or source_fixtures else 300)
    assert shot.exists()
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
+   if reconstructed_lenses and candidate:
+    fixture_report=out/(label+'-source-fixtures.json');assert fixture_report.exists(),'Measured lens candidate did not publish actual evidence'
+    fixture_data=json.loads(fixture_report.read_text());emitters=fixture_data['sourceFixtures'];assert all(lamp.get('reconstructed') is True for lamp in emitters),'Reconstructed candidate silently used legacy emitter placement'
+    (out/(label+'-lens-outcome.json')).write_text(json.dumps({'track':track,'weatherProfile':wet,'reconstructedEmitters':len(emitters),'acceptedComponentCount':sum(attempt.get('accepted') is True for attempt in fixture_data.get('attachmentAttempts',[])),'allGatesRetained':True,'manualVisualAcceptance':False,'scope':'Actual zero emitters is a rejected lighting outcome, not working-night or circuit-coverage acceptance'},indent=2))
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
 if os.environ.get('CHIRON_ATLAS_REVIEW')=='1':
  assert shard in (0,1)
