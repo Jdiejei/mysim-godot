@@ -22,7 +22,7 @@ public static class SourceNightFixtureAudit {
    int Root(int x){while(parent[x]!=x){parent[x]=parent[parent[x]];x=parent[x];}return x;}
    void Join(int a,int b){a=Root(a);b=Root(b);if(a!=b)parent[b]=a;}
    for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){
-    if(mesh.Mesh.SurfaceGetPrimitiveType(surface)!=Mesh.PrimitiveType.Triangles)continue;
+    if((mesh.Mesh as ArrayMesh ?? throw new NotSupportedException("Fixture surface requires ArrayMesh primitive metadata")).SurfaceGetPrimitiveType(surface)!=Mesh.PrimitiveType.Triangles)continue;
     using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var points=(Vector3[])arrays[(int)Mesh.ArrayType.Vertex];var indices=(int[])arrays[(int)Mesh.ArrayType.Index];int count=indices?.Length>0?indices.Length:points.Length;
     for(int n=0;n+2<count;n+=3){int ia=indices?.Length>0?indices[n]:n,ib=indices?.Length>0?indices[n+1]:n+1,ic=indices?.Length>0?indices[n+2]:n+2;if(ia<0||ib<0||ic<0||ia>=points.Length||ib>=points.Length||ic>=points.Length)throw new InvalidOperationException("Source fixture triangle index outside source buffer");
      var local=new[]{points[ia],points[ib],points[ic]};foreach(var p in local)if(!p.IsFinite())throw new InvalidOperationException("Nonfinite source fixture vertex");
