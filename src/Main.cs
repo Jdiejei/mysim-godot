@@ -57,6 +57,7 @@ public partial class Main : Node3D {
   if(float.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_STEER"),System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float fitSteer))WheelAnimation.Update(viewWheels,0,Mathf.DegToRad(fitSteer));
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_AUDIT") is string fitPath)WheelFitAudit.Write(car,viewWheels,ci,fitPath);
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_APPEARANCE_AUDIT") is string wheelAudit)WheelAppearanceAudit.Write(viewWheels,wheelAudit);
+  if(System.Environment.GetEnvironmentVariable("MYSIM_CHIRON_WING_AUDIT") is string chironPath)ChironWingAttachmentAudit.Write(car,ci,chironPath,true);
   if(System.Environment.GetEnvironmentVariable("MYSIM_CAR_ASSEMBLY_AUDIT") is string assemblyPath)CarAssemblyAudit.Write(car,ci,assemblyPath);
   var cam = new Camera3D { Fov = 40, Current = true, Position = new Vector3(5.2f, 1.8f, 5.6f) }; var cp = System.Environment.GetEnvironmentVariable("MYSIM_CAMPOS"); if (cp != null) { var q = cp.Split(','); cam.Position = new Vector3(float.Parse(q[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[2], System.Globalization.CultureInfo.InvariantCulture)); } AddChild(cam); cam.LookAt(new Vector3(0, 0.6f, 0));
   if(int.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_CLOSEUP"),out int wheelIndex)){
