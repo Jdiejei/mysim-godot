@@ -224,6 +224,9 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
+if os.environ.get('RAIN_MOTION_REVIEW')=='1':
+ from cloud_rain_motion import review
+ review(run,out,shard);sys.exit(0)
 if os.environ.get('SOURCE_KINGPIN_REVIEW')=='1':
  for candidate in (0,1):
   for steer in (-23,-12,0,12,23):

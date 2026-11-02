@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "note": "Opt-in visual comparison only. Same rain particle budget/speeds/opacity as selected weather; narrower near-field volume and antialiased camera-facing vertical streaks. Not calibrated meteorology; no spray claim.",
+  "spawnHalfWidth": 12,
+  "spawnHeight": 12,
+  "streakWidth": 0.012,
+  "streakLength": 0.16
+}

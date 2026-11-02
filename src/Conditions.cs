@@ -36,6 +36,6 @@ public static class Conditions {
   sun.RotationDegrees = rot; sun.LightColor = sunCol; sun.LightEnergy = sunE;
   sky.SkyTopColor = top; sky.SkyHorizonColor = hor; sky.GroundHorizonColor = hor; sky.GroundBottomColor = hor.Darkened(0.3f);
  }
- public static void AddRain(Node3D parent) {parent.AddChild(new RainVolume {Amount=(int)Value("rainAmount")});}
+ public static void AddRain(Node3D parent) {int amount=(int)Value("rainAmount");if(amount<=0)return;if(System.Environment.GetEnvironmentVariable("MYSIM_RAIN_VISIBILITY_CANDIDATE")=="1")parent.AddChild(new RainVisibilityCandidate{Amount=amount});else parent.AddChild(new RainVolume {Amount=amount});}
  public static System.Text.Json.JsonElement RainVisual=>catalogue.RootElement.GetProperty("rainVisual");
 }}
