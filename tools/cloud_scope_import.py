@@ -11,7 +11,7 @@ if depth=='night_cutout_review':scopes[depth]=([16],[25])
 if depth=='source_tyre_review':scopes[depth]=([],[])
 if depth=='night_light_review':scopes[depth]=([16],[(0,25,28)[int(os.environ.get('SHARD','0'))]])
 if depth=='native_geometry_recovery':
- cases=[x for x in json.loads((root/'data/native_geometry_recovery.json').read_text())['cases'] if x['track']%12==int(os.environ.get('SHARD','0'))];scopes[depth]=(sorted({x['car'] for x in cases}),sorted({x['track'] for x in cases}))
+ cases=[x for x in json.loads((root/os.environ.get('GEOMETRY_CASE_MANIFEST','data/native_geometry_recovery.json')).read_text())['cases'] if x['track']%12==int(os.environ.get('SHARD','0'))];scopes[depth]=(sorted({x['car'] for x in cases}),sorted({x['track'] for x in cases}))
 if depth=='native_hull_recovery':scopes[depth]=(sorted(set(x['car'] for x in json.loads((root/'data/native_hull_recovery.json').read_text())['cases'])),[])
 if depth in ('native_traffic_lap','native_traffic_diagnostic','native_ccd_diagnostic'):scopes[depth]=([[0,1],[16,17]][int(os.environ.get('SHARD','0'))],[[0,43][int(os.environ.get('SHARD','0'))]])
 if depth=='native_mounted_laps':scopes[depth]=([int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')],list(range(int(os.environ.get('SHARD','0')),60,12)))

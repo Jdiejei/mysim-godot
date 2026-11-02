@@ -2,7 +2,7 @@
 import os,pathlib,json,subprocess
 out=pathlib.Path('outputs/cloud-game');out.mkdir(parents=True,exist_ok=True)
 shard=int(os.environ['HULL_REVIEW_SHARD']);depth=os.environ['HULL_REVIEW_DEPTH'];cars=[] if depth=='native_geometry_recovery' else [int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')] if depth=='native_mounted_laps' else [shard*2,shard*2+1] if depth=='native_hull_matrix' else [[0,16][shard]]
-if depth=='native_geometry_recovery':cars=sorted({x['car'] for x in json.loads(pathlib.Path('data/native_geometry_recovery.json').read_text())['cases'] if x['track']%12==shard})
+if depth=='native_geometry_recovery':cars=sorted({x['car'] for x in json.loads(pathlib.Path(os.environ.get('GEOMETRY_CASE_MANIFEST','data/native_geometry_recovery.json')).read_text())['cases'] if x['track']%12==shard})
 if depth=='native_hull_recovery':cars=sorted(set(x['car'] for x in json.loads(pathlib.Path('data/native_hull_recovery.json').read_text())['cases']))
 if depth in ('native_traffic_lap','native_traffic_diagnostic','native_ccd_diagnostic'):cars=[[0,1],[16,17]][shard]
 if depth=='native_ai_diagnostic':cars=[16]

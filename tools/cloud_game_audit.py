@@ -70,7 +70,7 @@ if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
  cars=[int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')]
  assert cars and len(set(cars))==len(cars) and all(0<=car<24 for car in cars),'Invalid requested car coverage'
  (out/'mounted-native-requested-coverage.json').write_text(json.dumps({'cars':cars,'tracks':list(range(shard,60,12)),'shard':shard},indent=2))
- recovery=[x for x in json.loads(pathlib.Path('data/native_geometry_recovery.json').read_text())['cases'] if x['track']%12==shard] if os.environ.get('NATIVE_GEOMETRY_RECOVERY')=='1' else None
+ recovery=[x for x in json.loads(pathlib.Path(os.environ.get('GEOMETRY_CASE_MANIFEST','data/native_geometry_recovery.json')).read_text())['cases'] if x['track']%12==shard] if os.environ.get('NATIVE_GEOMETRY_RECOVERY')=='1' else None
  for track in (sorted({x['track'] for x in recovery}) if recovery is not None else range(shard,60,12)):
   for car in ([x['car'] for x in recovery if x['track']==track] if recovery is not None else cars):
    label=f'mounted-native-lap-track-{track:02}-car-{car:02}';report=out/(label+'.json')

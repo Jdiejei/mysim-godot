@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "car": 13,
+      "track": 32
+    },
+    {
+      "car": 13,
+      "track": 56
+    },
+    {
+      "car": 6,
+      "track": 56
+    },
+    {
+      "car": 0,
+      "track": 0
+    },
+    {
+      "car": 16,
+      "track": 43
+    },
+    {
+      "car": 18,
+      "track": 0
+    }
+  ],
+  "scope": "Distinct edge-algorithm regression after13/8actualpass; three previous failure cases plus three previously passing controls, original geometry, damage/legal/reset gates retained. Not whole-game acceptance."
+}
