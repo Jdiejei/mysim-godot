@@ -20,8 +20,13 @@ for view,values in [('car',{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1'}),('race',{
   if shot.exists():
    with Image.open(shot) as image:
     image_ok=image.size==(960,540) and max(ImageStat.Stat(image.convert('RGB')).stddev)>2
-  ok=code==0 and not timed_out and image_ok
-  rows.append(dict(view=view,attempt=attempt,exit=code,timedOut=timed_out,imagePresent=shot.exists(),nonuniformImage=image_ok,ok=ok))
+  engine=evidence/f'{view}-{attempt}-engine.log'
+  text=log.read_text(errors='replace')+'\n'+(engine.read_text(errors='replace') if engine.exists() else '')
+  marker='PASS complete visible car framing' if view=='car' else 'onSurface=True'
+  errors=[line for line in text.splitlines() if 'ERROR:' in line or 'SCRIPT ERROR:' in line]
+  renderer_seen='OpenGL' in text and 'SCREENSHOT_SKIPPED headless' not in text
+  ok=code==0 and not timed_out and image_ok and marker in text and not errors and renderer_seen
+  rows.append(dict(view=view,attempt=attempt,exit=code,timedOut=timed_out,imagePresent=shot.exists(),nonuniformImage=image_ok,sceneMarkerPresent=marker in text,rendererReported=renderer_seen,errorCount=len(errors),ok=ok))
   (root/'windows-render-results.json').write_text(json.dumps(dict(cases=rows,headless=False,manualVisualAcceptance=False,scope='Exported Windows OpenGL player smoke only; actual images encrypted, race legality/native physics not certified'),indent=2))
   if ok:break
  else:raise RuntimeError(f'Exported Windows {view} render failed after one retry')
