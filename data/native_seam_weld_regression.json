@@ -1,9 +1,9 @@
 {
-    "cases":  [
-                  {
-                      "car":  20,
-                      "track":  4
-                  }
-              ],
-    "scope":  "Only previously failed Chiron source-initialization case, now with already verified reconstructed wing explicitly enabled. Completed21 passes and car17 not repeated; car13 contact investigation remains separate."
+  "cases": [
+    {
+      "car": 13,
+      "track": 4
+    }
+  ],
+  "scope": "Exact remaining car13 Interlagos impact case. Second source-specific weld opt-in only; strict full lap, damage, contact, reset, hull and results gates retained. Distinct replay-supported fix after prior failed full race."
 }

@@ -16,6 +16,7 @@ on:
       replay_legacy_edges: {description: 'Controlled replay-only Jolt enhanced-edge algorithm ablation', type: boolean, default: false}
       replay_capture_run: {description: 'Optional completed diagnostic run supplying schema2 damaging-contact capture; isolated replay only', type: string, default: ''}
       road_coplanar_candidate: {description: 'Explicit generated road collision candidate; defaults unchanged', type: boolean, default: false}
+      second_measured_seam: {description: 'Opt-in second exact Interlagos seam weld after successful controlled replay', type: boolean, default: false}
       reconstructed_chiron_wing: {description: 'Measured rear-deck reconstructed car20 wing design; originals unchanged', type: boolean, default: false}
       reconstructed_fixture_lens: {description: 'Opt-in measured open-rim reconstructed lenses for source_fixture_lighting comparison; originals unchanged', type: boolean, default: false}
       source_axle_fit: {description: 'Explicit source-suspension axle-placement experiment; defaults unchanged', type: boolean, default: false}
@@ -166,7 +167,7 @@ jobs:
           SHARD: ${{ matrix.shard }}
           ROAD_COPLANAR_CANDIDATE: ${{ inputs.road_coplanar_candidate && '1' || '0' }}
           REPLAY_LEGACY_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
-          INTERLAGOS_SEAM_WELD: ${{ inputs.case_set == 'seam_weld_regression' && '1' || '0' }}
+          INTERLAGOS_SEAM_WELD: ${{ inputs.case_set == 'seam_weld_regression' && (inputs.second_measured_seam && '2' || '1') || '0' }}
           REPLAY_SOURCE_PLANE_ONLY: ${{ inputs.case_set == 'fleet_contact_replay' && '1' || '0' }}
           REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
           GH_TOKEN: ${{ github.token }}
