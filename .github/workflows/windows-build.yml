@@ -61,6 +61,23 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
         run: python tools/cloud_package_windows.py
+      - name: Preserve rendered Windows evidence including failed attempts
+        if: always()
+        env:
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_REVIEW_KEY || secrets.MYSIM_INTAKE_KEY }}
+        shell: pwsh
+        run: |
+          if (Test-Path -LiteralPath build-cloud/render-evidence) {
+            python tools/cloud_encrypt_output.py build-cloud/render-evidence "$env:RUNNER_TEMP/windows-render-${{ github.run_id }}-${{ github.run_attempt }}.enc"
+            if ($LASTEXITCODE -ne 0) { throw 'Windows evidence encryption failed' }
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: encrypted-windows-render-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/windows-render-${{ github.run_id }}-${{ github.run_attempt }}.enc
+          if-no-files-found: ignore
+          retention-days: 14
       - uses: actions/upload-artifact@v4
         if: always()
         with:
