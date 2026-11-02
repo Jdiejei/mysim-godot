@@ -193,7 +193,7 @@ public partial class Main : Node3D {
   var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); if (System.Environment.GetEnvironmentVariable("MYSIM_INPUTCHECKS") != null) world.AddChild(new DrivingScenario { Drive=drive }); world.AddChild(hud); world.AddChild(new TouchControls { Drive=drive });
   ClearUi();GD.Print("RACE_READY track=",trackIdx," car=",carIdx);
   } catch(System.Exception e) {
-   GD.PrintErr("RACE_LOAD_FAILED ",e);EndRace();ClearUi();ui=new CanvasLayer();AddChild(ui);
+   GD.PrintErr("RACE_LOAD_FAILED ",e);if(System.Environment.GetEnvironmentVariable("MYSIM_AI")!=null||System.Environment.GetEnvironmentVariable("MYSIM_FIXTURE_LENS_EXIT")!=null){CleanExit.Request(this,1);return;}EndRace();ClearUi();ui=new CanvasLayer();AddChild(ui);
    var errorLabel=new Label { Text="Could not load this race. See game log for details.",Position=new Vector2(48,300) };ui.AddChild(errorLabel);
    var back=new Button { Text="BACK TO MENU",Position=new Vector2(48,360) };back.Pressed+=ShowMenu;ui.AddChild(back);
   } finally { loadingRace=false; }

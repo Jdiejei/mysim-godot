@@ -17,6 +17,7 @@ public partial class Main {
    var screen=GetViewport().GetVisibleRect();foreach(var button in new[]{home,again})if(!screen.Encloses(button.GetGlobalRect()))throw new Exception("Results action outside viewport");
    if(home.GetGlobalRect().Intersects(again.GetGlobalRect()))throw new Exception("Results actions overlap");
    if(scroll.GetGlobalRect().Intersects(home.GetGlobalRect())||scroll.GetGlobalRect().Intersects(again.GetGlobalRect()))throw new Exception("Results content overlaps actions");
+   if(DisplayServer.GetName()!="headless"){await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);string shot=System.Environment.GetEnvironmentVariable("MYSIM_SHOT");using var image=GetViewport().GetTexture().GetImage();image.SavePng(System.IO.Path.ChangeExtension(shot,null)+"-top.png");}
    scroll.ScrollVertical=10000;await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);if(scroll.ScrollVertical<=0)throw new Exception("20-car standings cannot scroll");
    if(DisplayServer.GetName()!="headless"){await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT"));}
    home.EmitSignal(BaseButton.SignalName.Pressed);for(int i=0;i<3;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
