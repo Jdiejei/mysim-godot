@@ -28,7 +28,14 @@ def run(label,values,args=None,timeout=300):
 if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
  destination=out/'replay-input';subprocess.run(['gh','run','download',capture_run,'--repo','instagramshashank8-bot/mysim-godot','-n',f'game-runtime-{shard}-attempt-1','-D',str(destination)],check=True)
- candidates=list(destination.rglob('*-preimpact-replay-attempt-1.json'));assert len(candidates)==1,'Require one exact first-attempt capture'
+ candidates=list(destination.rglob('*-preimpact-replay-attempt-1.json'))
+ selection='explicit first-attempt copy'
+ if not candidates:
+  # A report-serialization failure can leave the standalone capture without the attempt copy.
+  # Preserve and label that provenance; it is not asserted to be the first attempt.
+  candidates=list(destination.rglob('*-preimpact-replay.json'));selection='standalone final preserved capture; attempt identity unproven'
+ assert len(candidates)==1,'Require one unambiguous preserved damaging-contact capture'
+ (out/'replay-input-provenance.json').write_text(json.dumps({'run':capture_run,'artifactShard':shard,'selection':selection,'path':str(candidates[0])},indent=2))
  capture=candidates[0];data=json.loads(capture.read_text());assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
  report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report)},['--headless'],timeout=180)
  result=json.loads(report.read_text());assert result['settingsMatched'] and len(result['trials'])==3 and 'COMPLETE reduced contact experiment' in text
