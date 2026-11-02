@@ -1,15 +1,19 @@
 """Matched short moving rain evidence; all engine attempts preserved, no quality acceptance."""
-import pathlib,subprocess,json,hashlib
+import pathlib,subprocess,json,hashlib,os
 
 def review(run,out,shard):
- tod=(0,3)[shard]
+ tod=(0,3)[shard];prediction=os.environ.get('RAIN_PREDICTION_REVIEW')=='1'
  for candidate in (0,1):
   label=f'rain-motion-tod-{tod}-candidate-{candidate}'
+  if prediction:label=f'rain-prediction-tod-{tod}-candidate-{candidate}'
   movie=pathlib.Path('/tmp')/(label+'.avi')
   values={'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_TOD':str(tod),'MYSIM_WET':'2','MYSIM_RAIN_VISIBILITY_CANDIDATE':str(candidate),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'12','MYSIM_SHOT':str(out/(label+'.png')),'MYSIM_NATIVE_RECORD_FPS':'15'}
+  if prediction:
+   values['MYSIM_RAIN_VISIBILITY_CANDIDATE']='1';values['MYSIM_RAIN_PREDICT_SPAWN']=str(candidate);values['MYSIM_RAIN_PREDICT_AUDIT']=str(out/(label+'-prediction.json'))
   try:
    text=run(label,values,['--rendering-method','gl_compatibility','--write-movie',str(movie)],timeout=900)
-   assert ('RAIN_VISIBILITY_CANDIDATE' if candidate else 'RAIN_VOLUME_READY') in text
+   assert ('RAIN_VISIBILITY_CANDIDATE' if candidate or prediction else 'RAIN_VOLUME_READY') in text
+   if prediction:assert pathlib.Path(values['MYSIM_RAIN_PREDICT_AUDIT']).exists(),'Missing actual observer motion audit'
   finally:
    rows=[]
    for original in sorted(movie.parent.glob(movie.stem+'-attempt-*.avi')):

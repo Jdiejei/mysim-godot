@@ -4,6 +4,7 @@ root=pathlib.Path.cwd();depth=os.environ.get('IMPORT_REVIEW_DEPTH','');out=root/
 scopes={'wall_geometry_diagnostic':([],[49]),'rain_focus':([6,16],[0]),'rear_panel_uv':([6],[]),'livery_uv':([0,6,12,18],[]),'gui_review':([],[]),'wheel_compounds':([1,6,16],[]),'car_panel_uv':([6],[]),'car_uv_roles':([1,6,16],[]),'car_uv':([1,6,16],[]),'precise_ai':([16],[43,15]),'contact_trace':([16],[43,15]),'geometry':(list(range(24)),[])}
 if depth in ('car_paint_candidate','car_uv_source_audit','car_uv_channel_diagnostic'):scopes[depth]=([16],[])
 if depth=='chiron_wing_audit':scopes[depth]=([20],[])
+if depth=='rain_prediction_review':scopes[depth]=([16],[0])
 if depth=='rain_motion_review':scopes[depth]=([16],[0])
 if depth=='source_kingpin_review':scopes[depth]=([15],[])
 if depth=='f1_wheel_diagnostic':scopes[depth]=([15],[])
