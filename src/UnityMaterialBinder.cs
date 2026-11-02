@@ -3,6 +3,12 @@ using System.Collections.Generic;
 namespace MySim {
 // Exact Unity material assignment: prefab renderer (by node name) -> .mat guid -> texture/colour/alpha settings, parsed offline into assets/unity_map.json.
 public static class UnityMaterialBinder {
+ static string ReviewedFixtureRepair(string renderer,string guid){
+  if(System.Environment.GetEnvironmentVariable("MYSIM_DISABLE_REVIEWED_FIXTURES")=="1")return "";
+  if((renderer=="prop_singapore_floodlights_001"||renderer=="prop_singapore_floodlights_002")&&guid=="c3308bada0b3cff0390ec4ce01fbfdd6")return "source_uv";
+  if(renderer=="prop_yasmarina_floodlight_pole_short002"&&guid=="c88a91537a92865e6a43c86dd2b64762"||renderer=="prop_yasmarina_floodlight_pole_double"&&guid=="75bb8b30bb7038626a63f3258c9190b4")return "opaque_hardware";
+  return "";
+ }
  static Godot.Collections.Dictionary map;
  static readonly Dictionary<string,bool> alphaCache=new();
  static bool HasAlpha(Texture2D texture) {
@@ -57,7 +63,8 @@ void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv
    if (placeholderBrand) { bool physical=false;var bodies=mi.GetChildren();foreach(var child in bodies)if(child is StaticBody3D body&&(body.CollisionLayer&2)!=0)physical=true;bodies.Clear();if(!physical){mi.Visible=false;continue;}mi.SetMeta("placeholder_branding_visible_collision",true); } // sponsor-slot placeholder sheets (big black A/B/C letters in RR3 are replaced by sponsor art at runtime)
    bool ground = nm.ToLowerInvariant().StartsWith("gnd_") || nm.ToLowerInvariant().StartsWith("road") || nm.ToLowerInvariant().StartsWith("geo_terrain");
    for (int s = 0; s < mi.Mesh.GetSurfaceCount(); s++) {
-    total++; if (guids.Count == 0) continue; string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); string key = g + (ground ? "|g" : "") + (nm.StartsWith("org_",System.StringComparison.OrdinalIgnoreCase)||nm.StartsWith("crowd",System.StringComparison.OrdinalIgnoreCase)?"|organic":"|structure");
+    total++; if (guids.Count == 0) continue; string g = guids[s < guids.Count ? s : guids.Count - 1].AsString();string fixtureRepair=ReviewedFixtureRepair(nm,g); string key = g + (ground ? "|g" : "") + (nm.StartsWith("org_",System.StringComparison.OrdinalIgnoreCase)||nm.StartsWith("crowd",System.StringComparison.OrdinalIgnoreCase)?"|organic":"|structure");
+    if(fixtureRepair!="")key+="|reviewed-fixture-"+fixtureRepair;
     if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_ALPHA_POLICY")=="1")key+=CutoutClass.IsMatch(nm)?"|cutout_candidate":"|solid_candidate";
     if (!cache.TryGetValue(key, out var mat)) {
      mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); string tp = mi2.ContainsKey("tex") ? Res(NoSkid(mi2["tex"].AsString())) : null; Texture2D tex = tp != null && ResourceLoader.Exists(tp) ? GD.Load<Texture2D>(tp) : null;
@@ -77,6 +84,11 @@ void fragment() { vec3 wp0 = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz; vec2 tuv
        if (ground && tex != null) { var sm = new ShaderMaterial { Shader = GroundShader }; Conditions.ConfigureWetGround(sm); sm.SetShaderParameter("tex", tex); GroundClass(sm, tp); sm.SetShaderParameter("tint", new Color(col.R, col.G, col.B)); mat = sm; }
        else { var st = new StandardMaterial3D { AlbedoTexture = tex, AlbedoColor = col, Roughness = 1f, MetallicSpecular = 0.12f, TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic }; if (clip) { st.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor; st.AlphaScissorThreshold = cut > 0 ? cut : 0.5f; st.AlphaAntialiasingMode = BaseMaterial3D.AlphaAntiAliasing.AlphaToCoverage; st.AlphaAntialiasingEdge = 0.3f; st.CullMode = BaseMaterial3D.CullModeEnum.Disabled; } else if (trans) st.Transparency = BaseMaterial3D.TransparencyEnum.Alpha; if (System.Environment.GetEnvironmentVariable("MYSIM_NOUVFIX") != "1" && !(nm.ToLowerInvariant().StartsWith("org_") || nm.ToLowerInvariant().StartsWith("crowd") || (tp != null && System.IO.Path.GetFileName(tp).ToLowerInvariant().StartsWith("org_")))) { st.Uv1Scale = new Vector3(-1f, -1f, 1f); st.Uv1Offset = new Vector3(1f, 1f, 0f); } mat = st; }
       } }
+     if(mat is StandardMaterial3D fixtureMaterial&&fixtureRepair!=""){
+      if(fixtureRepair=="source_uv"){fixtureMaterial.Uv1Scale=Vector3.One;fixtureMaterial.Uv1Offset=Vector3.Zero;}
+      else{var opaqueColor=fixtureMaterial.AlbedoColor;opaqueColor.A=1;fixtureMaterial.AlbedoColor=opaqueColor;fixtureMaterial.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;}
+      GD.Print("REVIEWED_FIXTURE_MATERIAL renderer=",nm," guid=",g," repair=",fixtureRepair);
+     }
      cache[key] = mat;
     }
     if (mat != null) { mi.SetSurfaceOverrideMaterial(s, mat); bound++; }

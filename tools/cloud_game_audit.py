@@ -163,7 +163,7 @@ if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
  print('COMPLETE isolated wheel colour-grade comparison; no visual acceptance',flush=True);sys.exit(0)
 if os.environ.get('NIGHT_FIXTURE_AUDIT')=='1':
  track=(25,28)[shard];report=out/f'source-night-fixtures-{track}.json'
- text=run(f'source-night-fixtures-{track}',{'MYSIM_TRACK':str(track),'MYSIM_AUTODRIVE':'1','MYSIM_NIGHT_FIXTURE_AUDIT':str(report),'MYSIM_NIGHT_FIXTURE_VIEW':str(out/f'source-fixture-captures-{track}.json')},timeout=300)
+ text=run(f'source-night-fixtures-{track}',{'MYSIM_TRACK':str(track),'MYSIM_AUTODRIVE':'1','MYSIM_NIGHT_FIXTURE_AUDIT':str(report),'MYSIM_NIGHT_FIXTURE_VIEW':str(out/f'source-fixture-captures-{track}.json'),'MYSIM_DISABLE_REVIEWED_FIXTURES':'1'},timeout=300)
  captures=json.loads((out/f'source-fixture-captures-{track}.json').read_text());assert len(captures['captures'])>=4 and all(pathlib.Path(x['image']).exists() for x in captures['captures'])
  data=json.loads(report.read_text());assert data['track']==track and data['sourceMeshes'] and data['candidateAttachments'] and 'SOURCE_NIGHT_FIXTURE_AUDIT' in text
  assert all(not row['validated'] for row in data['candidateAttachments']),'Source extraction is not placement validation'
@@ -200,12 +200,16 @@ if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
  print('COMPLETE recovered tyre geometry comparison; no integration or compound acceptance',flush=True);sys.exit(0)
 if os.environ.get('NIGHT_LIGHT_REVIEW')=='1':
  track=(0,25,28)[shard]
- for wet in (0,1):
+ weather_profiles=json.loads((r/'data/weather_profiles.json').read_text())['profiles']
+ rainy=next(i for i,profile in enumerate(weather_profiles) if profile['rainAmount']>0 and profile['initialWater']>0)
+ (out/f'night-weather-coverage-{track}.json').write_text(json.dumps({'track':track,'profiles':[{'index':i,**weather_profiles[i]} for i in (0,rainy)],'scope':'Explicit dry and actual rainy/wet profiles; former profile1 was overcast with zero water/rain, not wet evidence'},indent=2))
+ for wet in (0,rainy):
   for candidate in (0,1):
    label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}';shot=out/(label+'.png')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':str(wet),'MYSIM_TRACK_FLOODLIGHTS':str(candidate),'MYSIM_TRACK_LIGHT_AUDIT':str(out/(label+'-mounts.json')),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)}
    text=run(label,values)
    assert shot.exists()
+   if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
    if candidate:assert 'TRACK_FLOODLIGHTS candidate' in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
 if os.environ.get('WHEEL_FIT_REVIEW')=='1':
