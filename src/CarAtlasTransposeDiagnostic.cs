@@ -10,7 +10,7 @@ public static class CarAtlasTransposeDiagnostic {
   if(guid!=expectedGuid||material is not ShaderMaterial original||original.GetShaderParameter("base").As<Texture2D>()?.ResourcePath!=expectedTexture)throw new InvalidOperationException("Chiron transpose diagnostic source material mismatch:"+renderer);
   const string before="vec2 uv = mix(UV, UV2, use_uv2) * uv_scale + uv_offset;",after="vec2 uv = mix(UV, UV2, use_uv2).yx * uv_scale + uv_offset;";
   if(!original.Shader.Code.Contains(before,StringComparison.Ordinal))throw new Exception("Chiron diagnostic shader equation changed");
-  var candidate=(ShaderMaterial)original.Duplicate();candidate.Shader=new Shader{Code=original.Shader.Code.Replace(before,after,StringComparison.Ordinal)};foreach(var uniform in original.Shader.GetShaderUniformList()){string name=uniform["name"].AsString();candidate.SetShaderParameter(name,original.GetShaderParameter(name));}candidate.SetMeta("diagnostic_chiron_uv_transpose",true);GD.Print("CHIRON_ATLAS_TRANSPOSE diagnostic renderer=",renderer," exactGUID=",guid," originalUVbuffersunchanged");return candidate;
+  var candidate=(ShaderMaterial)original.Duplicate();candidate.Shader=new Shader{Code=original.Shader.Code.Replace(before,after,StringComparison.Ordinal)};foreach(var uniform in original.Shader.GetShaderUniformList()){string name=uniform.AsGodotDictionary()["name"].AsString();candidate.SetShaderParameter(name,original.GetShaderParameter(name));}candidate.SetMeta("diagnostic_chiron_uv_transpose",true);GD.Print("CHIRON_ATLAS_TRANSPOSE diagnostic renderer=",renderer," exactGUID=",guid," originalUVbuffersunchanged");return candidate;
  }
 }
 }
