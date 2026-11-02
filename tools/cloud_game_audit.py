@@ -35,7 +35,9 @@ def recorded_native_race(label,values):
  return record(run,out,label,values,os.environ.get('NATIVE_VISUAL_RENDERER','gl_compatibility'))
 if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
- source_plane_only=os.environ.get('REPLAY_SOURCE_PLANE_ONLY')=='1'
+ repaired_seam=capture_run=='41467648085'
+ source_plane_only=os.environ.get('REPLAY_SOURCE_PLANE_ONLY')=='1' and not repaired_seam
+ if repaired_seam:assert shard==4 and os.environ.get('REPLAY_LEGACY_EDGES','0')=='0','Repaired seam requires exact shard/settings'
  if source_plane_only:assert capture_run=='41450839854' and shard==4 and os.environ.get('REPLAY_LEGACY_EDGES','0')=='0','Fleet replay requires exact existing shard4 capture and no settings ablation'
  destination=out/'replay-input';subprocess.run(['gh','run','download',capture_run,'--repo','instagramshashank8-bot/mysim-godot','-n',f'game-runtime-{shard}-attempt-1','-D',str(destination)],check=True)
  candidates=list(destination.rglob('*-preimpact-replay-attempt-1.json'))
@@ -47,11 +49,12 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  assert len(candidates)==1,'Require one unambiguous preserved damaging-contact capture'
  (out/'replay-input-provenance.json').write_text(json.dumps({'run':capture_run,'artifactShard':shard,'selection':selection,'path':str(candidates[0])},indent=2))
  capture=candidates[0];data=json.loads(capture.read_text());
+ if repaired_seam:assert data['car']==13 and data['configuration']['MYSIM_TRACK']=='4' and 'movedOccurrences=7 degenerateFacesRemoved=1' in capture.with_name('mounted-native-lap-track-04-car-13-1.log').read_text(),'Require actual repaired-seam capture'
  if source_plane_only:assert data['car']==17 and data['configuration']['MYSIM_TRACK']=='4' and data['configuration']['MYSIM_SOURCE_AXLE_FIT']=='0' and data['configuration']['MYSIM_COPLANAR_ROAD_CANDIDATE']=='0','Wrong fleet source configuration'
  assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
- report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0'),'MYSIM_REPLAY_SOURCE_PLANE_ONLY':'1' if source_plane_only else '0'},['--headless'],timeout=180)
+ report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REPLAY_REPAIRED_SEAM':'1' if repaired_seam else '0','MYSIM_INTERLAGOS_SEAM_WELD':'1' if repaired_seam else '0','MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0'),'MYSIM_REPLAY_SOURCE_PLANE_ONLY':'1' if source_plane_only else '0'},['--headless'],timeout=180)
  result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1'
- assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(4 if source_plane_only else 2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
+ assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(2 if repaired_seam else 4 if source_plane_only else 2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
  if source_plane_only:assert result['sourcePlaneOnly'] and result['sourceTopology'] and result['enhancedInternalEdgeRemoval']=='false' and result['car']==17 and result['track']==4,'Fleet replay topology/settings evidence missing'
  if ablation:assert result['sharpEdgeControl']['ok'] and 'PASS actual source-car perpendicular sharp-edge blockage/CCD controls' in text
  print('COMPLETE isolated comparison; reproduction remains explicitly unproven, no gameplay repair accepted',flush=True);sys.exit(0)
