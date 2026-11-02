@@ -1,16 +1,170 @@
 {
-  "6/LOD_A_HOOD_mm_misc": {
-    "source_guid": "73c5434059a2bbe3b97e4f9115bfeba3",
-    "texture": "res://assets/RealRacing/Source/2018_lamborghini_huracan_gt3/2018_lamborghini_huracan_gt3_misc.png",
-    "scale": [
-      1,
-      -1
-    ],
-    "offset": [
-      0,
-      1
-    ],
-    "evidence": "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41023270551",
-    "finding": "Front bonnet now samples original carbon island instead of seat upholstery; rear wing and livery unchanged in two native views."
-  }
+    "6/LOD_A_HOOD_mm_misc":  {
+                                 "source_guid":  "73c5434059a2bbe3b97e4f9115bfeba3",
+                                 "texture":  "res://assets/RealRacing/Source/2018_lamborghini_huracan_gt3/2018_lamborghini_huracan_gt3_misc.png",
+                                 "scale":  [
+                                               1,
+                                               -1
+                                           ],
+                                 "offset":  [
+                                                0,
+                                                1
+                                            ],
+                                 "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41023270551",
+                                 "finding":  "Front bonnet now samples original carbon island instead of seat upholstery; rear wing and livery unchanged in two native views."
+                             },
+    "20/LOD_A_BODY_mm_ext":  {
+                                 "offset":  [
+                                                0,
+                                                1
+                                            ],
+                                 "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                 "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                 "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                 "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                 "scale":  [
+                                               1,
+                                               -1
+                                           ]
+                             },
+    "20/LOD_A_BOOT_mm_ext":  {
+                                 "offset":  [
+                                                0,
+                                                1
+                                            ],
+                                 "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                 "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                 "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                 "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                 "scale":  [
+                                               1,
+                                               -1
+                                           ]
+                             },
+    "20/LOD_A_DOOR_LEFT_mm_ext":  {
+                                      "offset":  [
+                                                     0,
+                                                     1
+                                                 ],
+                                      "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                      "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                      "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                      "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                      "scale":  [
+                                                    1,
+                                                    -1
+                                                ]
+                                  },
+    "20/LOD_A_DOOR_RIGHT_mm_ext":  {
+                                       "offset":  [
+                                                      0,
+                                                      1
+                                                  ],
+                                       "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                       "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                       "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                       "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                       "scale":  [
+                                                     1,
+                                                     -1
+                                                 ]
+                                   },
+    "20/LOD_A_EXHAUST_mm_ext":  {
+                                    "offset":  [
+                                                   0,
+                                                   1
+                                               ],
+                                    "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                    "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                    "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                    "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                    "scale":  [
+                                                  1,
+                                                  -1
+                                              ]
+                                },
+    "20/LOD_A_FRONTBUMPER_mm_ext":  {
+                                        "offset":  [
+                                                       0,
+                                                       1
+                                                   ],
+                                        "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                        "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                        "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                        "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                        "scale":  [
+                                                      1,
+                                                      -1
+                                                  ]
+                                    },
+    "20/LOD_A_HOOD_mm_ext":  {
+                                 "offset":  [
+                                                0,
+                                                1
+                                            ],
+                                 "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                 "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                 "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                 "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                 "scale":  [
+                                               1,
+                                               -1
+                                           ]
+                             },
+    "20/LOD_A_MIRROR_LEFT_mm_ext":  {
+                                        "offset":  [
+                                                       0,
+                                                       1
+                                                   ],
+                                        "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                        "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                        "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                        "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                        "scale":  [
+                                                      1,
+                                                      -1
+                                                  ]
+                                    },
+    "20/LOD_A_MIRROR_RIGHT_mm_ext":  {
+                                         "offset":  [
+                                                        0,
+                                                        1
+                                                    ],
+                                         "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                         "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                         "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                         "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                         "scale":  [
+                                                       1,
+                                                       -1
+                                                   ]
+                                     },
+    "20/LOD_A_REARBUMPER_mm_ext":  {
+                                       "offset":  [
+                                                      0,
+                                                      1
+                                                  ],
+                                       "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                       "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                       "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                       "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                       "scale":  [
+                                                     1,
+                                                     -1
+                                                 ]
+                                   },
+    "20/LOD_A_WING_mm_ext":  {
+                                 "offset":  [
+                                                0,
+                                                1
+                                            ],
+                                 "source_guid":  "6cbf28e8030d8558fb2926454456387e",
+                                 "finding":  "All eight baseline images manually compared: V-only yields continuous two-tone body, correctly placed grille badge/front lamps/rear CHIRON text; none/U/both place mechanical/license/taillamp islands on unrelated panels. Exact11visible exterior roles only; original mesh UVs unchanged.",
+                                 "evidence":  "https://github.com/instagramshashank8-bot/mysim-godot/actions/runs/41453316712",
+                                 "texture":  "res://assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+                                 "scale":  [
+                                               1,
+                                               -1
+                                           ]
+                             }
 }
