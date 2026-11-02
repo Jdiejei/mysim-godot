@@ -1,0 +1,45 @@
+using Godot;
+using MySimulator.Rebuild;
+using System;
+using System.Collections.Generic;
+namespace MySim {
+// Explicit night candidate using only reviewed source fixture families. No added poles or source edits.
+public partial class SourceFixtureLighting : Node3D {
+ public int TrackIndex;public List<Node3D> Layers;
+ sealed class Face {public Vector3 A,B,C;public int Surface,Triangle;public Vector3 Centre=>(A+B+C)/3f;public Vector3 Normal=>-(B-A).Cross(C-A).Normalized();}
+ sealed class Lamp {public Vector3 Position,Aim;public string Source;public int Shaft;public Face Attachment;}
+ readonly List<Lamp> lamps=new();readonly List<SpotLight3D> pool=new();readonly List<int> slots=new();readonly List<object> rejected=new();
+ bool built;float age;const float Range=85f,Cone=65f;
+ static float[] V(Vector3 p)=>new[]{p.X,p.Y,p.Z};
+ static string K(Vector3 p)=>BitConverter.SingleToInt32Bits(p.X)+":"+BitConverter.SingleToInt32Bits(p.Y)+":"+BitConverter.SingleToInt32Bits(p.Z);
+ static bool Reviewed(string name,int track)=>track==25&&(name=="prop_singapore_floodlights_001"||name=="prop_singapore_floodlights_002")||track==28&&(name=="prop_yasmarina_floodlight_pole_short002"||name=="prop_yasmarina_floodlight_pole_double"||name=="prop_yasmarina_floodlight_pole_short006");
+ public override void _PhysicsProcess(double delta){if(!built){built=true;Build();}age+=(float)delta;if(age<.1f)return;age=0;var camera=GetViewport().GetCamera3D();if(camera==null)return;var order=new List<int>();for(int i=0;i<lamps.Count;i++)order.Add(i);var origin=camera.GlobalPosition;var forward=-camera.GlobalBasis.Z;
+  float Score(int id){var d=lamps[id].Aim-origin;return origin.DistanceTo(lamps[id].Position)*(d.Dot(forward)<0?2.5f:1f)*(slots.Contains(id)?.85f:1f);}
+  order.Sort((a,b)=>Score(a).CompareTo(Score(b)));if(order.Count>pool.Count)order.RemoveRange(pool.Count,order.Count-pool.Count);for(int i=0;i<slots.Count;i++)if(!order.Contains(slots[i]))slots[i]=-1;foreach(int id in order)if(!slots.Contains(id)){int slot=slots.IndexOf(-1);if(slot>=0)slots[slot]=id;}
+  var nearest=new List<int>(order);nearest.Sort((a,b)=>origin.DistanceSquaredTo(lamps[a].Position).CompareTo(origin.DistanceSquaredTo(lamps[b].Position)));for(int i=0;i<pool.Count;i++){var light=pool[i];int id=slots[i];light.Visible=id>=0&&origin.DistanceTo(lamps[id].Position)<180;if(!light.Visible)continue;var lamp=lamps[id];light.ShadowEnabled=nearest.IndexOf(id)<2;light.GlobalPosition=lamp.Position;light.LookAt(lamp.Aim,Vector3.Up);}
+ }
+ void Build(){
+  var space=GetWorld3D().DirectSpaceState;var route=new Circuit(TrackIndex);
+  foreach(var layer in Layers){var nodes=layer.FindChildren("*","MeshInstance3D",true,false);foreach(var node in nodes){var mesh=(MeshInstance3D)node;if(mesh.Mesh==null||!mesh.IsVisibleInTree()||!Reviewed(mesh.Name.ToString(),TrackIndex))continue;
+   var faces=new List<Face>();var parent=new List<int>();var shared=new Dictionary<string,int>();int Root(int n){while(parent[n]!=n){parent[n]=parent[parent[n]];n=parent[n];}return n;}
+   for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){if(mesh.Mesh is not ArrayMesh arrayMesh||arrayMesh.SurfaceGetPrimitiveType(surface)!=Mesh.PrimitiveType.Triangles)continue;using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var vertices=(Vector3[])arrays[(int)Mesh.ArrayType.Vertex];var indices=(int[])arrays[(int)Mesh.ArrayType.Index];int count=indices?.Length>0?indices.Length:vertices.Length;
+    for(int at=0;at+2<count;at+=3){var local=new[]{vertices[indices?.Length>0?indices[at]:at],vertices[indices?.Length>0?indices[at+1]:at+1],vertices[indices?.Length>0?indices[at+2]:at+2]};int id=faces.Count;parent.Add(id);faces.Add(new Face{A=mesh.GlobalTransform*local[0],B=mesh.GlobalTransform*local[1],C=mesh.GlobalTransform*local[2],Surface=surface,Triangle=at/3});foreach(var point in local){string key=K(point);if(shared.TryGetValue(key,out int old)){int a=Root(id),b=Root(old);parent[b]=a;}else shared[key]=id;}}
+   }
+   var groups=new SortedDictionary<int,List<Face>>();for(int i=0;i<faces.Count;i++){int root=Root(i);if(!groups.ContainsKey(root))groups[root]=new();groups[root].Add(faces[i]);}
+   foreach(var group in groups){var box=new Aabb(group.Value[0].A,Vector3.Zero);foreach(var face in group.Value){box=box.Expand(face.A);box=box.Expand(face.B);box=box.Expand(face.C);}float span=Mathf.Max(box.Size.X,box.Size.Z);if(box.Size.Y<12||span>2||box.Size.Y/Mathf.Max(.01f,span)<10)continue;var centre=box.GetCenter();var headFaces=new List<Face>();var bank=Vector3.Zero;
+    foreach(var face in faces){var point=face.Centre;var flat=point-centre;flat.Y=0;if(point.Y<box.End.Y-6||point.Y>box.End.Y+1||flat.Length()>4||face.Normal.Y>-.5f)continue;if((face.B-face.A).Cross(face.C-face.A).LengthSquared()<1e-12f)continue;headFaces.Add(face);bank+=point;}
+    if(headFaces.Count==0){rejected.Add(new{source=mesh.GetPath().ToString(),shaft=group.Key,reason="no-downward-source-head-face"});continue;}bank/=headFaces.Count;headFaces.Sort((a,b)=>a.Centre.DistanceSquaredTo(bank).CompareTo(b.Centre.DistanceSquaredTo(bank)));Face chosen=null;Vector3 position=default,aim=default;
+    foreach(var attachment in headFaces){position=attachment.Centre+attachment.Normal*.2f;float progress=route.Find(new Vec(position.X,position.Z),out float lateral);var target=route.Point(progress);var ground=Contact.Ground(space,new Vector3(target.x,position.Y,target.z),position.Y,100);if(!ground.found)continue;aim=new Vector3(target.x,ground.rawY+.1f,target.z);if(position.Y-aim.Y<6||position.DistanceTo(aim)>Range||attachment.Normal.Dot((aim-position).Normalized())<.2f)continue;
+     using var housing=new PhysicsShapeQueryParameters3D{Shape=new SphereShape3D{Radius=.08f},Transform=new Transform3D(Basis.Identity,position),CollisionMask=2};if(space.IntersectShape(housing,1).Count>0)continue;
+     using var ray=PhysicsRayQueryParameters3D.Create(position,aim);ray.CollisionMask=2;ray.HitBackFaces=true;if(space.IntersectRay(ray).Count>0)continue;chosen=attachment;break;
+    }
+    if(chosen==null){rejected.Add(new{source=mesh.GetPath().ToString(),shaft=group.Key,reason="all-head-candidates-obstructed-or-no-ground-target"});continue;}lamps.Add(new Lamp{Position=position,Aim=aim,Source=mesh.GetPath().ToString(),Shaft=group.Key,Attachment=chosen});
+   }
+  }nodes.Clear();}
+  for(int i=0;i<8;i++){var light=new SpotLight3D{Visible=false,SpotRange=Range,SpotAngle=Cone,LightEnergy=18,LightColor=new Color(.9f,.94f,1f),ShadowEnabled=i<2,ShadowBias=.03f,ShadowNormalBias=1};AddChild(light);pool.Add(light);slots.Add(-1);}
+  var coverage=new List<object>();int samples=(int)Mathf.Ceil(route.length/10f);for(int i=0;i<samples;i++){float progress=i/(float)samples;foreach(float offset in new[]{-4.5f,0,4.5f}){var p=route.Lane(progress,offset);var ground=Contact.Ground(space,new Vector3(p.x,0,p.z),0,100);int sources=0;if(ground.found){var target=new Vector3(p.x,ground.rawY+.1f,p.z);foreach(var lamp in lamps){var delta=target-lamp.Position;if(delta.Length()>Range||(lamp.Aim-lamp.Position).Normalized().Dot(delta.Normalized())<Mathf.Cos(Mathf.DegToRad(Cone)))continue;using var ray=PhysicsRayQueryParameters3D.Create(lamp.Position,target);ray.CollisionMask=2;ray.HitBackFaces=true;if(space.IntersectRay(ray).Count==0)sources++;}}coverage.Add(new{progress,lateral=offset,ground=ground.found,unobstructedCones=sources});}}
+  if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_FIXTURE_LIGHT_AUDIT") is string path){var folder=System.IO.Path.GetDirectoryName(path);if(!string.IsNullOrEmpty(folder))System.IO.Directory.CreateDirectory(folder);var rows=new List<object>();foreach(var lamp in lamps)rows.Add(new{lamp.Source,lamp.Shaft,surface=lamp.Attachment.Surface,triangle=lamp.Attachment.Triangle,attachment=V(lamp.Attachment.Centre),normal=V(lamp.Attachment.Normal),emitter=V(lamp.Position),aim=V(lamp.Aim),validated=false});System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new{track=TrackIndex,candidate=true,sourceFixtures=rows,rejected,coverage,poolBudget=8,shadowBudget=2,scope="Reviewed geometry families only; source-attached cone/occlusion candidate. Coverage is geometric, not measured lux; no complete circuit/night acceptance"}));}
+  GD.Print("SOURCE_FIXTURE_LIGHTS candidate track=",TrackIndex," emitters=",lamps.Count," rejected=",rejected.Count);
+ }
+}
+}

@@ -206,9 +206,10 @@ if os.environ.get('SOURCE_TYRE_REVIEW')=='1':
    text=run(label,{'MYSIM_SOURCE_TYRE_VIEW':asset,'MYSIM_TYRE_REVIEW_ANGLE':str(angle),'MYSIM_SOURCE_TYRE_REPORT':str(metadata),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and metadata.exists() and 'PASS recovered tyre source capture' in text
  print('COMPLETE recovered tyre geometry comparison; no integration or compound acceptance',flush=True);sys.exit(0)
-if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1':
+if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1' or os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1':
+ source_fixtures=os.environ.get('SOURCE_FIXTURE_LIGHT_REVIEW')=='1'
  shutdown_case=os.environ.get('NIGHT_RAIN_SHUTDOWN')=='1'
- track=28 if shutdown_case else (0,25,28)[shard]
+ track=(25,28)[shard] if source_fixtures else (28 if shutdown_case else (0,25,28)[shard])
  weather_profiles=json.loads((r/'data/weather_profiles.json').read_text())['profiles']
  rainy=next(i for i,profile in enumerate(weather_profiles) if profile['rainAmount']>0 and profile['initialWater']>0)
  (out/f'night-weather-coverage-{track}.json').write_text(json.dumps({'track':track,'profiles':[{'index':i,**weather_profiles[i]} for i in (0,rainy)],'scope':'Explicit dry and actual rainy/wet profiles; former profile1 was overcast with zero water/rain, not wet evidence'},indent=2))
@@ -216,10 +217,12 @@ if os.environ.get('NIGHT_LIGHT_REVIEW')=='1' or os.environ.get('NIGHT_RAIN_SHUTD
   for candidate in ((1,) if shutdown_case else (0,1)):
    label=f'night-light-track-{track}-wet-{wet}-candidate-{candidate}';shot=out/(label+'.png')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':str(wet),'MYSIM_TRACK_FLOODLIGHTS':str(candidate),'MYSIM_TRACK_LIGHT_AUDIT':str(out/(label+'-mounts.json')),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)}
-   text=run(label,values,timeout=600 if shutdown_case else 300)
+   if source_fixtures:
+    values['MYSIM_TRACK_FLOODLIGHTS']='0';values['MYSIM_SOURCE_FIXTURE_LIGHTS']=str(candidate);values['MYSIM_SOURCE_FIXTURE_LIGHT_AUDIT']=str(out/(label+'-source-fixtures.json'))
+   text=run(label,values,timeout=600 if shutdown_case or source_fixtures else 300)
    assert shot.exists()
    if wet==rainy:assert 'RAIN_VOLUME_READY' in text,'Actual rain component did not initialize'
-   if candidate:assert 'TRACK_FLOODLIGHTS candidate' in text
+   if candidate:assert ('SOURCE_FIXTURE_LIGHTS candidate' if source_fixtures else 'TRACK_FLOODLIGHTS candidate') in text
  print('COMPLETE candidate/baseline night lighting; manual art and collision review required',flush=True);sys.exit(0)
 if os.environ.get('WHEEL_FIT_REVIEW')=='1':
  car=15+shard
