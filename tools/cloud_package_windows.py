@@ -2,6 +2,8 @@
 import pathlib,os,tarfile,subprocess,hashlib,json
 from cryptography.hazmat.primitives.ciphers import Cipher,algorithms,modes
 root=pathlib.Path('build-cloud');parts=[];run=str(os.environ['GITHUB_RUN_ID']);attempt=str(os.environ.get('GITHUB_RUN_ATTEMPT','1'))
+release=f'windows-build-{run}-{attempt}'
+subprocess.run(['gh','release','create',release,'--title',f'Encrypted Windows candidate {run} attempt {attempt}','--notes','Encrypted candidate build and manifests; no complete-game or visual acceptance claimed.','--target',os.environ['GITHUB_SHA']],check=True)
 class Writer:
  def __init__(self):self.f=None;self.size=0
  def open(self):
@@ -10,11 +12,12 @@ class Writer:
   if not self.f:return
   self.f.close()
   for attempt in (1,2):
-   p=subprocess.run(['gh','release','upload','repair-review-20261029',str(self.path),'--clobber'])
+   p=subprocess.run(['gh','release','upload',release,str(self.path),'--clobber'])
    if p.returncode==0:break
-  if p.returncode:raise RuntimeError('Windows part upload failed after one retry')
+  if p.returncode:self.failed=True;raise RuntimeError('Windows part upload failed after one retry')
   parts.append({'name':self.path.name,'bytes':self.size,'sha256':self.sha.hexdigest()});self.path.unlink();self.f=None
  def write(self,data):
+  if getattr(self,'failed',False):raise RuntimeError('Windows encrypted stream upload previously failed; original upload error preserved')
   total=len(data)
   while data:
    if self.f is None:self.open()
@@ -26,6 +29,6 @@ class Encrypt:
  def write(self,b):writer.write(cipher.update(b));return len(b)
 with tarfile.open(fileobj=Encrypt(),mode='w|') as tar:tar.add(root,arcname='MySim')
 writer.write(cipher.finalize());writer.write(cipher.tag);writer.flushpart()
-p=pathlib.Path('windows-build-manifest.json');p.write_text(json.dumps({'parts':parts,'source_commit':os.environ['GITHUB_SHA'],'format':'concatenate parts, then AES-GCM decrypt with the project intake key','verified_windows_logic':True,'visual_acceptance':False},indent=2));subprocess.run(['gh','release','upload','repair-review-20261029',str(p),'--clobber'],check=True)
+p=pathlib.Path('windows-build-manifest.json');p.write_text(json.dumps({'parts':parts,'release':release,'source_commit':os.environ['GITHUB_SHA'],'format':'concatenate parts, then AES-GCM decrypt with the project intake key','verified_windows_logic':True,'visual_acceptance':False},indent=2));subprocess.run(['gh','release','upload',release,str(p),'--clobber'],check=True)
 
-versioned=p.with_name(f'windows-build-{run}-{attempt}-manifest.json');versioned.write_bytes(p.read_bytes());subprocess.run(['gh','release','upload','repair-review-20261029',str(versioned),'--clobber'],check=True)
+versioned=p.with_name(f'windows-build-{run}-{attempt}-manifest.json');versioned.write_bytes(p.read_bytes());subprocess.run(['gh','release','upload',release,str(versioned),'--clobber'],check=True)
