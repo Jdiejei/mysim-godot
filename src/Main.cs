@@ -182,6 +182,7 @@ public partial class Main : Node3D {
   int baseVar = (int)tl["baseTrackIndex"]; foreach (var L in layers) { WindingFixer.Fix(L, out int wchk); GroundFixer.Fix(L); WallBuilder.Build(L); UnityMaterialBinder.Apply(L, baseVar, out int utot); TrackMaterialBinder.Apply(L, "res://assets/" + mp + "/"); }
   SkyDome.Add(world, mp);
   string ds = "res://assets/Resources/" + mp + "_" + lay + ".txt"; world.AddChild(DriveSurfaceLoader.Load(FileAccess.FileExists(ds) ? ds : "res://assets/Resources/" + mp + "_processed.txt"));
+  if(System.Environment.GetEnvironmentVariable("MYSIM_FIXTURE_LENS_EXIT") is string lensPath){world.AddChild(new FixtureLensExitView{Layers=layers,TrackIndex=trackIdx,Destination=lensPath});return;}
   if(Conditions.IsNight&&System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_FIXTURE_LIGHTS")=="1")world.AddChild(new SourceFixtureLighting{Name="SourceFixtureLightCandidate",TrackIndex=trackIdx,Layers=layers});
   if(Conditions.IsNight&&System.Environment.GetEnvironmentVariable("MYSIM_TRACK_FLOODLIGHTS")=="1")world.AddChild(new TrackNightLighting{Name="TrackFloodlightCandidate",TrackIndex=trackIdx});
   if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_RUNOFF_SUPPORT")=="1")foreach(var layer in layers)SourceRunoffSupport.Build(layer);
