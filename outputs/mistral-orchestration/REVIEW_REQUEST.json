@@ -3,7 +3,7 @@
  "worker": "Mistral Vibe (sole, same session)",
  "repo": "instagramshashank8-bot/mysim-godot",
  "branch": "codex/repair-20261029",
- "head": "6d2069a",
+ "head": "b0fa604",
  "review_points": [
   {
    "id": "auth-403",
@@ -32,11 +32,16 @@
   }
  ],
  "live_run": {
-  "id": 41647350933,
-  "depth": "fence_a2c_review",
-  "head": "6d2069a",
-  "conclusion": "success"
+  "id": 41656712889,
+  "conclusion": "success",
+  "note": "fence_a2c at 6d2069a; ADOPTED per supervisor; no further A2C run"
  },
  "assets_reviewed_manually_this_session": [],
- "standards": "GitHub-only engine compute; local manual evidence/metrics allowed; no git add .; originals/history/secrets preserved"
+ "standards": "GitHub-only engine compute; local manual evidence/metrics allowed; no git add .; originals/history/secrets preserved",
+ "pending_verifications": [
+  {
+   "id": "settings-persist-cloud",
+   "what": "SettingsPersistChecks cloud run at b0fa604 depth (distinct settings fixture, not fence render)"
+  }
+ ]
 }

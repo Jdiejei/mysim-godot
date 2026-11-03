@@ -24,3 +24,8 @@
 
 ## Fence A2C outcome
 - Run 41647350933 SUCCESS at 6d2069a: A2C candidate applied (780 surfaces, fence band 8-26pct/cell) but fence-crop edge density unchanged in 8/9 changed cells -> did NOT reduce speckle; REJECTED for adoption, kept recorded opt-in. Speckle is geometry-level (sub-pixel wires + scissor over mips): next fix must be mesh/texture-level (coverage-preserving mip rebuild / wire thickening), cloud-only. Details: FENCE_A2C_VERDICT_QUANT.json.
+
+## Priority1 outcome (b0fa604)
+- Settings.cs: BOTH unsafe direct cf.Save(Path) fallbacks removed (temp-write failure and rename failure now report and return with the old file intact); live path is GlobalizePath (absolute); tmp is an absolute same-directory sibling (same volume), kept on failure. Valid legacy file without schema_version preserved in place; marker stamped on next save only. Verified: single cf.Save call (tmp only), no cf.Save(P) anywhere, single Set/ApplyAudio, balanced braces.
+- SettingsPersistChecks.cs landed: aligned to Variant.As<T>() (no AsInt32/AsBool/AsDouble per 4.7.2 API).
+- cloud persistence tests: legacy typed keys (int/bool/string/double), foreign schema kept, first Set stamps version, corrupt boot typed defaults + file present, typed round-trip, REAL rename failure via read-only dir on Linux (old file byte-identical, tmp recovery kept), atomic success replace + no stray tmp. Pending cloud verify.
