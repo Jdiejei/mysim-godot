@@ -8,9 +8,11 @@ public static class LoadedWheelEvidence {
   var rows=new List<object>();
   for(int i=0;i<4;i++){
    var normal=body.ContactNormals[i];bool supported=body.Grounded[i]&&normal.LengthSquared()>.5f;
-   float minimum=float.PositiveInfinity;int count=0;
-   foreach(var node in wheels[i].FindChildren("RebuiltRubberTyre","MeshInstance3D",true,false)){
-    var mesh=(MeshInstance3D)node;if(!mesh.IsVisibleInTree()||mesh.Mesh==null)continue;
+   float minimum=float.PositiveInfinity;int count=0;var parts=new List<string>();
+   foreach(var node in wheels[i].GetNode<Node3D>("Spin").FindChildren("*","MeshInstance3D",true,false)){
+    var mesh=(MeshInstance3D)node;string name=mesh.Name.ToString().ToUpperInvariant();
+    if(!mesh.Visible||mesh.Mesh==null||(!name.Contains("TYRE")&&!name.Contains("TIRE")))continue;
+    parts.Add(mesh.Name.ToString());
     for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){
      using var arrays=mesh.Mesh.SurfaceGetArrays(surface);
      foreach(var point in arrays[(int)Mesh.ArrayType.Vertex].AsVector3Array()){
@@ -18,9 +20,9 @@ public static class LoadedWheelEvidence {
      }
     }
    }
-   rows.Add(new{wheel=i,supported,rubberVertices=count,minimumContactPlaneClearance=supported&&count>0?(float?)minimum:null,load=body.Loads[i],springLength=body.SpringLength[i],slip=body.LongitudinalSlip[i],slipAngle=body.LateralSlipAngle[i],temperature=body.Tyres[i].temperature,grip=body.Tyres[i].Grip(body.Water),water=body.Water,compound=(int)body.Tyres[i].compound});
+   rows.Add(new{wheel=i,supported,rubberVertices=count,parts,visibleInTree=wheels[i].IsVisibleInTree(),minimumContactPlaneClearance=supported&&count>0?(float?)minimum:null,load=body.Loads[i],springLength=body.SpringLength[i],slip=body.LongitudinalSlip[i],slipAngle=body.LateralSlipAngle[i],temperature=body.Tyres[i].temperature,grip=body.Tyres[i].Grip(body.Water),water=body.Water,compound=(int)body.Tyres[i].compound});
   }
-  return new{wheels=rows,scope="Actual transformed generated-rubber vertices against current native contact tangent plane; not curved-road intersections, swept clearance or suspension certification"};
+  return new{wheels=rows,scope="Actual transformed active source/rebuilt tyre vertices against current native contact plane; camera-hidden wheel visibility labelled. Not curved-road intersections, swept clearance or suspension certification"};
  }
 }
 }
