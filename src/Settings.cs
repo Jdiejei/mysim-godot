@@ -12,7 +12,10 @@ public static class Settings {
  }
  public static T Get<[MustBeVariant] T>(string key, T def) { Load(); return cf.GetValue("game", key, Variant.From(def)).As<T>(); }
  public static void Set<[MustBeVariant] T>(string key, T v) { Load(); cf.SetValue("game", key, Variant.From(v)); cf.SetValue("game", "schema_version", SchemaVersion);
-  string tmp = Path + ".tmp"; if (cf.Save(tmp) != Error.Ok || Godot.DirAccess.Rename(tmp, Path) != Error.Ok) cf.Save(Path); // Crash mid-write must not corrupt settings; rename is atomic on the same volume.
+  string tmp = Path + ".tmp"; // Same directory as Path, so the rename lands on the same volume and stays atomic.
+  if (cf.Save(tmp) != Error.Ok) { cf.Save(Path); return; } // Fall back to the direct write only if even the temp write failed.
+  using var dir = Godot.DirAccess.Open(ProjectSettings.GlobalizePath(Path).GetBaseDir());
+  if (dir == null || dir.Rename(tmp, Path) != Error.Ok) cf.Save(Path); // Crash mid-write must not corrupt settings; rename is atomic on the same volume, overwrites the existing file.
  }
  public static void ApplyAudio() { bool mute = Get("mute", true); AudioServer.SetBusMute(0, mute); }
  // Desktop defaults to physical inputs; an explicit saved choice also wins on touch hardware.
