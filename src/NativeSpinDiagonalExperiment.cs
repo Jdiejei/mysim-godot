@@ -5,8 +5,8 @@ namespace MySim {
 // Measured alternate diagonal: diagnostic plus explicit opt-in full-race candidate. Defaults preserve source.
 public static class NativeSpinDiagonalExperiment {
  public static Vector3[] ApplyCandidate(Vector3[] source,string resource){
-  if(Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SPIN_DIAGONAL")!="1")return source;
-  if(resource!="res://assets/Resources/brazil_circuit.txt"||Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SEAM_WELD")!="2")throw new Exception("Spin diagonal candidate requires exact mode2 Interlagos source");
+  if(System.Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SPIN_DIAGONAL")!="1")return source;
+  if(resource!="res://assets/Resources/brazil_circuit.txt"||System.Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SEAM_WELD")!="2")throw new Exception("Spin diagonal candidate requires exact mode2 Interlagos source");
   var result=Build(source,Transform3D.Identity,out var evidence);
   GD.Print("INTERLAGOS_SPIN_DIAGONAL candidate ",System.Text.Json.JsonSerializer.Serialize(evidence));return result;
  }

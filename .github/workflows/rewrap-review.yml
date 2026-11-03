@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       assets: {description: 'Comma-separated exact encrypted review asset names (up to8)', type: string, required: true}
+      source_release: {description: 'Exact existing encrypted source release', type: string, default: 'repair-review-20261029'}
 permissions: {contents: write}
 jobs:
   rewrap:
@@ -16,6 +17,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_INTAKE_KEY }}
           MYSIM_REVIEW_KEY: ${{ secrets.MYSIM_REVIEW_KEY }}
+          REVIEW_SOURCE_RELEASE: ${{ inputs.source_release }}
           REVIEW_ASSETS: ${{ inputs.assets }}
         run: python tools/cloud_rewrap_review.py
       - uses: actions/upload-artifact@v4

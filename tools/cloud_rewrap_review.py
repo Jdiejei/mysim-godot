@@ -2,6 +2,8 @@
 import os,pathlib,json,subprocess,hashlib,tempfile,re
 from cryptography.hazmat.primitives.ciphers import Cipher,algorithms,modes
 names=os.environ['REVIEW_ASSETS'].split(',')
+source_release=os.environ.get('REVIEW_SOURCE_RELEASE','repair-review-20261029')
+if not re.fullmatch(r'repair-review-[0-9]+(?:-[0-9]+)?',source_release):raise ValueError('Invalid bounded source review release')
 if not 1<=len(names)<=8 or len(set(names))!=len(names):raise ValueError('Select1to8distinct review assets')
 if any(not re.fullmatch(r'(game-review-[0-9-]+|sheets-[a-zA-Z0-9_-]+)\.enc',n) for n in names):raise ValueError('Only named encrypted review evidence is allowed')
 old=bytes.fromhex(os.environ['MYSIM_INTAKE_KEY']);new=bytes.fromhex(os.environ['MYSIM_REVIEW_KEY']);assert len(old)==len(new)==32 and old!=new
@@ -15,7 +17,7 @@ output=pathlib.Path('outputs/review-rewrap');output.mkdir(parents=True,exist_ok=
 with tempfile.TemporaryDirectory() as temp:
  root=pathlib.Path(temp)
  for name in names:
-  subprocess.run(['gh','release','download','repair-review-20261029','--repo',os.environ['GITHUB_REPOSITORY'],'--pattern',name,'--dir',temp],check=True)
+  subprocess.run(['gh','release','download',source_release,'--repo',os.environ['GITHUB_REPOSITORY'],'--pattern',name,'--dir',temp],check=True)
   source=root/name;target=output/('reviewkey-'+name);digest=hashlib.sha256()
   authenticated=False
   try:
