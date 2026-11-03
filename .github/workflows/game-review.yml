@@ -53,6 +53,7 @@ jobs:
         run: |
           python - <<'PY'
           import json,os,pathlib
+          assert os.environ['REVIEW_INPUT_DEPTH']!='native_mounted_laps' or os.environ['REVIEW_INPUT_CASE']=='shutdown','Named case manifests require native_geometry_recovery; native_mounted_laps runs all layouts and ignores case fields'
           assert os.environ["REVIEW_INPUT_CASE"]!="both_spin_suspension_regression" or os.environ["REVIEW_RIDE_ENABLED"]=="true","Suspension regression requires measured force-based setup"
           assert os.environ["LATER_SPIN_SETTINGS_VALID"]=="true","Later diagonal regression requires exact captured physics/planner settings"
           if os.environ['GEOMETRY_CASE_MANIFEST'].endswith('native_fleet_contact_replay.json'):assert os.environ['REPLAY_INPUT_RUN'] in ('41450839854','41467648085') and os.environ['REVIEW_INPUT_DEPTH']=='native_geometry_recovery','Fleet contact case requires exact preserved capture and replay-only recovery depth'
