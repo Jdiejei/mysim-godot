@@ -103,6 +103,7 @@ if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'1200','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':os.environ.get('NATIVE_AI_MODE','3') if os.environ.get('NATIVE_AI_ENABLED')=='1' else '3','MYSIM_NATIVE_GAMEPLAY_CHECKS':'1','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report),'MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json'))}
    if recovery is not None:
     case=next(x for x in recovery if x['car']==car and x['track']==track)
+    if case.get('gridStart'):values.update(MYSIM_GRID_START='1',MYSIM_TOUCH='0')
     if case.get('loadedWheelEvidence'):
      assert os.environ.get('NATIVE_RECORD_GAMEPLAY')=='1','Loaded visual evidence requires actual recorded gameplay'
      values.update(MYSIM_LOADED_WHEEL_EVIDENCE='1',MYSIM_TOUCH='0')
@@ -112,6 +113,13 @@ if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
    try:
     text=recorded_native_race(label,values) if os.environ.get('NATIVE_RECORD_GAMEPLAY')=='1' else run(label,values,['--headless'],timeout=1800);result=json.loads(report.read_text());ok=result['ok'] and 'PASS native force-driven valid lap and results UI' in text and 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text and 'RECONSTRUCTED_COMPONENT_MOUNTS' in text
     if recovery is not None and 'weather' in case:ok=ok and result['weatherProfile']==case['weather'] and result['tyreCompound']==case['compound'] and result['water']>0
+    if recovery is not None and case.get('gridStart'):
+     waiting=[sample for sample in result['telemetry'] if not sample['raceStarted']]
+     assert len(waiting)>50 and max(sample['elapsed'] for sample in waiting)>4.5,'Missing actual five-second native grid hold'
+     assert all(sample['gridHold'] and sample['appliedThrottle']==0 and sample['appliedBrake']==1 and sample['hybridForce']==0 and sample['raceClock']==0 for sample in waiting),'Native car deployed power or clock before lights out'
+     settled=[sample for sample in waiting if sample['elapsed']>=1]
+     assert settled and max(((sample['x']-settled[0]['x'])**2+(sample['z']-settled[0]['z'])**2)**.5 for sample in settled)<.15,'Native car crept more than15cm on grid after settling'
+     assert any(sample['raceStarted'] and not sample['gridHold'] and sample['raceClock']>0 for sample in result['telemetry']),'Native grid hold did not release'
     if recovery is not None and case.get('loadedWheelEvidence'):
      measured=[sample['loadedWheels'] for sample in result['telemetry'] if sample.get('loadedWheels')]
      assert len(measured)>100,'Missing loaded wheel time-series'
