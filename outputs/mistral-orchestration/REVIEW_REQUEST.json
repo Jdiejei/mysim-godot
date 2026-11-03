@@ -3,7 +3,7 @@
  "worker": "Mistral Vibe (sole, same session)",
  "repo": "instagramshashank8-bot/mysim-godot",
  "branch": "codex/repair-20261029",
- "head": "b0fa604",
+ "head": "18f69a1",
  "review_points": [
   {
    "id": "auth-403",
@@ -32,9 +32,10 @@
   }
  ],
  "live_run": {
-  "id": 41656712889,
-  "conclusion": "success",
-  "note": "fence_a2c at 6d2069a; ADOPTED per supervisor; no further A2C run"
+  "id": 41675023687,
+  "depth": "settings_persist_review",
+  "head": "18f69a1",
+  "display": "settings_persist_review cars 16 backend source 120Hz rotational false"
  },
  "assets_reviewed_manually_this_session": [],
  "standards": "GitHub-only engine compute; local manual evidence/metrics allowed; no git add .; originals/history/secrets preserved",
@@ -43,5 +44,10 @@
    "id": "settings-persist-cloud",
    "what": "SettingsPersistChecks cloud run at b0fa604 depth (distinct settings fixture, not fence render)"
   }
+ ],
+ "evidence": [
+  "run 41675023687 real dispatch (verified run URL+head)",
+  "18f69a1 contains Main.cs early hook, fixture, audit asserts",
+  "no fence reruns; sole worker"
  ]
 }

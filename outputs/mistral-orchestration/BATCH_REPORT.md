@@ -29,3 +29,8 @@
 - Settings.cs: BOTH unsafe direct cf.Save(Path) fallbacks removed (temp-write failure and rename failure now report and return with the old file intact); live path is GlobalizePath (absolute); tmp is an absolute same-directory sibling (same volume), kept on failure. Valid legacy file without schema_version preserved in place; marker stamped on next save only. Verified: single cf.Save call (tmp only), no cf.Save(P) anywhere, single Set/ApplyAudio, balanced braces.
 - SettingsPersistChecks.cs landed: aligned to Variant.As<T>() (no AsInt32/AsBool/AsDouble per 4.7.2 API).
 - cloud persistence tests: legacy typed keys (int/bool/string/double), foreign schema kept, first Set stamps version, corrupt boot typed defaults + file present, typed round-trip, REAL rename failure via read-only dir on Linux (old file byte-identical, tmp recovery kept), atomic success replace + no stray tmp. Pending cloud verify.
+
+## Persist fixture dispatch evidence (41675023687)
+- review-ready fixes landed at 18f69a1 (yml +4, Main.cs +1 early-exit hook, SettingsPersistChecks rewritten, audit +16), then dispatched: depth settings_persist_review, run 41675023687 queued at head 18f69a1... (verified via gh run list: databaseId 41675023687, head 18f69a1, displayTitle settings_persist_review cars 16 backend source 120Hz rotational false; local git HEAD match).
+- Cloud audit branch asserts the PASS/FAIL fixture contract and writes settings-persist-report.cfg; corrupt-shard phase guarded.
+- Fixture evidence (cases validated in the cloud run itself, not local): legacy typed keys, foreign schema kept, atomic replace, real rename failure vs live file, no temp-write fallback. Pending that run's report for acceptance.
