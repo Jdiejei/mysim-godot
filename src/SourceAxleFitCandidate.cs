@@ -21,6 +21,11 @@ public static class SourceAxleFitCandidate {
   }
   float shift=sum/4f;if(max-min>.65f)throw new InvalidOperationException("Front/rear source anchor proposals disagree");
   foreach(var wheel in wheels)wheel.Position+=Vector3.Back*shift;
+  // Mount reconstruction precedes axle fitting; these intact templates have
+  // not yet been reparented to BrakeAssembly. Keep their hub-relative pose.
+  foreach(var node in car.FindChildren("*","MeshInstance3D",true,false)){
+   var mesh=(MeshInstance3D)node;if(mesh.HasMeta("mounted_hub_index")&&mesh.GetMeta("mounted_hub_index").AsInt32()>=0)mesh.GlobalPosition+=car.GlobalBasis*(Vector3.Back*shift);
+  }
   GD.Print("SOURCE_AXLE_FIT car=",index," longitudinalShift=",shift," source-derived candidate; original wheelbase/track/radii preserved");
   if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_AXLE_REPORT") is string path)System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,longitudinalShift=shift,proposalSpread=max-min,rows,scope="Proposed shared axle translation from actual lower-strut outer vertex clusters; not manufacturer calibration or clearance acceptance"}));
  }

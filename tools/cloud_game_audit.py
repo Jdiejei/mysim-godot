@@ -168,12 +168,12 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
 if os.environ.get('CAR_PAINT_CANDIDATE')=='1':
- # Prior eight mounted compound closeups41577765419 are preserved; diagnose
- # actual body/guard intrusion at steering poses, without moving source parts.
+ # Prior41579183226 proves frontbumper/chassis intrusion; evaluate existing
+ # lower-strut-derived shared axle correction, preserving wheelbase/radii.
  for steer in (-28,0,28):
   for wheel in (0,1):
-   label=f'formula-mounted-clearance-steer-{steer}-wheel-{wheel}';shot=out/(label+'.png');fit=out/(label+'-fit.json')
-   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'0','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(fit),'MYSIM_COMPONENT_MOUNTS':'1','MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json')),'MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_LETTERING':'1','MYSIM_TYRE_LINEAR_REFLECTANCE':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_FLAT_TYRE_MARKINGS':'1','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
+   label=f'formula-source-axle-clearance-steer-{steer}-wheel-{wheel}';shot=out/(label+'.png');fit=out/(label+'-fit.json')
+   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'0','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(fit),'MYSIM_SOURCE_AXLE_FIT':'1','MYSIM_SOURCE_AXLE_REPORT':str(out/(label+'-axle.json')),'MYSIM_COMPONENT_MOUNTS':'1','MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json')),'MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_LETTERING':'1','MYSIM_TYRE_LINEAR_REFLECTANCE':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_FLAT_TYRE_MARKINGS':'1','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and fit.exists() and 'PASS complete visible wheel framing' in text and 'PASS wheel fit evidence' in text
    data=json.loads(fit.read_text());assert data['car']==16 and len(data['rows'])==4
  print('COMPLETE mounted source-component steering intrusion diagnostic; positive samples are failures to repair, not acceptance',flush=True);sys.exit(0)
