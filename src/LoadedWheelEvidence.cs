@@ -23,3 +23,4 @@ public static class LoadedWheelEvidence {
   return new{wheels=rows,scope="Actual transformed generated-rubber vertices against current native contact tangent plane; not curved-road intersections, swept clearance or suspension certification"};
  }
 }
+}
