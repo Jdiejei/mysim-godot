@@ -27,7 +27,7 @@ namespace MySim { public static class SettingsPersistChecks {
    seed.SetValue("game","last_track",7); seed.SetValue("game","mute",false); seed.SetValue("game","series_resume","places[]"); seed.SetValue("game","sensitivity",1.25);
    Check("legacy_seed_save",seed.Save(Live)==Error.Ok,"versionless typed file seeded");
    Check("legacy_readback",Settings.Get("last_track",-1)==7&&Settings.Get("mute",true)==false&&Settings.Get("series_resume","")=="places[]"&&Settings.Get("sensitivity",0.0)==1.25,"int/bool/string/double preserved from the versionless file");
-   Check("legacy_get_did_not_write_disk",Read(Live).IndexOf("schema_version",System.StringComparison.Ordinal)<0,"pure Get left the file without the marker");
+   Check("legacy_get_did_not_write_disk",Read(live).IndexOf("schema_version",System.StringComparison.Ordinal)<0,"pure Get left the file without the marker");
    Check("legacy_set_stamps",Settings.Set("probe",42),"first Set succeeded");
    var after=new ConfigFile();
    Check("legacy_marker_and_values_persisted",after.Load(Live)==Error.Ok&&Int(after,"schema_version",0)==Settings.SchemaVersion&&Int(after,"last_track",0)==7&&after.GetValue("game","series_resume","").AsString()=="places[]","marker stamped; prior values intact");
@@ -49,7 +49,7 @@ namespace MySim { public static class SettingsPersistChecks {
    var probeCfg=new ConfigFile();Error probeErr=probeCfg.Load(Live);
    int probeTrack=Int(probeCfg,"last_track",-1);bool probeMute=probeCfg.GetValue("game","mute",true).As<bool>();
    Check("corrupt_no_value_resurrection",probeTrack==-1&&probeMute==true,"fresh parser read of the SAME file resurrects no values (probe last_track="+probeTrack+", mute="+probeMute+")");
-   Check("corrupt_file_intact",Read(Live)=="{not a config","disk untouched by load attempts (bytes now: '"+Read(Live)+"')");
+   Check("corrupt_file_intact",Read(live)=="{not a config","disk untouched by load attempts (bytes now: '"+Read(live)+"')");
    Check("corrupt_load_error_evidence",true,"probe load result="+(int)probeErr+" (0=Ok; lenient parsers may accept junk lines without error)");
   }else if(scenario=="malformed"){
    var seed=new ConfigFile();
@@ -57,7 +57,7 @@ namespace MySim { public static class SettingsPersistChecks {
    Check("malformed_seed_save",seed.Save(Live)==Error.Ok,"wrong-typed values seeded");
    bool mk=Settings.Get("mute",true);int tk=Settings.Get("last_track",-1);double sk=Settings.Get("sensitivity",0.0);int mkv=Settings.Get("schema_version",0);
    Check("malformed_defaults_typed",tk==-1&&mk==true&&sk==0.0,"wrong types fall back to the typed default (observed last_track="+tk+", mute="+mk+", sensitivity="+sk+", schema marker in memory="+mkv+")");
-   Check("malformed_disk_untouched_by_get",Read(Live).IndexOf("schema_version",System.StringComparison.Ordinal)>=0&&Read(Live).IndexOf("last_track",System.StringComparison.Ordinal)>0,"pure Get did not rewrite or 'repair' the file");
+   Check("malformed_disk_untouched_by_get",Read(live).IndexOf("schema_version",System.StringComparison.Ordinal)>=0&&Read(Live).IndexOf("last_track",System.StringComparison.Ordinal)>0,"pure Get did not rewrite or 'repair' the file");
    bool setOk=Settings.Set("migrated-test",1);
    var mig=new ConfigFile();bool migOk=mig.Load(Live)==Error.Ok;
    Check("malformed_set_migrates_marker",setOk&&migOk&&Int(mig,"schema_version",0)==Settings.SchemaVersion&&Int(mig,"migrated-test",0)==1,"invalid marker MIGRATED to 2 by an explicit save (documented policy), values preserved");

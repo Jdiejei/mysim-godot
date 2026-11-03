@@ -260,10 +260,10 @@ if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  import shutil
  home_root=pathlib.Path('/tmp/mysim-persist-homes');shutil.rmtree(home_root,ignore_errors=True);home_root.mkdir(parents=True,exist_ok=True)
  scenarios=('legacy','foreign','corrupt','malformed','failures')
- required_cases={'legacy':('legacy_seed_save','legacy_readback','legacy_set_stamps','legacy_marker_and_values_persisted','atomic_replace_existing'),
+ required_cases={'legacy':('legacy_seed_save','legacy_readback','legacy_get_did_not_write_disk','legacy_set_stamps','legacy_marker_and_values_persisted','atomic_replace_saved','atomic_replace_final_bytes'),
   'foreign':('foreign_seed_save','foreign_readback','foreign_set_succeeds','foreign_marker_kept'),
-  'corrupt':('corrupt_defaults_typed','corrupt_no_crash','corrupt_reported_not_ok','corrupt_file_intact'),
-  'malformed':('malformed_seed_save','malformed_defaults_typed','malformed_disk_untouched_by_get','malformed_set_attempts_clean_path'),
+  'corrupt':('corrupt_defaults_typed','corrupt_no_crash','corrupt_no_value_resurrection','corrupt_file_intact','corrupt_load_error_evidence'),
+  'malformed':('malformed_seed_save','malformed_defaults_typed','malformed_disk_untouched_by_get','malformed_set_migrates_marker'),
   'failures':('baseline_saved','temp_failure_rejected','temp_no_tmp','temp_live_kept','rename_fault_rejected','rename_tmp_recovery_kept','rename_live_kept','atomic_success_after_faults')}
  summary={'scenarios':{}}
  for scenario in scenarios:
