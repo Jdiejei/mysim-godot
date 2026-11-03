@@ -7,7 +7,7 @@ public static class TrackCutoutDiagnostic {
  public static void Apply(Node3D track){
   string mode=System.Environment.GetEnvironmentVariable("MYSIM_TRACK_CUTOUT_DIAGNOSTIC");
   if(string.IsNullOrEmpty(mode))return;
-  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate"&&mode!="identity"&&mode!="fence_blend_candidate"&&mode!="fence_hash_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
+  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate"&&mode!="identity"&&mode!="fence_blend_candidate"&&mode!="fence_a2c_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
   var rows=new List<object>();
   if(mode=="filtered_metal_candidate"&&System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string evidence){
    System.IO.Directory.CreateDirectory(evidence);
@@ -29,8 +29,8 @@ public static class TrackCutoutDiagnostic {
     string textureName=System.IO.Path.GetFileName(source.AlbedoTexture?.ResourcePath??"");bool opaqueMetal=mode=="opaque_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
     bool filteredMetal=mode=="filtered_metal_candidate"&&textureName=="mat_metal_scafolding_d.png";
     bool blendFence=mode=="fence_blend_candidate"&&(textureName=="mat_fence_wire_04.png"||textureName=="mat_fence_small_wire_01.png"||textureName=="mat_fence_metal_catch_01.png");
-    bool hashFence=mode=="fence_hash_candidate"&&(textureName=="mat_fence_wire_04.png"||textureName=="mat_fence_small_wire_01.png"||textureName=="mat_fence_metal_catch_01.png");
-    if(mode=="identity"||mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal||blendFence||hashFence){
+    bool a2cFence=mode=="fence_a2c_candidate"&&(textureName=="mat_fence_wire_04.png"||textureName=="mat_fence_small_wire_01.png"||textureName=="mat_fence_metal_catch_01.png");
+    if(mode=="identity"||mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal||blendFence||a2cFence){
      material=(StandardMaterial3D)source.Duplicate();
      if(mode=="identity"){string path=source.AlbedoTexture?.ResourcePath??"";material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;material.AlbedoTexture=null;material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;material.AlbedoColor=path.Contains("/crowd/")?Colors.Red:path.Contains("/org/")?Colors.Green:path.Contains("/fence/")?Colors.Blue:path.Contains("scafolding")?Colors.Yellow:Colors.Magenta;}
      if(opaqueMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;
@@ -40,8 +40,8 @@ public static class TrackCutoutDiagnostic {
      // True fractional blending: unlike depth prepass, no binary alpha depth write.
      // Diagnostic only; inspect ordering and holes before any production adoption.
      if(blendFence){material.Transparency=BaseMaterial3D.TransparencyEnum.Alpha;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;}
-     // Hash dither keeps binary depth writes (no order/holes) but replaces hard mip-threshold flicker with a stochastic screen-door cutout.
-     if(hashFence){material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaScissor;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.AlphaToCoverageAndToOne;}
+     // Alpha-to-coverage keeps scissor depth writes (no order/holes): per-sample coverage dither over 4x MSAA replaces hard mip-threshold flicker. NOT alpha hashing.
+     if(a2cFence){material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaScissor;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.AlphaToCoverageAndToOne;}
      if(mode=="coverage_off")material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;
      if(mode=="specular_off"){material.Metallic=0;material.MetallicSpecular=0;material.ClearcoatEnabled=false;}
      if(mode=="unshaded")material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;

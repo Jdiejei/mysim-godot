@@ -239,19 +239,19 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
  filtered=os.environ.get('FENCE_FILTER_REVIEW')=='1'
  identity=os.environ.get('CUTOUT_IDENTITY_REVIEW')=='1'
- modes=['baseline']+(['identity'] if identity else (['fence_blend_candidate','fence_hash_candidate'] if filtered else ['opaque_metal_candidate']))
+ modes=['baseline']+(['identity'] if identity else (['fence_blend_candidate','fence_a2c_candidate'] if filtered else ['opaque_metal_candidate']))
  for mode in modes:
   label=('day0-filtered-fence-' if filtered else 'night25-cutout-')+mode;shot=out/(label+'.png')
   text=run(label,{'MYSIM_TRACK':'0' if filtered else '25','MYSIM_CAR':'16','MYSIM_TOD':'0' if filtered else '3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'0' if filtered else '1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_BINDING_AUDIT':str(out),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'TRACK_CUTOUT_DIAGNOSTIC' in text
  if filtered and not identity:
-  reports=[json.loads(path.read_text()) for path in sorted(list(out.rglob('cutout-*-fence_blend_candidate.json'))+list(out.rglob('cutout-*-fence_hash_candidate.json')))]
+  reports=[json.loads(path.read_text()) for path in sorted(list(out.rglob('cutout-*-fence_blend_candidate.json'))+list(out.rglob('cutout-*-fence_a2c_candidate.json')))]
   changed=[surface for report in reports for surface in report['surfaces'] if surface['sourceTransparency']!=surface['actualTransparency'] or surface['sourceAlphaAA']!=surface['actualAlphaAA']]
   assert changed,'Filtered fence diagnostic changed no actual surfaces'
   assert all(pathlib.Path(surface['texture']).name in ('mat_fence_wire_04.png','mat_fence_small_wire_01.png','mat_fence_metal_catch_01.png') for surface in changed),'Unexpected filtered surface change'
   assert all(surface['actualTransparency']=='Alpha' for surface in changed if surface['actualAlphaAA']=='Off'),'Blend candidate must use true Alpha'
-  assert all(surface['actualTransparency']=='AlphaScissor' and surface['actualAlphaAA']=='AlphaToCoverageAndToOne' for surface in changed if surface['actualTransparency']!='Alpha'),'Hash candidate must keep scissor depth with hash AA'
-  (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-hash scissor candidates; manual hole/order/alias review required'},indent=2))
+  assert all(surface['actualTransparency']=='AlphaScissor' and surface['actualAlphaAA']=='AlphaToCoverageAndToOne' for surface in changed if surface['actualTransparency']!='Alpha'),'A2C candidate must keep scissor depth with alpha-to-coverage'
+  (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-to-coverage scissor candidates; manual hole/order/alias review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard

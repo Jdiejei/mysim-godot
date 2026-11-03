@@ -4,10 +4,11 @@ namespace MySim {
 public static class Settings {
  const string Path = "user://settings.cfg"; const int SchemaVersion = 2; static ConfigFile cf = new ConfigFile(); static bool loaded;
  static void Load() { if (loaded) return; loaded = true;
-  if (cf.Load(Path) == Error.Ok) {
-   int v = cf.GetValue("game", "schema_version", SchemaVersion).As<int>();
-   if (v != SchemaVersion) { cf = new ConfigFile(); GD.PushWarning("SETTINGS_SCHEMA_MISMATCH dropped v" + v); } // Stale/corrupt state must not leak across sessions.
-  }
+  if (cf.Load(Path) != Error.Ok) { cf = new ConfigFile(); return; } // Unloadable file: fresh defaults; nothing was recoverable.
+  // Missing schema_version = valid legacy file: PRESERVE all values in place (migration, not reset); stamp the version marker on next Save.
+  // Explicit foreign version present: keep data too; type-safe defaults apply only where individual keys are unreadable. Never erase valid legacy settings merely because the marker is missing.
+  int v = cf.GetValue("game", "schema_version", 0).As<int>();
+  if (v != 0 && v != SchemaVersion) GD.PushWarning("SETTINGS_SCHEMA foreign v" + v + " KEPT; values preserved for migration");
  }
  public static T Get<[MustBeVariant] T>(string key, T def) { Load(); return cf.GetValue("game", key, Variant.From(def)).As<T>(); }
  public static void Set<[MustBeVariant] T>(string key, T v) { Load(); cf.SetValue("game", key, Variant.From(v)); cf.SetValue("game", "schema_version", SchemaVersion);

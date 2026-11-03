@@ -18,5 +18,7 @@
  },
  "overviewsAfter": 23962,
  "accepted": 0,
- "basis": "quantitative tile metrics from rewrap 41618971031; metadata flat order mapping; overview only, no quality acceptance"
+ "basis": "quantitative tile metrics from rewrap 41618971031; metadata flat order mapping; overview only, no quality acceptance",
+ "review_class": "machine_screened_only",
+ "review_class_note": "Quantitative tile metrics only; NO manual image inspection; does not count toward manual review coverage"
 }
