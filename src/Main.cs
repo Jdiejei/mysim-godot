@@ -60,11 +60,15 @@ public partial class Main : Node3D {
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_APPEARANCE_AUDIT") is string wheelAudit)WheelAppearanceAudit.Write(viewWheels,wheelAudit);
   if(System.Environment.GetEnvironmentVariable("MYSIM_CHIRON_WING_AUDIT") is string chironPath)ChironWingAttachmentAudit.Write(car,ci,chironPath,true);
   if(System.Environment.GetEnvironmentVariable("MYSIM_CAR_ASSEMBLY_AUDIT") is string assemblyPath)CarAssemblyAudit.Write(car,ci,assemblyPath);
+  SourceKingpinVisualCandidate.ReviewJoints(car,viewWheels,ci);
   var cam = new Camera3D { Fov = 40, Current = true, Position = new Vector3(5.2f, 1.8f, 5.6f) }; var cp = System.Environment.GetEnvironmentVariable("MYSIM_CAMPOS"); if (cp != null) { var q = cp.Split(','); cam.Position = new Vector3(float.Parse(q[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(q[2], System.Globalization.CultureInfo.InvariantCulture)); } AddChild(cam); cam.LookAt(new Vector3(0, 0.6f, 0));
   if(int.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_CLOSEUP"),out int wheelIndex)){
    var wheel=viewWheels[Mathf.Clamp(wheelIndex,0,3)];var target=wheel.GlobalPosition;float side=Mathf.Sign(target.X-car.GlobalPosition.X);
    bool oblique=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_OBLIQUE")=="1";cam.Position=target+new Vector3(side*1.05f,oblique?.48f:.16f,oblique?.70f:.25f);cam.Fov=38;cam.LookAt(target);FitCarView(cam,wheel,target,"wheel");
   }else if(System.Environment.GetEnvironmentVariable("MYSIM_FITVIEW")=="1")FitCarView(cam,car);
+  if(int.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_JOINT_VIEW_ANGLE"),out int jointAngle)){
+   var target=viewWheels[0].GlobalPosition;var offsets=new[]{new Vector3(-1.5f,.2f,0),new Vector3(-.4f,1.5f,0),new Vector3(-1.2f,.7f,-1)};if(jointAngle<0||jointAngle>=offsets.Length)throw new System.Exception("Invalid source joint view");cam.Position=target+offsets[jointAngle];cam.LookAt(target);FitCarView(cam,car,target,"source joints");
+  }
   for (int i = 0; i < 25; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
   GD.Print("CARVIEW_SAVE_BEGIN utc=",System.DateTime.UtcNow.ToString("O"));
   var saveError=GetViewport().GetTexture().GetImage().SavePng(System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? "carview.png");

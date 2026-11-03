@@ -2,13 +2,28 @@ using Godot;
 using System;
 using System.Collections.Generic;
 namespace MySim {
-// Reviewed W10/SF90 visual steering rig candidate. Derive the kingpin from intact source wishbone
+// Unaccepted W10/SF90 visual steering rig candidate. Derive the kingpin from intact source wishbone
 // outboard vertex clusters; never alter source buffers/UVs or native contact hubs/radii.
 public static class SourceKingpinVisualCandidate {
  static Vector3 Joint(Node3D car,string role){
   var inverse=car.GlobalTransform.AffineInverse();var points=new List<Vector3>();float outer=0;
   foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){var mesh=(MeshInstance3D)child;if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!mesh.Name.ToString().StartsWith(role,StringComparison.Ordinal))continue;var transform=inverse*mesh.GlobalTransform;for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){using var arrays=mesh.Mesh.SurfaceGetArrays(surface);foreach(var vertex in arrays[(int)Mesh.ArrayType.Vertex].AsVector3Array()){var point=transform*vertex;points.Add(point);outer=Mathf.Max(outer,Mathf.Abs(point.X));}}}
   if(points.Count==0||outer<.2f)throw new InvalidOperationException("Source kingpin joint role missing:"+role);var joint=Vector3.Zero;int samples=0;foreach(var point in points)if(Mathf.Abs(point.X)>=outer-.015f){joint+=point;samples++;}return joint/samples;
+ }
+ public static void ReviewJoints(Node3D car,Node3D[] wheels,int index){
+  if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_JOINT_REVIEW")!="1")return;
+  if(index!=16)throw new Exception("Joint review requires Formula16");
+  foreach(var node in car.FindChildren("*","MeshInstance3D",true,false)){
+   var mesh=(MeshInstance3D)node;string name=mesh.Name.ToString();bool lower=name.StartsWith("LOD_A_STRUT_LOWER_FRONT_LEFT"),upper=name.StartsWith("LOD_A_STRUT_UPPER_FRONT_LEFT");
+   if(!lower&&!upper&&!wheels[0].IsAncestorOf(mesh)){mesh.Visible=false;continue;}
+   if(lower||upper)mesh.MaterialOverride=new StandardMaterial3D{AlbedoColor=lower?new Color(.1f,.7f,.8f):new Color(.9f,.6f,.1f),Roughness=.7f,CullMode=BaseMaterial3D.CullModeEnum.Disabled};
+   else if(mesh.Name=="RebuiltRubberTyre")mesh.MaterialOverride=new StandardMaterial3D{AlbedoColor=new Color(.2f,.25f,.3f,.18f),Transparency=BaseMaterial3D.TransparencyEnum.Alpha,Roughness=.8f,CullMode=BaseMaterial3D.CullModeEnum.Disabled};
+  }
+  foreach(bool upper in new[]{false,true}){
+   var point=Joint(car,"LOD_A_STRUT_"+(upper?"UPPER":"LOWER")+"_FRONT_LEFT");
+   car.AddChild(new MeshInstance3D{Name=upper?"ProposedUpperJoint":"ProposedLowerJoint",Position=point,Mesh=new SphereMesh{Radius=.018f,Height=.036f},MaterialOverride=new StandardMaterial3D{AlbedoColor=upper?new Color(1,.2f,.1f):new Color(.1f,1,.2f),ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded}});
+  }
+  GD.Print("PASS isolated intact source wishbones and proposed joints; upperarm gold/redmarker, lowerarm cyan/greenmarker; not accepted kinematics");
  }
  public static void Apply(Node3D pivot,int wheel,float steering,float spinAngle){
   if(System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_KINGPIN_VISUAL")!="1"||wheel>=2)return;
