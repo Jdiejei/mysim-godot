@@ -7,7 +7,7 @@ public static class TrackCutoutDiagnostic {
  public static void Apply(Node3D track){
   string mode=System.Environment.GetEnvironmentVariable("MYSIM_TRACK_CUTOUT_DIAGNOSTIC");
   if(string.IsNullOrEmpty(mode))return;
-  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
+  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate"&&mode!="identity")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
   var rows=new List<object>();
   if(mode=="filtered_metal_candidate"&&System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string evidence){
    System.IO.Directory.CreateDirectory(evidence);
@@ -28,8 +28,9 @@ public static class TrackCutoutDiagnostic {
     cutout=true;var material=source;
     string textureName=System.IO.Path.GetFileName(source.AlbedoTexture?.ResourcePath??"");bool opaqueMetal=mode=="opaque_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
     bool filteredMetal=mode=="filtered_metal_candidate"&&textureName=="mat_metal_scafolding_d.png";
-    if(mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal){
+    if(mode=="identity"||mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal){
      material=(StandardMaterial3D)source.Duplicate();
+     if(mode=="identity"){string path=source.AlbedoTexture?.ResourcePath??"";material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;material.AlbedoTexture=null;material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;material.AlbedoColor=path.Contains("/crowd/")?Colors.Red:path.Contains("/org/")?Colors.Green:path.Contains("/fence/")?Colors.Blue:path.Contains("scafolding")?Colors.Yellow:Colors.Magenta;}
      if(opaqueMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;
      // Retain filtered fractional source alpha instead of binary thresholding mip levels.
      // Exact reference-track wire textures only: preserve holes, geometry, UVs and source colour.

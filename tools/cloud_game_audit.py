@@ -230,11 +230,12 @@ if os.environ.get('NIGHT_FIXTURE_AUDIT')=='1':
 if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
  filtered=os.environ.get('FENCE_FILTER_REVIEW')=='1'
- for mode in ('baseline','filtered_metal_candidate' if filtered else 'opaque_metal_candidate'):
+ identity=os.environ.get('CUTOUT_IDENTITY_REVIEW')=='1'
+ for mode in ('baseline','identity' if identity else 'filtered_metal_candidate' if filtered else 'opaque_metal_candidate'):
   label=('day0-filtered-fence-' if filtered else 'night25-cutout-')+mode;shot=out/(label+'.png')
   text=run(label,{'MYSIM_TRACK':'0' if filtered else '25','MYSIM_CAR':'16','MYSIM_TOD':'0' if filtered else '3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'0' if filtered else '1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_BINDING_AUDIT':str(out),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'TRACK_CUTOUT_DIAGNOSTIC' in text
- if filtered:
+ if filtered and not identity:
   reports=[json.loads(path.read_text()) for path in out.rglob('cutout-*-filtered_metal_candidate.json')]
   changed=[surface for report in reports for surface in report['surfaces'] if surface['sourceTransparency']!=surface['actualTransparency']]
   assert changed,'Filtered fence diagnostic changed no actual surfaces'
