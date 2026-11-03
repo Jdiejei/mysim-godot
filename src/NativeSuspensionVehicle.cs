@@ -48,7 +48,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public int CarIndex;public float HybridDriveForce;public DriverInput Controls;public bool TractionControl=true,BrakeStabilityAssist=true;public float Water;public Compound Compound=Compound.Medium;
  public readonly System.Collections.Generic.List<(CollisionShape3D Shape,int Hub)> MountedShapes=new();
  public override void _PhysicsProcess(double delta){foreach(var entry in MountedShapes){int hub=entry.Hub;var centre=RecoveredWheelCentres[hub];var rotation=new Basis(Vector3.Up,hub<2?WheelAngle:0);var offset=Vector3.Up*(RestLength-StaticSag-SpringLength[hub]);entry.Shape.Transform=new Transform3D(rotation,centre+offset-rotation*centre);}}
- public string[] ContactParts=Array.Empty<string>(),ContactSurfaces=Array.Empty<string>();public int ChassisContacts;public readonly Vector3[] ContactForces=new Vector3[4],ContactNormals=new Vector3[4];
+ public string[] ContactParts=Array.Empty<string>(),ContactSurfaces=Array.Empty<string>();public int ChassisContacts;public readonly Vector3[] ContactForces=new Vector3[4],ContactNormals=new Vector3[4],ContactPoints=new Vector3[4];
  public readonly bool[] Grounded=new bool[4];public readonly float[] Loads=new float[4];public readonly float[] SpringLength=new float[4];
  public Vector3[] RecoveredWheelCentres;public float[] RecoveredWheelRadii;
  public float SuspensionPreload;float bumpStopTravel=float.PositiveInfinity,bumpStopRate;public float WheelRadius=.33f,RestLength=.18f,StaticSag=.07f,DampingRatio=.7f;public int Contacts;public float WheelAngle;
@@ -93,7 +93,7 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
    Grounded[i]=false;Loads[i]=0;ContactForces[i]=Vector3.Zero;ContactNormals[i]=Vector3.Zero;SpringLength[i]=RestLength+.15f;var mount=pose*mounts[i];
    using var query=PhysicsRayQueryParameters3D.Create(mount,mount-up*(radii[i]+RestLength+SuspensionPreload+.15f),1);
    var hit=state.GetSpaceState().IntersectRay(query);if(hit.Count==0){FreeWheel(i,input,engine,state.Step);continue;}
-   var point=(Vector3)hit["position"];var normal=((Vector3)hit["normal"]).Normalized();ContactNormals[i]=normal;hit.Clear();
+   var point=(Vector3)hit["position"];var normal=((Vector3)hit["normal"]).Normalized();ContactNormals[i]=normal;ContactPoints[i]=point;hit.Clear();
    float length=Mathf.Max(0,mount.DistanceTo(point)-radii[i]);SpringLength[i]=length;
    var arm=point-pose.Origin;var velocity=state.GetVelocityAtLocalPosition(arm);
    float compression=RestLength+SuspensionPreload-StaticSag-length;float bumpForce=spring*bumpStopRate*Mathf.Max(0,compression-bumpStopTravel);float load=Mathf.Clamp(spring*(RestLength+SuspensionPreload-length)+bumpForce-damper*velocity.Dot(normal),0,Mass*gravity);if(load<=0){FreeWheel(i,input,engine,state.Step);continue;}
