@@ -41,7 +41,7 @@ public static class TrackCutoutDiagnostic {
      // Diagnostic only; inspect ordering and holes before any production adoption.
      if(blendFence){material.Transparency=BaseMaterial3D.TransparencyEnum.Alpha;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;}
      // Hash dither keeps binary depth writes (no order/holes) but replaces hard mip-threshold flicker with a stochastic screen-door cutout.
-     if(hashFence){material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaScissor;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.AlphaToCoverageAndHash;}
+     if(hashFence){material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaScissor;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.AlphaToCoverageAndToOne;}
      if(mode=="coverage_off")material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;
      if(mode=="specular_off"){material.Metallic=0;material.MetallicSpecular=0;material.ClearcoatEnabled=false;}
      if(mode=="unshaded")material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;

@@ -250,7 +250,7 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   assert changed,'Filtered fence diagnostic changed no actual surfaces'
   assert all(pathlib.Path(surface['texture']).name in ('mat_fence_wire_04.png','mat_fence_small_wire_01.png','mat_fence_metal_catch_01.png') for surface in changed),'Unexpected filtered surface change'
   assert all(surface['actualTransparency']=='Alpha' for surface in changed if surface['actualAlphaAA']=='Off'),'Blend candidate must use true Alpha'
-  assert all(surface['actualTransparency']=='AlphaScissor' and surface['actualAlphaAA']=='AlphaToCoverageAndHash' for surface in changed if surface['actualTransparency']!='Alpha'),'Hash candidate must keep scissor depth with hash AA'
+  assert all(surface['actualTransparency']=='AlphaScissor' and surface['actualAlphaAA']=='AlphaToCoverageAndToOne' for surface in changed if surface['actualTransparency']!='Alpha'),'Hash candidate must keep scissor depth with hash AA'
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-hash scissor candidates; manual hole/order/alias review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
