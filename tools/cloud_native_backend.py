@@ -1,7 +1,8 @@
 """CI-only physics backend experiment. Source project defaults are never changed by this tool's authoring commit."""
 import os,pathlib,json,re,subprocess,tempfile,hashlib
 backend=os.environ.get('NATIVE_PHYSICS_BACKEND','source');assert backend in ('source','jolt')
-distance=os.environ.get('NATIVE_SPECULATIVE_DISTANCE','0.02');assert distance in ('0.02','0.005')
+distance=os.environ.get('NATIVE_SPECULATIVE_DISTANCE','0.02');assert distance in ('0.02','0.005','0')
+if distance=='0':assert backend=='jolt' and os.environ.get('NATIVE_REPLAY_CAPTURE_RUN')=='41579600177','Zero speculative distance is restricted to the exact isolated captured-support comparison'
 penetration=os.environ.get('NATIVE_CCD_PENETRATION','0.01');assert penetration in ('0.01','0.1','0.25')
 face_evidence=os.environ.get('NATIVE_ROAD_FACE_EVIDENCE','0')=='1'
 legacy_edges=os.environ.get('NATIVE_LEGACY_INTERNAL_EDGES','0')=='1'
