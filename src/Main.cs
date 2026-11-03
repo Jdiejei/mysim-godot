@@ -56,6 +56,13 @@ public partial class Main : Node3D {
   if(System.Environment.GetEnvironmentVariable("MYSIM_REBUILT_BODY_PAINT")=="1")RecoveredBodyPaint.Apply(car,ci);
   if(System.Environment.GetEnvironmentVariable("MYSIM_NEUTRAL_CAR_MATERIAL")=="1"){var neutral=new StandardMaterial3D {AlbedoColor=new Color(.42f,.45f,.48f),Roughness=.65f,CullMode=BaseMaterial3D.CullModeEnum.Disabled};foreach(var n in car.FindChildren("*","MeshInstance3D",true,false)){var mesh=(MeshInstance3D)n;if(mesh.IsVisibleInTree())mesh.MaterialOverride=neutral;}}
   if(float.TryParse(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_STEER"),System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float fitSteer))WheelAnimation.Update(viewWheels,0,Mathf.DegToRad(fitSteer));
+  // Explicit evidence pose only: translate the assembled hubs through suspension travel.
+  // Body anchors remain fixed so disconnected/intersecting suspension stays visible.
+  if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_TRAVEL") is string travelText){
+   if(!float.TryParse(travelText,System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float travel)||!float.IsFinite(travel)||Mathf.Abs(travel)>.08f)throw new System.InvalidOperationException("Invalid wheel travel evidence pose");
+   for(int i=0;i<2;i++)viewWheels[i].Position+=Vector3.Up*travel;
+   GD.Print("WHEEL_TRAVEL_EVIDENCE frontMetres=",travel," body anchors fixed; diagnostic not suspension solution");
+  }
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_FIT_AUDIT") is string fitPath)WheelFitAudit.Write(car,viewWheels,ci,fitPath);
   if(System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_APPEARANCE_AUDIT") is string wheelAudit)WheelAppearanceAudit.Write(viewWheels,wheelAudit);
   if(System.Environment.GetEnvironmentVariable("MYSIM_CHIRON_WING_AUDIT") is string chironPath)ChironWingAttachmentAudit.Write(car,ci,chironPath,true);

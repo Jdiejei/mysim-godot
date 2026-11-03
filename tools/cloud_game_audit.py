@@ -174,11 +174,12 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
 if os.environ.get('CAR_PAINT_CANDIDATE')=='1':
  # Source-extrema kingpin41581350664 is rejected for excessive caster/tilt.
  # Rebuild arms between source body anchors and explicit authored upright.
- for steer in (-28,0,28):
-  for wheel in (0,1):
-   label=f'formula-rebuilt-suspension-steer-{steer}-wheel-{wheel}';shot=out/(label+'.png');fit=out/(label+'-fit.json')
-   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_SOURCE_AXLE_FIT':'1','MYSIM_SOURCE_AXLE_REPORT':str(out/(label+'-axle.json')),'MYSIM_SOURCE_KINGPIN_VISUAL':'1','MYSIM_REBUILT_F1_SUSPENSION':'1','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(fit),'MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
-   assert shot.exists() and fit.exists() and 'PASS complete visible wheel framing' in text and 'REBUILT_F1_SUSPENSION car=16' in text and 'PASS repeated component setup preserves fitted assembly car=16' in text
+ for travel in (-.04,.04):
+  for steer in (-28,0,28):
+   for wheel in (0,1):
+    label=f'formula-suspension-travel-{travel}-steer-{steer}-wheel-{wheel}';shot=out/(label+'.png');fit=out/(label+'-fit.json')
+    text=run(label,{'MYSIM_WHEEL_FIT_TRAVEL':str(travel),'MYSIM_CARVIEW':'16','MYSIM_SOURCE_AXLE_FIT':'1','MYSIM_SOURCE_AXLE_REPORT':str(out/(label+'-axle.json')),'MYSIM_SOURCE_KINGPIN_VISUAL':'1','MYSIM_REBUILT_F1_SUSPENSION':'1','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(fit),'MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
+    assert shot.exists() and fit.exists() and 'PASS complete visible wheel framing' in text and 'REBUILT_F1_SUSPENSION car=16' in text and 'PASS repeated component setup preserves fitted assembly car=16' in text
  print('COMPLETE authored suspension visual candidate; native contacts and full swept clearance remain unverified',flush=True);sys.exit(0)
 
 if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
