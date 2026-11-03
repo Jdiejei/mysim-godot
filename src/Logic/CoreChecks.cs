@@ -12,6 +12,15 @@ namespace MySimulator.Verification
         public static string Run()
         {
             count=0;var log=new List<string>();
+            // Actual41578470440 regression: five rear-bumper-only impacts were
+            // assigned front damage because deceleration points forwards.
+            var rearShares=ImpactDamageLocalization.Shares(new[]{"SourceBodyHull_LOD_A_REARBUMPER","SourceBodyHull_LOD_A_REARBUMPER"},0);
+            Check(rearShares[1]==1&&rearShares[0]==0,"Rear bumper contact damaged the front or multiplied manifold points");
+            var mixedShares=ImpactDamageLocalization.Shares(new[]{"SourceBodyHull_LOD_A_FRONTBUMPER","SourceBodyHull_LOD_A_REARBUMPER","SourceBodyHull_LOD_A_REARBUMPER"},0);
+            float shareTotal=0;foreach(float share in mixedShares)shareTotal+=share;
+            Check(mixedShares[0]==.5f&&mixedShares[1]==.5f&&shareTotal==1,"Mixed bumper event did not conserve total damage");
+            Check(ImpactDamageLocalization.Shares(new[]{"Unknown"},4)[4]==1&&ImpactDamageLocalization.Shares(Array.Empty<string>(),6)[6]==1,"Unknown contact lost explicit fallback region");
+
             var seriesTracks=new[]{0,1,0};var series=new RaceSeries(seriesTracks,0,2);seriesTracks[0]=3;Check(series.CurrentTrack==0,"Series aliases mutable setup input");series.FinishRound(2);Check(series.CurrentTrack==1&&series.Places[0]==2,"Series did not advance/preserve result");var resumedSeries=RaceSeries.Restore(series.Save());Check(resumedSeries.Round==1&&resumedSeries.CurrentTrack==1&&resumedSeries.Car==0&&resumedSeries.Laps==2&&resumedSeries.Places[0]==2,"Series resume lost configuration/progress");series.FinishRound(1);Check(series.CurrentTrack==0,"Repeated track round lost");series.FinishRound(3);Check(series.Complete&&series.Places.Count==3,"Series completion incorrect");var retiredSeries=new RaceSeries(new[]{0,1},16,1);retiredSeries.FinishRetiredRound();var restoredRetiredSeries=RaceSeries.Restore(retiredSeries.Save());Check(restoredRetiredSeries.Round==1&&restoredRetiredSeries.Places[0]==0&&restoredRetiredSeries.CurrentTrack==1,"Series lost DNF or incorrectly classified it");bool extraRound=false;try{series.FinishRound(1);}catch(InvalidOperationException){extraRound=true;}Check(extraRound,"Completed series accepted another result");
 
             foreach(int rate in new[]{30,60,120,240}){
