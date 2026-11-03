@@ -235,10 +235,10 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   text=run(label,{'MYSIM_TRACK':'0' if filtered else '25','MYSIM_CAR':'16','MYSIM_TOD':'0' if filtered else '3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'0' if filtered else '1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_BINDING_AUDIT':str(out),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'TRACK_CUTOUT_DIAGNOSTIC' in text
  if filtered:
-  reports=[json.loads(path.read_text()) for path in out.glob('cutout-*-filtered_metal_candidate.json')]
+  reports=[json.loads(path.read_text()) for path in out.rglob('cutout-*-filtered_metal_candidate.json')]
   changed=[surface for report in reports for surface in report['surfaces'] if surface['sourceTransparency']!=surface['actualTransparency']]
   assert changed,'Filtered fence diagnostic changed no actual surfaces'
-  assert all(surface['actualTransparency']=='AlphaDepthPrePass' and pathlib.Path(surface['texture']).name in ('mat_fence_metal_catch_01.png','mat_metal_scafolding_g.png') for surface in changed),'Unexpected filtered surface change'
+  assert all(surface['actualTransparency']=='AlphaDepthPrePass' and pathlib.Path(surface['texture']).name in ('mat_fence_wire_04.png','mat_fence_small_wire_01.png') for surface in changed),'Unexpected filtered surface change'
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Exact two-texture fractional-alpha comparison; manual hole/alias/depth review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':

@@ -16,12 +16,12 @@ public static class TrackCutoutDiagnostic {
     if(mesh.GetActiveMaterial(surface) is not StandardMaterial3D source||source.Transparency!=BaseMaterial3D.TransparencyEnum.AlphaScissor)continue;
     cutout=true;var material=source;
     string textureName=System.IO.Path.GetFileName(source.AlbedoTexture?.ResourcePath??"");bool opaqueMetal=mode=="opaque_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
-    bool filteredMetal=mode=="filtered_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
+    bool filteredMetal=mode=="filtered_metal_candidate"&&(textureName=="mat_fence_wire_04.png"||textureName=="mat_fence_small_wire_01.png");
     if(mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal){
      material=(StandardMaterial3D)source.Duplicate();
      if(opaqueMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;
      // Retain filtered fractional source alpha instead of binary thresholding mip levels.
-     // Exact two-texture experiment only: preserve holes, geometry, UVs and source colour.
+     // Exact reference-track wire textures only: preserve holes, geometry, UVs and source colour.
      if(filteredMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
      if(mode=="coverage_off")material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;
      if(mode=="specular_off"){material.Metallic=0;material.MetallicSpecular=0;material.ClearcoatEnabled=false;}
