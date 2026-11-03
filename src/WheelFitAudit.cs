@@ -26,7 +26,10 @@ public static class WheelFitAudit {
    if(!tyre.HasValue)throw new InvalidOperationException("Wheel fit audit has no visible tyre");
    var bounds=tyre.Value;var centre=bounds.GetCenter();float halfWidth=bounds.Size.X*.5f;var parts=new List<object>();var section=DrySection(spin);
    foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){
-    var mesh=(MeshInstance3D)child;string name=mesh.Name.ToString().ToUpperInvariant();if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!name.StartsWith("LOD_A_"))continue;bool wheelPart=false;foreach(var hub in wheels)if(hub.IsAncestorOf(mesh)){wheelPart=true;break;}if(wheelPart)continue;
+    var mesh=(MeshInstance3D)child;string name=mesh.Name.ToString().ToUpperInvariant();if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!name.StartsWith("LOD_A_"))continue;// Rubber/rim meshes rotate with Spin and are the reference envelope.
+    // Fixed hub-mounted guards/calipers must still be tested: skipping the
+    // entire hub silently omitted exactly the parts that can cut into tyres.
+    bool wheelPart=false;foreach(var hub in wheels)if(hub.GetNode<Node3D>("Spin").IsAncestorOf(mesh)){wheelPart=true;break;}if(wheelPart)continue;
     var transform=spin.GlobalTransform.AffineInverse()*mesh.GlobalTransform;int samples=0,inside=0;float deepest=0;
     void Probe(Vector3 p){samples++;float depth=MaterialDepth(p,section);if(depth>.001f){inside++;deepest=Mathf.Max(deepest,depth);}}
     for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){
@@ -37,7 +40,7 @@ public static class WheelFitAudit {
    }
    rows.Add(new {wheel=wheel.Name.ToString(),hub=new[]{wheel.Position.X,wheel.Position.Y,wheel.Position.Z},visualHubInCarFrame=new[]{(car.GlobalTransform.AffineInverse()*spin.GlobalPosition).X,(car.GlobalTransform.AffineInverse()*spin.GlobalPosition).Y,(car.GlobalTransform.AffineInverse()*spin.GlobalPosition).Z},sourceKingpin=wheel.HasMeta("source_kingpin_axis")?new{lower=wheel.GetMeta("source_kingpin_lower").AsVector3().ToString(),upper=wheel.GetMeta("source_kingpin_upper").AsVector3().ToString(),axis=wheel.GetMeta("source_kingpin_axis").AsVector3().ToString(),scope="Visual-only source-derived steering axis; native tyre contact hub/radius unchanged"}:null,yaw=wheel.Rotation.Y,radius,width=2*halfWidth,tyreCentreOffset=new[]{centre.X,centre.Y,centre.Z},dryRubberPenetrationSamples=parts});
   }
-  System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Body triangle samples against actual generated dry tyre cross-section, excluding hub void and rounded-sidewall gaps; positive samples only, not exhaustive triangle or swept-motion certification",rows},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));GD.Print("PASS wheel fit evidence");
+  System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Body and fixed hub-mounted source-component triangle samples against actual generated dry tyre cross-section, excluding rotating wheel meshes, hub void and rounded-sidewall gaps; positive samples only, not exhaustive triangle or swept-motion certification",rows},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));GD.Print("PASS wheel fit evidence");
  }
 }
 }

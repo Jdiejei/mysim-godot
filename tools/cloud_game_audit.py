@@ -168,14 +168,16 @@ if os.environ.get('NATIVE_SUSPENSION_TRACK')=='1':
  assert metadata.exists() and json.loads(metadata.read_text())['ok'] and 'PASS force-driven native track trial' in text
  print('COMPLETE isolated native real-track force trial; full-game acceptance separate',flush=True);sys.exit(0)
 if os.environ.get('CAR_PAINT_CANDIDATE')=='1':
- # Existing source-only baseline is41574450084; render only the integrated custom-wheel candidate.
- for candidate in ('1',):
-  for view in range(8):
-   wheel=(0,2)[view//4];compound=view%4;camera='4,2.5,4'
-   label=f'formula-mounted-wheel-{wheel}-compound-{compound}';shot=out/(label+'.png')
-   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':str(compound),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_COMPONENT_MOUNTS':'1','MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json')),'MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_REBUILT_RIMS':candidate,'MYSIM_REBUILT_TYRES':candidate,'MYSIM_WHEEL_LETTERING':candidate,'MYSIM_TYRE_LINEAR_REFLECTANCE':candidate,'MYSIM_REBUILT_BRAKES':candidate,'MYSIM_FLAT_TYRE_MARKINGS':candidate,'MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
-   assert shot.exists() and 'PASS complete visible wheel framing' in text and 'SURFACE_UV_REPAIR 16/LOD_A_BODY_mm_ext' in text
- print('COMPLETE paint candidate comparison; not art acceptance',flush=True);sys.exit(0)
+ # Prior eight mounted compound closeups41577765419 are preserved; diagnose
+ # actual body/guard intrusion at steering poses, without moving source parts.
+ for steer in (-28,0,28):
+  for wheel in (0,1):
+   label=f'formula-mounted-clearance-steer-{steer}-wheel-{wheel}';shot=out/(label+'.png');fit=out/(label+'-fit.json')
+   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(wheel),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_COMPOUND':'0','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_FIT_AUDIT':str(fit),'MYSIM_COMPONENT_MOUNTS':'1','MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json')),'MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_LETTERING':'1','MYSIM_TYRE_LINEAR_REFLECTANCE':'1','MYSIM_REBUILT_BRAKES':'1','MYSIM_FLAT_TYRE_MARKINGS':'1','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
+   assert shot.exists() and fit.exists() and 'PASS complete visible wheel framing' in text and 'PASS wheel fit evidence' in text
+   data=json.loads(fit.read_text());assert data['car']==16 and len(data['rows'])==4
+ print('COMPLETE mounted source-component steering intrusion diagnostic; positive samples are failures to repair, not acceptance',flush=True);sys.exit(0)
+
 if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
  transpose=os.environ.get('FORMULA_ATLAS_ORIENTATION')=='1'
  for channel in (('0',) if transpose or os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('0','1')):
