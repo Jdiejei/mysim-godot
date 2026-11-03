@@ -2,20 +2,23 @@ using Godot;
 namespace MySim {
 // Persistent settings (user://settings.cfg): last track/car/laps/camera, audio mute (default muted as requested).
 public static class Settings {
- const string Path = "user://settings.cfg"; const int SchemaVersion = 2; static ConfigFile cf = new ConfigFile(); static bool loaded;
+ const string P = "user://settings.cfg"; const int SchemaVersion = 2; static ConfigFile cf = new ConfigFile(); static bool loaded;
  static void Load() { if (loaded) return; loaded = true;
-  if (cf.Load(Path) != Error.Ok) { cf = new ConfigFile(); return; } // Unloadable file: fresh defaults; nothing was recoverable.
-  // Missing schema_version = valid legacy file: PRESERVE all values in place (migration, not reset); stamp the version marker on next Save.
-  // Explicit foreign version present: keep data too; type-safe defaults apply only where individual keys are unreadable. Never erase valid legacy settings merely because the marker is missing.
-  int v = cf.GetValue("game", "schema_version", 0).As<int>();
-  if (v != 0 && v != SchemaVersion) GD.PushWarning("SETTINGS_SCHEMA foreign v" + v + " KEPT; values preserved for migration");
+  if (cf.Load(P) != Error.Ok) { cf = new ConfigFile(); return; } // Unloadable file: fresh defaults; nothing was recoverable from it.
+  // Valid file WITHOUT schema_version = valid legacy state: PRESERVED in place (values and types untouched); the marker is stamped on the next Save. Never erase valid legacy settings merely because the marker is missing.
+  if (cf.GetValue("game", "schema_version", 0).As<int>() == 0) cf.SetValue("game", "schema_version", SchemaVersion);
  }
  public static T Get<[MustBeVariant] T>(string key, T def) { Load(); return cf.GetValue("game", key, Variant.From(def)).As<T>(); }
  public static void Set<[MustBeVariant] T>(string key, T v) { Load(); cf.SetValue("game", key, Variant.From(v)); cf.SetValue("game", "schema_version", SchemaVersion);
-  string tmp = Path + ".tmp"; // Same directory as Path, so the rename lands on the same volume and stays atomic.
-  if (cf.Save(tmp) != Error.Ok) { cf.Save(Path); return; } // Fall back to the direct write only if even the temp write failed.
-  using var dir = Godot.DirAccess.Open(ProjectSettings.GlobalizePath(Path).GetBaseDir());
-  if (dir == null || dir.Rename(tmp, Path) != Error.Ok) cf.Save(Path); // Crash mid-write must not corrupt settings; rename is atomic on the same volume, overwrites the existing file.
+  // Crash safety: the previous file is NEVER overwritten except by the atomic rename that fully replaces it. On ANY temp-save or rename failure the old file stays intact, the failure is reported and the sibling tmp copy is kept for manual recovery.
+  string live = ProjectSettings.GlobalizePath(P);
+  string tmp = live + ".tmp"; // Absolute same-directory sibling of the live file: the rename lands on the same volume and stays atomic, never a cross-volume copy.
+  Error tmpSave = cf.Save(tmp);
+  if (tmpSave != Error.Ok) { GD.PushError("SETTINGS_SAVE tmp=" + tmpSave + " old file kept, nothing replaced"); return; }
+  using var d = Godot.DirAccess.Open(System.IO.Path.GetDirectoryName(live));
+  if (d == null) { GD.PushError("SETTINGS_SAVE dir_open_failed old file kept; recovery copy=" + tmp); return; }
+  Error rename = d.Rename(tmp, live);
+  if (rename != Error.Ok) { GD.PushError("SETTINGS_SAVE rename=" + rename + " old file kept; recovery copy=" + tmp); return; }
  }
  public static void ApplyAudio() { bool mute = Get("mute", true); AudioServer.SetBusMute(0, mute); }
  // Desktop defaults to physical inputs; an explicit saved choice also wins on touch hardware.
