@@ -5,9 +5,11 @@ namespace MySim {
 // Measured alternate diagonal: diagnostic plus explicit opt-in full-race candidate. Defaults preserve source.
 public static class NativeSpinDiagonalExperiment {
  public static Vector3[] ApplyCandidate(Vector3[] source,string resource){
-  if(System.Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SPIN_DIAGONAL")!="1")return source;
+  var mode=System.Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SPIN_DIAGONAL");
+  if(mode!="1"&&mode!="2")return source;
   if(resource!="res://assets/Resources/brazil_circuit.txt"||System.Environment.GetEnvironmentVariable("MYSIM_INTERLAGOS_SEAM_WELD")!="2")throw new Exception("Spin diagonal candidate requires exact mode2 Interlagos source");
   var result=Build(source,Transform3D.Identity,out var evidence);
+  if(mode=="2"){result=Build(result,Transform3D.Identity,out var laterEvidence,10253,10667,14.390675f,.02);GD.Print("INTERLAGOS_LATER_SPIN_DIAGONAL candidate ",System.Text.Json.JsonSerializer.Serialize(laterEvidence));}
   GD.Print("INTERLAGOS_SPIN_DIAGONAL candidate ",System.Text.Json.JsonSerializer.Serialize(evidence));return result;
  }
  static double Cross(Vector3 a,Vector3 b,Vector3 c)=>(double)(b.X-a.X)*(c.Z-a.Z)-(double)(b.Z-a.Z)*(c.X-a.X);
