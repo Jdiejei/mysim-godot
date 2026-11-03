@@ -19,7 +19,7 @@ if depth=='source_fixture_probe':scopes[depth]=([16],[(25,28)[int(os.environ.get
 if depth=='source_fixture_lighting':scopes[depth]=([16],[(25,28)[int(os.environ.get('SHARD','0'))]])
 if depth=='night_rain_shutdown':scopes[depth]=([16],[28])
 if depth=='night_cutout_review':scopes[depth]=([16],[25])
-if depth=='fence_filter_review':scopes[depth]=([16],[0])
+if depth in ('fence_filter_review','cutout_identity_review'):scopes[depth]=([16],[0])
 if depth=='source_tyre_review':scopes[depth]=([],[])
 if depth=='night_light_review':scopes[depth]=([16],[(0,25,28)[int(os.environ.get('SHARD','0'))]])
 if depth=='native_geometry_recovery':
