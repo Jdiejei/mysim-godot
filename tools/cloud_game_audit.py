@@ -36,6 +36,8 @@ def recorded_native_race(label,values):
 if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
  supported_damage=capture_run=='41579600177'
+ speculative_zero=os.environ.get('REPLAY_SPECULATIVE_ZERO')=='1'
+ if speculative_zero:assert supported_damage and os.environ.get('REPLAY_LEGACY_EDGES','0')=='0','Speculative-distance ablation requires exact measured-support capture only'
  early_both_spin=capture_run in ('41574231413','41579600177')
  later_spin=capture_run=='41568745467'
  spin_replay=capture_run in ('41513037207','41568745467','41574231413','41579600177')
@@ -60,8 +62,8 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  if repaired_seam:assert data['car']==13 and data['configuration']['MYSIM_TRACK']=='4' and 'movedOccurrences=7 degenerateFacesRemoved=1' in capture.with_name('mounted-native-lap-track-04-car-13-1.log').read_text(),'Require actual repaired-seam capture'
  if source_plane_only:assert data['car']==17 and data['configuration']['MYSIM_TRACK']=='4' and data['configuration']['MYSIM_SOURCE_AXLE_FIT']=='0' and data['configuration']['MYSIM_COPLANAR_ROAD_CANDIDATE']=='0','Wrong fleet source configuration'
  assert data['schema']==2 and len(data['priorStates'])>=100,'Require damaging-event bounded capture, not initial settling'
- report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REPLAY_EARLY_BOTH_SPIN':'1' if early_both_spin else '0','MYSIM_REPLAY_LATER_SPIN':'1' if later_spin else '0','MYSIM_INTERLAGOS_SPIN_DIAGONAL':'2' if early_both_spin else '1' if later_spin else '0','MYSIM_REPLAY_UNDAMAGED_SPIN':'1' if spin_replay else '0','MYSIM_REPLAY_REPAIRED_SEAM':'1' if repaired_seam else '0','MYSIM_INTERLAGOS_SEAM_WELD':'2' if spin_replay else '1' if repaired_seam else '0','MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0'),'MYSIM_REPLAY_SOURCE_PLANE_ONLY':'1' if source_plane_only else '0'},['--headless'],timeout=180)
- result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1'
+ report=out/'reduced-contact-replay.json';text=run('reduced-contact-replay',{'MYSIM_REPLAY_SPECULATIVE_ZERO':'1' if speculative_zero else '0','MYSIM_REPLAY_EARLY_BOTH_SPIN':'1' if early_both_spin else '0','MYSIM_REPLAY_LATER_SPIN':'1' if later_spin else '0','MYSIM_INTERLAGOS_SPIN_DIAGONAL':'2' if early_both_spin else '1' if later_spin else '0','MYSIM_REPLAY_UNDAMAGED_SPIN':'1' if spin_replay else '0','MYSIM_REPLAY_REPAIRED_SEAM':'1' if repaired_seam else '0','MYSIM_INTERLAGOS_SEAM_WELD':'2' if spin_replay else '1' if repaired_seam else '0','MYSIM_REDUCED_CONTACT_CAPTURE':str(capture.resolve()),'MYSIM_REDUCED_CONTACT_REPORT':str(report),'MYSIM_REPLAY_INTERNAL_EDGE_ABLATION':os.environ.get('REPLAY_LEGACY_EDGES','0'),'MYSIM_REPLAY_SOURCE_PLANE_ONLY':'1' if source_plane_only else '0'},['--headless'],timeout=180)
+ result=json.loads(report.read_text());ablation=os.environ.get('REPLAY_LEGACY_EDGES')=='1' or speculative_zero
  assert (result['controlledSettingsAblation'] and result['controlledChanges']==1 and not result['settingsMatched'] if ablation else result['settingsMatched']) and len(result['trials'])==(2 if early_both_spin else 3 if spin_replay else 3 if repaired_seam else 4 if source_plane_only else 2 if ablation else 5) and 'COMPLETE reduced contact experiment' in text
  if source_plane_only:assert result['sourcePlaneOnly'] and result['sourceTopology'] and result['enhancedInternalEdgeRemoval']=='false' and result['car']==17 and result['track']==4,'Fleet replay topology/settings evidence missing'
  if ablation:assert result['sharpEdgeControl']['ok'] and 'PASS actual source-car perpendicular sharp-edge blockage/CCD controls' in text
