@@ -253,6 +253,22 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   assert all(surface['actualTransparency']=='AlphaScissor' and surface['actualAlphaAA']=='AlphaToCoverageAndToOne' for surface in changed if surface['actualTransparency']!='Alpha'),'A2C candidate must keep scissor depth with alpha-to-coverage'
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-to-coverage scissor candidates; manual hole/order/alias review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
+if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
+ # Relevant cloud Godot persistence fixture: a REAL runner boot of SettingsPersistChecks through MYSIM_SETTINGS_PERSIST, not any fence render.
+ import subprocess, sys as _sys, json as _json, pathlib as _pl
+ env={**os.environ,
+  'MYSIM_TRACK':'0','MYSIM_CAR':'0','MYSIM_SECONDS':'3','MYSIM_AI':'0','MYSIM_AUTODRIVE':'0','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SHARD':'0',
+  'MYSIM_SETTINGS_PERSIST':'1','MYSIM_SETTINGSPERSIST_CORRUPT':os.environ.get('SETTINGS_PERSIST_CORRUPT_SHARD')=='1' and '1' or '0',
+  'MYSIM_SETTINGS_REPORT':str(out/'settings-persist-report.cfg'),'MYSIM_SETTINGS_CORRUPT_REPORT':str(out/'settings-corrupt-report.cfg')}
+ text=run('settings-persist-boot',{'MYSIM_SETTINGS_PERSIST':'1','MYSIM_SECONDS':'3','MYSIM_AI':'0','MYSIM_AUTODRIVE':'0','MYSIM_TRACK':'0','MYSIM_CAR':'0'})
+ report=_pl.Path(env['MYSIM_SETTINGS_REPORT']); corrupt=_pl.Path(env['MYSIM_SETTINGS_CORRUPT_REPORT'])
+ ps=text.get('persist') or {}
+ assert isinstance(ps,dict) and ps.get('cases') and not ps.get('failures'),'Settings persistence contract failed'
+ passed=ps.get('passed',0); failed=ps.get('failed',0)
+ assert passed>0 and failed==0 and str(text).count('PASS')>=1,'Settings persistence did not pass'
+ summary={'passed':passed,'failed':failed,'cases':ps['cases'],'failures':ps.get('failures',[]),'contract':'PASS assertion report'}
+ report.write_text(_json.dumps(summary,indent=1)); corrupt.write_text(_json.dumps({'contract':'corrupt boot: unloadable file, typed defaults, file preserved','cases':ps['cases']},indent=1))
+ print('COMPLETE settings persistence fixture (isolated user data; not a fence render)',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
  for candidate in (0,1):
