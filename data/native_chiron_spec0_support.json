@@ -1,0 +1,9 @@
+{
+  "cases": [
+    {
+      "car": 20,
+      "track": 4
+    }
+  ],
+  "scope": "Distinct corrected wing assembly: enable existing source-deck supported rigid kit before hull baking and measured support; original failed source pose preserved, preload bound and strict gates unchanged."
+}
