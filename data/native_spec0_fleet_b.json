@@ -1,0 +1,37 @@
+{
+  "cases": [
+    {
+      "car": 8,
+      "track": 4
+    },
+    {
+      "car": 9,
+      "track": 4
+    },
+    {
+      "car": 10,
+      "track": 4
+    },
+    {
+      "car": 11,
+      "track": 4
+    },
+    {
+      "car": 12,
+      "track": 4
+    },
+    {
+      "car": 14,
+      "track": 4
+    },
+    {
+      "car": 15,
+      "track": 4
+    },
+    {
+      "car": 16,
+      "track": 4
+    }
+  ],
+  "scope": "Common corrected Jolt240/spec0, damage/rotational tyres/measured support enabled, untouched road and original axle profiles. Car13 exact completed case excluded. Strict gates preserved; dry AI only."
+}
