@@ -1,0 +1,17 @@
+{
+  "cases": [
+    {
+      "car": 0,
+      "track": 0,
+      "weather": 2,
+      "compound": 3
+    },
+    {
+      "car": 16,
+      "track": 0,
+      "weather": 2,
+      "compound": 3
+    }
+  ],
+  "scope": "Actual wet force-driven full laps with rain profile and wet tyres; actual runtime weather/compound/nonzero water required plus unchanged lap/damage/legal/reset gates. No graphics or real-world calibration acceptance."
+}

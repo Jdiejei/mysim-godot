@@ -101,8 +101,14 @@ if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
   for car in ([x['car'] for x in recovery if x['track']==track] if recovery is not None else cars):
    label=f'mounted-native-lap-track-{track:02}-car-{car:02}';report=out/(label+'.json')
    values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_LAPS':'1','MYSIM_SECONDS':'1200','MYSIM_RIVALS':'0','MYSIM_PRECISE_AI':os.environ.get('NATIVE_AI_MODE','3') if os.environ.get('NATIVE_AI_ENABLED')=='1' else '3','MYSIM_NATIVE_GAMEPLAY_CHECKS':'1','MYSIM_NATIVE_GAMEPLAY_REPORT':str(report),'MYSIM_COMPONENT_MOUNT_REPORT':str(out/(label+'-mounts.json'))}
+   if recovery is not None:
+    case=next(x for x in recovery if x['car']==car and x['track']==track)
+    if 'weather' in case:
+     assert isinstance(case['weather'],int) and 0<=case['weather']<=3 and isinstance(case['compound'],int) and 0<=case['compound']<=3,'Invalid explicit weather/tyre case'
+     values.update(MYSIM_WET=str(case['weather']),MYSIM_STARTING_COMPOUND=str(case['compound']))
    try:
     text=recorded_native_race(label,values) if os.environ.get('NATIVE_RECORD_GAMEPLAY')=='1' else run(label,values,['--headless'],timeout=1800);result=json.loads(report.read_text());ok=result['ok'] and 'PASS native force-driven valid lap and results UI' in text and 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text and 'RECONSTRUCTED_COMPONENT_MOUNTS' in text
+    if recovery is not None and 'weather' in case:ok=ok and result['weatherProfile']==case['weather'] and result['tyreCompound']==case['compound'] and result['water']>0
     if os.environ.get('INTERLAGOS_SEAM_WELD') in ('1','2'):ok=ok and 'INTERLAGOS_MEASURED_SEAM candidate' in text
     if os.environ.get('INTERLAGOS_SEAM_WELD')=='2':ok=ok and 'INTERLAGOS_SECOND_MEASURED_SEAM candidate' in text
     if os.environ.get('INTERLAGOS_SPIN_DIAGONAL') in ('1','2'):ok=ok and 'INTERLAGOS_SPIN_DIAGONAL candidate' in text
