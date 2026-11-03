@@ -2,12 +2,13 @@
 import os,pathlib,json,re,subprocess,tempfile,hashlib
 backend=os.environ.get('NATIVE_PHYSICS_BACKEND','source');assert backend in ('source','jolt')
 distance=os.environ.get('NATIVE_SPECULATIVE_DISTANCE','0.02');assert distance in ('0.02','0.005','0')
-if distance=='0':assert backend=='jolt' and os.environ.get('NATIVE_REPLAY_CAPTURE_RUN')=='41579600177','Zero speculative distance is restricted to the exact isolated captured-support comparison'
+zero_gameplay=distance=='0' and not os.environ.get('NATIVE_REPLAY_CAPTURE_RUN')
+if distance=='0':assert backend=='jolt' and (os.environ.get('NATIVE_REPLAY_CAPTURE_RUN')=='41579600177' or os.environ.get('NATIVE_EDGE_CONTROL_RUN')=='41583434987'),'Zero speculative distance requires exact captured replay or verified successful control'
 penetration=os.environ.get('NATIVE_CCD_PENETRATION','0.01');assert penetration in ('0.01','0.1','0.25')
 face_evidence=os.environ.get('NATIVE_ROAD_FACE_EVIDENCE','0')=='1'
 legacy_edges=os.environ.get('NATIVE_LEGACY_INTERNAL_EDGES','0')=='1'
 edge_control=None
-if legacy_edges:
+if legacy_edges or zero_gameplay:
  assert backend=='jolt','Edge algorithm comparison requires Jolt'
  if not os.environ.get('NATIVE_REPLAY_CAPTURE_RUN'):
   control_run=os.environ.get('NATIVE_EDGE_CONTROL_RUN','');assert control_run.isdigit(),'Gameplay comparison requires a completed sharp-edge control run'
@@ -15,10 +16,11 @@ if legacy_edges:
   status=json.loads(subprocess.check_output(['gh','run','view',control_run,'-R',repo,'--json','status,conclusion,headSha']))
   assert status['status']=='completed' and status['conclusion']=='success','Sharp-edge control is not successful and terminal'
   with tempfile.TemporaryDirectory(prefix='mysim-edge-control-') as folder:
-   subprocess.run(['gh','run','download',control_run,'-R',repo,'-n','game-runtime-8-attempt-1','-D',folder],check=True)
+   subprocess.run(['gh','run','download',control_run,'-R',repo,'-n',('game-runtime-4-attempt-1' if zero_gameplay else 'game-runtime-8-attempt-1'),'-D',folder],check=True)
    reports=list(pathlib.Path(folder).rglob('reduced-contact-replay.json'));assert len(reports)==1,'Require one exact control report'
    data=json.loads(reports[0].read_text());control=data.get('sharpEdgeControl',{})
-   assert data.get('controlledSettingsAblation') and data.get('controlledChanges')==1 and data.get('enhancedInternalEdgeRemoval')=='false' and not data.get('settingsMatched'),'Wrong edge ablation provenance'
+   assert data.get('controlledSettingsAblation') and data.get('controlledChanges')==1 and (data.get('speculativeAblation') if zero_gameplay else data.get('enhancedInternalEdgeRemoval')=='false') and not data.get('settingsMatched'),'Wrong edge ablation provenance'
+   if zero_gameplay:assert not legacy_edges and data.get('enhancedInternalEdgeRemoval')!='false','Speculative ablation must retain enhanced edge algorithm'
    assert control.get('ok') and control.get('car')==13 and sorted(row['speed'] for row in control['rows'])==[20,60,120],'Missing actual source-car corner speeds'
    assert all(row['ok'] and row['blocked'] and row['Finite'] and row['ccd'] and row['XWallContact'] and row['ZWallContact'] and row['MaximumPenetration']<=.05 for row in control['rows']),'Corner control failed'
    source=next(t for t in data['trials'] if t['kind']=='source-patch')['samples'][0];plane=next(t for t in data['trials'] if t['kind']=='matched-plane')['samples'][0]

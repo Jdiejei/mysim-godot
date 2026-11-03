@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: scope
         env:
-          LATER_SPIN_SETTINGS_VALID: ${{ (inputs.case_set != 'later_spin_diagonal_regression' && inputs.case_set != 'later_spin_contact_capture' && inputs.case_set != 'both_spin_suspension_regression') || (inputs.combined_slip_assist && inputs.vertical_road_plan && inputs.second_measured_seam && inputs.rotational_tyres && inputs.physics_backend == 'jolt' && inputs.physics_hz == '240' && inputs.ccd_penetration == '0.1' && inputs.speculative_distance == '0.02') }}
+          LATER_SPIN_SETTINGS_VALID: ${{ (inputs.case_set != 'later_spin_diagonal_regression' && inputs.case_set != 'later_spin_contact_capture' && inputs.case_set != 'both_spin_suspension_regression') || (inputs.combined_slip_assist && inputs.vertical_road_plan && inputs.second_measured_seam && inputs.rotational_tyres && inputs.physics_backend == 'jolt' && inputs.physics_hz == '240' && inputs.ccd_penetration == '0.1' && (inputs.speculative_distance == '0.02' || (inputs.speculative_distance == '0' && inputs.edge_gameplay_control_run == '41583434987'))) }}
           SPIN_REPLAY_CASE: ${{ inputs.case_set == 'spin_contact_capture' && '1' || '0' }}
           SEAM_WELD_CASE_ENABLE: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture' || inputs.case_set == 'spin_diagonal_regression' || inputs.case_set == 'later_spin_diagonal_regression' || inputs.case_set == 'later_spin_contact_capture' || inputs.case_set == 'both_spin_suspension_regression') && '1' || '0' }}
           SOURCE_AXLE_CASE_ENABLE: ${{ inputs.source_axle_fit && '1' || '0' }}
@@ -79,7 +79,7 @@ jobs:
         with: {dotnet-version: '8.0.x'}
       - name: Select explicit cloud-only native physics backend
         env:
-          NATIVE_LEGACY_INTERNAL_EDGES: ${{ (inputs.replay_legacy_edges || inputs.edge_gameplay_control_run != '' || inputs.case_set == 'fleet_contact_replay') && '1' || '0' }}
+          NATIVE_LEGACY_INTERNAL_EDGES: ${{ (inputs.replay_legacy_edges || (inputs.edge_gameplay_control_run != '' && inputs.speculative_distance != '0') || inputs.case_set == 'fleet_contact_replay') && '1' || '0' }}
           NATIVE_EDGE_CONTROL_RUN: ${{ inputs.edge_gameplay_control_run }}
           GH_TOKEN: ${{ github.token }}
           NATIVE_REPLAY_CAPTURE_RUN: ${{ inputs.replay_capture_run }}
