@@ -156,6 +156,7 @@ jobs:
           echo "VK_ICD_FILENAMES=$LVP" >> "$GITHUB_ENV"
           VK_ICD_FILENAMES="$LVP" xvfb-run -a vulkaninfo --summary > vulkaninfo.log 2>&1
           dotnet build -v quiet
+          GODOT_BIN="$GODOT_BIN"
           "$G" --headless --editor --path . --import > import.log 2>&1
       - name: Bake source body compound convex shapes on cloud only
         if: inputs.depth == 'chiron_wing_rebuild' || inputs.depth == 'native_ai_diagnostic' || inputs.depth == 'native_mounted_visual' || inputs.depth == 'native_retirement' || (inputs.depth == 'native_mounted_laps' || inputs.depth == 'native_geometry_recovery') || inputs.depth == 'native_mounted_gameplay' || (inputs.depth == 'native_traffic_lap' || (inputs.depth == 'native_traffic_diagnostic' || inputs.depth == 'native_ccd_diagnostic')) || inputs.depth == 'native_hull_recovery' || (inputs.depth == 'native_hull_ai_lap' || inputs.depth == 'native_gt_pit_diagnostic') || inputs.depth == 'native_hull_gameplay' || inputs.depth == 'native_hull_contact' || inputs.depth == 'native_hull_matrix'
@@ -172,6 +173,7 @@ jobs:
       - name: Render layouts and cars; test real scene transitions
         if: inputs.depth != 'route_parity'
         env:
+          MYSIM_GAME_BIN: ${{ env.GODOT_BIN }}
           SHARD: ${{ matrix.shard }}
           ROAD_COPLANAR_CANDIDATE: ${{ inputs.road_coplanar_candidate && '1' || '0' }}
           REPLAY_LEGACY_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}

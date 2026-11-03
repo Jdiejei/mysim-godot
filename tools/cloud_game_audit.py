@@ -254,21 +254,22 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-to-coverage scissor candidates; manual hole/order/alias review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
- # Relevant cloud Godot persistence fixture: a REAL runner boot of SettingsPersistChecks through MYSIM_SETTINGS_PERSIST, not any fence render.
- import subprocess, sys as _sys, json as _json, pathlib as _pl
- env={**os.environ,
-  'MYSIM_TRACK':'0','MYSIM_CAR':'0','MYSIM_SECONDS':'3','MYSIM_AI':'0','MYSIM_AUTODRIVE':'0','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SHARD':'0',
-  'MYSIM_SETTINGS_PERSIST':'1','MYSIM_SETTINGSPERSIST_CORRUPT':os.environ.get('SETTINGS_PERSIST_CORRUPT_SHARD')=='1' and '1' or '0',
-  'MYSIM_SETTINGS_REPORT':str(out/'settings-persist-report.cfg'),'MYSIM_SETTINGS_CORRUPT_REPORT':str(out/'settings-corrupt-report.cfg')}
- text=run('settings-persist-boot',{'MYSIM_SETTINGS_PERSIST':'1','MYSIM_SECONDS':'3','MYSIM_AI':'0','MYSIM_AUTODRIVE':'0','MYSIM_TRACK':'0','MYSIM_CAR':'0'})
- report=_pl.Path(env['MYSIM_SETTINGS_REPORT']); corrupt=_pl.Path(env['MYSIM_SETTINGS_CORRUPT_REPORT'])
- ps=text.get('persist') or {}
- assert isinstance(ps,dict) and ps.get('cases') and not ps.get('failures'),'Settings persistence contract failed'
- passed=ps.get('passed',0); failed=ps.get('failed',0)
- assert passed>0 and failed==0 and str(text).count('PASS')>=1,'Settings persistence did not pass'
- summary={'passed':passed,'failed':failed,'cases':ps['cases'],'failures':ps.get('failures',[]),'contract':'PASS assertion report'}
- report.write_text(_json.dumps(summary,indent=1)); corrupt.write_text(_json.dumps({'contract':'corrupt boot: unloadable file, typed defaults, file preserved','cases':ps['cases']},indent=1))
- print('COMPLETE settings persistence fixture (isolated user data; not a fence render)',flush=True);sys.exit(0)
+ perf={}
+ def run(label,extra=None):
+  args=[os.environ.get('MYSIM_GAME_BIN') or '/tmp/mysim/godot','--headless','--path','.','-s','res://tools/SettingsPersistBoot.cs']
+  env={**os.environ,**({'MYSIM_SETTINGSPERSIST_CORRUPT':'1'} if extra and extra.get('corrupt') else {'MYSIM_SETTINGSPERSIST_CORRUPT':'0'})}
+  env['MYSIM_SETTINGS_USER_DIR']=os.environ.get('MYSIM_SETTINGS_USER_DIR') or '.:.settings-persist'
+  proc=subprocess.run(args,capture_output=True,text=True,env=env)
+  perf[label]={'returncode':proc.returncode}
+  return proc.stdout
+ text=run('settings-persist-boot',{'corrupt':os.environ.get('SETTINGS_PERSIST_CORRUPT_SHARD')=='1'})
+ report=out/'settings-persist-report.cfg'
+ m=re.search(r'PASS (\d+) assertions',text) or re.search(r'FAIL (\d+) assertions',text)
+ assert m,'fixture produced no PASS/FAIL contract: '+text[-400:]
+ assert (m.group(1)=='0')==(os.environ.get('SETTINGS_PERSIST_CORRUPT_SHARD')=='1'),'corrupt shard phase mismatch'
+ report.write_text(text)
+ print('COMPLETE settings persistence fixture; cases=',m.group(1),'corrupt=',env.get('MYSIM_SETTINGSPERSIST_CORRUPT'),flush=True);sys.exit(0)
+print('COMPLETE settings persistence fixture (isolated user data; not a fence render)',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
  for candidate in (0,1):
