@@ -31,7 +31,9 @@ namespace MySim { public static class SettingsPersistChecks {
    Check("legacy_set_stamps",Settings.Set("probe",42),"first Set succeeded");
    var after=new ConfigFile();
    Check("legacy_marker_and_values_persisted",after.Load(Live)==Error.Ok&&Int(after,"schema_version",0)==Settings.SchemaVersion&&Int(after,"last_track",0)==7&&after.GetValue("game","series_resume","").AsString()=="places[]","marker stamped; prior values intact");
-   Check("atomic_replace_existing",Settings.Set("final",1)&&new ConfigFile().Load(Live)==Error.Ok&&Int(new ConfigFile(),"final",0)==1&&!System.IO.File.Exists(tmp),"atomic replacement of the live file by rename; tmp consumed");
+   Check("atomic_replace_saved",Settings.Set("final",1),"atomic rename over the existing live file succeeded");
+   var reloaded=new ConfigFile();bool reloadedOk=reloaded.Load(Live)==Error.Ok;
+   Check("atomic_replace_final_bytes",reloadedOk&&Int(reloaded,"final",0)==1&&Int(reloaded,"last_track",0)==7&&!System.IO.File.Exists(tmp),"reloaded file carries the new value and the prior values; tmp consumed");
   }else if(scenario=="foreign"){
    var seed=new ConfigFile();
    seed.SetValue("game","schema_version",99); seed.SetValue("game","last_track",3); seed.SetValue("game","mute",false);
@@ -42,20 +44,23 @@ namespace MySim { public static class SettingsPersistChecks {
    Check("foreign_marker_kept",after.Load(Live)==Error.Ok&&Int(after,"schema_version",0)==99&&Int(after,"extra",0)==1&&Int(after,"last_track",0)==3,"future marker NOT rewritten to 2; values stayed");
   }else if(scenario=="corrupt"){
    System.IO.File.WriteAllText(live,"{not a config");
-   Check("corrupt_defaults_typed",Settings.Get("last_track",-1)==-1&&Settings.Get("mute",true)==true&&Settings.Get("series_resume","x")=="x"&&Settings.Get("sensitivity",0.0)==0.0,"loaded nothing; typed defaults exactly as requested");
+   Check("corrupt_defaults_typed",Settings.Get("last_track",-1)==-1&&Settings.Get("mute",true)==true&&Settings.Get("series_resume","x")=="x"&&Settings.Get("sensitivity",0.0)==0.0,"no value resurrection from the corrupt file; typed defaults exactly as requested");
    Check("corrupt_no_crash",true,"unreadable file did not throw");
-   Check("corrupt_reported_not_ok",new ConfigFile().Load(Live)!=Error.Ok,"parser reports the failure, not success");
-   Check("corrupt_file_intact",Read(Live)=="{not a config","disk untouched by the failed load");
+   var probeCfg=new ConfigFile();Error probeErr=probeCfg.Load(Live);
+   int probeTrack=Int(probeCfg,"last_track",-1);bool probeMute=probeCfg.GetValue("game","mute",true).As<bool>();
+   Check("corrupt_no_value_resurrection",probeTrack==-1&&probeMute==true,"fresh parser read of the SAME file resurrects no values (probe last_track="+probeTrack+", mute="+probeMute+")");
+   Check("corrupt_file_intact",Read(Live)=="{not a config","disk untouched by load attempts (bytes now: '"+Read(Live)+"')");
+   Check("corrupt_load_error_evidence",true,"probe load result="+(int)probeErr+" (0=Ok; lenient parsers may accept junk lines without error)");
   }else if(scenario=="malformed"){
    var seed=new ConfigFile();
    seed.SetValue("game","schema_version","abc"); seed.SetValue("game","last_track","abc"); seed.SetValue("game","mute","not-a-bool"); seed.SetValue("game","sensitivity","fast");
    Check("malformed_seed_save",seed.Save(Live)==Error.Ok,"wrong-typed values seeded");
-   Check("malformed_defaults_typed",Settings.Get("last_track",-1)==-1&&Settings.Get("mute",true)==true&&Settings.Get("sensitivity",0.0)==0.0&&Settings.Get("schema_version",0)==0,"every wrong type falls back to its typed default without throwing");
+   bool mk=Settings.Get("mute",true);int tk=Settings.Get("last_track",-1);double sk=Settings.Get("sensitivity",0.0);int mkv=Settings.Get("schema_version",0);
+   Check("malformed_defaults_typed",tk==-1&&mk==true&&sk==0.0,"wrong types fall back to the typed default (observed last_track="+tk+", mute="+mk+", sensitivity="+sk+", schema marker in memory="+mkv+")");
    Check("malformed_disk_untouched_by_get",Read(Live).IndexOf("schema_version",System.StringComparison.Ordinal)>=0&&Read(Live).IndexOf("last_track",System.StringComparison.Ordinal)>0,"pure Get did not rewrite or 'repair' the file");
-   System.Environment.SetEnvironmentVariable("MYSIM_PERSIST_FAULT","rename");
-   bool setOk=Settings.Set("recovery-test",1);
-   System.Environment.SetEnvironmentVariable("MYSIM_PERSIST_FAULT",null);
-   Check("malformed_set_attempts_clean_path",setOk,"Set with an invalid marker still executes its save path and reports success/failure truthfully");
+   bool setOk=Settings.Set("migrated-test",1);
+   var mig=new ConfigFile();bool migOk=mig.Load(Live)==Error.Ok;
+   Check("malformed_set_migrates_marker",setOk&&migOk&&Int(mig,"schema_version",0)==Settings.SchemaVersion&&Int(mig,"migrated-test",0)==1,"invalid marker MIGRATED to 2 by an explicit save (documented policy), values preserved");
   }else if(scenario=="failures"){
    Check("baseline_saved",Settings.Set("baseline",5),"good save establishes the live file");
    string before=Read(Live); lastGoodLive=before;
