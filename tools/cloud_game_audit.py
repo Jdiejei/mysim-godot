@@ -238,7 +238,7 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   reports=[json.loads(path.read_text()) for path in out.rglob('cutout-*-filtered_metal_candidate.json')]
   changed=[surface for report in reports for surface in report['surfaces'] if surface['sourceTransparency']!=surface['actualTransparency']]
   assert changed,'Filtered fence diagnostic changed no actual surfaces'
-  assert all(surface['actualTransparency']=='AlphaDepthPrePass' and pathlib.Path(surface['texture']).name in ('mat_fence_wire_04.png','mat_fence_small_wire_01.png') for surface in changed),'Unexpected filtered surface change'
+  assert all(surface['actualTransparency']=='AlphaDepthPrePass' and pathlib.Path(surface['texture']).name in ('mat_metal_scafolding_d.png',) for surface in changed),'Unexpected filtered surface change'
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Exact two-texture fractional-alpha comparison; manual hole/alias/depth review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':

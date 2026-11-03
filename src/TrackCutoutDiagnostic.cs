@@ -9,6 +9,17 @@ public static class TrackCutoutDiagnostic {
   if(string.IsNullOrEmpty(mode))return;
   if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
   var rows=new List<object>();
+  if(mode=="filtered_metal_candidate"&&System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string evidence){
+   System.IO.Directory.CreateDirectory(evidence);
+   var texture=GD.Load<Texture2D>("res://assets/RealRacing/RecoveredNativeTextures/common/mat/metal/mat_metal_scafolding_d.png");
+   using var original=texture.GetImage();using var alpha=Image.CreateEmpty(original.GetWidth(),original.GetHeight(),false,Image.Format.Rgba8);
+   var histogram=new int[256];
+   for(int y=0;y<original.GetHeight();y++)for(int x=0;x<original.GetWidth();x++){
+    float a=original.GetPixel(x,y).A;histogram[Mathf.Clamp(Mathf.RoundToInt(a*255),0,255)]++;alpha.SetPixel(x,y,new Color(a,a,a,1));
+   }
+   alpha.SavePng(System.IO.Path.Combine(evidence,"grandstand-scaffold-d-source-alpha.png"));
+   System.IO.File.WriteAllText(System.IO.Path.Combine(evidence,"grandstand-scaffold-d-source-alpha.json"),System.Text.Json.JsonSerializer.Serialize(new{width=original.GetWidth(),height=original.GetHeight(),histogram,scope="Actual imported source alpha channel; no source mutation or inferred authoring semantics"}));
+  }
   foreach(var node in track.FindChildren("*","MeshInstance3D",true,false)){
    var mesh=(MeshInstance3D)node;if(mesh.Mesh==null||!mesh.IsVisibleInTree())continue;
    bool cutout=false;
@@ -16,7 +27,7 @@ public static class TrackCutoutDiagnostic {
     if(mesh.GetActiveMaterial(surface) is not StandardMaterial3D source||source.Transparency!=BaseMaterial3D.TransparencyEnum.AlphaScissor)continue;
     cutout=true;var material=source;
     string textureName=System.IO.Path.GetFileName(source.AlbedoTexture?.ResourcePath??"");bool opaqueMetal=mode=="opaque_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
-    bool filteredMetal=mode=="filtered_metal_candidate"&&(textureName=="mat_fence_wire_04.png"||textureName=="mat_fence_small_wire_01.png");
+    bool filteredMetal=mode=="filtered_metal_candidate"&&textureName=="mat_metal_scafolding_d.png";
     if(mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal){
      material=(StandardMaterial3D)source.Duplicate();
      if(opaqueMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;
