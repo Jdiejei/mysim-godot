@@ -170,7 +170,7 @@ jobs:
           ROAD_COPLANAR_CANDIDATE: ${{ inputs.road_coplanar_candidate && '1' || '0' }}
           REPLAY_LEGACY_EDGES: ${{ inputs.replay_legacy_edges && '1' || '0' }}
           INTERLAGOS_SPIN_DIAGONAL: ${{ inputs.case_set == 'spin_diagonal_regression' && '1' || '0' }}
-          CONTACT_CAPTURE_AFTER: ${{ inputs.case_set == 'spin_contact_capture' && '55' || '0' }}
+          CONTACT_CAPTURE_AFTER: ${{ inputs.case_set == 'spin_contact_capture' && '55' || inputs.case_set == 'spin_diagonal_regression' && '245' || '0' }}
           NATIVE_COMBINED_ASSIST: ${{ inputs.combined_slip_assist && '1' || '0' }}
           INTERLAGOS_SEAM_WELD: ${{ (inputs.case_set == 'seam_weld_regression' || inputs.case_set == 'spin_contact_capture' || inputs.case_set == 'spin_diagonal_regression') && (inputs.second_measured_seam && '2' || '1') || '0' }}
           REPLAY_SOURCE_PLANE_ONLY: ${{ inputs.case_set == 'fleet_contact_replay' && '1' || '0' }}
