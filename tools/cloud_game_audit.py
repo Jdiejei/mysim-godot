@@ -35,9 +35,10 @@ def recorded_native_race(label,values):
  return record(run,out,label,values,os.environ.get('NATIVE_VISUAL_RENDERER','gl_compatibility'))
 if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture_run=os.environ['REPLAY_CAPTURE_RUN'];assert capture_run.isdigit(),'Invalid capture run ID'
- early_both_spin=capture_run=='41574231413'
+ supported_damage=capture_run=='41579600177'
+ early_both_spin=capture_run in ('41574231413','41579600177')
  later_spin=capture_run=='41568745467'
- spin_replay=capture_run in ('41513037207','41568745467','41574231413')
+ spin_replay=capture_run in ('41513037207','41568745467','41574231413','41579600177')
  repaired_seam=capture_run=='41467648085'
  source_plane_only=os.environ.get('REPLAY_SOURCE_PLANE_ONLY')=='1' and not repaired_seam
  if repaired_seam:assert shard==4 and os.environ.get('REPLAY_LEGACY_EDGES','0')=='0','Repaired seam requires exact shard/settings'
@@ -54,6 +55,7 @@ if os.environ.get('REPLAY_CAPTURE_RUN'):
  capture=candidates[0];data=json.loads(capture.read_text());
  if spin_replay:assert shard==4 and data['car']==13 and data['configuration']['MYSIM_TRACK']=='4' and data['configuration']['MYSIM_INTERLAGOS_SEAM_WELD']=='2' and data['captureTrigger'].startswith('Opt-in bounded DriveSurface spin diagnostic'),'Require exact undamaged spin capture'
  if early_both_spin:assert data['configuration']['MYSIM_INTERLAGOS_SPIN_DIAGONAL']=='2' and data['configuration']['MYSIM_CONTACT_CAPTURE_AFTER']=='55','Require exact early mode2 capture'
+ if supported_damage:assert data['bodyConfiguration']['DamageEnabled'] and data['configuration']['MYSIM_NATIVE_RIDE_HEIGHT']=='1' and abs(data['bodyConfiguration']['SuspensionPreload']-.0040999986)<.000001,'Require exact measured-support damage-enabled capture'
  if later_spin:assert data['configuration']['MYSIM_INTERLAGOS_SPIN_DIAGONAL']=='1' and data['configuration']['MYSIM_CONTACT_CAPTURE_AFTER']=='245','Require exact later diagonal candidate capture'
  if repaired_seam:assert data['car']==13 and data['configuration']['MYSIM_TRACK']=='4' and 'movedOccurrences=7 degenerateFacesRemoved=1' in capture.with_name('mounted-native-lap-track-04-car-13-1.log').read_text(),'Require actual repaired-seam capture'
  if source_plane_only:assert data['car']==17 and data['configuration']['MYSIM_TRACK']=='4' and data['configuration']['MYSIM_SOURCE_AXLE_FIT']=='0' and data['configuration']['MYSIM_COPLANAR_ROAD_CANDIDATE']=='0','Wrong fleet source configuration'
