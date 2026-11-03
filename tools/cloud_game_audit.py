@@ -254,21 +254,39 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-to-coverage scissor candidates; manual hole/order/alias review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
- perf={}
- def run(label,extra=None):
-  args=[os.environ.get('MYSIM_GAME_BIN') or '/tmp/mysim/godot','--headless','--path','.','-s','res://tools/SettingsPersistBoot.cs']
-  env={**os.environ,**({'MYSIM_SETTINGSPERSIST_CORRUPT':'1'} if extra and extra.get('corrupt') else {'MYSIM_SETTINGSPERSIST_CORRUPT':'0'})}
-  env['MYSIM_SETTINGS_USER_DIR']=os.environ.get('MYSIM_SETTINGS_USER_DIR') or '.:.settings-persist'
-  proc=subprocess.run(args,capture_output=True,text=True,env=env)
-  perf[label]={'returncode':proc.returncode}
-  return proc.stdout
- text=run('settings-persist-boot',{'corrupt':os.environ.get('SETTINGS_PERSIST_CORRUPT_SHARD')=='1'})
- report=out/'settings-persist-report.cfg'
- m=re.search(r'PASS (\d+) assertions',text) or re.search(r'FAIL (\d+) assertions',text)
- assert m,'fixture produced no PASS/FAIL contract: '+text[-400:]
- assert (m.group(1)=='0')==(os.environ.get('SETTINGS_PERSIST_CORRUPT_SHARD')=='1'),'corrupt shard phase mismatch'
- report.write_text(text)
- print('COMPLETE settings persistence fixture; cases=',m.group(1),'corrupt=',env.get('MYSIM_SETTINGSPERSIST_CORRUPT'),flush=True);sys.exit(0)
+ # Settings persistence fixture orchestrator: one workflow dispatch runs ALL scenarios, each as a FRESH
+ # Godot process with ISOLATED user data (per-scenario HOME/XDG_DATA_HOME on Linux; Windows acceptance of
+ # atomic replacement stays a separate later requirement per review). Uses the shared run() helper only.
+ import shutil
+ home_root=pathlib.Path('/tmp/mysim-persist-homes');shutil.rmtree(home_root,ignore_errors=True);home_root.mkdir(parents=True,exist_ok=True)
+ scenarios=('legacy','foreign','corrupt','malformed','failures')
+ required_cases={'legacy':('legacy_seed_save','legacy_readback','legacy_set_stamps','legacy_marker_and_values_persisted','atomic_replace_existing'),
+  'foreign':('foreign_seed_save','foreign_readback','foreign_set_succeeds','foreign_marker_kept'),
+  'corrupt':('corrupt_defaults_typed','corrupt_no_crash','corrupt_reported_not_ok','corrupt_file_intact'),
+  'malformed':('malformed_seed_save','malformed_defaults_typed','malformed_disk_untouched_by_get','malformed_set_attempts_clean_path'),
+  'failures':('baseline_saved','temp_failure_rejected','temp_no_tmp','temp_live_kept','rename_fault_rejected','rename_tmp_recovery_kept','rename_live_kept','atomic_success_after_faults')}
+ summary={'scenarios':{}}
+ for scenario in scenarios:
+  home=home_root/scenario;(home/'.local/share'/'godot').mkdir(parents=True,exist_ok=True)
+  rep=out/f'settings-persist-{scenario}.json'
+  def scenario_boot(label,values,timeout=180):
+   # Isolation wrapper: strip MYSIM_*, then set per-scenario user data via HOME/XDG_DATA_HOME (real Godot user-dir mechanism on Linux).
+   env2={k:v for k,v in os.environ.items() if not k.startswith('MYSIM_')};env2.update(values)
+   env2['HOME']=str(home);env2['XDG_DATA_HOME']=str(home/'.local/share')
+   proc=subprocess.run([g,'--path',str(r),'--no-window','--fixed-fps','60','--audio-driver','Dummy'],env=env2,capture_output=True,text=True,timeout=timeout)
+   return proc.returncode,proc.stdout+proc.stderr
+  code,text=scenario_boot('settings-'+scenario,{'MYSIM_SETTINGS_PERSIST':'1','MYSIM_SETTINGSPERSIST_SCENARIO':scenario,'MYSIM_SETTINGS_REPORT':str(rep)})
+  data=None
+  try:data=json.loads(rep.read_text()) if rep.exists() else None
+  except Exception:data=None
+  got=(data or {}).get('cases') or []
+  missing=[c for c in required_cases[scenario] if not any(case.startswith(c) for case in got)]
+  ok=data is not None and (data.get('failed')==0) and (data.get('passed',0)>0) and not missing and code==0
+  summary['scenarios'][scenario]={'exit':code,'passed':(data or {}).get('passed'),'failed':(data or {}).get('failed'),'missingCases':missing,'failures':(data or {}).get('failures',[]),'ok':ok}
+ summary['all_ok']=all(v['ok'] for v in summary['scenarios'].values())
+ (out/'settings-persist-summary.json').write_text(json.dumps(summary,indent=1))
+ assert summary['all_ok'],'settings persistence fixture FAILED: '+json.dumps(summary['scenarios'])
+ print('COMPLETE settings persistence: '+str(sum(1 for v in summary['scenarios'].values() if v['ok']))+'/'+str(len(summary['scenarios']))+' scenarios green (isolated user data; not a fence render)',flush=True);sys.exit(0)
 print('COMPLETE settings persistence fixture (isolated user data; not a fence render)',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
