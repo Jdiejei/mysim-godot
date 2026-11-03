@@ -1,36 +1,26 @@
-# Batch report — 2026-11-03 (session 2, Mistral Vibe, sole worker)
+# BATCH_REPORT — settings-persistence + reference-visual cycle
 
-## 1. Auth diagnosis (supervisor point 1) — RESOLVED
-- `gh api user` under owner GH_TOKEN = `instagramshashank8-bot`; repo collaborator permission `admin` (admin:true, maintain/push/pull true). Owner credential is valid and sufficient.
-- Inherited GH_TOKEN/GH_HOST: none at time of failure (GH_TOKEN len 0 in a fresh shell; no GH_HOST set). Exact failed command: `gh workflow run game-review.yml -R instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=fence_hash_review ...` run AFTER `unset GH_TOKEN` in the same command line, so gh fell back to the active default keyring account (Jdiejei) which lacks repo admin. Root cause: shell ordering, not missing permissions; no permission change requested.
-- Earlier owner dispatches (41633324944/41632524155 era) succeeded with the same command shape when GH_TOKEN stayed exported across the whole line.
+**Rolling report (latest block at top). Authoritative handoff: REVIEW_PACKET.md / REVIEW_REQUEST.json.**
 
-## 2. Naming correction (supervisor point 2) — CORRECTED
-- `AlphaToCoverageAndToOne` is alpha-to-coverage with alpha forced to one over 4x MSAA — NOT alpha hashing. Claims corrected: depth renamed `fence_a2c_review`, candidate `fence_a2c_candidate`, local `a2cFence`. API semantics verified against GodotSharp 4.7.2 XML: `AlphaToCoverage` passes alpha to the AntiAliasing sample mask; `AlphaToCoverageAndToOne` additionally forces non-zero alpha to one. `anti_aliasing/quality/msaa_3d=3` (4x MSAA) already set in project.godot, so the sample mask is real. No alpha hashing is claimed or used.
+## Block: visual cycle + fixture re-dispatch (live)
+- `settings_persist_review` → run **41699253306** at `e1f6d21`: five isolated scenario boots (legacy/foreign/corrupt/malformed/failures), per-scenario `HOME`/`XDG_DATA_HOME` user-data isolation, JSON report gate (`passed>0`, `failed==0`, required case IDs, exit 0), `settings-persist-summary.json`. Fixture runs FIRST inside `_Ready` before any world/assets. **Awaiting cloud result.**
+- `reference_evidence` → run **41700551316** at `91e6991`: car16/track0 seven fixed views (front/rear/left/right/top/front-wheel/cockpit) + two live drive frames (near chase + wide) through the existing CARVIEW/CAMPOS/SHOT harness; no material changes. **Awaiting cloud result.**
+- Camera/code notes: current chase = len*1.5 back / hgt*~2.2-3.2 up / FOV→46° — "car small in captures" likely from the wide fence shots; decision deferred until the drive frames are actually viewed (no blind camera change).
 
-## 3. Review-class correction (supervisor points 3+3) — CORRECTED
-- `MESH000{72,73}_QUANT_OVERVIEW.json`: `review_class` set to `machine_screened_only` with an explicit note: quantitative tile metrics only, NO manual image inspection, does not count toward manual review coverage. `itemsFlagged` wording corrected to machine flags. Prior inflated wording removed; history and originals preserved. Parts 72/73 remain opt-in candidates pending true manual image inspection.
-- Corrections were applied without deleting duplicate-prose history from earlier entries; counts were not re-inflated.
+## Block: persistence fixture rebuild (committed `e1f6d21`)
+All SNAPSHOT_REVIEW findings addressed in code:
+1. Node passes `WriteReport(path, report)` with the JSON string; exceptions exit 3/4 with diagnostics.
+2. Audit branch keys on `SETTINGS_PERSIST_REVIEW` (workflow now exports it for the depth); stale `SETTINGS_PERSIST_SHARD` removed.
+3. Duplicate private `run()` deleted; orchestrator uses its own named `scenario_boot` wrapper (home isolation + no screenshot requirements) around the SAME engine binary `g=GODOT_BIN`; no fake `/tmp/mysim/godot`, no `tools/SettingsPersistBoot.cs`.
+4. No stray unconditional `print/sys.exit` outside the branch; other modes intact (F1_PAINT_REVIEW etc. preserved behind their own env gates).
+5. Contract = structured JSON per scenario (`passed>0`, `failed==0`, required case-name list, process exit 0); missing/malformed/FAIL → orchestrator assert fails the job.
+6. Real user-data isolation: per-scenario `HOME` + `XDG_DATA_HOME` (true Godot user-dir mechanism on Linux); Windows atomic-replace acceptance stays a separate later requirement (noted in REVIEW_PACKET; cannot be certified by Linux green).
+7. Scenario = fresh PROCESS per legacy/foreign/corrupt/malformed/failures (no cross-scenario static-cache bleed).
+8. Rename fault = env-gated seam swaps ONLY the rename target to an impossible path AFTER a successful tmp write (real failing syscall through the production `Set`), so tmp-exists and live-unchanged assertions are meaningful; temp-save fault = read-only directory BEFORE save (no tmp appears, live bytes captured before, compared after).
+9. `Settings.Get<T>` and schema reads are type-safe now (VariantType-gated + try/catch → typed default; disk untouched by pure `Get`); foreign marker kept (`v>0` never rewritten to 2); `Set` returns `bool` so both failure stages are externally asserted.
 
-## 4. Substantive fixes retained
-- 41632524155 rejection stands with metrics retained; fence root-cause description stands; 403 root cause corrected to shell ordering, not a permissions gap; no permission change requested.
-
-## 5. Review request
-- Independent review requested on: auth diagnosis (token identity/permission/admin), A2C naming correction, machine-screen relabel, Settings migration.
-
-## 6. Follow-up queue (needs admin or D:)
-- Part 74+ rewrap runs (还得 admin) — hold.
-- Enhanced-candidate provenance verification vs unchanged-copy history — hold.
-
-## Fence A2C outcome
-- Run 41647350933 SUCCESS at 6d2069a: A2C candidate applied (780 surfaces, fence band 8-26pct/cell) but fence-crop edge density unchanged in 8/9 changed cells -> did NOT reduce speckle; REJECTED for adoption, kept recorded opt-in. Speckle is geometry-level (sub-pixel wires + scissor over mips): next fix must be mesh/texture-level (coverage-preserving mip rebuild / wire thickening), cloud-only. Details: FENCE_A2C_VERDICT_QUANT.json.
-
-## Priority1 outcome (b0fa604)
-- Settings.cs: BOTH unsafe direct cf.Save(Path) fallbacks removed (temp-write failure and rename failure now report and return with the old file intact); live path is GlobalizePath (absolute); tmp is an absolute same-directory sibling (same volume), kept on failure. Valid legacy file without schema_version preserved in place; marker stamped on next save only. Verified: single cf.Save call (tmp only), no cf.Save(P) anywhere, single Set/ApplyAudio, balanced braces.
-- SettingsPersistChecks.cs landed: aligned to Variant.As<T>() (no AsInt32/AsBool/AsDouble per 4.7.2 API).
-- cloud persistence tests: legacy typed keys (int/bool/string/double), foreign schema kept, first Set stamps version, corrupt boot typed defaults + file present, typed round-trip, REAL rename failure via read-only dir on Linux (old file byte-identical, tmp recovery kept), atomic success replace + no stray tmp. Pending cloud verify.
-
-## Persist fixture dispatch evidence (41675023687)
-- review-ready fixes landed at 18f69a1 (yml +4, Main.cs +1 early-exit hook, SettingsPersistChecks rewritten, audit +16), then dispatched: depth settings_persist_review, run 41675023687 queued at head 18f69a1... (verified via gh run list: databaseId 41675023687, head 18f69a1, displayTitle settings_persist_review cars 16 backend source 120Hz rotational false; local git HEAD match).
-- Cloud audit branch asserts the PASS/FAIL fixture contract and writes settings-persist-report.cfg; corrupt-shard phase guarded.
-- Fixture evidence (cases validated in the cloud run itself, not local): legacy typed keys, foreign schema kept, atomic replace, real rename failure vs live file, no temp-write fallback. Pending that run's report for acceptance.
+## Prior blocks (condensed)
+- A2C fence candidate rejected for adoption after image inspection; fence root cause remains unproven hypothesis; no more fence runs.
+- Mesh 72/73 machine-screened (`machine_screened_only` labels in all ledgers); manual review pending.
+- 4 fixture-compile failures preserved: `41675023687`/`41674946556`@`18f69a1`, `41688779865`@`9bed931`, `41645599180`@`1d5aed7` (each fixed with a distinct diagnosed change).
+- Owner-credential dispatch authenticated via `gh api user` = `instagramshashank8-bot`, repo `admin`; earlier 403s were unset-`GH_TOKEN` shell ordering (self-inflicted, no permission changes).
