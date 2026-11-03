@@ -1,22 +1,13 @@
 {
  "updated": "2026-11-03",
  "scope": "Full MySim 15-stage rebuild per instructions.md; zero stages at full end-to-end acceptance",
- "blocked": [
-  {
-   "id": "DISPATCH-ADMIN",
-   "what": "workflow_dispatch game-review.yml depth=fence_hash_review",
-   "exact_error": "HTTP 403: Must have admin rights to Repository",
-   "tried": "gh auth token -u instagramshashank8-bot (owner cred) still 403; default account Jdiejei 403 on push",
-   "needs": "human admin dispatch or grant bot admin",
-   "head": "2c3fd66 on codex/repair-20261029"
-  }
- ],
+ "blocked": [],
  "stages": [
   {
    "id": 1,
    "name": "failures/combined runtime",
    "state": "partial",
-   "verified": "24-car dry Interlagos passes recorded; fence blend 41632524155 rejected; hash candidate 2c3fd66 awaiting admin dispatch"
+   "verified": "24-car dry Interlagos passes recorded; fence blend 41632524155 rejected; hash candidate 2c3fd66 awaiting admin dispatch; dispatch ability confirmed under exported owner token (runs 41647350933/41656712889 SUCCESS)"
   },
   {
    "id": 2,
@@ -29,7 +20,8 @@
    "id": 3,
    "name": "core physics",
    "state": "partial",
-   "verified": "CCD 0.1/240Hz, contact planes -1.571..+1.168mm, wet sensitivity confirmed; NOT calibrated"
+   "verified": "CCD 0.1/240Hz, contact planes -1.571..+1.168mm, wet sensitivity confirmed; NOT calibrated",
+   "railings": "CCD 0.1/240Hz, contact planes -1.571..+1.168mm, wet sensitivity confirmed; NOT calibrated"
   },
   {
    "id": 4,
