@@ -6,6 +6,12 @@ public partial class TouchControlsScenario : Node {
  public override async void _Ready(){try{
   var controls=new TouchControls();AddChild(controls);
   for(int i=0;i<3;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+  if(System.Environment.GetEnvironmentVariable("MYSIM_TOUCH")=="0"){
+   Check(!TouchControls.Active&&!Settings.ScreenControlsEnabled,"Desktop override still enables touch controls");
+   Check(controls.FindChild("LEFT",true,false)==null&&controls.FindChild("GAS",true,false)==null,"Desktop input overlay was still constructed");
+   Check(TouchControls.Steer==0&&TouchControls.Throttle==0&&TouchControls.Brake==0,"Disabled overlay retains input");
+   GD.Print("PASS desktop controls omit touch overlay");GetTree().Quit();return;
+  }
   Vector2 Centre(string name)=>((Button)controls.FindChild(name,true,false)).GetGlobalRect().GetCenter();
   void Finger(int id,string action,bool pressed)=>controls._Input(new InputEventScreenTouch {Index=id,Position=Centre(action),Pressed=pressed});
   Finger(11,"LEFT",true);Finger(22,"GAS",true);

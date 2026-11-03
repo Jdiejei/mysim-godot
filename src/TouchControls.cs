@@ -1,11 +1,11 @@
 using Godot;
 namespace MySim {
-// Mouse/touch controls are visible by default and can be disabled in Settings.
+// Touch hardware defaults to screen controls; desktop uses keyboard/controller unless enabled.
 public partial class TouchControls : CanvasLayer {
  public DriveController Drive;
  public static float Steer,Throttle,Brake;public static bool Active;static TouchControls current;bool leftHeld,rightHeld,gasHeld,brakeHeld;readonly System.Collections.Generic.Dictionary<int,string> fingers=new();readonly System.Collections.Generic.Dictionary<string,Button> drivingButtons=new();Window inputWindow;Button pauseButton;
  public override void _Ready(){
-  Layer=5;current=this;Clear();Active=Settings.Get("screen_controls",true)||DisplayServer.IsTouchscreenAvailable()||System.Environment.GetEnvironmentVariable("MYSIM_TOUCH")!=null;
+  Layer=5;current=this;Clear();Active=Settings.ScreenControlsEnabled;
   inputWindow=GetWindow();inputWindow.FocusExited+=Clear;
   if(!Active)return;
   var root=new Control { AnchorRight=1,AnchorBottom=1,MouseFilter=Control.MouseFilterEnum.Ignore };AddChild(root);

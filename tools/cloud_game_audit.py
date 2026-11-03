@@ -402,6 +402,8 @@ if os.environ.get('LIVERY_UV')=='1':
     text=run(label,values);assert shot.exists() and 'PASS complete visible car framing' in text
  print('COMPLETE isolated livery UV comparison; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('GUI_REVIEW')=='1':
+ text=run('desktop-touch-disabled',{'MYSIM_TOUCHCHECKS':'1','MYSIM_TOUCH':'0'})
+ assert 'PASS desktop controls omit touch overlay' in text
  for resolution in ('640x360','960x540','1600x900'):
   label='results-'+resolution;shot=out/(label+'.png')
   text=run(label,{'MYSIM_RESULTSCHECKS':'1','MYSIM_TOUCH':'1','MYSIM_SHOT':str(shot)},['--resolution',resolution]);assert 'PASS actual results layout' in text and shot.exists()
