@@ -8,8 +8,8 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public readonly NativeRoadSpeedPlanner RoadPlanning=new();
  readonly NativeContactReplayRecorder contactReplay=new();
  Vehicle raceVehicle;float emptyStoppedTime;public bool DamageEnabled;public readonly NativeImpactDamage Impacts=new();
- public void BindRaceControls(Vehicle vehicle,float dt,Circuit track=null){RoadPlanning.Step(vehicle,this,track,dt);raceVehicle=vehicle;Controls=vehicle.servicing||vehicle.retired||vehicle.finished?new DriverInput(0,1,0):vehicle.input;TractionControl=vehicle.traction;BrakeStabilityAssist=vehicle.abs;if(vehicle.servicing||vehicle.retired||vehicle.finished){HybridDriveForce=0;vehicle.ersActive=false;}else HybridDriveForce=HybridDeployment.Step(vehicle,vehicle.input,dt)*vehicle.input.throttle;}
- public bool RotationalTyres;public readonly float[] WheelOmega=new float[4],WheelRotation=new float[4],LongitudinalSlip=new float[4],LateralSlipAngle=new float[4];
+ public void BindRaceControls(Vehicle vehicle,float dt,Circuit track=null){RoadPlanning.Step(vehicle,this,track,dt);raceVehicle=vehicle;Controls=GridHold||vehicle.servicing||vehicle.retired||vehicle.finished?new DriverInput(0,1,0):vehicle.input;TractionControl=vehicle.traction;BrakeStabilityAssist=vehicle.abs;if(GridHold||vehicle.servicing||vehicle.retired||vehicle.finished){HybridDriveForce=0;vehicle.ersActive=false;}else HybridDriveForce=HybridDeployment.Step(vehicle,vehicle.input,dt)*vehicle.input.throttle;}
+ public bool GridHold;public bool RotationalTyres;public readonly float[] WheelOmega=new float[4],WheelRotation=new float[4],LongitudinalSlip=new float[4],LateralSlipAngle=new float[4];
  public void SeedRollingVelocity(Vector3 velocity){Impacts.ResetHistory();LinearVelocity=velocity;float speed=velocity.Dot(GlobalBasis.Z);for(int i=0;i<4;i++){WheelOmega[i]=speed/radii[i];LongitudinalSlip[i]=0;}}
  void FreeWheel(int i,DriverInput input,float engine,float dt){if(!RotationalTyres)return;float brake=(input.reverse?0:input.brake)*brakeDecel*Mass*(i<2?.29f:.21f)+(input.handbrake&&i>=2?Mass*1.5f:0);float inertia=1.6f*radii[i]*radii[i]/(.33f*.33f);RotationalTyreContact.Airborne(ref WheelOmega[i],radii[i],inertia,i>=2?engine*.5f:0,brake,dt);WheelRotation[i]=Mathf.Wrap(WheelRotation[i]+WheelOmega[i]*dt,-Mathf.Pi,Mathf.Pi);}
  readonly System.Collections.Generic.List<(CollisionShape3D Shape,Vector3 Point)> underfloorPoints=new();
@@ -81,13 +81,13 @@ public partial class NativeSuspensionVehicle : RigidBody3D {
  public override void _IntegrateForces(PhysicsDirectBodyState3D state){
   if(!Initialized)return;
   if(DamageEnabled)Impacts.Observe(state,raceVehicle,CarIndex,this);contactReplay.Observe(this,state);
- var input=Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
+ var input=GridHold?new DriverInput(0,1,0):Controls.Safe();var pose=state.Transform;var up=pose.Basis.Y.Normalized();var forward=pose.Basis.Z.Normalized();float longitudinal=state.LinearVelocity.Dot(forward),speed=state.LinearVelocity.Length();
   WheelAngle=Mathf.MoveToward(WheelAngle,Dynamics.SteeringTarget(input.steer,longitudinal),3.2f*state.Step);
   float gravity=state.TotalGravity.Length(),spring=Mass*gravity/(4*StaticSag),damper=2*DampingRatio*Mathf.Sqrt(spring*Mass*.25f);
   float motorSpeed=RotationalTyres?Mathf.Max(Mathf.Abs(longitudinal),Mathf.Abs((WheelOmega[2]*radii[2]+WheelOmega[3]*radii[3])*.5f)):Mathf.Abs(longitudinal);
   float engine=input.reverse?-Mass*3.5f*(input.throttle+input.brake)*.5f:Mathf.Min(power/Mathf.Max(motorSpeed,6),Mass*gravity*2.2f)*input.throttle;
   if(raceVehicle!=null&&(raceVehicle.fuel<=0||raceVehicle.retired||raceVehicle.finished)){engine=0;if(raceVehicle.retired||raceVehicle.finished)HybridDriveForce=0;}if(DamageEnabled&&raceVehicle!=null)engine*=NativeImpactDamage.PowerFactor(raceVehicle);float combustionForce=engine;
-  if(!input.reverse)engine+=Mathf.Max(0,HybridDriveForce);float combustionShare=Mathf.Abs(engine)>.001f?Mathf.Abs(combustionForce/engine):0,combustionWork=0;
+  if(!input.reverse&&!GridHold)engine+=Mathf.Max(0,HybridDriveForce);float combustionShare=Mathf.Abs(engine)>.001f?Mathf.Abs(combustionForce/engine):0,combustionWork=0;
   Contacts=0;ChassisContacts=state.GetContactCount();ContactParts=new string[ChassisContacts];ContactSurfaces=new string[ChassisContacts];for(int c=0;c<ChassisContacts;c++){int shape=state.GetContactLocalShape(c);uint owner=ShapeFindOwner(shape);ContactParts[c]=(ShapeOwnerGetOwner(owner) as Node)?.Name.ToString()??"UnknownBodyShape";ContactSurfaces[c]=(state.GetContactColliderObject(c) as Node)?.GetPath().ToString()??"UnknownContactBody";}
   for(int i=0;i<4;i++){
    Grounded[i]=false;Loads[i]=0;ContactForces[i]=Vector3.Zero;ContactNormals[i]=Vector3.Zero;SpringLength[i]=RestLength+.15f;var mount=pose*mounts[i];

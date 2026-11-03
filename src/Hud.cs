@@ -8,7 +8,7 @@ public partial class Hud : CanvasLayer {
  public void TogglePitStrategy()=>strategy?.Toggle();
  public override void _Ready() {
   var root = new Control { AnchorRight = 1, AnchorBottom = 1, MouseFilter = Control.MouseFilterEnum.Ignore }; AddChild(root);
-  hybridControls=new HybridControlsPanel();root.AddChild(hybridControls);standings=new RaceStandingsPanel();root.AddChild(standings);pitDisplay=new PitServiceDisplay();root.AddChild(pitDisplay);strategy=new PitStrategyPanel();root.AddChild(strategy);
+  root.AddChild(new RaceStartLights {Hud=this});hybridControls=new HybridControlsPanel();root.AddChild(hybridControls);standings=new RaceStandingsPanel();root.AddChild(standings);pitDisplay=new PitServiceDisplay();root.AddChild(pitDisplay);strategy=new PitStrategyPanel();root.AddChild(strategy);
   speed = Make(root, 48, new Vector2(-300, -140), true); gear = Make(root, 26, new Vector2(-300, -210), true); info = Make(root, 18, new Vector2(24, 20), false); mini = new MiniMap { H = this, Size = new Vector2(190, 150) }; mini.AnchorLeft = mini.AnchorRight = touchMode ? 1 : 0; mini.AnchorTop = mini.AnchorBottom = touchMode ? 0 : 1; mini.OffsetLeft = touchMode ? -214 : 20; mini.OffsetTop = touchMode ? 170 : -170; mini.OffsetRight = touchMode ? -24 : 210; mini.OffsetBottom = touchMode ? 320 : -20; root.AddChild(mini);
  }
  static bool touchMode => Settings.ScreenControlsEnabled;
