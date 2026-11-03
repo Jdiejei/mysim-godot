@@ -7,7 +7,7 @@ public static class TrackCutoutDiagnostic {
  public static void Apply(Node3D track){
   string mode=System.Environment.GetEnvironmentVariable("MYSIM_TRACK_CUTOUT_DIAGNOSTIC");
   if(string.IsNullOrEmpty(mode))return;
-  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
+  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
   var rows=new List<object>();
   foreach(var node in track.FindChildren("*","MeshInstance3D",true,false)){
    var mesh=(MeshInstance3D)node;if(mesh.Mesh==null||!mesh.IsVisibleInTree())continue;
@@ -16,9 +16,13 @@ public static class TrackCutoutDiagnostic {
     if(mesh.GetActiveMaterial(surface) is not StandardMaterial3D source||source.Transparency!=BaseMaterial3D.TransparencyEnum.AlphaScissor)continue;
     cutout=true;var material=source;
     string textureName=System.IO.Path.GetFileName(source.AlbedoTexture?.ResourcePath??"");bool opaqueMetal=mode=="opaque_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
-    if(mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal){
+    bool filteredMetal=mode=="filtered_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
+    if(mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal){
      material=(StandardMaterial3D)source.Duplicate();
      if(opaqueMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;
+     // Retain filtered fractional source alpha instead of binary thresholding mip levels.
+     // Exact two-texture experiment only: preserve holes, geometry, UVs and source colour.
+     if(filteredMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
      if(mode=="coverage_off")material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;
      if(mode=="specular_off"){material.Metallic=0;material.MetallicSpecular=0;material.ClearcoatEnabled=false;}
      if(mode=="unshaded")material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;
