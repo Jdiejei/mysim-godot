@@ -288,6 +288,25 @@ if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  assert summary['all_ok'],'settings persistence fixture FAILED: '+json.dumps(summary['scenarios'])
  print('COMPLETE settings persistence: '+str(sum(1 for v in summary['scenarios'].values() if v['ok']))+'/'+str(len(summary['scenarios']))+' scenarios green (isolated user data; not a fence render)',flush=True);sys.exit(0)
 print('COMPLETE settings persistence fixture (isolated user data; not a fence render)',flush=True);sys.exit(0)
+if os.environ.get('REFERENCE_EVIDENCE')=='1':
+ # Reference car16/track0 baseline evidence: seven static views + live drive frames via the EXISTING
+ # MYSIM_CARVIEW/MYSIM_CAMPOS/MYSIM_SHOT boot harness used by panel/rim flows. No material modifications.
+ views=(('front','0,1.35,5.6'),('rear','0,1.35,-5.6'),('left','-5.6,1.35,0'),('right','5.6,1.35,0'),
+        ('top','0,9.0,0.02'),('wheel-fl','1.9,0.62,2.35'),('cockpit','0.0,1.12,0.05'))
+ missing=[]
+ for view,cam in views:
+  shot=out/f'ref-car16-{view}.png'
+  label=f'ref-car16-view-{view}'
+  text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_TRACK':'0','MYSIM_SHOT':str(shot)},timeout=240)
+  if not shot.exists():missing.append(view)
+ if missing:raise SystemExit(f'reference evidence views missing: {missing}')
+ drive_count=0
+ for seconds,label,cam_mode in (('9','ref-lap-near','0'),('14','ref-lap-wide','1')):
+  shot=out/f'{label}.png'
+  text=run(label,{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':seconds,'MYSIM_CAM':cam_mode,'MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0'},timeout=240)
+  if shot.exists():drive_count+=1
+ if drive_count==0:raise SystemExit('reference drive frames missing')
+ print(f'COMPLETE reference evidence: {len(views)} views + {drive_count} drive frames captured',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
  for candidate in (0,1):
