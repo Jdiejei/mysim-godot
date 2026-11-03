@@ -17,6 +17,13 @@ public static class RecoveredComponentMounts {
  public static void Apply(Node3D car,int index){
   ChironReconstructedWingKit.Apply(car,index);
   if(System.Environment.GetEnvironmentVariable("MYSIM_COMPONENT_MOUNTS")!="1")return;
+  // CarLoader already mounts the templates. Hull baking calls Apply again;
+  // repeating origin-based placement after source axle fitting would undo the
+  // corrected hub pose and bake colliders at different positions from visuals.
+  if(car.HasMeta("reconstructed_component_mounts_car")){
+   if(car.GetMeta("reconstructed_component_mounts_car").AsInt32()!=index)throw new Exception("Component mount identity mismatch");
+   return;
+  }
   using var profiles=JsonDocument.Parse(FileAccess.GetFileAsString("res://data/component_mount_profiles.json"));
   var pts=Json.ParseString(FileAccess.GetFileAsString("res://assets/car_pivots.json")).AsGodotDictionary()[index.ToString()].AsGodotArray();
   var inverse=car.GlobalTransform.AffineInverse();var rows=new List<object>();var nodes=car.FindChildren("*","MeshInstance3D",true,false);
@@ -37,7 +44,7 @@ public static class RecoveredComponentMounts {
     var profile=profiles.RootElement.GetProperty(caliper?"caliper":"wheelguard");target.X-=Mathf.Sign(target.X)*width*profile.GetProperty("inboardTyreWidth").GetSingle();if(caliper)target.Z-=radius*profile.GetProperty("rearwardRadius").GetSingle();else target.Y+=radius*profile.GetProperty("aboveHubRadius").GetSingle();
    }
    var offset=target-bounds.GetCenter();foreach(var surface in group.Value){if(!surface.HasMeta("original_component_transform"))surface.SetMeta("original_component_transform",surface.Transform);surface.SetMeta("reconstructed_component_mount",true);surface.SetMeta("mounted_hub_index",hub);surface.GlobalTransform=new Transform3D(surface.GlobalBasis,surface.GlobalPosition+car.GlobalBasis*offset);}rows.Add(new {part=name,hub,originalCentre=new[]{bounds.GetCenter().X,bounds.GetCenter().Y,bounds.GetCenter().Z},mountedCentre=new[]{target.X,target.Y,target.Z},scope="Authored experimental pose; geometry and UV preserved"});
-  }nodes.Clear();if(rows.Count==0)throw new Exception("Component mounting experiment selected no source parts");GD.Print("RECONSTRUCTED_COMPONENT_MOUNTS car=",index," parts=",rows.Count);
+  }nodes.Clear();if(rows.Count==0)throw new Exception("Component mounting experiment selected no source parts");GD.Print("RECONSTRUCTED_COMPONENT_MOUNTS car=",index," parts=",rows.Count);car.SetMeta("reconstructed_component_mounts_car",index);
   string report=System.Environment.GetEnvironmentVariable("MYSIM_COMPONENT_MOUNT_REPORT");if(report!=null)System.IO.File.WriteAllText(report,System.Text.Json.JsonSerializer.Serialize(new {car=index,rows},new JsonSerializerOptions {WriteIndented=true}));
  }
 }
