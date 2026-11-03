@@ -287,7 +287,6 @@ if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  (out/'settings-persist-summary.json').write_text(json.dumps(summary,indent=1))
  assert summary['all_ok'],'settings persistence fixture FAILED: '+json.dumps(summary['scenarios'])
  print('COMPLETE settings persistence: '+str(sum(1 for v in summary['scenarios'].values() if v['ok']))+'/'+str(len(summary['scenarios']))+' scenarios green (isolated user data; not a fence render)',flush=True);sys.exit(0)
-print('COMPLETE settings persistence fixture (isolated user data; not a fence render)',flush=True);sys.exit(0)
 if os.environ.get('REFERENCE_EVIDENCE')=='1':
  # Reference car16/track0 baseline evidence: seven static views + live drive frames via the EXISTING
  # MYSIM_CARVIEW/MYSIM_CAMPOS/MYSIM_SHOT boot harness used by panel/rim flows. No material modifications.
