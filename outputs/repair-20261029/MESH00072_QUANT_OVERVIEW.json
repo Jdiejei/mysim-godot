@@ -147,6 +147,6 @@
  "metadataMapped": true,
  "mappingBasis": "global tile index = flat geometry.json order; item = tile//4",
  "flaggedTileCount": 19,
- "review_class": "machine_screened_only",
- "review_class_note": "Quantitative tile metrics only; NO manual image inspection; does not count toward manual review coverage"
+ "review_class_note": "Quantitative tile metrics only; NO manual image inspection; does not count toward manual review coverage",
+ "review_class": "machine_screened_only"
 }
