@@ -21,3 +21,6 @@
 ## 6. Follow-up queue (needs admin or D:)
 - Part 74+ rewrap runs (还得 admin) — hold.
 - Enhanced-candidate provenance verification vs unchanged-copy history — hold.
+
+## Fence A2C outcome
+- Run 41647350933 SUCCESS at 6d2069a: A2C candidate applied (780 surfaces, fence band 8-26pct/cell) but fence-crop edge density unchanged in 8/9 changed cells -> did NOT reduce speckle; REJECTED for adoption, kept recorded opt-in. Speckle is geometry-level (sub-pixel wires + scissor over mips): next fix must be mesh/texture-level (coverage-preserving mip rebuild / wire thickening), cloud-only. Details: FENCE_A2C_VERDICT_QUANT.json.
