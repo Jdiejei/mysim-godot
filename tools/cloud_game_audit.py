@@ -184,12 +184,11 @@ if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
  if os.environ.get('CAR_UV_STATS_ONLY')=='1':
   from cloud_formula_uv_topology import render
   render(r,out)
-  # Source islands match the atlas with image-origin V conversion; evaluate assembled rear/side views.
-  for view,camera in enumerate(('4,2.5,-4','-4,2.5,-4','-4,2.5,4')):
-   for mode in ('both','v'):
-    label=f'car16-correspondence-view-{view}-{mode}';shot=out/(label+'.png')
-    text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_UV_CHANNEL':'0','MYSIM_CAR_UV':mode,'MYSIM_CAR_UV_SCOPE':'livery','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
-    assert shot.exists() and 'PASS complete visible car framing' in text
+  # Whole material-role comparison after recovering exact prefab wheel GUID bindings.
+  for view,camera in enumerate(('4,2.5,4','4,2.5,-4','-4,2.5,-4','-4,2.5,4')):
+   label=f'car16-source-role-view-{view}';shot=out/(label+'.png')
+   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_UV_CHANNEL':'0','MYSIM_CAR_UV':'v','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)})
+   assert shot.exists() and 'PASS complete visible car framing' in text and 'CARMAP_SOURCE_ROLE_ALIAS LOD_A_WHEEL_mm -> LOD_A_WHEEL_mm_wheel' in text
  print('COMPLETE isolated source UV channel comparison; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
  for contrast in ('1.14','1.0'):

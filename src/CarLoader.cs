@@ -49,7 +49,15 @@ static Godot.Collections.Dictionary carMap;
   if (carMap == null) { if (!FileAccess.FileExists("res://assets/car_map.json")) return 0; carMap = Json.ParseString(FileAccess.GetFileAsString("res://assets/car_map.json")).AsGodotDictionary(); }
   var byName = carMap["cars"].AsGodotDictionary()[carIdx.ToString()].AsGodotDictionary(); var mats = carMap["materials"].AsGodotDictionary(); var cache = new Dictionary<string, Material>(); int bound = 0;
   foreach (var node in root.FindChildren("*", "MeshInstance3D", true, false)) {
-   var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); if (!byName.ContainsKey(nm)) continue; var lists = byName[nm].AsGodotArray(); if (lists.Count == 0) continue; var guids = lists[0].AsGodotArray();
+   var mi = (MeshInstance3D)node; string nm = mi.Name.ToString(); string bindingName=nm;
+   // Recovered FBX wheel nodes end at _mm while the prefab names include the material role.
+   // Recover only an unambiguous exact prefab key corroborated by every imported surface name.
+   if(!byName.ContainsKey(bindingName)&&nm.EndsWith("_mm",System.StringComparison.Ordinal)){
+    string resolved=null;bool consistent=true;
+    for(int si=0;si<mi.Mesh.GetSurfaceCount();si++){string original=mi.Mesh.SurfaceGetMaterial(si)?.ResourceName??"";int marker=original.LastIndexOf("_mm_",System.StringComparison.Ordinal);if(marker<0){consistent=false;break;}string key=nm+"_"+original.Substring(marker+4);if(!byName.ContainsKey(key)||(resolved!=null&&resolved!=key)){consistent=false;break;}resolved=key;}
+    if(consistent&&resolved!=null){bindingName=resolved;GD.Print("CARMAP_SOURCE_ROLE_ALIAS ",nm," -> ",bindingName);}
+   }
+   if (!byName.ContainsKey(bindingName)) continue; var lists = byName[bindingName].AsGodotArray(); if (lists.Count == 0) continue; var guids = lists[0].AsGodotArray();
    for (int s = 0; s < mi.Mesh.GetSurfaceCount() && guids.Count > 0; s++) {
     string g = guids[s < guids.Count ? s : guids.Count - 1].AsString(); if (!cache.TryGetValue(g, out var mat)) {
      mat = null; if (mats.ContainsKey(g)) { var mi2 = mats[g].AsGodotDictionary(); var texs = mi2.ContainsKey("texs") ? mi2["texs"].AsGodotDictionary() : null; string bp = texs != null && texs.ContainsKey("_BaseMap") ? Res(texs["_BaseMap"].AsString()) : (texs != null && texs.ContainsKey("_MainTex") ? Res(texs["_MainTex"].AsString()) : null);
