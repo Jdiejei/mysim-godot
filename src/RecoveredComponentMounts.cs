@@ -14,6 +14,17 @@ public static class RecoveredComponentMounts {
    mesh.Reparent(pivots[hub].GetNode<Node3D>("BrakeAssembly"),true);
   }nodes.Clear();
  }
+ // Exercise the real repeated setup used by hull baking after source axle fitting
+ // and steering. A second call must preserve every visible component transform.
+ public static void VerifyRepeatApply(Node3D car,int index){
+  if(System.Environment.GetEnvironmentVariable("MYSIM_COMPONENT_MOUNTS")!="1")return;
+  var before=new Dictionary<Node3D,Transform3D>();var nodes=car.FindChildren("*","MeshInstance3D",true,false);
+  foreach(var node in nodes){var mesh=(MeshInstance3D)node;before[mesh]=mesh.GlobalTransform;}
+  Apply(car,index);
+  if(!car.HasMeta("reconstructed_component_mounts_car"))throw new Exception("Component setup did not record its identity");
+  foreach(var entry in before)if(!entry.Key.GlobalTransform.IsEqualApprox(entry.Value))throw new Exception("Repeated component setup moved "+entry.Key.Name);
+  nodes.Clear();GD.Print("PASS repeated component setup preserves fitted assembly car=",index," meshes=",before.Count);
+ }
  public static void Apply(Node3D car,int index){
   ChironReconstructedWingKit.Apply(car,index);
   if(System.Environment.GetEnvironmentVariable("MYSIM_COMPONENT_MOUNTS")!="1")return;

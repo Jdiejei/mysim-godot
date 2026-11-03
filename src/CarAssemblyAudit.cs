@@ -11,6 +11,7 @@ public static class CarAssemblyAudit {
   return new {present=points.Length>0,count=points.Length,invalid,minimum=points.Length>invalid?new[]{minimum.X,minimum.Y}:null,maximum=points.Length>invalid?new[]{maximum.X,maximum.Y}:null};
  }
  public static void Write(Node3D car,int index,string path){
+  RecoveredComponentMounts.VerifyRepeatApply(car,index);
   CarUvTopologyEvidence.Write(car,index,path);
   var rows=new List<object>();var children=car.FindChildren("*","MeshInstance3D",true,false);
   foreach(var child in children){var mesh=(MeshInstance3D)child;if(mesh.Mesh==null)continue;var box=(car.GlobalTransform.AffineInverse()*mesh.GlobalTransform)*mesh.GetAabb();var materials=new List<object>();
