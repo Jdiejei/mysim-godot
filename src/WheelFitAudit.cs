@@ -26,7 +26,7 @@ public static class WheelFitAudit {
    if(!tyre.HasValue)throw new InvalidOperationException("Wheel fit audit has no visible tyre");
    var bounds=tyre.Value;var centre=bounds.GetCenter();float halfWidth=bounds.Size.X*.5f;var parts=new List<object>();var section=DrySection(spin);
    foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){
-    var mesh=(MeshInstance3D)child;string name=mesh.Name.ToString().ToUpperInvariant();if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!name.StartsWith("LOD_A_"))continue;// Rubber/rim meshes rotate with Spin and are the reference envelope.
+    var mesh=(MeshInstance3D)child;string name=mesh.Name.ToString().ToUpperInvariant();bool rebuiltWishbone=mesh.GetParent()?.Name.ToString()=="RebuiltFrontDoubleWishbones";if(!mesh.IsVisibleInTree()||mesh.Mesh==null||(!name.StartsWith("LOD_A_")&&!rebuiltWishbone))continue;// Rubber/rim meshes rotate with Spin and are the reference envelope.
     // Fixed hub-mounted guards/calipers must still be tested: skipping the
     // entire hub silently omitted exactly the parts that can cut into tyres.
     bool wheelPart=false;foreach(var hub in wheels)if(hub.GetNode<Node3D>("Spin").IsAncestorOf(mesh)){wheelPart=true;break;}if(wheelPart)continue;
