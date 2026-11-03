@@ -5,7 +5,7 @@ namespace MySim {
 // Unaccepted W10/SF90 visual steering rig candidate. Derive the kingpin from intact source wishbone
 // outboard vertex clusters; never alter source buffers/UVs or native contact hubs/radii.
 public static class SourceKingpinVisualCandidate {
- static Vector3 Joint(Node3D car,string role){
+ internal static Vector3 Joint(Node3D car,string role){
   var inverse=car.GlobalTransform.AffineInverse();var points=new List<Vector3>();float outer=0;
   foreach(var child in car.FindChildren("*","MeshInstance3D",true,false)){var mesh=(MeshInstance3D)child;if(!mesh.IsVisibleInTree()||mesh.Mesh==null||!mesh.Name.ToString().StartsWith(role,StringComparison.Ordinal))continue;var transform=inverse*mesh.GlobalTransform;for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){using var arrays=mesh.Mesh.SurfaceGetArrays(surface);foreach(var vertex in arrays[(int)Mesh.ArrayType.Vertex].AsVector3Array()){var point=transform*vertex;points.Add(point);outer=Mathf.Max(outer,Mathf.Abs(point.X));}}}
   if(points.Count==0||outer<.2f)throw new InvalidOperationException("Source kingpin joint role missing:"+role);var joint=Vector3.Zero;int samples=0;foreach(var point in points)if(Mathf.Abs(point.X)>=outer-.015f){joint+=point;samples++;}return joint/samples;

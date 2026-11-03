@@ -1,0 +1,4 @@
+{
+  "scope": "Authored SF90 visual suspension reconstruction; source inboard anchors, hub dimensions and lower joint preserved. Caster is provisional design, not manufacturer calibration. Native tyre contacts remain separately unverified.",
+  "cars": {"16": {"casterDegrees": 6.0, "armHalfWidth": 0.018, "armHalfThickness": 0.006, "jointRadius": 0.014}}
+}

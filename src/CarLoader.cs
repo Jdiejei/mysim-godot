@@ -126,6 +126,7 @@ static Godot.Collections.Dictionary carMap;
   }
   SourceAxleFitCandidate.Apply(car,pivots,carIdx);
   RecoveredComponentMounts.AttachToHubs(car,pivots);
+  F1SuspensionVisualBuilder.Apply(car,pivots,carIdx);
   foreach (var w in wheelMeshes) { w.Visible = false; w.SetMeta("wheel_hidden", true); }
   var measuredBounds=MeasureBounds(car);var measured=measuredBounds.Size;var center=measuredBounds.GetCenter();MySimulator.Rebuild.VehicleDimensions.CenterX[carIdx]=center.X;MySimulator.Rebuild.VehicleDimensions.CenterY[carIdx]=center.Y;MySimulator.Rebuild.VehicleDimensions.CenterZ[carIdx]=center.Z; MySimulator.Rebuild.VehicleDimensions.Width[carIdx]=measured.X; MySimulator.Rebuild.VehicleDimensions.Height[carIdx]=measured.Y; MySimulator.Rebuild.VehicleDimensions.Length[carIdx]=measured.Z;
   TyreAppearance.Apply(pivots,Compound.Medium);
