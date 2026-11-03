@@ -11,6 +11,7 @@ public static class CarAssemblyAudit {
   return new {present=points.Length>0,count=points.Length,invalid,minimum=points.Length>invalid?new[]{minimum.X,minimum.Y}:null,maximum=points.Length>invalid?new[]{maximum.X,maximum.Y}:null};
  }
  public static void Write(Node3D car,int index,string path){
+  CarUvTopologyEvidence.Write(car,index,path);
   var rows=new List<object>();var children=car.FindChildren("*","MeshInstance3D",true,false);
   foreach(var child in children){var mesh=(MeshInstance3D)child;if(mesh.Mesh==null)continue;var box=(car.GlobalTransform.AffineInverse()*mesh.GlobalTransform)*mesh.GetAabb();var materials=new List<object>();
    for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var material=mesh.GetActiveMaterial(surface);var shader=material as ShaderMaterial;var texture=shader?.GetShaderParameter("base").As<Texture2D>();materials.Add(new {surface,uv0=UVStats(arrays,Mesh.ArrayType.TexUV),uv2=UVStats(arrays,Mesh.ArrayType.TexUV2),uvScale=shader?.GetShaderParameter("uv_scale").AsVector2().ToString(),uvOffset=shader?.GetShaderParameter("uv_offset").AsVector2().ToString(),source=material!=null&&material.HasMeta("source_material_guid")?material.GetMeta("source_material_guid").AsString():null,texture=texture?.ResourcePath,alphaMode=shader?.GetShaderParameter("alpha_mode").AsDouble(),materialType=material?.GetType().Name});}

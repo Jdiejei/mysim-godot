@@ -177,8 +177,12 @@ if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
   for mode in (('both',) if os.environ.get('CAR_UV_STATS_ONLY')=='1' else ('both','none','u','v')):
    label=('car16-transpose' if transpose else 'car16-channel')+f'-{channel}-{mode}';shot=out/(label+'.png')
    values={'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'4,2.5,4','MYSIM_CAR_UV_CHANNEL':channel,'MYSIM_CAR_UV':mode,'MYSIM_CAR_UV_SCOPE':'livery','MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_SHOT':str(shot)}
+   if os.environ.get('CAR_UV_STATS_ONLY')=='1':values['MYSIM_FORMULA_UV_TOPOLOGY']='1'
    if transpose:values['MYSIM_FORMULA_ATLAS_TRANSPOSE']='1'
    text=run(label,values);assert shot.exists() and 'PASS complete visible car framing' in text
+ if os.environ.get('CAR_UV_STATS_ONLY')=='1':
+  from cloud_formula_uv_topology import render
+  render(r,out)
  print('COMPLETE isolated source UV channel comparison; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('F1_WHEEL_DIAGNOSTIC')=='1':
  for contrast in ('1.14','1.0'):
