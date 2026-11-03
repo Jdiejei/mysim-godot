@@ -7,7 +7,7 @@ public static class TrackCutoutDiagnostic {
  public static void Apply(Node3D track){
   string mode=System.Environment.GetEnvironmentVariable("MYSIM_TRACK_CUTOUT_DIAGNOSTIC");
   if(string.IsNullOrEmpty(mode))return;
-  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate"&&mode!="identity")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
+  if(mode!="baseline"&&mode!="coverage_off"&&mode!="shadows_off"&&mode!="unshaded"&&mode!="specular_off"&&mode!="opaque_metal_candidate"&&mode!="filtered_metal_candidate"&&mode!="identity"&&mode!="fence_blend_candidate")throw new System.ArgumentException("Unknown track cutout diagnostic: "+mode);
   var rows=new List<object>();
   if(mode=="filtered_metal_candidate"&&System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string evidence){
    System.IO.Directory.CreateDirectory(evidence);
@@ -28,19 +28,23 @@ public static class TrackCutoutDiagnostic {
     cutout=true;var material=source;
     string textureName=System.IO.Path.GetFileName(source.AlbedoTexture?.ResourcePath??"");bool opaqueMetal=mode=="opaque_metal_candidate"&&(textureName=="mat_fence_metal_catch_01.png"||textureName=="mat_metal_scafolding_g.png");
     bool filteredMetal=mode=="filtered_metal_candidate"&&textureName=="mat_metal_scafolding_d.png";
-    if(mode=="identity"||mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal){
+    bool blendFence=mode=="fence_blend_candidate"&&(textureName=="mat_fence_wire_04.png"||textureName=="mat_fence_small_wire_01.png"||textureName=="mat_fence_metal_catch_01.png");
+    if(mode=="identity"||mode=="coverage_off"||mode=="unshaded"||mode=="specular_off"||opaqueMetal||filteredMetal||blendFence){
      material=(StandardMaterial3D)source.Duplicate();
      if(mode=="identity"){string path=source.AlbedoTexture?.ResourcePath??"";material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;material.AlbedoTexture=null;material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;material.AlbedoColor=path.Contains("/crowd/")?Colors.Red:path.Contains("/org/")?Colors.Green:path.Contains("/fence/")?Colors.Blue:path.Contains("scafolding")?Colors.Yellow:Colors.Magenta;}
      if(opaqueMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.Disabled;
      // Retain filtered fractional source alpha instead of binary thresholding mip levels.
      // Exact reference-track wire textures only: preserve holes, geometry, UVs and source colour.
      if(filteredMetal)material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
+     // True fractional blending: unlike depth prepass, no binary alpha depth write.
+     // Diagnostic only; inspect ordering and holes before any production adoption.
+     if(blendFence){material.Transparency=BaseMaterial3D.TransparencyEnum.Alpha;material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;}
      if(mode=="coverage_off")material.AlphaAntialiasingMode=BaseMaterial3D.AlphaAntiAliasing.Off;
      if(mode=="specular_off"){material.Metallic=0;material.MetallicSpecular=0;material.ClearcoatEnabled=false;}
      if(mode=="unshaded")material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;
      mesh.SetSurfaceOverrideMaterial(surface,material);
     }
-    rows.Add(new{renderer=mesh.GetPath().ToString(),surface,texture=source.AlbedoTexture?.ResourcePath,sourceTransparency=source.Transparency.ToString(),actualTransparency=material.Transparency.ToString(),opaqueMetal,sourceAlphaAA=source.AlphaAntialiasingMode.ToString(),actualAlphaAA=material.AlphaAntialiasingMode.ToString(),threshold=material.AlphaScissorThreshold,edge=material.AlphaAntialiasingEdge,filter=material.TextureFilter.ToString(),cull=material.CullMode.ToString(),uvScale=new[]{material.Uv1Scale.X,material.Uv1Scale.Y},uvOffset=new[]{material.Uv1Offset.X,material.Uv1Offset.Y},sourceShadow=mesh.CastShadow.ToString(),actualShadow=mode=="shadows_off"?GeometryInstance3D.ShadowCastingSetting.Off.ToString():mesh.CastShadow.ToString(),sourceMetallic=source.Metallic,actualMetallic=material.Metallic,sourceSpecular=source.MetallicSpecular,actualSpecular=material.MetallicSpecular,actualClearcoat=material.ClearcoatEnabled,emissionEnabled=material.EmissionEnabled,shading=material.ShadingMode.ToString()});
+    rows.Add(new{renderer=mesh.GetPath().ToString(),surface,worldOrigin=new[]{mesh.GlobalPosition.X,mesh.GlobalPosition.Y,mesh.GlobalPosition.Z},boundsSize=new[]{mesh.GetAabb().Size.X,mesh.GetAabb().Size.Y,mesh.GetAabb().Size.Z},texture=source.AlbedoTexture?.ResourcePath,sourceTransparency=source.Transparency.ToString(),actualTransparency=material.Transparency.ToString(),opaqueMetal,sourceAlphaAA=source.AlphaAntialiasingMode.ToString(),actualAlphaAA=material.AlphaAntialiasingMode.ToString(),threshold=material.AlphaScissorThreshold,edge=material.AlphaAntialiasingEdge,filter=material.TextureFilter.ToString(),cull=material.CullMode.ToString(),uvScale=new[]{material.Uv1Scale.X,material.Uv1Scale.Y},uvOffset=new[]{material.Uv1Offset.X,material.Uv1Offset.Y},sourceShadow=mesh.CastShadow.ToString(),actualShadow=mode=="shadows_off"?GeometryInstance3D.ShadowCastingSetting.Off.ToString():mesh.CastShadow.ToString(),sourceMetallic=source.Metallic,actualMetallic=material.Metallic,sourceSpecular=source.MetallicSpecular,actualSpecular=material.MetallicSpecular,actualClearcoat=material.ClearcoatEnabled,emissionEnabled=material.EmissionEnabled,shading=material.ShadingMode.ToString()});
    }
    if(cutout&&mode=="shadows_off")mesh.CastShadow=GeometryInstance3D.ShadowCastingSetting.Off;
   }

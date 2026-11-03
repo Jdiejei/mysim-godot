@@ -239,16 +239,16 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
  filtered=os.environ.get('FENCE_FILTER_REVIEW')=='1'
  identity=os.environ.get('CUTOUT_IDENTITY_REVIEW')=='1'
- for mode in ('baseline','identity' if identity else 'filtered_metal_candidate' if filtered else 'opaque_metal_candidate'):
+ for mode in ('baseline','identity' if identity else 'fence_blend_candidate' if filtered else 'opaque_metal_candidate'):
   label=('day0-filtered-fence-' if filtered else 'night25-cutout-')+mode;shot=out/(label+'.png')
   text=run(label,{'MYSIM_TRACK':'0' if filtered else '25','MYSIM_CAR':'16','MYSIM_TOD':'0' if filtered else '3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'0' if filtered else '1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_BINDING_AUDIT':str(out),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
   assert shot.exists() and 'TRACK_CUTOUT_DIAGNOSTIC' in text
  if filtered and not identity:
-  reports=[json.loads(path.read_text()) for path in out.rglob('cutout-*-filtered_metal_candidate.json')]
+  reports=[json.loads(path.read_text()) for path in out.rglob('cutout-*-fence_blend_candidate.json')]
   changed=[surface for report in reports for surface in report['surfaces'] if surface['sourceTransparency']!=surface['actualTransparency']]
   assert changed,'Filtered fence diagnostic changed no actual surfaces'
-  assert all(surface['actualTransparency']=='AlphaDepthPrePass' and pathlib.Path(surface['texture']).name in ('mat_metal_scafolding_d.png',) for surface in changed),'Unexpected filtered surface change'
-  (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Exact two-texture fractional-alpha comparison; manual hole/alias/depth review required'},indent=2))
+  assert all(surface['actualTransparency']=='Alpha' and pathlib.Path(surface['texture']).name in ('mat_fence_wire_04.png','mat_fence_small_wire_01.png','mat_fence_metal_catch_01.png') for surface in changed),'Unexpected filtered surface change'
+  (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures, true alpha blending without depth prepass; manual hole/order/alias review required'},indent=2))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
