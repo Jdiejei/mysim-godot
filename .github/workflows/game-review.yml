@@ -54,7 +54,7 @@ jobs:
           assert os.environ["LATER_SPIN_SETTINGS_VALID"]=="true","Later diagonal regression requires exact captured physics/planner settings"
           if os.environ['GEOMETRY_CASE_MANIFEST'].endswith('native_fleet_contact_replay.json'):assert os.environ['REPLAY_INPUT_RUN'] in ('41450839854','41467648085') and os.environ['REVIEW_INPUT_DEPTH']=='native_geometry_recovery','Fleet contact case requires exact preserved capture and replay-only recovery depth'
           if os.environ['GEOMETRY_CASE_MANIFEST'].endswith('native_edge_axle_regression.json'):assert os.environ['SOURCE_AXLE_CASE_ENABLE']=='1','Axle regression requires matching bake/runtime flag'
-          if os.environ['SEAM_WELD_CASE_ENABLE']=='1':assert os.environ['REVIEW_INPUT_DEPTH']=='native_geometry_recovery' and (not os.environ['REPLAY_INPUT_RUN'] or (os.environ['SPIN_REPLAY_CASE']=='1' and os.environ['REPLAY_INPUT_RUN'] in ('41513037207','41568745467'))),'Seam gameplay requires no replay; isolated spin replay requires exact preserved capture'
+          if os.environ['SEAM_WELD_CASE_ENABLE']=='1':assert os.environ['REVIEW_INPUT_DEPTH']=='native_geometry_recovery' and (not os.environ['REPLAY_INPUT_RUN'] or (os.environ['SPIN_REPLAY_CASE']=='1' and os.environ['REPLAY_INPUT_RUN'] in ('41513037207','41568745467','41574231413'))),'Seam gameplay requires no replay; isolated spin replay requires exact preserved capture'
           cases=json.loads(pathlib.Path(os.environ['GEOMETRY_CASE_MANIFEST']).read_text())['cases']
           assert cases and all(0<=x['track']<60 and 0<=x['car']<24 for x in cases)
           shards=sorted({x['track']%12 for x in cases})
