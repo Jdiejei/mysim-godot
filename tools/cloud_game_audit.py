@@ -171,8 +171,8 @@ if os.environ.get('CAR_PAINT_CANDIDATE')=='1':
  # Existing source-only baseline is41574450084; render only the integrated custom-wheel candidate.
  for candidate in ('1',):
   for view,camera in enumerate(('4,2.5,4','-4,2.5,4','4,2.5,-4','-4,2.5,-4')):
-   label=f'formula-reference-wheels-{candidate}-view-{view}';shot=out/(label+'.png')
-   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_PAINT_CANDIDATE':candidate,'MYSIM_REBUILT_RIMS':candidate,'MYSIM_REBUILT_TYRES':candidate,'MYSIM_WHEEL_LETTERING':candidate,'MYSIM_TYRE_LINEAR_REFLECTANCE':candidate,'MYSIM_REBUILT_BRAKES':candidate,'MYSIM_FLAT_TYRE_MARKINGS':candidate,'MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
+   label=f'formula-reference-livery-wheels-{candidate}-view-{view}';shot=out/(label+'.png')
+   text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':camera,'MYSIM_CAR_UV_SCOPE':'misc','MYSIM_CAR_UV':'v','MYSIM_REBUILT_RIMS':candidate,'MYSIM_REBUILT_TYRES':candidate,'MYSIM_WHEEL_LETTERING':candidate,'MYSIM_TYRE_LINEAR_REFLECTANCE':candidate,'MYSIM_REBUILT_BRAKES':candidate,'MYSIM_FLAT_TYRE_MARKINGS':candidate,'MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_WHEEL_APPEARANCE_AUDIT':str(out/(label+'-appearance.json')),'MYSIM_SHOT':str(shot)})
    assert shot.exists() and 'PASS complete visible car framing' in text and 'SURFACE_UV_REPAIR 16/LOD_A_BODY_mm_ext' in text
  print('COMPLETE paint candidate comparison; not art acceptance',flush=True);sys.exit(0)
 if os.environ.get('CAR_UV_CHANNEL_DIAGNOSTIC')=='1':
