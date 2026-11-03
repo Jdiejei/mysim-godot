@@ -1,0 +1,16 @@
+{
+  "session": "2026-11-03 batch 2",
+  "worker": "Mistral Vibe (sole, same session)",
+  "repo": "instagramshashank8-bot/mysim-godot",
+  "branch": "codex/repair-20261029",
+  "head": "1d5aed7",
+  "review_points": [
+    {"id": "auth-403", "correction": "403 was shell ordering (GH_TOKEN unset before gh workflow run), not a permissions gap", "evidence": "gh api user = instagramshashank8-bot; collaborators/instagramshashank8-bot/permission = admin; collaborators/.../permission admin:true; earlier owner dispatches succeeded with export intact; no permission changes requested"},
+    {"id": "a2c-naming", "correction": "fence_hash-> renamed fence_a2c_review/fence_a2c_candidate/a2cFence; claims state alpha-to-coverage + alpha-to-one over 4x MSAA (project.godot msaa_3d=3), never alpha hashing", "evidence": "GodotSharp 4.7.2 XML member docs (Off/AlphaToCoverage/AlphaToCoverageAndToOne); project.godot msaa_3d=3; grep shows no residual fence_hash/AlphaToCoverageAndHash in src/tools/workflows"},
+    {"id": "machine-screen", "correction": "MESH000{72,73}_QUANT_OVERVIEW.json relabelled machine_screened_only; no manual image inspection was performed; excluded from manual review counts; history preserved", "evidence": "review_class + note fields in both JSONs; CONTINUE.md replacement text"},
+    {"id": "settings-migration", "correction": "Only an unloadable settings.cfg resets; versionless legacy file preserved in place and migrated (version stamped on next Save); explicit foreign version kept; deliberate direct-write fallback remains only when even the temp write fails", "evidence": "src/Settings.cs Load/Set blocks; compile proof pending - run 41645599180/41645851285 failed earlier on Settings.cs rename API; fixed as instance DirAccess in ae1a8f4"}
+  ],
+  "live_run": {"id": 41646636631, "depth": "fence_a2c_review", "head": "ae1a8f4", "inputs": {"cars": "16", "physics_backend": "source", "physics_hz": "120"}},
+  "assets_reviewed_manually_this_session": [],
+  "standards": "GitHub-only engine compute; local manual evidence/metrics allowed; no git add .; originals/history/secrets preserved"
+}
