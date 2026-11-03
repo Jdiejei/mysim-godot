@@ -1,0 +1,28 @@
+name: inspect-existing-encrypted-recording
+on:
+  workflow_dispatch:
+    inputs:
+      source_run: {description: 'Completed successful game review run with one recorded race', type: string, required: true}
+permissions: {contents: read, actions: read}
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - run: python -m pip install cryptography
+      - name: Sample authenticated existing recording without rerunning game
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MYSIM_INTAKE_KEY: ${{ secrets.MYSIM_REVIEW_KEY }}
+          SOURCE_RECORDING_RUN: ${{ inputs.source_run }}
+        run: python tools/cloud_sample_recording.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: encrypted-recording-samples
+          path: |
+            outputs/recording-samples/*.enc
+            outputs/recording-samples/source.json
+          if-no-files-found: error
+          retention-days: 14
