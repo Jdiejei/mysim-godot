@@ -1,0 +1,7 @@
+{
+  "cases": [
+    {"car": 0, "track": 0, "weather": 2, "compound": 1},
+    {"car": 16, "track": 0, "weather": 2, "compound": 1}
+  ],
+  "scope": "Matched rain reference changes only Wet3 to Medium1 slick. Compare actual grip/slip/pace against completed41620748966; strict legal lap/damage gates unchanged. Failure is retained, not a reason to weaken gates. This is sensitivity evidence, not real-world calibration."
+}
