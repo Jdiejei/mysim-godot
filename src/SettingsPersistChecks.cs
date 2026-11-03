@@ -57,7 +57,7 @@ namespace MySim { public static class SettingsPersistChecks {
    Check("malformed_seed_save",seed.Save(Live)==Error.Ok,"wrong-typed values seeded");
    bool mk=Settings.Get("mute",true);int tk=Settings.Get("last_track",-1);double sk=Settings.Get("sensitivity",0.0);int mkv=Settings.Get("schema_version",0);
    Check("malformed_defaults_typed",tk==-1&&mk==true&&sk==0.0,"wrong types fall back to the typed default (observed last_track="+tk+", mute="+mk+", sensitivity="+sk+", schema marker in memory="+mkv+")");
-   Check("malformed_disk_untouched_by_get",Read(live).IndexOf("schema_version",System.StringComparison.Ordinal)>=0&&Read(Live).IndexOf("last_track",System.StringComparison.Ordinal)>0,"pure Get did not rewrite or 'repair' the file");
+   Check("malformed_disk_untouched_by_get",Read(live).IndexOf("schema_version",System.StringComparison.Ordinal)>=0&&Read(live).IndexOf("last_track",System.StringComparison.Ordinal)>0,"pure Get did not rewrite or 'repair' the file");
    bool setOk=Settings.Set("migrated-test",1);
    var mig=new ConfigFile();bool migOk=mig.Load(Live)==Error.Ok;
    Check("malformed_set_migrates_marker",setOk&&migOk&&Int(mig,"schema_version",0)==Settings.SchemaVersion&&Int(mig,"migrated-test",0)==1,"invalid marker MIGRATED to 2 by an explicit save (documented policy), values preserved");
