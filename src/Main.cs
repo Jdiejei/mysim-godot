@@ -31,6 +31,7 @@ public partial class Main : Node3D {
   Settings.ApplyAudio(); lastTrack = Settings.Get("track", 0); lastCar = Settings.Get("car", 0); lastLaps = Settings.Get("laps", 3);
   var bakeT = System.Environment.GetEnvironmentVariable("MYSIM_BAKECOL"); if (bakeT != null) { BakeCollision(int.Parse(bakeT)); return; }
   var crashT = System.Environment.GetEnvironmentVariable("MYSIM_CRASHMAP"); if (crashT != null) { CrashWorld(int.Parse(crashT)); return; }
+  if(System.Environment.GetEnvironmentVariable("MYSIM_GRIDLIGHTCHECKS")!=null){AddChild(new GridLightsScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_TOUCHCHECKS")!=null){AddChild(new TouchControlsScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_NAVCHECKS")!=null){AddChild(new NavigationScenario());return;}
   if(System.Environment.GetEnvironmentVariable("MYSIM_RESULTSCHECKS")!=null){CheckResultsLayout();return;}

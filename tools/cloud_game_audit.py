@@ -417,6 +417,10 @@ if os.environ.get('LIVERY_UV')=='1':
     text=run(label,values);assert shot.exists() and 'PASS complete visible car framing' in text
  print('COMPLETE isolated livery UV comparison; production unchanged',flush=True);sys.exit(0)
 if os.environ.get('GUI_REVIEW')=='1':
+ for resolution in ('640x360','1280x720'):
+  shot=out/('grid-lights-'+resolution+'.png')
+  text=run('grid-lights-'+resolution,{'MYSIM_GRIDLIGHTCHECKS':'1','MYSIM_SHOT':str(shot)},['--resolution',resolution])
+  assert 'PASS actual five grid lights' in text and shot.exists()
  text=run('desktop-touch-disabled',{'MYSIM_TOUCHCHECKS':'1','MYSIM_TOUCH':'0'})
  assert 'PASS desktop controls omit touch overlay' in text
  for resolution in ('640x360','960x540','1600x900'):
