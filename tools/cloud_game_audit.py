@@ -350,6 +350,43 @@ if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  (out/'settings-persist-summary.json').write_text(json.dumps(summary,indent=1))
  assert summary['all_ok'],'settings persistence fixture FAILED: '+json.dumps(summary['scenarios'])
  print('COMPLETE settings persistence: '+str(sum(1 for v in summary['scenarios'].values() if v['ok']))+'/'+str(len(summary['scenarios']))+' scenarios green (isolated user data; not a fence render)',flush=True);sys.exit(0)
+if os.environ.get('FLEET_EVIDENCE')=='1':
+ # Same-HEAD fleet evidence batches: every catalogued car (0..23) gets the labelled capture set
+ # (front/rear/left/right/top views, four wheel closeups + the cockpit), split across shards by car index.
+ # Shard 0 additionally renders track0 day+night representative views (MYSIM_TOD 0/3).
+ # Survey semantics: a failing car records its defect rows and the batch CONTINUES; the run still exits
+ # non-zero if anything is missing, so the manifest of defects rides the failure, not a green tick.
+ view_defs=(('front','0,1.35,5.6'),('rear','0,1.35,-5.6'),('left','-5.6,1.35,0'),('right','5.6,1.35,0'),('top','0,9.0,0.02'))
+ fleet_shards=int(os.environ.get('FLEET_SHARDS','6'))
+ cars=[c for c in range(24) if c%fleet_shards==shard]
+ car_extra={'MYSIM_SOURCE_UV_CANDIDATES':os.environ.get('SOURCE_UV_CANDIDATES','0'),'MYSIM_MISC_TWIN_HIDE_DIAGNOSTIC':os.environ.get('MISC_TWIN_HIDE','0')}
+ missing=[];capture_count=0
+ for car in cars:
+  try:
+   for view,cam in view_defs:
+    shot=out/f'fleet-car-{car:02}-{view}.png'
+    run(f'fleet-car-{car:02}-view-{view}',{**car_extra,'MYSIM_CARVIEW':str(car),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_SHOT':str(shot)},timeout=420)
+    if shot.exists():capture_count+=1
+    else:missing.append(f'car-{car:02}-{view}')
+   for closeup,wheel in ((1,'fl'),(0,'fr'),(3,'rl'),(2,'rr')):
+    shot=out/f'fleet-car-{car:02}-wheel-{wheel}.png'
+    text=run(f'fleet-car-{car:02}-wheel-{wheel}',{**car_extra,'MYSIM_CARVIEW':str(car),'MYSIM_WHEEL_CLOSEUP':str(closeup),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_SHOT':str(shot)},timeout=420)
+    if shot.exists():capture_count+=1
+    if not shot.exists() or 'PASS complete visible wheel framing' not in text:missing.append(f'car-{car:02}-wheel-{wheel}')
+   shot=out/f'fleet-car-{car:02}-cockpit.png'
+   text=run(f'fleet-car-{car:02}-cockpit',{'MYSIM_TRACK':'0','MYSIM_CAR':str(car),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_CAM':'2','MYSIM_SECONDS':'9','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
+   if shot.exists():capture_count+=1
+   if not shot.exists() or 'COCKPIT_VIEW mode=2' not in text:missing.append(f'car-{car:02}-cockpit')
+  except Exception as e:missing.append(f'car-{car:02}: {e}')
+ if shard==0:
+  for tod,label in ((0,'day'),(3,'night')):
+   shot=out/f'fleet-track-00-{label}.png'
+   text=run(f'fleet-track-00-{label}',{**car_extra,'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_TOD':str(tod),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'9','MYSIM_CAM':'0','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
+   if shot.exists():capture_count+=1
+   else:missing.append(f'track-00-{label}')
+ (out/'fleet-evidence-summary.json').write_text(json.dumps({'shard':shard,'shardCars':cars,'captures':capture_count,'missing':missing,'scope':'same-HEAD labelled fleet batches; machine capture evidence only, visual acceptance stays with the human reviewer'},indent=2))
+ if missing:raise SystemExit(f'fleet evidence missing on shard {shard}: {missing}')
+ print('COMPLETE fleet evidence shard '+str(shard)+': '+str(len(cars))+' cars, '+str(capture_count)+' captures, day/night views handled'+(', this shard hosts them' if shard==0 else ' elsewhere'),flush=True);sys.exit(0)
 if os.environ.get('REFERENCE_EVIDENCE')=='1':
  # Reference car16/track0 baseline evidence at the exact commit: static body views via
  # MYSIM_CAMPOS+FITVIEW; wheel closeups via the REAL MYSIM_WHEEL_CLOSEUP pivot-index branch
