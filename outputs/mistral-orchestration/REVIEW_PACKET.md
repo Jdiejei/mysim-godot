@@ -1,8 +1,42 @@
-# REVIEW_PACKET — settings persistence verification (verification agent)
+# REVIEW_PACKET — MySim verification and evidence (coordinator-maintained; specialists contribute sections)
 
-Maintained on branch `mistral/verification` by the verification/persistence specialist. The **CURRENT STATUS** section below is the single authoritative snapshot; all earlier material is preserved verbatim under dated **HISTORY** headings. No whole-game claim and no "persistence stage closed" claim is made anywhere in this packet.
+Maintained on branch `codex/repair-20261029`. The **CURRENT STATUS** sections below are the authoritative snapshot; superseded material is preserved under dated **HISTORY** headings. No whole-game claim and no "persistence stage closed" claim is made anywhere in this packet.
 
-## CURRENT STATUS — 2026-11-04 (verification agent)
+## CURRENT STATUS — 2026-11-04, session 3 (verification agent; run-status corrections — supersedes the session-2 lines quoted below where they differ)
+
+Refresh method: `gh run view --json` reads only (no dispatches, no log downloads — per-shard failure causes that need logs stay explicitly unverified below). A claim→evidence index for the reviewer now exists: `EVIDENCE_INDEX.md` (same directory).
+
+- **fence_miprepair_review retry FINISHED, FAILED (mixed shards).** Supersedes the session-2 line "retry `41818948189` dispatched at `9ff443c` (in flight)". Verified: completed **failure** at `9ff443c` — shards 0/3/4 failed in the audit step ("Render layouts and cars; test real scene transitions"), shards 1/2/5 succeeded. The invariant schema-shape fix (`3061afa`/`49ece2c`: the miprepair invariant now reads the flat `level0KeptAt05/035` schema the C# actually emits) POSTDATES this run, so the failed shards may be the harness bug rather than the fence repair; per-shard causes need the run logs (outside this agent's permitted read scope). NO fence conclusion (positive or negative) can be drawn from this run; a rerun at `49ece2c`+ is required (coordinator dispatches).
+- **reference_evidence at `076363b` FINISHED, FAILED.** Supersedes the session-2 line "Dispatch `41820839687` in flight". Verified: completed **failure** at `076363b` (shard 0, audit step). Superseded by `41825439700` at `5bf41d7` (carries the `5bf41d7` CS0103 fix in the merged mirrored-text detector), in flight at this refresh. No HUD-bounds result exists from either run yet; the per-resolution bounds claim stays OPEN.
+- **Windows persist run `41819498045` FINISHED: FAILED — in the persist step itself.** Supersedes the session-2 line "First Windows persist verification = run `41819498045` ... expects 32 assertions". Verified: completed **failure** at `d3629e8430fcddcd5544153221e07467f7499120`; the failed step is EXACTLY "Settings persistence assertions on the packaged Windows player" (build and native-smoke steps passed — verified via `gh run view --json jobs`). This is the first real Windows persistence datum: the packaged player built and smoked fine on Windows, then the persist assertions failed. WHICH assertion failed is unknown from metadata alone (run logs are outside this agent's permitted read scope — `gh run view --json` only). Candidates consistent with the record: the predicted `atomic_replace_*` delete-then-rename defect, the temp-fault/FileShare.None mechanics, or a harness issue — NO root cause is claimed. Additionally, this run used the PRE-platform driver+fixture (`d3629e8`): even on success it could only have proven build+smoke+the 8-case persist contract — NOT `win_sharing_violation_*` presence and NOT the `platform=windows` proof (the driver began requiring those only at `2862b04`; a missing `platform` field passes vacuously). REQUIRED next steps (coordinator): (1) read the run's persisted logs/`windows-settings-persist-*.json` to identify the exact failed assertion — the fixture's JSON report names every failure; (2) fix with the evidence (if `atomic_replace_*` failed, that is the documented REAL `Settings.Set` defect on Windows — fix in `Settings.cs`, never suppress); (3) the DECISIVE Windows run then runs at `2862b04`+ (expects 32 assertions). No Windows persistence acceptance exists.
+- **driving_validation first full attempt in flight:** `41826593001` at `9c422a4` (source/120 Hz/rotational true). Fix series for prior DV attempts, from commit history: `41820348686` init failure = missing hull bake (bake step added `3061afa`, extended `49ece2c`); `41823772505` baked car 0 while the case required car 16 (DV-manifest selector fixed `9c422a4`); CS0103 in the merged mirrored-text detector caught by integrated DV run `41823396466` and fixed `5bf41d7`. Note `49ece2c` postdates this run's head — if `41826593001` fails on the bake init again, the fixed-head rerun is next. No DV result claimed yet.
+
+## CURRENT STATUS — 2026-11-04, session 2 (coordinator; supersedes the same-day snapshot below where they differ)
+
+### Settings persistence: Linux re-proved; long-typed regression found and fixed; Windows dispatch in flight
+
+- **Linux re-proof DONE:** run `41798040383` at `e8b80bb` = success — the strengthened non-vacuous `temp_live_kept`/`rename_live_kept` reads + `contract_sync_case_names` are re-proven at a later commit (28/28, five isolated scenarios). The "26 real + 2 vacuous" note below applies only to `dfe0ed3` (run `41710482854`).
+- **New regression found 2026-11-04 by the cloud controls probe (run `41795630650` at `5288329`)**: `Settings.TypedValue<T>` had no `long` branch, so `Settings.Get(key,(long)def)` returned the default unconditionally — every key rebinding was silently ignored in play (probe: "new throttle key not stored"). Root cause of the regression is the strict-typed-Get change at `c1701d9`; `41795630650` was the first CI probe battery after it. **Fix at `9ff443c`**: `long`↔Int natively matched; new fixture case `legacy_long_roundtrip` (roundtrips 75 through the production Set/Get exactly as ControlBindings does) added to the fixture contract AND `cloud_game_audit.py required_cases` AND the Windows driver contract. Linux now expects **29** base cases; Windows **32** (29 + 3 win_sharing_violation). The earlier strict-typed failures at `c1701d9` were a DIFFERENT defect (over-strict on wrong types) — both directions of the policy are now covered by the roundtrip case.
+- **Windows persistence: the verification agent's step was NOT actually in the committed workflow** (the handoff claim "windows step wired at e8b80bb" was wrong for the committed file — caught 2026-11-04 while preparing the dispatch). Coordinator added the real step at `d3629e8`: `windows-build.yml` now runs `tools/cloud_windows_persist.py` (committed) on the packaged player after smoke/render, with `build-cloud/windows-settings-persist-*.{json,log}` added to the diagnostics artifact. First Windows persist verification = run `41819498045` (tag `windows-candidate-d3629e8430fcddcd5544153221e07467f7499120`; dispatch details in JOB_REGISTRY.json, including two discarded misconfigured windows dispatches and GitHub-side 500s on pushes — all preserved). Fresh `%APPDATA%\...\MySim` per scenario; expects 32 assertions; any `atomic_replace_*` failure = the documented delete-then-rename Windows defect, to be fixed in `Settings.cs`, never suppressed.
+- **Linux 29-case proof DONE (supersedes the queued status below):** dispatch `41818941902` at `9ff443c` completed SUCCESS — `legacy_long_roundtrip` green in the packaged Linux fixture flow with contract sync; the 29-case Linux basis (28 original + long roundtrip) is now proven, not pending. `41798040383` (at `e8b80bb`, without the long case) remains the 28/28 re-proof.
+
+### Reference car/track: clean continuous lap PROVEN; visual acceptance still open
+
+- **Continuous lap, clean (run `41799538756` at `5d21c56`, jolt/240Hz/CCD/rotational):** `finished=true`, `laps=1`, `bestLap=87.52s`, `damage=0`, `impactEvents=0`, `ruleResets=0`, 4 tyre contacts on DriveSurface, no chassis contacts in samples. This REPLACES the earlier failure line (17 impacts/damage 0.27 at `71dfc6c` on the source solver — preserved below in HISTORY and in JOB_REGISTRY.json). Evidence on disk: 89.6s encrypted+decrypted video + full telemetry at `outputs/repair-20261029/lap-jolt-41799538756/encrypted-review-0-attempt-1/game-review-41799538756-1-0/review/`. NOT yet watched by the human reviewer; solver changes (source vs jolt) are recorded in the run config.
+- **car_evidence run `41798036351` at `e8b80bb` = success** — engine gates PASS: 5 car views full framing (`corners=376`), all 4 wheels + steered wheel closeups (`corners=32`, real closeups not whole-car), genuine cockpit (`COCKPIT_VIEW mode=2 fov=75 seatLocal=(0,0.88,0.05) seatOffsetFromAuthored=0.000 wheelsHidden=True` = authored seat, not overhead). 18 PNGs/shard decrypted at `outputs/repair-20261029/car-ev-41798036351/`. Human visual review pending; the earlier capture defects (mirrored logos, black foliage, speckled fences) are NOT dispositioned by these runs.
+- **HUD fix verification made objective at `076363b`**: `Hud.EmitRects()` prints every HUD element's global rect at capture time; `reference_evidence` now asserts per-resolution that speed/gear/info/minimap/standings/hybrid rects stay inside the viewport (640x360 … 2560x1080; 960x540-class covered by 16:9 scaling). Dispatch `41820839687` in flight; the previous car_evidence set had NO bounds asserts (existence-only) — superseded by this.
+
+### Fence/alpha work: mip-repair retry in flight; scale of claims unchanged
+
+- Run `41795630650` (fence_miprepair_review at `5288329`) failed on the controls probe above, NOT on the mip-repair invariants — the fence evidence was never produced; retry `41818948189` dispatched at `9ff443c` (in flight). Scale unchanged: candidate evidence only, no visual acceptance, no geometry root-cause claim until the human reviewer compares repaired vs baseline PNGs.
+
+### STILL OPEN (unchanged by this session)
+
+- Mirrored logos/numbers root cause (UV/texture orientation per surface) — awaiting human review of `41798036351` closeups before any livery change.
+- Road fairness, grass color balance, vegetation backdrop — one controlled change per evidence cycle, AFTER the fence mip-repair verdict.
+- Windows run results, driving_validation runs (core/impact/wet), and the 15-stage remaining scope (all cars/tracks, weather/night, racing AI, pits, menus, championship, LAN, audio, performance, asset acceptance, final Windows e2e).
+
+## CURRENT STATUS — 2026-11-04, earlier same-day snapshot (verification agent; superseded where the session-2 update contradicts)
 
 ### Settings persistence: verified on Linux; Windows explicitly OPEN
 
@@ -20,7 +54,7 @@ Maintained on branch `mistral/verification` by the verification/persistence spec
   - `corrupt` (5): corrupt_defaults_typed, corrupt_no_crash, corrupt_no_value_resurrection, corrupt_file_intact, corrupt_load_error_evidence
   - `malformed` (4): malformed_seed_save, malformed_defaults_typed, malformed_disk_untouched_by_get, malformed_set_migrates_marker
   - `failures` (8): baseline_saved, temp_failure_rejected, temp_no_tmp, temp_live_kept, rename_fault_rejected, rename_tmp_recovery_kept, rename_live_kept, atomic_success_after_faults
-  - Windows adds the 3 `win_sharing_violation_*` cases; every scenario adds `contract_sync_case_names` on repo runs (packaged runs: recorded in `contractSync` instead).
+  - Windows adds the 3 `win_sharing_violation_*` cases; every scenario adds `contract_sync_case_names` on repo runs (packaged runs: recorded in `contractSync` instead). Session-2 update: the base contract is now 29 (`legacy_long_roundtrip` added); this snapshot's 28-name list is the pre-`9ff443c` contract, kept for the record.
 
 ### Windows verification plan (PROPOSAL — coordinator owns `windows-build.yml` and `tools/*`; this agent does not dispatch)
 
@@ -32,7 +66,7 @@ Minimal set; every assertion already exists in the fixture — the Windows job o
 | 2 | Failure preservation on Windows: temp-write failure (dir-occupied tmp), rename failure (env seam), Windows sharing violation (`FileShare.None`) — live file intact, tmp recovery semantics | Same step, `MYSIM_SETTINGSPERSIST_SCENARIO=failures` (the fixture branches per OS itself) |
 | 3 | Real settings touched exactly once per scenario with fresh state | The driver deletes `%APPDATA%\Godot\app_userdata\MySim` before each scenario (equivalent of the Linux per-scenario `HOME` swap) |
 
-Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full proposed content in `outputs/mistral-orchestration/agents/verification-report.md` for verbatim adoption) mirroring the existing `cloud_windows_smoke.py` conventions (headless run, `CREATE_NO_WINDOW`, marker/JSON checks, non-zero exit on failure, results JSON), plus one workflow step `python tools/cloud_windows_persist.py` and `windows-settings-persist-*.json` added to the diagnostics artifact paths. The first run doubles as the probe for the delete-then-rename risk above.
+Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full proposed content in `outputs/mistral-orchestration/agents/verification-report.md` for verbatim adoption) mirroring the existing `cloud_windows_smoke.py` conventions (headless run, `CREATE_NO_WINDOW`, marker/JSON checks, non-zero exit on failure, results JSON), plus one workflow step `python tools/cloud_windows_persist.py` and `windows-settings-persist-*.json` added to the diagnostics artifact paths. The first run doubles as the probe for the delete-then-rename risk above. STATUS 2026-11-04 session 3: implemented (script at `8eeb6e4`, workflow step at `d3629e8`, platform-enforcement at `2862b04`) — this section is historical; see the session-3 block for run states.
 
 ### Reference evidence snapshot (NOT visual acceptance)
 
@@ -55,16 +89,16 @@ Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full
 1. **Linux re-proof of the strengthened fixture** (after this branch's commit is available at the dispatch ref):
    `gh workflow run game-review.yml -R instagramshashank8-bot/mysim-godot --ref <ref-containing-this-commit> -f depth=settings_persist_review`
    All other inputs default — this matches the `41710482854` shape exactly (cars 16, backend source, 120 Hz, rotational false; `settings_persist_review` maps to shard `[0]`).
-   PASS criteria: `settings-persist-summary.json` `all_ok: true`; per-scenario passed/failed = 8/0, 5/0, 6/0, 5/0, 9/0 (28 base + 5 `contract_sync_case_names` on Linux repo runs); every scenario's case list contains `contract_sync_case_names` with the audit-comparison detail; the 28 base case names unchanged.
+   PASS criteria: `settings-persist-summary.json` `all_ok: true`; per-scenario passed/failed = 8/0, 5/0, 6/0, 5/0, 9/0 (28 base + 5 `contract_sync_case_names` on Linux repo runs); every scenario's case list contains `contract_sync_case_names` with the audit-comparison detail; the 28 base case names unchanged. STATUS: executed — `41798040383` (28) and `41818941902` (29, with `legacy_long_roundtrip`) both success.
 2. **Windows persistence verification** (after the coordinator adds the proposed step/script and the publication tag):
    `gh workflow run windows-build.yml -R instagramshashank8-bot/mysim-godot --ref <ref-containing-this-commit-and-the-new-script> -f publication_tag=windows-candidate-<40-hex-of-that-ref>`
-   PASS criteria: `windows-settings-persist-summary.json` all five scenarios ok (exit 0, `passed>0`, `failed==0`, all required cases present, no `ERROR:` lines); on Windows the `failures` scenario reports 31 assertions (28 base + 3 win) + `contract_sync` recorded; any `atomic_replace_*` failure is a REAL Windows defect finding to be fixed in `Settings.cs`, not suppressed.
+   PASS criteria: `windows-settings-persist-summary.json` all five scenarios ok (exit 0, `passed>0`, `failed==0`, all required cases present, no `ERROR:` lines); on Windows the `failures` scenario reports 31 assertions (28 base + 3 win) + `contract_sync` recorded; any `atomic_replace_*` failure is a REAL Windows defect finding to be fixed in `Settings.cs`, not suppressed. STATUS: `41819498045` dispatched at `d3629e8` (pre-platform driver — see the session-3 caveat); the decisive run must be at `2862b04`+ (32 assertions; driver requires the win cases + `platform=windows`).
 
 ### Open items
 
-1. Linux re-run to re-prove the strengthened `temp_live_kept`/`rename_live_kept` (dispatch proposal 1).
-2. First Windows run (dispatch proposal 2) — expects either full pass or the documented delete-then-rename finding.
-3. Optional audit-side hardening (coordinator-owned, not required): mirror the fixture's exact-set check in `cloud_game_audit.py` (currently prefix-match only). The in-fixture check already covers both directions on repo runs.
+1. Linux re-run to re-prove the strengthened `temp_live_kept`/`rename_live_kept` (dispatch proposal 1). STATUS: DONE — `41798040383` (28) and `41818941902` (29).
+2. First Windows run (dispatch proposal 2) — expects either full pass or the documented delete-then-rename finding. STATUS: `41819498045` in flight (pre-platform caveat applies); decisive run at `2862b04`+ still needed.
+3. Optional audit-side hardening (coordinator-owned, not required): mirror the fixture's exact-set check in `cloud_game_audit.py` (currently prefix-match only). The in-fixture check already covers both directions on repo runs. STATUS: partially addressed at `2862b04` on the WINDOWS driver (win cases + platform required); the Linux audit still uses prefix-match.
 4. Reference visual acceptance remains open per `VISUAL_REVIEW.md` (not this agent's files).
 
 ## HISTORY (preserved verbatim; superseded — read only for the record)
@@ -196,4 +230,4 @@ Why: the old code wrote `cf.Save(P)` on temp-save failure **and** on rename fail
 *Snapshot ends. No completion claims. READY FOR INDEPENDENT REVIEW.*
 ````
 
-*History block ends. The Current Status section at the top of this file supersedes everything above.*
+*History block ends. The Current Status sections at the top of this file supersede everything above.*
