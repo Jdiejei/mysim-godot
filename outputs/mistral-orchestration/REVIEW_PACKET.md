@@ -1,3 +1,79 @@
+# REVIEW_PACKET — settings persistence verification (verification agent)
+
+Maintained on branch `mistral/verification` by the verification/persistence specialist. The **CURRENT STATUS** section below is the single authoritative snapshot; all earlier material is preserved verbatim under dated **HISTORY** headings. No whole-game claim and no "persistence stage closed" claim is made anywhere in this packet.
+
+## CURRENT STATUS — 2026-11-04 (verification agent)
+
+### Settings persistence: verified on Linux; Windows explicitly OPEN
+
+- **Linux: PASS (with one correction, below).** Run `41710482854` (game-review.yml, `depth=settings_persist_review`) at `dfe0ed3` = success: five fresh-process scenarios on Ubuntu (`legacy`/`foreign`/`corrupt`/`malformed`/`failures`) with per-scenario isolated `HOME`/`XDG_DATA_HOME`, 28/28 assertions green, audit summary `all_ok`. Scope: Linux runner, headless Godot 4.7.2, real `Settings` statics, real I/O. This is NOT Windows coverage and NOT closure of the stage-10 persistence acceptance.
+- **Correction found 2026-11-04 (honesty note, fixed on this branch):** inside `failures`, the two assertions `temp_live_kept` and `rename_live_kept` read the un-globalized constant `user://settings.cfg` through System.IO (introduced when `c1701d9`/`dfe0ed3` globalized reads; this call site was missed). Both reads threw, `Read()` returned the empty string, and the assertions compared `"" == ""` — they passed **vacuously** (the same tautology class the reviewer flagged at `9bed931`). The other 26 assertions were real (return values, `File.Exists`/absence on globalized paths, reloaded-content reads, `corrupt_file_intact` byte comparison). Fixed in this commit: both reads use the globalized path, so they now compare real captured bytes and can genuinely fail. **A Linux re-run is required to re-prove the strengthened 28; until then, read "28/28 at dfe0ed3" as "26 real + 2 vacuous".**
+- **Windows readiness (this commit; only `src/SettingsPersistChecks.cs` changed — `Settings.cs` and `SettingsPersistChecksNode.cs` untouched):**
+  1. Temp-write fault is now cross-platform: Linux keeps the proven read-only-directory chmod (`File.SetUnixFileMode` is POSIX-only); every other OS (incl. Windows) occupies the tmp path with a directory, which makes `cf.Save(tmp)` fail identically (open-for-write on a directory fails on both Win32 and POSIX). Same three assertions (`temp_failure_rejected`, `temp_no_tmp`, `temp_live_kept`) hold on both; the blocker is removed before the tmp/live assertions.
+  2. NEW Windows-only real contention fault: the live file is held open with `FileShare.None`. Godot's Windows `DirAccess.Rename` is delete-then-rename (verified in `godotengine/godot` `drivers/windows/dir_access_windows.cpp` @ `4.7.2-stable`: `if (file_exists(new_path)) { if (remove(new_path) != OK) return FAILED; }` then `MoveFileW`), so the delete hits the sharing violation, the save is rejected and the tmp recovery copy stays (the tmp write is unaffected by the lock). Live-content equality is asserted AFTER the lock is released, which also catches "deleted but not renamed". Three new cases, Windows repo runs only: `win_sharing_violation_rejected`, `win_sharing_violation_tmp_kept`, `win_sharing_violation_live_kept`.
+  3. The env-seam rename fault (`MYSIM_PERSIST_FAULT=rename`, retargets the rename to a missing directory after a successful tmp write) was already OS-neutral; unchanged.
+- **Known Windows risk (stated BEFORE the first Windows run):** because Godot's Windows rename deletes the existing target first, a save-over-existing on Windows has a non-atomic window (crash between `DeleteFileW` and `MoveFileW` leaves no live settings file; the tmp recovery copy survives and the failed path is reported). If the first Windows run shows `atomic_replace_*` or `foreign_marker_kept` failures, that is a REAL production defect of `Settings.Set` on Windows and needs an evidence-backed fix in `Settings.cs` (e.g. a `File.Replace`-based Windows path), not a weaker fixture.
+- **Contract sync (new regression guard, this commit):** every scenario now ends with `contract_sync_case_names`: the emitted case names must equal the fixture's per-platform contract exactly (catches accidental renames/additions in the fixture), and on repo runs the `required_cases` table in `tools/cloud_game_audit.py` must equal the shared 28-name base contract in BOTH directions (catches drift in the coordinator-owned audit). Packaged exports do not contain the `.py`; there the audit comparison is skipped and recorded in the report JSON `contractSync` field — visible, never a silent pass.
+- **Fixture contract (exact).** Base 28 (must stay identical to `cloud_game_audit.py` `required_cases`; enforced both by the audit's prefix match + `passed>0 && failed==0 && exit 0` and by the in-firmware contract check):
+  - `legacy` (7): legacy_seed_save, legacy_readback, legacy_get_did_not_write_disk, legacy_set_stamps, legacy_marker_and_values_persisted, atomic_replace_saved, atomic_replace_final_bytes
+  - `foreign` (4): foreign_seed_save, foreign_readback, foreign_set_succeeds, foreign_marker_kept
+  - `corrupt` (5): corrupt_defaults_typed, corrupt_no_crash, corrupt_no_value_resurrection, corrupt_file_intact, corrupt_load_error_evidence
+  - `malformed` (4): malformed_seed_save, malformed_defaults_typed, malformed_disk_untouched_by_get, malformed_set_migrates_marker
+  - `failures` (8): baseline_saved, temp_failure_rejected, temp_no_tmp, temp_live_kept, rename_fault_rejected, rename_tmp_recovery_kept, rename_live_kept, atomic_success_after_faults
+  - Windows adds the 3 `win_sharing_violation_*` cases; every scenario adds `contract_sync_case_names` on repo runs (packaged runs: recorded in `contractSync` instead).
+
+### Windows verification plan (PROPOSAL — coordinator owns `windows-build.yml` and `tools/*`; this agent does not dispatch)
+
+Minimal set; every assertion already exists in the fixture — the Windows job only needs to drive the packaged player once per scenario:
+
+| # | What Windows must prove | Where it runs |
+|---|---|---|
+| 1 | Atomic save + legacy/foreign/corrupt/malformed behaviour on real Windows paths (`%APPDATA%\Godot\app_userdata\MySim\settings.cfg`) | New step in `windows-build.yml` after the existing smoke/render step, running the packaged `MySim.exe` (real player, not editor) once per scenario |
+| 2 | Failure preservation on Windows: temp-write failure (dir-occupied tmp), rename failure (env seam), Windows sharing violation (`FileShare.None`) — live file intact, tmp recovery semantics | Same step, `MYSIM_SETTINGSPERSIST_SCENARIO=failures` (the fixture branches per OS itself) |
+| 3 | Real settings touched exactly once per scenario with fresh state | The driver deletes `%APPDATA%\Godot\app_userdata\MySim` before each scenario (equivalent of the Linux per-scenario `HOME` swap) |
+
+Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full proposed content in `outputs/mistral-orchestration/agents/verification-report.md` for verbatim adoption) mirroring the existing `cloud_windows_smoke.py` conventions (headless run, `CREATE_NO_WINDOW`, marker/JSON checks, non-zero exit on failure, results JSON), plus one workflow step `python tools/cloud_windows_persist.py` and `windows-settings-persist-*.json` added to the diagnostics artifact paths. The first run doubles as the probe for the delete-then-rename risk above.
+
+### Reference evidence snapshot (NOT visual acceptance)
+
+- Run `41788844369` at `e41e29b` = success (note: the dispatch brief's "44788844369" is a typo; `gh run view 44788844369` returns 404, `41788844369` verified). 9 PNGs (7 static views + 2 drive frames) captured, decrypted under `outputs/repair-20261029/cloud/reference-evidence-41788844369/`. Manually reviewed 2026-11-04 (see `VISUAL_REVIEW.md`): capture success accepted; **visual acceptance NOT granted** — blocking: black foliage/horizon masses, white/speckled grandstand/fence surfaces, HUD right-edge clipping + half-width top bar at 960x540, mirrored logos/numbers, `wheel-fl` not a wheel closeup, cockpit frame not cockpit evidence. No continuous-lap/motion, collision, input-direction or handling acceptance exists in this set.
+
+### Run index (this work line; statuses re-verified via `gh run view` this session)
+
+| Run | Head | Result | Note |
+|---|---|---|---|
+| 41710482854 | `dfe0ed3` | success | settings_persist_review 28/28 (26 real + 2 vacuous, now fixed on this branch) |
+| 41788844369 | `e41e29b` | success | reference_evidence: 9 PNGs captured; capture only, NO visual acceptance |
+| 41707159183 | `c1701d9` | failure | strict typed fallback + case sync; preserved |
+| 41703220126 | `1d6bd4d` | failure | observed-evidence assertions round; preserved |
+| 41699253306 | `e1f6d21` | failure | scenario boot isolation + real fault seams; preserved |
+| 41688779865 | `9bed931` | failure | fixture compile errors (missing helpers, Variant.Text, private SchemaVersion); preserved |
+| 41675023687 | `18f69a1` | failure | fixture compile errors (UnixFileMode etc.); preserved |
+
+### Proposed dispatch configs (coordinator executes; this agent does not dispatch)
+
+1. **Linux re-proof of the strengthened fixture** (after this branch's commit is available at the dispatch ref):
+   `gh workflow run game-review.yml -R instagramshashank8-bot/mysim-godot --ref <ref-containing-this-commit> -f depth=settings_persist_review`
+   All other inputs default — this matches the `41710482854` shape exactly (cars 16, backend source, 120 Hz, rotational false; `settings_persist_review` maps to shard `[0]`).
+   PASS criteria: `settings-persist-summary.json` `all_ok: true`; per-scenario passed/failed = 8/0, 5/0, 6/0, 5/0, 9/0 (28 base + 5 `contract_sync_case_names` on Linux repo runs); every scenario's case list contains `contract_sync_case_names` with the audit-comparison detail; the 28 base case names unchanged.
+2. **Windows persistence verification** (after the coordinator adds the proposed step/script and the publication tag):
+   `gh workflow run windows-build.yml -R instagramshashank8-bot/mysim-godot --ref <ref-containing-this-commit-and-the-new-script> -f publication_tag=windows-candidate-<40-hex-of-that-ref>`
+   PASS criteria: `windows-settings-persist-summary.json` all five scenarios ok (exit 0, `passed>0`, `failed==0`, all required cases present, no `ERROR:` lines); on Windows the `failures` scenario reports 31 assertions (28 base + 3 win) + `contract_sync` recorded; any `atomic_replace_*` failure is a REAL Windows defect finding to be fixed in `Settings.cs`, not suppressed.
+
+### Open items
+
+1. Linux re-run to re-prove the strengthened `temp_live_kept`/`rename_live_kept` (dispatch proposal 1).
+2. First Windows run (dispatch proposal 2) — expects either full pass or the documented delete-then-rename finding.
+3. Optional audit-side hardening (coordinator-owned, not required): mirror the fixture's exact-set check in `cloud_game_audit.py` (currently prefix-match only). The in-fixture check already covers both directions on repo runs.
+4. Reference visual acceptance remains open per `VISUAL_REVIEW.md` (not this agent's files).
+
+## HISTORY (preserved verbatim; superseded — read only for the record)
+
+### 2026-11-03T~18:40Z snapshot — "READY FOR INDEPENDENT_REVIEW" (superseded by the 2026-11-04 section above)
+
+> Erratum 2026-11-04: this snapshot predates the successful dfe0ed3 run. Its "compile FAILED" / "no successful persisted-behavior run exists" / "Current HEAD 9bed931" statements were true at 9bed931 and are OBSOLETE now; the branch tip title ("persistence verified 28/28") was also ahead of this file's content, which is exactly the contradiction this rewrite removes. Kept verbatim for the failure/decision record.
+
+````text
 # REVIEW_PACKET — MySim settings-persistence work + session status
 Snapshot frozen 2026-11-03T~18:3xZ by the sole worker. **READY FOR INDEPENDENT REVIEW.** No game-completion claim. This packet contains the actual state including unresolved defects; nothing here should be read as acceptance.
 
@@ -118,3 +194,6 @@ Why: the old code wrote `cf.Save(P)` on temp-save failure **and** on rename fail
 - **Questions requiring reviewer judgment:** (1) Is the two-phase (legacy/foreign/atomic) + corrupt-boot split the right fixture shape, or should corrupt + atomic live in one boot? (2) Confirm `MYSIM_SETTINGS_PERSIST` early-exit hook placement is acceptable inside `Main._Ready()` vs a standalone scene entry. (3) Sign-off criteria for calling the persistence WORK "verified" — is a single green `settings_persist_review` GitHub run with PASS enough, or do you want CI to run my corrupt-boot phase separately as well? (4) Proceed to reference car/track repair next session as planned?
 
 *Snapshot ends. No completion claims. READY FOR INDEPENDENT REVIEW.*
+````
+
+*History block ends. The Current Status section at the top of this file supersedes everything above.*

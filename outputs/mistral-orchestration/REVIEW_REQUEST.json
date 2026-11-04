@@ -1,41 +1,46 @@
 {
   "packet": "REVIEW_PACKET.md",
   "status": "READY_FOR_INDEPENDENT_REVIEW",
-  "frozen_at": "2026-11-03T18:40Z (approx)",
+  "updated": "2026-11-04 (verification agent)",
+  "branch": "mistral/verification",
   "head": {
-    "local": "9bed931",
-    "remote": "9bed931",
-    "branch": "codex/repair-20261029",
-    "uncommitted": ["src/SettingsPersistChecks.cs (post-9bed931 corrections: UnixFileMode fully qualified, corrupt-branch reordering, HasFailures/WriteReport helpers, duplicated JSON build remains)"]
+    "parent": "c87ae00",
+    "this_commit": "see git log -1 on the branch (packet rewritten in the same commit)",
+    "branch_note": "worktree C:/Users/shash/MySimGodot-wt-verify; coordinator integrates/dispatches",
+    "uncommitted": []
+  },
+  "verification_state": {
+    "linux_persistence": "PASS at dfe0ed3 run 41710482854: 5 scenarios, 28/28 assertions, audit all_ok. CAVEAT found 2026-11-04: temp_live_kept and rename_live_kept in the failures scenario passed vacuously (un-globalized user:// path read through System.IO; both reads failed and compared empty==empty). Fixed on this branch (reads now globalized and real); Linux re-run required to re-prove.",
+    "windows_persistence": "OPEN. Fixture made Windows-capable on this branch: cross-platform temp-fault (directory occupying the tmp path; Linux keeps its POSIX chmod), Windows-only real FileShare.None contention fault (Godot Windows rename is delete-then-rename per drivers/windows/dir_access_windows.cpp @4.7.2-stable), env-seam rename fault unchanged. Windows repo runs carry 31 assertions (28 base + 3 win_sharing_violation_*). Execution requires a coordinator-owned windows-build.yml step + tools/cloud_windows_persist.py (proposed content in agents/verification-report.md).",
+    "known_windows_risk": "Godot Windows rename deletes the existing target before MoveFileW, so save-over-existing is not atomic on Windows; if atomic_replace_* fails on the first Windows run that is a real Settings.Set defect to fix in Settings.cs, not a fixture issue.",
+    "contract_sync": "NEW: every scenario ends with contract_sync_case_names - emitted case names must equal the fixture per-platform contract, and on repo runs cloud_game_audit.py required_cases must equal the 28-name base contract in both directions. Packaged exports skip the audit comparison and record it in the JSON contractSync field.",
+    "reference_visual": "NOT granted. Run 41788844369 at e41e29b succeeded and captured 9 PNGs (7 views + 2 drive frames); manual review 2026-11-04 in VISUAL_REVIEW.md lists blocking defects (foliage/fence masses, HUD clipping, mirrored logos, non-semantic wheel/cockpit views). Capture success only."
   },
   "runs": {
-    "41675023687": {"head": "18f69a1", "conclusion": "failure", "reason": "fixture compile: CS0103 UnixFileMode, CS0117 WriteReport/HasFailures, CS1061 Variant.Text, CS0122 SchemaVersion private, CS0019, CS0266"},
-    "41688779865": {"head": "9bed931", "conclusion": "failure", "reason": "same error classes; Node references helpers absent from that commit"},
-    "41656712889": {"head": "4b2b049", "conclusion": "success", "note": "last fully-green compile; A2C artifacts reviewed and REJECTED for adoption"}
+    "41710482854": {"head": "dfe0ed3", "conclusion": "success", "note": "settings_persist_review 28/28 (26 real + 2 vacuous, fixed on this branch)"},
+    "41788844369": {"head": "e41e29b", "conclusion": "success", "note": "reference_evidence 9 PNGs; capture only, no visual acceptance"},
+    "41707159183": {"head": "c1701d9", "conclusion": "failure", "note": "strict typed fallback + case sync; preserved"},
+    "41703220126": {"head": "1d6bd4d", "conclusion": "failure", "note": "preserved"},
+    "41699253306": {"head": "e1f6d21", "conclusion": "failure", "note": "scenario boot isolation + fault seams; preserved"},
+    "41688779865": {"head": "9bed931", "conclusion": "failure", "note": "fixture compile errors; preserved"},
+    "41675023687": {"head": "18f69a1", "conclusion": "failure", "note": "fixture compile errors; preserved"}
   },
-  "verification_honesty": {
-    "persistence_runtime": "NEVER verified: no successful fixture run; all fixture runs failed at compile",
-    "self_comparison": "rename_failure_preserves_live was a tautology in 9bed931; fixed in uncommitted tree",
-    "fixture_dead_code": "cloud_game_audit settings_persist_review branch never executed on CI",
-    "known_defects_in_tree": ["SettingsPersistChecksNode.cs calls WriteReport(path) with one arg", "duplicate JSON construction in fixture Run()"]
+  "proposed_dispatches": {
+    "policy": "coordinator executes; this agent proposes only",
+    "linux_reproof": "gh workflow run game-review.yml -R instagramshashank8-bot/mysim-godot --ref <ref-with-this-commit> -f depth=settings_persist_review (all other inputs default; matches 41710482854 shape). Expect per-scenario 8/0,5/0,6/0,5/0,9/0 (28 base + 5 contract_sync).",
+    "windows_persistence": "gh workflow run windows-build.yml -R instagramshashank8-bot/mysim-godot --ref <ref> -f publication_tag=windows-candidate-<40hex> AFTER adding the proposed cloud_windows_persist.py + workflow step. Expect all 5 scenarios ok; failures scenario 31 assertions."
   },
-  "evidence_paths": [
+  "changed_files_this_commit": [
+    "src/SettingsPersistChecks.cs",
     "outputs/mistral-orchestration/REVIEW_PACKET.md",
-    "outputs/repair-20261029/cloud/fence-true-blend-result/",
-    "outputs/repair-20261029/cloud/fence-a2c-result/",
-    "outputs/repair-20261029/cloud/settings-persist-result/",
-    "outputs/repair-20261029/MESH00072_QUANT_OVERVIEW.json",
-    "outputs/repair-20261029/MESH00073_QUANT_OVERVIEW.json",
-    "outputs/repair-20261029/FENCE_A2C_VERDICT_QUANT.json",
-    "outputs/repair-20261029/CONTINUE.md",
-    "outputs/repair-20261029/REPAIR_REPORT.md",
-    "outputs/repair-20261029/TASK_BOARD.json"
+    "outputs/mistral-orchestration/REVIEW_REQUEST.json",
+    "outputs/mistral-orchestration/agents/verification-report.md"
   ],
+  "untouched_owned_files": ["src/Settings.cs", "src/SettingsPersistChecksNode.cs"],
   "open_questions": [
-    "fixture phase split: corrupt + atomic in one boot vs current split?",
-    "Main._Ready() early-exit hook placement acceptable?",
-    "verification bar: single green settings_persist_review run vs also requiring corrupt-phase dispatch?",
-    "proceed to reference car/track repairs next?"
+    "Confirm the dispatch ref for the Linux re-proof (this branch directly, or after coordinator merge into codex/repair-20261029).",
+    "Accept the proposed cloud_windows_persist.py + windows-build.yml step wording, or prefer extending cloud_windows_smoke.py instead?",
+    "Should the Windows persistence run gate the existing Windows publication flow (fail the windows-build job) or stay advisory at first?"
   ],
-  "constraints_honored": ["no git add .", "no local engine compute", "failure history preserved", "machine-screening never counted as manual review", "no fabricated dispatches - all run IDs from gh output", "no duplicate A2C runs after adoption"]
+  "constraints_honored": ["no git add .", "no local engine/render/build - cloud runs everything", "only owned files touched", "failure history preserved (all 5 failed runs listed)", "no assertion weakened - two vacuous asserts strengthened to real byte comparisons", "no dispatch performed - proposals only"]
 }
