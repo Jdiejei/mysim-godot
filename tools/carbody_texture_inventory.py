@@ -174,27 +174,36 @@ def norm_name(s):
 # so fleet.json rows can carry a per-car completion state that survives regeneration.
 EVIDENCE_ANNOTATIONS = {
     "fleetEvidence": {
-        "run": 41848086075, "depth": "fleet_evidence", "head": "b5ca3e0",
-        "outcome": "run SUCCESS but ONLY shard 0 executed (jobs: prepare + render(0)): the b5ca3e0 shard expression mis-nested the fleet bracket, collapsing the matrix to [0]; the expression is balanced again at the current head",
+        "runs": [
+            {"run": 41848086075, "head": "b5ca3e0", "outcome": "SUCCESS but only shard 0 (jobs: prepare+render(0))"},
+            {"run": 41862411919, "head": "eb3890f", "outcome": "SUCCESS but only shard 0 (jobs: prepare+render(0)) - re-dispatch reproduced the collapse"},
+        ],
+        "cause": "MECHANICALLY CONFIRMED at a313492: the fleet term sits inside the paren group opened at 'chiron_wing_rebuild' that closes after 'f1_wheel_diagnostic' and is followed by && '[0]' - for fleet dispatches the group evaluates to '[0,1,2,3,4,5]' and the trailing && '[0]' collapses it to '[0]' (GitHub expressions: non-empty string is truthy)",
+        "fix": "coordinator-owned one-line re-scope: close the group after night_evidence)); give recovered_wet_review..f1_wheel_diagnostic their own parentheses; keep fleet_evidence && '[0,1,2,3,4,5]' top-level",
         "coveredCars": [0, 6, 12, 18],
-        "provides": "42/42 captures, missing=[] (5 views + 4 wheel closeups + cockpit per car + track0 day/night), PRODUCTION render state (SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0); images inside encrypted-review-0 envelope - MYSIM_INTAKE_KEY unavailable locally, decryption/review pending",
-        "doesNotProvide": "no CarAssemblyAudit JSONs (no metresPerUv/basisDeterminant/textOrientation); 20 cars not covered at this run - re-dispatch at the current head expands to 6 shards",
+        "provides": "42/42 captures per run, missing=[] (5 views + 4 wheel closeups + cockpit per car + track0 day/night), PRODUCTION render state (SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0); images inside encrypted envelopes - MYSIM_INTAKE_KEY unavailable locally, decryption/review pending",
+        "doesNotProvide": "car16 (shard 4 material) has never been fleet-captured; no CarAssemblyAudit JSONs on this depth",
         "completes": ["fleet visual evidence for cars 0/6/12/18 (pending decryption + human review)"],
     },
     "assemblyAudit": {
         "cars15to18": {"runs": [41837315358, 41843317303], "state": "41837315358 SUCCESS (no-fit baseline; 275 poses/car); 41843317303 = axle-fit leg",
                         "artifacts": "emitted per-car *-assembly.json (metresPerUv/basisDeterminant/textOrientation); downloaded to the car-assembly agent's worktree (uncommitted there)"},
-        "cars0to3": {"run": 41849732286, "outcome": "FAILURE (at 6505f16)", "retry": 41854428291, "state": "corrected retry in flight (wheel_fit_review cars 0,1,2,3 at 6263c51)"},
-        "remaining": {"state": "further 4-car batches queued per the car-assembly turn-6 plan (6505f16): 4-7, 8-11, 12-15, 16-19, 20-23 minus done"},
+        "cars0to3": {"run": 41849732286, "outcome": "FAILURE (at 6505f16)", "retry": 41854428291, "state": "corrected retry FAILED at 6263c51; next batch pending"},
+        "remaining": {"state": "further 4-car batches queued per the car-assembly turn-6 plan (6505f16)"},
     },
     "p1Badges": {
-        "legA": {"run": 41847896437, "ref": "mistral/p1-badge-baseline (adf89ca)", "outcome": "FAILURE in the render step",
-                  "cause": "AUDIT-SCRIPT BUG: cloud_game_audit.py line 389 HUD-viewport assert references undefined 'want' -> NameError at the third HUD resolution (present at 39cdf33 and adf89ca; removed at the current head); NOT a leg-specific or badges-specific failure",
-                  "captures": "the five body views + 5 wheel closeups + cockpit + 2 HUDs were CAPTURED and live in encrypted-review-0-attempt-1 (4.6 MB, uploaded); the 3 remaining HUDs + 2 lap frames were not reached",
-                  "observedLogGates": "hidden=8 (incl. DAMAGE/BONNETCAM twins); promoted trio x3 SURFACE_UV_REPAIR; 7 ext SURFACE_UV_REPAIR_CANDIDATE (badges ABSENT - correct for leg A); CARMAP_SOURCE_ROLE_ALIAS active both wheels; CARMAP car=16 bound=96"},
-        "legB": {"ref": "39cdf33 (badges candidates active)", "state": "queued behind leg A",
-                  "expectation": "same 14 captures then the same NameError (line 389 present at 39cdf33); logs must show the 7 ext candidates PLUS 3 badges SURFACE_UV_REPAIR_CANDIDATE lines; body views remain valid for the verdict"},
-        "verdict": "pending the pair's envelopes being decrypted (key in CI) and the human review",
+        "legA": {"run": 41870086370, "ref": "26d0191 (commit 'P1 leg A baseline rebased onto the current integration head': only the three 16/*_mm_badges entries removed)", "outcome": "SUCCESS",
+                  "note": "v1 (41847896437 at adf89ca) died on the audit's HUD-viewport NameError (cloud_game_audit.py:389, undefined 'want'; fixed at current head); the rebased run captures the full 18-PNG set"},
+        "legB": {"run": 41874911549, "ref": "a313492 (integration head; badges entries present, pending:true, candidates active via the depth)", "state": "in flight; full captures expected (no audit bug at this head)",
+                  "caveat": "Q3 asked for exact-SHA isolation; the rebase makes the pair span 26d0191..a313492 whose delta (mounted-bake, collision-overlay fixes, user-path harness, gate wiring) is classified render-neutral for car_evidence but is NOT byte-identical lineage - the reviewer decides whether to accept or require the zero-confound option below",
+                  "zeroConfoundOption": "scratch ref mistral/p1-badge-candidates = 26d0191 + the exact reverse patch (the three entries re-added); dispatch car_evidence there = leg B at the SAME base SHA as leg A"},
+    },
+    "productionStateComparison": {
+        "purpose": "Q3 condition: the A/B legs both carry twin-hide+ext-candidate env; promotion must be validated at PRODUCTION state (no env)",
+        "vehicle": "fleet_evidence depth (candidates=0, twin-hide=0 by construction) - the only production-state capture path for car16",
+        "blockedBy": "the fleet shard-expression collapse above (car16 = shard 4 material; never fleet-captured)",
+        "sequence": ["1. coordinator fixes the paren re-scope", "2. fleet_evidence at current head = pre-promotion baseline (mirrored badges at production state)", "3. promotion commit: the three entries pending:true -> false (NOT deletion: deletion reverts to mirrored)", "4. fleet_evidence at the promoted head = production captures with corrected badges, no env", "5. per-marking comparison per the turn-4 verdict table + non-badge regression rows unchanged"],
+        "baseline": "41798036351 decrypted set (locally available, e8b80bb, twin-hide state per its logs) doubles as the reviewed pre-fix baseline",
     },
 }
 
@@ -208,9 +217,9 @@ def evidence_state_for(car_id):
     else:
         metrics = "pending-run-<wheel-sweep-batch>"
     if car_id in (0, 6, 12, 18):
-        visuals = "captured-41848086075-shard0 (42/42, missing=[]; envelope only - decryption pending)"
+        visuals = "captured-41848086075+41862411919-shard0 (42/42 twice, missing=[]; envelopes only - decryption pending)"
     else:
-        visuals = "pending-redispatch (41848086075 ran shard 0 only: b5ca3e0 shard-expression collapse; fixed at current head)"
+        visuals = "pending-redispatch (both fleet runs collapsed to shard 0: paren-group bug, live at a313492; fix specified in evidencePipeline)"
     return {
         "fleetVisualEvidence": visuals,
         "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": metrics,
