@@ -110,7 +110,11 @@ if os.environ.get('DRIVING_VALIDATION')=='1':
  for case in cases:
   car,track=case['car'],case['track'];assert 0<=car<24 and 0<=track<60,'Invalid validation case'
   label=f'driving-validation-track-{track:02}-car-{car:02}';report=out/(label+'.json')
-  values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_DRIVING_VALIDATION':'1','MYSIM_DRIVING_VALIDATION_REPORT':str(report),'MYSIM_LAPS':'1','MYSIM_SECONDS':'900','MYSIM_RIVALS':'0','MYSIM_ASSISTS':'0'}
+  values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_DRIVING_VALIDATION':'1','MYSIM_DRIVING_VALIDATION_REPORT':str(report),'MYSIM_LAPS':'1','MYSIM_SECONDS':'900','MYSIM_RIVALS':'0','MYSIM_ASSISTS':'0',
+   # Session activation: without the auto-drive/AI session boot the native race never leaves grid hold
+   # (DV run 41828824418: full throttle for the whole session, car motionless at the grid) - the same
+   # activation flags the proven clean-lap runs use; the validation input overrides the auto-driver.
+   'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_PRECISE_AI':'3'}
   if 'weather' in case:
    assert isinstance(case['weather'],int) and 0<=case['weather']<=3 and isinstance(case['compound'],int) and 0<=case['compound']<=3,'Invalid validation weather/compound'
    values.update(MYSIM_WET=str(case['weather']),MYSIM_STARTING_COMPOUND=str(case['compound']))
