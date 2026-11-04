@@ -1,53 +1,41 @@
 {
- "session": "2026-11-03 batch 2",
- "worker": "Mistral Vibe (sole, same session)",
- "repo": "instagramshashank8-bot/mysim-godot",
- "branch": "codex/repair-20261029",
- "head": "18f69a1",
- "review_points": [
-  {
-   "id": "auth-403",
-   "correction": "403 was shell ordering (GH_TOKEN unset before gh workflow run), not a permissions gap",
-   "evidence": "gh api user = instagramshashank8-bot; collaborators/instagramshashank8-bot/permission = admin; collaborators/.../permission admin:true; earlier owner dispatches succeeded with export intact; no permission changes requested"
+  "packet": "REVIEW_PACKET.md",
+  "status": "READY_FOR_INDEPENDENT_REVIEW",
+  "frozen_at": "2026-11-03T18:40Z (approx)",
+  "head": {
+    "local": "9bed931",
+    "remote": "9bed931",
+    "branch": "codex/repair-20261029",
+    "uncommitted": ["src/SettingsPersistChecks.cs (post-9bed931 corrections: UnixFileMode fully qualified, corrupt-branch reordering, HasFailures/WriteReport helpers, duplicated JSON build remains)"]
   },
-  {
-   "id": "a2c-naming",
-   "correction": "fence_hash-> renamed fence_a2c_review/fence_a2c_candidate/a2cFence; claims state alpha-to-coverage + alpha-to-one over 4x MSAA (project.godot msaa_3d=3), never alpha hashing",
-   "evidence": "GodotSharp 4.7.2 XML member docs (Off/AlphaToCoverage/AlphaToCoverageAndToOne); project.godot msaa_3d=3; grep shows no residual fence_hash/AlphaToCoverageAndHash in src/tools/workflows"
+  "runs": {
+    "41675023687": {"head": "18f69a1", "conclusion": "failure", "reason": "fixture compile: CS0103 UnixFileMode, CS0117 WriteReport/HasFailures, CS1061 Variant.Text, CS0122 SchemaVersion private, CS0019, CS0266"},
+    "41688779865": {"head": "9bed931", "conclusion": "failure", "reason": "same error classes; Node references helpers absent from that commit"},
+    "41656712889": {"head": "4b2b049", "conclusion": "success", "note": "last fully-green compile; A2C artifacts reviewed and REJECTED for adoption"}
   },
-  {
-   "id": "machine-screen",
-   "correction": "MESH000{72,73}_QUANT_OVERVIEW.json relabelled machine_screened_only; no manual image inspection was performed; excluded from manual review counts; history preserved",
-   "evidence": "review_class + note fields in both JSONs; CONTINUE.md replacement text"
+  "verification_honesty": {
+    "persistence_runtime": "NEVER verified: no successful fixture run; all fixture runs failed at compile",
+    "self_comparison": "rename_failure_preserves_live was a tautology in 9bed931; fixed in uncommitted tree",
+    "fixture_dead_code": "cloud_game_audit settings_persist_review branch never executed on CI",
+    "known_defects_in_tree": ["SettingsPersistChecksNode.cs calls WriteReport(path) with one arg", "duplicate JSON construction in fixture Run()"]
   },
-  {
-   "id": "settings-migration",
-   "correction": "Only an unloadable settings.cfg resets; versionless legacy file preserved in place and migrated (version stamped on next Save); explicit foreign version kept; deliberate direct-write fallback remains only when even the temp write fails",
-   "evidence": "src/Settings.cs Load/Set blocks; compile proof pending - run 41645599180/41645851285 failed earlier on Settings.cs rename API; fixed as instance DirAccess in ae1a8f4"
-  },
-  {
-   "id": "a2c-verdict",
-   "claim": "A2C densified fence compositing (780 surfaces) but did not reduce speckle (edges unchanged 8/9 cells); rejected for adoption; mechanism geometry-level",
-   "evidence": "FENCE_A2C_VERDICT_QUANT.json cell table"
-  }
- ],
- "live_run": {
-  "id": 41675023687,
-  "depth": "settings_persist_review",
-  "head": "18f69a1",
-  "display": "settings_persist_review cars 16 backend source 120Hz rotational false"
- },
- "assets_reviewed_manually_this_session": [],
- "standards": "GitHub-only engine compute; local manual evidence/metrics allowed; no git add .; originals/history/secrets preserved",
- "pending_verifications": [
-  {
-   "id": "settings-persist-cloud",
-   "what": "SettingsPersistChecks cloud run at b0fa604 depth (distinct settings fixture, not fence render)"
-  }
- ],
- "evidence": [
-  "run 41675023687 real dispatch (verified run URL+head)",
-  "18f69a1 contains Main.cs early hook, fixture, audit asserts",
-  "no fence reruns; sole worker"
- ]
+  "evidence_paths": [
+    "outputs/mistral-orchestration/REVIEW_PACKET.md",
+    "outputs/repair-20261029/cloud/fence-true-blend-result/",
+    "outputs/repair-20261029/cloud/fence-a2c-result/",
+    "outputs/repair-20261029/cloud/settings-persist-result/",
+    "outputs/repair-20261029/MESH00072_QUANT_OVERVIEW.json",
+    "outputs/repair-20261029/MESH00073_QUANT_OVERVIEW.json",
+    "outputs/repair-20261029/FENCE_A2C_VERDICT_QUANT.json",
+    "outputs/repair-20261029/CONTINUE.md",
+    "outputs/repair-20261029/REPAIR_REPORT.md",
+    "outputs/repair-20261029/TASK_BOARD.json"
+  ],
+  "open_questions": [
+    "fixture phase split: corrupt + atomic in one boot vs current split?",
+    "Main._Ready() early-exit hook placement acceptable?",
+    "verification bar: single green settings_persist_review run vs also requiring corrupt-phase dispatch?",
+    "proceed to reference car/track repairs next?"
+  ],
+  "constraints_honored": ["no git add .", "no local engine compute", "failure history preserved", "machine-screening never counted as manual review", "no fabricated dispatches - all run IDs from gh output", "no duplicate A2C runs after adoption"]
 }
