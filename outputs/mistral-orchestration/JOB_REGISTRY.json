@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T~21:0xZ",
+ "updated": "2026-11-04T~22:0xZ",
  "coordinator": "root (sole integration coordinator)",
  "worktrees": {
   "track-render": {
@@ -88,35 +88,30 @@
   "recent_runs": {
    "41795630650": {
     "head": "5288329",
-    "status": "in_progress",
+    "status": "completed success",
     "depth": "fence_miprepair_review",
-    "purpose": "alpha-CDF mip-repair candidate + three family isolations; acceptance = human visual comparison"
+    "note": "mip-repair candidate evidence captured"
    },
    "41794252920": {
     "head": "71dfc6c",
+    "status": "completed failure",
+    "depth": "native_geometry_recovery continuous lap (source/120)",
+    "finding": "17 ground impacts + 0.27 damage on the source solver; jolt/240 retry dispatched"
+   },
+   "41797648627": {
+    "head": "d195794",
     "status": "in_progress",
-    "depth": "native_geometry_recovery + case_set=loaded_formula16_reference + record_native_race=true",
-    "purpose": "continuous rendered lap with recording at the source-backend reference config"
+    "depth": "native_geometry_recovery continuous lap (jolt/240 precedent config)"
    },
-   "41788844369": {
-    "head": "e41e29b",
-    "status": "success",
-    "purpose": "reference evidence 9 PNGs (supervisor-reviewed: visual quality NOT accepted)"
+   "41798036351": {
+    "head": "e8b80bb",
+    "status": "in_progress",
+    "depth": "car_evidence (V-only UV candidates + twin-hide + full evidence set)"
    },
-   "41785711764": {
-    "head": "98b302c",
-    "status": "success",
-    "note": "cutout-gate polluted run (superseded by e41e29b fix)"
-   },
-   "41712623422": {
-    "head": "d5d42ce",
-    "status": "failure",
-    "reason": "ref-lap-wide 240s timeout at fixed 60fps llvmpipe (fixed at 66d2a9e: 30fps + 600s)"
-   },
-   "41710482854": {
-    "head": "dfe0ed3",
-    "status": "success",
-    "purpose": "settings persist 28/28 Linux (Windows open)"
+   "41798040383": {
+    "head": "e8b80bb",
+    "status": "in_progress",
+    "depth": "settings_persist_review reproof (contract sync + real reads)"
    }
   },
   "duplicate_avoidance": "one settings_persist gate + one reference_evidence gate; agents propose only"
@@ -152,6 +147,18 @@
    "merge": "37170d9",
    "content": "driving-validation profiles/spec + wet matrix + handling targets + CoreChecks guards",
    "verified": "CoreRunner PASS 88078 assertions on the specialist branch; cloud driving-validation depth pending wiring"
+  },
+  {
+   "branch": "mistral/car-assembly",
+   "merge": "d6ce968",
+   "content": "10 pending V-only UV entries (pending:true, flag-gated), misc twin-hide diagnostic, 85-pose clearance sweep in WheelFitAudit",
+   "verified": "compile pending cloud; D1-D4 dispatches proposed"
+  },
+  {
+   "branch": "physics-gameplay",
+   "merge": "37170d9",
+   "content": "driving-validation profiles (8 scripted), wet matrix (6 cells), handling targets (9), CoreChecks guards",
+   "verified": "CoreRunner 88078 assertions on branch"
   }
  ],
  " specialists_progress": {
@@ -162,10 +169,10 @@
   "physics-gameplay": "RUNNING turn1"
  },
  "specialists_progress": {
-  "hud-camera": "DONE turn1 (merged); proposed audit patch ADOPTED at 8eeb6e4",
-  "verification": "DONE turn1 (merged); Windows step added; needs linux re-proof + windows dispatch",
-  "track-render": "DONE turn1 (merged); fence_miprepair dispatch in flight",
-  "car-assembly": "DONE turn1 (09a3d16+ca7ce66 on branch): 10 pending V-only entries + misc twin hide diagnostic + clearance sweep (85 poses); MERGE PENDING",
-  "physics-gameplay": "DONE turn1 (merged 37170d9)"
+  "hud-camera": "MERGED (6db6e8c) + audit patch applied (8eeb6e4)",
+  "verification": "MERGED (537feb7) + windows step wired (e8b80bb)",
+  "track-render": "MERGED (19b342a) + mipreview gates wired",
+  "car-assembly": "MERGED (d6ce968)",
+  "physics-gameplay": "MERGED (37170d9)"
  }
 }
