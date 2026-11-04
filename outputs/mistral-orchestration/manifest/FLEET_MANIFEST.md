@@ -62,6 +62,21 @@ Livery policy: explicit binding where car_map carries one; otherwise `FallbackTe
 
 ## 3. Evidence still needed per car (no dispatches made — coordinator queue)
 
+### 3.0 Completion state (turn 4 — which run fills which field)
+
+Recorded from the session-4 packet (`f03cfc1`-era); also emitted per-row as `evidenceState` in `fleet.json`:
+
+| Field gap (turn-2 QC) | Covered by | State (turn-5c update: observed outcomes) |
+|---|---|---|
+| Fleet visual evidence (10 captures/car, PRODUCTION render state) | runs **41848086075** (`b5ca3e0`) + **41862411919** (`eb3890f`) | **Both ran shard 0 only** (paren-group bug, mechanically confirmed at `a313492` and now **FIXED at `c4fb876`** — the fork tip / integration head; this agent re-verified the fix: the fleet term is top-level, the wet group owns its parentheses). Cars 0/6/12/18 captured twice: 42/42 each, `missing=[]`, **decrypted locally with the owner key** (`review-20261031.key`); visual verdicts pending with the reviewer. **NEXT: `fleet_evidence` at `c4fb876` = the pre-promotion mirrored baseline for ALL 24 cars (owner battery item in the P1 production-runbook)** |
+| `metresPerUv` / `basisDeterminant` / `textOrientation` (the P5 metrics) — cars 15–18 | runs **41837315358** (no-fit baseline, SUCCESS) + **41843317303** (axle-fit leg); both emit per-car `*-assembly.json` | measured; artefacts sit in the car-assembly agent's worktree (`outputs/wfr-41837315358/`, uncommitted) — incorporation into the inventories pending |
+| P5 metrics — cars 0–3 | runs **41849732286** + retry **41854428291** | both FAILED; next attempt pending |
+| P5 metrics — remaining 16 cars | further 4-car batches per the car-assembly turn-6 plan (`6505f16`) | queued |
+| P1 car16 badges A/B | leg A **41870086370** = **SUCCESS** at `26d0191` (the rebased baseline); leg B **41874911549** at `a313492` = **SUCCESS** (full 18-PNG set both) | The pair is machine-complete: leg A v1 died on the audit's `want` NameError (fixed heads only); the rebase re-ran both legs clean. Q3 exactness caveat stands (pair spans `26d0191..a313492`; delta classified render-neutral; zero-confound option = `mistral/p1-badge-candidates` scratch ref documented). **Next: the production-state comparison per `agents/carbody-livery-p1-production-runbook.md`** (fleet baseline at `c4fb876` → promotion `pending:true→false` → post-promotion fleet run) |
+| **Production-state comparison (the Q3 condition)** | the `fleet_evidence` depth is the only production-state capture path for car16 (candidates=0, twin-hide=0 by construction) | **UNBLOCKED at `c4fb876`** (shard fix verified). Sequence in `carbody-livery-p1-production-runbook.md`: fleet baseline at `c4fb876` (mirrored, all 24 cars) → promotion commit (the three entries `pending:true → false`; **not deletion** — deletion reverts to mirrored) → post-promotion fleet run → per-marking comparison + non-badge regression rows. The local decryption key makes every step's images verifiable on this workstation |
+
+Expectation note: **41848086075 does NOT emit assembly JSONs** (the `fleet_evidence` path in `cloud_game_audit.py` sets no `MYSIM_CAR_ASSEMBLY_AUDIT`) — it completes the *visual* evidence in production render state (candidates off, twin-hide off); the metric fields wait for the wheel-sweep batches. Neither run alone closes the six-field gap for cars other than 16 — the per-car concluding step remains: assembly JSON → `--assembly` join → per-surface six-field fill → human review of the paired captures.
+
 1. **Fleet render batch at a current head** — the `car_evidence` depth hardcodes car16 (`cloud_game_audit.py` `MYSIM_CARVIEW:'16'`); a whole-fleet matched batch needs the depth parameterised (one coordinator change) or per-car dispatches. Required views per car: front/left/right/rear/top/cockpit + 4 wheel closeups (existing car_evidence shape = the template; 18 PNGs × 24 cars).
 2. **`car_assembly_audit` fleet-wide** (first post-`5bf41d7` run anywhere): per-surface `basisDeterminant` + `metresPerUv` + `MIRRORED_TEXT_RISK_*` + wheel-binding checks — closes every `pending-run-P5` field in the turn-2 inventories and H2's measurement.
 3. **Livery/UV per-surface inventories for the 23 cars other than car16** (six-field standard; car6 partial). The turn-1 tool already automates this (texture side locally; surface side via `--assembly` join).

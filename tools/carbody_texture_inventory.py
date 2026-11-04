@@ -169,6 +169,66 @@ def norm_name(s):
     return " ".join(s.upper().split())
 
 
+# Evidence-state annotations, recorded from REVIEW_PACKET session-4 (f03cfc1-era) 2026-11-06.
+# Purely declarative: maps in-flight/completed runs to the inventory fields they complete,
+# so fleet.json rows can carry a per-car completion state that survives regeneration.
+EVIDENCE_ANNOTATIONS = {
+    "fleetEvidence": {
+        "runs": [
+            {"run": 41848086075, "head": "b5ca3e0", "outcome": "SUCCESS but only shard 0 (jobs: prepare+render(0))"},
+            {"run": 41862411919, "head": "eb3890f", "outcome": "SUCCESS but only shard 0 (jobs: prepare+render(0)) - re-dispatch reproduced the collapse"},
+        ],
+        "cause": "CONFIRMED at a313492: the fleet term sat inside the paren group opened at 'chiron_wing_rebuild' that closed after 'f1_wheel_diagnostic' followed by && '[0]' - the group evaluated to '[0,1,2,3,4,5]' and the trailing && '[0]' collapsed it to '[0]'",
+        "fix": "FIXED at c4fb876 (fork tip o_Jdiejei/codex/repair-20261029 = integration head): 'shard matrix: fix the fleet-grouping bug'; this agent re-verified mechanically - at c4fb876 the fleet term's enclosing paren is the fromJSON( itself (top-level) and the wet/f1_wheel_diagnostic group opens its own parenthesis",
+        "next": "fleet_evidence at c4fb876 = the PRE-PROMOTION mirrored baseline (battery item in the P1 production-runbook); then promotion pending:true->false (NOT deletion); then the post-promotion fleet run",
+        "coveredCars": [0, 6, 12, 18],
+        "provides": "42/42 captures per run, missing=[] (5 views + 4 wheel closeups + cockpit per car + track0 day/night), PRODUCTION render state (SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0)",
+        "decryption": "WORKS locally: owner key C:/Users/shash/.codex/private/mysim-review/review-20261031.key via MYSIM_INTAKE_KEY (verified on the fleet shard-0 envelope: 42/42 PNGs; key never printed)",
+        "doesNotProvide": "car16 (shard 4 material) has never been fleet-captured yet; no CarAssemblyAudit JSONs on this depth",
+        "completes": ["fleet visual evidence for cars 0/6/12/18 (decrypted locally; visual verdicts with the human reviewer)"],
+    },
+    "assemblyAudit": {
+        "cars15to18": {"runs": [41837315358, 41843317303], "state": "41837315358 SUCCESS (no-fit baseline; 275 poses/car); 41843317303 = axle-fit leg",
+                        "artifacts": "emitted per-car *-assembly.json (metresPerUv/basisDeterminant/textOrientation); downloaded to the car-assembly agent's worktree (uncommitted there)"},
+        "cars0to3": {"run": 41849732286, "outcome": "FAILURE (at 6505f16)", "retry": 41854428291, "state": "corrected retry FAILED at 6263c51; next batch pending"},
+        "remaining": {"state": "further 4-car batches queued per the car-assembly turn-6 plan (6505f16)"},
+    },
+    "p1Badges": {
+        "legA": {"run": 41870086370, "ref": "26d0191 (commit 'P1 leg A baseline rebased onto the current integration head': only the three 16/*_mm_badges entries removed)", "outcome": "SUCCESS",
+                  "note": "v1 (41847896437 at adf89ca) died on the audit's HUD-viewport NameError (cloud_game_audit.py:389, undefined 'want'; fixed at current head); the rebased run captures the full 18-PNG set"},
+        "legB": {"run": 41874911549, "ref": "a313492 (integration head; badges entries present, pending:true, candidates active via the depth)", "state": "SUCCESS (full 18-PNG set; no audit bug at this head)",
+                  "caveat": "Q3 asked for exact-SHA isolation; the rebase makes the pair span 26d0191..a313492 whose delta (mounted-bake, collision-overlay fixes, user-path harness, gate wiring) is classified render-neutral for car_evidence but is NOT byte-identical lineage - the reviewer decides whether to accept or require the zero-confound option below",
+                  "zeroConfoundOption": "scratch ref mistral/p1-badge-candidates = 26d0191 + the exact reverse patch (the three entries re-added); dispatch car_evidence there = leg B at the SAME base SHA as leg A"},
+    },
+    "productionStateComparison": {
+        "purpose": "Q3 condition: the A/B legs both carry twin-hide+ext-candidate env; promotion must be validated at PRODUCTION state (no env)",
+        "vehicle": "fleet_evidence depth (candidates=0, twin-hide=0 by construction) - the only production-state capture path for car16",
+        "blockedBy": "RESOLVED: the fix landed at c4fb876 and is verified; car16 (shard 4) still needs its first fleet captures via the battery run",
+        "sequence": ["1. DONE: paren fix at c4fb876 (verified)", "2. fleet_evidence at c4fb876 = pre-promotion baseline (mirrored badges at production state; owner battery item)", "3. promotion commit: the three entries pending:true -> false (NOT deletion: deletion reverts to mirrored)", "4. fleet_evidence at the promoted head = production captures with corrected badges, no env", "5. per-marking comparison per the turn-4 verdict table + non-badge regression rows unchanged"],
+        "baseline": "41798036351 decrypted set (locally available, e8b80bb, twin-hide state per its logs) doubles as the reviewed pre-fix baseline",
+    },
+}
+
+
+def evidence_state_for(car_id):
+    """Per-car completion state for the inventory fields (declarative, from EVIDENCE_ANNOTATIONS)."""
+    if car_id in (15, 16, 17, 18):
+        metrics = "measured by 41837315358/41843317303 (incorporation pending)"
+    elif car_id in (0, 1, 2, 3):
+        metrics = "41849732286 FAILED; corrected retry 41854428291 in flight"
+    else:
+        metrics = "pending-run-<wheel-sweep-batch>"
+    if car_id in (0, 6, 12, 18):
+        visuals = "captured-41848086075+41862411919-shard0 (42/42 twice; decrypted locally - visual verdicts with the reviewer)"
+    else:
+        visuals = "pending fleet_evidence at c4fb876 (fix verified; owner battery item = pre-promotion baseline for all 24 cars)"
+    return {
+        "fleetVisualEvidence": visuals,
+        "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": metrics,
+        "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics",
+    }
+
+
 def manifest(root):
     """Enumerate the whole fleet + tracks from catalog sources; fail closed on mismatch.
 
@@ -259,6 +319,7 @@ def manifest(root):
             "fbx": len(fbxs), "textures": len(pngs), "liveriesOnDisk": liveries, "boundLivery": bound_livery,
             "boundRenderers": len(entries), "pivots": 4 if isinstance(pivots, list) else 0,
             "uvRepairsPromoted": promoted, "uvRepairsPending": pending, "specialPaths": special,
+            "evidenceState": evidence_state_for(c["id"]),
         })
 
     # track asserts: runtime TrackList <-> SourceRoutes alignment + file existence
@@ -297,6 +358,7 @@ def manifest(root):
         "scope": "read-only fleet/track manifest from catalog sources (CarCatalog.cs, SourceRoutes.cs, runtime TrackList.json); no mutation, no rendering",
         "catalogSource": "src/Logic/CarCatalog.cs", "routesSource": "src/Logic/SourceRoutes.cs",
         "trackListRuntime": "assets/RealRacing/TrackList.json",
+        "evidencePipeline": EVIDENCE_ANNOTATIONS,
         "counts": {"cars": len(cars), "tracks": len(tracks), "sourceRoutes": len(routes)},
         "assertsPassed": not problems, "problems": problems, "notes": notes,
         "cars": car_rows, "tracks": track_rows,
@@ -307,12 +369,14 @@ def manifest(root):
 def markdown_manifest(result):
     lines = ["# Fleet manifest tables (tool output; facts only)", "",
              f"cars={result['counts']['cars']} tracks={result['counts']['tracks']} sourceRoutes={result['counts']['sourceRoutes']} assertsPassed={result['assertsPassed']}", "",
-             "## Cars", "", "| id | name | folder | class | fbx | textures | liveries | bound livery | repairs promoted/pending | special paths |",
-             "|---|---|---|---|---|---|---|---|---|---|"]
+             "## Cars", "", "| id | name | folder | class | fbx | textures | liveries | bound livery | repairs promoted/pending | special paths | evidence state |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for c in result["cars"]:
+        es = c.get("evidenceState", {})
         lines.append(f"| {c['id']} | {c['name']} | {c['folder']} | {c['raceClass']} | {c['fbx']} | {c['textures']} | "
                      f"{len(c['liveriesOnDisk'])} | {c['boundLivery'] or '-'} | "
-                     f"{len(c['uvRepairsPromoted'])}/{len(c['uvRepairsPending'])} | {'; '.join(c['specialPaths']) or '-'} |")
+                     f"{len(c['uvRepairsPromoted'])}/{len(c['uvRepairsPending'])} | {'; '.join(c['specialPaths']) or '-'} | "
+                     f"visuals:{es.get('fleetVisualEvidence', '-')}; metrics:{es.get('assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)', '-')} |")
     lines += ["", "## Tracks", "", "| id | name | map/layout | scene present | route name | variations ok |", "|---|---|---|---|---|---|"]
     for t in result["tracks"]:
         ok = all(v["present"] for v in t["variationPaths"])
