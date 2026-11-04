@@ -9,7 +9,7 @@ Status vocabulary (nothing here implies visual acceptance or whole-game acceptan
 - **failed** — the run failed; preserved for history; proves nothing in either direction
 - **superseded** — a newer run/claim replaces this one
 
-Updated: 2026-11-04, session 4 (Windows verification recorded from the actual artifact). Run statuses via `gh run view --json`; run 41828819144's `windows-build-diagnostics-41828819144-attempt-1` artifact was downloaded (authorized this turn) and its JSONs read; the extracted numbers below are from those files. Artifact paths marked `✓disk` were verified on the local disk; `(CI artifact)` = exists as a run artifact, not downloaded. Content figures quoted from the packet/JOB_REGISTRY and not independently re-read are marked `(content per packet)`.
+Updated: 2026-11-04, session 5. Run statuses via `gh run view --json` (plus `--log-failed`/artifacts for 41830995246, explicitly tasked). Artifact paths marked `✓disk` verified on the local disk; `(CI artifact)` = exists as a run artifact, not downloaded. Content figures not independently re-read are marked `(content per ...)` with the source.
 
 ## Settings persistence
 
@@ -30,9 +30,10 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 | Claim | Run | Commit | Artifact path | Status |
 |---|---|---|---|---|
 | Driving-validation full profile (scripted scenario, assertion/coverage gates) | 41828824418 | `e82a362` | CI artifact | failed — grid-hold: the session never started (validation input cannot release the start sequence); fix `39cdf33` boots the session like the proven lap runs (AI/autodrive activation flags) |
-| Same, at the boot-fix head | 41834771421 | `39cdf33` | CI artifact | in progress at this refresh — no result claimed |
-| Same, previous attempt (pre-manifest-fix) | 41826593001 | `9c422a4` | CI artifact | in progress at this refresh (started before the 39cdf33 boot fix; its head predates the fix) |
-| Product controls review (control rebinding/settings in the real product flow) | 41830853569 | `d9940a2` | CI artifact | failed — runtime failure; cause under diagnosis (per coordinator). Related: `d9940a2` itself fixed a CS0103 (`flush=true` in a GD.Print gate) caught by 41830517930. Not independently diagnosed by this agent |
+| Same, boot-fix head — boot FIXED, travel NOT | 41834771421 | `39cdf33` | CI artifact | failed — booted fine (race ready, hulls present) yet failed to travel 10 m; SHARES the no-travel symptom with 41828824418 (per `95f69c6`); `DV_TRACE` telemetry (started/gridHold/speed/pedals/stage @1s + gridHoldTraceSeen) added at `95f69c6` to expose the frozen stage; the next DV run must carry it |
+| Same, pre-manifest-fix attempt | 41826593001 | `9c422a4` | CI artifact | cancelled (completed) — not in flight |
+| Product controls review (control rebinding/settings in the real product flow) | 41830853569 | `d9940a2` | CI artifact | failed — diagnosed by hud-camera (per `5305458`/`99964a4`): failing BEST-lap assertion precision; fix `5305458` merged |
+| Product controls re-run at the fixed head | 41835648940 | `f2eba7e6a6639ea4ffea239123185fa85db55132` (merge of `99964a4`) | CI artifact | failed — remaining bug: standings header-row (header vs data rows; per coordinator, hud-camera fixing; root cause + by-name fix landed at `6ffdf63` AFTER this run) |
 
 ## Continuous lap
 
@@ -55,7 +56,8 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 | Claim | Run | Commit | Artifact path | Status |
 |---|---|---|---|---|
 | All 4 wheels + steered-FL real closeups, engine gates pass (`corners=32`, not whole-car) | 41798036351 | `e8b80bb` | `outputs/repair-20261029/car-ev-41798036351/` ✓disk | machine-verified; human-pending (wheel/wing clearance unproven from occluding perspectives per VISUAL_REVIEW 2026-11-04T09:10Z) |
-| Clearance sweep v2 (suspension-state poses, full lock, labelled worsts) — first dispatch, previously opt-in and never run | 41832997990 | `71dbbe1` | CI artifact | in progress at this refresh — no result claimed |
+| Clearance sweep v2 (suspension-state poses, full lock, labelled worsts) — first dispatch, previously opt-in and never run | 41832997990 | `71dbbe1` | CI artifact | failed — died mid-sweep at the 420 s default timeout, AFTER emitting real worsts including **-45 mm bodywork penetrations at full lock** (content per commit `e17fdf5`); the timeout fix (`e17fdf5`: sweep-case timeout 1500 s + per-wheel sweep evidence asserted) followed |
+| **Clearance sweep v2, completed** | **41837315358** | `e17fdf5` (`e17fdf57ad5e4454cf88c35cd7039a6ea0fb53c8`) | per-car `41837315358` wfr dirs (CI artifact); evidence: `sweep.perWheel` worsts + `WHEEL_CLEARANCE_WORST` lines | **machine-verified** (run SUCCESS; per-wheel sweep evidence asserted by the audit per `e17fdf5`) — human-pending: the negative-penetration worsts (e.g. the -45 mm class) need human review before any clearance acceptance |
 | car_evidence sweep v2 | 41831318759 | `4d0622f` | CI artifact | failed — NOT in flight (the tasking listed it as in-flight; `gh run view` shows completed failure at `4d0622f`); cause not in available metadata |
 | Earlier `wheel-fl` capture was a whole-car three-quarter image, not a closeup | 41788844369 | `e41e29b` | `outputs/repair-20261029/cloud/reference-evidence-41788844369/` ✓disk | rejected (VISUAL_REVIEW 2026-11-04 item 4) |
 
@@ -72,7 +74,7 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 |---|---|---|---|---|
 | true-Alpha blend candidate reduces fence speckle | 41632524155 | `5492d90` | `outputs/repair-20261029/cloud/fence-true-blend-result/` ✓disk | rejected (no speckle reduction; evidence kept) |
 | A2C candidate (alpha-to-coverage + alpha-to-one over 4x MSAA) reduces fence speckle | 41647350933 | `6d2069a` | `outputs/repair-20261029/cloud/fence-a2c-result/` ✓disk | rejected (edge density unchanged in 8/9 cells; VISUAL_REVIEW rejection stands) |
-| mip-repair candidate (`fence_miprepair_review`) | first run 41795630650 (`5288329`): failed on the controls probe — fence evidence never produced; retry 41818948189 (`9ff443c`): FAILED mixed (shards 0/3/4 failed in the audit step; 1/2/5 succeeded; invariant schema fix `3061afa`/`49ece2c` postdates the run — per-shard causes unverified, logs outside scope); current run 41830995246 (`d9940a2`, invariant reads the flat schema): in progress at this refresh | `d9940a2` | CI artifacts | failed history + one in flight — NO fence conclusion yet; the in-flight run at the fixed schema is the first decidable one |
+| mip-repair candidate (`fence_miprepair_review`) | 41795630650 (`5288329`): failed on the controls probe — fence evidence never produced; 41818948189 (`9ff443c`): FAILED mixed (shards 0/3/4 audit-step failures; 1/2/5 ok; schema fix postdated the run); **41830995246 (`d9940a2`, invariant reads the flat schema): FAILED — verified this session: shards 0 and 4 failed, 1/2/3/5 succeeded; shard 4's exception is `RuntimeError: track-28 failed; see saved logs` raised in the audit's GENERIC track block (cloud_game_audit.py:710), NOT in the miprepair invariant code — cause of the track-0/28 engine failures TBD (saved logs); the evidence DID ship via `if: always()`: artifacts `game-runtime-0..5-attempt-1` + `encrypted-review-{0,1,2,4,5,...}-attempt-1` listed** | `d9940a2` | CI artifacts (listed via the API this session) | failed — the fence-miprepair INVARIANTS have still never failed; the failures are in the generic per-track runs; the shipped encrypted-review artifacts for the successful shards are the candidate's evidence and await extraction/viewing |
 | Baseline fence/grandstand speckle + black foliage masses | visual reviews 2026-11-03 and 2026-11-04 | — | see `VISUAL_REVIEW.md` | rejected (standing defect; no fix accepted) |
 
 ## UV candidates / liveries
@@ -82,6 +84,71 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 | car16 misc twin-hide A/B (implemented on the car-assembly branch, merged; runtime-3 in the evidence run is the twin-hide-off variant) | 41798036351 | `e8b80bb` (impl `09a3d16`/`ca7ce66`) | `outputs/repair-20261029/car-ev-41798036351/` ✓disk | machine-run only; human-pending — VISUAL_REVIEW 2026-11-04T09:10Z: do not promote on cleaner silhouette alone |
 | car16 V-only UV-candidate A/B (the ten pending entries) | NONE — the leg was INERT in every run so far: `cloud_game_audit.py` wired `SOURCE_UV_CANDIDATES` but the `CarLoader` gate read `MYSIM_SURFACE_UV_CANDIDATES` (env mismatch; verified by car-assembly-turn2 against the e8b80bb blobs; fix `e41d4f4` accepts both spellings, merged) | fix `e41d4f4` + detector `80ceb22` (both merged) | — | **never run** — the "pending UV candidate NOT accepted" verdict is NOT evidence against the candidate; a run at a head with `e41d4f4`+`80ceb22` must show `SURFACE_UV_REPAIR_CANDIDATE` lines (leg live) + `MIRRORED_TEXT_RISK_SUMMARY` before any UV-candidate verdict |
 | Mirrored logos/numbers root cause (UV orientation/handedness per surface) | none yet — detector `80ceb22` emits the per-surface taxonomy (`ok/mirrored_text_risk/rotated_text_risk/flipped_text_risk/mixed_risk/...`) for the next run | — | — | open — awaiting the candidate-enabled run + human review before any livery change |
+
+## Exported-player user-path facts (verified from committed source + run 41828819144's evidence; session 8)
+
+| Question | Verified answer | Source |
+|---|---|---|
+| Packaged player's DEFAULT render backend | `mobile` (`project.godot:11 rendering_method="mobile"`) — while ALL packaged-player evidence (smoke/render/persist) forces `--rendering-method gl_compatibility` | `project.godot`; `tools/cloud_windows_smoke.py`/`cloud_windows_render.py` (the flag is in every invocation) |
+| Default control scheme (fresh install, desktop) | Keyboard physical keys + gamepad; touch OFF (申诉`Settings.ScreenControlsEnabled` = `MYSIM_TOUCH` env override, else `DisplayServer.IsTouchscreenAvailable()` = false on desktop) | `src/Settings.cs`; `src/ControlBindings.cs` |
+| Default bindings | WASD + arrows (both live), Space handbrake, P pit, C camera, M mute, H ERS auto/manual, E overtake; gamepad stick/RT/LT/A/Y/Start; per-action overrides persisted as `key_<n>` (long) — the `legacy_long_roundtrip` case covers exactly this path | `src/ControlBindings.cs` (`Defaults` array) |
+| Saved-settings defaults | `mute=true` by default — a fresh install starts MUTED (user-path finding: first-run experience is silent until M pressed); `screen_controls` false on desktop | `src/Settings.cs` defaults |
+| Required assets path (what the export ships) | `include_filter` ships `assets/generated_native_car_hulls/*.json`, `data/lighting_profiles.json`, `data/weather_profiles.json`, `data/car_surface_uv_repairs.json`, `assets/*.json`, `assets/RealRacing/*.json`, `assets/Resources/*.txt`, `assets/StreamingAssets/*`; textures/meshes pack via Godot's imported-resource pipeline automatically; `exclude_filter` keeps outputs/tools/builds out | `export_presets.cfg` |
+| Proof the packaged asset path resolves on Windows | run 41828819144's render step passed its asserts (960x540 non-uniform image + `PASS complete visible car framing` + `onSurface=True` + OpenGL renderer seen) — the packaged player loaded and rendered the real car/track assets (the script's own gates; run SUCCESS) | `tools/cloud_windows_render.py` contract + run 41828819144 |
+| Windowed vs headless on the packaged player | the render smoke runs WINDOWED (no `--headless`; `--rendering-method gl_compatibility --resolution 960x540 --fixed-fps 60 --audio-driver Dummy`) — a windowed,input-capable run on the Windows runner is proven feasible | `tools/cloud_windows_render.py` |
+| Input path the user's keys take | key → `Input` → `ControlBindings.Held()` polls `Input.IsPhysicalKeyPressed` (+ arrow fallbacks) per frame → `DriveController`; `Held()` returns false when the window is unfocused UNLESS `MYSIM_INPUTCHECKS` is set (the injection escape hatch, already in the shipped code) | `src/ControlBindings.cs:7`; `src/Main.cs:211` |
+| Existing synthetic-input mechanisms | `Input.ParseInputEvent(new InputEventKey{Keycode,PhysicalKeycode,Pressed})` — PROVEN in-repo (`ControlsScenario.KeyEvent`, `DrivingScenario.KeyState`, `ProductControlsScenario`); `DrivingScenario` already asserts reverse/pause/resume/camera THROUGH this path on CI | `src/ControlsScenario.cs:7`, `src/DrivingScenario.cs:7` |
+| What DV covers vs the gap | DV drives at the SIM LAYER: ` DrivingValidation` sets `ph.Throttle/Brake/Steer` directly — it never touches the Input/device layer (verified: no ParseInputEvent/InputEvent in DrivingValidation.cs). GAP: no scripted DEVICE-level input run exists on the packaged player; no input-event logging; no ramp/sine/slalom/hairpin/trail-brake vocabulary | `src/Logic/DrivingValidation.cs:103` vs `src/DrivingScenario.cs` |
+
+## User-path recording spec (DESIGN — proposed harness; nothing implemented)
+
+Full spec in `outputs/mistral-orchestration/agents/verification-turn8.md` §2 (this agent's file). Summary:
+
+| Element | Design |
+|---|---|
+| Harness | NEW `src/UserPathScenario.cs` (proposed; owner to assign): early-exit host (one `MYSIM_USERPATH=<profile>` hook in `Main._Ready`, coordinator-owned line) that boots the REAL game world (track/car env as usual) + a driver node reading a JSON script `[{t, key|axis, down|up|value}]`; injects via the PROVEN `Input.ParseInputEvent` path (keyboard: key+physical keycode; gamepad: `InputEventJoypadMotion` for true analog ramps/sine); requires `MYSIM_INPUTCHECKS=1` (existing gate) and a WINDOWED packaged run (proven feasible by the render smoke) |
+| Logging (the requirement) | every injected event appended to `userpath-events.jsonl` (t, device, code, value, direction); every 0.1 s a telemetry row (speed, position, yaw, gear, PLUS the `ControlBindings.Held()` echo — what the game actually SAW, closing the loop); final JSON report + N frames through the run (not just the last); the input log + the Held()-echo together prove injection reached the game |
+| Profiles (the DV gap) | `throttle_step`, `brake_step`, `throttle_ramp` (keyboard pulse-train with duty ramp; gamepad RT for true ramp), `steer_sine` (pulse-train + gamepad axis sine), `slalom` (alternating steer pulses at speed), `hairpin` (approach, full lock, throttle modulate), `trail_brake` (brake held through steer-in, released under steer), `reverse_hold_then_forward` (extends the proven DrivingScenario leg) |
+| Acceptance per profile | response class matches input (sign + latency band + magnitude class), zero non-finite, zero unexpected ERROR lines (per-stage expected-error counts as in the persist driver), AND a determinism check: re-injecting the recorded event log reproduces the telemetry within tolerance |
+| Where it runs | `windows-build.yml` after the persist step on the PACKAGED player (proposed `tools/cloud_windows_userpath.py` driver, mirroring the persist driver's conventions); Linux repo runs optional for CI-fast feedback |
+
+## Fleet / night / P1 / axle legs (runs since 41849732286; verified via gh this session)
+
+| Leg | Run | Commit | Status (verified) | Note |
+|---|---|---|---|---|
+| P1-LEG-A (badges candidates removed) | 41847896437 | `adf89ca` (matches the queue's intended ref — verified) | FAILED | queue idx=0 (p1queue-log.txt); cause TBD from logs; the head predates the `a613a9a` `--resolution 1280x720` fix (the canvas=64x64 headless-default failure class) — plausible cause, UNVERIFIED; leg B not yet dispatched (state `next=1`) → NO A/B conclusion possible |
+| fleet_evidence (fleet leg) | 41848086075 | `b5ca3e0` | in progress | |
+| fleet wheel sweep batch 1 (cars 0,1,2,3) | 41849732286 | `6505f16` | in progress | the `6505f16` plan: 5 dispatches x 4 cars cover the 24-car fleet |
+| fleet wheel sweep batch 2 (cars 0,1,2,3) | 41854428291 | `6263c51` | pending | carries the axle-fit fix: `6263c51` — the source_axle_fit input now actually reaches the depth gate (the car-assembly catch: the fit leg ran INERT twice) |
+| night_evidence | 41849395054 | `e76a1e1` | in progress | after the `e76a1e1` shard-expression repair |
+| night evidence (paired night frames) | 41849100640 | `110fd7f` | failed | same-camera paired night frames (title truncated in gh); cause TBD |
+| axle-fit verification (cars 16) | 41843317303 | `a996a9d` | success | wheel_fit_review single-car |
+| evidence rewrap | 41847531679 | `684285d` | success | evidence infrastructure |
+| DV further attempts | 41840755243 (`95f69c6`, failure), 41848766195 (`b5ca3e0`, failure), 41854714029 (`0de3123`, in progress) | — | mixed | the DV_TRACE-era series |
+| product further attempts | 41841959304 (`c057ce0`, failure), 41845517756 (`ccca290`, failure), 41852901703 (`a613a9a`, in progress) | — | mixed | the resolution-fix era |
+
+## P1 / RIDE-HEIGHT A/B dispatch-queue tracking (serial watcher — live record)
+
+The coordinator runs a serial dispatch queue (`outputs/mistral-orchestration/p1-queue-watcher.ps1`, committed at `5f2b9ee`; watcher PID live per the tasking). Queue definition (read from the script this session):
+
+| # | Tag | Ref | Depth | Inputs | Intended variable |
+|---|---|---|---|---|---|
+| 0 | P1-LEG-A badges-candidates-removed | `mistral/p1-badge-baseline` (=adf89ca `adf89cad3c9c43836054088299693645c2f22b08`) | car_evidence | cars=16 | badges candidate entries REMOVED |
+| 1 | P1-LEG-B badges-candidates-active | `39cdf33` | car_evidence | cars=16 | (same lineage, candidates active) |
+| 2 | RIDE-A baseline | `codex/repair-20261029` | native_geometry_recovery | cars=16, jolt, 240Hz, rotational=true | clean-lap config, NO ride-height |
+| 3 | RIDE-B ride-height candidate | `codex/repair-20261029` | native_geometry_recovery | cars=16, jolt, 240Hz, rotational=true, native_ride_height=true | +native_ride_height ONLY |
+
+**Confound checks (my standing duty as each dispatch lands):**
+
+- **Leg A vs Leg B — VERIFIED CLEAN (pre-flight, from the committed trees):** `git diff adf89ca 39cdf33` touches exactly ONE file (`data/car_surface_uv_repairs.json`; 300+/315- is re-serialization noise). Semantic comparison of the two JSONs: legA=22 entries, legB=25; the ONLY additions in B are the three badges entries (`16/LOD_A_BODY_mm_badges`, `16/LOD_A_FRONTBUMPER_mm_badges`, `16/LOD_A_REARBUMPER_mm_badges`, all `pending:true`); ZERO entries only-in-A; ZERO payload differences (scale/offset/texture/guid/pending) on the 22 shared entries; badges-mention counts 0 vs 9. **The pair differs ONLY in the intended variable. No drift.**
+- **RIDE-A vs RIDE-B — pre-verified at queue level:** identical refs and inputs except `native_ride_height=true` on B only (from the watcher script). Confound risk to check when the runs land: BOTH legs run at `codex/repair-20261029` — a MOVING ref; if a commit lands between the two dispatches, the pair differs by CODE, not just the flag. Mitigation: compare the two runs' headSha at recording time; flag any difference.
+- **Watcher caveat (recorded):** the watcher records the dispatched run id via `gh run list --limit 1` 15 s after dispatch — under concurrent load this can bind the WRONG run id. Every recorded id gets verified against its expected ref/depth (headSha + workflow + display title) before being entered here as evidence.
+
+**Dispatch log (updated as each dispatches; from p1queue-log.txt / p1queue-state.json + gh verification):**
+
+| # | Tag | Recorded run id | Verified HEAD | Verified status | Confound check |
+|---|---|---|---|---|---|
+| 0-3 | — | — | — | — | no dispatches had occurred at this recording (p1queue-log.txt / p1queue-state.json absent; checked 2026-11-04 session 5) |
 
 ## TEXTURE-INVENTORY QC (addendum, turn 3)
 
