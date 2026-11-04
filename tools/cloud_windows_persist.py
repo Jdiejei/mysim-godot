@@ -7,6 +7,9 @@ required={'legacy':('legacy_seed_save','legacy_readback','legacy_get_did_not_wri
  'corrupt':('corrupt_defaults_typed','corrupt_no_crash','corrupt_no_value_resurrection','corrupt_file_intact','corrupt_load_error_evidence'),
  'malformed':('malformed_seed_save','malformed_defaults_typed','malformed_disk_untouched_by_get','malformed_set_migrates_marker'),
  'failures':('baseline_saved','temp_failure_rejected','temp_no_tmp','temp_live_kept','rename_fault_rejected','rename_tmp_recovery_kept','rename_live_kept','atomic_success_after_faults')}
+# This driver runs on Windows only; the Windows-only contention cases are REQUIRED evidence, not optional extras,
+# and every report must prove it was produced by the Windows platform (reviewer requirement: platform evidence, not totals).
+WIN_ONLY=('win_sharing_violation_rejected','win_sharing_violation_tmp_kept','win_sharing_violation_live_kept')
 udir=pathlib.Path(os.environ['APPDATA'])/'Godot'/'app_userdata'/'MySim'
 out=root/'build-cloud';reports=[]
 for scenario in scenarios:
@@ -24,7 +27,10 @@ for scenario in scenarios:
  except Exception:data=None
  got=(data or {}).get('cases') or []
  missing=[c for c in required[scenario] if not any(case.startswith(c) for case in got)]
+ missing+= [c for c in WIN_ONLY if not any(case.startswith(c) for case in got)] if scenario=='failures' else []
  ok=data is not None and data.get('failed')==0 and data.get('passed',0)>0 and not missing and p.returncode==0 and 'ERROR:' not in text
+ platform=(data or {}).get('platform')
+ if platform is not None and platform!='windows':ok=False
  reports.append({'scenario':scenario,'exit':p.returncode,'passed':(data or {}).get('passed'),'failed':(data or {}).get('failed'),'missingCases':missing,'failures':(data or {}).get('failures',[]),'ok':ok})
  print(json.dumps(reports[-1]),flush=True)
 (out/'windows-settings-persist-summary.json').write_text(json.dumps(reports,indent=2))
