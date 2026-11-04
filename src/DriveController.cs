@@ -90,6 +90,10 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
  void CaptureShot(string fallback) {
   if (DisplayServer.GetName()=="headless") { GD.Print("SCREENSHOT_SKIPPED headless (logic check only)"); return; }
   string path=System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? fallback;GD.Print("SCREENSHOT_BEGIN ",path);
+  if (CamMode == 2 && Car != null && Cam != null) { // verifiable cockpit facts for the reference-evidence audit: authored seat pose, FOV, hidden wheels
+   var seatLocal = Car.GlobalTransform.AffineInverse() * Cam.GlobalPosition; float drift = (seatLocal - new Vector3(CarCatalog.RaceClass(CarIndex)==1?0:-0.35f, 0.88f, 0.05f)).Length(); bool wheelsHidden = true; if (WheelPivots != null) foreach (var wp in WheelPivots) wheelsHidden &= !wp.Visible;
+   GD.Print("COCKPIT_VIEW mode=2 fov=", Cam.Fov, " seatLocal=", seatLocal, " seatOffsetFromAuthored=", drift.ToString("0.000"), " wheelsHidden=", wheelsHidden);
+  }
   if(System.Environment.GetEnvironmentVariable("MYSIM_CAMERA_FRAME_CHECK")=="1"){
    var size=GetViewport().GetVisibleRect().Size;Vector2 minimum=new Vector2(float.MaxValue,float.MaxValue),maximum=new Vector2(float.MinValue,float.MinValue);int points=0;
    foreach(var node in Car.FindChildren("*","MeshInstance3D",true,false)){
