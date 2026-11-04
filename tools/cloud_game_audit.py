@@ -350,6 +350,23 @@ if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  (out/'settings-persist-summary.json').write_text(json.dumps(summary,indent=1))
  assert summary['all_ok'],'settings persistence fixture FAILED: '+json.dumps(summary['scenarios'])
  print('COMPLETE settings persistence: '+str(sum(1 for v in summary['scenarios'].values() if v['ok']))+'/'+str(len(summary['scenarios']))+' scenarios green (isolated user data; not a fence render)',flush=True);sys.exit(0)
+if os.environ.get('NIGHT_EVIDENCE')=='1':
+ # Night lighting candidate evidence: SAME-camera paired frames across the flag legs (off/pool/ambient/exposure/all)
+ # × {night-dry, night-wet} on the reference track and the archived rejected-night track (25). Provisional art
+ # candidates only; every leg is independently flag-gated and the defaults are bit-identical to current behaviour.
+ flag_legs=(('off',{}),('pool',{'MYSIM_NIGHT_POOL_GAIN':'2.0'}),('ambient',{'MYSIM_NIGHT_AMBIENT_LIFT':'2.5'}),('exposure',{'MYSIM_NIGHT_EXPOSURE':'1.35'}),('all',{'MYSIM_NIGHT_POOL_GAIN':'2.0','MYSIM_NIGHT_AMBIENT_LIFT':'2.5','MYSIM_NIGHT_EXPOSURE':'1.35'}))
+ night_extra={'MYSIM_SOURCE_UV_CANDIDATES':'0','MYSIM_MISC_TWIN_HIDE_DIAGNOSTIC':'0'}
+ missing=[];capture_count=0
+ for track in (0,25):
+  for leg,vals in flag_legs:
+   for scene,wet in (('dry','0'),('wet','2')):
+    shot=out/f'night-{track:02}-{leg}-{scene}.png'
+    text=run(f'night-{track:02}-{leg}-{scene}',{**night_extra,'MYSIM_TRACK':str(track),'MYSIM_CAR':'16','MYSIM_TOD':'3','MYSIM_WET':wet,'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'9','MYSIM_CAM':'0','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30',**vals},timeout=600)
+    if shot.exists():capture_count+=1
+    else:missing.append(f'track-{track:02}-{leg}-{scene}')
+ (out/'night-evidence-summary.json').write_text(json.dumps({'captures':capture_count,'missing':missing,'legs':[l for l,_ in flag_legs],'scope':'paired same-camera night evidence; provisional art candidates; no real-circuit photometry claims'},indent=2))
+ if missing:raise SystemExit(f'night evidence missing: {missing}')
+ print('COMPLETE night evidence: '+str(capture_count)+' paired frames across legs/conditions',flush=True);sys.exit(0)
 if os.environ.get('FLEET_EVIDENCE')=='1':
  # Same-HEAD fleet evidence batches: every catalogued car (0..23) gets the labelled capture set
  # (front/rear/left/right/top views, four wheel closeups + the cockpit), split across shards by car index.
