@@ -45,7 +45,7 @@ Maintained on branch `codex/repair-20261029`. The **CURRENT STATUS** sections be
   - `corrupt` (5): corrupt_defaults_typed, corrupt_no_crash, corrupt_no_value_resurrection, corrupt_file_intact, corrupt_load_error_evidence
   - `malformed` (4): malformed_seed_save, malformed_defaults_typed, malformed_disk_untouched_by_get, malformed_set_migrates_marker
   - `failures` (8): baseline_saved, temp_failure_rejected, temp_no_tmp, temp_live_kept, rename_fault_rejected, rename_tmp_recovery_kept, rename_live_kept, atomic_success_after_faults
-  - Windows adds the 3 `win_sharing_violation_*` cases; every scenario adds `contract_sync_case_names` on repo runs (packaged runs: recorded in `contractSync` instead).
+  - Windows adds the 3 `win_sharing_violation_*` cases; every scenario adds `contract_sync_case_names` on repo runs (packaged runs: recorded in `contractSync` instead). Session-2 update: the base contract is now 29 (`legacy_long_roundtrip` added); this snapshot's 28-name list is the pre-`9ff443c` contract, kept for the record.
 
 ### Windows verification plan (PROPOSAL — coordinator owns `windows-build.yml` and `tools/*`; this agent does not dispatch)
 
@@ -57,7 +57,7 @@ Minimal set; every assertion already exists in the fixture — the Windows job o
 | 2 | Failure preservation on Windows: temp-write failure (dir-occupied tmp), rename failure (env seam), Windows sharing violation (`FileShare.None`) — live file intact, tmp recovery semantics | Same step, `MYSIM_SETTINGSPERSIST_SCENARIO=failures` (the fixture branches per OS itself) |
 | 3 | Real settings touched exactly once per scenario with fresh state | The driver deletes `%APPDATA%\Godot\app_userdata\MySim` before each scenario (equivalent of the Linux per-scenario `HOME` swap) |
 
-Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full proposed content in `outputs/mistral-orchestration/agents/verification-report.md` for verbatim adoption) mirroring the existing `cloud_windows_smoke.py` conventions (headless run, `CREATE_NO_WINDOW`, marker/JSON checks, non-zero exit on failure, results JSON), plus one workflow step `python tools/cloud_windows_persist.py` and `windows-settings-persist-*.json` added to the diagnostics artifact paths. The first run doubles as the probe for the delete-then-rename risk above.
+Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full proposed content in `outputs/mistral-orchestration/agents/verification-report.md` for verbatim adoption) mirroring the existing `cloud_windows_smoke.py` conventions (headless run, `CREATE_NO_WINDOW`, marker/JSON checks, non-zero exit on failure, results JSON), plus one workflow step `python tools/cloud_windows_persist.py` and `windows-settings-persist-*.json` added to the diagnostics artifact paths. The first run doubles as the probe for the delete-then-rename risk above. STATUS 2026-11-04 session 3: implemented (script at `8eeb6e4`, workflow step at `d3629e8`, platform-enforcement at `2862b04`) — this section is historical; see the session-3 block for run states.
 
 ### Reference evidence snapshot (NOT visual acceptance)
 
@@ -80,16 +80,16 @@ Mechanism: one new coordinator-owned file `tools/cloud_windows_persist.py` (full
 1. **Linux re-proof of the strengthened fixture** (after this branch's commit is available at the dispatch ref):
    `gh workflow run game-review.yml -R instagramshashank8-bot/mysim-godot --ref <ref-containing-this-commit> -f depth=settings_persist_review`
    All other inputs default — this matches the `41710482854` shape exactly (cars 16, backend source, 120 Hz, rotational false; `settings_persist_review` maps to shard `[0]`).
-   PASS criteria: `settings-persist-summary.json` `all_ok: true`; per-scenario passed/failed = 8/0, 5/0, 6/0, 5/0, 9/0 (28 base + 5 `contract_sync_case_names` on Linux repo runs); every scenario's case list contains `contract_sync_case_names` with the audit-comparison detail; the 28 base case names unchanged.
+   PASS criteria: `settings-persist-summary.json` `all_ok: true`; per-scenario passed/failed = 8/0, 5/0, 6/0, 5/0, 9/0 (28 base + 5 `contract_sync_case_names` on Linux repo runs); every scenario's case list contains `contract_sync_case_names` with the audit-comparison detail; the 28 base case names unchanged. STATUS: executed — `41798040383` (28) and `41818941902` (29, with `legacy_long_roundtrip`) both success.
 2. **Windows persistence verification** (after the coordinator adds the proposed step/script and the publication tag):
    `gh workflow run windows-build.yml -R instagramshashank8-bot/mysim-godot --ref <ref-containing-this-commit-and-the-new-script> -f publication_tag=windows-candidate-<40-hex-of-that-ref>`
-   PASS criteria: `windows-settings-persist-summary.json` all five scenarios ok (exit 0, `passed>0`, `failed==0`, all required cases present, no `ERROR:` lines); on Windows the `failures` scenario reports 31 assertions (28 base + 3 win) + `contract_sync` recorded; any `atomic_replace_*` failure is a REAL Windows defect finding to be fixed in `Settings.cs`, not suppressed.
+   PASS criteria: `windows-settings-persist-summary.json` all five scenarios ok (exit 0, `passed>0`, `failed==0`, all required cases present, no `ERROR:` lines); on Windows the `failures` scenario reports 31 assertions (28 base + 3 win) + `contract_sync` recorded; any `atomic_replace_*` failure is a REAL Windows defect finding to be fixed in `Settings.cs`, not suppressed. STATUS: `41819498045` dispatched at `d3629e8` (pre-platform driver — see the session-3 caveat); the decisive run must be at `2862b04`+ (32 assertions; driver requires the win cases + `platform=windows`).
 
 ### Open items
 
-1. Linux re-run to re-prove the strengthened `temp_live_kept`/`rename_live_kept` (dispatch proposal 1).
-2. First Windows run (dispatch proposal 2) — expects either full pass or the documented delete-then-rename finding.
-3. Optional audit-side hardening (coordinator-owned, not required): mirror the fixture's exact-set check in `cloud_game_audit.py` (currently prefix-match only). The in-fixture check already covers both directions on repo runs.
+1. Linux re-run to re-prove the strengthened `temp_live_kept`/`rename_live_kept` (dispatch proposal 1). STATUS: DONE — `41798040383` (28) and `41818941902` (29).
+2. First Windows run (dispatch proposal 2) — expects either full pass or the documented delete-then-rename finding. STATUS: `41819498045` in flight (pre-platform caveat applies); decisive run at `2862b04`+ still needed.
+3. Optional audit-side hardening (coordinator-owned, not required): mirror the fixture's exact-set check in `cloud_game_audit.py` (currently prefix-match only). The in-fixture check already covers both directions on repo runs. STATUS: partially addressed at `2862b04` on the WINDOWS driver (win cases + platform required); the Linux audit still uses prefix-match.
 4. Reference visual acceptance remains open per `VISUAL_REVIEW.md` (not this agent's files).
 
 ## HISTORY (preserved verbatim; superseded — read only for the record)
@@ -221,4 +221,4 @@ Why: the old code wrote `cf.Save(P)` on temp-save failure **and** on rename fail
 *Snapshot ends. No completion claims. READY FOR INDEPENDENT REVIEW.*
 ````
 
-*History block ends. The Current Status section at the top of this file supersedes everything above.*
+*History block ends. The Current Status sections at the top of this file supersede everything above.*
