@@ -16,7 +16,7 @@ public static class DrivingValidation {
         "lateralAccelPeakAbs","yawRatePeakAbs","yawRateEndAbs","meanYawRate","meanYawRateAbsMin",
         "slipAnglePeakAbs","longitudinalSlipPeakAbs","wheelAnglePeakAbs","wheelAngleTargetPeakAbs",
         "steerResponseTime","steerTrackingRatio","steerSettleTime","steerSettleRatio","groundedFraction","chassisContactSamples",
-        "offTrackFraction","impactEventsDelta","maxDeltaVRise","positionJumpMax","suspensionCompressionMin",
+        "nonSurfaceContactSamples","offTrackFraction","impactEventsDelta","maxDeltaVRise","positionJumpMax","suspensionCompressionMin",
         "suspensionExtensionMax","uprightMinCosine"
     };
     public static readonly string[] KnownOps = { "between", "betweenReference", "lt", "lte", "gt", "gte" };
@@ -28,6 +28,8 @@ public static class DrivingValidation {
         public double wheelAngle, wheelAngleTarget, steerCommand, throttle, brake;
         public double x, z, trackLateral, progress, water;
         public bool onDrivingSurface;
+        // True when any solver contact this tick is NOT the drive surface (wall/barrier hit).
+        public bool nonSurfaceContact;
         public int groundedMask, chassisContacts, impactEvents;
         public double maxDeltaV;
         public double[] loads, springLengths, longitudinalSlip, lateralSlipAngle;
@@ -55,8 +57,8 @@ public static class DrivingValidation {
         public double? ForSeconds, MinSeconds, MaxSeconds;
         public double? UntilSpeedAtLeast, UntilSpeedBelow;
         public int? UntilChassisContactsAtLeast, UntilImpactEventsAtLeast;
-        public bool UntilOffTrackObserved;
-        public bool Terminates => ForSeconds.HasValue || UntilSpeedAtLeast.HasValue || UntilSpeedBelow.HasValue || UntilChassisContactsAtLeast.HasValue || UntilImpactEventsAtLeast.HasValue || UntilOffTrackObserved;
+        public bool UntilNonSurfaceContact, UntilOffTrackObserved;
+        public bool Terminates => ForSeconds.HasValue || UntilSpeedAtLeast.HasValue || UntilSpeedBelow.HasValue || UntilChassisContactsAtLeast.HasValue || UntilImpactEventsAtLeast.HasValue || UntilNonSurfaceContact || UntilOffTrackObserved;
     }
 
     public sealed class Assertion {
@@ -109,6 +111,7 @@ public static class DrivingValidation {
                 if (until.TryGetProperty("speedBelow", out var sb) && sb.ValueKind == System.Text.Json.JsonValueKind.Number) ph.UntilSpeedBelow = sb.GetDouble();
                 if (until.TryGetProperty("chassisContactsAtLeast", out var cca) && cca.ValueKind == System.Text.Json.JsonValueKind.Number) ph.UntilChassisContactsAtLeast = (int)cca.GetDouble();
                 if (until.TryGetProperty("impactEventsAtLeast", out var iea) && iea.ValueKind == System.Text.Json.JsonValueKind.Number) ph.UntilImpactEventsAtLeast = (int)iea.GetDouble();
+                if (until.TryGetProperty("nonSurfaceContact", out var nsc)) ph.UntilNonSurfaceContact = nsc.ValueKind == System.Text.Json.JsonValueKind.True;
                 if (until.TryGetProperty("offTrackObserved", out var oto)) ph.UntilOffTrackObserved = oto.ValueKind == System.Text.Json.JsonValueKind.True;
             }
             if (!ph.Terminates) throw new Exception("Driving validation profile " + p.Id + " phase " + ph.Id + " has no forSeconds or until termination");
@@ -281,12 +284,24 @@ public static class DrivingValidation {
             }
             case "groundedFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.groundedMask == 15) n++; return (double)n / s.Count; }
             case "chassisContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.chassisContacts > 0) n++; return (double)n; }
+            case "nonSurfaceContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.nonSurfaceContact) n++; return (double)n; }
             case "offTrackFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (!v.onDrivingSurface) n++; return (double)n / s.Count; }
             case "impactEventsDelta": return s.Count == 0 ? (double?)null : (double)(s[s.Count - 1].impactEvents - s[0].impactEvents);
             case "maxDeltaVRise": { if (s.Count == 0) return null; double m = 0; foreach (var v in s) m = Math.Max(m, v.maxDeltaV); return m - s[0].maxDeltaV; }
             case "positionJumpMax": { double m = 0; for (int i = 1; i < s.Count; i++) m = Math.Max(m, Math.Sqrt((s[i].x - s[i - 1].x) * (s[i].x - s[i - 1].x) + (s[i].z - s[i - 1].z) * (s[i].z - s[i - 1].z))); return m; }
-            case "suspensionCompressionMin": { double m = double.PositiveInfinity; foreach (var v in s) for (int i = 0; i < 4; i++) m = Math.Min(m, v.springLengths[i]); return double.IsFinite(m) ? (double)m : (double?)null; }
-            case "suspensionExtensionMax": { double m = double.NegativeInfinity; foreach (var v in s) for (int i = 0; i < 4; i++) m = Math.Max(m, v.springLengths[i]); return double.IsFinite(m) ? (double)m : (double?)null; }
+            case "suspensionCompressionMin": {
+                // Only grounded wheels carry a real spring length; non-supported wheels report the
+                // airborne sentinel and must not pollute the travel measurement (clean-lap evidence:
+                // sentinel 0.33 observed on airborne wheels, run 41799538756).
+                double m = double.PositiveInfinity;
+                foreach (var v in s) for (int i = 0; i < 4; i++) if ((v.groundedMask & (1 << i)) != 0) m = Math.Min(m, v.springLengths[i]);
+                return double.IsFinite(m) ? (double)m : (double?)null;
+            }
+            case "suspensionExtensionMax": {
+                double m = double.NegativeInfinity;
+                foreach (var v in s) for (int i = 0; i < 4; i++) if ((v.groundedMask & (1 << i)) != 0) m = Math.Max(m, v.springLengths[i]);
+                return double.IsFinite(m) ? (double)m : (double?)null;
+            }
             case "uprightMinCosine": { if (s.Count == 0) return null; double m = 1; foreach (var v in s) m = Math.Min(m, v.upY); return m; }
             case "speedRiseTime": { if (s.Count == 0) return null; var start = s[0].speed; foreach (var v in s) if (v.speed >= start + .5) return v.t - s[0].t; return null; }
             case "speedDropTime": { if (s.Count == 0) return null; var start = s[0].speed; foreach (var v in s) if (v.speed <= start - .5) return v.t - s[0].t; return null; }
@@ -365,6 +380,7 @@ public static class DrivingValidation {
             if (!done && phase.UntilSpeedAtLeast.HasValue && minOk && s.speed >= phase.UntilSpeedAtLeast.Value) done = true;
             if (!done && phase.UntilSpeedBelow.HasValue && minOk && s.speed < phase.UntilSpeedBelow.Value) done = true;
             if (!done && phase.UntilChassisContactsAtLeast.HasValue && minOk && s.chassisContacts >= phase.UntilChassisContactsAtLeast.Value) done = true;
+            if (!done && phase.UntilNonSurfaceContact && minOk && s.nonSurfaceContact) done = true;
             if (!done && phase.UntilImpactEventsAtLeast.HasValue && minOk && hasBaseline && s.impactEvents - impactBaseline >= phase.UntilImpactEventsAtLeast.Value) done = true;
             if (!done && phase.UntilOffTrackObserved && minOk && !s.onDrivingSurface) done = true;
             if (!done && phase.MaxSeconds.HasValue && inPhase > phase.MaxSeconds.Value) { Abort("phase " + phase.Id + " exceeded maxSeconds without reaching its condition"); return; }
