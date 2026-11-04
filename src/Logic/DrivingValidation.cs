@@ -9,7 +9,7 @@ namespace MySimulator.Rebuild {
 // commands, and performs the mechanical reset between profiles.
 public static class DrivingValidation {
     public const string ProfilesResourceDefault = "res://data/native_driving_validation_profiles.json";
-    public static readonly string[] KnownReferences = { "brakeStop60Metres", "accel0To60Seconds", "steerActuatorRate" };
+    public static readonly string[] KnownReferences = { "brakeStop60Metres", "accel0To60Seconds", "steerActuatorRate", "vehicleMass" };
     public static readonly string[] KnownMetrics = {
         "pathLength","duration","startSpeed","endSpeed","endLongitudinalSpeed","speedRiseTime","speedDropTime",
         "trackLateralAbsMax","lateralDriftAbs","headingDriftAbs","longitudinalAccelMin","longitudinalAccelMax",
@@ -17,7 +17,7 @@ public static class DrivingValidation {
         "slipAnglePeakAbs","longitudinalSlipPeakAbs","wheelAnglePeakAbs","wheelAngleTargetPeakAbs",
         "steerResponseTime","steerTrackingRatio","steerSettleTime","steerSettleRatio","groundedFraction","chassisContactSamples",
         "nonSurfaceContactSamples","offTrackFraction","impactEventsDelta","maxDeltaVRise","positionJumpMax","suspensionCompressionMin",
-        "suspensionExtensionMax","uprightMinCosine"
+        "suspensionExtensionMax","uprightMinCosine","impactTickPeakDeltaV","impactContactSeconds","impactImpulseEstimate","impactPeakForceEstimate"
     };
     public static readonly string[] KnownOps = { "between", "betweenReference", "lt", "lte", "gt", "gte" };
 
@@ -287,6 +287,52 @@ public static class DrivingValidation {
             case "nonSurfaceContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.nonSurfaceContact) n++; return (double)n; }
             case "offTrackFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (!v.onDrivingSurface) n++; return (double)n / s.Count; }
             case "impactEventsDelta": return s.Count == 0 ? (double?)null : (double)(s[s.Count - 1].impactEvents - s[0].impactEvents);
+            case "impactTickPeakDeltaV": {
+                // Per-tick velocity jump measured inside the contact window (either sample touching a
+                // non-drive surface): the raw material for the force estimate, from recorded samples.
+                double? best = null;
+                for (int i = 1; i < s.Count; i++) {
+                    if (!s[i].nonSurfaceContact && !s[i - 1].nonSurfaceContact) continue;
+                    var dt = s[i].t - s[i - 1].t; if (dt <= 0) continue;
+                    var dl = s[i].longitudinalSpeed - s[i - 1].longitudinalSpeed;
+                    var da = s[i].lateralSpeed - s[i - 1].lateralSpeed;
+                    var dv = Math.Sqrt(dl * dl + da * da);
+                    if (double.IsFinite(dv)) best = Math.Max(best ?? 0, dv);
+                }
+                return best;
+            }
+            case "impactContactSeconds": {
+                if (s.Count == 0) return null;
+                double sum = 0;
+                for (int i = 0; i < s.Count; i++) {
+                    if (!s[i].nonSurfaceContact) continue;
+                    if (i == 0) { if (s.Count > 1 && s[1].t > s[0].t) sum += s[1].t - s[0].t; }
+                    else sum += s[i].t - s[i - 1].t;
+                }
+                return sum;
+            }
+            case "impactImpulseEstimate": {
+                var rise = ComputeMetric("maxDeltaVRise", phaseId, s, profile, references);
+                if (rise == null) return null;
+                if (references == null || !references.TryGetValue("vehicleMass", out var massA)) throw new Exception("Metric impactImpulseEstimate needs the vehicleMass reference");
+                return massA * rise.Value;
+            }
+            case "impactPeakForceEstimate": {
+                // vehicleMass * (per-tick velocity jump) / dt at that jump: an estimate derived from
+                // recorded samples at sample rate; the true contact force profile is not observed.
+                var jump = ComputeMetric("impactTickPeakDeltaV", phaseId, s, profile, references);
+                if (jump == null) return null;
+                if (references == null || !references.TryGetValue("vehicleMass", out var massB)) throw new Exception("Metric impactPeakForceEstimate needs the vehicleMass reference");
+                for (int i = 1; i < s.Count; i++) {
+                    if (!s[i].nonSurfaceContact && !s[i - 1].nonSurfaceContact) continue;
+                    var dt = s[i].t - s[i - 1].t; if (dt <= 0) continue;
+                    var dl = s[i].longitudinalSpeed - s[i - 1].longitudinalSpeed;
+                    var da = s[i].lateralSpeed - s[i - 1].lateralSpeed;
+                    var dv = Math.Sqrt(dl * dl + da * da);
+                    if (double.IsFinite(dv) && dv.Equals(jump.Value)) return massB * dv / dt;
+                }
+                return null;
+            }
             case "maxDeltaVRise": { if (s.Count == 0) return null; double m = 0; foreach (var v in s) m = Math.Max(m, v.maxDeltaV); return m - s[0].maxDeltaV; }
             case "positionJumpMax": { double m = 0; for (int i = 1; i < s.Count; i++) m = Math.Max(m, Math.Sqrt((s[i].x - s[i - 1].x) * (s[i].x - s[i - 1].x) + (s[i].z - s[i - 1].z) * (s[i].z - s[i - 1].z))); return m; }
             case "suspensionCompressionMin": {

@@ -168,6 +168,33 @@ namespace MySimulator.Verification
             }
             Check(matrixCellCount>=6,"Wet comparison matrix lost coverage");
             Check(!matrixCells.Contains("16/0/2/1")&&!matrixCells.Contains("0/0/2/1"),"Completed wet-slick cells must stay outside the executable case list");
+            {
+                var wallManifest=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_driving_validation_wall.json")).RootElement;
+                var wallSeen=new HashSet<string>();string lastWall=null;
+                foreach(var c in wallManifest.GetProperty("cases").EnumerateArray()){
+                    int caseCar=c.GetProperty("car").GetInt32(),caseTrack=c.GetProperty("track").GetInt32();
+                    Check(wallSeen.Add(caseCar+"/"+caseTrack),"Wall manifest repeats a car/track case");
+                    foreach(var idW in c.GetProperty("drivingValidation").EnumerateArray()){var nm=idW.GetString();Check(validationProfileIds.Contains(nm),"Wall manifest references unknown profile "+nm);lastWall=nm;}
+                }
+                Check(lastWall=="impact_wall_recovery","Wall manifest must end with impact_wall_recovery (the DV impact-flag contract: DRIVING_VALIDATION_IMPACT must match the manifest)");
+            }
+            {
+                var forceProfile=new DrivingValidation.Profile{Id="force"};
+                var fs=new List<DrivingValidation.Sample>();
+                const float sdt=1f/240f;
+                fs.Add(new DrivingValidation.Sample{phaseId="aim",t=0,longitudinalSpeed=10,lateralSpeed=0,nonSurfaceContact=false,loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                fs.Add(new DrivingValidation.Sample{phaseId="aim",t=sdt,longitudinalSpeed=7,lateralSpeed=1.5,nonSurfaceContact=true,loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                fs.Add(new DrivingValidation.Sample{phaseId="aim",t=2*sdt,longitudinalSpeed=6.5,lateralSpeed=1.2,nonSurfaceContact=true,loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                var forceRefs=new Dictionary<string,double>{{"vehicleMass",690}};
+                var jump=DrivingValidation.ComputeMetric("impactTickPeakDeltaV","aim",fs,forceProfile,forceRefs);
+                Check(jump.HasValue&&Math.Abs(jump.Value-Math.Sqrt(9+2.25))<0.01,"Per-tick velocity-jump metric is wrong on synthetic wall-contact data");
+                var force=DrivingValidation.ComputeMetric("impactPeakForceEstimate","aim",fs,forceProfile,forceRefs);
+                Check(force.HasValue&&Math.Abs(force.Value-690*Math.Sqrt(11.25)/sdt)<1.0,"Force estimate is wrong on synthetic wall-contact data");
+                var dwell=DrivingValidation.ComputeMetric("impactContactSeconds","aim",fs,forceProfile,forceRefs);
+                Check(dwell.HasValue&&Math.Abs(dwell.Value-2*sdt)<0.001,"Contact dwell is wrong on synthetic wall-contact data");
+                bool noRef=false;try{DrivingValidation.ComputeMetric("impactImpulseEstimate","aim",fs,forceProfile,new Dictionary<string,double>());}catch(Exception){noRef=true;}
+                Check(noRef,"Impact impulse estimate must fail closed without the vehicleMass reference");
+            }
             var handlingTargets=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_handling_targets.json")).RootElement;
             int handlingTargetCount=0;
             foreach(var t in handlingTargets.GetProperty("targets").EnumerateArray()){
