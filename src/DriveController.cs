@@ -137,12 +137,23 @@ void LoadWhineRamps() {
  }
  static float DeadZone(float v, float dz) { float a = Mathf.Abs(v); if (a <= dz) return 0; return Mathf.Sign(v) * (a - dz) / (1f - dz); }
  static Vector3 ToWorld(Vec p, float y) => new Vector3(p.x, y, p.z);
+ static string UvBounds(Vector2[] uv) { if (uv == null || uv.Length == 0) return "none"; float x0 = 9e9f, y0 = 9e9f, x1 = -9e9f, y1 = -9e9f; foreach (var v in uv) { x0 = Mathf.Min(x0, v.X); y0 = Mathf.Min(y0, v.Y); x1 = Mathf.Max(x1, v.X); y1 = Mathf.Max(y1, v.Y); } return "[" + x0.ToString("0.00") + ".." + x1.ToString("0.00") + ", " + y0.ToString("0.00") + ".." + y1.ToString("0.00") + "]"; }
  void CaptureShot(string fallback) {
   if (DisplayServer.GetName()=="headless") { GD.Print("SCREENSHOT_SKIPPED headless (logic check only)"); return; }
   string path=System.Environment.GetEnvironmentVariable("MYSIM_SHOT") ?? fallback;GD.Print("SCREENSHOT_BEGIN ",path);
   if (CamMode == 2 && Car != null && Cam != null) { // verifiable cockpit facts for the reference-evidence audit: authored seat pose, FOV, hidden wheels
-   var seatLocal = Car.GlobalTransform.AffineInverse() * Cam.GlobalPosition; float drift = (seatLocal - new Vector3(CarCatalog.RaceClass(CarIndex)==1?0:-0.35f, 0.88f, 0.05f)).Length(); bool wheelsHidden = true; if (WheelPivots != null) foreach (var wp in WheelPivots) wheelsHidden &= !wp.Visible;
+   var seatLocal = Car.GlobalTransform.AffineInverse() * Cam.GlobalPosition; float drift = (seatLocal - CockpitSeat(CarCatalog.RaceClass(CarIndex)==1)).Length(); bool wheelsHidden = true; if (WheelPivots != null) foreach (var wp in WheelPivots) wheelsHidden &= !wp.Visible;
    GD.Print("COCKPIT_VIEW mode=2 fov=", Cam.Fov, " seatLocal=", seatLocal, " seatOffsetFromAuthored=", drift.ToString("0.000"), " wheelsHidden=", wheelsHidden);
+   // INT-surface UV evidence for the cockpit-texture work (carbody's dependency): every visible LOD_A_INT_* mesh
+   // prints its UV0/UV2 bounds exactly like the CARVIEW UVAUDIT does, once per cockpit capture.
+   foreach (var node in Car.FindChildren("*", "MeshInstance3D", true, false)) {
+    var intMesh = (MeshInstance3D)node; var meshName = intMesh.Name.ToString().ToUpperInvariant();
+    if (!meshName.StartsWith("LOD_A_INT_") || !intMesh.IsVisibleInTree() || intMesh.Mesh == null) continue;
+    for (int surface = 0; surface < intMesh.Mesh.GetSurfaceCount(); surface++) {
+     var arrays = intMesh.Mesh.SurfaceGetArrays(surface);
+     GD.Print("COCKPIT_INT_UV ", intMesh.Name, " s", surface, " UV0=", UvBounds(arrays[(int)Mesh.ArrayType.TexUV] as Vector2[]), " UV1=", UvBounds(arrays[(int)Mesh.ArrayType.TexUV2] as Vector2[]));
+    }
+   }
   }
   if(System.Environment.GetEnvironmentVariable("MYSIM_CAMERA_FRAME_CHECK")=="1"){
    var size=GetViewport().GetVisibleRect().Size;Vector2 minimum=new Vector2(float.MaxValue,float.MaxValue),maximum=new Vector2(float.MinValue,float.MinValue);int points=0;
