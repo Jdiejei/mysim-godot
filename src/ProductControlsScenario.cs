@@ -94,7 +94,7 @@ public partial class ProductControlsScenario : Node {
    // Left-rail rect sanity at the fixture canvas (deep per-resolution bounds stays with the cloud HUD_RECTS gates).
    float vw=GetViewport().GetVisibleRect().Size.X,vh=GetViewport().GetVisibleRect().Size.Y;
    var panelRect=hud.StandingsPanel.GetGlobalRect();
-   Check(panelRect.Position.X>=0&&panelRect.End.X<=vw+1&&panelRect.End.Y<=vh+1,"standings panel outside the canvas: "+panelRect);
+   Check(panelRect.Position.X>=-1&&panelRect.Position.Y>=-1&&panelRect.Position.X+panelRect.Size.X<=vw+1&&panelRect.Position.Y+panelRect.Size.Y<=vh+1,"standings panel outside canvas: pos="+panelRect.Position+" size="+panelRect.Size+" canvas="+vw+"x"+vh);
    GD.Print("PASS product hud binding: speed/gear/timing/finish, compound+pits, weather/night, device, ERS, focus and escape");
    GD.Print("CHECKS productControls=ok");GetTree().Quit();
   }catch(Exception e){GD.PrintErr("FAIL product controls ",e);GetTree().Quit(1);}
