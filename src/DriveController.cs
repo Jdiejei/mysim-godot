@@ -39,6 +39,22 @@ protected float lastLift; Node3D crew; Node3D[] crewFig; Vector3[] crewHome;
   }
  }
 AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext; float lastE = -1f; bool mWas;
+// Transmission whine driven by the source game's own layer spec (AudioRamps.json default_transmission_*):
+// authentic rpm fade windows, reference pitch and gains; no invented curves, no fake loops. Car-specific
+// turbo/spool sets and wind/tyre-skid samples are NOT bound: the source sample files do not survive in assets.
+class WhineRamp { public string Clip; public float In0, In1, Out0, Out1, Base, GainMin, GainMax; public bool On; }
+System.Collections.Generic.List<WhineRamp> whineRamps; string whineClip;
+void LoadWhineRamps() {
+ if (whineRamps != null) return; whineRamps = new System.Collections.Generic.List<WhineRamp>();
+ try {
+  var doc = System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString("res://assets/Resources/RealRacing/AudioRamps.json"));
+  foreach (var layer in doc.RootElement.GetProperty("layers").EnumerateArray()) {
+   var name = layer.GetProperty("name").GetString(); if (name == null || !name.StartsWith("default_transmission_")) continue;
+   var p = layer.GetProperty("parameters"); if (p.GetArrayLength() < 8) continue;
+   whineRamps.Add(new WhineRamp { Clip = layer.GetProperty("clip").GetString(), In0 = p[0].GetSingle(), In1 = p[1].GetSingle(), Out0 = p[2].GetSingle(), Out1 = p[3].GetSingle(), Base = Mathf.Max(1f, p[4].GetSingle()), GainMin = Mathf.Clamp(p[5].GetSingle(), 0f, 1f), GainMax = Mathf.Clamp(p[6].GetSingle(), 0f, 1f), On = p[7].GetSingle() > 0.5f });
+  }
+ } catch (System.Exception rampError) { GD.PushError("AUDIO_RAMPS parse failed; whine keeps the single static sample: ", rampError.Message); }
+}
  static AudioStreamWav LoopWav(string path) { var w = GD.Load<AudioStreamWav>(path); if (w == null) return null; w = (AudioStreamWav)w.Duplicate(); int bytes = w.Format == AudioStreamWav.FormatEnum.Format16Bits ? 2 : 1; if (w.Stereo) bytes *= 2; w.LoopMode = AudioStreamWav.LoopModeEnum.Forward; w.LoopBegin = 0; w.LoopEnd = w.Data.Length / bytes - 1; return w; }
  void EnsureAudio() {
   if (engineSnd != null) return;
@@ -52,7 +68,27 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
   bool mNow = ControlBindings.Held(7); if (mNow && !mWas) { Settings.Set("mute", !Settings.Get("mute", true)); Settings.ApplyAudio(); } mWas = mNow;
   float rpm = Mathf.Clamp(Player.rpm, 800f, 10000f), thr = Player.servicing ? 0f : Mathf.Clamp(Player.input.throttle, 0f, 1f);
   if (engineSnd.Stream != null) { engineSnd.PitchScale = Mathf.Clamp(0.55f + rpm / 2600f, 0.6f, 4.2f); engineSnd.VolumeDb = Mathf.Lerp(-22f, -8f, thr * 0.8f + Mathf.Clamp(rpm / 10000f, 0, 1) * 0.2f); }
-  if (whineSnd.Stream != null) { whineSnd.PitchScale = Mathf.Clamp(0.5f + Player.speed / 40f, 0.5f, 3f); whineSnd.VolumeDb = Player.speed < 3f ? -60f : Mathf.Lerp(-34f, -22f, Mathf.Clamp(Player.speed / 70f, 0, 1)); }
+  LoadWhineRamps();
+  if (whineSnd.Stream != null && whineRamps != null && whineRamps.Count > 0) {
+   // The authentic layer set: pick by the LIVE transmission state (throttle on/off) and the LIVE rpm fade window.
+   bool on = thr > .04f; WhineRamp layer = null; float bestEdge = float.MaxValue;
+   foreach (var candidate in whineRamps) {
+    if (candidate.On != on) continue;
+    if (rpm >= candidate.In0 && rpm <= candidate.Out1) { float edge = rpm < candidate.In1 ? candidate.In1 - rpm : rpm > candidate.Out0 ? rpm - candidate.Out0 : 0f; if (edge < bestEdge) { bestEdge = edge; layer = candidate; } }
+   }
+   if (layer == null) { float bestMid = float.MaxValue; foreach (var candidate in whineRamps) { if (candidate.On != on) continue; float mid = (candidate.In0 + candidate.Out1) * .5f; float d = Mathf.Abs(rpm - mid); if (d < bestMid) { bestMid = d; layer = candidate; } } }
+   if (layer != null) {
+    string clip = "res://assets/Resources/RealRacing/Audio/" + layer.Clip + ".wav";
+    if (whineClip != clip) { var fresh = LoopWav(clip); if (fresh != null) { whineSnd.Stream = fresh; whineClip = clip; if (!whineSnd.Playing) whineSnd.Play(); } }
+    float fadeT = 1f;
+    if (rpm < layer.In1) fadeT = Mathf.Clamp((rpm - layer.In0) / Mathf.Max(1f, layer.In1 - layer.In0), 0f, 1f);
+    else if (rpm > layer.Out0) fadeT = Mathf.Clamp((layer.Out1 - rpm) / Mathf.Max(1f, layer.Out1 - layer.Out0), 0f, 1f);
+    float gain = Mathf.Lerp(layer.GainMin, layer.GainMax, fadeT);
+    float loud = Player.speed < 3f ? -60f : Mathf.Lerp(-34f, -22f, Mathf.Clamp(Player.speed / 70f, 0, 1));
+    whineSnd.VolumeDb = Mathf.Max(-60f, loud + Mathf.LinearToDb(Mathf.Clamp(gain, 0.02f, 1f)));
+    whineSnd.PitchScale = Mathf.Clamp(rpm / layer.Base, 0.5f, 3f);
+   }
+  } else if (whineSnd.Stream != null) { whineSnd.PitchScale = Mathf.Clamp(0.5f + Player.speed / 40f, 0.5f, 3f); whineSnd.VolumeDb = Player.speed < 3f ? -60f : Mathf.Lerp(-34f, -22f, Mathf.Clamp(Player.speed / 70f, 0, 1)); }
   if (e >= 0 && lastE < 0) { PlaySfx("jack_engage.wav"); }
   if (e >= 0) { for (int i = 0; i < 4; i++) { float off=PitServiceTimeline.Loosen(i),on=PitServiceTimeline.Fit(i); if (lastE < off && e >= off) PlaySfx("wheel_gun_loosen.wav"); if (PitServiceTimeline.Crossed(lastE,e,PitServiceTimeline.Remove(i))) PlaySfx("wheel_set_down.wav"); if (PitServiceTimeline.Crossed(lastE,e,PitServiceTimeline.Secure(i))) PlaySfx("wheel_gun_tighten.wav"); } if (PitServiceTimeline.Crossed(lastE,e,PitServiceTimeline.LowerStart)) PlaySfx("jack_release.wav"); }
   lastE = e;
