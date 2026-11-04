@@ -79,6 +79,23 @@ public partial class ProductControlsScenario : Node {
    player.ersCharge=0.87f;await Frame();await Frame();
    Check(charge.Text=="ERS 87%","ers charge display not bound to the live battery: '"+charge.Text+"'");
    player.carModel=modelBefore;await Frame();await Frame();
+   // Sense-of-speed integrity: track scale, lap timing and displayed speed tell one story (route data is metres; the recorded clean lap is 87.52 s).
+   var circuit=new Circuit(0);Check(circuit.length>1500f&&circuit.length<2500f,"track0 route scale out of range: "+circuit.length);
+   float avgKmh=circuit.length/87.52f*3.6f;Check(Mathf.Abs(avgKmh-79.25f)<1.5f,"clean-lap telemetry vs route scale inconsistent: "+avgKmh.ToString("0.0")+" km/h over "+circuit.length.ToString("0")+" m");
+   // Wheel rotation is distance over radius on every corner, mirrored sides included (omega vs travelled distance).
+   var wheelRig=new Node3D();AddChild(wheelRig);var rig=new Node3D[4];
+   for(int i=0;i<4;i++){float baseYaw=i%2==0?0f:Mathf.Pi;var pivot=new Node3D{Rotation=new Vector3(0,baseYaw,0)};pivot.SetMeta("steer_base_yaw",baseYaw);pivot.SetMeta("radius",.5f);pivot.AddChild(new Node3D{Name="Spin"});wheelRig.AddChild(pivot);rig[i]=pivot;}
+   WheelAnimation.Update(rig,5f,0f);
+   Check(Mathf.Abs(rig[0].GetNode<Node3D>("Spin").Rotation.X-10f)<1e-4f,"wheel angle != distance/radius: "+rig[0].GetNode<Node3D>("Spin").Rotation.X);
+   Check(Mathf.Abs(rig[1].GetNode<Node3D>("Spin").Rotation.X+10f)<1e-4f,"mirrored wheel angle sign wrong: "+rig[1].GetNode<Node3D>("Spin").Rotation.X);
+   WheelAnimation.Update(rig,7f,0f);
+   foreach(var pivot in rig){var spinNode=pivot.GetNode<Node3D>("Spin");Check(Mathf.Abs(Mathf.Abs(spinNode.Rotation.X)*.5f-7f)<1e-4f,"wheel surface speed inconsistent with the distance travelled: "+spinNode.Rotation.X);}
+   wheelRig.QueueFree();
+   // Sound integrity: every sample the controller can play exists in the shipped assets (no synthetic loops); mute reaches the master bus.
+   Check(ResourceLoader.Exists("res://assets/Resources/RealRacing/EngineIdle.wav"),"engine idle sample missing (fake-loop guard)");
+   foreach(var clip in new[]{"transmission_whine_on_very_low","transmission_whine_on_low","transmission_whine_on_mid","transmission_whine_on_high","transmission_whine_off_very_low","transmission_whine_off_low","transmission_whine_off_mid","transmission_whine_off_high","spool_01","turbo_01"})Check(ResourceLoader.Exists("res://assets/Resources/RealRacing/Audio/"+clip+".wav"),"authentic audio layer sample missing: "+clip);
+   bool muteBefore=Settings.Get("mute",true);Settings.Set("mute",true);Settings.ApplyAudio();Check(AudioServer.IsBusMute(0),"mute setting did not mute the master bus");
+   Settings.Set("mute",false);Settings.ApplyAudio();Check(!AudioServer.IsBusMute(0),"unmute did not clear the master bus");Settings.Set("mute",muteBefore);Settings.ApplyAudio();
    // Focus: product panels open with keyboard focus on their primary control; escape closes.
    var menu=new ModeMenu();AddChild(menu);await Frame();await Frame();
    Check(GetViewport().GuiGetFocusOwner()!=null,"mode menu opened without keyboard focus");
