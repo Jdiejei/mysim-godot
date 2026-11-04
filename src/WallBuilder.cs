@@ -107,7 +107,7 @@ public partial class CollisionOverlay : Node3D {
   Node node=start;
   for(int depth=0;node!=null&&depth<3;depth++,node=node.GetParent()){
    if(node is MeshInstance3D mesh)return mesh;
-   foreach(var child in node.GetChildren())if(child is MeshInstance3D mesh&&mesh.Mesh!=null)return mesh;
+   foreach(var child in node.GetChildren())if(child is MeshInstance3D sub&&sub.Mesh!=null)return sub;
   }
   return null;
  }
@@ -119,8 +119,8 @@ public partial class CollisionOverlay : Node3D {
   if(root!=null)foreach(var node in root.FindChildren("*","CollisionShape3D",true,false)){
    var shapeNode=(CollisionShape3D)node;var shape=shapeNode.Shape;if(shape==null)continue;
    if(shapeNode.GetParent() is not StaticBody3D body)continue;
-   var aabb=WorldAabb(shape.GetAabb(),shapeNode.GlobalTransform);
-   string counterpart=null;Vector3? counterpartSize=null;Vector3[] offset=null;
+   var aabb=WorldAabb(shape.GetDebugMesh().GetAabb(),shapeNode.GlobalTransform);
+   string counterpart=null;Vector3? counterpartSize=null;float[] offset=null;
    if(body.Name=="DriveSurface"){
     MeshInstance3D nearest=null;float best=float.MaxValue;
     foreach(var candidate in root.FindChildren("*","MeshInstance3D",true,false)){
@@ -142,7 +142,7 @@ public partial class CollisionOverlay : Node3D {
   string trimPath=System.Environment.GetEnvironmentVariable("MYSIM_COLLIDER_TRIM");
   if(!string.IsNullOrEmpty(trimPath)&&System.IO.File.Exists(trimPath)){
    using var document=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText(trimPath));
-   if(document.RootElement.ValueKind!=System.Text.Json.JsonValueKind.Array)throw new InvalidOperationException("Collider trim file must be a JSON array of {name,reason,evidence}");
+   if(document.RootElement.ValueKind!=System.Text.Json.JsonValueKind.Array)throw new System.InvalidOperationException("Collider trim file must be a JSON array of {name,reason,evidence}");
    foreach(var entry in document.RootElement.EnumerateArray()){
     string name=entry.GetProperty("name").GetString(),reason=entry.GetProperty("reason").GetString(),evidence=entry.GetProperty("evidence").GetString();
     int disabled=0;
