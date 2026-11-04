@@ -3,7 +3,14 @@
 Updated: 2026-11-04 ~17:55 Asia/Dubai (10:55Z window; timestamps re-stamped every batch from actual run/git data).
 Target: coherent, tested, PLAYABLE improvement by 2026-11-05 evening (Asia/Dubai). No full-game completion claim will be made; remaining scope stays explicitly listed.
 
-## 0) Release-defining fact (user path vs validated path)
+
+# BLOCK: release-defining facts (replaces the earlier single-fact header; re-stamped 2026-11-04 18:20 Asia/Dubai / 14:20Z)
+
+1. The published Windows build (41828819144/e82a362) boots the LEGACY drive path: MYSIM_NATIVE_GAMEPLAY is not set, so the user played the legacy physics while every green native result validated the opt-in path. The default flips to native ONLY through the gate battery below.
+2. BLOCK A CORRECTION (reviewer-verified): the 0de3123 WHEELGUARD/CALIPER hull ablation did NOT fix the drive - the re-run at that commit (41854714029) still failed: travelled 0.2004 m in 30 s, bodyContacts=2/tyreContacts=2. Block A status = FAILED (not in-flight green). The exclusion also removed the wheel-band lateral collision protection - it is EXPERIMENTAL/UNACCEPTED standing alone: the legitimate wheel-band coverage must be RESTORED at the CORRECTED geometry (the mounts/derivation fix), or the ablation reverts. No preload-bound increase.
+3. The active investigations: the physics stance-datum chain (the guards measured lowest point -0.81 vs the tyre plane -0.61; the real chassis floor -0.60) and the car-assembly source-part audit (the mount-vs-source-geometry split). The next DV (41860220647 at 4e11bba) carries the full failure-report patch (telemetry + contact names on any failure).
+
+## 1) Live agents (GLM subagents of this coordinator; names = agent IDs; states read via agents.list this batch)
 
 The published Windows build (run 41828819144 / e82a362) boots `Main` WITHOUT the native force-driven mode: the default user path is the legacy DriveController physics, while every green native lap/steering/physics result validated `MYSIM_NATIVE_GAMEPLAY=1` (jolt/240 class) paths. USER_STEERING_BLOCKER records the resulting user experience failure (no real steering/look feel) and the release rule: the native mode becomes the SHIPPED DEFAULT only through the required gate battery (contact/impact/grid/wet/fleet + human-path input evidence), never by silent flag flip. Current integration HEAD (lineage through 0de3123/6263c51/a613a9a/ccca290/6263c51... read `git log`) carries the fixes that make the native path viable by default (the WHEELGUARD/CALIPER hull exclusion at 0de3123 — see risk note below).
 
