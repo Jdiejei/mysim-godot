@@ -48,9 +48,23 @@ public partial class NativeRaceController : DriveController {
   if(validation!=null){
    if(!validation.Completed&&(Player.finished||Player.retired||elapsed>=AutoSeconds))validation.Abort("session ended before all validation profiles completed");
    validation.Advance(BuildValidationSample(),(float)delta);
-   if(validation.NeedsReset){if(!PlaceBody("validation-reset"))throw new Exception("Driving validation reset lacks drive surface");validationResets++;validation.ConfirmReset();}
+   if(validation.NeedsReset){if(!PlaceBody("validation-reset"))throw new Exception("Driving validation reset lacks drive surface");validationResets++;steering.Reset();pedalsNative.Reset();validation.ConfirmReset();}
    if(validation.Completed){FinishValidation();return;}
-   if(!Player.servicing&&!Player.finished&&!Player.retired)Player.input=ValidationInput(validation.Current);
+   if(!Player.servicing&&!Player.finished&&!Player.retired){
+    var command=validation.Current;
+    bool userPath=System.Environment.GetEnvironmentVariable("MYSIM_USERPATH")=="1";
+    if(userPath){
+     // The userpath leg drives the SAME human chain (keyboard smoothing + directional flip +
+     // pedal latch) instead of injecting DriverInput directly: filter/lock/latch behaviour is
+     // measured through the real input plumbing. Profile reverse phases map to the brake pedal,
+     // which is the reverse pedal once the brake-to-reverse latch engages (human device semantics).
+     float commandThrottle=(float)command.Throttle,commandBrake=(float)command.Brake;
+     if(command.Reverse){commandThrottle=0;commandBrake=1;}
+     Player.input=pedalsNative.Update(commandThrottle,commandBrake,SteeringInput.ToSimulation(steering.Step((float)command.Steer,(float)delta,false)),ControlBindings.Held(4),body.LinearVelocity.Dot(body.GlobalBasis.Z),(float)delta,true);
+    }else{
+     Player.input=ValidationInput(command);
+    }
+   }
   }
   body.GridHold=!Race.started;body.BindRaceControls(Player,(float)delta,Race.track);
   if(WheelPivots[0].GetMeta("displayed_compound").AsInt32()!=(int)Player.tyres[0].compound)TyreAppearance.Apply(WheelPivots,Player.tyres[0].compound);
@@ -138,6 +152,7 @@ public partial class NativeRaceController : DriveController {
    ["recordFps"]=System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_RECORD_FPS")??"unrecorded",
    ["rotationalTyres"]=body.RotationalTyres,
    ["assistsOff"]=System.Environment.GetEnvironmentVariable("MYSIM_ASSISTS")=="0",
+   ["userPath"]=System.Environment.GetEnvironmentVariable("MYSIM_USERPATH")=="1",
    ["damageEnabled"]=body.DamageEnabled,
    ["backend"]=System.Environment.GetEnvironmentVariable("MYSIM_PHYSICS_BACKEND")??"authoritative record is physics-backend-experiment.json of the same run",
    ["weatherProfile"]=Conditions.Wet,["water"]=body.Water,["compound"]=(int)Player.tyres[0].compound,

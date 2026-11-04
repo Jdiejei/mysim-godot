@@ -266,6 +266,16 @@ namespace MySimulator.Verification
                 }
             }
             log.Add("PASS steering-feel guards: correction authority, lock reach time, release decay and symmetry (turn-8 measured bands)");
+            // Userpath chain state hygiene: profile-boundary resets must clear the smoothing/latch state
+            // and the human reverse-pedal semantics (brake = the reverse pedal once latched) must engage.
+            {
+                var r1=new SteeringInput();r1.Step(1,1f/60,false);r1.Reset();Check(Math.Abs(r1.Command)<1e-6,"SteeringInput.Reset left a residual command");
+                var p1=new PedalController();DriverInput d1=new DriverInput();bool latched=false;
+                for(int i=0;i<40;i++){d1=p1.Update(0,1,0,false,0,1f/120,true);if(d1.reverse)latched=true;}
+                Check(latched,"Brake-to-reverse latch never engaged holding the brake from standstill");
+                p1.Reset();var d2=p1.Update(0,0,0,false,0,1f/120,true);
+                Check(!d2.reverse&&p1.Reversing==false,"PedalController.Reset left the reverse latch armed");
+            }
             log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
         }
