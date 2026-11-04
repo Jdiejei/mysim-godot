@@ -1,4 +1,4 @@
-import os,pathlib,subprocess,json,sys,time
+import os,pathlib,re,subprocess,json,sys,time
 r=pathlib.Path.cwd();out=r/'outputs/cloud-game';out.mkdir(parents=True,exist_ok=True);g=os.environ['GODOT_BIN'];shard=int(os.environ.get('SHARD','0'));rows=[]
 def run(label,values,args=None,timeout=300):
  env={k:v for k,v in os.environ.items() if not k.startswith('MYSIM_')};env.update(values);env.setdefault('MYSIM_INTERLAGOS_SPIN_DIAGONAL',os.environ.get('INTERLAGOS_SPIN_DIAGONAL','0'));env.setdefault('MYSIM_CONTACT_CAPTURE_AFTER',os.environ.get('CONTACT_CAPTURE_AFTER','0'));env.setdefault('MYSIM_NATIVE_COMBINED_ASSIST',os.environ.get('NATIVE_COMBINED_ASSIST','0'));env.setdefault('MYSIM_INTERLAGOS_SEAM_WELD',os.environ.get('INTERLAGOS_SEAM_WELD','0'));env.setdefault('MYSIM_CHIRON_RECONSTRUCTED_WING',os.environ.get('MYSIM_CHIRON_RECONSTRUCTED_WING','0'));env.setdefault('MYSIM_SOURCE_AXLE_FIT',os.environ.get('SOURCE_AXLE_FIT','0'));env.setdefault('MYSIM_COPLANAR_ROAD_CANDIDATE',os.environ.get('ROAD_COPLANAR_CANDIDATE','0'));env.setdefault('MYSIM_NATIVE_PHYSICS_HZ',os.environ.get('NATIVE_PHYSICS_HZ','120'));env.setdefault('MYSIM_NATIVE_ROTATIONAL_TYRES',os.environ.get('NATIVE_ROTATIONAL_TYRES','0'));env.setdefault('MYSIM_NATIVE_DAMAGE',os.environ.get('NATIVE_DAMAGE','0'));env.setdefault('MYSIM_NATIVE_CCD',os.environ.get('NATIVE_CCD','1'));env.setdefault('MYSIM_NATIVE_RIDE_HEIGHT',os.environ.get('NATIVE_RIDE_HEIGHT','0'));env.setdefault('MYSIM_SOURCE_RUNOFF_SUPPORT',os.environ.get('SOURCE_RUNOFF_SUPPORT','0'));env.setdefault('MYSIM_VERTICAL_ROAD_PLAN',os.environ.get('NATIVE_VERTICAL_ROAD_PLAN','0'));env['MYSIM_NATIVE_FACE_EVIDENCE']='1' if os.environ.get('NATIVE_GEOMETRY_RECOVERY')=='1' else '0';env['MYSIM_BINDING_AUDIT']=str(out/label);log=out/(label+'.log')
@@ -368,8 +368,19 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
  hud_missing=[]
  for resolution in ('640x360','1280x720','1920x1080','1920x1200','2560x1080'):
   shot=out/f'ref-hud-{resolution}.png'
-  run(f'ref-hud-{resolution}',{**car_extra,'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'4','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},['--resolution',resolution],timeout=600)
+  text=run(f'ref-hud-{resolution}',{**car_extra,'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'4','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30','MYSIM_HUD_RECTS':'1'},['--resolution',resolution],timeout=600)
   if not shot.exists():hud_missing.append(resolution)
+  rects=[line for line in text.splitlines() if line.startswith('HUD_RECTS viewport=')]
+  assert len(rects)==1,f'ref-hud-{resolution}: expected one HUD_RECTS line, got {len(rects)}'
+  vm=re.match(r'HUD_RECTS viewport=\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
+  assert vm,f'ref-hud-{resolution}: unparsable HUD_RECTS line'
+  vw,vh=float(vm.group(1)),float(vm.group(2))
+  assert (vw,vh)==(float(resolution.split('x')[0]),float(resolution.split('x')[1])),f'ref-hud-{resolution}: viewport {(vw,vh)} != requested {resolution}'
+  parsed=re.findall(r'(\w+)=P\(([-\d.e]+), ([-\d.e]+)\) R\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
+  assert parsed,f'ref-hud-{resolution}: no HUD element rects parsed'
+  for name,px,py,rw,rh in parsed:
+   px,py,rw,rh=float(px),float(py),float(rw),float(rh)
+   assert px>=0 and py>=0 and px+rw<=vw and py+rh<=vh,f'ref-hud-{resolution}: HUD element {name} outside viewport: P({px}, {py}) R({rw}, {rh})'
  if hud_missing:raise SystemExit(f'reference HUD captures missing: {hud_missing}')
  # Live driving frames at fixed 30 fps (sim time identical; physics hz unchanged), 600 s budget
  # (llvmpipe software rendering runs ~20x wall time at fixed 60 fps).

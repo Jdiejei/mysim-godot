@@ -6,6 +6,14 @@ public partial class Hud : CanvasLayer {
  public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear;PitServiceDisplay pitDisplay;PitStrategyPanel strategy;RaceStandingsPanel standings;HybridControlsPanel hybridControls;
  public HybridControlsPanel HybridControls=>hybridControls;public PitStrategyPanel PitStrategy=>strategy;
  public void TogglePitStrategy()=>strategy?.Toggle();
+ // Objective HUD-bounds evidence at capture time: every printed rect must stay inside the viewport (checked by the cloud harness).
+ public void EmitRects() {
+  var size=GetViewport().GetVisibleRect().Size;
+  GD.Print("HUD_RECTS viewport=",size," speed=",speed.GetGlobalRect()," gear=",gear.GetGlobalRect()," info=",info.GetGlobalRect(),
+   " minimap=",mini!=null?mini.GetGlobalRect().ToString():"none",
+   " standings=",standings!=null?standings.GetGlobalRect().ToString():"none",
+   " hybrid=",hybridControls!=null?hybridControls.GetGlobalRect().ToString():"none");
+ }
  public override void _Ready() {
   var root = new Control { AnchorRight = 1, AnchorBottom = 1, MouseFilter = Control.MouseFilterEnum.Ignore }; AddChild(root);
   root.AddChild(new RaceStartLights {Hud=this});hybridControls=new HybridControlsPanel();root.AddChild(hybridControls);standings=new RaceStandingsPanel();root.AddChild(standings);pitDisplay=new PitServiceDisplay();root.AddChild(pitDisplay);strategy=new PitStrategyPanel();root.AddChild(strategy);

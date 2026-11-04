@@ -103,6 +103,7 @@ AudioStreamPlayer engineSnd, whineSnd; AudioStreamPlayer[] sfxPool; int sfxNext;
    if(points==0||minimum.X<size.X*.02f||minimum.Y<size.Y*.02f||maximum.X>size.X*.98f||maximum.Y>size.Y*.98f)throw new System.Exception("Camera framing crops assembled car: "+minimum+".."+maximum+" viewport "+size);
    GD.Print("PASS complete gameplay car framing ",minimum,"..",maximum);
   }
+  if (System.Environment.GetEnvironmentVariable("MYSIM_HUD_RECTS")=="1" && Hud != null) Hud.EmitRects();
   var image=GetViewport().GetTexture().GetImage();var error=image.SavePng(path);GD.Print("SCREENSHOT_END ",error," size=",image.GetWidth(),"x",image.GetHeight());if(error!=Error.Ok)throw new System.IO.IOException("Screenshot failed: "+error);
  }
  ulong lastHeartbeat; double worstRenderMs;
