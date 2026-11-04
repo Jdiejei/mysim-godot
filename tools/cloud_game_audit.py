@@ -93,7 +93,7 @@ if os.environ.get('NATIVE_RETIREMENT')=='1':
  assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
  print('PASS actual native empty-fuel retirement/results/restart/menu; no completed-lap substitution',flush=True);sys.exit(0)
 if os.environ.get('MYSIM_PRODUCTCHECKS')=='1' and os.environ.get('SETTINGS_PERSIST_REVIEW')!='1':
- text=run('product-controls',{'MYSIM_PRODUCTCHECKS':'1','MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_SECONDS':'120','MYSIM_RIVALS':'0','MYSIM_SHOT':str(out/'product-controls.png')},['--headless'],timeout=900)
+ text=run('product-controls',{'MYSIM_PRODUCTCHECKS':'1','MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_SECONDS':'120','MYSIM_RIVALS':'0','MYSIM_SHOT':str(out/'product-controls.png')},['--resolution','1280x720'],timeout=900)
  assert 'CHECKS productControls=ok' in text,'Product controls gate missing: see saved product-controls log'
  if not (out/'product-controls.png').exists():raise SystemExit('product controls capture missing')
  (out/'product-controls-summary.json').write_text(json.dumps({'ok':True,'gate':'CHECKS productControls=ok','scope':'live-state HUD/panel/focus/pit assertions; visual hierarchy acceptance stays with the human reviewer'},indent=2))
