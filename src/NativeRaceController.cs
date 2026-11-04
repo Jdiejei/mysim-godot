@@ -83,7 +83,8 @@ public partial class NativeRaceController : DriveController {
  System.Collections.Generic.Dictionary<string,double> ValidationReferences()=>new System.Collections.Generic.Dictionary<string,double>{
   ["brakeStop60Metres"]=RecoveredVehicleProfiles.Brakes[CarIndex]*.3048,
   ["accel0To60Seconds"]=RecoveredVehicleProfiles.Acceleration[CarIndex],
-  ["steerActuatorRate"]=3.2};
+  ["steerActuatorRate"]=3.2,
+  ["vehicleMass"]=RecoveredVehicleProfiles.Mass[CarIndex]};
  string ReadProjectText(string path){
   if(System.IO.File.Exists(path))return System.IO.File.ReadAllText(path);
   var normalised=path.Replace('\\','/');if(!normalised.StartsWith("res://",StringComparison.Ordinal))normalised="res://"+normalised;
