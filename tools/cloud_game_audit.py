@@ -239,7 +239,9 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
  filtered=os.environ.get('FENCE_FILTER_REVIEW')=='1'
  identity=os.environ.get('CUTOUT_IDENTITY_REVIEW')=='1'
+ miprepair=os.environ.get('CUTOUT_MIPREPAIR_REVIEW')=='1'
  modes=['baseline']+(['identity'] if identity else (['fence_blend_candidate','fence_a2c_candidate'] if filtered else ['opaque_metal_candidate']))
+ if miprepair:modes=['baseline','fence_miprepair_candidate','family_isolate_fence','family_isolate_stands','family_isolate_foliage']
  for mode in modes:
   label=('day0-filtered-fence-' if filtered else 'night25-cutout-')+mode;shot=out/(label+'.png')
   text=run(label,{'MYSIM_TRACK':'0' if filtered else '25','MYSIM_CAR':'16','MYSIM_TOD':'0' if filtered else '3','MYSIM_WET':'0','MYSIM_TRACK_FLOODLIGHTS':'0' if filtered else '1','MYSIM_TRACK_CUTOUT_DIAGNOSTIC':mode,'MYSIM_BINDING_AUDIT':str(out),'MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_SECONDS':'5','MYSIM_SHOT':str(shot)})
@@ -252,6 +254,22 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   assert all(surface['actualTransparency']=='Alpha' for surface in changed if surface['actualAlphaAA']=='Off'),'Blend candidate must use true Alpha'
   assert all(surface['actualTransparency']=='AlphaScissor' and surface['actualAlphaAA']=='AlphaToCoverageAndToOne' for surface in changed if surface['actualTransparency']!='Alpha'),'A2C candidate must keep scissor depth with alpha-to-coverage'
   (out/'filtered-fence-summary.json').write_text(json.dumps({'changedSurfaces':len(changed),'accepted':False,'scope':'Three actual fence textures: true alpha blend and alpha-to-coverage scissor candidates; manual hole/order/alias review required'},indent=2))
+ if miprepair:
+  reports_mip=[json.loads(path.read_text()) for path in sorted(out.rglob('cutout-*-fence_miprepair_candidate.json'))]
+  mchanged=[s for report in reports_mip for s in report.get('surfaces',[]) if pathlib.Path(s['texture']).name in ('mat_fence_wire_04.png','mat_fence_small_wire_01.png','mat_fence_metal_catch_01.png')]
+  assert mchanged and all(s.get('mipRepaired') is True for s in mchanged),'MIP repair must flag every repaired fence surface'
+  ev=[r for r in reports_mip if 'mipRepair' in r]
+  assert ev and len(ev[0].get('mipRepair',[]))==3 and all(e.get('anomaly') is False for e in ev[0]['mipRepair']),'mipRepair evidence must cover exactly the three textures with anomaly=false'
+  for entry in ev[0]['mipRepair']:
+   base5=entry.get('level0',{}).get('keptAt05');base35=entry.get('level0',{}).get('keptAt035')
+   for level in entry.get('levels',[]):
+    assert abs(level['keptAt05']-base5)<=0.02 and abs(level['keptAt035']-base35)<=0.02,'per-level keep fraction drifted beyond 0.02'
+  for family in ('fence','stands','foliage'):
+   iso_path=out/('day0-filtered-fence-family_isolate_'+family+'.json')
+   assert iso_path.exists(),'family_isolate_'+family+' report missing'
+   iso=json.loads(iso_path.read_text())
+   assert iso.get('isolatedCount',0)>0,'family_isolate_'+family+' returned no isolated rows'
+  (out/'miprepair-summary.json').write_text(json.dumps({'mipRepairedCount':len(mchanged),'accepted':False,'scope':'alpha-CDF-preserving mip rebuild on the three fence textures; acceptance = human visual comparison only'},indent=1))
  print('COMPLETE matched cutout isolation, no alpha or shadow policy promoted',flush=True);sys.exit(0)
 if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  # Settings persistence fixture orchestrator: one workflow dispatch runs ALL scenarios, each as a FRESH
