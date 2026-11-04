@@ -1,8 +1,33 @@
-# REVIEW_PACKET — settings persistence verification (verification agent)
+# REVIEW_PACKET — MySim verification and evidence (coordinator-maintained; specialists contribute sections)
 
-Maintained on branch `mistral/verification` by the verification/persistence specialist. The **CURRENT STATUS** section below is the single authoritative snapshot; all earlier material is preserved verbatim under dated **HISTORY** headings. No whole-game claim and no "persistence stage closed" claim is made anywhere in this packet.
+Maintained on branch `codex/repair-20261029`. The **CURRENT STATUS** sections below are the authoritative snapshot; superseded material is preserved under dated **HISTORY** headings. No whole-game claim and no "persistence stage closed" claim is made anywhere in this packet.
 
-## CURRENT STATUS — 2026-11-04 (verification agent)
+## CURRENT STATUS — 2026-11-04, session 2 (coordinator; supersedes the same-day snapshot below where they differ)
+
+### Settings persistence: Linux re-proved; long-typed regression found and fixed; Windows dispatch in flight
+
+- **Linux re-proof DONE:** run `41798040383` at `e8b80bb` = success — the strengthened non-vacuous `temp_live_kept`/`rename_live_kept` reads + `contract_sync_case_names` are re-proven at a later commit (28/28, five isolated scenarios). The "26 real + 2 vacuous" note below applies only to `dfe0ed3` (run `41710482854`).
+- **New regression found 2026-11-04 by the cloud controls probe (run `41795630650` at `5288329`)**: `Settings.TypedValue<T>` had no `long` branch, so `Settings.Get(key,(long)def)` returned the default unconditionally — every key rebinding was silently ignored in play (probe: "new throttle key not stored"). Root cause of the regression is the strict-typed-Get change at `c1701d9`; `41795630650` was the first CI probe battery after it. **Fix at `9ff443c`**: `long`↔Int natively matched; new fixture case `legacy_long_roundtrip` (roundtrips 75 through the production Set/Get exactly as ControlBindings does) added to the fixture contract AND `cloud_game_audit.py required_cases` AND the Windows driver contract. Linux now expects **29** base cases; Windows **32** (29 + 3 win_sharing_violation). The earlier strict-typed failures at `c1701d9` were a DIFFERENT defect (over-strict on wrong types) — both directions of the policy are now covered by the roundtrip case.
+- **Windows persistence: the verification agent's step was NOT actually in the committed workflow** (the handoff claim "windows step wired at e8b80bb" was wrong for the committed file — caught 2026-11-04 while preparing the dispatch). Coordinator added the real step at `d3629e8`: `windows-build.yml` now runs `tools/cloud_windows_persist.py` (committed) on the packaged player after smoke/render, with `build-cloud/windows-settings-persist-*.{json,log}` added to the diagnostics artifact. First Windows persist verification = run `41819498045` (tag `windows-candidate-d3629e8430fcddcd5544153221e07467f7499120`; dispatch details in JOB_REGISTRY.json, including two discarded misconfigured windows dispatches and GitHub-side 500s on pushes — all preserved). Fresh `%APPDATA%\...\MySim` per scenario; expects 32 assertions; any `atomic_replace_*` failure = the documented delete-then-rename Windows defect, to be fixed in `Settings.cs`, never suppressed.
+- **Linux 29-case proof DONE (supersedes the queued status below):** dispatch `41818941902` at `9ff443c` completed SUCCESS — `legacy_long_roundtrip` green in the packaged Linux fixture flow with contract sync; the 29-case Linux basis (28 original + long roundtrip) is now proven, not pending. `41798040383` (at `e8b80bb`, without the long case) remains the 28/28 re-proof.
+
+### Reference car/track: clean continuous lap PROVEN; visual acceptance still open
+
+- **Continuous lap, clean (run `41799538756` at `5d21c56`, jolt/240Hz/CCD/rotational):** `finished=true`, `laps=1`, `bestLap=87.52s`, `damage=0`, `impactEvents=0`, `ruleResets=0`, 4 tyre contacts on DriveSurface, no chassis contacts in samples. This REPLACES the earlier failure line (17 impacts/damage 0.27 at `71dfc6c` on the source solver — preserved below in HISTORY and in JOB_REGISTRY.json). Evidence on disk: 89.6s encrypted+decrypted video + full telemetry at `outputs/repair-20261029/lap-jolt-41799538756/encrypted-review-0-attempt-1/game-review-41799538756-1-0/review/`. NOT yet watched by the human reviewer; solver changes (source vs jolt) are recorded in the run config.
+- **car_evidence run `41798036351` at `e8b80bb` = success** — engine gates PASS: 5 car views full framing (`corners=376`), all 4 wheels + steered wheel closeups (`corners=32`, real closeups not whole-car), genuine cockpit (`COCKPIT_VIEW mode=2 fov=75 seatLocal=(0,0.88,0.05) seatOffsetFromAuthored=0.000 wheelsHidden=True` = authored seat, not overhead). 18 PNGs/shard decrypted at `outputs/repair-20261029/car-ev-41798036351/`. Human visual review pending; the earlier capture defects (mirrored logos, black foliage, speckled fences) are NOT dispositioned by these runs.
+- **HUD fix verification made objective at `076363b`**: `Hud.EmitRects()` prints every HUD element's global rect at capture time; `reference_evidence` now asserts per-resolution that speed/gear/info/minimap/standings/hybrid rects stay inside the viewport (640x360 … 2560x1080; 960x540-class covered by 16:9 scaling). Dispatch `41820839687` in flight; the previous car_evidence set had NO bounds asserts (existence-only) — superseded by this.
+
+### Fence/alpha work: mip-repair retry in flight; scale of claims unchanged
+
+- Run `41795630650` (fence_miprepair_review at `5288329`) failed on the controls probe above, NOT on the mip-repair invariants — the fence evidence was never produced; retry `41818948189` dispatched at `9ff443c` (in flight). Scale unchanged: candidate evidence only, no visual acceptance, no geometry root-cause claim until the human reviewer compares repaired vs baseline PNGs.
+
+### STILL OPEN (unchanged by this session)
+
+- Mirrored logos/numbers root cause (UV/texture orientation per surface) — awaiting human review of `41798036351` closeups before any livery change.
+- Road fairness, grass color balance, vegetation backdrop — one controlled change per evidence cycle, AFTER the fence mip-repair verdict.
+- Windows run results, driving_validation runs (core/impact/wet), and the 15-stage remaining scope (all cars/tracks, weather/night, racing AI, pits, menus, championship, LAN, audio, performance, asset acceptance, final Windows e2e).
+
+## CURRENT STATUS — 2026-11-04, earlier same-day snapshot (verification agent; superseded where the session-2 update contradicts)
 
 ### Settings persistence: verified on Linux; Windows explicitly OPEN
 

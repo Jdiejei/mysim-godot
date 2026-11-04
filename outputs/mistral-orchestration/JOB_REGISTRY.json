@@ -1,178 +1,88 @@
 {
- "updated": "2026-11-04T~22:0xZ",
+ "updated": "2026-11-04T11:20Z",
  "coordinator": "root (sole integration coordinator)",
- "worktrees": {
-  "track-render": {
-   "path": "C:/Users/shash/MySimGodot-wt-track",
-   "branch": "mistral/track-render",
-   "agent": "track-render",
-   "files": [
-    "src/TrackMaterialBinder.cs",
-    "src/TrackCutoutDiagnostic.cs",
-    "src/TrackSceneAudit.cs",
-    "src/WallBuilder.cs",
-    "src/GroundFixer.cs",
-    "src/RainVolume.cs",
-    "src/TrackNightLighting.cs",
-    "src/Conditions.cs"
-   ],
-   "task": "fence speckle + black foliage + grandstand diagnosis + one controlled candidate"
+ "branch": "codex/repair-20261029",
+ "remote_tip": "4d0622f",
+ "merge_wave_2": {
+  "note": "carbody-livery turn-1 merged (2744f08): read-only texture-inventory tool + per-surface taxonomy (H1 mirror root cause: the shipped CarShader default (-1,-1)/(1,1) adds a U-mirror on top of the faithful V-only flip; the three _mm_badges surfaces still on the default = primary mirrored-logo suspect). Wheel clearance sweep v2 merged (4d0622f): suspension-state poses, full 31.5deg lock, per-wheel labelled worsts, tyre-vertex contact link.",
+  "live_runs_after_merges": {
+   "41831318759": "car_evidence @4d0622f (sweep v2 + candidates active) - the decisive wheel/body evidence run",
+   "41830989890": "reference_evidence @d9940a2 (HUD_RECTS parser fixed to the real Vec2 emission)",
+   "41830853569": "product_controls_review @d9940a2 (first run of the functional HUD gate)",
+   "41830995246": "fence_miprepair_review @d9940a2",
+   "41828824418": "driving_validation @e82a362 (hardened profiles + manifest bake fix)",
+   "41828819144": "windows build+persist @e82a362 (scoped-Extra fixture)"
   },
-  "car-assembly": {
-   "path": "C:/Users/shash/MySimGodot-wt-car",
-   "branch": "mistral/car-assembly",
-   "agent": "car-assembly",
-   "files": [
-    "src/CarLoader.cs",
-    "src/CarAssemblyAudit.cs",
-    "src/CarMaterialAudit.cs",
-    "src/CarUvTopologyEvidence.cs",
-    "src/RecoveredComponentMounts.cs",
-    "src/SourceAxleFitCandidate.cs",
-    "src/F1SuspensionVisualBuilder.cs",
-    "src/WheelAnimation.cs",
-    "src/WheelFitAudit.cs",
-    "src/WheelRimBuilder.cs",
-    "src/TyreMeshBuilder.cs",
-    "src/TyreAppearance.cs",
-    "data/car_surface_uv_repairs.json",
-    "data/f1_wheel_profiles.json",
-    "data/component_mount_profiles.json",
-    "src/Logic/*.cs shared with physics-gameplay (coordinate via coordinator)"
-   ],
-   "task": "mirrored logos policy, rear assembly diagnosis, wheel/axle clearance fixture proposal"
-  },
-  "hud-camera": {
-   "path": "C:/Users/shash/MySimGodot-wt-hud",
-   "branch": "mistral/hud-camera",
-   "agent": "hud-camera",
-   "files": [
-    "src/Hud.cs",
-    "src/RaceStartLights.cs",
-    "src/RaceStandingsPanel.cs",
-    "src/ResultsLayoutScenario.cs",
-    "src/ModeMenu.cs",
-    "src/RaceSettingsPanel.cs",
-    "src/SeriesSetupPanel.cs",
-    "src/TouchControls.cs",
-    "src/DriveController.cs"
-   ],
-   "task": "HUD clipping + responsive anchors + genuine cockpit/closeup views spec + camera framing check"
-  },
-  "physics-gameplay": {
-   "path": "C:/Users/shash/MySimGodot-wt-physics",
-   "branch": "mistral/physics-gameplay",
-   "agent": "physics-gameplay",
-   "files": [
-    "src/Logic/*.cs",
-    "src/Conditions.cs",
-    "data/native_*.json"
-   ],
-   "task": "continuous driving validation spec + dry/wet matrix + Monoposto-derived measurable targets"
-  },
-  "verification": {
-   "path": "C:/Users/shash/MySimGodot-wt-verify",
-   "branch": "mistral/verification",
-   "agent": "verification",
-   "files": [
-    "src/Settings.cs",
-    "src/SettingsPersistChecks.cs",
-    "src/SettingsPersistChecksNode.cs",
-    "outputs/mistral-orchestration/REVIEW_PACKET.md"
-   ],
-   "task": "Windows persistence plan, review packet current-status rewrite, regression contract"
-  }
+  "discarded": ["41831150957 (car_evidence @2744f08, cancel requested - superseded by sweep v2)", "1cb8fe1 cluster (merge compile breaks; six-dup dispatch, retained as history)", "83ffa8e trio (flush CS0103, superseded by d9940a2)", "41830377741/41830372066 (b64ef61 missing-namespace-brace, compiled-out, superseded)"]
  },
- "dispatches": {
-  "policy": "coordinator only; agents propose",
-  "recent_runs": {
-   "41795630650": {
-    "head": "5288329",
-    "status": "completed success",
-    "depth": "fence_miprepair_review",
-    "note": "mip-repair candidate evidence captured"
-   },
-   "41794252920": {
-    "head": "71dfc6c",
-    "status": "completed failure",
-    "depth": "native_geometry_recovery continuous lap (source/120)",
-    "finding": "17 ground impacts + 0.27 damage on the source solver; jolt/240 retry dispatched"
-   },
-   "41797648627": {
-    "head": "d195794",
-    "status": "in_progress",
-    "depth": "native_geometry_recovery continuous lap (jolt/240 precedent config)"
-   },
-   "41798036351": {
-    "head": "e8b80bb",
-    "status": "in_progress",
-    "depth": "car_evidence (V-only UV candidates + twin-hide + full evidence set)"
-   },
-   "41798040383": {
-    "head": "e8b80bb",
-    "status": "in_progress",
-    "depth": "settings_persist_review reproof (contract sync + real reads)"
-   }
+ "recent_runs": {
+  "41799538756": {
+   "head": "5d21c56",
+   "status": "completed success",
+   "depth": "native_geometry_recovery continuous lap, jolt/240Hz/CCD/rotational",
+   "finding": "CLEAN LAP at 5d21c56: finished=true, laps=1, bestLap=87.52s, damage=0, impactEvents=0, ruleResets=0, tyreContacts=4 on DriveSurface. 89.6s video + 9MB telemetry decrypted at outputs/repair-20261029/lap-jolt-41799538756/encrypted-review-0-attempt-1/game-review-41799538756-1-0/review/. Continuous-driving evidence ready for supervisor review."
   },
-  "duplicate_avoidance": "one settings_persist gate + one reference_evidence gate; agents propose only"
+  "41798040383": { "head": "e8b80bb", "status": "completed success", "depth": "settings_persist_review (28/28 Linux + contract sync)" },
+  "41798036351": {
+   "head": "e8b80bb",
+   "status": "completed success",
+   "depth": "car_evidence (UV candidates V-only + misc twin-hide + full evidence)",
+   "finding": "Engine gates PASS: 5 car views full framing (corners=376), 4 wheels + steered full visible wheel framing (corners=32), genuine cockpit (COCKPIT_VIEW mode=2 fov=75 seatLocal=(0,0.88,0.05) offset=0.000 wheelsHidden=True). 18 PNGs per shard decrypted; runtime-3 = variant with twin-hide off (cockpit 450KB vs 513KB). Awaiting supervisor manual visual review."
+  },
+  "41795630650": {
+   "head": "5288329",
+   "status": "completed failure",
+   "depth": "fence_miprepair_review",
+   "failure": "Generic controls-dialog probe failed: 'new throttle key not stored' at ControlsScenario._Ready. ROOT CAUSE (found): Settings.TypedValue<T> had no long branch -> Settings.Get(key,(long)def) returned default unconditionally -> all key rebinding broken. Regression introduced by strict-typed-Get change at c1701d9; first CI probe battery after that commit caught it. FIX: long branch added at 9ff443c + legacy_long_roundtrip case in fixture contract + audit required_cases. The fence mip-repair evidence is re-validated by the retry run."
+  },
+  "41794252920": { "head": "71dfc6c", "status": "completed failure", "depth": "continuous lap source/120", "finding": "17 impacts, damage 0.27 - retained failure history" },
+  "41797648627": { "head": "d195794", "status": "completed failure", "depth": "lap jolt/240 attempt1", "finding": "dispatch precondition error (speculative_distance omitted)" },
+  "41818941902": { "head": "9ff443c", "status": "completed success", "depth": "settings_persist_review with legacy_long_roundtrip (29 Linux cases green; verified by verification specialist turn-2)" },
+  "41820839687": { "head": "076363b", "status": "queued", "depth": "reference_evidence with HUD_RECTS per-resolution bounds assertions (speed/units inside viewport proven or failed with exact element+rect)" },
+  "41818948189": { "head": "9ff443c", "status": "queued", "depth": "fence_miprepair_review retry at fixed commit (controls probe must now pass)" },
+  "41819114117": { "head": "9ff443c", "status": "in_progress", "depth": "windows-build + native smoke (no persist step in workflow yet - superseded by 41819498045 for persist; still useful Windows build evidence)" },
+  "41819498045": { "head": "d3629e8 (dispatched via tag ref windows-candidate-d3629e8...)", "status": "pending", "depth": "windows-build + smoke + settings persist on packaged Windows player (5 scenarios; long-roundtrip in contract)" },
+  "41818937383": { "status": "completed-failure (dispatched with missing tag; garbage main-branch run - discard)" },
+  "41819339436": { "status": "expected-failure (dispatch executed before branch push landed; tag pointed at d3629e8 while ref checkout was 9ff443c)", "note": "GitHub push API returned transient 500s (3x) during the window; all retries documented" }
  },
- "shared_files_owned_by_coordinator": [
-  "tools/cloud_game_audit.py",
-  ".github/workflows/game-review.yml",
-  "outputs/repair-20261029/CONTINUE.md",
-  "outputs/repair-20261029/REPAIR_REPORT.md",
-  "project.godot"
- ],
- "merges": [
-  {
-   "branch": "mistral/hud-camera",
-   "merge": "6db6e8c",
-   "content": "Hud grow-begin clip fix; panel-container hug; cockpit emitter (COCKPIT_VIEW facts)",
-   "verified": "compile via run at e41e29b+; semantic review pending frames"
-  },
-  {
-   "branch": "mistral/verification",
-   "merge": "537feb7",
-   "content": "Windows-capable fixture (win_sharing_violation 3 cases Linux+win guarded), real live-file assertions (vacuous URI reads fixed), contract_sync, REVIEW_PACKET rewrite",
-   "verified": "pending re-dispatch"
-  },
-  {
-   "branch": "mistral/track-render",
-   "merge": "19b342a",
-   "content": "fence/foliage diagnosis (material-level: identity-render solid at band scanline; wire04 black RGB in 63.5% transparent texels; thresholds measured dead) + alpha-CDF mip-repair candidate + family isolations",
-   "verified": "dispatch 41795630650 in flight"
-  },
-  {
-   "branch": "mistral/physics-gameplay",
-   "merge": "37170d9",
-   "content": "driving-validation profiles/spec + wet matrix + handling targets + CoreChecks guards",
-   "verified": "CoreRunner PASS 88078 assertions on the specialist branch; cloud driving-validation depth pending wiring"
-  },
-  {
-   "branch": "mistral/car-assembly",
-   "merge": "d6ce968",
-   "content": "10 pending V-only UV entries (pending:true, flag-gated), misc twin-hide diagnostic, 85-pose clearance sweep in WheelFitAudit",
-   "verified": "compile pending cloud; D1-D4 dispatches proposed"
-  },
-  {
-   "branch": "physics-gameplay",
-   "merge": "37170d9",
-   "content": "driving-validation profiles (8 scripted), wet matrix (6 cells), handling targets (9), CoreChecks guards",
-   "verified": "CoreRunner 88078 assertions on branch"
-  }
- ],
- " specialists_progress": {
-  "hud-camera": "DONE turn1 (merged); proposed audit patch ADOPTED at 8eeb6e4",
-  "verification": "DONE turn1 (merged); Windows step added; needs linux re-proof + windows dispatch",
-  "track-render": "DONE turn1 (merged); fence_miprepair dispatch in flight",
-  "car-assembly": "DONE turn1 (09a3d16+ca7ce66 on branch): 10 pending V-only entries + misc twin hide diagnostic + clearance sweep (85 poses); MERGE PENDING",
-  "physics-gameplay": "RUNNING turn1"
+ "windows_persist": {
+  "state": "wired and dispatched",
+  "history": "verification agent step was NOT in the committed workflow (handoff claim wrong); coordinator added the step + diagnostics artifact paths at d3629e8; first real Windows persist verification = run 41819498045",
+  "tag": "windows-candidate-d3629e8430fcddcd5544153221e07467f7499120",
+  "stray_tags": ["wpersist-e8b80bbbf801e9263929aec6caa0a3ddd969a7f6 (misnamed, harmless)"]
  },
- "specialists_progress": {
-  "hud-camera": "MERGED (6db6e8c) + audit patch applied (8eeb6e4)",
-  "verification": "MERGED (537feb7) + windows step wired (e8b80bb)",
-  "track-render": "MERGED (19b342a) + mipreview gates wired",
-  "car-assembly": "MERGED (d6ce968)",
-  "physics-gameplay": "MERGED (37170d9)"
- }
+ "turn2_integration": {
+  "role_structure_2026_11_04_user_update": {
+   "roles": {
+    "1_hud_product_controls": { "agent": "hud-camera", "turn": 3, "status": "running" },
+    "2_wheel_axles_contact": { "agent": "car-assembly", "turn": 3, "status": "running" },
+    "3_carbody_assembly": { "agent": "carbody-livery", "turn": 1, "status": "spawned" },
+    "4_livery_texture": { "agent": "carbody-livery", "turn": 1, "status": "spawned" },
+    "5_track_rendering": { "agent": "track-render", "turn": 3, "status": "running" },
+    "6_integration_evidence": { "agent": "coordinator + verification (auditor)", "status": "active" },
+    "physics_support": { "agent": "physics-gameplay", "turn": 3, "status": "running (ride-height A/B pack, per-backend impact protocol, DV judgement)" }
+   },
+   "agent_capacity_note": "6 specialists active (5 existing reused + carbody-livery spawned); all GLM subagents of this coordinator; no duplicate coordinator",
+   "coordinator_rules": "single dispatcher/merger; sequential merges; dedupe cloud jobs; combined exact-HEAD gates after each integration"
+  },
+  "merged": "physics a5215ef (hardened profiles, nonSurfaceContact, grounded-only suspension, wet band widened with model math), car-assembly 80ceb22+e41d4f4 (mirrored-text detector read-only + candidate-gate env-name fix), track-render f74a98a (grass candidate COMMITTED but NOT merged - waits for mip verdict)",
+  "integration_catches": [
+   "car-assembly detector did not compile (CS0103 pairRisks) - caught by DV run 41823396466 at d58f389, fixed at 5bf41d7; specialist-branch green does not replace integrated compile",
+   "car-assembly agent turn-2 final message degenerated (repetition loop) - its prose claims treated as void; its COMMITS were reviewed line-by-line directly (diffs are authoritative)"
+  ],
+  "dv_attempts": [
+   "41820348686 at 4afae34: failed init (hull cache) -> fix: driving_validation added to hull-bake step",
+   "41823396466 at d58f389: failed compile (CS0103, merged detector) -> fix 5bf41d7",
+   "41823566679 at 3061afa: failed compile (pre-fix duplicate dispatch; discarded, retained)",
+   "41823772505 at 5bf41d7: current attempt"
+  ]
+ },
+ "specialists": "all five merged; turn-2 assignments complete; turn-3 from 15-stage scope on demand",
+ "turn2_assignments_proposed": [
+  "track-render: prepare mip-repair manual review packet after 41818948189 (repaired band evidence vs baseline)",
+  "car-assembly: review 41798036351 UV-candidate V-only diffs when supervisor views PNGs; then remaining 10 pending entries -> full application",
+  "hud-camera: HUD 5-res bounds from 41798036351 logs + real HUD at 960x540 fix verification pending; cockpit/wheel evidence reviewed",
+  "physics-gameplay: validate clean-lap telemetry file against native_handling_targets.json (bestLap 87.52 vs target; check source)",
+  "verification: recheck 41818941902/41819498045 outputs; update REVIEW_PACKET"
+ ]
 }
