@@ -44,7 +44,22 @@ public partial class ProductControlsScenario : Node {
    Check(hud.DeviceLabel.Text=="KEYS"||hud.DeviceLabel.Text=="PAD","device modality unknown: '"+hud.DeviceLabel.Text+"'");
    bool touchBefore=Settings.Get("screen_controls",false);Settings.Set("screen_controls",true);await Frame();await Frame();
    Check(hud.DeviceLabel.Text=="TOUCH","touch modality not shown when screen controls are enabled: '"+hud.DeviceLabel.Text+"'");
+   // Touch layout structure (a second hud built while screen controls are on): two-row strip, the speed cluster
+   // below it, the minimap below that - no overlap, everything inside the canvas.
+   var touchHud=new Hud{Race=race,Player=player};AddChild(touchHud);await Frame();await Frame();
+   float cvw=GetViewport().GetVisibleRect().Size.X,cvh=GetViewport().GetVisibleRect().Size.Y;
+   var stripRect=touchHud.StripPanel.GetGlobalRect();var spRect=touchHud.SpeedLabel.GetGlobalRect();var mapRect=touchHud.MiniMapPanel.GetGlobalRect();
+   Check(stripRect.End.Y<=spRect.Position.Y+1,"touch speed cluster overlaps the strip: strip="+stripRect+" speed="+spRect);
+   Check(spRect.End.Y<=mapRect.Position.Y+1,"touch minimap overlaps the speed cluster: map="+mapRect+" speed="+spRect);
+   Check(stripRect.End.X<=cvw+1&&spRect.End.X<=cvw+1&&mapRect.End.X<=cvw+1&&mapRect.End.Y<=cvh+1,"touch hud exceeds the canvas: strip="+stripRect+" speed="+spRect+" map="+mapRect);
+   touchHud.QueueFree();await Frame();await Frame();
    Settings.Set("screen_controls",touchBefore);await Frame();await Frame();
+   // Chip cohesion: the standings, the ERS and the desktop speed chip resolve to the shared surface (6px corners,
+   // translucent), and the standings sits below the strip on the shared left rail.
+   var standBox=hud.StandingsPanel.GetThemeStylebox("panel") as StyleBoxFlat;Check(standBox!=null&&standBox.CornerRadiusTopLeft==6&&standBox.BgColor.A<0.95f,"standings surface is not the shared chip");
+   var ersBox=hud.HybridControls.GetThemeStylebox("panel") as StyleBoxFlat;Check(ersBox!=null&&ersBox.CornerRadiusTopLeft==6&&ersBox.BgColor.A<0.95f,"ers surface is not the shared chip");
+   Check(hud.SpeedLabel.GetParent().GetParent() is PanelContainer,"desktop speed pair is not chip-wrapped");
+   var standRect=hud.StandingsPanel.GetGlobalRect();Check(standRect.Position.Y>=hud.StripPanel.GetGlobalRect().End.Y-1,"standings surface overlaps the strip: "+standRect);
    // Session state: lap, timing, finish - independent literal formats. Two-car race shows the live POS grouping.
    Check(hud.InfoLabel.Text.Contains("POS")&&hud.InfoLabel.Text.Contains("/2"),"hud position grouping missing in a two-car race: '"+hud.InfoLabel.Text+"'");
    Check(hud.InfoLabel.Text.Contains("LAP 1/3")&&hud.InfoLabel.Text.Contains("LAP TIME 0.0s")&&hud.InfoLabel.Text.Contains("BEST -- (no valid lap)"),"hud session values not bound to live race state: '"+hud.InfoLabel.Text+"'");

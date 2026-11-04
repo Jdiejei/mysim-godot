@@ -22,14 +22,17 @@ public partial class Hud : CanvasLayer {
  public override void _Ready() {
   var root = new Control { AnchorRight = 1, AnchorBottom = 1, MouseFilter = Control.MouseFilterEnum.Ignore }; AddChild(root);
   BuildTopStrip(root);
-  root.AddChild(new RaceStartLights {Hud=this});hybridControls=new HybridControlsPanel();root.AddChild(hybridControls);standings=new RaceStandingsPanel();root.AddChild(standings);pitDisplay=new PitServiceDisplay();root.AddChild(pitDisplay);strategy=new PitStrategyPanel();root.AddChild(strategy);
+  root.AddChild(new RaceStartLights {Hud=this});hybridControls=new HybridControlsPanel();root.AddChild(hybridControls);
+  hybridControls.AddThemeStyleboxOverride("panel", Chip()); // the ERS chip joins the shared surface; the panel's own file belongs to another agent
+  standings=new RaceStandingsPanel();root.AddChild(standings);pitDisplay=new PitServiceDisplay();root.AddChild(pitDisplay);strategy=new PitStrategyPanel();root.AddChild(strategy);
   hybridControls.OffsetTop=-66; hybridControls.OffsetBottom=-20; // ERS joins the shared bottom baseline: minimap | ERS | speed/gear all end 20 px above the edge
   BuildSpeedCluster(root);
   mini = new MiniMap { H = this, Size = new Vector2(190, 150) }; mini.AnchorLeft = mini.AnchorRight = touchMode ? 1 : 0; mini.AnchorTop = mini.AnchorBottom = touchMode ? 0 : 1; mini.OffsetLeft = touchMode ? -214 : 12; mini.OffsetTop = touchMode ? 276 : -170; mini.OffsetRight = touchMode ? -24 : 202; mini.OffsetBottom = touchMode ? 446 : -20; root.AddChild(mini);
  }
  static bool touchMode => Settings.ScreenControlsEnabled;
- // One MySim visual language for the racing HUD chips: dark midnight panel, cool translucent 1px edge, 6px corners (the menu MySimTheme counterpart stays opaque).
- static StyleBoxFlat Chip() { return new StyleBoxFlat {BgColor=new Color(.04f,.05f,.08f,.82f),CornerRadiusTopLeft=6,CornerRadiusTopRight=6,CornerRadiusBottomLeft=6,CornerRadiusBottomRight=6,BorderColor=new Color(.55f,.6f,.7f,.35f),BorderWidthBottom=1,BorderWidthLeft=1,BorderWidthRight=1,BorderWidthTop=1,ContentMarginLeft=12,ContentMarginRight=12,ContentMarginTop=6,ContentMarginBottom=6}; }
+ // The one MySim chip: every HUD surface (strip, standings, speed/gear, ERS, minimap) resolves to this style
+ // so the panels read as a single product instead of disconnected debug labels (the reviewer's standing note).
+ public static StyleBoxFlat Chip() { return new StyleBoxFlat {BgColor=new Color(.04f,.05f,.08f,.82f),CornerRadiusTopLeft=6,CornerRadiusTopRight=6,CornerRadiusBottomLeft=6,CornerRadiusBottomRight=6,BorderColor=new Color(.55f,.6f,.7f,.35f),BorderWidthBottom=1,BorderWidthLeft=1,BorderWidthRight=1,BorderWidthTop=1,ContentMarginLeft=12,ContentMarginRight=12,ContentMarginTop=6,ContentMarginBottom=6}; }
  static Label Readout(int size) { var l = new Label(); l.AddThemeFontSizeOverride("font_size", size); l.AddThemeColorOverride("font_color", Colors.White); l.AddThemeColorOverride("font_outline_color", Colors.Black); l.AddThemeConstantOverride("outline_size", 3); return l; }
  // Cohesive top strip: SESSION state + CAR/strategy state, start-light chip centred on it. Desktop is one 64 px
  // band (worst-case line: 1115 px of content in 1256 px). Touch is a two-row strip (session on row 1, environment
@@ -63,31 +66,28 @@ public partial class Hud : CanvasLayer {
   }
   root.AddChild(strip);
  }
- // Speed/gear grouped in one chip. Desktop: the bottom-right corner, expanding inward from the safe-margin corner.
- // Touch: below the two-row strip, above the minimap, right-aligned column (never overlapping either).
+ // Speed/gear grouped in one chip in both modes - the display hierarchy's anchor. Desktop: the bottom-right
+ // corner, growing inward (up/left). Touch: the right column below the strip, growing down, above the minimap.
  void BuildSpeedCluster(Control root) {
-  if (touchMode) { speed = Pinned(root, 46, new Vector2(-320, 124)); gear = Pinned(root, 24, new Vector2(-320, 194)); return; }
-  var panel = new PanelContainer { AnchorLeft = 1, AnchorRight = 1, AnchorTop = 1, AnchorBottom = 1, OffsetLeft = -20, OffsetRight = -20, OffsetTop = -20, OffsetBottom = -20, GrowHorizontal = Control.GrowDirection.Begin, GrowVertical = Control.GrowDirection.Begin, MouseFilter = Control.MouseFilterEnum.Ignore };
+  var panel = new PanelContainer { AnchorLeft = 1, AnchorRight = 1, OffsetLeft = -20, OffsetRight = -20, GrowHorizontal = Control.GrowDirection.Begin, MouseFilter = Control.MouseFilterEnum.Ignore };
+  if (touchMode) { panel.AnchorTop = 0; panel.AnchorBottom = 0; panel.OffsetTop = 124; panel.OffsetBottom = 124; panel.GrowVertical = Control.GrowDirection.End; }
+  else { panel.AnchorTop = 1; panel.AnchorBottom = 1; panel.OffsetTop = -20; panel.OffsetBottom = -20; panel.GrowVertical = Control.GrowDirection.Begin; }
   panel.AddThemeStyleboxOverride("panel", Chip());
   var v = new VBoxContainer(); v.AddThemeConstantOverride("separation", 0);
   speed = Readout(46); speed.HorizontalAlignment = HorizontalAlignment.Right; gear = Readout(24); gear.HorizontalAlignment = HorizontalAlignment.Right;
   v.AddChild(speed); v.AddChild(gear); panel.AddChild(v); root.AddChild(panel);
  }
- static Label Pinned(Control p, int size, Vector2 off) {
-  var l = Readout(size); l.AnchorLeft = l.AnchorRight = 1; l.AnchorTop = l.AnchorBottom = 0; l.OffsetLeft = off.X; l.OffsetTop = off.Y; l.OffsetRight = -24; l.OffsetBottom = l.OffsetTop + 70; l.HorizontalAlignment = HorizontalAlignment.Right; l.GrowHorizontal = Control.GrowDirection.Begin; p.AddChild(l); return l;
- }
 partial class MiniMap : Control {
-  public Hud H; Vector2[] pts; Vector2 mn, mx;
- 
- public override void _Ready() { MouseFilter = MouseFilterEnum.Ignore; }
+  public Hud H; Vector2[] pts; Vector2 mn, mx; StyleBoxFlat chipBox;
+ public override void _Ready() { MouseFilter = MouseFilterEnum.Ignore; chipBox = Hud.Chip(); }
   void Build() { var c = H.Race.track; int n = c.points.Length; pts = new Vector2[n + 1]; mn = new Vector2(1e9f, 1e9f); mx = new Vector2(-1e9f, -1e9f); for (int i = 0; i < n; i++) { var p = c.points[i]; pts[i] = new Vector2(p.x, -p.z); mn = new Vector2(Mathf.Min(mn.X, pts[i].X), Mathf.Min(mn.Y, pts[i].Y)); mx = new Vector2(Mathf.Max(mx.X, pts[i].X), Mathf.Max(mx.Y, pts[i].Y)); } pts[n] = pts[0]; }
   Vector2 Map(Vector2 w) { float pad = 10f, sw = Size.X - 2 * pad, sh = Size.Y - 2 * pad; float sc = Mathf.Min(sw / Mathf.Max(1f, mx.X - mn.X), sh / Mathf.Max(1f, mx.Y - mn.Y)); var ctr = (mn + mx) * 0.5f; return new Vector2(Size.X * 0.5f, Size.Y * 0.5f) + (w - ctr) * sc; }
   public override void _Process(double delta) { if (H.Race != null && pts == null) Build(); QueueRedraw(); }
   public override void _Draw() {
-   if (pts == null || H.Player == null) return; DrawRect(new Rect2(Vector2.Zero, Size), new Color(0, 0, 0, 0.35f));
+   if (pts == null || H.Player == null) return; DrawStyleBox(chipBox, new Rect2(Vector2.Zero, Size)); // the shared chip surface, same family as the rest of the HUD
    var m = new Vector2[pts.Length]; for (int i = 0; i < pts.Length; i++) m[i] = Map(pts[i]); DrawPolyline(m, new Color(1, 1, 1, 0.75f), 3f, true);
    foreach (var v in H.Race.cars) { if (v == H.Player) continue; DrawCircle(Map(new Vector2(v.position.x, -v.position.z)), 3.5f, new Color(0.95f, 0.75f, 0.2f)); }
-   DrawCircle(Map(new Vector2(H.Player.position.x, -H.Player.position.z)), 5f, new Color(0.2f, 0.9f, 0.35f));
+   DrawCircle(Map(new Vector2(H.Player.position.x, -H.Player.position.z)), 5f, MySimTheme.Accent); // the theme accent marks the player in every surface
   }
  }
  MiniMap mini;
