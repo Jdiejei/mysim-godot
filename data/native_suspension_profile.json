@@ -1,6 +1,7 @@
 {
-  "scope": "Authored experimental suspension setup, not measured manufacturer calibration. Original source mesh and tyre dimensions preserved. Reserve includes the explicit CI CCD penetration allowance10mm plus5mm penetration slop; dynamic clearance still requires actual contact/race evidence.",
+  "scope": "EXPERIMENTAL, UNMEASURED CALIBRATION VALUES - pending the RIDE-A/RIDE-B dispatch pair; nothing here is validated physics and the 35 mm minimumStaticClearance in particular is an authored working hypothesis, not a measured or manufacturer-derived number. Authored experimental suspension setup only. Original source mesh and tyre dimensions preserved. Reserve includes the explicit CI CCD penetration allowance10mm plus5mm penetration slop; dynamic clearance still requires actual contact/race evidence.",
   "minimumStaticClearance": 0.035,
+  "minimumStaticClearance_status": "EXPERIMENTAL - held at 0.035 only until the RIDE-A/RIDE-B evidence lands; adoption into defaults is a coordinator decision",
   "maximumPreload": 0.12,
   "bumpStopReserve": 0.02,
   "bumpStopRateMultiplier": 12
