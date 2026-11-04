@@ -1,0 +1,22 @@
+{
+  "updated": "2026-11-04T~20:xxZ",
+  "coordinator": "root (sole integration coordinator)",
+  "worktrees": {
+    "track-render": {"path": "C:/Users/shash/MySimGodot-wt-track", "branch": "mistral/track-render", "agent": "track-render", "files": ["src/TrackMaterialBinder.cs", "src/TrackCutoutDiagnostic.cs", "src/TrackSceneAudit.cs", "src/WallBuilder.cs", "src/GroundFixer.cs", "src/RainVolume.cs", "src/TrackNightLighting.cs", "src/Conditions.cs"], "task": "fence speckle + black foliage + grandstand diagnosis + one controlled candidate"},
+    "car-assembly": {"path": "C:/Users/shash/MySimGodot-wt-car", "branch": "mistral/car-assembly", "agent": "car-assembly", "files": ["src/CarLoader.cs", "src/CarAssemblyAudit.cs", "src/CarMaterialAudit.cs", "src/CarUvTopologyEvidence.cs", "src/RecoveredComponentMounts.cs", "src/SourceAxleFitCandidate.cs", "src/F1SuspensionVisualBuilder.cs", "src/WheelAnimation.cs", "src/WheelFitAudit.cs", "src/WheelRimBuilder.cs", "src/TyreMeshBuilder.cs", "src/TyreAppearance.cs", "data/car_surface_uv_repairs.json", "data/f1_wheel_profiles.json", "data/component_mount_profiles.json", "src/Logic/*.cs shared with physics-gameplay (coordinate via coordinator)"], "task": "mirrored logos policy, rear assembly diagnosis, wheel/axle clearance fixture proposal"},
+    "hud-camera": {"path": "C:/Users/shash/MySimGodot-wt-hud", "branch": "mistral/hud-camera", "agent": "hud-camera", "files": ["src/Hud.cs", "src/RaceStartLights.cs", "src/RaceStandingsPanel.cs", "src/ResultsLayoutScenario.cs", "src/ModeMenu.cs", "src/RaceSettingsPanel.cs", "src/SeriesSetupPanel.cs", "src/TouchControls.cs", "src/DriveController.cs"], "task": "HUD clipping + responsive anchors + genuine cockpit/closeup views spec + camera framing check"},
+    "physics-gameplay": {"path": "C:/Users/shash/MySimGodot-wt-physics", "branch": "mistral/physics-gameplay", "agent": "physics-gameplay", "files": ["src/Logic/*.cs", "src/Conditions.cs", "data/native_*.json"], "task": "continuous driving validation spec + dry/wet matrix + Monoposto-derived measurable targets"},
+    "verification": {"path": "C:/Users/shash/MySimGodot-wt-verify", "branch": "mistral/verification", "agent": "verification", "files": ["src/Settings.cs", "src/SettingsPersistChecks.cs", "src/SettingsPersistChecksNode.cs", "outputs/mistral-orchestration/REVIEW_PACKET.md"], "task": "Windows persistence plan, review packet current-status rewrite, regression contract"}
+  },
+  "dispatches": {
+    "policy": "coordinator only; agents propose",
+    "recent_runs": {
+      "41788844369": {"head": "e41e29b", "status": "success", "artifacts": "9 ref PNGs decrypted at outputs/repair-20261029/cloud/reference-evidence-41788844369"},
+      "41710482854": {"head": "dfe0ed3", "status": "success", "artifacts": "settings-persist-summary all_ok 28/28"},
+      "41712623422": {"head": "d5d42ce", "status": "failure", "reason": "ref-lap-wide 240s timeout at fixed 60fps llvmpipe"},
+      "41785711764": {"head": "98b302c", "status": "success-but-cutout-polluted", "reason": "NIGHT_CUTOUT gate polluted by shard-line substring edit; fixed at e41e29b then d5d42ce chain"}
+    },
+    "duplicate_avoidance": "one settings_persist gate + one reference_evidence gate; agents propose only"
+  },
+  "shared_files_owned_by_coordinator": ["tools/cloud_game_audit.py", ".github/workflows/game-review.yml", "outputs/repair-20261029/CONTINUE.md", "outputs/repair-20261029/REPAIR_REPORT.md", "project.godot"]
+}
