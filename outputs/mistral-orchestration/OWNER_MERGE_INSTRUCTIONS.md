@@ -36,17 +36,26 @@ git push origin main
 
 ## Post-merge verification the OWNER can run (this is what makes 1f4ba0c "verified")
 
+> **UPDATE 2026-11-04 late:** the workstation's dispatch capability changed server-side — `gh workflow run` now returns `HTTP 403: Must have admin rights to Repository` for Jdiejei (dispatches worked earlier the same day). The validation battery below therefore runs from the OWNER's side (their own credentials), either on the merged main or directly on the branch. Commands are ready as-is.
+
 ```bash
+# 0) Fence re-run (the two one-liner fixes are applied at 0e0da0c — first run that can exercise the invariants end-to-end):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=fence_miprepair_review
+
 # 1) Windows build + persistence + userpath + smoke at the merged HEAD:
 gh workflow run windows-game-build.yml --repo instagramshashank8-bot/mysim-godot --ref main
 # EXPECT: the failures scenario reports tmp=1 / rename=2 (the old double-count was tmp=2/rename=4);
 #         all five scenarios green incl. the three win_sharing_violation cases; userpath profiles green.
 
-# 2) Driving validation (mounted bake + userpath hook) at the merged HEAD:
-gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main \
-  -f depth=driving_validation -f cars=16
-# EXPECT: the car DRIVES (distance > 0, no beach), the 9-target contract holds, or the auto-emitted
-#         failure report names the exact failing gate (gridHoldTraceSeen et al.).
+# 2) Driving validation (collider restore + mounted bake + userpath hook) at the merged head:
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=driving_validation -f cars=16
+# EXPECT: the car DRIVES (distance > 0, no beach), the 9-target contract holds.
+
+# 3) Force-driven wall/contact battery (physics c059e2c spec; jolt first, source pair after):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=driving_validation -f case_set=driving_wall -f cars=16 -f physics_backend=jolt -f physics_hz=240 -f native_damage=true -f rotational_tyres=true
+
+# 4) Collision-overlay evidence (track-render 40c7df5; overlay + per-collider audit JSON):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=track_scene_audit -f collision_overlay=true
 ```
 
 Artifacts are encrypted (`encrypted-review-*`); the owner's local key `C:/Users/shash/.codex/private/mysim-review/review-20261031.key` decrypts them via `tools/cloud_decrypt.py` (pattern: `outputs/mistral-orchestration/decrypt-reports.ps1`).
