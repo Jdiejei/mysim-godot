@@ -2,6 +2,12 @@
 
 Maintained on branch `codex/repair-20261029`. The **CURRENT STATUS** sections below are the authoritative snapshot; superseded material is preserved under dated **HISTORY** headings. No whole-game claim and no "persistence stage closed" claim is made anywhere in this packet.
 
+## CURRENT STATUS — 2026-11-04, session 3 (verification findings merged; count correction)
+
+- **Count correction (reviewer-verified):** run `41798040383` (Linux persist re-proof at `e8b80bb`) executed **33 assertions** (28 base + 5 contract_sync per scenario... per-scenario totals: legacy 8+1, foreign 4+1, corrupt 5+1, malformed 4+1, failures 8+1 + the base-28 semantics) — quote it as "33 across five scenarios incl. contract-sync", not "28/28". The later runs change the totals again: `9ff443c`+ adds `legacy_long_roundtrip` (Linux 34-window: 29 base + 5 sync; proven by `41818941902`), Windows at `e82a362`+ expects 29 base + 3 win + sync per the failures scenario.
+- **Windows run `41819498045` (at `d3629e8`) FAILED in the persist step itself** (build + native smoke PASSED): per-scenario reports showed `legacy/foreign/corrupt/malformed` each failing exactly `contract_sync_case_names` (the fixture's `PlatformExtra()` added the three win cases to EVERY scenario's expected set on Windows — fixed at `e82a362` by scoping it to the `failures` scenario) while `failures` itself ran **12/12 green including all three `win_sharing_violation_*` cases and both atomic-rename cases — the packaged Windows player proved atomic save-over-existing works**. The run's `ok:false` came from the driver's blanket `'ERROR:' not in text` check false-positiving the EXPECTED `SETTINGS_SAVE` PushError lines (fixed at `e82a362`: only unexpected, non-SETTINGS_SAVE errors count). The decisive Windows run (platform field in the report + win-case requirement in the driver, both at `2862b04`+) is dispatched upon these fixes.
+- **EVIDENCE_INDEX.md** (new, from the verification specialist) is the claim→(run, commit, artifact, status) index for reviewers, with the controlled status vocabulary and rejected/failed rows preserved.
+
 ## CURRENT STATUS — 2026-11-04, session 2 (coordinator; supersedes the same-day snapshot below where they differ)
 
 ### Settings persistence: Linux re-proved; long-typed regression found and fixed; Windows dispatch in flight
