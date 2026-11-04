@@ -243,6 +243,7 @@ jobs:
           SOURCE_RUNOFF_SUPPORT: ${{ inputs.depth == 'native_gt_pit_diagnostic' && '1' || '0' }}
           NATIVE_CCD: ${{ inputs.depth == 'native_ccd_diagnostic' && '0' || '1' }}
           NATIVE_VERTICAL_ROAD_PLAN: ${{ inputs.vertical_road_plan && '1' || '0' }}
+          COLLISION_OVERLAY: ${{ inputs.collision_overlay && '1' || '0' }}
           NATIVE_RIDE_HEIGHT: ${{ (inputs.native_ride_height || inputs.depth == 'native_traffic_diagnostic' || inputs.depth == 'native_ccd_diagnostic') && '1' || '0' }}
           NATIVE_AI_DIAGNOSTIC: ${{ inputs.depth == 'native_ai_diagnostic' && '1' || '0' }}
           NATIVE_RETIREMENT: ${{ inputs.depth == 'native_retirement' && '1' || '0' }}
