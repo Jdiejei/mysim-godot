@@ -87,6 +87,13 @@ gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref 
 gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=fleet_evidence -f cars=16
 # EXPECT: SIX shards in the run's matrix (the fix's visible effect); per-shard encrypted-review-* + the fleet manifest
 #        coverage from the authoritative 24-car/60-track manifest (74017c6); per-car evidence dirs.
+
+# 6) NEW (2026-11-05): axle-candidate A/B (car-assembly 063620d) — POST-MERGE ONLY. One dispatch yields the raw AND
+#    fitted sweep tables side by side (the candidate rides the EXISTING source_axle_fit input — no new input; the
+#    25-input limit stands). Front bodywork must move -0.0455 -> ~+0.20/+0.25; front suspension >= -0.002 (expected
+#    +0.01..+0.09 post-fit); wheelguard numbers collapse to arch-normal (the restore's signature).
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=wheel_fit_review -f cars=16 -f source_axle_fit=true
+# EXPECT: encrypted-review-* wheel-fit sweep with per-shift-state rows (axleShift 0 = raw, fitted = candidate).
 ```
 
 Artifacts are encrypted (`encrypted-review-*`); the owner's local key `C:/Users/shash/.codex/private/mysim-review/review-20261031.key` decrypts them via `tools/cloud_decrypt.py` (pattern: `outputs/mistral-orchestration/decrypt-reports.ps1`).
