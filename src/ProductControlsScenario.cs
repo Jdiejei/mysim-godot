@@ -93,7 +93,7 @@ public partial class ProductControlsScenario : Node {
    var panelRect=hud.StandingsPanel.GetGlobalRect();
    Check(panelRect.Position.X>=0&&panelRect.End.X<=vw+1&&panelRect.End.Y<=vh+1,"standings panel outside the canvas: "+panelRect);
    GD.Print("PASS product hud binding: speed/gear/timing/finish, compound+pits, weather/night, device, ERS, focus and escape");
-   GD.Print("CHECKS productControls=ok",flush=true);GetTree().Quit();
+   GD.Print("CHECKS productControls=ok");GetTree().Quit();
   }catch(Exception e){GD.PrintErr("FAIL product controls ",e);GetTree().Quit(1);}
  }
 }
