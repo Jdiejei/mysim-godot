@@ -28,10 +28,11 @@ for scenario in scenarios:
  got=(data or {}).get('cases') or []
  missing=[c for c in required[scenario] if not any(case.startswith(c) for case in got)]
  missing+= [c for c in WIN_ONLY if not any(case.startswith(c) for case in got)] if scenario=='failures' else []
- ok=data is not None and data.get('failed')==0 and data.get('passed',0)>0 and not missing and p.returncode==0 and 'ERROR:' not in text
+ unexpected=[l for l in text.splitlines() if 'ERROR:' in l and 'SETTINGS_SAVE' not in l] # the failure scenarios legitimately PushError SETTINGS_SAVE lines through the tested fault seams; anything else is an unexpected engine error
+ ok=data is not None and data.get('failed')==0 and data.get('passed',0)>0 and not missing and p.returncode==0 and not unexpected
  platform=(data or {}).get('platform')
  if platform is not None and platform!='windows':ok=False
- reports.append({'scenario':scenario,'exit':p.returncode,'passed':(data or {}).get('passed'),'failed':(data or {}).get('failed'),'missingCases':missing,'failures':(data or {}).get('failures',[]),'ok':ok})
+ reports.append({'scenario':scenario,'exit':p.returncode,'passed':(data or {}).get('passed'),'failed':(data or {}).get('failed'),'missingCases':missing,'unexpectedErrors':unexpected[:5],'failures':(data or {}).get('failures',[]),'ok':ok})
  print(json.dumps(reports[-1]),flush=True)
 (out/'windows-settings-persist-summary.json').write_text(json.dumps(reports,indent=2))
 bad=[r for r in reports if not r['ok']]

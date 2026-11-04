@@ -36,9 +36,11 @@ namespace MySim { public static class SettingsPersistChecks {
   new[]{"corrupt_defaults_typed","corrupt_no_crash","corrupt_no_value_resurrection","corrupt_file_intact","corrupt_load_error_evidence"},
   new[]{"malformed_seed_save","malformed_defaults_typed","malformed_disk_untouched_by_get","malformed_set_migrates_marker"},
   new[]{"baseline_saved","temp_failure_rejected","temp_no_tmp","temp_live_kept","rename_fault_rejected","rename_tmp_recovery_kept","rename_live_kept","atomic_success_after_faults"}};
- static string[] PlatformExtra()=>OperatingSystem.IsWindows()?new[]{"win_sharing_violation_rejected","win_sharing_violation_tmp_kept","win_sharing_violation_live_kept"}:new string[0];
+ // Windows-only contention cases apply ONLY to the failures scenario (the run that proved them green on 41819498045:
+ // twelve-twelve there), not to every scenario's contract.
+ static string[] PlatformExtra(string scenario)=>OperatingSystem.IsWindows()&&scenario=="failures"?new[]{"win_sharing_violation_rejected","win_sharing_violation_tmp_kept","win_sharing_violation_live_kept"}:new string[0];
  static (bool ok,string detail) ContractSync(int i){
-  var expected=new List<string>(BaseCases[i]); expected.AddRange(PlatformExtra());
+  var expected=new List<string>(BaseCases[i]); expected.AddRange(PlatformExtra(Scenarios[i]));
   var seen=new HashSet<string>(); bool duplicate=false; foreach(string n in CaseNames){ if(!seen.Add(n)) duplicate=true; }
   if(duplicate||seen.Count!=expected.Count||!seen.IsSubsetOf(expected)) return (false,"emitted cases ["+string.Join(",",CaseNames)+"] != fixture contract for this platform ["+string.Join(",",expected)+"]");
   string auditPath;
