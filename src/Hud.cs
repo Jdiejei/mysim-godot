@@ -93,8 +93,7 @@ partial class MiniMap : Control {
   if (Input.GetConnectedJoypads().Count > 0) return "PAD";
   return touchMode ? "TOUCH" : "KEYS";
  }
- }
-}}
+}
 
 
 
