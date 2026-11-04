@@ -553,7 +553,9 @@ if os.environ.get('SOURCE_KINGPIN_REVIEW')=='1':
    if candidate:assert 'SOURCE_KINGPIN_VISUAL' in text,'Source joint rig did not initialize'
  print('COMPLETE W10 matched visual steering rig evidence; native hub unchanged, not production acceptance',flush=True);sys.exit(0)
 if os.environ.get('WHEEL_FIT_REVIEW')=='1':
- car=15+shard
+ # Batch fleet sweeps: the cars input's n-th entry maps to the n-th shard (default keeps the historical 15+shard).
+ _cars=[int(x) for x in os.environ.get('NATIVE_CARS','16').split(',')]
+ car=_cars[shard] if shard<len(_cars) else 15+shard
  for steer in (-23,0,23):
   label=f'wheel-fit-car-{car}-steer-{steer}';shot=out/(label+'.png');metadata=out/(label+'.json')
   text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_CLEARANCE_SWEEP':'1','MYSIM_SOURCE_AXLE_FIT':os.environ.get('SOURCE_AXLE_REVIEW','0'),'MYSIM_SOURCE_AXLE_REPORT':str(out/(label+'-source-axle.json')),'MYSIM_WHEEL_FIT_AUDIT':str(metadata),'MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'3.5,4.5,5','MYSIM_SHOT':str(shot)},timeout=1500)
