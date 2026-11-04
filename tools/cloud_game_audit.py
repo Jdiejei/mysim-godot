@@ -293,7 +293,8 @@ if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
   ev=[r for r in reports_mip if 'mipRepair' in r]
   assert ev and len(ev[0].get('mipRepair',[]))==3 and all(e.get('anomaly') is False for e in ev[0]['mipRepair']),'mipRepair evidence must cover exactly the three textures with anomaly=false'
   for entry in ev[0]['mipRepair']:
-   base5=entry.get('level0',{}).get('keptAt05');base35=entry.get('level0',{}).get('keptAt035')
+   base5=entry.get('level0KeptAt05');base35=entry.get('level0KeptAt035')
+   assert base5 is not None and base35 is not None,'mipRepair entry missing level0 keep fractions (C# emits flat level0KeptAt05/level0KeptAt035); keys='+str(sorted(entry.keys()))
    for level in entry.get('levels',[]):
     assert abs(level['keptAt05']-base5)<=0.02 and abs(level['keptAt035']-base35)<=0.02,'per-level keep fraction drifted beyond 0.02'
   for family in ('fence','stands','foliage'):
@@ -375,7 +376,12 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
   vm=re.match(r'HUD_RECTS viewport=\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
   assert vm,f'ref-hud-{resolution}: unparsable HUD_RECTS line'
   vw,vh=float(vm.group(1)),float(vm.group(2))
-  assert (vw,vh)==(float(resolution.split('x')[0]),float(resolution.split('x')[1])),f'ref-hud-{resolution}: viewport {(vw,vh)} != requested {resolution}'
+  # CanvasItems scaling with the project's 1280x720 Expand base: GetVisibleRect reports the DESIGN size,
+  # not raw window pixels (1920x1200 -> 1280x800, 2560x1080 -> 1706x720). The real invariants: the design
+  # canvas covers the minimum 1280x720 and matches the requested aspect; element bounds live in the same design space.
+  want=float(resolution.split('x')[0])/float(resolution.split('x')[1])
+  assert vw>=1280 and vh>=720,f'ref-hud-{resolution}: design canvas {vw}x{vh} smaller than the 1280x720 base'
+  assert abs(vw/vh-want)<0.02,f'ref-hud-{resolution}: design aspect {vw/vh:.3f} != requested {want:.3f}'
   parsed=re.findall(r'(\w+)=P\(([-\d.e]+), ([-\d.e]+)\) R\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
   assert parsed,f'ref-hud-{resolution}: no HUD element rects parsed'
   for name,px,py,rw,rh in parsed:
