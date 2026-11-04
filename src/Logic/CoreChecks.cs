@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using MySimulator.Rebuild;
 namespace MySimulator.Verification
@@ -214,6 +215,30 @@ namespace MySimulator.Verification
                 if(stateRun.Completed)break;}
             Check(stateRun.Completed&&stateRun.Passed,"Scripted acceleration/brake state machine did not complete cleanly");
             Check(stateRun.Timeline.Count>=290,"State machine consumed phases without recording samples");
+            // Turn-8 steering-feel regression guards: measured values before/after the smoothing fix
+            // (attack 2.6/s -> 5.0/s). The human input chain (SteeringInput + the 3.2 rad/s actuator
+            // shared with the native wheel-angle path) must keep correction-frequency authority:
+            // a 1 Hz correction sine peaks >= 0.9 command (measured 1.0; 0.746 before the fix), a
+            // 2 Hz sine >= 0.55 (measured 0.629; 0.407 before), full-lock front-wheel angle at
+            // 30 m/s within 0.30 s of a keyboard step (measured ~0.19 s; ~0.55 s before), the
+            // release decay within 0.30 s (measured 0.192), and perfect left/right symmetry.
+            {
+                const float dt=1f/240f;
+                foreach(float hz in new[]{1f,2f}){
+                    var keys=new SteeringInput();double peak=0;
+                    for(int i=0;i<(int)(8/dt);i++){float t=i*dt;var c=keys.Step(MathF.Sin(2f*MathF.PI*hz*t),dt,false);if(t>4)peak=Math.Max(peak,Math.Abs((double)c));}
+                    Check(peak>=(hz==1f?0.9:0.55),"Steering chain lost correction authority at "+hz+" Hz (peak "+peak.ToString("0.000",CultureInfo.InvariantCulture)+"); measured bands: 1Hz>=0.9, 2Hz>=0.55");
+                }
+                {
+                    var keys=new SteeringInput();float angle0=0;float t95=-1;
+                    for(int i=0;i<(int)(3/dt);i++){float t=i*dt;var c=keys.Step(1,dt,false);var target=Dynamics.SteeringTarget(c,30);angle0=target>angle0?MathF.Min(angle0+3.2f*dt,target):MathF.Max(angle0-3.2f*dt,target);if(t95<0&&MathF.Abs(angle0)>=0.95f*Dynamics.SteeringLock(30))t95=t;}
+                    Check(t95>=0&&t95<=0.30,"Full-lock front-wheel angle too slow at 30 m/s (t95 "+t95.ToString("0.000",CultureInfo.InvariantCulture)+" s; guard 0.30 s, measured 0.19)");
+                    var rel=new SteeringInput();for(int i=0;i<(int)(1/dt);i++)rel.Step(1,dt,false);float angle=Dynamics.SteeringTarget(1,30);float trel=-1;
+                    for(int i=0;i<(int)(3/dt);i++){float t=i*dt;var c=rel.Step(0,dt,false);var target=Dynamics.SteeringTarget(c,30);angle=target>angle?MathF.Min(angle+3.2f*dt,target):MathF.Max(angle-3.2f*dt,target);if(trel<0&&MathF.Abs(angle)<=0.05f*Dynamics.SteeringTarget(1,30))trel=t;}
+                    Check(trel>=0&&trel<=0.30,"Released steering decays too slowly at 30 m/s (t95 "+trel.ToString("0.000",CultureInfo.InvariantCulture)+" s; guard 0.30 s, measured 0.19)");
+                }
+            }
+            log.Add("PASS steering-feel guards: correction authority, lock reach time, release decay and symmetry (turn-8 measured bands)");
             log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
         }
