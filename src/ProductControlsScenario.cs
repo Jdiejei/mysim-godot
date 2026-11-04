@@ -61,14 +61,17 @@ public partial class ProductControlsScenario : Node {
    hud.Paused=true;await Frame();await Frame();
    Check(hud.InfoLabel.Text=="PAUSED  (Esc / Tab to resume)","paused hud text missing: '"+hud.InfoLabel.Text+"'");
    hud.Paused=false;await Frame();await Frame();
-   // Classification rows follow the live standings order (re-derived from the model, not the view; 18-char cap mirrored from the row builder).
+   // Classification: the panel's first child is its HEADER; data rows are named Car<id>. Each named row
+   // must carry the slot the LIVE standings gives that same car (order-agnostic view binding).
    player.progress=0.10f;opp.progress=0.20f;for(int i=0;i<16;i++)await Frame();
-   var rows=hud.StandingsPanel.GetNode<VBoxContainer>("StandingsRows");int shown=0;
-   foreach(var rowNode in rows.GetChildren()){var rowLabel=(Label)rowNode;var rankOrder=race.Standings();if(shown>=rankOrder.Count)break;
-    var car=rankOrder[shown];string name=CarCatalog.Names[car.carModel];if(name.Length>18)name=name.Substring(0,18);
-    Check(rowLabel.Text.StartsWith((shown+1).ToString("00")+"  "+name+"  L"+System.Math.Min(car.completedLaps+1,race.targetLaps)),"standings row not bound to live order: row "+shown+" = '"+rowLabel.Text+"'");
-    if(++shown>5)break;}
-   Check(shown>0,"standings panel rendered no rows");
+   var rows=hud.StandingsPanel.GetNode<VBoxContainer>("StandingsRows");var kids=rows.GetChildren();int shown=0;
+   Check(kids.Count>0&&kids[0] is Label headerLabel&&headerLabel.Text=="CLASSIFICATION","standings header missing or moved: '"+(kids.Count>0&&kids[0] is Label h?h.Text:"<none>")+"'");
+   var rankOrder=race.Standings();
+   for(int i=0;i<rankOrder.Count;i++){var car=rankOrder[i];var rowLabel=rows.GetNodeOrNull<Label>("Car"+car.id);Check(rowLabel!=null,"standings data row missing for car "+car.id);
+    string name=CarCatalog.Names[car.carModel];if(name.Length>18)name=name.Substring(0,18);
+    Check(rowLabel.Text==(i+1).ToString("00")+"  "+name+"  L"+System.Math.Min(car.completedLaps+1,race.targetLaps),"standings row not bound to live order: car "+car.id+" = '"+rowLabel.Text+"'");
+    shown++;}
+   Check(shown>0,"standings panel rendered no data rows");
    // ERS charge display equals the live battery; deploying state toggles from the model.
    int modelBefore=player.carModel;player.carModel=16;await Frame();await Frame();
    var hybrid=hud.HybridControls;Check(hybrid!=null&&hybrid.Visible,"hybrid controls missing on the reference F1 car");
