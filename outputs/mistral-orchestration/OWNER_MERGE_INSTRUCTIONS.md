@@ -42,6 +42,7 @@ git push origin main
 > (1) command 1's workflow name was `windows-game-build.yml` — that string matches NEITHER the workflow file (`windows-build.yml`) NOR its name (`windows-game-build`, no `.yml`): **this was the real cause of the Q4 "404 workflow not found"**, not merely the stale default branch;
 > (2) command 1 was missing the REQUIRED `publication_tag` input (the workflow's first step hard-fails without it; create the tag at the post-merge main head first);
 > (3) the sixth command added: the fleet_evidence re-run, unblocked by the shard-matrix fix at `c4fb876` (expression-parser-verified across 10 depths). Commands 1-5 are POST-MERGE-ONLY: main's October-era workflows lack the new depth/case_set choices and reject the inputs with HTTP 422 before the merge; command 0 runs on the branch AFTER the Option-A push (which carries `0e0da0c`).
+> (4) **the collision_overlay INPUT removed — the 2026-11-05 workflow-parse bisect proved GitHub's hard limit: you may only define up to 25 inputs for a workflow_dispatch event** (verbatim API 422); the 26-input file fails to PARSE (the Q4 "workflow file issue" run's true cause), while every OTHER change parses (bisect: change 1 green via run 41907880155; change 2 green via 41908032898; the env-line-only form green via 41908499825; the 26-input form rejected twice — push-run 41908612608 + the dispatch 422). The working form (verified green as run 41908968766, cancelled after the verdict): NO new input; COLLISION_OVERLAY derives from depth=track_scene_audit — the overlay stays bound to the only depth that consumes it; the 10-depth shard mapping is untouched.
 
 ```bash
 # 0) Fence re-run — pre-merge OK only AFTER the Option-A push (the branch must carry 0e0da0c's one-liners);
@@ -72,9 +73,12 @@ gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref 
 # EXPECT: encrypted-review-* + the DV report covering the wall cases (contact, impulse identity, wall hits, recovery;
 #        no bound relaxation); the source-backend pair runs after this one with the same case_set.
 
-# 4) Collision-overlay evidence (track-render 40c7df5; overlay + per-collider audit JSON) — POST-MERGE ONLY
-#    (collision_overlay input verified present in the c4fb876 workflow):
-gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=track_scene_audit -f collision_overlay=true
+# 4) Collision-overlay evidence (track-render 40c7df5; overlay + per-collider audit JSON) — POST-MERGE ONLY.
+#    CORRECTED by the 2026-11-05 bisect: the earlier form (-f collision_overlay=true) is INVALID — that input was the
+#    26th workflow_dispatch input and GitHub rejects the file outright (verbatim: HTTP 422 failed to parse workflow:
+#    you may only define up to 25 inputs for a workflow_dispatch event). The overlay is DEPTH-DRIVEN now:
+#    every track_scene_audit dispatch renders it (COLLISION_OVERLAY derives from the depth).
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref main -f depth=track_scene_audit
 # EXPECT: encrypted-review-* carrying the overlay renders + the per-collider audit JSON.
 
 # 5) NEW (2026-11-05 audit): fleet_evidence re-run — unblocked by the shard-matrix fix at c4fb876 (the chiron grouping
