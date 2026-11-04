@@ -10,7 +10,7 @@ if depth=='native_ai_diagnostic':cars=[16]
 if depth=='chiron_wing_rebuild':cars=[20]
 assert cars and len(set(cars))==len(cars) and all(0<=car<24 for car in cars),'Invalid hull car scope'
 env=dict(os.environ);env['MYSIM_SOURCE_AXLE_FIT']=os.environ.get('SOURCE_AXLE_FIT','0');env['MYSIM_NATIVE_HULL_BAKE']=','.join(map(str,cars));log=out/'hull-bake.log'
-if os.environ.get('NATIVE_PIT_SERVICE')=='1' or depth in ('native_hull_recovery','native_hull_matrix','native_geometry_recovery','native_gt_pit_diagnostic','native_traffic_diagnostic','native_ccd_diagnostic','native_traffic_lap','native_mounted_gameplay','native_mounted_laps','native_retirement','native_mounted_visual','native_ai_diagnostic'):env.update(MYSIM_COMPONENT_MOUNTS='1')
+if os.environ.get('NATIVE_PIT_SERVICE')=='1' or depth in ('driving_validation','native_hull_recovery','native_hull_matrix','native_geometry_recovery','native_gt_pit_diagnostic','native_traffic_diagnostic','native_ccd_diagnostic','native_traffic_lap','native_mounted_gameplay','native_mounted_laps','native_retirement','native_mounted_visual','native_ai_diagnostic'):env.update(MYSIM_COMPONENT_MOUNTS='1')
 with log.open('w') as stream:result=subprocess.run([os.environ['GODOT_BIN'],'--headless','--path','.'],env=env,stdout=stream,stderr=subprocess.STDOUT,timeout=1200)
 text=log.read_text(errors='replace')
 if result.returncode or 'ERROR:' in text:
