@@ -46,7 +46,9 @@ public static class WheelFitAudit {
    rows.Add(new {rubberSupport=new{minimumWorldY,maximumWorldY,rubberVertices,scope="Actual transformed rubber vertices relative to preview floorY0; not loaded gameplay contact"},wheel=wheel.Name.ToString(),hub=new[]{wheel.Position.X,wheel.Position.Y,wheel.Position.Z},visualHubInCarFrame=new[]{(car.GlobalTransform.AffineInverse()*spin.GlobalPosition).X,(car.GlobalTransform.AffineInverse()*spin.GlobalPosition).Y,(car.GlobalTransform.AffineInverse()*spin.GlobalPosition).Z},kingpinRecipe=wheel.HasMeta("kingpin_recipe")?wheel.GetMeta("kingpin_recipe").AsString():"Source extrema-cluster candidate; joint identity unproven",sourceKingpin=wheel.HasMeta("source_kingpin_axis")?new{lower=wheel.GetMeta("source_kingpin_lower").AsVector3().ToString(),upper=wheel.GetMeta("source_kingpin_upper").AsVector3().ToString(),axis=wheel.GetMeta("source_kingpin_axis").AsVector3().ToString(),scope="Visual-only candidate steering axis; native tyre contact hub/radius unchanged"}:null,yaw=wheel.Rotation.Y,radius,width=2*halfWidth,tyreCentreOffset=new[]{centre.X,centre.Y,centre.Z},dryRubberPenetrationSamples=parts});
   }
   object sweep=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_CLEARANCE_SWEEP")=="1"?Sweep(car,wheels,index):null;
-  System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Body and fixed hub-mounted source-component triangle samples against actual generated dry tyre cross-section, excluding rotating wheel meshes, hub void and rounded-sidewall gaps; positive samples only, not exhaustive triangle or swept-motion certification",rows,sweep},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));GD.Print("PASS wheel fit evidence");
+  using var profile=System.Text.Json.JsonDocument.Parse(FileAccess.GetFileAsString("res://data/native_suspension_profile.json"));
+  object stance=StanceAudit(car,wheels,profile.RootElement.GetProperty("minimumStaticClearance").GetSingle(),profile.RootElement.GetProperty("maximumPreload").GetSingle());
+  System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Body and fixed hub-mounted source-component triangle samples against actual generated dry tyre cross-section, excluding rotating wheel meshes, hub void and rounded-sidewall gaps; positive samples only, not exhaustive triangle or swept-motion certification",rows,sweep,stance},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));GD.Print("PASS wheel fit evidence");
  }
  static float[] SweepValues(string name,string fallback,float min,float max){
   string text=System.Environment.GetEnvironmentVariable(name)??fallback;var parts=text.Split(',');if(parts.Length==0||parts.Length>12)throw new InvalidOperationException("Clearance sweep grid size invalid: "+name);
@@ -101,6 +103,65 @@ public static class WheelFitAudit {
   }
   if(!found)throw new InvalidOperationException("Clearance sweep wheel has no visible tyre geometry for the contact link");
   return best;
+ }
+ // True lowest vertex of every visible stationary part, in car space, with its obstacle category.
+ static System.Collections.Generic.List<(string Name,string Category,float LowestY,float X,float Z)> PartLowPoints(Node3D car,Node3D[] wheels){
+  var inverse=car.GlobalTransform.AffineInverse();var list=new System.Collections.Generic.List<(string,string,float,float,float)>();
+  foreach(var node in car.FindChildren("*","MeshInstance3D",true,false)){
+   var mesh=(MeshInstance3D)node;string name=mesh.Name.ToString().ToUpperInvariant();bool rebuiltWishbone=mesh.GetParent()?.Name.ToString()=="RebuiltFrontDoubleWishbones";
+   if(!mesh.IsVisibleInTree()||mesh.Mesh==null||(!name.StartsWith("LOD_A_")&&!rebuiltWishbone))continue;
+   bool wheelPart=false;foreach(var hub in wheels)if(hub.GetNode<Node3D>("Spin").IsAncestorOf(mesh)){wheelPart=true;break;}if(wheelPart)continue;
+   var toCar=inverse*mesh.GlobalTransform;float lowestY=float.PositiveInfinity;Vector3 low=Vector3.Zero;bool found=false;
+   for(int surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++){
+    using var arrays=mesh.Mesh.SurfaceGetArrays(surface);var vertices=arrays[(int)Mesh.ArrayType.Vertex].AsVector3Array();
+    foreach(var vertex in vertices){var p=toCar*vertex;if(!found||p.Y<lowestY){lowestY=p.Y;low=p;found=true;}}
+   }
+   if(found)list.Add((mesh.Name.ToString(),PartCategory(name),lowestY,low.X,low.Z));
+  }
+  return list.ConvertAll(e=>(e.Item1,e.Item2,e.Item3,e.Item4,e.Item5));
+ }
+ // Stance and low-point evidence. Per axle tyre bottoms, per-part lowest points and deltas, the
+ // bodywork floor stance, and the ride-height preload requirement computed twice: once from all
+ // stationary parts (hulls baked from every part, which reproduces the 0.235 requirement of the
+ // guard-datum numbers) and once with wheelguards/calipers excluded (the hull exclusion view, where
+ // the stance is the real floor value and the requirement drops under the 0.12 preload bound).
+ // Numbers only; no geometry, bound or gate change.
+ static object StanceAudit(Node3D car,Node3D[] wheels,float minimumStaticClearance,float maximumPreload){
+  var lows=PartLowPoints(car,wheels);if(lows.Count==0)throw new InvalidOperationException("Stance audit found no stationary parts");
+  var worldToCar=car.GlobalTransform.AffineInverse();
+  var wheelsRows=new System.Collections.Generic.List<object>();var bottoms=new float[wheels.Length];
+  for(int w=0;w<wheels.Length;w++){
+   var spin=wheels[w].GetNode<Node3D>("Spin");var lowLocal=TyreLowestLocal(spin);
+   var contactCar=worldToCar*(spin.GlobalTransform*lowLocal);
+   bottoms[w]=contactCar.Y;
+   wheelsRows.Add(new{wheel=wheels[w].Name.ToString(),tyreBottomY=contactCar.Y,x=contactCar.X,z=contactCar.Z});
+  }
+  float frontBottom=Mathf.Min(bottoms[0],bottoms[1]),rearBottom=Mathf.Min(bottoms[2],bottoms[3]);
+  var partsRows=new System.Collections.Generic.List<object>();
+  float stance=float.PositiveInfinity;string floorPart=null;float stanceNoHub=float.PositiveInfinity;string floorPartNoHub=null;
+  var hubs=new Vector3[wheels.Length];
+  for(int w=0;w<wheels.Length;w++)hubs[w]=worldToCar*wheels[w].GlobalPosition;
+  foreach(var part in lows){
+   string axle=part.Item5>=0?"front":"rear";
+   float wheelBottom=part.Item5>=0?frontBottom:rearBottom;
+   float delta=part.Item3-wheelBottom;
+   bool hubGeometry=part.Item2=="wheelguard"||part.Item2=="brakes";
+   int nearest=0;float best=float.PositiveInfinity;
+   for(int h=0;h<hubs.Length;h++){float d2=(part.Item4-hubs[h].X)*(part.Item4-hubs[h].X)+(part.Item5-hubs[h].Z)*(part.Item5-hubs[h].Z);if(d2<best){best=d2;nearest=h;}}
+   float dLat=part.Item4-hubs[nearest].X,dLong=part.Item5-hubs[nearest].Z;
+   partsRows.Add(new{part=part.Item1,category=part.Item2,axle,lowestY=part.Item3,wheelBottom,delta,x=part.Item4,z=part.Item5,nearestHub=wheels[nearest].Name.ToString(),lateralDelta=dLat,longitudinalDelta=dLong});
+   if(hubGeometry)GD.Print("PART_HUB_OFFSET car=",car.Name," part=",part.Item1," hub=",wheels[nearest].Name," lateralDelta=",dLat," longitudinalDelta=",dLong);
+   if(part.Item3<stance){stance=part.Item3;floorPart=part.Item1;}
+   if(!hubGeometry&&part.Item3<stanceNoHub){stanceNoHub=part.Item3;floorPartNoHub=part.Item1;}
+   if(delta<0)GD.Print("PART_BELOW_WHEEL_PLANE car=",car.Name," part=",part.Item1," axle=",axle," lowestY=",part.Item3," delta=",delta);
+  }
+  float stanceDelta=stance-rearBottom; // deepest stationary part versus the deepest tyre point
+  float stanceNoHubDelta=stanceNoHub-rearBottom;
+  float preloadAll=Mathf.Max(0,minimumStaticClearance-stanceDelta);
+  float preloadNoHub=Mathf.Max(0,minimumStaticClearance-stanceNoHubDelta);
+  string boundVerdict=(preloadNoHub<=maximumPreload)?"bound sufficient without hub parts":"bound breached even without hub parts";
+  GD.Print("STANCE car=",car.Name," stance=",stanceDelta," floorPart=",floorPart," stanceNoHubParts=",stanceNoHubDelta," floorPartNoHub=",floorPartNoHub," preloadRequired=",preloadAll," preloadRequiredNoHub=",preloadNoHub," maximumPreload=",maximumPreload," bound=",boundVerdict);
+  return new{car=car.Name,wheels=wheelsRows,tyreBottomFront=frontBottom,tyreBottomRear=rearBottom,stance=stanceDelta,floorPart,stanceNoHubParts=stanceNoHubDelta,floorPartNoHub,preloadRequired=preloadAll,preloadRequiredNoHub=preloadNoHub,maximumPreload,boundVerdict,parts=partsRows,scope="Lowest vertex per stationary part versus per-axle tyre bottoms; PASS labels absent; the stance-with-hub-parts row reproduces the guard-datum requirement and the no-hub-parts row the real floor stance; numbers only, no bound/gate/geometry change"};
  }
  // Opt-in swept-clearance fixture v2 (MYSIM_WHEEL_CLEARANCE_SWEEP=1). Poses are parameterized by the
  // ACTUAL suspension state of NativeSuspensionVehicle: spring length in [0 (full bump), RestLength+0.15
