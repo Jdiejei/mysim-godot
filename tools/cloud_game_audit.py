@@ -296,13 +296,15 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
  for view,cam in views:
   shot=out/f'ref-car16-{view}.png'
   label=f'ref-car16-view-{view}'
-  text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_TRACK':'0','MYSIM_SHOT':str(shot)},timeout=240)
+  text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_TRACK':'0','MYSIM_SHOT':str(shot)},timeout=420)
   if not shot.exists():missing.append(view)
  if missing:raise SystemExit(f'reference evidence views missing: {missing}')
+ # Live driving frames: llvmpipe software rendering runs ~20x slower than real time at fixed 60 fps,
+ # so drive frames halve the frame rate (sim time identical) and get a 600 s budget; 14 s sim ~= 210 s wall.
  drive_count=0
  for seconds,label,cam_mode in (('9','ref-lap-near','0'),('14','ref-lap-wide','1')):
   shot=out/f'{label}.png'
-  text=run(label,{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':seconds,'MYSIM_CAM':cam_mode,'MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0'},timeout=240)
+  text=run(label,{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':seconds,'MYSIM_CAM':cam_mode,'MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
   if shot.exists():drive_count+=1
  if drive_count==0:raise SystemExit('reference drive frames missing')
  print(f'COMPLETE reference evidence: {len(views)} views + {drive_count} drive frames captured',flush=True);sys.exit(0)
