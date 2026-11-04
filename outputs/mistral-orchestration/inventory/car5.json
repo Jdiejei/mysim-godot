@@ -1,0 +1,4827 @@
+{
+ "scope": "read-only texture inventory (no mutation, no rendering); six-field schema per EVIDENCE_INDEX QC",
+ "target": "car 2018_chevrolet_camaro_zl1_1le (index 5)",
+ "assemblySource": null,
+ "rows": [
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_badges.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 40130,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_badges",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "a8c2dd41457c414b982298fc3978d54f",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_badges",
+     "slot": "_BaseMap",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_badges",
+     "slot": "_MainTex",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_badges",
+     "slot": "_BaseMap",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_badges",
+     "slot": "_MainTex",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_badges",
+     "slot": "_BaseMap",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_badges",
+     "slot": "_MainTex",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_badges",
+     "slot": "_BaseMap",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_badges",
+     "slot": "_MainTex",
+     "guid": "a8c2dd41457c414b982298fc3978d54f",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_cab.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 82415,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_STEERING_WHEEL_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_STEERING_WHEEL_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INTERIOR_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INTERIOR_mm_cab",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_STEERING_WHEEL_mm_cab",
+     "slot": "_BaseMap",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_STEERING_WHEEL_mm_cab",
+     "slot": "_MainTex",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_cab",
+     "slot": "_BaseMap",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_cab",
+     "slot": "_MainTex",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_cab",
+     "slot": "_BaseMap",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_cab",
+     "slot": "_MainTex",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INTERIOR_mm_cab",
+     "slot": "_BaseMap",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INTERIOR_mm_cab",
+     "slot": "_MainTex",
+     "guid": "83e7546cdd2bf7f438e07c51fb8fbed3",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_int.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 454624,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_INTERIOR_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_INTERIOR_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_EMISSIVE_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_RIGHT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_RIGHT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_LEFT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_LEFT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_int",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_EMISSIVE_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_EMISSIVE_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_INTERIOR_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_INTERIOR_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_EMISSIVE_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_EMISSIVE_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_EMISSIVE_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_RPM_EMISSIVE_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_LED_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_EMISSIVE_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_EMISSIVE_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_EMISSIVE_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_NEEDLE_SPEED_EMISSIVE_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_LED_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_RIGHT_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_RIGHT_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_LEFT_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_GLASS_LEFT_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_LED_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_int",
+     "slot": "_BaseMap",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_int",
+     "slot": "_MainTex",
+     "guid": "b954a371b09ad8230b9c7bc579dd57cc",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_lights.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 163115,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_RIGHT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_RIGHT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_LEFT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_LEFT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_LEFT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_LEFT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_RIGHT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_RIGHT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_LEFT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_LEFT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_RIGHT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_RIGHT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_BOOT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_BOOT_mm_lights",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_RIGHT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_RIGHT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_LEFT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_LEFT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_LEFT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_LEFT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_RIGHT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HEADLIGHT_LENS_RIGHT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_LEFT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_LEFT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_RIGHT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_TAILLIGHT_LENS_RIGHT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_BOOT_mm_lights",
+     "slot": "_BaseMap",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BRAKES_BOOT_mm_lights",
+     "slot": "_MainTex",
+     "guid": "acaf5ca30b9020c5ba9fad8477036ba5",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_mask.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 96171,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_EXHAUST_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MaskMap"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "780e8f43f36ed06a0bf88a278cf44200",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_EXHAUST_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+     "slot": "_MaskMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "none",
+     "correctionFamily": "none-needed",
+     "evidence": "data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_misc.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 95010,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_RIGHT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_RIGHT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_LEFT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_LEFT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_GEAR",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_GEAR",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_misc",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_STEER",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_STEER",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_RIGHT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_RIGHT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_CHASSIS_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_LEFT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_GLASS_LEFT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_GEAR",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_GEAR",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_misc",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_misc",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_STEER",
+     "slot": "_BaseMap",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HAND_STEER",
+     "slot": "_MainTex",
+     "guid": "d352dd5c2d0bb7521a9b6299335013bd",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_sha.png",
+   "pixels": "256x256",
+   "width": 256,
+   "height": 256,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 15342,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "8194d27b4facbf797a45d1f3d64f536f",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_sw.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 101314,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_EMISSIVE_mm_sw",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_EMISSIVE_mm_sw",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_mm_sw",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_mm_sw",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_mm_sw",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_mm_sw",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_EMISSIVE_mm_sw",
+     "slot": "_BaseMap",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_EMISSIVE_mm_sw",
+     "slot": "_MainTex",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_mm_sw",
+     "slot": "_BaseMap",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_mm_sw",
+     "slot": "_MainTex",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_mm_sw",
+     "slot": "_BaseMap",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_STEERING_WHEEL_LED_mm_sw",
+     "slot": "_MainTex",
+     "guid": "3b4d994f3ad1bf65da251cf3c375cf9c",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_wheel.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 30730,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_WHEEL_mm_wheel",
+     "guid": "9be9de95393b736078460aae65726872",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_WHEEL_mm_wheel",
+     "guid": "9be9de95393b736078460aae65726872",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "9be9de95393b736078460aae65726872",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_WHEEL_mm_wheel",
+     "slot": "_BaseMap",
+     "guid": "9be9de95393b736078460aae65726872",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_WHEEL_mm_wheel",
+     "slot": "_MainTex",
+     "guid": "9be9de95393b736078460aae65726872",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_wheel_blur.png",
+   "pixels": "512x512",
+   "width": 512,
+   "height": 512,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 30901,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "b27070691c3817edf8dbc81366f352c6",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/livery/2018_chevrolet_camaro_zl1_1le_ext_black.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 288327,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_EXHAUST_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_EXHAUST_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_BaseMap"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "slot": "_MainTex"
+    }
+   ],
+   "repairs": [],
+   "assembly": [],
+   "guid": "780e8f43f36ed06a0bf88a278cf44200",
+   "guidSource": "car_map binding",
+   "uvChannel": "UV0",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "mirrored-X",
+   "defectTaxonomy": "mirrored-UV",
+   "correctionFamily": "uv-remap-per-surface",
+   "secondaryDefects": [],
+   "bindings": [
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BODY_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_RIGHT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_BOOT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_REARBUMPER_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_LEFT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_MIRROR_LEFT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_HOOD_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_HOOD_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_DOOR_RIGHT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_INT_BODY_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_EXHAUST_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_EXHAUST_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+     "slot": "_BaseMap",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    },
+    {
+     "car": 5,
+     "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+     "slot": "_MainTex",
+     "guid": "780e8f43f36ed06a0bf88a278cf44200",
+     "uvChannel": "UV0",
+     "uvScale": [
+      -1.0,
+      -1.0
+     ],
+     "uvOffset": [
+      1.0,
+      1.0
+     ],
+     "repairState": "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)",
+     "orientationClass": "mirrored-X",
+     "defectTaxonomy": "mirrored-UV",
+     "correctionFamily": "uv-remap-per-surface",
+     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+    }
+   ],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/livery/2018_chevrolet_camaro_zl1_1le_ext_bright_yellow.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 382462,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "b0208ee5056a24a72b3be0ca4b1a56c6",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/livery/2018_chevrolet_camaro_zl1_1le_ext_hyper_blue.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 345260,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "96e03827f465c9d1da3e0d4c28299f58",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/livery/2018_chevrolet_camaro_zl1_1le_ext_krypton_green.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 372231,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "214336fef9922b01fad6c3358c8881a1",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/livery/2018_chevrolet_camaro_zl1_1le_ext_red_hot.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 356234,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "d3ced2ce6fed25d66a793bdd05a13330",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  },
+  {
+   "file": "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/livery/2018_chevrolet_camaro_zl1_1le_ext_summit_white.png",
+   "pixels": "1024x1024",
+   "width": 1024,
+   "height": 1024,
+   "bitDepth": 8,
+   "colourType": 6,
+   "hasAlpha": true,
+   "iccOrGamma": [],
+   "unknownChunks": [],
+   "bytes": 347138,
+   "import": {
+    "present": true,
+    "importer": "texture",
+    "compressMode": 0,
+    "mipmaps": "true",
+    "sizeLimit": 0,
+    "detect3dTo": 1,
+    "vramTexture": "false",
+    "premultAlpha": "false",
+    "fixAlphaBorder": "true"
+   },
+   "boundTo": [],
+   "repairs": [],
+   "assembly": [],
+   "guid": "f025cf0888982ab7dbd2fea3a215591a",
+   "guidSource": "guid2path.json (source-known, runtime-unbound)",
+   "uvChannel": "none-bound",
+   "fallbackNote": null,
+   "flipPolicy": "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface",
+   "orientationClass": "as-authored (file on disk; not bound by any runtime material in the local maps)",
+   "defectTaxonomy": "none",
+   "correctionFamily": "none-needed",
+   "secondaryDefects": [],
+   "bindings": [],
+   "density": []
+  }
+ ],
+ "groups": {
+  "int": {
+   "label": "cockpit-readable surfaces (INT group)",
+   "rows": [
+    "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_cab.png",
+    "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_int.png",
+    "RealRacing/Source/2018_chevrolet_camaro_zl1_1le/2018_chevrolet_camaro_zl1_1le_sw.png"
+   ],
+   "note": "dashboard/interior textures: mirrored instrument text = the same H1 mechanism on the interior materials; readings blocked until a cockpit-audit emits INT-surface UV data (the assembly audits cover visible-only surfaces); low-res-source applies (512-class)"
+  }
+ },
+ "groundPool": null,
+ "schema": {
+  "orientationClass": [
+   "as-authored",
+   "mirrored-X",
+   "rotated-90",
+   "transposed",
+   "mixed-per-island",
+   "indeterminate"
+  ],
+  "defectTaxonomy": [
+   "black-card",
+   "alpha-bleed-dark-RGB",
+   "mid-alpha-scissor-loss",
+   "sub-pixel-coverage-collapse",
+   "mirrored-UV",
+   "wrong-scale",
+   "compression-artifact",
+   "low-res-source",
+   "none"
+  ],
+  "correctionFamily": [
+   "none-needed",
+   "mip-rebuild",
+   "uv-remap-per-island",
+   "uv-remap-per-surface",
+   "threshold-change",
+   "material-rebinding",
+   "geometry-fix",
+   "source-art-fix"
+  ],
+  "uvChannelBasis": "UV0 primary for car materials (no UV2 in any inspected car16/car6 material set: runs 41306343412/41510907196); tracks bind UV0 tiled with UV1 as the lightmap channel",
+  "flipPolicy": "stated per row; the QC's as-authored rule requires the flip-policy exception to be stated (done per row + per binding)"
+ },
+ "notes": [
+  "orientationClass/defect/correction for undocumented bindings are RULE-DERIVED from the effective transform and tagged 'rule-derived' in evidence; documented findings carry their run/commit citations",
+  "density pxPerMetre = textureWidth / metresPerUv0, valid only when --assembly supplies metresPerUv0",
+  "track rows: density join fills uv0/uv1 metres-per-tile from TRACK_UV_DENSITY_ACTUAL.json where the texture matches"
+ ]
+}
