@@ -202,7 +202,7 @@ jobs:
           MYSIM_SETTINGS_PERSIST: ${{ inputs.depth == 'settings_persist_review' && '1' || '0' }}
           SETTINGS_PERSIST_REVIEW: ${{ inputs.depth == 'settings_persist_review' && '1' || '0' }}
           REFERENCE_EVIDENCE: ${{ inputs.depth == 'reference_evidence' && '1' || '0' }}
-          NIGHT_CUTOUT_REVIEW: ${{ (inputs.depth == 'night_cutout_review' || (inputs.depth == 'fence_filter_review' || inputs.depth == 'fence_a2c_review' || inputs.depth == 'settings_persist_review' || inputs.depth == 'reference_evidence' || inputs.depth == 'cutout_identity_review')) && '1' || '0' }}
+          NIGHT_CUTOUT_REVIEW: ${{ (inputs.depth == 'night_cutout_review' || (inputs.depth == 'fence_filter_review' || inputs.depth == 'fence_a2c_review' || inputs.depth == 'cutout_identity_review')) && '1' || '0' }}
           F1_PAINT_REVIEW: ${{ inputs.depth == 'f1_paint_review' && '1' || '0' }}
           RECOVERED_WET_REVIEW: ${{ inputs.depth == 'recovered_wet_review' && '1' || '0' }}
           SOURCE_TYRE_REVIEW: ${{ inputs.depth == 'source_tyre_review' && '1' || '0' }}
