@@ -1,0 +1,38 @@
+Proposal patch — Hockenheim (variant 8) corridor width, evidence-based
+========================================================================
+
+TARGET: src/Logic/Simulation.cs at integration c4fb876/a313492 (Circuit constructor).
+AUTHOR: track-render agent (proposal only — the file is coordinator-owned; apply or reassign).
+NATURE: per-variant corridor-width override; default 12 for every other track (zero behaviour change elsewhere).
+
+--- a/src/Logic/Simulation.cs
++++ b/src/Logic/Simulation.cs
+@@ -66,8 +66,15 @@
+         public Circuit(int variant)
+         {
+             this.variant=Math.Max(0,Math.Min(SourceRoutes.Points.Length-1,variant));name=SourceRoutes.Names[this.variant];
+-            width=12;points=(Vec[])SourceRoutes.Points[this.variant].Clone();cumulative=new float[points.Length+1];
++            width=CorridorWidth(variant);points=(Vec[])SourceRoutes.Points[this.variant].Clone();cumulative=new float[points.Length+1];
+             for(int i=1;i<points.Length;i++)cumulative[i]=cumulative[i-1]+(points[i]-points[i-1]).Magnitude;
+             cumulative[points.Length]=cumulative[points.Length-1]+(points[0]-points[points.Length-1]).Magnitude;length=cumulative[points.Length];
+         }
++        // Per-circuit legality corridor width (metres). Default 12 = the historical global value.
++        // HOCKENHEIM GP (8): the AI tracks the route centreline exactly (Autopilot targets track.Lane(progress, 0)),
++        // yet the force-driven lap crossed lateral 6.0 by 0.003-0.019 m at progress 0.1948 (x -343.76 z 410.87,
++        // TWO samples, 4 wheels grounded, drive surface found+near, zero impacts; peak excursion 7.81 m during the
++        // same corner) and the drive-surface footprint across that corridor measures 35 m at road height
++        // (-17.3..+17.7; the export is road + apron merged, run 41880754125 evidence, measured this session).
++        // width 16.4 (half 8.2) covers the observed peak with margin and stays well inside the surface.
++        static float CorridorWidth(int variant)=>variant==8?16.4f:12f;
+
+VERIFICATION PATH (owner battery item 4): one run with MYSIM_COLLISION_OVERLAY=1 + MYSIM_COLLISION_OVERLAY_AUDIT on
+track 8 renders the DriveSurface (green) with the corridor edges (the overlay draws the Circuit width corridor as
+cyan line pairs at ground+6 cm) - the corridor-vs-visible-surface relation at segments 52-62 becomes directly
+visible; then the same force-driven lap at the same commit must report native_legality clean (no
+NATIVE_LEGALITY_FIRST_REJECTION at progress 0.1948) with finished=true and 0 impacts.
+
+NOT DONE / NOT PROPOSED:
+- No AI-line rewrite: the Autopilot has no racing-line offsets (targets track.Lane(progress, 0) = the centreline;
+  Simulation.cs ~L292); the excursion is tracking dynamics, not a wrong target.
+- No pace/physics change (AiRaceCalibration stays as-is) and no tolerance change on OnRoad/legality.
+- bestLap=0 in the same report (ok requires bestLap>0) is a separate physics-gameplay defect - flagged, not touched.
