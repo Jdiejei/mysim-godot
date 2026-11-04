@@ -76,10 +76,10 @@ public static class CarAssemblyAudit {
   foreach(var pair in pairFamilies){
    SurfaceTag left=null,right=null;foreach(var member in pair.Value){if(member.Name.Contains("_LEFT"))left=member;else if(member.Name.Contains("_RIGHT"))right=member;}
    if(left==null||right==null)continue;
-   if(IsRiskTag(left.Tag)!=IsRiskTag(right.Tag)){GD.Print("MIRRORED_TEXT_PAIR_RISK ",pair.Key," left=",left.Name,":",left.Tag," right=",right.Name,":",right.Tag);pairRisks++;}
+   if(IsRiskTag(left.Tag)!=IsRiskTag(right.Tag)){GD.Print("MIRRORED_TEXT_PAIR_RISK ",pair.Key," left=",left.Name,":",left.Tag," right=",right.Name,":",right.Tag);pairAsymmetries++;}
   }
   int mirroredLike=0;foreach(var tag in tags)if(IsRiskTag(tag.Tag))mirroredLike++;
-  GD.Print("MIRRORED_TEXT_RISK_SUMMARY car=",index," surfaces=",tags.Count," orientationRisk=",mirroredLike," pairAsymmetries=",pairRisks," numeric risk tags only; visual confirmation stays with paired renders");
+  GD.Print("MIRRORED_TEXT_RISK_SUMMARY car=",index," surfaces=",tags.Count," orientationRisk=",mirroredLike," pairAsymmetries=",pairAsymmetries," numeric risk tags only; visual confirmation stays with paired renders");
   System.IO.File.WriteAllText(path,System.Text.Json.JsonSerializer.Serialize(new {car=index,scope="Read-only imported assembly and material evidence; not geometry acceptance",rows,mirroredTextTags=tags,visibleMaterials=CarMaterialAudit.Describe(car)},new System.Text.Json.JsonSerializerOptions {WriteIndented=true}));GD.Print("PASS read-only car assembly evidence ",rows.Count);
  }
 }
