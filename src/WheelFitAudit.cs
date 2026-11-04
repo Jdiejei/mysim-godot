@@ -192,8 +192,11 @@ public static class WheelFitAudit {
   // fitted tables side by side.
   bool axleCandidate=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_CLEARANCE_AXLE_CANDIDATE")=="1";
   float? computedShift=axleCandidate?SourceAxleFitCandidate.ComputeShift(car,wheels):null;
-  if(axleCandidate&&!computedShift.HasValue)throw new InvalidOperationException("Axle candidate requested but the source geometry does not support it");
-  float[] axleShifts=axleCandidate?new[]{0f,computedShift.Value}:new[]{0f};
+  // Road-car fleets may lack the F1 strut roles: degrade loudly to the single-state sweep so one
+  // batch command covers mixed cars; the JSON records axleCandidate=unavailable for those cars.
+  string axleState=axleCandidate?(computedShift.HasValue?"dual":"unavailable"):"off";
+  if(axleCandidate&&!computedShift.HasValue)GD.Print("AXLE_CANDIDATE_UNAVAILABLE car=",index," source strut roles missing; single-state sweep only");
+  float[] axleShifts=axleCandidate&&computedShift.HasValue?new[]{0f,computedShift.Value}:new[]{0f};
   var basePositions=new Vector3[wheels.Length];
   var worstClearance=new float[wheels.Length,2,SweepCategories.Length];var worstPart=new string[wheels.Length,2,SweepCategories.Length];var worstSteer=new float[wheels.Length,2,SweepCategories.Length];var worstOffset=new float[wheels.Length,2,SweepCategories.Length];
   for(int w=0;w<wheels.Length;w++)for(int s=0;s<2;s++)for(int c=0;c<SweepCategories.Length;c++)worstClearance[w,s,c]=float.PositiveInfinity;
@@ -283,7 +286,7 @@ public static class WheelFitAudit {
    }
    GD.Print("WHEEL_CLEARANCE_SWEEP_SUMMARY car=",index," axleShift=",axleShifts[s]," poses=",poses," clampedStates=",clampedCount," worstClearance=",(globalPart!=null?(float?)globalWorst:null)," worstWheel=",globalWheel??"none"," worstVs=",globalCategory??"none"," worstPart=",globalPart??"none"," atSteer=",globalSteer," atWheelOffset=",globalOffset," pose restored; evidence only, not a clearance certificate");
   }
-  return new{car=index,steers,springs,modes,axleShifts,poses,clampedStates=clampedCount,bodyParts=parts.Count,perWheel,rows,scope="Full-lock and full-travel clearance sweep with an optional axle-candidate state: poses parameterized by the actual suspension state (spring length 0..RestLength+0.15 of NativeSuspensionVehicle) applied through the real steering path; axleShift 0 = raw pivot line, nonzero = strut-derived shared translation (repair ladder rung 1); negated mode branches clamp at the bump stop (physics envelope); per wheel per shift labelled worst clearance vs wing/bodywork/floor/brakes/suspension/wheelguard/other; positive penetrations are findings, not acceptance"};
+  return new{car=index,axleCandidate=axleState,steers,springs,modes,axleShifts,poses,clampedStates=clampedCount,bodyParts=parts.Count,perWheel,rows,scope="Full-lock and full-travel clearance sweep with an optional axle-candidate state (axleCandidate: dual = shifted pass included, unavailable = source lacks F1 strut roles, off): poses parameterized by the actual suspension state (spring length 0..RestLength+0.15 of NativeSuspensionVehicle) applied through the real steering path; axleShift 0 = raw pivot line, nonzero = strut-derived shared translation (repair ladder rung 1); negated mode branches clamp at the bump stop (physics envelope); per wheel per shift labelled worst clearance vs wing/bodywork/floor/brakes/suspension/wheelguard/other; positive penetrations are findings, not acceptance"};
  }
 }
 }
