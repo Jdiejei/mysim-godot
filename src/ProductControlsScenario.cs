@@ -68,6 +68,14 @@ public partial class ProductControlsScenario : Node {
    player.finished=true;await Frame();await Frame();
    Check(hud.InfoLabel.Text.Contains("FINISHED 3 laps"),"hud finish state not bound to live race state: '"+hud.InfoLabel.Text+"'");
    player.finished=false;player.completedLaps=0;
+   // Cockpit camera contract: the seat, the 9-deg instrument pitch and the FOV are the asserted source of truth
+   // (the reviewer's standing reject: halo dominance and the unreadable wheel/dash at the level eye line).
+   Check(DriveController.CockpitFov==68f,"cockpit fov drifted from the contract");
+   Check(DriveController.CockpitSeat(true).IsEqualApprox(new Vector3(0,0.88f,0.05f)),"open-wheel cockpit seat moved");
+   Check(DriveController.CockpitSeat(false).IsEqualApprox(new Vector3(-0.35f,0.88f,0.05f)),"closed-car cockpit seat moved");
+   var cockpitBasis=DriveController.CockpitPose(new Basis());
+   Check(cockpitBasis.Z.Y>0.14f&&cockpitBasis.Z.Y<0.17f,"cockpit eye-line pitch moved out of the instrument band: "+cockpitBasis.Z.Y.ToString("0.000"));
+   Check(cockpitBasis.X.X<-0.99f,"cockpit camera handedness wrong (mirrored view)");
    // Pause display uses the same flag the game sets; paused state freezes the live readouts (no fake injection).
    hud.Paused=true;await Frame();await Frame();
    Check(hud.InfoLabel.Text=="PAUSED  (Esc / Tab to resume)","paused hud text missing: '"+hud.InfoLabel.Text+"'");
