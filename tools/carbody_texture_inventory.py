@@ -136,6 +136,128 @@ def density_note(width, metres_per_uv):
     return round(width / metres_per_uv, 1)  # texels per metre at mip0
 
 
+# ------------------------------------------------------------- six-field schema
+# Controlled vocabularies per EVIDENCE_INDEX.md §TEXTURE-INVENTORY QC (verification agent).
+ORIENTATION_CLASSES = ("as-authored", "mirrored-X", "rotated-90", "transposed", "mixed-per-island", "indeterminate")
+DEFECT_TAXONOMY = ("black-card", "alpha-bleed-dark-RGB", "mid-alpha-scissor-loss", "sub-pixel-coverage-collapse",
+                   "mirrored-UV", "wrong-scale", "compression-artifact", "low-res-source", "none")
+CORRECTION_FAMILIES = ("none-needed", "mip-rebuild", "uv-remap-per-island", "uv-remap-per-surface",
+                       "threshold-change", "material-rebinding", "geometry-fix", "source-art-fix")
+
+# The runtime flip policy, per src/CarLoader.cs (cars) and the TrackMaterialBinder rule (tracks):
+# car shaders default to uv_scale=(-1,-1)/uv_offset=(1,1) for ALL surfaces (a 180-degree rotation:
+# the V half restores the authored bottom-left origin under Godot's top-left upload, the U half is a
+# horizontal mirror); track binders apply the same default to non-org_/non-crowd names.
+# Repair entries (data/car_surface_uv_repairs.json) override per surface with V-only (1,-1)/(0,1).
+DEFAULT_CAR_SCALE, DEFAULT_CAR_OFFSET = (-1.0, -1.0), (1.0, 1.0)
+
+
+def orientation_class(scale, offset):
+    """Map an effective UV transform onto the controlled orientation-class set."""
+    s = (round(scale[0], 3), round(scale[1], 3))
+    o = (round(offset[0], 3), round(offset[1], 3))
+    if s == (-1.0, -1.0) and o == (1.0, 1.0):
+        return "mirrored-X"  # 180-degree rotation: V corrected, U mirrored
+    if s == (1.0, -1.0) and o == (0.0, 1.0):
+        return "as-authored"  # V-only correction restores the authored orientation
+    if s == (1.0, 1.0) and (o == (0.0, 0.0) or o is None):
+        return "as-authored"
+    return "indeterminate (transform %s/%s outside the known classes)" % (s, o)
+
+
+# Documented, source-cited findings per car (from the recorded runs/reports; read-only annotations).
+# Keys: car index -> texture file substring -> {defectTaxonomy, correctionFamily, evidence}.
+DOCUMENTED_FINDINGS = {
+    16: {
+        "_mm_badges": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                       "evidence": "staged pending entries + runs 41306343412/41572315488/41788844369; turn-2 report H1"},
+        "badges.png": {"defectTaxonomy": "low-res-source", "correctionFamily": "source-art-fix",
+                       "evidence": "256x256 atlas carries all sponsor marks (turn-1 sec 1.2/1.5: no higher-res original exists in the recovery)"},
+        "_mm_ext": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "runs 41306343412 (uv states) + 41572315488 (V-only paired validates); the promoted trio fixed, 7 ext pending"},
+        "ext_16.png": {"defectTaxonomy": "low-res-source", "correctionFamily": "source-art-fix",
+                       "evidence": "1024x1024 for the whole body livery (~4-5 mm/texel; turn-1 sec 1.3); source ceiling - no higher-res original"},
+        "_mm_misc": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                     "evidence": "default transform; mostly non-directional content so low visual impact (turn-1 sec 1.3)"},
+        "_mm_chassis": {"defectTaxonomy": "sub-pixel-coverage-collapse", "correctionFamily": "none-needed",
+                        "evidence": "WHEELGUARD_*_mm_chassis UV0 sliver (delta 0.0007, run 41510907196 rows); likely intentional flat; no correction pending source verification"},
+        "wheel.png": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                      "evidence": "bound via LOD_A_WHEEL_mm_wheel after the role-alias fix (run 41573514607); rim lettering mirrored at the default transform (minor)"},
+        "_mm_cab": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "INTERIOR_mm_cab + STEERING_WHEEL_mm_cab ride the default transform: instrument/cabin text renders mirrored in the cockpit view (the cockpit-usability delegation to carbody-livery; the reviewer's 'instrument display not readable', VISUAL_REVIEW 09:10Z); cab-family candidates NOT staged yet - blocked on a cockpit-audit emitting INT-surface UV data (the assembly audits cover visible-only surfaces)"},
+        "_mm_int": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "the LOD_A_INT_* family at the default transform (hidden in the exterior flow; visible only in cockpit mode - pending the cockpit-audit extension)"},
+        "_mm_sw": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                   "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"},
+        "cab.png": {"defectTaxonomy": "low-res-source", "correctionFamily": "source-art-fix",
+                    "evidence": "512x512 carries dash+cabin+wheel faces; instrument glyphs land at a few px at seated-eye distance (the cockpit readability complaint); conditional cloud-only upscale candidate per the R3 policy - measure at the cockpit camera first"},
+        "int.png": {"defectTaxonomy": "low-res-source", "correctionFamily": "source-art-fix",
+                    "evidence": "512x512 for the full interior cage; same conditional-upscale policy; no higher-res original local (turn-1 sec 1.5)"},
+    },
+    6: {
+        "_mm_ext": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "fleet default transform; car6 has no ext repairs (turn-1 sec 1.6; role comparison run 41015188520)"},
+        "badges.png": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                       "evidence": "fleet default transform on all badge overlays (no car6 badge repairs staged)"},
+        "_mm_misc": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                     "evidence": "HOOD misc FIXED (promoted, run 41023270551); other misc surfaces follow the default transform (role comparison 41015188520: misc-scope flips whiten wing struts - per-surface only)"},
+    },
+    0: {
+        "_mm_ext": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "fleet default transform; no car0 repairs (ASSEMBLED_CAR_REVIEW-era findings: dark rims/discontinuous shading)"},
+    },
+}
+
+# Defect -> correction family mapping for rule-derived defects (no documented override).
+RULE_CORRECTION = {
+    "mirrored-UV": "uv-remap-per-surface",
+    "low-res-source": "source-art-fix",
+    "sub-pixel-coverage-collapse": "geometry-fix",
+    "none": "none-needed",
+}
+
+
+def documented_finding(car_index, texture_name):
+    """Return the documented (defect, correction, evidence) for a car texture, or None."""
+    table = DOCUMENTED_FINDINGS.get(car_index, {})
+    for needle, finding in table.items():
+        if needle in texture_name or texture_name.endswith(needle) or needle.endswith(texture_name):
+            return finding
+    return None
+
+
+def load_guid2path_reverse(root):
+    """assets-relative file path (no 'assets/' prefix) -> source GUID, from guid2path.json."""
+    path = root / "guid2path.json"
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    out = {}
+    for guid, target in raw.items():
+        text = str(target)
+        if "Assets/RealRacing/" not in text:
+            continue
+        rel = text.split("Assets/", 1)[1]  # e.g. RealRacing/Source/<car>/<file>.png
+        out.setdefault(rel, guid)  # first GUID wins; determinism over completeness
+    return out
+
+
+def unity_map_reverse(root):
+    """texture res-path -> [ {guid, materialPath, shader} ] from assets/unity_map.json (tracks)."""
+    path = root / "assets" / "unity_map.json"
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    out = {}
+    for guid, mat in (raw.get("materials") or {}).items():
+        for slot, target in (mat.get("texs") or {}).items():
+            if not target or "Assets/RealRacing/" not in str(target):
+                continue
+            rel = "assets/" + str(target).split("Assets/", 1)[1]
+            out.setdefault(rel, []).append({"guid": guid, "materialPath": mat.get("path"), "slot": slot})
+    return out
+
+
 # ---------------------------------------------------------------- manifest mode
 
 def quoted_braced(text, anchor):
@@ -444,42 +566,217 @@ def main():
     repairs_path = root / "data" / "car_surface_uv_repairs.json"
     repairs = load_json(repairs_path) if repairs_path.exists() else {}
     assembly = assembly_index(args.assembly) if args.assembly else {}
+    g2p = load_guid2path_reverse(root)
+    umap = unity_map_reverse(root) if args.track else {}
+    densities = None
+    if args.track:
+        density_path = root / "outputs" / "repair-20261029" / "TRACK_UV_DENSITY_ACTUAL.json"
+        if density_path.exists():
+            densities = load_json(density_path)
+        else:
+            print(f"note: measured-density file not found at {density_path} (ground-pool linkage section will be omitted)")
 
     rows = []
     for png in sorted(folder.rglob("*.png")):
         rel = png.relative_to(assets).as_posix()
+        res_path = "res://assets/" + rel.split("assets/", 1)[-1]
         info = png_info(png)
         imp = import_info(png.with_name(png.name + ".import"))
-        bound = bindings.get("res://assets/" + rel, [])
-        repair_rows = []
-        for b in bound:
-            key = f"{b['car']}/{b['renderer']}"
-            if key in repairs:
-                r = repairs[key]
-                repair_rows.append({"key": key, "scale": r.get("scale"), "offset": r.get("offset"),
-                                    "pending": r.get("pending", False)})
+        bound = bindings.get(res_path, [])
+        repair_rows, bindings_detail, states = [], [], set()
+
+        def resolve(car_index, renderer_name):
+            """Effective transform + repair state for one renderer binding."""
+            key = f"{car_index}/{renderer_name}"
+            rep = repairs.get(key)
+            if rep and not rep.get("pending", False):
+                scale = tuple(rep.get("scale") or DEFAULT_CAR_SCALE)
+                offset = tuple(rep.get("offset") or DEFAULT_CAR_OFFSET)
+                state = "applied (promoted repair overrides the default flip policy)"
+            elif rep and rep.get("pending"):
+                scale, offset = DEFAULT_CAR_SCALE, DEFAULT_CAR_OFFSET
+                state = "pending-inert at production state (applies only under the candidates env); default flip policy in effect"
+            else:
+                scale, offset = DEFAULT_CAR_SCALE, DEFAULT_CAR_OFFSET
+                state = "default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for all surfaces; tracks: same for non-org_/non-crowd names)"
+            if args.track and ("org_" in renderer_name or "crowd" in renderer_name.lower()):
+                scale, offset = (1.0, 1.0), (0.0, 0.0)
+                state = "flip-policy EXCEPTION (org_/crowd binder name): no UV transform applied"
+            return scale, offset, state, key, rep
+
+        def find_finding(car_index, renderer_name, file_name):
+            table = DOCUMENTED_FINDINGS.get(car_index, {}) if car_index is not None else {}
+            for needle, finding in table.items():
+                if needle in renderer_name or needle in file_name:
+                    return finding
+            return None
+
+        if bound:
+            for b in bound:
+                scale, offset, state, key, rep = resolve(b["car"], b["renderer"])
+                cls = orientation_class(scale, offset)
+                states.add(cls.split(" ")[0])
+                finding = find_finding(b["car"], b["renderer"], rel)
+                hidden = any(t in b["renderer"] for t in ("LOD_A_INT_", "_mm_int", "DAMAGE", "BLUR", "SCRATCH"))
+                if b["slot"] == "_MaskMap":
+                    defect, corr = "none", "none-needed"
+                    ev = ("data map (_MaskMap): shares the _BaseMap's UV mapping - its orientation tracks the albedo's per-binding state; "
+                          "bound but gated by _UseMask (car16 ext material _UseMask=1 = active; others 0 = inert); LINEAR data semantics - never treat as sRGB art")
+                elif finding:
+                    defect, corr = finding["defectTaxonomy"], finding["correctionFamily"]
+                    ev = finding["evidence"]
+                elif cls == "mirrored-X":
+                    defect, corr = "mirrored-UV", "uv-remap-per-surface"
+                    ev = ("rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+                          + ("; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only" if hidden else ""))
+                else:
+                    defect, corr = "none", "none-needed"
+                    ev = "rule-derived: no transform-induced defect on this binding; no documented finding"
+                bindings_detail.append({
+                    "car": b["car"], "renderer": b["renderer"], "slot": b["slot"], "guid": b["guid"],
+                    "uvChannel": "UV0", "uvScale": list(scale), "uvOffset": list(offset),
+                    "repairState": state, "orientationClass": cls,
+                    "defectTaxonomy": defect, "correctionFamily": corr, "evidence": ev,
+                })
+                if rep:
+                    repair_rows.append({"key": key, "scale": rep.get("scale"), "offset": rep.get("offset"),
+                                        "pending": rep.get("pending", False)})
+        elif args.track:
+            links = umap.get(res_path, [])
+            for link in links[:24]:
+                renderer_name = link.get("materialPath") or ""
+                scale, offset, state, _, _ = resolve(None, renderer_name)
+                cls = orientation_class(scale, offset)
+                states.add(cls.split(" ")[0])
+                finding = find_finding(None, renderer_name, rel)
+                if finding:
+                    defect, corr, ev = finding["defectTaxonomy"], finding["correctionFamily"], finding["evidence"]
+                else:
+                    defect, corr = "none", "none-needed"
+                    ev = "no documented finding for this track material"
+                bindings_detail.append({
+                    "car": None, "renderer": renderer_name, "slot": link.get("slot"), "guid": link["guid"],
+                    "uvChannel": "UV0", "uvScale": list(scale), "uvOffset": list(offset),
+                    "repairState": state, "orientationClass": cls,
+                    "defectTaxonomy": defect, "correctionFamily": corr, "evidence": ev,
+                })
+
         # join measured assembly rows through the binding's renderer names
         joined = []
         for b in bound:
             m = assembly.get(b["renderer"])
             if m:
                 joined.append({"renderer": b["renderer"], **m})
+
+        # ---- row-level six fields ----
+        if bound:
+            guid, guid_src = bound[0]["guid"], "car_map binding"
+        elif bindings_detail:
+            guid, guid_src = bindings_detail[0]["guid"], "unity_map material binding"
+        else:
+            guid = g2p.get(rel)
+            guid_src = "guid2path.json (source-known, runtime-unbound)" if guid else "none (not in guid2path)"
+        flip = ("track flip policy per the TrackMaterialBinder rule: uv_scale=(-1,-1)/offset=(1,1) for non-org_/non-crowd names; "
+                "org_/crowd binders are the documented exception"
+                if args.track else
+                "car flip policy per CarLoader.CarShader: uv_scale=(-1,-1)/offset=(1,1) applies to ALL surfaces (no org_/crowd exception); repair entries override per surface")
+        if len(states) > 1:
+            row_cls = "indeterminate (mixed per surface: see bindings[]; reason: different surfaces of this texture sit in different repair states)"
+        elif states:
+            row_cls = next(iter(states))
+        else:
+            row_cls = "as-authored (file on disk; not bound by any runtime material in the local maps)"
+        row_defect, row_corr = "none", "none-needed"
+        for b in bindings_detail:
+            if b["defectTaxonomy"] != "none":
+                row_defect, row_corr = b["defectTaxonomy"], b["correctionFamily"]
+                break
+        # secondary documented defects for this FILE (file-level findings beyond the row's primary defect)
+        secondaries = []
+        file_findings = DOCUMENTED_FINDINGS.get(index, {}) if index is not None else {}
+        for needle, finding in file_findings.items():
+            if needle in rel and finding["defectTaxonomy"] not in ("none", row_defect) \
+                    and not any(b["defectTaxonomy"] == finding["defectTaxonomy"] for b in bindings_detail):
+                secondaries.append({"defectTaxonomy": finding["defectTaxonomy"],
+                                    "correctionFamily": finding["correctionFamily"],
+                                    "evidence": finding["evidence"]})
         rows.append({
             "file": rel, "pixels": f"{info['width']}x{info['height']}", **info,
             "import": imp, "boundTo": bound, "repairs": repair_rows, "assembly": joined,
+            "guid": guid, "guidSource": guid_src,
+            "uvChannel": "UV0" if (bound or bindings_detail) else "none-bound",
+            "flipPolicy": flip,
+            "orientationClass": row_cls,
+            "defectTaxonomy": row_defect,
+            "correctionFamily": row_corr,
+            "secondaryDefects": secondaries,
+            "bindings": bindings_detail,
             "density": [{"renderer": j["renderer"],
                          "pxPerMetre": density_note(info["width"], j["metresPerUv0"]),
                          "metresPerUv0": j["metresPerUv0"], "visible": j["visible"],
                          "basisDeterminant": j["basisDeterminant"]} for j in joined],
         })
 
+    # ground-pool linkage (track mode): the MEASURED per-surface ground bindings that paint
+    # the drivable area from the shared RecoveredNativeTextures pool - these textures live
+    # outside the track source folder, so they appear here and not as file rows.
+    ground_pool = None
+    if args.track and densities:
+        by_texture = {}
+        for e in densities:
+            tex = (e.get("texture") or "").split("/")[-1]
+            row = by_texture.setdefault(tex, {"texture": tex, "surfaces": 0,
+                                              "uv0Min": 1e9, "uv0Max": 0.0, "collapsed": 0})
+            row["surfaces"] += 1
+            uv0 = e.get("uv0")
+            if isinstance(uv0, (int, float)):
+                row["uv0Min"] = min(row["uv0Min"], uv0)
+                row["uv0Max"] = max(row["uv0Max"], uv0)
+            row["collapsed"] += (e.get("collapsed0") or 0)
+        ground_pool = []
+        for row in sorted(by_texture.values(), key=lambda r: r["texture"]):
+            pool_file = root / "assets" / "RealRacing" / "RecoveredNativeTextures"
+            hit = list(pool_file.rglob(row["texture"]))
+            if hit:
+                info = png_info(hit[0])
+                row["pixels"] = f"{info['width']}x{info['height']}"
+                row["pxPerMetro"] = round(info["width"] / row["uv0Min"], 1) if row["uv0Min"] else None
+                row["pxPerMetroAtWorst"] = round(info["width"] / row["uv0Max"], 1) if row["uv0Max"] else None
+            ground_pool.append(row)
+
+    # material-family groups (the cockpit/interior readability grouping)
+    INT_HINTS = ("_mm_cab", "_mm_int", "_mm_sw", "LOD_A_INT_", "LOD_A_STEERING")
+
+    def is_interior_texture(row):
+        base_bindings = [b for b in row["bindings"] if b.get("slot") == "_BaseMap"]
+        if not base_bindings:
+            return False
+        return all(any(h in (b.get("renderer") or "") for h in INT_HINTS) for b in base_bindings)
+
+    int_rows = [r for r in rows if is_interior_texture(r)]
+    groups = {"int": {"label": "cockpit-readable surfaces (INT group)",
+                      "rows": [r["file"] for r in int_rows],
+                      "note": ("dashboard/interior textures: mirrored instrument text = the same H1 mechanism on the "
+                               "interior materials; readings blocked until a cockpit-audit emits INT-surface UV data "
+                               "(the assembly audits cover visible-only surfaces); low-res-source applies (512-class)"),
+                      }} if int_rows else None
+
     result = {
-        "scope": "read-only texture inventory (no mutation, no rendering)",
+        "scope": "read-only texture inventory (no mutation, no rendering); six-field schema per EVIDENCE_INDEX QC",
         "target": args.car and f"car {args.car} (index {index})" or f"track {args.track}",
-        "assemblySource": args.assembly, "rows": rows,
+        "assemblySource": args.assembly, "rows": rows, "groups": groups,
+        "groundPool": ground_pool,
+        "schema": {
+            "orientationClass": list(ORIENTATION_CLASSES),
+            "defectTaxonomy": list(DEFECT_TAXONOMY),
+            "correctionFamily": list(CORRECTION_FAMILIES),
+            "uvChannelBasis": "UV0 primary for car materials (no UV2 in any inspected car16/car6 material set: runs 41306343412/41510907196); tracks bind UV0 tiled with UV1 as the lightmap channel",
+            "flipPolicy": "stated per row; the QC's as-authored rule requires the flip-policy exception to be stated (done per row + per binding)",
+        },
         "notes": [
-            "orientation classes and defect columns live in the turn report; this tool emits measured facts only",
+            "orientationClass/defect/correction for undocumented bindings are RULE-DERIVED from the effective transform and tagged 'rule-derived' in evidence; documented findings carry their run/commit citations",
             "density pxPerMetre = textureWidth / metresPerUv0, valid only when --assembly supplies metresPerUv0",
+            "track rows: density join fills uv0/uv1 metres-per-tile from TRACK_UV_DENSITY_ACTUAL.json where the texture matches",
         ],
     }
     if args.out_json:
@@ -487,21 +784,49 @@ def main():
         jp.write_text(json.dumps(result, indent=1), encoding="utf-8")
     if args.out_md:
         lines = [f"# Texture inventory — {result['target']}", "",
-                 "| file | px | bytes | RGBA | icc | import | bound to | repairs |", "|---|---|---|---|---|---|---|---|"]
+                 " Six-field schema per EVIDENCE_INDEX QC: guid+file / dimensions / uvChannel+flipPolicy / orientationClass / defectTaxonomy / correctionFamily.", "",
+                 "| file | px | bytes | guid (source) | uvChannel | orientationClass | defectTaxonomy | correctionFamily | import | repairs |",
+                 "|---|---|---|---|---|---|---|---|---|---|"]
         for r in rows:
             imp = r["import"]
             istr = (f"mode={imp.get('compressMode')} mip={imp.get('mipmaps')} "
                     f"limit={imp.get('sizeLimit')} vram={imp.get('vramTexture')}") if imp.get("present") else " NONE"
-            bstr = "; ".join(f"car{b['car']}:{b['renderer']}[{b['slot']}]" for b in r["boundTo"]) or "-"
-            rstr = "; ".join(f"{k}(scale={s},pending={p})" for k, s, p in
-                             [(x["key"], x["scale"], x["pending"]) for x in r["repairs"]]) or "-"
-            lines.append(f"| {r['file']} | {r['pixels']} | {r['bytes']} | {r['hasAlpha']} | "
-                         f"{r['iccOrGamma'] or '-'} | {istr} | {bstr} | {rstr} |")
+            gstr = (r["guid"][:12] + "…(" + r["guidSource"].split(" ")[0] + ")") if r["guid"] else "-"
+            rstr = "; ".join(f"{x['key']}(pending={x['pending']})" for x in r["repairs"]) or "-"
+            lines.append(f"| {r['file']} | {r['pixels']} | {r['bytes']} | {gstr} | {r['uvChannel']} | "
+                         f"{r['orientationClass']} | {r['defectTaxonomy']} | {r['correctionFamily']} | {istr} | {rstr} |")
+        lines += ["", "### Per-binding detail (orientation/defect per renderer)", ""]
+        for r in rows:
+            if not r["bindings"]:
+                continue
+            lines.append(f"**{r['file']}** — flipPolicy: {r['flipPolicy']}")
+            lines += ["", "| renderer/car | slot | uvScale/offset | state | orientationClass | defect | correction |", "|---|---|---|---|---|---|---|"]
+            for b in r["bindings"]:
+                who = f"car{b['car']}:{b['renderer']}" if b["car"] is not None else (b["renderer"] or b["guid"][:12])
+                lines.append(f"| {who} | {b['slot']} | {b['uvScale']}/{b['uvOffset']} | {b['repairState'][:60]} | {b['orientationClass']} | {b['defectTaxonomy']} | {b['correctionFamily']} |")
+            lines.append("")
         if any(r["density"] for r in rows):
-            lines += ["", "| renderer | visible | metresPerUv0 | px/m | det |", "|---|---|---|---|---|"]
+            lines += ["", "| renderer/source | visible | metresPerUv0 | px/m | det |", "|---|---|---|---|---|"]
             for r in rows:
                 for d in r["density"]:
-                    lines.append(f"| {d['renderer']} | {d['visible']} | {d['metresPerUv0']} | {d['pxPerMetre']} | {d['basisDeterminant']} |")
+                    nm = d.get("renderer") or d.get("source")
+                    lines.append(f"| {nm} | {d.get('visible', '-')} | {d.get('metresPerUv0', d.get('uv0mPerTile'))} | {d.get('pxPerMetre', '-')} | {d.get('basisDeterminant', '-')} |")
+        if result.get("groups"):
+            lines += ["", "### INT group (cockpit-readable surfaces)", ""]
+            for r in rows:
+                if r["file"] in result["groups"]["int"]["rows"]:
+                    lines.append(f"- **{r['file']}** ({r['pixels']}, {r['guidSource'] if not str(r['guid']).startswith('none') else 'unbound'}) — "
+                                 f"orientation: {r['orientationClass']}; defect: {r['defectTaxonomy']}; correction: {r['correctionFamily']}")
+            lines.append("")
+            lines.append(f"Note: {result['groups']['int']['note']}")
+        if result.get("groundPool"):
+            lines += ["", "### Ground-pool bindings (measured; the drivable-area textures come from the shared pool outside this folder)",
+                      "", "| texture | px | surfaces | uv0 m/tile (best-worst) | px/m (best-worst) | collapsed uv0 tris |",
+                      "|---|---|---|---|---|---|"]
+            for g in result["groundPool"]:
+                rng = (f"{g['uv0Min']:.1f}-{g['uv0Max']:.1f}" if g["uv0Max"] else "-")
+                pxm = (f"{g.get('pxPerMetro','-')}-{g.get('pxPerMetroAtWorst','-')}" if g.get("pxPerMetro") else "-")
+                lines.append(f"| {g['texture']} | {g.get('pixels','-')} | {g['surfaces']} | {rng} | {pxm} | {g['collapsed']} |")
         mp = pathlib.Path(args.out_md); mp.parent.mkdir(parents=True, exist_ok=True)
         mp.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"inventory rows={len(rows)} target={result['target']}")
