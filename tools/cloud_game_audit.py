@@ -92,6 +92,38 @@ if os.environ.get('NATIVE_RETIREMENT')=='1':
  assert 'PASS actual empty-fuel native retirement and DNF results' in text and 'PASS retirement to fresh restart' in text and 'PASS retirement restart to main menu' in text
  assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
  print('PASS actual native empty-fuel retirement/results/restart/menu; no completed-lap substitution',flush=True);sys.exit(0)
+if os.environ.get('DRIVING_VALIDATION')=='1':
+ manifest=pathlib.Path(os.environ.get('DRIVING_VALIDATION_MANIFEST','data/native_driving_validation_core.json'))
+ spec=json.loads(manifest.read_text())
+ cases=[x for x in spec['cases'] if x['track']%12==shard]
+ assert cases,'Shard '+str(shard)+' has no driving validation cases'
+ impact=os.environ.get('DRIVING_VALIDATION_IMPACT')=='1'
+ assert impact==any('impact_wall_recovery' in c['drivingValidation'] for c in spec['cases']),'impact flag must match manifest; damage stays off for non-impact validation'
+ if 'wet' in manifest.name:assert all(c.get('weather',0)>0 for c in spec['cases']),'wet manifest must carry wet weather'
+ summary=[]
+ for case in cases:
+  car,track=case['car'],case['track'];assert 0<=car<24 and 0<=track<60,'Invalid validation case'
+  label=f'driving-validation-track-{track:02}-car-{car:02}';report=out/(label+'.json')
+  values={'MYSIM_TRACK':str(track),'MYSIM_CAR':str(car),'MYSIM_NATIVE_GAMEPLAY':'1','MYSIM_COMPONENT_MOUNTS':'1','MYSIM_REQUIRE_NATIVE_CAR_HULLS':'1','MYSIM_DRIVING_VALIDATION':'1','MYSIM_DRIVING_VALIDATION_REPORT':str(report),'MYSIM_LAPS':'1','MYSIM_SECONDS':'900','MYSIM_RIVALS':'0','MYSIM_ASSISTS':'0'}
+  if 'weather' in case:
+   assert isinstance(case['weather'],int) and 0<=case['weather']<=3 and isinstance(case['compound'],int) and 0<=case['compound']<=3,'Invalid validation weather/compound'
+   values.update(MYSIM_WET=str(case['weather']),MYSIM_STARTING_COMPOUND=str(case['compound']))
+  if impact:values['MYSIM_NATIVE_DAMAGE']='1'
+  text=run(label,values,['--headless'],timeout=1800)
+  assert report.exists(),'Driving validation report missing for '+label
+  result=json.loads(report.read_text())
+  assert result.get('ok') is True and result.get('completed') is True and result.get('allPassed') is True and 'PASS driving validation scenarios' in text,'Driving validation failed for '+label+': '+str(result.get('firstFailure'))+' / '+str(result.get('abortReason'))
+  assert result['rotationalTyres'] is True,'Validation requires rotational tyres for slip evidence; dispatch with rotational_tyres=true'
+  assert result['assistsOff'] is True,'Validation requires assists off'
+  expected=set(case['drivingValidation']);seen={r['profile'] for r in result['runs']}
+  assert seen==expected,'Profile coverage mismatch: expected '+str(sorted(expected))+' got '+str(sorted(seen))
+  for r in result['runs']:
+   assert r.get('ok') is True and r.get('completed') is True and not r.get('abortReason'),'Profile '+r['profile']+' did not pass: '+str(r.get('firstFailure'))
+   assert len(r.get('assertions') or [])>0,'Profile '+r['profile']+' has zero assertions (vacuous pass)'
+   assert (r.get('sampleCount') or 0)>20,'Profile '+r['profile']+' lacks timeline samples ('+str(r.get('sampleCount'))+')'
+  summary.append({'label':label,'car':car,'track':track,'profiles':sorted(seen),'assertions':sum(len(r['assertions']) for r in result['runs']),'samples':sum(r.get('sampleCount') or 0 for r in result['runs']),'ok':True})
+ (out/'driving-validation-summary.json').write_text(json.dumps({'manifest':str(manifest),'impact':impact,'cases':summary},indent=2))
+ print('COMPLETE driving validation; '+str(sum(s['assertions'] for s in summary))+' assertions across '+str(len(summary))+' cases; scenario rig evidence only, no lap/pacing/realism claim',flush=True);sys.exit(0)
 if os.environ.get('NATIVE_MOUNTED_LAPS')=='1':
  cars=[int(x) for x in os.environ.get('NATIVE_CARS','0,16').split(',')]
  assert cars and len(set(cars))==len(cars) and all(0<=car<24 for car in cars),'Invalid requested car coverage'

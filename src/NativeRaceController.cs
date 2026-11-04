@@ -8,7 +8,7 @@ public partial class NativeRaceController : DriveController {
  NativeSuspensionVehicle body;readonly SteeringInput steering=new();readonly PedalController pedalsNative=new();readonly Vector3[] homes=new Vector3[4];SurfaceWeather weather;float elapsed,travel,spawnHeading,maximumYaw;int ruleResets,telemetryTick;readonly System.Collections.Generic.List<object> telemetry=new();int mode,shown=-1;bool pauseWas=true,cameraWas,pitWas,parked,ending;Vector3 spawn,pausedVelocity,pausedAngular;bool pausedBody,padSeen,padStartBlocked;
  Vector3 previousPose;bool havePreviousPose;float actualPoseDistance,resultWait;
  NativeTraffic traffic;public NativeTraffic Traffic=>traffic;public NativeSuspensionVehicle Chassis=>body;public int CameraMode=>mode;NativeGameplayChecks gameplayChecks;NativePitChecks pitChecks;
- MySimulator.Rebuild.DrivingValidation.Runner validation;string validationReportPath;int validationResets;
+ MySimulator.Rebuild.DrivingValidation.Runner validation;string validationReportPath=System.Environment.GetEnvironmentVariable("MYSIM_DRIVING_VALIDATION_REPORT");int validationResets;
  public override void CycleCamera(){mode=(mode+1)%4;}
  public override void _Ready(){
   int rivals=int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_RIVALS")??Settings.Get("rivals",5).ToString());if(rivals!=0&&System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_TRAFFIC")!="1")throw new InvalidOperationException("Native opponents require explicit experimental traffic flag until full contact/race validation");
