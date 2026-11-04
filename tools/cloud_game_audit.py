@@ -288,26 +288,47 @@ if os.environ.get('SETTINGS_PERSIST_REVIEW')=='1':
  assert summary['all_ok'],'settings persistence fixture FAILED: '+json.dumps(summary['scenarios'])
  print('COMPLETE settings persistence: '+str(sum(1 for v in summary['scenarios'].values() if v['ok']))+'/'+str(len(summary['scenarios']))+' scenarios green (isolated user data; not a fence render)',flush=True);sys.exit(0)
 if os.environ.get('REFERENCE_EVIDENCE')=='1':
- # Reference car16/track0 baseline evidence: seven static views + live drive frames via the EXISTING
- # MYSIM_CARVIEW/MYSIM_CAMPOS/MYSIM_SHOT boot harness used by panel/rim flows. No material modifications.
- views=(('front','0,1.35,5.6'),('rear','0,1.35,-5.6'),('left','-5.6,1.35,0'),('right','5.6,1.35,0'),
-        ('top','0,9.0,0.02'),('wheel-fl','1.9,0.62,2.35'),('cockpit','0.0,1.12,0.05'))
+ # Reference car16/track0 baseline evidence at the exact commit: static body views via
+ # MYSIM_CAMPOS+FITVIEW; wheel closeups via the REAL MYSIM_WHEEL_CLOSEUP pivot-index branch
+ # (car_pivots order 0..3: front axle z>0; rendered car-left=+x per the CoreChecks screen-right
+ # convention => 0=front-right, 1=front-left, 2=rear-right, 3=rear-left); cockpit via the REAL
+ # in-game camera (DriveController CamMode 2, MYSIM_CAM=2 autodrive boot; free CAMPOS cameras
+ # cannot produce wheel-closeup or cockpit evidence). No material modifications.
+ views=(('front','0,1.35,5.6'),('rear','0,1.35,-5.6'),('left','-5.6,1.35,0'),('right','5.6,1.35,0'),('top','0,9.0,0.02'))
  missing=[]
  for view,cam in views:
   shot=out/f'ref-car16-{view}.png'
   label=f'ref-car16-view-{view}'
-  text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_TRACK':'0','MYSIM_SHOT':str(shot)},timeout=420)
+  text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_SHOT':str(shot)},timeout=420)
   if not shot.exists():missing.append(view)
+ for closeup,wheel in ((1,'fl'),(0,'fr'),(3,'rl'),(2,'rr')):
+  shot=out/f'ref-car16-wheel-{wheel}.png'
+  text=run(f'ref-car16-wheel-{wheel}',{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(closeup),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_SHOT':str(shot)},timeout=420)
+  if not shot.exists() or 'PASS complete visible wheel framing' not in text:missing.append(f'wheel-{wheel}')
+ shot=out/'ref-car16-wheel-fl-steered.png'
+ text=run('ref-car16-wheel-fl-steered',{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':'1','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_WHEEL_FIT_STEER':'-20','MYSIM_SHOT':str(shot)},timeout=420)
+ if not shot.exists() or 'PASS complete visible wheel framing' not in text:missing.append('wheel-fl-steered')
+ shot=out/'ref-car16-cockpit.png'
+ text=run('ref-car16-cockpit',{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_CAM':'2','MYSIM_SECONDS':'9','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
+ if not shot.exists() or 'COCKPIT_VIEW mode=2' not in text or 'wheelsHidden=True' not in text or 'seatOffsetFromAuthored=0.000' not in text:missing.append('cockpit')
  if missing:raise SystemExit(f'reference evidence views missing: {missing}')
- # Live driving frames: llvmpipe software rendering runs ~20x slower than real time at fixed 60 fps,
- # so drive frames halve the frame rate (sim time identical) and get a 600 s budget; 14 s sim ~= 210 s wall.
+ # HUD safe bounds across the supported resolutions/aspects: every label must stay inside the frame
+ # (defect #2 regression watch; 960x540 covered by ref-lap-near below).
+ hud_missing=[]
+ for resolution in ('640x360','1280x720','1920x1080','1920x1200','2560x1080'):
+  shot=out/f'ref-hud-{resolution}.png'
+  run(f'ref-hud-{resolution}',{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'4','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},['--resolution',resolution],timeout=600)
+  if not shot.exists():hud_missing.append(resolution)
+ if hud_missing:raise SystemExit(f'reference HUD captures missing: {hud_missing}')
+ # Live driving frames at fixed 30 fps (sim time identical; physics hz unchanged), 600 s budget
+ # (llvmpipe software rendering runs ~20x wall time at fixed 60 fps).
  drive_count=0
  for seconds,label,cam_mode in (('9','ref-lap-near','0'),('14','ref-lap-wide','1')):
   shot=out/f'{label}.png'
   text=run(label,{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':seconds,'MYSIM_CAM':cam_mode,'MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
   if shot.exists():drive_count+=1
  if drive_count==0:raise SystemExit('reference drive frames missing')
- print(f'COMPLETE reference evidence: {len(views)} views + {drive_count} drive frames captured',flush=True);sys.exit(0)
+ print(f'COMPLETE reference evidence: {len(views)} body views, 5 wheel closeups, 1 cockpit, {5+drive_count} live frames captured',flush=True);sys.exit(0)
 if os.environ.get('F1_PAINT_REVIEW')=='1':
  car=15+shard
  for candidate in (0,1):
