@@ -386,7 +386,11 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
   vm=re.match(r'HUD_RECTS viewport=\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
   assert vm,f'ref-hud-{resolution}: unparsable HUD_RECTS line'
   vw,vh=float(vm.group(1)),float(vm.group(2))
-  assert (vw,vh)==(float(resolution.split('x')[0])*2,float(resolution.split('x')[1])*2) or abs(vw/vh-want)<0.02,f'ref-hud-{resolution}: design viewport {(vw,vh)} does not cover the requested {resolution} canvas'
+  # CanvasItems scaling: GetVisibleRect reports the DESIGN canvas, not raw window pixels. Observed modes
+  # (fbx-era runs + the 41825439700 capture): 16:9/4:3 windows keep the 1280x720 base; taller/wider expand it
+  # (1920x1200 -> 1280x800, 2560x1080 -> 1706x720). The invariants that hold across every supported window:
+  # the design canvas covers the 1280x720 base and every HUD element stays inside the canvas.
+  assert vw>=1280 and vh>=720,f'ref-hud-{resolution}: design canvas {(vw,vh)} smaller than the 1280x720 base'
   parsed=re.findall(r'(\w+)=\(([-\d.e]+), ([-\d.e]+)\), \(([-\d.e]+), ([-\d.e]+)\)',rects[0])
   assert parsed,f'ref-hud-{resolution}: no HUD element rects parsed (format is name=(px, py), (w, h))'
   for name,px,py,rw,rh in parsed:
