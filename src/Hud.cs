@@ -3,8 +3,10 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Minimal in-game HUD: speed km/h, gear, rpm, lap/target, lap time, tyre wear. Real UI nodes (not a camera render).
 public partial class Hud : CanvasLayer {
- public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear, carState;PitServiceDisplay pitDisplay;PitStrategyPanel strategy;RaceStandingsPanel standings;HybridControlsPanel hybridControls;
+ public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear, carState, weatherTag, deviceTag;PitServiceDisplay pitDisplay;PitStrategyPanel strategy;RaceStandingsPanel standings;HybridControlsPanel hybridControls;
  public HybridControlsPanel HybridControls=>hybridControls;public PitStrategyPanel PitStrategy=>strategy;
+ // Read-only label surfaces for product checks (binding assertions read these; no setters, no fake text injection).
+ public Label SpeedLabel=>speed;public Label GearLabel=>gear;public Label InfoLabel=>info;public Label CarStateLabel=>carState;public Label WeatherLabel=>weatherTag;public Label DeviceLabel=>deviceTag;public PanelContainer StandingsPanel=>standings;
  public void TogglePitStrategy()=>strategy?.Toggle();
  // Objective HUD-bounds evidence at capture time: every printed rect must stay inside the viewport (checked by the cloud harness).
  public void EmitRects() {
@@ -35,7 +37,9 @@ public partial class Hud : CanvasLayer {
   info = Readout(17); info.VerticalAlignment = VerticalAlignment.Center;
   carState = Readout(15); carState.VerticalAlignment = VerticalAlignment.Center; carState.HorizontalAlignment = HorizontalAlignment.Right; carState.AddThemeColorOverride("font_color", new Color(.78f, .85f, .9f));
   var fill = new Control { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill };
-  row.AddChild(info); row.AddChild(fill); row.AddChild(carState);
+  weatherTag = Readout(15); weatherTag.VerticalAlignment = VerticalAlignment.Center; weatherTag.AddThemeColorOverride("font_color", new Color(.78f, .85f, .9f));
+  deviceTag = Readout(15); deviceTag.VerticalAlignment = VerticalAlignment.Center; deviceTag.HorizontalAlignment = HorizontalAlignment.Right; deviceTag.AddThemeColorOverride("font_color", new Color(.78f, .85f, .9f));
+  row.AddChild(info); row.AddChild(fill); row.AddChild(weatherTag); row.AddChild(deviceTag); row.AddChild(carState);
   strip.AddChild(row); root.AddChild(strip);
  }
  // Speed/gear grouped in one chip. Desktop: the bottom-right corner, expanding LEFTWARD/UPWARD from the safe-margin corner. Touch keeps the proven top-right pair beside the strip.
@@ -72,8 +76,23 @@ partial class MiniMap : Control {
   standings.Race=Race;standings.Player=Player;
   int rank = Race.Standings().IndexOf(Player) + 1;
   string pos = Race.cars.Count > 1 ? "POS " + rank + "/" + Race.cars.Count + "   " : "";
+  weatherTag.Text = WeatherTag(); deviceTag.Text = DeviceTag();
   info.Text = pos + (Player.finished ? "FINISHED " + Race.targetLaps + " laps" : "LAP " + System.Math.Min(Player.completedLaps + 1, Race.targetLaps) + "/" + Race.targetLaps) + "   LAP TIME " + Player.lapElapsed.ToString("0.0") + "s   BEST " + (Player.bestLap > 0 ? Player.bestLap.ToString("0.000") + "s" : "-- (no valid lap)");
-  carState.Text = "TYRES " + (int)(100 - Player.Wear * 100) + "%   PIT " + (Player.servicing ? Player.ServiceStage + " " + Player.serviceRemaining.ToString("0.0") + "s" : Player.pitActive ? "IN LANE" : Player.pitRequested ? "REQUESTED ("+OS.GetKeycodeString(ControlBindings.Get(5))+")" : (Race.track.PitValid ? "press "+OS.GetKeycodeString(ControlBindings.Get(5)) : "no pit lane")) + "   FUEL " + (int)Player.fuel + " L   DAMAGE " + (int)(Player.damage * 100) + "%";
+  carState.Text = "TYRES " + Player.tyres[0].compound.ToString()[0] + " " + (int)(100 - Player.Wear * 100) + "%" + (Player.pitRequested && Player.nextCompound != Player.tyres[0].compound ? " NEXT " + Player.nextCompound.ToString()[0] : "") + "   PIT " + (Player.servicing ? Player.ServiceStage + " " + Player.serviceRemaining.ToString("0.0") + "s" : Player.pitActive ? "IN LANE" : Player.pitRequested ? "REQUESTED ("+OS.GetKeycodeString(ControlBindings.Get(5))+")" : (Race.track.PitValid ? "press "+OS.GetKeycodeString(ControlBindings.Get(5)) : "no pit lane")) + "   FUEL " + (int)Player.fuel + " L   DAMAGE " + (int)(Player.damage * 100) + "%";
+ }
+ // Live track/weather state: profile name from the active conditions, surface water from the race itself, night from lighting.
+ string WeatherTag() {
+  string tag = Race == null ? "DRY" : Conditions.WetNames[Conditions.Wet].ToUpperInvariant();
+  float water = Race != null ? Race.wetness : 0f;
+  if (water > 0.005f) tag += " " + (int)(water * 100f) + "%";
+  if (Conditions.IsNight) tag = "NIGHT " + tag;
+  return tag;
+ }
+ // The device actually driving this session: gamepad wins detection, then the screen-controls setting.
+ string DeviceTag() {
+  if (Input.GetConnectedJoypads().Count > 0) return "PAD";
+  return touchMode ? "TOUCH" : "KEYS";
+ }
  }
 }}
 
