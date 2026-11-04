@@ -2,7 +2,14 @@
  "updated": "2026-11-04T11:20Z",
  "coordinator": "root (sole integration coordinator)",
  "branch": "codex/repair-20261029",
- "remote_tip": "4d0622f",
+ "remote_tip": "c057ce0",
+ "wave_3_status": {
+  "windows_persist": "VERIFIED at 41828819144 (e82a362): 9/5/6/5/12=37, platform=windows, all 3 win cases, atomic-replace cases green; crash-consistency window remains OPEN (no crash-injection test)",
+  "wheel_fit_sweep_v2": "FIRST SUCCESS at 41837315358 (e17bd7e... e17bd5): per-wheel worsts incl. wheel-vs-bodywork -45.5mm at full lock (FRONTBUMPER misc) and rear-vs-suspension -20.3mm - REAL penetrations matching the user complaint; car-assembly applying its turn-4 verdict protocol",
+  "car_evidence_candidates": "41836022080 (c5e75d6) SUCCESS with SURFACE_UV_REPAIR_CANDIDATE lines incl. all badges surfaces (H1 fix ACTIVE in captures); P1 formal pair (leg A adf89ca/leg B 39cdf33) queued by the serial watcher",
+  "in_flight": ["41841959304 product c057ce0", "41840755243 DV trace 95f69c6", "41836016606 ref-ev c5e75d6", "41831022080?? - no: 41836022080 done"],
+  "queue_watcher": "PID 33352; P1-A, P1-B, RIDE-A, RIDE-B serial; log at outputs/mistral-orchestration/p1queue-log.txt"
+ },
  "merge_wave_2": {
   "note": "carbody-livery turn-1 merged (2744f08): read-only texture-inventory tool + per-surface taxonomy (H1 mirror root cause: the shipped CarShader default (-1,-1)/(1,1) adds a U-mirror on top of the faithful V-only flip; the three _mm_badges surfaces still on the default = primary mirrored-logo suspect). Wheel clearance sweep v2 merged (4d0622f): suspension-state poses, full 31.5deg lock, per-wheel labelled worsts, tyre-vertex contact link.",
   "live_runs_after_merges": {
