@@ -155,7 +155,7 @@ public static class WheelFitAudit {
    var row=new{wheel=wheels[w].Name.ToString(),hub=new[]{wheels[w].Position.X,wheels[w].Position.Y,wheels[w].Position.Z},wheelCentre=new[]{wheelCentre.X,wheelCentre.Y,wheelCentre.Z},contactPoint=new[]{contact.X,contact.Y,contact.Z},contactShift=new[]{contact.X-staticContact[w].X,contact.Z-staticContact[w].Z},groundGap=contact.Y,springLength=staticDrop-appliedOffset,wheelOffset=appliedOffset,clearance=-worst,penetratingParts=offenders.Count,offenders,categories,samplesInspected};
    cache[key]=row;return row;
   }
-  var rows=new List<object>();int poses=0;
+  var rows=new List<object>();int poses=0;int clampedCount=0;
   try{
    foreach(float steer in steers){
     for(int i=0;i<wheels.Length;i++)wheels[i].Position=rest[i];
@@ -176,6 +176,9 @@ public static class WheelFitAudit {
       else if(mode=="FR")applied[1]=offset;
       else if(mode=="RL")applied[2]=offset;
       else if(mode=="RR")applied[3]=offset;
+      // Physics envelope: the bump stop limits the rise to +staticDrop; the run-41837315358 tables
+      // recorded +0.22 offsets from negated mode branches - states the suspension cannot reach.
+      for(int i=0;i<wheels.Length;i++){var wanted=applied[i];applied[i]=Mathf.Clamp(wanted,-(maxDroop-staticDrop),staticDrop);if(wanted!=applied[i])clampedCount++;}
       for(int i=0;i<wheels.Length;i++)wheels[i].Position=rest[i]+Vector3.Up*applied[i];
       WheelAnimation.Update(wheels,0,Mathf.DegToRad(steer));
       var wheelRows=new List<object>();for(int w=0;w<wheels.Length;w++)wheelRows.Add(EvaluateWheel(w,steer,applied[w]));
@@ -203,8 +206,8 @@ public static class WheelFitAudit {
    }
    perWheel.Add(new{wheel=wheels[w].Name.ToString(),categories});
   }
-  GD.Print("WHEEL_CLEARANCE_SWEEP_SUMMARY car=",index," poses=",poses," worstClearance=",(globalPart!=null?(float?)globalWorst:null)," worstWheel=",globalWheel??"none"," worstVs=",globalCategory??"none"," worstPart=",globalPart??"none"," atSteer=",globalSteer," atWheelOffset=",globalOffset," pose restored; evidence only, not a clearance certificate");
-  return new{car=index,steers,springs,modes,poses,bodyParts=parts.Count,perWheel,rows,scope="Full-lock and full-travel clearance sweep: poses parameterized by the actual suspension state (spring length 0..RestLength+0.15 of NativeSuspensionVehicle) applied through the real steering path; per wheel labelled worst clearance vs wing/bodywork/floor/brakes/suspension/wheelguard/other; positive penetrations are findings, not acceptance; hub offsets are evidence poses within the physical travel envelope, not a suspension solution"};
+  GD.Print("WHEEL_CLEARANCE_SWEEP_SUMMARY car=",index," poses=",poses," clampedStates=",clampedCount," worstClearance=",(globalPart!=null?(float?)globalWorst:null)," worstWheel=",globalWheel??"none"," worstVs=",globalCategory??"none"," worstPart=",globalPart??"none"," atSteer=",globalSteer," atWheelOffset=",globalOffset," pose restored; evidence only, not a clearance certificate");
+  return new{car=index,steers,springs,modes,poses,clampedStates=clampedCount,bodyParts=parts.Count,perWheel,rows,scope="Full-lock and full-travel clearance sweep: poses parameterized by the actual suspension state (spring length 0..RestLength+0.15 of NativeSuspensionVehicle) applied through the real steering path; negated mode branches clamp at the bump stop (physics envelope), clampedStates counts them; per wheel labelled worst clearance vs wing/bodywork/floor/brakes/suspension/wheelguard/other; positive penetrations are findings, not acceptance"};
  }
 }
 }
