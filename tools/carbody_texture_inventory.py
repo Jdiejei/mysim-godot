@@ -183,6 +183,16 @@ DOCUMENTED_FINDINGS = {
                         "evidence": "WHEELGUARD_*_mm_chassis UV0 sliver (delta 0.0007, run 41510907196 rows); likely intentional flat; no correction pending source verification"},
         "wheel.png": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
                       "evidence": "bound via LOD_A_WHEEL_mm_wheel after the role-alias fix (run 41573514607); rim lettering mirrored at the default transform (minor)"},
+        "_mm_cab": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "INTERIOR_mm_cab + STEERING_WHEEL_mm_cab ride the default transform: instrument/cabin text renders mirrored in the cockpit view (the cockpit-usability delegation to carbody-livery; the reviewer's 'instrument display not readable', VISUAL_REVIEW 09:10Z); cab-family candidates NOT staged yet - blocked on a cockpit-audit emitting INT-surface UV data (the assembly audits cover visible-only surfaces)"},
+        "_mm_int": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                    "evidence": "the LOD_A_INT_* family at the default transform (hidden in the exterior flow; visible only in cockpit mode - pending the cockpit-audit extension)"},
+        "_mm_sw": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
+                   "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"},
+        "cab.png": {"defectTaxonomy": "low-res-source", "correctionFamily": "source-art-fix",
+                    "evidence": "512x512 carries dash+cabin+wheel faces; instrument glyphs land at a few px at seated-eye distance (the cockpit readability complaint); conditional cloud-only upscale candidate per the R3 policy - measure at the cockpit camera first"},
+        "int.png": {"defectTaxonomy": "low-res-source", "correctionFamily": "source-art-fix",
+                    "evidence": "512x512 for the full interior cage; same conditional-upscale policy; no higher-res original local (turn-1 sec 1.5)"},
     },
     6: {
         "_mm_ext": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
@@ -734,10 +744,27 @@ def main():
                 row["pxPerMetroAtWorst"] = round(info["width"] / row["uv0Max"], 1) if row["uv0Max"] else None
             ground_pool.append(row)
 
+    # material-family groups (the cockpit/interior readability grouping)
+    INT_HINTS = ("_mm_cab", "_mm_int", "_mm_sw", "LOD_A_INT_", "LOD_A_STEERING")
+
+    def is_interior_texture(row):
+        base_bindings = [b for b in row["bindings"] if b.get("slot") == "_BaseMap"]
+        if not base_bindings:
+            return False
+        return all(any(h in (b.get("renderer") or "") for h in INT_HINTS) for b in base_bindings)
+
+    int_rows = [r for r in rows if is_interior_texture(r)]
+    groups = {"int": {"label": "cockpit-readable surfaces (INT group)",
+                      "rows": [r["file"] for r in int_rows],
+                      "note": ("dashboard/interior textures: mirrored instrument text = the same H1 mechanism on the "
+                               "interior materials; readings blocked until a cockpit-audit emits INT-surface UV data "
+                               "(the assembly audits cover visible-only surfaces); low-res-source applies (512-class)"),
+                      }} if int_rows else None
+
     result = {
         "scope": "read-only texture inventory (no mutation, no rendering); six-field schema per EVIDENCE_INDEX QC",
         "target": args.car and f"car {args.car} (index {index})" or f"track {args.track}",
-        "assemblySource": args.assembly, "rows": rows,
+        "assemblySource": args.assembly, "rows": rows, "groups": groups,
         "groundPool": ground_pool,
         "schema": {
             "orientationClass": list(ORIENTATION_CLASSES),
@@ -784,6 +811,14 @@ def main():
                 for d in r["density"]:
                     nm = d.get("renderer") or d.get("source")
                     lines.append(f"| {nm} | {d.get('visible', '-')} | {d.get('metresPerUv0', d.get('uv0mPerTile'))} | {d.get('pxPerMetre', '-')} | {d.get('basisDeterminant', '-')} |")
+        if result.get("groups"):
+            lines += ["", "### INT group (cockpit-readable surfaces)", ""]
+            for r in rows:
+                if r["file"] in result["groups"]["int"]["rows"]:
+                    lines.append(f"- **{r['file']}** ({r['pixels']}, {r['guidSource'] if not str(r['guid']).startswith('none') else 'unbound'}) — "
+                                 f"orientation: {r['orientationClass']}; defect: {r['defectTaxonomy']}; correction: {r['correctionFamily']}")
+            lines.append("")
+            lines.append(f"Note: {result['groups']['int']['note']}")
         if result.get("groundPool"):
             lines += ["", "### Ground-pool bindings (measured; the drivable-area textures come from the shared pool outside this folder)",
                       "", "| texture | px | surfaces | uv0 m/tile (best-worst) | px/m (best-worst) | collapsed uv0 tris |",

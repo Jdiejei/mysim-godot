@@ -243,7 +243,13 @@
    "orientationClass": "mirrored-X",
    "defectTaxonomy": "mirrored-UV",
    "correctionFamily": "uv-remap-per-surface",
-   "secondaryDefects": [],
+   "secondaryDefects": [
+    {
+     "defectTaxonomy": "low-res-source",
+     "correctionFamily": "source-art-fix",
+     "evidence": "512x512 carries dash+cabin+wheel faces; instrument glyphs land at a few px at seated-eye distance (the cockpit readability complaint); conditional cloud-only upscale candidate per the R3 policy - measure at the cockpit camera first"
+    }
+   ],
    "bindings": [
     {
      "car": 16,
@@ -263,7 +269,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+     "evidence": "INTERIOR_mm_cab + STEERING_WHEEL_mm_cab ride the default transform: instrument/cabin text renders mirrored in the cockpit view (the cockpit-usability delegation to carbody-livery; the reviewer's 'instrument display not readable', VISUAL_REVIEW 09:10Z); cab-family candidates NOT staged yet - blocked on a cockpit-audit emitting INT-surface UV data (the assembly audits cover visible-only surfaces)"
     },
     {
      "car": 16,
@@ -283,7 +289,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding"
+     "evidence": "INTERIOR_mm_cab + STEERING_WHEEL_mm_cab ride the default transform: instrument/cabin text renders mirrored in the cockpit view (the cockpit-usability delegation to carbody-livery; the reviewer's 'instrument display not readable', VISUAL_REVIEW 09:10Z); cab-family candidates NOT staged yet - blocked on a cockpit-audit emitting INT-surface UV data (the assembly audits cover visible-only surfaces)"
     }
    ],
    "density": []
@@ -417,7 +423,13 @@
    "orientationClass": "mirrored-X",
    "defectTaxonomy": "mirrored-UV",
    "correctionFamily": "uv-remap-per-surface",
-   "secondaryDefects": [],
+   "secondaryDefects": [
+    {
+     "defectTaxonomy": "low-res-source",
+     "correctionFamily": "source-art-fix",
+     "evidence": "512x512 for the full interior cage; same conditional-upscale policy; no higher-res original local (turn-1 sec 1.5)"
+    }
+   ],
    "bindings": [
     {
      "car": 16,
@@ -437,7 +449,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "the LOD_A_INT_* family at the default transform (hidden in the exterior flow; visible only in cockpit mode - pending the cockpit-audit extension)"
     },
     {
      "car": 16,
@@ -457,7 +469,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "the LOD_A_INT_* family at the default transform (hidden in the exterior flow; visible only in cockpit mode - pending the cockpit-audit extension)"
     },
     {
      "car": 16,
@@ -477,7 +489,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "the LOD_A_INT_* family at the default transform (hidden in the exterior flow; visible only in cockpit mode - pending the cockpit-audit extension)"
     },
     {
      "car": 16,
@@ -497,7 +509,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "the LOD_A_INT_* family at the default transform (hidden in the exterior flow; visible only in cockpit mode - pending the cockpit-audit extension)"
     }
    ],
    "density": []
@@ -3078,7 +3090,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3098,7 +3110,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3118,7 +3130,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3138,7 +3150,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3158,7 +3170,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3178,7 +3190,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3198,7 +3210,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3218,7 +3230,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3238,7 +3250,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3258,7 +3270,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3278,7 +3290,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3298,7 +3310,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3318,7 +3330,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     },
     {
      "car": 16,
@@ -3338,7 +3350,7 @@
      "orientationClass": "mirrored-X",
      "defectTaxonomy": "mirrored-UV",
      "correctionFamily": "uv-remap-per-surface",
-     "evidence": "rule-derived: mirrored-X transform on this binding; no documented per-surface finding; renderer hidden by name policy (DAMAGE/INT/BLUR/SCRATCH) so cosmetic-only"
+     "evidence": "SHIFT_LIT_* LED segments are non-directional (low impact); wheel-face labels/letters are directional and render mirrored"
     }
    ],
    "density": []
@@ -4139,6 +4151,17 @@
    "density": []
   }
  ],
+ "groups": {
+  "int": {
+   "label": "cockpit-readable surfaces (INT group)",
+   "rows": [
+    "RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_cab.png",
+    "RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_int.png",
+    "RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_sw.png"
+   ],
+   "note": "dashboard/interior textures: mirrored instrument text = the same H1 mechanism on the interior materials; readings blocked until a cockpit-audit emits INT-surface UV data (the assembly audits cover visible-only surfaces); low-res-source applies (512-class)"
+  }
+ },
  "groundPool": null,
  "schema": {
   "orientationClass": [

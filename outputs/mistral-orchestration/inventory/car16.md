@@ -192,3 +192,11 @@
 | car16:LOD_A_STRUT_UPPER_FRONT_RIGHT_mm_ext | _BaseMap | [-1.0, -1.0]/[1.0, 1.0] | pending-inert at production state (applies only under the ca | mirrored-X | mirrored-UV | uv-remap-per-surface |
 | car16:LOD_A_INT_STRUT_LOWER_FRONT_LEFT_mm_ext | _BaseMap | [-1.0, -1.0]/[1.0, 1.0] | default flip policy (cars: uv_scale=(-1,-1)/offset=(1,1) for | mirrored-X | mirrored-UV | uv-remap-per-surface |
 
+
+### INT group (cockpit-readable surfaces)
+
+- **RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_cab.png** (512x512, car_map binding) — orientation: mirrored-X; defect: mirrored-UV; correction: uv-remap-per-surface
+- **RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_int.png** (512x512, car_map binding) — orientation: mirrored-X; defect: mirrored-UV; correction: uv-remap-per-surface
+- **RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_sw.png** (1024x1024, car_map binding) — orientation: mirrored-X; defect: mirrored-UV; correction: uv-remap-per-surface
+
+Note: dashboard/interior textures: mirrored instrument text = the same H1 mechanism on the interior materials; readings blocked until a cockpit-audit emits INT-surface UV data (the assembly audits cover visible-only surfaces); low-res-source applies (512-class)
