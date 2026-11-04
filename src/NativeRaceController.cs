@@ -8,7 +8,7 @@ public partial class NativeRaceController : DriveController {
  NativeSuspensionVehicle body;readonly SteeringInput steering=new();readonly PedalController pedalsNative=new();readonly Vector3[] homes=new Vector3[4];SurfaceWeather weather;float elapsed,travel,spawnHeading,maximumYaw;int ruleResets,telemetryTick;readonly System.Collections.Generic.List<object> telemetry=new();int mode,shown=-1;bool pauseWas=true,cameraWas,pitWas,parked,ending;Vector3 spawn,pausedVelocity,pausedAngular;bool pausedBody,padSeen,padStartBlocked;
  Vector3 previousPose;bool havePreviousPose;float actualPoseDistance,resultWait;
  NativeTraffic traffic;public NativeTraffic Traffic=>traffic;public NativeSuspensionVehicle Chassis=>body;public int CameraMode=>mode;NativeGameplayChecks gameplayChecks;NativePitChecks pitChecks;
- MySimulator.Rebuild.DrivingValidation.Runner validation;string validationReportPath=System.Environment.GetEnvironmentVariable("MYSIM_DRIVING_VALIDATION_REPORT");int validationResets;
+ MySimulator.Rebuild.DrivingValidation.Runner validation;string validationReportPath=System.Environment.GetEnvironmentVariable("MYSIM_DRIVING_VALIDATION_REPORT");int validationResets;int dvTraceTick;bool gridHoldTraceSeen;
  public override void CycleCamera(){mode=(mode+1)%4;}
  public override void _Ready(){
   int rivals=int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_RIVALS")??Settings.Get("rivals",5).ToString());if(rivals!=0&&System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_TRAFFIC")!="1")throw new InvalidOperationException("Native opponents require explicit experimental traffic flag until full contact/race validation");
@@ -45,6 +45,8 @@ public partial class NativeRaceController : DriveController {
    if(validation.NeedsReset){if(!PlaceBody("validation-reset"))throw new Exception("Driving validation reset lacks drive surface");validationResets++;validation.ConfirmReset();}
    if(validation.Completed){FinishValidation();return;}
    if(!Player.servicing&&!Player.finished&&!Player.retired)Player.input=ValidationInput(validation.Current);
+   if(dvTraceTick++%120==0){MySimulator.Rebuild.DrivingValidation.Run stage=null;foreach(var r in validation.Runs){if(!r.Completed){stage=r;break;}}
+    GD.Print("DV_TRACE t=",elapsed.ToString("0.0")," started=",Race.started," gridHold=",body.GridHold," spd=",Player.speed.ToString("0.00")," thr=",Player.input.throttle.ToString("0.00")," brk=",Player.input.brake.ToString("0.00")," stage=",(stage!=null?stage.Profile.Id:"done")," clock=",validation.Clock.ToString("0.0"));gridHoldTraceSeen=gridHoldTraceSeen||body.GridHold;}
   }
   body.GridHold=!Race.started;body.BindRaceControls(Player,(float)delta,Race.track);
   if(WheelPivots[0].GetMeta("displayed_compound").AsInt32()!=(int)Player.tyres[0].compound)TyreAppearance.Apply(WheelPivots,Player.tyres[0].compound);
@@ -136,6 +138,7 @@ public partial class NativeRaceController : DriveController {
    ["weatherProfile"]=Conditions.Wet,["water"]=body.Water,["compound"]=(int)Player.tyres[0].compound,
    ["simulatedSeconds"]=validation.Clock,["validationResets"]=validationResets,["ruleResets"]=ruleResets,
    ["firstFailure"]=validation.FirstFailure,["abortReason"]=validation.AbortReason,
+   ["gridHoldTraceSeen"]=gridHoldTraceSeen,
    ["runs"]=runList,
    ["scope"]="Scripted controlled driving validation with failure-closed assertions on the native force-driven model; scenario rig evidence only - no lap, AI pace, graphics or real-world calibration claim. Compare only against runs with identical solver/backend/rate settings."};
   string path=validationReportPath??"user://driving-validation-report.json";
