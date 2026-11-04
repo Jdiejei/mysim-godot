@@ -2,7 +2,7 @@ import subprocess,os,pathlib,sys,json,shutil
 root=pathlib.Path.cwd();exe=root/'build-cloud/MySim.exe'
 scenarios=('legacy','foreign','corrupt','malformed','failures')
 # Keep in sync with cloud_game_audit.py required_cases; the fixture's contract_sync_case_names enforces this on repo runs.
-required={'legacy':('legacy_seed_save','legacy_readback','legacy_get_did_not_write_disk','legacy_set_stamps','legacy_marker_and_values_persisted','atomic_replace_saved','atomic_replace_final_bytes'),
+required={'legacy':('legacy_seed_save','legacy_readback','legacy_get_did_not_write_disk','legacy_long_roundtrip','legacy_set_stamps','legacy_marker_and_values_persisted','atomic_replace_saved','atomic_replace_final_bytes'),
  'foreign':('foreign_seed_save','foreign_readback','foreign_set_succeeds','foreign_marker_kept'),
  'corrupt':('corrupt_defaults_typed','corrupt_no_crash','corrupt_no_value_resurrection','corrupt_file_intact','corrupt_load_error_evidence'),
  'malformed':('malformed_seed_save','malformed_defaults_typed','malformed_disk_untouched_by_get','malformed_set_migrates_marker'),

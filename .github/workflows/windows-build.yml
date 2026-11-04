@@ -72,6 +72,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Native player checks failed' }
           python tools/cloud_windows_render.py
           if ($LASTEXITCODE -ne 0) { throw 'Rendered exported Windows player checks failed' }
+      - name: Settings persistence assertions on the packaged Windows player
+        run: python tools/cloud_windows_persist.py
+        shell: pwsh
       - name: Preserve encrypted Windows build in release parts
         env:
           GH_TOKEN: ${{ github.token }}
@@ -103,4 +106,6 @@ jobs:
             windows*-manifest.json
             windows-smoke-results.json
             windows-render-results.json
+            build-cloud/windows-settings-persist-*.json
+            build-cloud/windows-settings-persist-*.log
           retention-days: 14
