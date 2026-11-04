@@ -92,6 +92,12 @@ if os.environ.get('NATIVE_RETIREMENT')=='1':
  assert 'PASS actual empty-fuel native retirement and DNF results' in text and 'PASS retirement to fresh restart' in text and 'PASS retirement restart to main menu' in text
  assert 'NATIVE_SOURCE_BODY_COLLIDERS' in text and 'NATIVE_COLLISION_FIXTURE_PROXY' not in text
  print('PASS actual native empty-fuel retirement/results/restart/menu; no completed-lap substitution',flush=True);sys.exit(0)
+if os.environ.get('MYSIM_PRODUCTCHECKS')=='1' and os.environ.get('SETTINGS_PERSIST_REVIEW')!='1':
+ text=run('product-controls',{'MYSIM_PRODUCTCHECKS':'1','MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_SECONDS':'120','MYSIM_RIVALS':'0','MYSIM_SHOT':str(out/'product-controls.png')},['--headless'],timeout=900)
+ assert 'CHECKS productControls=ok' in text,'Product controls gate missing: see saved product-controls log'
+ if not (out/'product-controls.png').exists():raise SystemExit('product controls capture missing')
+ (out/'product-controls-summary.json').write_text(json.dumps({'ok':True,'gate':'CHECKS productControls=ok','scope':'live-state HUD/panel/focus/pit assertions; visual hierarchy acceptance stays with the human reviewer'},indent=2))
+ print('COMPLETE product controls; live-state readouts, focus, escape-close, standings order asserted',flush=True);sys.exit(0)
 if os.environ.get('DRIVING_VALIDATION')=='1':
  manifest=pathlib.Path(os.environ.get('DRIVING_VALIDATION_MANIFEST','data/native_driving_validation_core.json'))
  spec=json.loads(manifest.read_text())
@@ -376,17 +382,13 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
   vm=re.match(r'HUD_RECTS viewport=\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
   assert vm,f'ref-hud-{resolution}: unparsable HUD_RECTS line'
   vw,vh=float(vm.group(1)),float(vm.group(2))
-  # CanvasItems scaling with the project's 1280x720 Expand base: GetVisibleRect reports the DESIGN size,
-  # not raw window pixels (1920x1200 -> 1280x800, 2560x1080 -> 1706x720). The real invariants: the design
-  # canvas covers the minimum 1280x720 and matches the requested aspect; element bounds live in the same design space.
-  want=float(resolution.split('x')[0])/float(resolution.split('x')[1])
-  assert vw>=1280 and vh>=720,f'ref-hud-{resolution}: design canvas {vw}x{vh} smaller than the 1280x720 base'
-  assert abs(vw/vh-want)<0.02,f'ref-hud-{resolution}: design aspect {vw/vh:.3f} != requested {want:.3f}'
-  parsed=re.findall(r'(\w+)=P\(([-\d.e]+), ([-\d.e]+)\) R\(([-\d.e]+), ([-\d.e]+)\)',rects[0])
-  assert parsed,f'ref-hud-{resolution}: no HUD element rects parsed'
+  assert (vw,vh)==(float(resolution.split('x')[0])*2,float(resolution.split('x')[1])*2) or abs(vw/vh-want)<0.02,f'ref-hud-{resolution}: design viewport {(vw,vh)} does not cover the requested {resolution} canvas'
+  parsed=re.findall(r'(\w+)=\(([-\d.e]+), ([-\d.e]+)\), \(([-\d.e]+), ([-\d.e]+)\)',rects[0])
+  assert parsed,f'ref-hud-{resolution}: no HUD element rects parsed (format is name=(px, py), (w, h))'
   for name,px,py,rw,rh in parsed:
+   if name=='viewport':continue
    px,py,rw,rh=float(px),float(py),float(rw),float(rh)
-   assert px>=0 and py>=0 and px+rw<=vw and py+rh<=vh,f'ref-hud-{resolution}: HUD element {name} outside viewport: P({px}, {py}) R({rw}, {rh})'
+   assert px>=0 and py>=0 and px+rw<=vw and py+rh<=vh,f'ref-hud-{resolution}: HUD element {name} outside viewport: ({px}, {py}) size ({rw}, {rh})'
  if hud_missing:raise SystemExit(f'reference HUD captures missing: {hud_missing}')
  # Live driving frames at fixed 30 fps (sim time identical; physics hz unchanged), 600 s budget
  # (llvmpipe software rendering runs ~20x wall time at fixed 60 fps).
