@@ -85,6 +85,48 @@ Updated: 2026-11-04, session 5. Run statuses via `gh run view --json` (plus `--l
 | car16 V-only UV-candidate A/B (the ten pending entries) | NONE — the leg was INERT in every run so far: `cloud_game_audit.py` wired `SOURCE_UV_CANDIDATES` but the `CarLoader` gate read `MYSIM_SURFACE_UV_CANDIDATES` (env mismatch; verified by car-assembly-turn2 against the e8b80bb blobs; fix `e41d4f4` accepts both spellings, merged) | fix `e41d4f4` + detector `80ceb22` (both merged) | — | **never run** — the "pending UV candidate NOT accepted" verdict is NOT evidence against the candidate; a run at a head with `e41d4f4`+`80ceb22` must show `SURFACE_UV_REPAIR_CANDIDATE` lines (leg live) + `MIRRORED_TEXT_RISK_SUMMARY` before any UV-candidate verdict |
 | Mirrored logos/numbers root cause (UV orientation/handedness per surface) | none yet — detector `80ceb22` emits the per-surface taxonomy (`ok/mirrored_text_risk/rotated_text_risk/flipped_text_risk/mixed_risk/...`) for the next run | — | — | open — awaiting the candidate-enabled run + human review before any livery change |
 
+## Exported-player user-path facts (verified from committed source + run 41828819144's evidence; session 8)
+
+| Question | Verified answer | Source |
+|---|---|---|
+| Packaged player's DEFAULT render backend | `mobile` (`project.godot:11 rendering_method="mobile"`) — while ALL packaged-player evidence (smoke/render/persist) forces `--rendering-method gl_compatibility` | `project.godot`; `tools/cloud_windows_smoke.py`/`cloud_windows_render.py` (the flag is in every invocation) |
+| Default control scheme (fresh install, desktop) | Keyboard physical keys + gamepad; touch OFF (申诉`Settings.ScreenControlsEnabled` = `MYSIM_TOUCH` env override, else `DisplayServer.IsTouchscreenAvailable()` = false on desktop) | `src/Settings.cs`; `src/ControlBindings.cs` |
+| Default bindings | WASD + arrows (both live), Space handbrake, P pit, C camera, M mute, H ERS auto/manual, E overtake; gamepad stick/RT/LT/A/Y/Start; per-action overrides persisted as `key_<n>` (long) — the `legacy_long_roundtrip` case covers exactly this path | `src/ControlBindings.cs` (`Defaults` array) |
+| Saved-settings defaults | `mute=true` by default — a fresh install starts MUTED (user-path finding: first-run experience is silent until M pressed); `screen_controls` false on desktop | `src/Settings.cs` defaults |
+| Required assets path (what the export ships) | `include_filter` ships `assets/generated_native_car_hulls/*.json`, `data/lighting_profiles.json`, `data/weather_profiles.json`, `data/car_surface_uv_repairs.json`, `assets/*.json`, `assets/RealRacing/*.json`, `assets/Resources/*.txt`, `assets/StreamingAssets/*`; textures/meshes pack via Godot's imported-resource pipeline automatically; `exclude_filter` keeps outputs/tools/builds out | `export_presets.cfg` |
+| Proof the packaged asset path resolves on Windows | run 41828819144's render step passed its asserts (960x540 non-uniform image + `PASS complete visible car framing` + `onSurface=True` + OpenGL renderer seen) — the packaged player loaded and rendered the real car/track assets (the script's own gates; run SUCCESS) | `tools/cloud_windows_render.py` contract + run 41828819144 |
+| Windowed vs headless on the packaged player | the render smoke runs WINDOWED (no `--headless`; `--rendering-method gl_compatibility --resolution 960x540 --fixed-fps 60 --audio-driver Dummy`) — a windowed,input-capable run on the Windows runner is proven feasible | `tools/cloud_windows_render.py` |
+| Input path the user's keys take | key → `Input` → `ControlBindings.Held()` polls `Input.IsPhysicalKeyPressed` (+ arrow fallbacks) per frame → `DriveController`; `Held()` returns false when the window is unfocused UNLESS `MYSIM_INPUTCHECKS` is set (the injection escape hatch, already in the shipped code) | `src/ControlBindings.cs:7`; `src/Main.cs:211` |
+| Existing synthetic-input mechanisms | `Input.ParseInputEvent(new InputEventKey{Keycode,PhysicalKeycode,Pressed})` — PROVEN in-repo (`ControlsScenario.KeyEvent`, `DrivingScenario.KeyState`, `ProductControlsScenario`); `DrivingScenario` already asserts reverse/pause/resume/camera THROUGH this path on CI | `src/ControlsScenario.cs:7`, `src/DrivingScenario.cs:7` |
+| What DV covers vs the gap | DV drives at the SIM LAYER: ` DrivingValidation` sets `ph.Throttle/Brake/Steer` directly — it never touches the Input/device layer (verified: no ParseInputEvent/InputEvent in DrivingValidation.cs). GAP: no scripted DEVICE-level input run exists on the packaged player; no input-event logging; no ramp/sine/slalom/hairpin/trail-brake vocabulary | `src/Logic/DrivingValidation.cs:103` vs `src/DrivingScenario.cs` |
+
+## User-path recording spec (DESIGN — proposed harness; nothing implemented)
+
+Full spec in `outputs/mistral-orchestration/agents/verification-turn8.md` §2 (this agent's file). Summary:
+
+| Element | Design |
+|---|---|
+| Harness | NEW `src/UserPathScenario.cs` (proposed; owner to assign): early-exit host (one `MYSIM_USERPATH=<profile>` hook in `Main._Ready`, coordinator-owned line) that boots the REAL game world (track/car env as usual) + a driver node reading a JSON script `[{t, key|axis, down|up|value}]`; injects via the PROVEN `Input.ParseInputEvent` path (keyboard: key+physical keycode; gamepad: `InputEventJoypadMotion` for true analog ramps/sine); requires `MYSIM_INPUTCHECKS=1` (existing gate) and a WINDOWED packaged run (proven feasible by the render smoke) |
+| Logging (the requirement) | every injected event appended to `userpath-events.jsonl` (t, device, code, value, direction); every 0.1 s a telemetry row (speed, position, yaw, gear, PLUS the `ControlBindings.Held()` echo — what the game actually SAW, closing the loop); final JSON report + N frames through the run (not just the last); the input log + the Held()-echo together prove injection reached the game |
+| Profiles (the DV gap) | `throttle_step`, `brake_step`, `throttle_ramp` (keyboard pulse-train with duty ramp; gamepad RT for true ramp), `steer_sine` (pulse-train + gamepad axis sine), `slalom` (alternating steer pulses at speed), `hairpin` (approach, full lock, throttle modulate), `trail_brake` (brake held through steer-in, released under steer), `reverse_hold_then_forward` (extends the proven DrivingScenario leg) |
+| Acceptance per profile | response class matches input (sign + latency band + magnitude class), zero non-finite, zero unexpected ERROR lines (per-stage expected-error counts as in the persist driver), AND a determinism check: re-injecting the recorded event log reproduces the telemetry within tolerance |
+| Where it runs | `windows-build.yml` after the persist step on the PACKAGED player (proposed `tools/cloud_windows_userpath.py` driver, mirroring the persist driver's conventions); Linux repo runs optional for CI-fast feedback |
+
+## Fleet / night / P1 / axle legs (runs since 41849732286; verified via gh this session)
+
+| Leg | Run | Commit | Status (verified) | Note |
+|---|---|---|---|---|
+| P1-LEG-A (badges candidates removed) | 41847896437 | `adf89ca` (matches the queue's intended ref — verified) | FAILED | queue idx=0 (p1queue-log.txt); cause TBD from logs; the head predates the `a613a9a` `--resolution 1280x720` fix (the canvas=64x64 headless-default failure class) — plausible cause, UNVERIFIED; leg B not yet dispatched (state `next=1`) → NO A/B conclusion possible |
+| fleet_evidence (fleet leg) | 41848086075 | `b5ca3e0` | in progress | |
+| fleet wheel sweep batch 1 (cars 0,1,2,3) | 41849732286 | `6505f16` | in progress | the `6505f16` plan: 5 dispatches x 4 cars cover the 24-car fleet |
+| fleet wheel sweep batch 2 (cars 0,1,2,3) | 41854428291 | `6263c51` | pending | carries the axle-fit fix: `6263c51` — the source_axle_fit input now actually reaches the depth gate (the car-assembly catch: the fit leg ran INERT twice) |
+| night_evidence | 41849395054 | `e76a1e1` | in progress | after the `e76a1e1` shard-expression repair |
+| night evidence (paired night frames) | 41849100640 | `110fd7f` | failed | same-camera paired night frames (title truncated in gh); cause TBD |
+| axle-fit verification (cars 16) | 41843317303 | `a996a9d` | success | wheel_fit_review single-car |
+| evidence rewrap | 41847531679 | `684285d` | success | evidence infrastructure |
+| DV further attempts | 41840755243 (`95f69c6`, failure), 41848766195 (`b5ca3e0`, failure), 41854714029 (`0de3123`, in progress) | — | mixed | the DV_TRACE-era series |
+| product further attempts | 41841959304 (`c057ce0`, failure), 41845517756 (`ccca290`, failure), 41852901703 (`a613a9a`, in progress) | — | mixed | the resolution-fix era |
+
 ## P1 / RIDE-HEIGHT A/B dispatch-queue tracking (serial watcher — live record)
 
 The coordinator runs a serial dispatch queue (`outputs/mistral-orchestration/p1-queue-watcher.ps1`, committed at `5f2b9ee`; watcher PID live per the tasking). Queue definition (read from the script this session):
