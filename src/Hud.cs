@@ -94,6 +94,7 @@ partial class MiniMap : Control {
   return touchMode ? "TOUCH" : "KEYS";
  }
 }
+}
 
 
 
