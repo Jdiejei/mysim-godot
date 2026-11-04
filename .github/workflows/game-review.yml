@@ -229,7 +229,7 @@ jobs:
           RAIN_PREDICTION_REVIEW: ${{ inputs.depth == 'rain_prediction_review' && '1' || '0' }}
           RAIN_MOTION_REVIEW: ${{ (inputs.depth == 'rain_motion_review' || inputs.depth == 'rain_prediction_review') && '1' || '0' }}
           SOURCE_KINGPIN_REVIEW: ${{ inputs.depth == 'source_kingpin_review' && '1' || '0' }}
-          SOURCE_AXLE_REVIEW: ${{ inputs.depth == 'source_axle_review' && '1' || '0' }}
+          SOURCE_AXLE_REVIEW: ${{ (inputs.depth == 'source_axle_review' || inputs.source_axle_fit) && '1' || '0' }}
           WHEEL_FIT_REVIEW: ${{ (inputs.depth == 'wheel_fit_review' || inputs.depth == 'source_axle_review') && '1' || '0' }}
           F1_WHEEL_REVIEW: ${{ inputs.depth == 'f1_wheel_review' && '1' || '0' }}
           CAR_PAINT_CANDIDATE: ${{ inputs.depth == 'car_paint_candidate' && '1' || '0' }}
