@@ -31,7 +31,7 @@ namespace MySim { public static class SettingsPersistChecks {
  // tools/cloud_game_audit.py required_cases (coordinator-owned file); contract_sync_case_names enforces it on every repo run.
  static readonly string[] Scenarios={"legacy","foreign","corrupt","malformed","failures"};
  static readonly string[][] BaseCases={
-  new[]{"legacy_seed_save","legacy_readback","legacy_get_did_not_write_disk","legacy_set_stamps","legacy_marker_and_values_persisted","atomic_replace_saved","atomic_replace_final_bytes"},
+  new[]{"legacy_seed_save","legacy_readback","legacy_get_did_not_write_disk","legacy_long_roundtrip","legacy_set_stamps","legacy_marker_and_values_persisted","atomic_replace_saved","atomic_replace_final_bytes"},
   new[]{"foreign_seed_save","foreign_readback","foreign_set_succeeds","foreign_marker_kept"},
   new[]{"corrupt_defaults_typed","corrupt_no_crash","corrupt_no_value_resurrection","corrupt_file_intact","corrupt_load_error_evidence"},
   new[]{"malformed_seed_save","malformed_defaults_typed","malformed_disk_untouched_by_get","malformed_set_migrates_marker"},
@@ -70,6 +70,7 @@ namespace MySim { public static class SettingsPersistChecks {
    Check("legacy_seed_save",seed.Save(Live)==Error.Ok,"versionless typed file seeded");
    Check("legacy_readback",Settings.Get("last_track",-1)==7&&Settings.Get("mute",true)==false&&Settings.Get("series_resume","")=="places[]"&&Settings.Get("sensitivity",0.0)==1.25,"int/bool/string/double preserved from the versionless file");
    Check("legacy_get_did_not_write_disk",Read(live).IndexOf("schema_version",System.StringComparison.Ordinal)<0,"pure Get left the file without the marker");
+   Check("legacy_long_roundtrip",Settings.Set("key_probe_long",(long)75L)&&Settings.Get("key_probe_long",(long)-1)==75L,"long typed roundtrip (ControlBindings rebinding path; CI probe 41795630650 caught this regression)");
    Check("legacy_set_stamps",Settings.Set("probe",42),"first Set succeeded");
    var after=new ConfigFile();
    Check("legacy_marker_and_values_persisted",after.Load(Live)==Error.Ok&&Int(after,"schema_version",0)==Settings.SchemaVersion&&Int(after,"last_track",0)==7&&after.GetValue("game","series_resume","").AsString()=="places[]","marker stamped; prior values intact");
