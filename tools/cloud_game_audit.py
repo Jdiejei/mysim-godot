@@ -277,6 +277,8 @@ if os.environ.get('NIGHT_FIXTURE_AUDIT')=='1':
  data=json.loads(report.read_text());assert data['track']==track and data['sourceMeshes'] and data['candidateAttachments'] and 'SOURCE_NIGHT_FIXTURE_AUDIT' in text
  assert all(not row['validated'] for row in data['candidateAttachments']),'Source extraction is not placement validation'
  print('COMPLETE source fixture component audit; all attachments remain unvalidated',flush=True);sys.exit(0)
+if os.environ.get('CUTOUT_MIPREPAIR_REVIEW')=='1' and os.environ.get('NIGHT_CUTOUT_REVIEW')!='1':
+ print('WRONG-MODE TRIPWIRE: fence_miprepair_review requires the NIGHT_CUTOUT_REVIEW gate; refusing to fall through to the generic suite (wrong-mode class of 41785711764)',flush=True);sys.exit(2)
 if os.environ.get('NIGHT_CUTOUT_REVIEW')=='1':
  # Prior matched alpha/shadow modes failed to remove the observed grid.
  filtered=os.environ.get('FENCE_FILTER_REVIEW')=='1'
