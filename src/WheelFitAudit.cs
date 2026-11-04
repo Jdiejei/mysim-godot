@@ -187,11 +187,19 @@ public static class WheelFitAudit {
   var carTransform=car.GlobalTransform;var worldToCar=carTransform.AffineInverse();
   var staticContact=new Vector3[wheels.Length];
   for(int w=0;w<wheels.Length;w++)staticContact[w]=worldToCar*(wheels[w].GetNode<Node3D>("Spin").GlobalTransform*lowest[w]);
-  var worstClearance=new float[wheels.Length,SweepCategories.Length];var worstPart=new string[wheels.Length,SweepCategories.Length];var worstSteer=new float[wheels.Length,SweepCategories.Length];var worstOffset=new float[wheels.Length,SweepCategories.Length];
-  for(int w=0;w<wheels.Length;w++)for(int c=0;c<SweepCategories.Length;c++)worstClearance[w,c]=float.PositiveInfinity;
-  var cache=new System.Collections.Generic.Dictionary<(int,float,float),object>();
-  object EvaluateWheel(int w,float steerDegrees,float appliedOffset){
-   var key=(w,steerDegrees,appliedOffset);if(cache.TryGetValue(key,out var cached))return cached;
+  // Axle-line candidate pass: the second shift state re-runs the whole pose grid at the
+  // strut-derived axle translation (repair ladder rung 1) so one dispatch yields the raw and the
+  // fitted tables side by side.
+  bool axleCandidate=System.Environment.GetEnvironmentVariable("MYSIM_WHEEL_CLEARANCE_AXLE_CANDIDATE")=="1";
+  float? computedShift=axleCandidate?SourceAxleFitCandidate.ComputeShift(car,wheels):null;
+  if(axleCandidate&&!computedShift.HasValue)throw new InvalidOperationException("Axle candidate requested but the source geometry does not support it");
+  float[] axleShifts=axleCandidate?new[]{0f,computedShift.Value}:new[]{0f};
+  var basePositions=new Vector3[wheels.Length];
+  var worstClearance=new float[wheels.Length,2,SweepCategories.Length];var worstPart=new string[wheels.Length,2,SweepCategories.Length];var worstSteer=new float[wheels.Length,2,SweepCategories.Length];var worstOffset=new float[wheels.Length,2,SweepCategories.Length];
+  for(int w=0;w<wheels.Length;w++)for(int s=0;s<2;s++)for(int c=0;c<SweepCategories.Length;c++)worstClearance[w,s,c]=float.PositiveInfinity;
+  var cache=new System.Collections.Generic.Dictionary<(int,float,float,int),object>();
+  object EvaluateWheel(int w,float steerDegrees,float appliedOffset,int shiftIdx){
+   var key=(w,steerDegrees,appliedOffset,shiftIdx);if(cache.TryGetValue(key,out var cached))return cached;
    var spin=wheels[w].GetNode<Node3D>("Spin");var toSpin=spin.GlobalTransform.AffineInverse();
    var wheelCentre=worldToCar*spin.GlobalPosition;
    var contact=worldToCar*(spin.GlobalTransform*lowest[w]);
@@ -211,39 +219,43 @@ public static class WheelFitAudit {
    for(int c=0;c<SweepCategories.Length;c++){
     bool has=categoryWorst[c]>float.NegativeInfinity;
     categories[SweepCategories[c]]=new{clearance=has?(float?)-categoryWorst[c]:null,part=categoryPart[c]};
-    if(has&&-categoryWorst[c]<worstClearance[w,c]){worstClearance[w,c]=-categoryWorst[c];worstPart[w,c]=categoryPart[c];worstSteer[w,c]=steerDegrees;worstOffset[w,c]=appliedOffset;}
+    if(has&&-categoryWorst[c]<worstClearance[w,shiftIdx,c]){worstClearance[w,shiftIdx,c]=-categoryWorst[c];worstPart[w,shiftIdx,c]=categoryPart[c];worstSteer[w,shiftIdx,c]=steerDegrees;worstOffset[w,shiftIdx,c]=appliedOffset;}
    }
    var row=new{wheel=wheels[w].Name.ToString(),hub=new[]{wheels[w].Position.X,wheels[w].Position.Y,wheels[w].Position.Z},wheelCentre=new[]{wheelCentre.X,wheelCentre.Y,wheelCentre.Z},contactPoint=new[]{contact.X,contact.Y,contact.Z},contactShift=new[]{contact.X-staticContact[w].X,contact.Z-staticContact[w].Z},groundGap=contact.Y,springLength=staticDrop-appliedOffset,wheelOffset=appliedOffset,clearance=-worst,penetratingParts=offenders.Count,offenders,categories,samplesInspected};
    cache[key]=row;return row;
   }
   var rows=new List<object>();int poses=0;int clampedCount=0;
   try{
-   foreach(float steer in steers){
-    for(int i=0;i<wheels.Length;i++)wheels[i].Position=rest[i];
-    WheelAnimation.Update(wheels,0,Mathf.DegToRad(steer));
-    var staticRows=new List<object>();for(int w=0;w<wheels.Length;w++)staticRows.Add(EvaluateWheel(w,steer,0f));
-    rows.Add(new{steerDegrees=steer,mode="rest",springLength=staticDrop,wheels=staticRows});poses++;
-    foreach(float spring in springs){
-     if(Mathf.Abs(spring-staticDrop)<1e-6f)continue;
-     float offset=staticDrop-spring;
-     foreach(var mode in modes){
-      var applied=new float[wheels.Length];
-      if(mode=="front_both"){applied[0]=offset;applied[1]=offset;}
-      else if(mode=="rear_both"){applied[2]=offset;applied[3]=offset;}
-      else if(mode=="front_roll"){applied[0]=offset;applied[1]=-offset;}
-      else if(mode=="rear_roll"){applied[2]=offset;applied[3]=-offset;}
-      else if(mode=="diag"){applied[0]=offset;applied[3]=offset;applied[1]=-offset;applied[2]=-offset;}
-      else if(mode=="FL")applied[0]=offset;
-      else if(mode=="FR")applied[1]=offset;
-      else if(mode=="RL")applied[2]=offset;
-      else if(mode=="RR")applied[3]=offset;
-      // Physics envelope: the bump stop limits the rise to +staticDrop; the run-41837315358 tables
-      // recorded +0.22 offsets from negated mode branches - states the suspension cannot reach.
-      for(int i=0;i<wheels.Length;i++){var wanted=applied[i];applied[i]=Mathf.Clamp(wanted,-(maxDroop-staticDrop),staticDrop);if(wanted!=applied[i])clampedCount++;}
-      for(int i=0;i<wheels.Length;i++)wheels[i].Position=rest[i]+Vector3.Up*applied[i];
-      WheelAnimation.Update(wheels,0,Mathf.DegToRad(steer));
-      var wheelRows=new List<object>();for(int w=0;w<wheels.Length;w++)wheelRows.Add(EvaluateWheel(w,steer,applied[w]));
-      rows.Add(new{steerDegrees=steer,mode=mode,springLength=spring,wheels=wheelRows});poses++;
+   for(int s=0;s<axleShifts.Length;s++){
+    float axleShift=axleShifts[s];
+    for(int i=0;i<wheels.Length;i++)basePositions[i]=rest[i]+(axleShift==0f?Vector3.Zero:Vector3.Back*axleShift);
+    foreach(float steer in steers){
+     for(int i=0;i<wheels.Length;i++)wheels[i].Position=basePositions[i];
+     WheelAnimation.Update(wheels,0,Mathf.DegToRad(steer));
+     var staticRows=new List<object>();for(int w=0;w<wheels.Length;w++)staticRows.Add(EvaluateWheel(w,steer,0f,s));
+     rows.Add(new{steerDegrees=steer,mode="rest",springLength=staticDrop,axleShift,wheels=staticRows});poses++;
+     foreach(float spring in springs){
+      if(Mathf.Abs(spring-staticDrop)<1e-6f)continue;
+      float offset=staticDrop-spring;
+      foreach(var mode in modes){
+       var applied=new float[wheels.Length];
+       if(mode=="front_both"){applied[0]=offset;applied[1]=offset;}
+       else if(mode=="rear_both"){applied[2]=offset;applied[3]=offset;}
+       else if(mode=="front_roll"){applied[0]=offset;applied[1]=-offset;}
+       else if(mode=="rear_roll"){applied[2]=offset;applied[3]=-offset;}
+       else if(mode=="diag"){applied[0]=offset;applied[3]=offset;applied[1]=-offset;applied[2]=-offset;}
+       else if(mode=="FL")applied[0]=offset;
+       else if(mode=="FR")applied[1]=offset;
+       else if(mode=="RL")applied[2]=offset;
+       else if(mode=="RR")applied[3]=offset;
+       // Physics envelope: the bump stop limits the rise to +staticDrop; the run-41837315358 tables
+       // recorded +0.22 offsets from negated mode branches - states the suspension cannot reach.
+       for(int i=0;i<wheels.Length;i++){var wanted=applied[i];applied[i]=Mathf.Clamp(wanted,-(maxDroop-staticDrop),staticDrop);if(wanted!=applied[i])clampedCount++;}
+       for(int i=0;i<wheels.Length;i++)wheels[i].Position=basePositions[i]+Vector3.Up*applied[i];
+       WheelAnimation.Update(wheels,0,Mathf.DegToRad(steer));
+       var wheelRows=new List<object>();for(int w=0;w<wheels.Length;w++)wheelRows.Add(EvaluateWheel(w,steer,applied[w],s));
+       rows.Add(new{steerDegrees=steer,mode=mode,springLength=spring,axleShift,wheels=wheelRows});poses++;
+      }
      }
     }
    }
@@ -254,21 +266,24 @@ public static class WheelFitAudit {
    foreach(var snapshot in snapshots)if(!snapshot.Key.Transform.IsEqualApprox(snapshot.Value))snapshot.Key.Transform=snapshot.Value;
    foreach(var snapshot in snapshots)if(!snapshot.Key.Transform.IsEqualApprox(snapshot.Value))throw new InvalidOperationException("Clearance sweep failed to restore pose: "+snapshot.Key.Name);
   }
-  var perWheel=new List<object>();float globalWorst=float.PositiveInfinity;string globalPart=null,globalWheel=null,globalCategory=null;float globalSteer=float.NaN,globalOffset=float.NaN;
-  for(int w=0;w<wheels.Length;w++){
-   var categories=new Dictionary<string,object>();
-   for(int c=0;c<SweepCategories.Length;c++){
-    bool has=worstPart[w,c]!=null;
-    categories[SweepCategories[c]]=new{worstClearance=has?(float?)worstClearance[w,c]:null,part=worstPart[w,c],atSteerDegrees=has?(float?)worstSteer[w,c]:null,atWheelOffset=has?(float?)worstOffset[w,c]:null,atSpringLength=has?(float?)(staticDrop-worstOffset[w,c]):null};
-    if(has){
-     GD.Print("WHEEL_CLEARANCE_WORST car=",index," wheel=",wheels[w].Name," vs=",SweepCategories[c]," clearance=",worstClearance[w,c]," part=",worstPart[w,c]," atSteer=",worstSteer[w,c]," atWheelOffset=",worstOffset[w,c]);
-     if(worstClearance[w,c]<globalWorst){globalWorst=worstClearance[w,c];globalPart=worstPart[w,c];globalWheel=wheels[w].Name.ToString();globalCategory=SweepCategories[c];globalSteer=worstSteer[w,c];globalOffset=worstOffset[w,c];}
+  var perWheel=new List<object>();
+  for(int s=0;s<axleShifts.Length;s++){
+   float globalWorst=float.PositiveInfinity;string globalPart=null,globalWheel=null,globalCategory=null;float globalSteer=float.NaN,globalOffset=float.NaN;
+   for(int w=0;w<wheels.Length;w++){
+    var categories=new Dictionary<string,object>();
+    for(int c=0;c<SweepCategories.Length;c++){
+     bool has=worstPart[w,s,c]!=null;
+     categories[SweepCategories[c]]=new{worstClearance=has?(float?)worstClearance[w,s,c]:null,part=worstPart[w,s,c],atSteerDegrees=has?(float?)worstSteer[w,s,c]:null,atWheelOffset=has?(float?)worstOffset[w,s,c]:null,atSpringLength=has?(float?)(staticDrop-worstOffset[w,s,c]):null};
+     if(has){
+      GD.Print("WHEEL_CLEARANCE_WORST car=",index," axleShift=",axleShifts[s]," wheel=",wheels[w].Name," vs=",SweepCategories[c]," clearance=",worstClearance[w,s,c]," part=",worstPart[w,s,c]," atSteer=",worstSteer[w,s,c]," atWheelOffset=",worstOffset[w,s,c]);
+      if(worstClearance[w,s,c]<globalWorst){globalWorst=worstClearance[w,s,c];globalPart=worstPart[w,s,c];globalWheel=wheels[w].Name.ToString();globalCategory=SweepCategories[c];globalSteer=worstSteer[w,s,c];globalOffset=worstOffset[w,s,c];}
+     }
     }
+    perWheel.Add(new{wheel=wheels[w].Name.ToString(),axleShift=axleShifts[s],categories});
    }
-   perWheel.Add(new{wheel=wheels[w].Name.ToString(),categories});
+   GD.Print("WHEEL_CLEARANCE_SWEEP_SUMMARY car=",index," axleShift=",axleShifts[s]," poses=",poses," clampedStates=",clampedCount," worstClearance=",(globalPart!=null?(float?)globalWorst:null)," worstWheel=",globalWheel??"none"," worstVs=",globalCategory??"none"," worstPart=",globalPart??"none"," atSteer=",globalSteer," atWheelOffset=",globalOffset," pose restored; evidence only, not a clearance certificate");
   }
-  GD.Print("WHEEL_CLEARANCE_SWEEP_SUMMARY car=",index," poses=",poses," clampedStates=",clampedCount," worstClearance=",(globalPart!=null?(float?)globalWorst:null)," worstWheel=",globalWheel??"none"," worstVs=",globalCategory??"none"," worstPart=",globalPart??"none"," atSteer=",globalSteer," atWheelOffset=",globalOffset," pose restored; evidence only, not a clearance certificate");
-  return new{car=index,steers,springs,modes,poses,clampedStates=clampedCount,bodyParts=parts.Count,perWheel,rows,scope="Full-lock and full-travel clearance sweep: poses parameterized by the actual suspension state (spring length 0..RestLength+0.15 of NativeSuspensionVehicle) applied through the real steering path; negated mode branches clamp at the bump stop (physics envelope), clampedStates counts them; per wheel labelled worst clearance vs wing/bodywork/floor/brakes/suspension/wheelguard/other; positive penetrations are findings, not acceptance"};
+  return new{car=index,steers,springs,modes,axleShifts,poses,clampedStates=clampedCount,bodyParts=parts.Count,perWheel,rows,scope="Full-lock and full-travel clearance sweep with an optional axle-candidate state: poses parameterized by the actual suspension state (spring length 0..RestLength+0.15 of NativeSuspensionVehicle) applied through the real steering path; axleShift 0 = raw pivot line, nonzero = strut-derived shared translation (repair ladder rung 1); negated mode branches clamp at the bump stop (physics envelope); per wheel per shift labelled worst clearance vs wing/bodywork/floor/brakes/suspension/wheelguard/other; positive penetrations are findings, not acceptance"};
  }
 }
 }
