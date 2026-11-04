@@ -141,7 +141,7 @@ namespace MySim { public static class SettingsPersistChecks {
   int si=Array.IndexOf(Scenarios,scenario);
   (bool ok,string detail) sync=si>=0?ContractSync(si):(false,"contract sync undefined for scenario '"+scenario+"'");
   if(si>=0)Check("contract_sync_case_names",sync.ok,sync.detail);
-  return JsonSerializer.Serialize(new{scenario,passed=Passed.Count,failed=Failures.Count,failures=Failures.ToArray(),cases=Passed.ToArray(),contractSync=new{ @checked=si>=0,detail=sync.detail }},new JsonSerializerOptions{WriteIndented=true});
+  return JsonSerializer.Serialize(new{scenario,platform=OperatingSystem.IsWindows()?"windows":OperatingSystem.IsLinux()?"linux":"other",passed=Passed.Count,failed=Failures.Count,failures=Failures.ToArray(),cases=Passed.ToArray(),contractSync=new{ @checked=si>=0,detail=sync.detail }},new JsonSerializerOptions{WriteIndented=true});
  }
  static string beforeLiveVal=>lastGoodLive;
  static string lastGoodLive="";

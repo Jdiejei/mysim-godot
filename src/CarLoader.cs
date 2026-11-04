@@ -47,7 +47,10 @@ static Godot.Collections.Dictionary carMap;
   surfaceUvRepairs??=Json.ParseString(FileAccess.GetFileAsString("res://data/car_surface_uv_repairs.json")).AsGodotDictionary();string key=car+"/"+renderer;if(!surfaceUvRepairs.ContainsKey(key))return material;
   var spec=surfaceUvRepairs[key].AsGodotDictionary();var shader=material as ShaderMaterial;var texture=shader?.GetShaderParameter("base").As<Texture2D>();
   // Review-pending candidates stay inert in production; the dedicated comparison run opts in per environment.
-  if(spec.ContainsKey("pending")&&spec["pending"].AsBool()&&System.Environment.GetEnvironmentVariable("MYSIM_SURFACE_UV_CANDIDATES")!="1")return material;
+  // Two spellings accepted: this gate's canonical MYSIM_SURFACE_UV_CANDIDATES and the integration
+  // harness spelling MYSIM_SOURCE_UV_CANDIDATES (run 41798036351 wired the latter while this gate
+  // read the former, so that run's candidate leg stayed inert; both names now enable the candidates).
+  if(spec.ContainsKey("pending")&&spec["pending"].AsBool()&&System.Environment.GetEnvironmentVariable("MYSIM_SURFACE_UV_CANDIDATES")!="1"&&System.Environment.GetEnvironmentVariable("MYSIM_SOURCE_UV_CANDIDATES")!="1")return material;
   if(shader==null||guid!=spec["source_guid"].AsString()||texture?.ResourcePath!=spec["texture"].AsString())throw new System.InvalidOperationException("Reviewed surface UV repair source mismatch: "+key);
   var repaired=(ShaderMaterial)shader.Duplicate();var scale=spec["scale"].AsGodotArray();var offset=spec["offset"].AsGodotArray();repaired.SetShaderParameter("uv_scale",new Vector2(scale[0].AsSingle(),scale[1].AsSingle()));repaired.SetShaderParameter("uv_offset",new Vector2(offset[0].AsSingle(),offset[1].AsSingle()));GD.Print(spec.ContainsKey("pending")&&spec["pending"].AsBool()?"SURFACE_UV_REPAIR_CANDIDATE ":"SURFACE_UV_REPAIR ",key);return repaired;
  }
