@@ -9,7 +9,7 @@ Status vocabulary (nothing here implies visual acceptance or whole-game acceptan
 - **failed** — the run failed; preserved for history; proves nothing in either direction
 - **superseded** — a newer run/claim replaces this one
 
-Updated: 2026-11-04, session 4 (Windows verification recorded from the actual artifact). Run statuses via `gh run view --json`; run 41828819144's `windows-build-diagnostics-41828819144-attempt-1` artifact was downloaded (authorized this turn) and its JSONs read; the extracted numbers below are from those files. Artifact paths marked `✓disk` were verified on the local disk; `(CI artifact)` = exists as a run artifact, not downloaded. Content figures quoted from the packet/JOB_REGISTRY and not independently re-read are marked `(content per packet)`.
+Updated: 2026-11-04, session 5. Run statuses via `gh run view --json` (plus `--log-failed`/artifacts for 41830995246, explicitly tasked). Artifact paths marked `✓disk` verified on the local disk; `(CI artifact)` = exists as a run artifact, not downloaded. Content figures not independently re-read are marked `(content per ...)` with the source.
 
 ## Settings persistence
 
@@ -30,9 +30,10 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 | Claim | Run | Commit | Artifact path | Status |
 |---|---|---|---|---|
 | Driving-validation full profile (scripted scenario, assertion/coverage gates) | 41828824418 | `e82a362` | CI artifact | failed — grid-hold: the session never started (validation input cannot release the start sequence); fix `39cdf33` boots the session like the proven lap runs (AI/autodrive activation flags) |
-| Same, at the boot-fix head | 41834771421 | `39cdf33` | CI artifact | in progress at this refresh — no result claimed |
-| Same, previous attempt (pre-manifest-fix) | 41826593001 | `9c422a4` | CI artifact | in progress at this refresh (started before the 39cdf33 boot fix; its head predates the fix) |
-| Product controls review (control rebinding/settings in the real product flow) | 41830853569 | `d9940a2` | CI artifact | failed — runtime failure; cause under diagnosis (per coordinator). Related: `d9940a2` itself fixed a CS0103 (`flush=true` in a GD.Print gate) caught by 41830517930. Not independently diagnosed by this agent |
+| Same, boot-fix head — boot FIXED, travel NOT | 41834771421 | `39cdf33` | CI artifact | failed — booted fine (race ready, hulls present) yet failed to travel 10 m; SHARES the no-travel symptom with 41828824418 (per `95f69c6`); `DV_TRACE` telemetry (started/gridHold/speed/pedals/stage @1s + gridHoldTraceSeen) added at `95f69c6` to expose the frozen stage; the next DV run must carry it |
+| Same, pre-manifest-fix attempt | 41826593001 | `9c422a4` | CI artifact | cancelled (completed) — not in flight |
+| Product controls review (control rebinding/settings in the real product flow) | 41830853569 | `d9940a2` | CI artifact | failed — diagnosed by hud-camera (per `5305458`/`99964a4`): failing BEST-lap assertion precision; fix `5305458` merged |
+| Product controls re-run at the fixed head | 41835648940 | `f2eba7e6a6639ea4ffea239123185fa85db55132` (merge of `99964a4`) | CI artifact | failed — remaining bug: standings header-row (header vs data rows; per coordinator, hud-camera fixing; root cause + by-name fix landed at `6ffdf63` AFTER this run) |
 
 ## Continuous lap
 
@@ -55,7 +56,8 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 | Claim | Run | Commit | Artifact path | Status |
 |---|---|---|---|---|
 | All 4 wheels + steered-FL real closeups, engine gates pass (`corners=32`, not whole-car) | 41798036351 | `e8b80bb` | `outputs/repair-20261029/car-ev-41798036351/` ✓disk | machine-verified; human-pending (wheel/wing clearance unproven from occluding perspectives per VISUAL_REVIEW 2026-11-04T09:10Z) |
-| Clearance sweep v2 (suspension-state poses, full lock, labelled worsts) — first dispatch, previously opt-in and never run | 41832997990 | `71dbbe1` | CI artifact | in progress at this refresh — no result claimed |
+| Clearance sweep v2 (suspension-state poses, full lock, labelled worsts) — first dispatch, previously opt-in and never run | 41832997990 | `71dbbe1` | CI artifact | failed — died mid-sweep at the 420 s default timeout, AFTER emitting real worsts including **-45 mm bodywork penetrations at full lock** (content per commit `e17fdf5`); the timeout fix (`e17fdf5`: sweep-case timeout 1500 s + per-wheel sweep evidence asserted) followed |
+| **Clearance sweep v2, completed** | **41837315358** | `e17fdf5` (`e17fdf57ad5e4454cf88c35cd7039a6ea0fb53c8`) | per-car `41837315358` wfr dirs (CI artifact); evidence: `sweep.perWheel` worsts + `WHEEL_CLEARANCE_WORST` lines | **machine-verified** (run SUCCESS; per-wheel sweep evidence asserted by the audit per `e17fdf5`) — human-pending: the negative-penetration worsts (e.g. the -45 mm class) need human review before any clearance acceptance |
 | car_evidence sweep v2 | 41831318759 | `4d0622f` | CI artifact | failed — NOT in flight (the tasking listed it as in-flight; `gh run view` shows completed failure at `4d0622f`); cause not in available metadata |
 | Earlier `wheel-fl` capture was a whole-car three-quarter image, not a closeup | 41788844369 | `e41e29b` | `outputs/repair-20261029/cloud/reference-evidence-41788844369/` ✓disk | rejected (VISUAL_REVIEW 2026-11-04 item 4) |
 
@@ -72,7 +74,7 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 |---|---|---|---|---|
 | true-Alpha blend candidate reduces fence speckle | 41632524155 | `5492d90` | `outputs/repair-20261029/cloud/fence-true-blend-result/` ✓disk | rejected (no speckle reduction; evidence kept) |
 | A2C candidate (alpha-to-coverage + alpha-to-one over 4x MSAA) reduces fence speckle | 41647350933 | `6d2069a` | `outputs/repair-20261029/cloud/fence-a2c-result/` ✓disk | rejected (edge density unchanged in 8/9 cells; VISUAL_REVIEW rejection stands) |
-| mip-repair candidate (`fence_miprepair_review`) | first run 41795630650 (`5288329`): failed on the controls probe — fence evidence never produced; retry 41818948189 (`9ff443c`): FAILED mixed (shards 0/3/4 failed in the audit step; 1/2/5 succeeded; invariant schema fix `3061afa`/`49ece2c` postdates the run — per-shard causes unverified, logs outside scope); current run 41830995246 (`d9940a2`, invariant reads the flat schema): in progress at this refresh | `d9940a2` | CI artifacts | failed history + one in flight — NO fence conclusion yet; the in-flight run at the fixed schema is the first decidable one |
+| mip-repair candidate (`fence_miprepair_review`) | 41795630650 (`5288329`): failed on the controls probe — fence evidence never produced; 41818948189 (`9ff443c`): FAILED mixed (shards 0/3/4 audit-step failures; 1/2/5 ok; schema fix postdated the run); **41830995246 (`d9940a2`, invariant reads the flat schema): FAILED — verified this session: shards 0 and 4 failed, 1/2/3/5 succeeded; shard 4's exception is `RuntimeError: track-28 failed; see saved logs` raised in the audit's GENERIC track block (cloud_game_audit.py:710), NOT in the miprepair invariant code — cause of the track-0/28 engine failures TBD (saved logs); the evidence DID ship via `if: always()`: artifacts `game-runtime-0..5-attempt-1` + `encrypted-review-{0,1,2,4,5,...}-attempt-1` listed** | `d9940a2` | CI artifacts (listed via the API this session) | failed — the fence-miprepair INVARIANTS have still never failed; the failures are in the generic per-track runs; the shipped encrypted-review artifacts for the successful shards are the candidate's evidence and await extraction/viewing |
 | Baseline fence/grandstand speckle + black foliage masses | visual reviews 2026-11-03 and 2026-11-04 | — | see `VISUAL_REVIEW.md` | rejected (standing defect; no fix accepted) |
 
 ## UV candidates / liveries
@@ -82,6 +84,29 @@ Updated: 2026-11-04, session 4 (Windows verification recorded from the actual ar
 | car16 misc twin-hide A/B (implemented on the car-assembly branch, merged; runtime-3 in the evidence run is the twin-hide-off variant) | 41798036351 | `e8b80bb` (impl `09a3d16`/`ca7ce66`) | `outputs/repair-20261029/car-ev-41798036351/` ✓disk | machine-run only; human-pending — VISUAL_REVIEW 2026-11-04T09:10Z: do not promote on cleaner silhouette alone |
 | car16 V-only UV-candidate A/B (the ten pending entries) | NONE — the leg was INERT in every run so far: `cloud_game_audit.py` wired `SOURCE_UV_CANDIDATES` but the `CarLoader` gate read `MYSIM_SURFACE_UV_CANDIDATES` (env mismatch; verified by car-assembly-turn2 against the e8b80bb blobs; fix `e41d4f4` accepts both spellings, merged) | fix `e41d4f4` + detector `80ceb22` (both merged) | — | **never run** — the "pending UV candidate NOT accepted" verdict is NOT evidence against the candidate; a run at a head with `e41d4f4`+`80ceb22` must show `SURFACE_UV_REPAIR_CANDIDATE` lines (leg live) + `MIRRORED_TEXT_RISK_SUMMARY` before any UV-candidate verdict |
 | Mirrored logos/numbers root cause (UV orientation/handedness per surface) | none yet — detector `80ceb22` emits the per-surface taxonomy (`ok/mirrored_text_risk/rotated_text_risk/flipped_text_risk/mixed_risk/...`) for the next run | — | — | open — awaiting the candidate-enabled run + human review before any livery change |
+
+## P1 / RIDE-HEIGHT A/B dispatch-queue tracking (serial watcher — live record)
+
+The coordinator runs a serial dispatch queue (`outputs/mistral-orchestration/p1-queue-watcher.ps1`, committed at `5f2b9ee`; watcher PID live per the tasking). Queue definition (read from the script this session):
+
+| # | Tag | Ref | Depth | Inputs | Intended variable |
+|---|---|---|---|---|---|
+| 0 | P1-LEG-A badges-candidates-removed | `mistral/p1-badge-baseline` (=adf89ca `adf89cad3c9c43836054088299693645c2f22b08`) | car_evidence | cars=16 | badges candidate entries REMOVED |
+| 1 | P1-LEG-B badges-candidates-active | `39cdf33` | car_evidence | cars=16 | (same lineage, candidates active) |
+| 2 | RIDE-A baseline | `codex/repair-20261029` | native_geometry_recovery | cars=16, jolt, 240Hz, rotational=true | clean-lap config, NO ride-height |
+| 3 | RIDE-B ride-height candidate | `codex/repair-20261029` | native_geometry_recovery | cars=16, jolt, 240Hz, rotational=true, native_ride_height=true | +native_ride_height ONLY |
+
+**Confound checks (my standing duty as each dispatch lands):**
+
+- **Leg A vs Leg B — VERIFIED CLEAN (pre-flight, from the committed trees):** `git diff adf89ca 39cdf33` touches exactly ONE file (`data/car_surface_uv_repairs.json`; 300+/315- is re-serialization noise). Semantic comparison of the two JSONs: legA=22 entries, legB=25; the ONLY additions in B are the three badges entries (`16/LOD_A_BODY_mm_badges`, `16/LOD_A_FRONTBUMPER_mm_badges`, `16/LOD_A_REARBUMPER_mm_badges`, all `pending:true`); ZERO entries only-in-A; ZERO payload differences (scale/offset/texture/guid/pending) on the 22 shared entries; badges-mention counts 0 vs 9. **The pair differs ONLY in the intended variable. No drift.**
+- **RIDE-A vs RIDE-B — pre-verified at queue level:** identical refs and inputs except `native_ride_height=true` on B only (from the watcher script). Confound risk to check when the runs land: BOTH legs run at `codex/repair-20261029` — a MOVING ref; if a commit lands between the two dispatches, the pair differs by CODE, not just the flag. Mitigation: compare the two runs' headSha at recording time; flag any difference.
+- **Watcher caveat (recorded):** the watcher records the dispatched run id via `gh run list --limit 1` 15 s after dispatch — under concurrent load this can bind the WRONG run id. Every recorded id gets verified against its expected ref/depth (headSha + workflow + display title) before being entered here as evidence.
+
+**Dispatch log (updated as each dispatches; from p1queue-log.txt / p1queue-state.json + gh verification):**
+
+| # | Tag | Recorded run id | Verified HEAD | Verified status | Confound check |
+|---|---|---|---|---|---|
+| 0-3 | — | — | — | — | no dispatches had occurred at this recording (p1queue-log.txt / p1queue-state.json absent; checked 2026-11-04 session 5) |
 
 ## TEXTURE-INVENTORY QC (addendum, turn 3)
 
