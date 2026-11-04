@@ -28,11 +28,15 @@ for scenario in scenarios:
  got=(data or {}).get('cases') or []
  missing=[c for c in required[scenario] if not any(case.startswith(c) for case in got)]
  missing+= [c for c in WIN_ONLY if not any(case.startswith(c) for case in got)] if scenario=='failures' else []
- unexpected=[l for l in text.splitlines() if 'ERROR:' in l and 'SETTINGS_SAVE' not in l] # the failure scenarios legitimately PushError SETTINGS_SAVE lines through the tested fault seams; anything else is an unexpected engine error
- ok=data is not None and data.get('failed')==0 and data.get('passed',0)>0 and not missing and p.returncode==0 and not unexpected
+ expected_stages={'failures':{'tmp':1,'rename':2}} # the failures scenario legitimately PushErrors through the tested fault seams exactly once per stage: 1 tmp-stage (dir-occupied tmp), 2 rename-stage (the env seam + the Windows FileShare.None delete-failure); every other scenario expects ZERO failed saves
+ exp=expected_stages.get(scenario,{'tmp':0,'rename':0})
+ tmp_err=sum(1 for l in text.splitlines() if 'SETTINGS_SAVE tmp=' in l)
+ ren_err=sum(1 for l in text.splitlines() if 'SETTINGS_SAVE rename=' in l)
+ other_err=[l for l in text.splitlines() if 'ERROR:' in l and 'SETTINGS_SAVE' not in l]
+ ok=data is not None and data.get('failed')==0 and data.get('passed',0)>0 and not missing and p.returncode==0 and tmp_err==exp['tmp'] and ren_err==exp['rename'] and not other_err
  platform=(data or {}).get('platform')
  if platform is not None and platform!='windows':ok=False
- reports.append({'scenario':scenario,'exit':p.returncode,'passed':(data or {}).get('passed'),'failed':(data or {}).get('failed'),'missingCases':missing,'unexpectedErrors':unexpected[:5],'failures':(data or {}).get('failures',[]),'ok':ok})
+ reports.append({'scenario':scenario,'exit':p.returncode,'passed':(data or {}).get('passed'),'failed':(data or {}).get('failed'),'missingCases':missing,'saveErrors':{'tmp':tmp_err,'rename':ren_err,'expectedTmp':exp['tmp'],'expectedRename':exp['rename']},'unexpectedErrors':other_err[:5],'failures':(data or {}).get('failures',[]),'ok':ok})
  print(json.dumps(reports[-1]),flush=True)
 (out/'windows-settings-persist-summary.json').write_text(json.dumps(reports,indent=2))
 bad=[r for r in reports if not r['ok']]
