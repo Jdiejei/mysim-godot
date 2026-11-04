@@ -9,7 +9,7 @@ Status vocabulary (nothing here implies visual acceptance or whole-game acceptan
 - **failed** — the run failed; preserved for history; proves nothing in either direction
 - **superseded** — a newer run/claim replaces this one
 
-Updated: 2026-11-04, session 5. Run statuses via `gh run view --json` (plus `--log-failed`/artifacts for 41830995246, explicitly tasked). Artifact paths marked `✓disk` verified on the local disk; `(CI artifact)` = exists as a run artifact, not downloaded. Content figures not independently re-read are marked `(content per ...)` with the source.
+Updated: 2026-11-05 (Q4(a) merge window). Run statuses via `gh run view --json` (+ `--log-failed` where verdict-critical); the merge PR via `gh pr view/diff`. Artifact paths marked `✓disk` verified on the local disk; `(CI artifact)` = exists as a run artifact, not downloaded. Content figures not independently re-read are marked `(content per ...)` with the source. **Standing verdict: PHYSICS IS UNACCEPTED — nothing in this index accepts physical handling, contact behaviour or force response until hull/touch contact evidence AND force-driven telemetry evidence (the DV profiles) land green and are human-reviewed.**
 
 ## Settings persistence
 
@@ -149,6 +149,15 @@ The coordinator runs a serial dispatch queue (`outputs/mistral-orchestration/p1-
 | # | Tag | Recorded run id | Verified HEAD | Verified status | Confound check |
 |---|---|---|---|---|---|
 | 0-3 | — | — | — | — | no dispatches had occurred at this recording (p1queue-log.txt / p1queue-state.json absent; checked 2026-11-04 session 5) |
+
+| Windows build+smoke+persist at the userpath-hook head | 41868705898 | `a313492` (`a313492e7458e5733c6933d550b7eee803b4b6f1`; NOT in flight as tasked — completed) | `windows-build-diagnostics-41868705898-*` (CI artifact) | **failed — FULLY DIAGNOSED (log-failed read this session): all 12 `failures` assertions PASSED (passed=12, failed=0, exit 0, no missingCases) and legacy/foreign/corrupt/malformed were 9/5/6/5-0 too; the step failed ONLY on the driver's saveErrors count check: observed tmp=2/rename=4 vs expected 1/2 — EXACTLY DOUBLE, because the driver counts `SETTINGS_SAVE` lines across stdout + the engine log and GD.PushError writes BOTH. The production code (incl. my UserPathScenario.cs — its first cloud compile) is CLEAN; the check is broken. Fix (owner of tools/cloud_windows_persist.py): count from ONE source (the engine log) only — proposed verbatim in agents/verification-turn10.md |
+
+## Merge window (Q4(a) — executed by the verification agent, 2026-11-05)
+
+- **PR #1 opened:** `codex/repair-20261029` → `main` — https://github.com/instagramshashank8-bot/mysim-godot/pull/1 — verified: state OPEN, **mergeable MERGEABLE / mergeState CLEAN**, **headOid = `a313492e7458e5733c6933d550b7eee803b4b6f1`** — the EXACT commit both in-flight runs exercised (so the merged result launches the same code the runs are testing). 243 changed files vs `main` (the rebuild mainline; the working trees' untracked scratch is NOT included — committed content only, per the no-`git add .` discipline).
+- **Premise correction:** `main` DOES contain a windows-build.yml (the Q4 "404" was version/content-level: main's copy predates the persist+userpath steps — verified via the contents API; main's tip is `a6416fb`, the October handoff — the PR effectively delivers the whole rebuild mainline, not just a workflow fix).
+- **In-flight runs kept as-is (untouched, never cancelled):** 41871263005 (DV @ a313492) — in_progress (verified); 41868705898 (windows build @ a313492) — already **completed FAILURE** at the time of this turn (the saveErrors double-count above); kept as the failure record, no re-run requested (the fix + re-run belongs to the persist-driver owner).
+- **Merge verdict (honest):** SAFE to merge for the workflow-resolution purpose (the 404 clears; the gates become repo-wide; the persisted verification history is untouched); BUT every windows-build dispatch until the saveErrors counting fix lands will fail the persist step AFTER all assertions pass — the fix is one line on the owner's file and should land either before merge (better) or immediately after with a follow-up run.
 
 ## TEXTURE-INVENTORY QC (addendum, turn 3)
 
