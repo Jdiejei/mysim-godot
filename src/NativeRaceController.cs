@@ -58,7 +58,11 @@ public partial class NativeRaceController : DriveController {
   if(AutoDrive&&!AiTest&&elapsed>=AutoSeconds){bool ok=Player.speed<1&&body.Contacts==4&&body.TyreLoadRatio>.9f&&body.TyreLoadRatio<1.1f&&(body.GlobalPosition-spawn).Length()>10&&maximumYaw<.15f&&ruleResets==0&&Hud.Player==Player&&Hud.Race==Race&&(gameplayChecks==null||gameplayChecks.Completed);string report=System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_GAMEPLAY_REPORT");if(report!=null)System.IO.File.WriteAllText(report,System.Text.Json.JsonSerializer.Serialize(new {ok,rotationalTyres=body.RotationalTyres,car=CarIndex,track=TrackIndex,maximumYaw,ruleResets,speed=Player.speed,displacement=(body.GlobalPosition-spawn).Length(),checksCompleted=gameplayChecks?.Completed,telemetry,scope="Opt-in native single-car gameplay integration, no full-race/rival/art/real-world calibration acceptance"},new System.Text.Json.JsonSerializerOptions {WriteIndented=true}));GD.Print(ok?"PASS native integrated race HUD, chassis acceleration and braking":"FAIL native integrated gameplay");ending=true;FinishProbeCapture(ok);}
  }catch(Exception e){GD.PushError(e.ToString());ending=true;CleanExit.Request(this,1);}}
  MySimulator.Rebuild.DrivingValidation.Runner CreateValidationRunner(){
-  string manifestPath=System.Environment.GetEnvironmentVariable("GEOMETRY_CASE_MANIFEST")??"data/native_driving_validation_core.json";
+  // The DV pipeline selects the manifest via DRIVING_VALIDATION_MANIFEST (tools/cloud_game_audit.py);
+  // GEOMETRY_CASE_MANIFEST stays as the generic named-case fallback, then the core default.
+  string manifestPath=System.Environment.GetEnvironmentVariable("DRIVING_VALIDATION_MANIFEST");
+  if(string.IsNullOrEmpty(manifestPath))manifestPath=System.Environment.GetEnvironmentVariable("GEOMETRY_CASE_MANIFEST");
+  if(string.IsNullOrEmpty(manifestPath))manifestPath="data/native_driving_validation_core.json";
   var ids=MySimulator.Rebuild.DrivingValidation.ParseCaseProfiles(ReadProjectText(manifestPath),CarIndex,TrackIndex);
   var profiles=MySimulator.Rebuild.DrivingValidation.ParseProfiles(ReadProjectText(MySimulator.Rebuild.DrivingValidation.ProfilesResourceDefault));
   var map=new System.Collections.Generic.Dictionary<string,MySimulator.Rebuild.DrivingValidation.Profile>();
