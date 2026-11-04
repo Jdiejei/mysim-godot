@@ -134,6 +134,87 @@ namespace MySimulator.Verification
                 server.inputSilence=1;server.Tick(.01f);Check(server.race.cars[1].input.throttle==0&&server.race.cars[1].input.brake==1,"Stale remote throttle persisted");
                 client.Dispose();server.Tick(.1f);Check(!server.connected,"Disconnect not processed");log.Add("PASS real UDP loopback handshake, remote input, pit request, snapshots, token/replay rejection and disconnect");
             }
+            // Controlled continuous-driving validation scaffolding: the data files must parse,
+            // every referenced profile/metric must exist, cross-references must resolve, and the
+            // metric maths must be honest against synthetic telemetry. These checks run headless
+            // on every push; the actual driving runs happen on CI against the native engine
+            // (data/native_driving_validation_*.json, dispatched by the coordinator).
+            var validationProfiles=DrivingValidation.ParseProfiles(System.IO.File.ReadAllText("data/native_driving_validation_profiles.json"));
+            var validationProfileIds=new HashSet<string>();foreach(var vp in validationProfiles)validationProfileIds.Add(vp.Id);
+            Check(validationProfileIds.IsSupersetOf(new[]{"input_direction","acceleration_0_60","braking_60_0","braking_60_wet","steering_rate_step","straight_stability","edge_excursion","impact_wall_recovery"}),"Driving validation profiles are missing core scenarios");
+            foreach(var manifestPath in new[]{"data/native_driving_validation_core.json","data/native_driving_validation_wet.json","data/native_driving_validation_impact.json"}){
+                var manifest=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText(manifestPath)).RootElement;
+                var seenCases=new HashSet<string>();
+                foreach(var c in manifest.GetProperty("cases").EnumerateArray()){
+                    int caseCar=c.GetProperty("car").GetInt32(),caseTrack=c.GetProperty("track").GetInt32();
+                    Check(seenCases.Add(caseCar+"/"+caseTrack),"Validation manifest "+manifestPath+" repeats a car/track case; one case per car and track per manifest");
+                    if(c.TryGetProperty("weather",out var weather))Check(weather.GetInt32()>=0&&weather.GetInt32()<=3,"Validation manifest "+manifestPath+" has an out-of-range weather profile");
+                    if(c.TryGetProperty("compound",out var compound))Check(compound.GetInt32()>=0&&compound.GetInt32()<=3,"Validation manifest "+manifestPath+" has an out-of-range compound");
+                    foreach(var id in c.GetProperty("drivingValidation").EnumerateArray())Check(validationProfileIds.Contains(id.GetString()),"Validation manifest "+manifestPath+" references unknown profile "+id.GetString());
+                    string lastProfile=null;bool sawImpact=false;
+                    foreach(var id0 in c.GetProperty("drivingValidation").EnumerateArray()){var profileName=id0.GetString();if(profileName=="impact_wall_recovery")sawImpact=true;lastProfile=profileName;}
+                    Check(lastProfile=="impact_wall_recovery"||!sawImpact,"Impact profile must run last so earlier profiles keep undamaged state");
+                }
+            }
+            var wetMatrix=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_wet_comparison_matrix.json")).RootElement;
+            var matrixCells=new HashSet<string>();int matrixCellCount=0;
+            foreach(var c in wetMatrix.GetProperty("cases").EnumerateArray()){
+                matrixCellCount++;
+                int caseCar=c.GetProperty("car").GetInt32(),caseTrack=c.GetProperty("track").GetInt32(),weather=c.GetProperty("weather").GetInt32(),compound=c.GetProperty("compound").GetInt32();
+                Check(weather>=0&&weather<=3&&compound>=0&&compound<=3,"Wet comparison matrix has an out-of-range weather/compound cell");
+                Check(weather!=2||compound!=1,"Wet comparison matrix must not re-run the completed wet-slick cell (run 41625514977)");
+                Check(matrixCells.Add(caseCar+"/"+caseTrack+"/"+weather+"/"+compound),"Wet comparison matrix repeats a cell");
+            }
+            Check(matrixCellCount>=6,"Wet comparison matrix lost coverage");
+            Check(!matrixCells.Contains("16/0/2/1")&&!matrixCells.Contains("0/0/2/1"),"Completed wet-slick cells must stay outside the executable case list");
+            var handlingTargets=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_handling_targets.json")).RootElement;
+            int handlingTargetCount=0;
+            foreach(var t in handlingTargets.GetProperty("targets").EnumerateArray()){
+                handlingTargetCount++;
+                Check(!string.IsNullOrEmpty(t.GetProperty("id").GetString())&&!string.IsNullOrEmpty(t.GetProperty("metric").GetString())&&!string.IsNullOrEmpty(t.GetProperty("profile").GetString()),"Handling target is missing id/metric/profile");
+                Check(validationProfileIds.Contains(t.GetProperty("profile").GetString()),"Handling target references unknown validation profile");
+            }
+            Check(handlingTargetCount>=6,"Handling targets lost coverage");
+            var synthetic=new DrivingValidation.Profile{Id="synthetic"};
+            var syntheticSamples=new List<DrivingValidation.Sample>();
+            for(int i=0;i<=300;i++){
+                double t=i/100.0,v=Math.Max(0,27-9*t);
+                syntheticSamples.Add(new DrivingValidation.Sample{phaseId="brake",t=t,speed=v,longitudinalSpeed=v,x=27*t-4.5*t*t,z=0,trackLateral=0,heading=0,yawRate=0,upY=1,groundedMask=15,loads=new double[4],springLengths=new double[4],lateralSlipAngle=new double[4],longitudinalSlip=new double[4]});
+            }
+            var syntheticDistance=DrivingValidation.ComputeMetric("pathLength","brake",syntheticSamples,synthetic,null);
+            Check(syntheticDistance.HasValue&&Math.Abs(syntheticDistance.Value-40.5)<0.2,"Brake distance metric diverges from constant-deceleration kinematics");
+            var syntheticEnd=DrivingValidation.ComputeMetric("endSpeed","brake",syntheticSamples,synthetic,null);
+            Check(syntheticEnd.HasValue&&Math.Abs(syntheticEnd.Value)<0.01,"End-speed metric is wrong on a synthetic full stop");
+            var syntheticAccel=DrivingValidation.ComputeMetric("longitudinalAccelMin","brake",syntheticSamples,synthetic,null);
+            Check(syntheticAccel.HasValue&&Math.Abs(syntheticAccel.Value+9)<0.02,"Decel metric is wrong on constant deceleration");
+            var syntheticReference=new Dictionary<string,double>{{"brakeStop60Metres",40.0}};
+            var inBand=new DrivingValidation.Assertion{Id="in_band",Metric="pathLength:brake",Op="betweenReference",Reference="brakeStop60Metres",FactorMin=0.8,FactorMax=1.2};
+            Check(DrivingValidation.Evaluate(inBand,syntheticSamples,synthetic,syntheticReference).Passed,"Reference-banded assertion rejected matching synthetic data");
+            var outOfBand=new DrivingValidation.Assertion{Id="out_band",Metric="pathLength:brake",Op="betweenReference",Reference="brakeStop60Metres",FactorMin=0.9,FactorMax=0.95};
+            Check(!DrivingValidation.Evaluate(outOfBand,syntheticSamples,synthetic,syntheticReference).Passed,"Out-of-band synthetic data passed a reference assertion");
+            var missing=new DrivingValidation.Assertion{Id="missing",Metric="pathLength:empty_phase",Op="lt",Value=1,HasValue=true};
+            Check(!DrivingValidation.Evaluate(missing,new List<DrivingValidation.Sample>(),synthetic,syntheticReference).Passed,"A metric over absent data must fail, not pass");
+            bool rejectedConfig=false;try{DrivingValidation.ParseProfiles("{\"profiles\":[{\"id\":\"x\",\"phases\":[{\"id\":\"a\",\"forSeconds\":1}],\"assertions\":[{\"id\":\"b\",\"metric\":\"bogus_metric:a\",\"op\":\"lt\",\"value\":1}]}]}");}catch(Exception){rejectedConfig=true;}
+            Check(rejectedConfig,"An unknown metric name passed profile parsing");
+            rejectedConfig=false;try{DrivingValidation.ParseProfiles("{\"profiles\":[{\"id\":\"x\",\"phases\":[{\"id\":\"a\",\"forSeconds\":1}],\"assertions\":[{\"id\":\"b\",\"metric\":\"pathLength:ghost\",\"op\":\"lt\",\"value\":1}]}]}");}catch(Exception){rejectedConfig=true;}
+            Check(rejectedConfig,"An assertion referencing a missing phase passed profile parsing");
+            rejectedConfig=false;try{DrivingValidation.ParseProfiles("{\"profiles\":[{\"id\":\"x\",\"phases\":[{\"id\":\"a\"}],\"assertions\":[]}]}");}catch(Exception){rejectedConfig=true;}
+            Check(rejectedConfig,"A phase without termination passed profile parsing");
+            rejectedConfig=false;try{DrivingValidation.ParseCaseProfiles("{\"cases\":[{\"car\":1,\"track\":2}]}",1,2);}catch(Exception){rejectedConfig=true;}
+            Check(rejectedConfig,"A case without drivingValidation profiles passed manifest parsing");
+            // Scripted-command state machine: phases advance only when their own condition is met.
+            var stateMachine=new DrivingValidation.Profile{Id="state_machine"};
+            stateMachine.Phases.Add(new DrivingValidation.Phase{Id="accelerate",Throttle=1,UntilSpeedAtLeast=10});
+            stateMachine.Phases.Add(new DrivingValidation.Phase{Id="brake",Brake=1,UntilSpeedBelow=1});
+            var stateRun=new DrivingValidation.Run(stateMachine,new Dictionary<string,double>());
+            stateRun.Start();Check(stateRun.Current.Throttle==1&&stateRun.Current.Brake==0,"Scenario did not start in its first phase");
+            var march=new List<DrivingValidation.Sample>();
+            for(int i=0;i<3000;i++){double t=i/100.0;double v=t<2?5*t:10-10*(t-2);if(v<0)v=0;
+                stateRun.Step(new DrivingValidation.Sample{t=t,speed=v,longitudinalSpeed=v,x=0,z=0,trackLateral=0,heading=0,upY=1,groundedMask=15,loads=new double[4],springLengths=new double[4],lateralSlipAngle=new double[4],longitudinalSlip=new double[4]});
+                if(stateRun.Completed)break;}
+            Check(stateRun.Completed&&stateRun.Passed,"Scripted acceleration/brake state machine did not complete cleanly");
+            Check(stateRun.Timeline.Count>=290,"State machine consumed phases without recording samples");
+            log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
         }
 #if CLI_TEST
