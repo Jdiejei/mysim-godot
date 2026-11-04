@@ -313,18 +313,19 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
  # in-game camera (DriveController CamMode 2, MYSIM_CAM=2 autodrive boot; free CAMPOS cameras
  # cannot produce wheel-closeup or cockpit evidence). No material modifications.
  views=(('front','0,1.35,5.6'),('rear','0,1.35,-5.6'),('left','-5.6,1.35,0'),('right','5.6,1.35,0'),('top','0,9.0,0.02'))
+ car_extra={'MYSIM_SOURCE_UV_CANDIDATES':os.environ.get('SOURCE_UV_CANDIDATES','0'),'MYSIM_MISC_TWIN_HIDE_DIAGNOSTIC':os.environ.get('MISC_TWIN_HIDE','0')}
  missing=[]
  for view,cam in views:
   shot=out/f'ref-car16-{view}.png'
   label=f'ref-car16-view-{view}'
-  text=run(label,{'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_SHOT':str(shot)},timeout=420)
+  text=run(label,{**car_extra,'MYSIM_CARVIEW':'16','MYSIM_FITVIEW':'1','MYSIM_CAMPOS':cam,'MYSIM_SHOT':str(shot)},timeout=420)
   if not shot.exists():missing.append(view)
  for closeup,wheel in ((1,'fl'),(0,'fr'),(3,'rl'),(2,'rr')):
   shot=out/f'ref-car16-wheel-{wheel}.png'
-  text=run(f'ref-car16-wheel-{wheel}',{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(closeup),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_SHOT':str(shot)},timeout=420)
+  text=run(f'ref-car16-wheel-{wheel}',{**car_extra,'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':str(closeup),'MYSIM_WHEEL_OBLIQUE':'1','MYSIM_SHOT':str(shot)},timeout=420)
   if not shot.exists() or 'PASS complete visible wheel framing' not in text:missing.append(f'wheel-{wheel}')
  shot=out/'ref-car16-wheel-fl-steered.png'
- text=run('ref-car16-wheel-fl-steered',{'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':'1','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_WHEEL_FIT_STEER':'-20','MYSIM_SHOT':str(shot)},timeout=420)
+ text=run('ref-car16-wheel-fl-steered',{**car_extra,'MYSIM_CARVIEW':'16','MYSIM_WHEEL_CLOSEUP':'1','MYSIM_WHEEL_OBLIQUE':'1','MYSIM_WHEEL_FIT_STEER':'-20','MYSIM_SHOT':str(shot)},timeout=420)
  if not shot.exists() or 'PASS complete visible wheel framing' not in text:missing.append('wheel-fl-steered')
  shot=out/'ref-car16-cockpit.png'
  text=run('ref-car16-cockpit',{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_CAM':'2','MYSIM_SECONDS':'9','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
@@ -335,7 +336,7 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
  hud_missing=[]
  for resolution in ('640x360','1280x720','1920x1080','1920x1200','2560x1080'):
   shot=out/f'ref-hud-{resolution}.png'
-  run(f'ref-hud-{resolution}',{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'4','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},['--resolution',resolution],timeout=600)
+  run(f'ref-hud-{resolution}',{**car_extra,'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':'4','MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},['--resolution',resolution],timeout=600)
   if not shot.exists():hud_missing.append(resolution)
  if hud_missing:raise SystemExit(f'reference HUD captures missing: {hud_missing}')
  # Live driving frames at fixed 30 fps (sim time identical; physics hz unchanged), 600 s budget
@@ -343,7 +344,7 @@ if os.environ.get('REFERENCE_EVIDENCE')=='1':
  drive_count=0
  for seconds,label,cam_mode in (('9','ref-lap-near','0'),('14','ref-lap-wide','1')):
   shot=out/f'{label}.png'
-  text=run(label,{'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':seconds,'MYSIM_CAM':cam_mode,'MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
+  text=run(label,{**car_extra,'MYSIM_TRACK':'0','MYSIM_CAR':'16','MYSIM_AI':'1','MYSIM_AUTODRIVE':'1','MYSIM_SECONDS':seconds,'MYSIM_CAM':cam_mode,'MYSIM_SHOT':str(shot),'MYSIM_NOPIT':'1','MYSIM_RIVALS':'0','MYSIM_NATIVE_RECORD_FPS':'30'},timeout=600)
   if shot.exists():drive_count+=1
  if drive_count==0:raise SystemExit('reference drive frames missing')
  print(f'COMPLETE reference evidence: {len(views)} body views, 5 wheel closeups, 1 cockpit, {5+drive_count} live frames captured',flush=True);sys.exit(0)
