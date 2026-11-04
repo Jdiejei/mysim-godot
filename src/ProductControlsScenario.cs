@@ -49,7 +49,7 @@ public partial class ProductControlsScenario : Node {
    Check(hud.InfoLabel.Text.Contains("POS")&&hud.InfoLabel.Text.Contains("/2"),"hud position grouping missing in a two-car race: '"+hud.InfoLabel.Text+"'");
    Check(hud.InfoLabel.Text.Contains("LAP 1/3")&&hud.InfoLabel.Text.Contains("LAP TIME 0.0s")&&hud.InfoLabel.Text.Contains("BEST -- (no valid lap)"),"hud session values not bound to live race state: '"+hud.InfoLabel.Text+"'");
    player.lapElapsed=12.34f;player.bestLap=87.52f;player.completedLaps=1;await Frame();await Frame();
-   Check(hud.InfoLabel.Text.Contains("LAP 2/3")&&hud.InfoLabel.Text.Contains("LAP TIME 12.3s")&&hud.InfoLabel.Text.Contains("BEST 87.5s"),"hud timing not bound to live lap state: '"+hud.InfoLabel.Text+"'");
+   Check(hud.InfoLabel.Text.Contains("LAP 2/3")&&hud.InfoLabel.Text.Contains("LAP TIME 12.3s")&&hud.InfoLabel.Text.Contains("BEST 87.520s"),"hud timing not bound to live lap state: '"+hud.InfoLabel.Text+"'");
    player.finished=true;await Frame();await Frame();
    Check(hud.InfoLabel.Text.Contains("FINISHED 3 laps"),"hud finish state not bound to live race state: '"+hud.InfoLabel.Text+"'");
    player.finished=false;player.completedLaps=0;
