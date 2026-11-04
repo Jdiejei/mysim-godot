@@ -66,13 +66,13 @@ Livery policy: explicit binding where car_map carries one; otherwise `FallbackTe
 
 Recorded from the session-4 packet (`f03cfc1`-era); also emitted per-row as `evidenceState` in `fleet.json`:
 
-| Field gap (turn-2 QC) | Covered by | State |
+| Field gap (turn-2 QC) | Covered by | State (turn-5 update: observed outcomes) |
 |---|---|---|
-| Fleet visual evidence (5 views + 4 wheel closeups + cockpit, per car, PRODUCTION render state) | run **41848086075** (`fleet_evidence`, 6 shards, all 24 cars + track0 day/night pair) | in flight; defect observation still needs human review of the captures |
+| Fleet visual evidence (10 captures/car, PRODUCTION render state) | run **41848086075** (`fleet_evidence`, head `b5ca3e0`) | **run SUCCESS but ONLY shard 0 executed** (jobs: prepare + render(0)) — the `b5ca3e0` shard expression mis-nested the fleet bracket and collapsed the matrix to `[0]` (same dropped-paren lineage fixed at `e76a1e1`+). **Cars 0/6/12/18 captured: 42/42, missing=[]** (5 views + 4 wheel closeups + cockpit each + track0 day/night), images inside `encrypted-review-0-attempt-1` (12.8 MB, downloaded) — `MYSIM_INTAKE_KEY` is NOT available locally, so decryption/review is pending. **The other 20 cars were never rendered**; a re-dispatch at the current head (expression balanced) expands the matrix to 6 shards = all 24 cars |
 | `metresPerUv` / `basisDeterminant` / `textOrientation` (the P5 metrics) — cars 15–18 | runs **41837315358** (no-fit baseline, SUCCESS) + **41843317303** (axle-fit leg); both emit per-car `*-assembly.json` | measured; artefacts sit in the car-assembly agent's worktree (`outputs/wfr-41837315358/`, uncommitted) — incorporation into the inventories pending |
-| P5 metrics — cars 0–3 | run **41849732286** (fleet wheel-sweep batch 1, `source_axle_fit=true`) | queued |
+| P5 metrics — cars 0–3 | run **41849732286** | **FAILED** (`6505f16`); corrected retry **41854428291** (`wheel_fit_review cars 0,1,2,3` at `6263c51`) in flight |
 | P5 metrics — remaining 16 cars | three further 4-car batches (cars 4–15, 16–19, 20–23) per the car-assembly turn-6 plan (`6505f16`) | queued |
-| P1 car16 badges A/B | leg A **41847896437** at `mistral/p1-badge-baseline` (`adf89ca`); leg B at `39cdf33` queued behind it (serial watcher) | in flight / queued |
+| P1 car16 badges A/B | leg A **41847896437** at `mistral/p1-badge-baseline` (`adf89ca`); leg B at `39cdf33` queued | **leg A FAILURE — but not a leg failure: `cloud_game_audit.py:389` HUD-viewport assert references undefined `want` → NameError at the third HUD resolution** (the assert exists at `39cdf33`/`adf89ca`; removed at the current head). **All five body views + 5 wheel closeups + cockpit + 2 HUDs were captured and live in the uploaded encrypted envelope (4.6 MB)**; only the 3 remaining HUDs + 2 lap frames were not reached. Leg B at `39cdf33` will fail the same way after the same captures; its five body views remain the valid leg-B evidence. Verdict = pending decryption (CI-side key) + human review |
 
 Expectation note: **41848086075 does NOT emit assembly JSONs** (the `fleet_evidence` path in `cloud_game_audit.py` sets no `MYSIM_CAR_ASSEMBLY_AUDIT`) — it completes the *visual* evidence in production render state (candidates off, twin-hide off); the metric fields wait for the wheel-sweep batches. Neither run alone closes the six-field gap for cars other than 16 — the per-car concluding step remains: assembly JSON → `--assembly` join → per-surface six-field fill → human review of the paired captures.
 

@@ -174,20 +174,27 @@ def norm_name(s):
 # so fleet.json rows can carry a per-car completion state that survives regeneration.
 EVIDENCE_ANNOTATIONS = {
     "fleetEvidence": {
-        "run": 41848086075, "depth": "fleet_evidence", "shards": 6, "cars": "0..23 (shard = car % 6)",
-        "provides": "5 views + 4 wheel closeups + cockpit per car (PRODUCTION render state: SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0) + track0 day/night pair on shard 0",
-        "doesNotProvide": "no CarAssemblyAudit JSONs (no metresPerUv/basisDeterminant/textOrientation); defect observation needs human review of the captures",
-        "completes": ["fleet visual evidence per car (pending human review)"],
+        "run": 41848086075, "depth": "fleet_evidence", "head": "b5ca3e0",
+        "outcome": "run SUCCESS but ONLY shard 0 executed (jobs: prepare + render(0)): the b5ca3e0 shard expression mis-nested the fleet bracket, collapsing the matrix to [0]; the expression is balanced again at the current head",
+        "coveredCars": [0, 6, 12, 18],
+        "provides": "42/42 captures, missing=[] (5 views + 4 wheel closeups + cockpit per car + track0 day/night), PRODUCTION render state (SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0); images inside encrypted-review-0 envelope - MYSIM_INTAKE_KEY unavailable locally, decryption/review pending",
+        "doesNotProvide": "no CarAssemblyAudit JSONs (no metresPerUv/basisDeterminant/textOrientation); 20 cars not covered at this run - re-dispatch at the current head expands to 6 shards",
+        "completes": ["fleet visual evidence for cars 0/6/12/18 (pending decryption + human review)"],
     },
     "assemblyAudit": {
         "cars15to18": {"runs": [41837315358, 41843317303], "state": "41837315358 SUCCESS (no-fit baseline; 275 poses/car); 41843317303 = axle-fit leg",
                         "artifacts": "emitted per-car *-assembly.json (metresPerUv/basisDeterminant/textOrientation); downloaded to the car-assembly agent's worktree (uncommitted there)"},
-        "cars0to3": {"run": 41849732286, "state": "queued (fleet wheel-sweep batch 1, source_axle_fit=true)"},
-        "remaining": {"state": "3 further 4-car batches queued per the car-assembly turn-6 plan (6505f16): 4-7, 8-11, 12-15, 16-19, 20-23 minus done"},
+        "cars0to3": {"run": 41849732286, "outcome": "FAILURE (at 6505f16)", "retry": 41854428291, "state": "corrected retry in flight (wheel_fit_review cars 0,1,2,3 at 6263c51)"},
+        "remaining": {"state": "further 4-car batches queued per the car-assembly turn-6 plan (6505f16): 4-7, 8-11, 12-15, 16-19, 20-23 minus done"},
     },
     "p1Badges": {
-        "legA": {"run": 41847896437, "ref": "mistral/p1-badge-baseline (adf89ca: only the three 16/*_mm_badges pending entries removed)", "state": "in flight"},
-        "legB": {"ref": "39cdf33 (candidates active)", "state": "queued behind leg A (serial watcher)"},
+        "legA": {"run": 41847896437, "ref": "mistral/p1-badge-baseline (adf89ca)", "outcome": "FAILURE in the render step",
+                  "cause": "AUDIT-SCRIPT BUG: cloud_game_audit.py line 389 HUD-viewport assert references undefined 'want' -> NameError at the third HUD resolution (present at 39cdf33 and adf89ca; removed at the current head); NOT a leg-specific or badges-specific failure",
+                  "captures": "the five body views + 5 wheel closeups + cockpit + 2 HUDs were CAPTURED and live in encrypted-review-0-attempt-1 (4.6 MB, uploaded); the 3 remaining HUDs + 2 lap frames were not reached",
+                  "observedLogGates": "hidden=8 (incl. DAMAGE/BONNETCAM twins); promoted trio x3 SURFACE_UV_REPAIR; 7 ext SURFACE_UV_REPAIR_CANDIDATE (badges ABSENT - correct for leg A); CARMAP_SOURCE_ROLE_ALIAS active both wheels; CARMAP car=16 bound=96"},
+        "legB": {"ref": "39cdf33 (badges candidates active)", "state": "queued behind leg A",
+                  "expectation": "same 14 captures then the same NameError (line 389 present at 39cdf33); logs must show the 7 ext candidates PLUS 3 badges SURFACE_UV_REPAIR_CANDIDATE lines; body views remain valid for the verdict"},
+        "verdict": "pending the pair's envelopes being decrypted (key in CI) and the human review",
     },
 }
 
@@ -197,11 +204,15 @@ def evidence_state_for(car_id):
     if car_id in (15, 16, 17, 18):
         metrics = "measured by 41837315358/41843317303 (incorporation pending)"
     elif car_id in (0, 1, 2, 3):
-        metrics = "pending-run-41849732286"
+        metrics = "41849732286 FAILED; corrected retry 41854428291 in flight"
     else:
         metrics = "pending-run-<wheel-sweep-batch>"
+    if car_id in (0, 6, 12, 18):
+        visuals = "captured-41848086075-shard0 (42/42, missing=[]; envelope only - decryption pending)"
+    else:
+        visuals = "pending-redispatch (41848086075 ran shard 0 only: b5ca3e0 shard-expression collapse; fixed at current head)"
     return {
-        "fleetVisualEvidence": "pending-run-41848086075",
+        "fleetVisualEvidence": visuals,
         "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": metrics,
         "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics",
     }
