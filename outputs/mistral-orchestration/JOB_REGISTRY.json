@@ -154,5 +154,12 @@
   "track-render": "DONE turn1 (merged); fence_miprepair dispatch in flight",
   "car-assembly": "DONE turn1 (09a3d16+ca7ce66 on branch): 10 pending V-only entries + misc twin hide diagnostic + clearance sweep (85 poses); MERGE PENDING",
   "physics-gameplay": "RUNNING turn1"
+ },
+ "specialists_progress": {
+  "hud-camera": "DONE turn1 (merged); proposed audit patch ADOPTED at 8eeb6e4",
+  "verification": "DONE turn1 (merged); Windows step added; needs linux re-proof + windows dispatch",
+  "track-render": "DONE turn1 (merged); fence_miprepair dispatch in flight",
+  "car-assembly": "DONE turn1 (09a3d16+ca7ce66 on branch): 10 pending V-only entries + misc twin hide diagnostic + clearance sweep (85 poses); MERGE PENDING",
+  "physics-gameplay": "RUNNING turn1"
  }
 }
