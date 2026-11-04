@@ -62,6 +62,20 @@ Livery policy: explicit binding where car_map carries one; otherwise `FallbackTe
 
 ## 3. Evidence still needed per car (no dispatches made — coordinator queue)
 
+### 3.0 Completion state (turn 4 — which run fills which field)
+
+Recorded from the session-4 packet (`f03cfc1`-era); also emitted per-row as `evidenceState` in `fleet.json`:
+
+| Field gap (turn-2 QC) | Covered by | State |
+|---|---|---|
+| Fleet visual evidence (5 views + 4 wheel closeups + cockpit, per car, PRODUCTION render state) | run **41848086075** (`fleet_evidence`, 6 shards, all 24 cars + track0 day/night pair) | in flight; defect observation still needs human review of the captures |
+| `metresPerUv` / `basisDeterminant` / `textOrientation` (the P5 metrics) — cars 15–18 | runs **41837315358** (no-fit baseline, SUCCESS) + **41843317303** (axle-fit leg); both emit per-car `*-assembly.json` | measured; artefacts sit in the car-assembly agent's worktree (`outputs/wfr-41837315358/`, uncommitted) — incorporation into the inventories pending |
+| P5 metrics — cars 0–3 | run **41849732286** (fleet wheel-sweep batch 1, `source_axle_fit=true`) | queued |
+| P5 metrics — remaining 16 cars | three further 4-car batches (cars 4–15, 16–19, 20–23) per the car-assembly turn-6 plan (`6505f16`) | queued |
+| P1 car16 badges A/B | leg A **41847896437** at `mistral/p1-badge-baseline` (`adf89ca`); leg B at `39cdf33` queued behind it (serial watcher) | in flight / queued |
+
+Expectation note: **41848086075 does NOT emit assembly JSONs** (the `fleet_evidence` path in `cloud_game_audit.py` sets no `MYSIM_CAR_ASSEMBLY_AUDIT`) — it completes the *visual* evidence in production render state (candidates off, twin-hide off); the metric fields wait for the wheel-sweep batches. Neither run alone closes the six-field gap for cars other than 16 — the per-car concluding step remains: assembly JSON → `--assembly` join → per-surface six-field fill → human review of the paired captures.
+
 1. **Fleet render batch at a current head** — the `car_evidence` depth hardcodes car16 (`cloud_game_audit.py` `MYSIM_CARVIEW:'16'`); a whole-fleet matched batch needs the depth parameterised (one coordinator change) or per-car dispatches. Required views per car: front/left/right/rear/top/cockpit + 4 wheel closeups (existing car_evidence shape = the template; 18 PNGs × 24 cars).
 2. **`car_assembly_audit` fleet-wide** (first post-`5bf41d7` run anywhere): per-surface `basisDeterminant` + `metresPerUv` + `MIRRORED_TEXT_RISK_*` + wheel-binding checks — closes every `pending-run-P5` field in the turn-2 inventories and H2's measurement.
 3. **Livery/UV per-surface inventories for the 23 cars other than car16** (six-field standard; car6 partial). The turn-1 tool already automates this (texture side locally; surface side via `--assembly` join).

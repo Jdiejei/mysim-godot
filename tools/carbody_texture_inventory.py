@@ -169,6 +169,44 @@ def norm_name(s):
     return " ".join(s.upper().split())
 
 
+# Evidence-state annotations, recorded from REVIEW_PACKET session-4 (f03cfc1-era) 2026-11-06.
+# Purely declarative: maps in-flight/completed runs to the inventory fields they complete,
+# so fleet.json rows can carry a per-car completion state that survives regeneration.
+EVIDENCE_ANNOTATIONS = {
+    "fleetEvidence": {
+        "run": 41848086075, "depth": "fleet_evidence", "shards": 6, "cars": "0..23 (shard = car % 6)",
+        "provides": "5 views + 4 wheel closeups + cockpit per car (PRODUCTION render state: SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0) + track0 day/night pair on shard 0",
+        "doesNotProvide": "no CarAssemblyAudit JSONs (no metresPerUv/basisDeterminant/textOrientation); defect observation needs human review of the captures",
+        "completes": ["fleet visual evidence per car (pending human review)"],
+    },
+    "assemblyAudit": {
+        "cars15to18": {"runs": [41837315358, 41843317303], "state": "41837315358 SUCCESS (no-fit baseline; 275 poses/car); 41843317303 = axle-fit leg",
+                        "artifacts": "emitted per-car *-assembly.json (metresPerUv/basisDeterminant/textOrientation); downloaded to the car-assembly agent's worktree (uncommitted there)"},
+        "cars0to3": {"run": 41849732286, "state": "queued (fleet wheel-sweep batch 1, source_axle_fit=true)"},
+        "remaining": {"state": "3 further 4-car batches queued per the car-assembly turn-6 plan (6505f16): 4-7, 8-11, 12-15, 16-19, 20-23 minus done"},
+    },
+    "p1Badges": {
+        "legA": {"run": 41847896437, "ref": "mistral/p1-badge-baseline (adf89ca: only the three 16/*_mm_badges pending entries removed)", "state": "in flight"},
+        "legB": {"ref": "39cdf33 (candidates active)", "state": "queued behind leg A (serial watcher)"},
+    },
+}
+
+
+def evidence_state_for(car_id):
+    """Per-car completion state for the inventory fields (declarative, from EVIDENCE_ANNOTATIONS)."""
+    if car_id in (15, 16, 17, 18):
+        metrics = "measured by 41837315358/41843317303 (incorporation pending)"
+    elif car_id in (0, 1, 2, 3):
+        metrics = "pending-run-41849732286"
+    else:
+        metrics = "pending-run-<wheel-sweep-batch>"
+    return {
+        "fleetVisualEvidence": "pending-run-41848086075",
+        "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": metrics,
+        "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics",
+    }
+
+
 def manifest(root):
     """Enumerate the whole fleet + tracks from catalog sources; fail closed on mismatch.
 
@@ -259,6 +297,7 @@ def manifest(root):
             "fbx": len(fbxs), "textures": len(pngs), "liveriesOnDisk": liveries, "boundLivery": bound_livery,
             "boundRenderers": len(entries), "pivots": 4 if isinstance(pivots, list) else 0,
             "uvRepairsPromoted": promoted, "uvRepairsPending": pending, "specialPaths": special,
+            "evidenceState": evidence_state_for(c["id"]),
         })
 
     # track asserts: runtime TrackList <-> SourceRoutes alignment + file existence
@@ -297,6 +336,7 @@ def manifest(root):
         "scope": "read-only fleet/track manifest from catalog sources (CarCatalog.cs, SourceRoutes.cs, runtime TrackList.json); no mutation, no rendering",
         "catalogSource": "src/Logic/CarCatalog.cs", "routesSource": "src/Logic/SourceRoutes.cs",
         "trackListRuntime": "assets/RealRacing/TrackList.json",
+        "evidencePipeline": EVIDENCE_ANNOTATIONS,
         "counts": {"cars": len(cars), "tracks": len(tracks), "sourceRoutes": len(routes)},
         "assertsPassed": not problems, "problems": problems, "notes": notes,
         "cars": car_rows, "tracks": track_rows,
@@ -307,12 +347,14 @@ def manifest(root):
 def markdown_manifest(result):
     lines = ["# Fleet manifest tables (tool output; facts only)", "",
              f"cars={result['counts']['cars']} tracks={result['counts']['tracks']} sourceRoutes={result['counts']['sourceRoutes']} assertsPassed={result['assertsPassed']}", "",
-             "## Cars", "", "| id | name | folder | class | fbx | textures | liveries | bound livery | repairs promoted/pending | special paths |",
-             "|---|---|---|---|---|---|---|---|---|---|"]
+             "## Cars", "", "| id | name | folder | class | fbx | textures | liveries | bound livery | repairs promoted/pending | special paths | evidence state |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for c in result["cars"]:
+        es = c.get("evidenceState", {})
         lines.append(f"| {c['id']} | {c['name']} | {c['folder']} | {c['raceClass']} | {c['fbx']} | {c['textures']} | "
                      f"{len(c['liveriesOnDisk'])} | {c['boundLivery'] or '-'} | "
-                     f"{len(c['uvRepairsPromoted'])}/{len(c['uvRepairsPending'])} | {'; '.join(c['specialPaths']) or '-'} |")
+                     f"{len(c['uvRepairsPromoted'])}/{len(c['uvRepairsPending'])} | {'; '.join(c['specialPaths']) or '-'} | "
+                     f"visuals:{es.get('fleetVisualEvidence', '-')}; metrics:{es.get('assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)', '-')} |")
     lines += ["", "## Tracks", "", "| id | name | map/layout | scene present | route name | variations ok |", "|---|---|---|---|---|---|"]
     for t in result["tracks"]:
         ok = all(v["present"] for v in t["variationPaths"])

@@ -3,6 +3,47 @@
  "catalogSource": "src/Logic/CarCatalog.cs",
  "routesSource": "src/Logic/SourceRoutes.cs",
  "trackListRuntime": "assets/RealRacing/TrackList.json",
+ "evidencePipeline": {
+  "fleetEvidence": {
+   "run": 41848086075,
+   "depth": "fleet_evidence",
+   "shards": 6,
+   "cars": "0..23 (shard = car % 6)",
+   "provides": "5 views + 4 wheel closeups + cockpit per car (PRODUCTION render state: SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0) + track0 day/night pair on shard 0",
+   "doesNotProvide": "no CarAssemblyAudit JSONs (no metresPerUv/basisDeterminant/textOrientation); defect observation needs human review of the captures",
+   "completes": [
+    "fleet visual evidence per car (pending human review)"
+   ]
+  },
+  "assemblyAudit": {
+   "cars15to18": {
+    "runs": [
+     41837315358,
+     41843317303
+    ],
+    "state": "41837315358 SUCCESS (no-fit baseline; 275 poses/car); 41843317303 = axle-fit leg",
+    "artifacts": "emitted per-car *-assembly.json (metresPerUv/basisDeterminant/textOrientation); downloaded to the car-assembly agent's worktree (uncommitted there)"
+   },
+   "cars0to3": {
+    "run": 41849732286,
+    "state": "queued (fleet wheel-sweep batch 1, source_axle_fit=true)"
+   },
+   "remaining": {
+    "state": "3 further 4-car batches queued per the car-assembly turn-6 plan (6505f16): 4-7, 8-11, 12-15, 16-19, 20-23 minus done"
+   }
+  },
+  "p1Badges": {
+   "legA": {
+    "run": 41847896437,
+    "ref": "mistral/p1-badge-baseline (adf89ca: only the three 16/*_mm_badges pending entries removed)",
+    "state": "in flight"
+   },
+   "legB": {
+    "ref": "39cdf33 (candidates active)",
+    "state": "queued behind leg A (serial watcher)"
+   }
+  }
+ },
  "counts": {
   "cars": 24,
   "tracks": 60,
@@ -31,7 +72,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-41849732286",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 1,
@@ -49,7 +95,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-41849732286",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 2,
@@ -66,7 +117,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-41849732286",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 3,
@@ -84,7 +140,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-41849732286",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 4,
@@ -101,7 +162,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 5,
@@ -123,7 +189,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 6,
@@ -147,7 +218,12 @@
     "6/LOD_A_HOOD_mm_misc"
    ],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 7,
@@ -169,7 +245,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 8,
@@ -186,7 +267,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 9,
@@ -209,7 +295,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 10,
@@ -230,7 +321,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 11,
@@ -247,7 +343,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 12,
@@ -267,7 +368,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 13,
@@ -284,7 +390,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 14,
@@ -302,7 +413,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 15,
@@ -325,7 +441,12 @@
     "tyre_compound_markings(formula-only)",
     "f1 rim/brake candidate branch",
     "f1_paint_candidate(opt-in)"
-   ]
+   ],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "measured by 41837315358/41843317303 (incorporation pending)",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 16,
@@ -363,7 +484,12 @@
     "tyre_compound_markings(formula-only)",
     "f1 rim/brake candidate branch",
     "f1_paint_candidate(opt-in)"
-   ]
+   ],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "measured by 41837315358/41843317303 (incorporation pending)",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 17,
@@ -386,7 +512,12 @@
     "tyre_compound_markings(formula-only)",
     "f1 rim/brake candidate branch",
     "f1_paint_candidate(opt-in)"
-   ]
+   ],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "measured by 41837315358/41843317303 (incorporation pending)",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 18,
@@ -409,7 +540,12 @@
     "tyre_compound_markings(formula-only)",
     "f1 rim/brake candidate branch",
     "f1_paint_candidate(opt-in)"
-   ]
+   ],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "measured by 41837315358/41843317303 (incorporation pending)",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 19,
@@ -426,7 +562,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 20,
@@ -463,7 +604,12 @@
    "specialPaths": [
     "chiron_reconstructed_wing(opt-in)",
     "chiron_atlas_dihedral_diagnostic(opt-in)"
-   ]
+   ],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 21,
@@ -480,7 +626,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 22,
@@ -497,7 +648,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   },
   {
    "id": 23,
@@ -519,7 +675,12 @@
    "pivots": 4,
    "uvRepairsPromoted": [],
    "uvRepairsPending": [],
-   "specialPaths": []
+   "specialPaths": [],
+   "evidenceState": {
+    "fleetVisualEvidence": "pending-run-41848086075",
+    "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": "pending-run-<wheel-sweep-batch>",
+    "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics"
+   }
   }
  ],
  "tracks": [
