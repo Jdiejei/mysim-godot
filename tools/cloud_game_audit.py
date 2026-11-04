@@ -500,8 +500,10 @@ if os.environ.get('WHEEL_FIT_REVIEW')=='1':
  car=15+shard
  for steer in (-23,0,23):
   label=f'wheel-fit-car-{car}-steer-{steer}';shot=out/(label+'.png');metadata=out/(label+'.json')
-  text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_CLEARANCE_SWEEP':'1','MYSIM_SOURCE_AXLE_FIT':os.environ.get('SOURCE_AXLE_REVIEW','0'),'MYSIM_SOURCE_AXLE_REPORT':str(out/(label+'-source-axle.json')),'MYSIM_WHEEL_FIT_AUDIT':str(metadata),'MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'3.5,4.5,5','MYSIM_SHOT':str(shot)})
+  text=run(label,{'MYSIM_CARVIEW':str(car),'MYSIM_REBUILT_RIMS':'1','MYSIM_REBUILT_TYRES':'1','MYSIM_WHEEL_FIT_STEER':str(steer),'MYSIM_WHEEL_CLEARANCE_SWEEP':'1','MYSIM_SOURCE_AXLE_FIT':os.environ.get('SOURCE_AXLE_REVIEW','0'),'MYSIM_SOURCE_AXLE_REPORT':str(out/(label+'-source-axle.json')),'MYSIM_WHEEL_FIT_AUDIT':str(metadata),'MYSIM_CAR_ASSEMBLY_AUDIT':str(out/(label+'-assembly.json')),'MYSIM_FITVIEW':'1','MYSIM_CAMPOS':'3.5,4.5,5','MYSIM_SHOT':str(shot)},timeout=1500)
   assert shot.exists() and metadata.exists() and 'PASS wheel fit evidence' in text
+  sweep=json.loads(metadata.read_text()).get('sweep') if metadata.exists() else None
+  assert sweep and sweep.get('perWheel'),'wheel fit case missing the clearance sweep v2 per-wheel evidence'
  print('COMPLETE wheel fit diagnostic; overlap findings require repair, not acceptance',flush=True);sys.exit(0)
 if os.environ.get('REBUILT_WHEEL_REVIEW')=='1':
  custom=os.environ.get('F1_WHEEL_REVIEW')=='1';car=15+shard if custom else (1,6,16)[shard]
