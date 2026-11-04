@@ -39,6 +39,7 @@ public static class TrackMaterialBinder {
   RoadVariationPass(track);
   GrassBalancePass(track);
   TreeBreakupPass(track);
+  WallBuilder.AttachCollisionOverlay(track);
  }
  // One controlled road-variation candidate: env-gated (MYSIM_ROAD_VARIATION=1), reversible, addressed only to
  // ground ShaderMaterials whose texture is gnd_asphalt_* (the shader's own asphalt class; track0 binds exactly
