@@ -36,6 +36,38 @@ public static class TrackMaterialBinder {
   var audit=System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT");if(!string.IsNullOrEmpty(audit)){System.IO.Directory.CreateDirectory(audit);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(audit,"bindings-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new {layer=track.Name.ToString(),fallbacks=missing,resolutions},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
   GD.Print("TRACKBIND fallbackGrey=", unbound, " unboundNames=", string.Join("|", UnboundNames.GetRange(0, System.Math.Min(40, UnboundNames.Count))));
   GD.Print("TRACKBIND bound=", bound, " of ", total, " surfaces; distinct textured materials=", cache.Count);
+  GrassBalancePass(track);
+ }
+ // One controlled grass colour-balance candidate: env-gated (MYSIM_GRASS_BALANCE=1), reversible, addressed only to
+ // ground ShaderMaterials whose texture is gnd_grass_* (the shader's own texture-based grass class). Rebalances the
+ // warm macro tint (authored (1.10,1.04,0.78) pushes yellow-green), halves the blotch/streak amplitudes and slightly
+ // darkens the tile tint. Never touches road, fence, foliage or any non-ground material; respects MYSIM_AUTHORED_GROUND
+ // (which already zeroes procedural variation); default rendering unchanged when the variable is unset.
+ static void GrassBalancePass(Node3D track){
+  if(System.Environment.GetEnvironmentVariable("MYSIM_GRASS_BALANCE")!="1")return;
+  if(System.Environment.GetEnvironmentVariable("MYSIM_AUTHORED_GROUND")=="1"){GD.Print("GRASS_BALANCE skipped: MYSIM_AUTHORED_GROUND owns ground variation");return;}
+  var seen=new HashSet<Material>();var records=new List<object>();int surfaces=0;
+  foreach(var node in track.FindChildren("*","MeshInstance3D",true,false)){
+   var mesh=(MeshInstance3D)node;if(mesh.Mesh==null)continue;
+   for(int s=0;s<mesh.Mesh.GetSurfaceCount();s++){
+    if(mesh.GetSurfaceOverrideMaterial(s) is not ShaderMaterial sm||sm.Shader==null)continue;
+    if(!seen.Add(sm))continue;
+    var tex=sm.GetShaderParameter("tex").AsGodotObject() as Texture2D;if(tex==null)continue;
+    string name=System.IO.Path.GetFileName(tex.ResourcePath).ToLowerInvariant();
+    if(!name.StartsWith("gnd_grass",System.StringComparison.Ordinal))continue;
+    var tintVar=sm.GetShaderParameter("tint");
+    if(tintVar.VariantType!=Variant.Type.Color)continue;
+    Color tint=tintVar.AsColor();
+    sm.SetShaderParameter("tint",new Color(tint.R*0.92f,tint.G*0.96f,tint.B*0.94f));
+    sm.SetShaderParameter("macro_tint",new Vector3(0.99f,1.02f,0.96f));
+    sm.SetShaderParameter("macro_amp",0.15f);
+    sm.SetShaderParameter("detail_amp",0.14f);
+    records.Add(new{renderer=mesh.GetPath().ToString(),surface=s,texture=tex.ResourcePath,tintFrom=new[]{tint.R,tint.G,tint.B},tintTo=new[]{tint.R*0.92f,tint.G*0.96f,tint.B*0.94f},macroTintFrom="1.10,1.04,0.78",macroTintTo="0.99,1.02,0.96",macroAmpTo=0.15f,detailAmpTo=0.14f});
+    surfaces++;
+   }
+  }
+  GD.Print("GRASS_BALANCE materials=",surfaces," scope=gnd_grass ground ShaderMaterials only; road/fence/foliage untouched");
+  if(System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string dir&&records.Count>0){System.IO.Directory.CreateDirectory(dir);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"grass-balance-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new{layer=track.Name.ToString(),materials=records,scope="One colour-balance candidate bundle on gnd_grass ground materials; env-gated; no road/fence/foliage material touched; not a promoted fix"},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
  }
 }}
 
