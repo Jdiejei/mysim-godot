@@ -668,6 +668,26 @@ def main():
             if m:
                 joined.append({"renderer": b["renderer"], **m})
 
+        # fallback-livery annotation (cars): CarLoader.FallbackTex binds the first
+        # livery/*.png when the car's ext source materials carry no _BaseMap.
+        fallback_note = None
+        if not args.track and not bound and rel.split("/")[-2] == "livery":
+            ext_bases = []
+            for renderer, lists in car_map.get("cars", {}).get(str(index), {}).items():
+                if "_mm_ext" not in renderer:
+                    continue
+                for guid in (lists[0] if lists else []):
+                    texs = (car_map.get("materials", {}).get(guid, {}) or {}).get("texs") or {}
+                    ext_bases.append(texs.get("_BaseMap") or texs.get("_MainTex"))
+            if not any(ext_bases):
+                liveries = sorted(p.name for p in (folder / "livery").glob("*.png"))
+                first = liveries[0] if liveries else None
+                fallback_note = (
+                    "runtime FALLBACK: CarLoader.FallbackTex binds the first livery/*.png ("
+                    + str(first) + ") because this car's ext materials carry no _BaseMap"
+                    + (" - THIS FILE is the live fallback livery" if first == png.name
+                       else " - this file is an UNUSED alternate (the fallback binds alphabetically-first)"))
+
         # ---- row-level six fields ----
         if bound:
             guid, guid_src = bound[0]["guid"], "car_map binding"
@@ -705,6 +725,7 @@ def main():
             "import": imp, "boundTo": bound, "repairs": repair_rows, "assembly": joined,
             "guid": guid, "guidSource": guid_src,
             "uvChannel": "UV0" if (bound or bindings_detail) else "none-bound",
+            "fallbackNote": fallback_note,
             "flipPolicy": flip,
             "orientationClass": row_cls,
             "defectTaxonomy": row_defect,
@@ -811,6 +832,10 @@ def main():
                 for d in r["density"]:
                     nm = d.get("renderer") or d.get("source")
                     lines.append(f"| {nm} | {d.get('visible', '-')} | {d.get('metresPerUv0', d.get('uv0mPerTile'))} | {d.get('pxPerMetre', '-')} | {d.get('basisDeterminant', '-')} |")
+        fb_notes = [(r["file"], r["fallbackNote"]) for r in rows if r.get("fallbackNote")]
+        if fb_notes:
+            lines += ["", "### Fallback-livery notes", ""]
+            lines += [f"- `{f}`: {n}" for f, n in fb_notes]
         if result.get("groups"):
             lines += ["", "### INT group (cockpit-readable surfaces)", ""]
             for r in rows:
