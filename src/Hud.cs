@@ -3,12 +3,12 @@ using MySimulator.Rebuild;
 namespace MySim {
 // Minimal in-game HUD: speed km/h, gear, rpm, lap/target, lap time, tyre wear. Real UI nodes (not a camera render).
 public partial class Hud : CanvasLayer {
- public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear, carState, weatherTag, deviceTag;PitServiceDisplay pitDisplay;PitStrategyPanel strategy;RaceStandingsPanel standings;HybridControlsPanel hybridControls;
+ public bool Paused; public Race Race; public Vehicle Player; Label speed, info, gear, carState, weatherTag, deviceTag;PitServiceDisplay pitDisplay;PitStrategyPanel strategy;RaceStandingsPanel standings;HybridControlsPanel hybridControls;BindingsPanel bindPanel;
  public HybridControlsPanel HybridControls=>hybridControls;public PitStrategyPanel PitStrategy=>strategy;
  // Read-only label surfaces for product checks (binding assertions read these; no setters, no fake text injection).
  public Label SpeedLabel=>speed;public Label GearLabel=>gear;public Label InfoLabel=>info;public Label CarStateLabel=>carState;public Label WeatherLabel=>weatherTag;public Label DeviceLabel=>deviceTag;public PanelContainer StandingsPanel=>standings;public Control MiniMapPanel=>mini;
  public void TogglePitStrategy()=>strategy?.Toggle();
- public PanelContainer StripPanel=>strip;
+ public PanelContainer StripPanel=>strip;public PanelContainer BindingsNode=>bindPanel;
  // Objective HUD-bounds evidence at capture time: every printed rect must stay inside the viewport (checked by the cloud harness).
  public void EmitRects() {
   var size=GetViewport().GetVisibleRect().Size;
@@ -27,7 +27,27 @@ public partial class Hud : CanvasLayer {
   standings=new RaceStandingsPanel();root.AddChild(standings);pitDisplay=new PitServiceDisplay();root.AddChild(pitDisplay);strategy=new PitStrategyPanel();root.AddChild(strategy);
   hybridControls.OffsetTop=-66; hybridControls.OffsetBottom=-20; // ERS joins the shared bottom baseline: minimap | ERS | speed/gear all end 20 px above the edge
   BuildSpeedCluster(root);
+  bindPanel = new BindingsPanel(); root.AddChild(bindPanel); bindPanel.Visible = false; // the pause reference: hidden unless paused and "show_bindings"
+  bindPanel.AnchorLeft = 1; bindPanel.AnchorRight = 1; bindPanel.OffsetLeft = -300; bindPanel.OffsetRight = -16; bindPanel.OffsetTop = 16; bindPanel.OffsetBottom = 16; bindPanel.GrowVertical = Control.GrowDirection.End;
   mini = new MiniMap { H = this, Size = new Vector2(190, 150) }; mini.AnchorLeft = mini.AnchorRight = touchMode ? 1 : 0; mini.AnchorTop = mini.AnchorBottom = touchMode ? 0 : 1; mini.OffsetLeft = touchMode ? -214 : 12; mini.OffsetTop = touchMode ? 276 : -170; mini.OffsetRight = touchMode ? -24 : 202; mini.OffsetBottom = touchMode ? 446 : -20; root.AddChild(mini);
+ }
+ // The pause-time bindings reference: living inside the Hud layer, dimmed under the Main pause overlay by layer
+ // order - the actions stay primary, this stays reference. Rows read ControlBindings live; rebinds show without
+ // reopening pause. The "show_bindings" setting (default on) gates the whole surface.
+ partial class BindingsPanel : PanelContainer {
+  public override void _Ready() {
+   MouseFilter = MouseFilterEnum.Ignore; AddThemeStyleboxOverride("panel", Hud.Chip());
+   var column = new VBoxContainer(); column.AddThemeConstantOverride("separation", 2); AddChild(column);
+   var title = new Label { Text = "CONTROLS" }; title.AddThemeFontSizeOverride("font_size", 13); title.AddThemeColorOverride("font_color", new Color(.7f, .85f, .9f)); column.AddChild(title);
+   for (int i = 0; i < ControlBindings.Actions.Length; i++) {
+    var rowH = new HBoxContainer();
+    var name = new Label { Text = ControlBindings.Actions[i] }; name.AddThemeFontSizeOverride("font_size", 13); name.AddThemeColorOverride("font_color", new Color(.78f, .85f, .9f)); rowH.AddChild(name);
+    var keyLabel = new Label { Name = "Key" + i, Text = OS.GetKeycodeString(ControlBindings.Get(i)) }; keyLabel.AddThemeFontSizeOverride("font_size", 13); keyLabel.HorizontalAlignment = HorizontalAlignment.Right; keyLabel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; rowH.AddChild(keyLabel);
+    column.AddChild(rowH);
+   }
+   var pad = new Label { Text = "GAMEPAD  stick steer, RT throttle, LT brake, A pit, Y camera, Start pause" }; pad.AddThemeFontSizeOverride("font_size", 12); pad.AddThemeColorOverride("font_color", new Color(.7f, .78f, .84f)); pad.AutowrapMode = TextServer.AutowrapMode.WordSmart; column.AddChild(pad);
+  }
+  public void RefreshBindings() { var column = GetChildCount() > 0 ? GetChild<VBoxContainer>(0) : null; if (column == null) return; for (int i = 0; i < ControlBindings.Actions.Length; i++) { var keyLabel = column.GetNodeOrNull<Label>("Key" + i); if (keyLabel != null) keyLabel.Text = OS.GetKeycodeString(ControlBindings.Get(i)); } }
  }
  static bool touchMode => Settings.ScreenControlsEnabled;
  // The one MySim chip: every HUD surface (strip, standings, speed/gear, ERS, minimap) resolves to this style
@@ -93,6 +113,7 @@ partial class MiniMap : Control {
  MiniMap mini;
  public override void _Process(double delta) {
   if (Player == null) return;hybridControls.Player=Player;hybridControls.Race=Race;mini.Visible=!strategy.Open;pitDisplay.Player=Player;strategy.Player=Player;strategy.Race=Race;
+  bindPanel.Visible = Paused && Settings.Get("show_bindings", true); if (bindPanel.Visible) bindPanel.RefreshBindings();
   if (Paused) { info.Text = "PAUSED  (Esc / Tab to resume)"; return; }
   speed.Text = ((int)(Player.speed * 3.6f)) + " km/h"; gear.Text = "GEAR " + (Player.gear < 0 ? "R" : Player.gear.ToString());
   standings.Race=Race;standings.Player=Player;
