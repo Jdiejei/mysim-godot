@@ -1,0 +1,558 @@
+{
+ "legs": {
+  "legA": "41870086370 @26d0191 production",
+  "legB": "41874911549 @a313492 candidates active"
+ },
+ "viewDiff": {
+  "front": {
+   "changedPx": 125,
+   "totalPx": 518400,
+   "clusters": [
+    {
+     "bbox": [
+      432,
+      272,
+      452,
+      300
+     ],
+     "area": 48
+    },
+    {
+     "bbox": [
+      512,
+      284,
+      532,
+      308
+     ],
+     "area": 32
+    },
+    {
+     "bbox": [
+      472,
+      420,
+      492,
+      444
+     ],
+     "area": 32
+    }
+   ]
+  },
+  "left": {
+   "changedPx": 222,
+   "totalPx": 518400,
+   "clusters": [
+    {
+     "bbox": [
+      528,
+      268,
+      560,
+      304
+     ],
+     "area": 240
+    }
+   ]
+  },
+  "right": {
+   "changedPx": 215,
+   "totalPx": 518400,
+   "clusters": [
+    {
+     "bbox": [
+      404,
+      268,
+      436,
+      304
+     ],
+     "area": 224
+    }
+   ]
+  },
+  "top": {
+   "changedPx": 4,
+   "totalPx": 518400,
+   "clusters": []
+  },
+  "rear": {
+   "changedPx": 0,
+   "totalPx": 518400,
+   "clusters": []
+  },
+  "cockpit": {
+   "changedPx": 33903,
+   "totalPx": 518400,
+   "clusters": [
+    {
+     "bbox": [
+      0,
+      132,
+      928,
+      260
+     ],
+     "area": 32832
+    },
+    {
+     "bbox": [
+      160,
+      196,
+      208,
+      232
+     ],
+     "area": 256
+    },
+    {
+     "bbox": [
+      912,
+      180,
+      956,
+      216
+     ],
+     "area": 176
+    },
+    {
+     "bbox": [
+      928,
+      196,
+      960,
+      224
+     ],
+     "area": 112
+    },
+    {
+     "bbox": [
+      744,
+      220,
+      772,
+      248
+     ],
+     "area": 64
+    },
+    {
+     "bbox": [
+      940,
+      216,
+      960,
+      240
+     ],
+     "area": 48
+    }
+   ]
+  }
+ },
+ "rows": [
+  {
+   "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: remaining car16 ext surface still at shader default uv_scale=(-1,-1), whose extra U flip mirrors decals. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 14,
+   "uvBounds": {
+    "min": [
+     0.5859375,
+     -0.50244105
+    ],
+    "max": [
+     0.5947266,
+     -0.49023402
+    ]
+   },
+   "evidence": {
+    "view": "left",
+    "clusterBBox": [
+     528,
+     268,
+     560,
+     304
+    ],
+    "clusterAreaPx": 240,
+    "viewChangedPx": 222
+   },
+   "evidenceNote": "largest of 1 legA->legB diff clusters in the left view",
+   "image": "images/row-01-DOOR_LEFT-ext.png"
+  },
+  {
+   "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: remaining car16 ext surface still at shader default uv_scale=(-1,-1), whose extra U flip mirrors decals. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 14,
+   "uvBounds": {
+    "min": [
+     0.5859375,
+     -0.50244105
+    ],
+    "max": [
+     0.5947266,
+     -0.49023402
+    ]
+   },
+   "evidence": {
+    "view": "right",
+    "clusterBBox": [
+     404,
+     268,
+     436,
+     304
+    ],
+    "clusterAreaPx": 224,
+    "viewChangedPx": 215
+   },
+   "evidenceNote": "largest of 1 legA->legB diff clusters in the right view",
+   "image": "images/row-02-DOOR_RIGHT-ext.png"
+  },
+  {
+   "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 including both mirrors (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: remaining car16 ext surface still at shader default uv_scale=(-1,-1), whose extra U flip mirrors decals. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 345,
+   "uvBounds": {
+    "min": [
+     0.3828125,
+     -0.568848
+    ],
+    "max": [
+     0.4780273,
+     -0.493652
+    ]
+   },
+   "evidence": {
+    "view": "left",
+    "clusterBBox": [
+     528,
+     268,
+     560,
+     304
+    ],
+    "clusterAreaPx": 240,
+    "viewChangedPx": 222
+   },
+   "evidenceNote": "largest of 1 legA->legB diff clusters in the left view",
+   "image": "images/row-03-MIRROR_LEFT-ext.png"
+  },
+  {
+   "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 including both mirrors (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: remaining car16 ext surface still at shader default uv_scale=(-1,-1), whose extra U flip mirrors decals. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 345,
+   "uvBounds": {
+    "min": [
+     0.3828125,
+     -0.87646496
+    ],
+    "max": [
+     0.4780273,
+     -0.80127
+    ]
+   },
+   "evidence": {
+    "view": "right",
+    "clusterBBox": [
+     404,
+     268,
+     436,
+     304
+    ],
+    "clusterAreaPx": 224,
+    "viewChangedPx": 215
+   },
+   "evidenceNote": "largest of 1 legA->legB diff clusters in the right view",
+   "image": "images/row-04-MIRROR_RIGHT-ext.png"
+  },
+  {
+   "renderer": "LOD_A_STRUT_UPPER_FRONT_LEFT_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: upper front wishbones are bound to the livery atlas yet still at shader default uv_scale=(-1,-1); wrong-island sampling shows foreign patches on visible suspension. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 74,
+   "uvBounds": {
+    "min": [
+     0.3178711,
+     -0.632813
+    ],
+    "max": [
+     0.5419922,
+     -0.49414098
+    ]
+   },
+   "evidence": {
+    "view": "left",
+    "clusterBBox": [
+     528,
+     268,
+     560,
+     304
+    ],
+    "clusterAreaPx": 240,
+    "viewChangedPx": 222
+   },
+   "evidenceNote": "largest of 1 legA->legB diff clusters in the left view",
+   "image": "images/row-05-STRUT_UPPER_FRONT_LEFT-ext.png"
+  },
+  {
+   "renderer": "LOD_A_STRUT_UPPER_FRONT_RIGHT_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: upper front wishbones are bound to the livery atlas yet still at shader default uv_scale=(-1,-1); wrong-island sampling shows foreign patches on visible suspension. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 74,
+   "uvBounds": {
+    "min": [
+     0.3178711,
+     -0.87548804
+    ],
+    "max": [
+     0.5419922,
+     -0.73681605
+    ]
+   },
+   "evidence": {
+    "view": "right",
+    "clusterBBox": [
+     404,
+     268,
+     436,
+     304
+    ],
+    "clusterAreaPx": 224,
+    "viewChangedPx": 215
+   },
+   "evidenceNote": "largest of 1 legA->legB diff clusters in the right view",
+   "image": "images/row-06-STRUT_UPPER_FRONT_RIGHT-ext.png"
+  },
+  {
+   "renderer": "LOD_A_EXHAUST_mm_ext",
+   "atlas": "2019_f1_ferrari_sf90_ext_16.png",
+   "staged": {
+    "source_guid": "449e4db78ecc6e21c9bd11a7fbf05975",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/livery/2019_f1_ferrari_sf90_ext_16.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Same-car family evidence only: V-only image-origin correction validated on LOD_A_BODY/FRONTBUMPER/REARBUMPER_mm_ext (run 41572315488, paired rear/opposite-side views) and on all 11 visible exterior roles of car20 (run 41453316712, eight baseline images); island-to-atlas correspondence under top-left origin shown in run 41571290602; measured negative UV0 V in run 41510907196.",
+    "finding": "PENDING per-surface confirmation: remaining car16 ext surface still at shader default uv_scale=(-1,-1), whose extra U flip mirrors decals. Rear-region surface (z about -2.03). Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 269,
+   "uvBounds": {
+    "min": [
+     0.8706055,
+     -0.0073239803
+    ],
+    "max": [
+     0.9990234,
+     -0.00048804283
+    ]
+   },
+   "evidence": null,
+   "evidenceNote": "no legA->legB change at any expected review camera (rear,top)",
+   "image": "images/row-07-EXHAUST-ext.png"
+  },
+  {
+   "renderer": "LOD_A_BODY_mm_badges",
+   "atlas": "2019_f1_ferrari_sf90_badges.png",
+   "staged": {
+    "source_guid": "a903631edbed0e5cf8f2a64dc5a09eb2",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_badges.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Family evidence only (no badge-specific run yet): the badges layer is a separate alpha overlay carrying sponsor markings on the same car16 meshes whose ext islands required V-only correction (runs 41572315488, 41571290602, 41510907196); whole-car livery probe run 41788844369 still shows mirrored logos/numbers with the three ext repairs active, making the uncorrected badges layer the primary remaining suspect.",
+    "finding": "PENDING per-surface confirmation: candidate V-only correction for the badge overlay layer; decide per rendered badge (sponsor marks must read correctly, not mirrored) before promotion. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 564,
+   "uvBounds": {
+    "min": [
+     0.02734375,
+     -0.722656
+    ],
+    "max": [
+     0.9775391,
+     -0.020995975
+    ]
+   },
+   "evidence": {
+    "view": "front",
+    "clusterBBox": [
+     432,
+     272,
+     452,
+     300
+    ],
+    "clusterAreaPx": 48,
+    "viewChangedPx": 125
+   },
+   "evidenceNote": "largest of 3 legA->legB diff clusters in the front view",
+   "image": "images/row-08-BODY-badges.png"
+  },
+  {
+   "renderer": "LOD_A_FRONTBUMPER_mm_badges",
+   "atlas": "2019_f1_ferrari_sf90_badges.png",
+   "staged": {
+    "source_guid": "a903631edbed0e5cf8f2a64dc5a09eb2",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_badges.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Family evidence only (no badge-specific run yet): the badges layer is a separate alpha overlay carrying sponsor markings on the same car16 meshes whose ext islands required V-only correction (runs 41572315488, 41571290602, 41510907196); whole-car livery probe run 41788844369 still shows mirrored logos/numbers with the three ext repairs active, making the uncorrected badges layer the primary remaining suspect.",
+    "finding": "PENDING per-surface confirmation: candidate V-only correction for the badge overlay layer; decide per rendered badge (sponsor marks must read correctly, not mirrored) before promotion. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 36,
+   "uvBounds": {
+    "min": [
+     0.02734375,
+     -0.19580102
+    ],
+    "max": [
+     0.2021484,
+     -0.020995975
+    ]
+   },
+   "evidence": {
+    "view": "front",
+    "clusterBBox": [
+     432,
+     272,
+     452,
+     300
+    ],
+    "clusterAreaPx": 48,
+    "viewChangedPx": 125
+   },
+   "evidenceNote": "largest of 3 legA->legB diff clusters in the front view",
+   "image": "images/row-09-FRONTBUMPER-badges.png"
+  },
+  {
+   "renderer": "LOD_A_REARBUMPER_mm_badges",
+   "atlas": "2019_f1_ferrari_sf90_badges.png",
+   "staged": {
+    "source_guid": "a903631edbed0e5cf8f2a64dc5a09eb2",
+    "texture": "res://assets/RealRacing/Source/2019_f1_ferrari_sf90/2019_f1_ferrari_sf90_badges.png",
+    "scale": [
+     1,
+     -1
+    ],
+    "offset": [
+     0,
+     1
+    ],
+    "pending": true,
+    "basis": "Family evidence only (no badge-specific run yet): the badges layer is a separate alpha overlay carrying sponsor markings on the same car16 meshes whose ext islands required V-only correction (runs 41572315488, 41571290602, 41510907196); whole-car livery probe run 41788844369 still shows mirrored logos/numbers with the three ext repairs active, making the uncorrected badges layer the primary remaining suspect.",
+    "finding": "PENDING per-surface confirmation: candidate V-only correction for the badge overlay layer; decide per rendered badge (sponsor marks must read correctly, not mirrored) before promotion. Applied only with MYSIM_SURFACE_UV_CANDIDATES=1; originals unchanged."
+   },
+   "uvCount": 60,
+   "uvBounds": {
+    "min": [
+     0.2216797,
+     -0.19043005
+    ],
+    "max": [
+     0.3911133,
+     -0.021484017
+    ]
+   },
+   "evidence": null,
+   "evidenceNote": "no legA->legB change at any expected review camera (rear,top)",
+   "image": "images/row-10-REARBUMPER-badges.png"
+  }
+ ],
+ "pack": {
+  "atlasExt": "2019_f1_ferrari_sf90_ext_16.png",
+  "atlasBadges": "2019_f1_ferrari_sf90_badges.png",
+  "uvSource": "outputs/repair-20261029/cloud/formula16-density/outputs/cloud-game/car16-channel-0-both-assembly.json (read-only local evidence, run 41510907196-era import metadata)"
+ }
+}
