@@ -41,6 +41,16 @@ public partial class Main : Node3D {
   if(System.Environment.GetEnvironmentVariable("MYSIM_CONTROLCHECKS")!=null){AddChild(new ControlsScenario());return;}
   var t = System.Environment.GetEnvironmentVariable("MYSIM_TRACK");
   if (t != null) StartRace(int.Parse(t), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_CAR") ?? "8"), int.Parse(System.Environment.GetEnvironmentVariable("MYSIM_LAPS") ?? "3")); else { ShowMenu(); var ms = System.Environment.GetEnvironmentVariable("MYSIM_MENUSHOT"); if (ms != null) MenuShot(ms); }
+  // Two-instance LAN test entry (the owner-run script): MYSIM_LAN_HOST opens the hosting
+  // panel (add MYSIM_LAN_AUTOSTART=1 for the unattended run), MYSIM_LAN_JOIN=<addr> opens
+  // and auto-joins. Never set in single-player or CI flows.
+  string lanHostEnv = System.Environment.GetEnvironmentVariable("MYSIM_LAN_HOST"), lanJoinEnv = System.Environment.GetEnvironmentVariable("MYSIM_LAN_JOIN");
+  if (t == null && (lanHostEnv != null || lanJoinEnv != null)) {
+   var lanPanel = new LanRoomPanel { Hosting = lanHostEnv != null };
+   if (lanJoinEnv != null) lanPanel.AutoJoinAddress = lanJoinEnv;
+   lanPanel.LaunchLan = StartLanRace;
+   AddChild(lanPanel);
+  }
  }
  async void MenuShot(string path) { for (int i = 0; i < 20; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetViewport().GetTexture().GetImage().SavePng(path); GetTree().Quit(); }
  void Ui(string n) { var st = GD.Load<AudioStream>("res://assets/Resources/RecoveredGUI/Audio/" + n + ".wav"); if (st == null) return; var pl = new AudioStreamPlayer { Stream = st, VolumeDb = -6f }; AddChild(pl); pl.Finished += () => pl.QueueFree(); pl.Play(); }
