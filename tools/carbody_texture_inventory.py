@@ -527,10 +527,116 @@ def markdown_manifest(result):
     return "\n".join(lines) + "\n"
 
 
+CAR_ACCEPTANCE_PACKS = {
+    16: [("car16 mirrored-UV pack", "outputs/mistral-orchestration/visual-review/car16-mirrored-uv-pack/PACK.md"),
+         ("car16 wheel-detail pack", "outputs/mistral-orchestration/visual-review/car16-wheel-pack/WHEEL-PACK.md")],
+    20: [("car20 carbody pack (11 promoted roles)", "outputs/mistral-orchestration/visual-review/car20-carbody-pack/CAR20-PACK.md")],
+    15: [("F1 triad pack - car15 section", "outputs/mistral-orchestration/f1-triad-pack/F1-TRIAD-PACK.md"),
+         ("car15 main strip", "outputs/mistral-orchestration/f1-triad-pack/images/car15-main.png"),
+         ("car15 rubber closeups", "outputs/mistral-orchestration/f1-triad-pack/images/car15-wheels.png")],
+    17: [("F1 triad pack - car17 section", "outputs/mistral-orchestration/f1-triad-pack/F1-TRIAD-PACK.md"),
+         ("car17 main strip", "outputs/mistral-orchestration/f1-triad-pack/images/car17-main.png"),
+         ("car17 rubber closeups", "outputs/mistral-orchestration/f1-triad-pack/images/car17-wheels.png")],
+    18: [("F1 triad pack - car18 section", "outputs/mistral-orchestration/f1-triad-pack/F1-TRIAD-PACK.md"),
+         ("car18 main strip", "outputs/mistral-orchestration/f1-triad-pack/images/car18-main.png"),
+         ("car18 fleet wheel closeups", "outputs/mistral-orchestration/f1-triad-pack/images/car18-wheels.png")],
+}
+TRACK0_INDEX = ("track0 standing-rejects index", "outputs/mistral-orchestration/visual-review/track0-index/TRACK0-INDEX.md")
+
+
+def cards_mode(root, args):
+    """Per-car acceptance cards generated FROM the committed inventory jsons (+ catalog,
+    repairs, packs): the 24-car acceptance pass infrastructure. Read-only."""
+    src = pathlib.Path("outputs/mistral-orchestration/inventory")
+    if not src.is_dir():
+        src = root / "outputs/mistral-orchestration/inventory"
+    files = sorted(src.glob("car*.json"), key=lambda p: int(re.sub(r"\D", "", p.stem)))
+    if len(files) < 24:
+        print(f"cards: only {len(files)} committed inventory jsons found at {src} - refusing (need 24)")
+        return 3
+    cat = parse_catalog(root)
+    cars_by_idx = {}
+    for row in (cat if isinstance(cat, list) else cat.get("cars", [])):
+        cars_by_idx[row.get("id")] = row
+    rep_data = json.loads((root / "data/car_surface_uv_repairs.json").read_text(encoding="utf-8"))
+    rep_by_car = {}
+    def collect(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if isinstance(k, str) and re.fullmatch(r"(\d{1,2})/[A-Za-z0-9_]+", k) and isinstance(v, dict):
+                    i = int(k.split("/")[0])
+                    rep_by_car.setdefault(i, []).append((k, v))
+                else:
+                    collect(v)
+        elif isinstance(o, list):
+            for v in o:
+                collect(v)
+    collect(rep_data)
+    out_dir = pathlib.Path(args.out_cards); out_dir.mkdir(parents=True, exist_ok=True)
+    index = ["# 24-car acceptance cards", "",
+             "Generated from the committed six-field inventories (24/24) by `tools/carbody_texture_inventory.py --cards`.", "",
+             "**Standing rules:** in-tree/local evidence only; **cloud-UNVALIDATED**; no acceptance is implied by greps/inventories/cards - each card's verdict slot stays open for the human reviewer.", ""]
+    for f in files:
+        idx = int(re.sub(r"\D", "", f.stem))
+        d = json.loads(f.read_text(encoding="utf-8"))
+        rows = d.get("rows", [])
+        cres = rep_by_car.get(idx, [])
+        n_pending = sum(1 for _, v in cres if v.get("pending") is True)
+        n_prom = len(cres) - n_pending
+        oc, dt = {}, {}
+        for r in rows:
+            oc[r.get("orientationClass", "-")] = oc.get(r.get("orientationClass", "-"), 0) + 1
+            dt[r.get("defectTaxonomy", "-")] = dt.get(r.get("defectTaxonomy", "-"), 0) + 1
+        car = cars_by_idx.get(idx, {})
+        name = car.get("name") or "?"
+        folder = car.get("folder") or "?"
+        es = evidence_state_for(idx)
+        L = [f"# Acceptance card - car{idx} {name}", "",
+             f"- target: {d.get('target')} | folder: `{folder}` | class: {car.get('raceClass', '-')}",
+             f"- inventory: `outputs/mistral-orchestration/inventory/car{idx}.md` (+ `.json`, committed)",
+             "", "## Repair state (data/car_surface_uv_repairs.json)",
+             f"- {n_prom} promoted (active in every render) / {n_pending} stage-gated pending (candidates env)",
+             *(f"  - `{k}` pending" for k, v in cres if v.get("pending") is True),
+             "", "## Orientation / defect summary (over %d inventory rows)" % len(rows),
+             *(f"- orientationClass: {k} x{v}" for k, v in sorted(oc.items(), key=lambda x: -x[1])),
+             *(f"- defectTaxonomy: {k} x{v}" for k, v in sorted(dt.items(), key=lambda x: -x[1]))]
+        for r in rows:
+            for s in r.get("secondaryDefects", []) or []:
+                L.append(f"- secondary: {s.get('defectTaxonomy')} -> {s.get('correctionFamily')}: {str(s.get('evidence'))[:150]}")
+        L += ["", "## Atlas table",
+              "| file | px | guid | uv | orientationClass | defect | correction |", "|---|---|---|---|---|---|---|"]
+        for r in rows:
+            L.append(f"| {r.get('file')} | {r.get('pixels')} | {(r.get('guid') or '')[:12]} | {r.get('uvChannel')} | "
+                     f"{r.get('orientationClass')} | {r.get('defectTaxonomy')} | {r.get('correctionFamily')} |")
+        L += ["", "## Evidence + packs",
+              *(f"- {label}: `{path}`" for label, path in CAR_ACCEPTANCE_PACKS.get(idx, [])),
+              "- fleet visual state: " + es["fleetVisualEvidence"],
+              "- P5 metrics state: " + es["assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)"],
+              "", "## Open decisions (reviewer's)",
+              "- " + (f"{n_pending} pending entries need the per-surface confirm run before promotion" if n_pending
+                     else "no pending UV entries; the open items are the art/detail verdicts documented in the inventory")]
+        if not any(r.get("secondaryDefects") for r in rows):
+            L.append("- no secondary (documented, cited) defects recorded for this car beyond the rule-derived rows")
+        L += ["", "## Verdict", "", "**ACCEPTANCE VERDICT (human reviewer):** ____________________", "",
+              "_cloud-UNVALIDATED; no acceptance from in-tree evidence._"]
+        cp = out_dir / f"car{idx}.md"
+        cp.write_text("\n".join(L) + "\n", encoding="utf-8")
+        index.append(f"- [car{idx} {name}](car{idx}.md) - rows={len(rows)}, promoted={n_prom}, pending={n_pending}"
+                     + (", pack(s) linked" if idx in CAR_ACCEPTANCE_PACKS else ""))
+    index += ["", "- [track0 standing-rejects index](%s) (the track-side acceptance rows)" % TRACK0_INDEX[1],
+              "", "Packs referenced live under `outputs/mistral-orchestration/visual-review/` and `outputs/mistral-orchestration/f1-triad-pack/`."]
+    ip = out_dir / "CARDS-INDEX.md"
+    ip.write_text("\n".join(index) + "\n", encoding="utf-8")
+    print(f"cards: {len(files)} cards + index -> {out_dir}")
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--root", default=str(pathlib.Path(__file__).resolve().parent.parent))
     ap.add_argument("--manifest", action="store_true", help="enumerate the whole fleet + tracks from catalog sources (fail-closed asserts)")
+    ap.add_argument("--cards", action="store_true", help="per-car acceptance cards from the committed inventories")
+    ap.add_argument("--out-cards", default="outputs/mistral-orchestration/cards")
     ap.add_argument("--car"); ap.add_argument("--index", type=int)
     ap.add_argument("--track")
     ap.add_argument("--assembly", help="assembly-audit JSON to join (optional)")
@@ -538,6 +644,8 @@ def main():
     args = ap.parse_args()
     root = pathlib.Path(args.root)
     assets = root / "assets"
+    if args.cards:
+        return cards_mode(root, args)
     if args.manifest:
         try:
             result = manifest(root)
