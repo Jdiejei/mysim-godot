@@ -1,6 +1,6 @@
 # OWNER MERGE INSTRUCTIONS — MySim rebuild line → main (updated 2026-11-05, coordinator)
 
-**Current integration/pre-merge SHA: `6350760` on `https://github.com/Jdiejei/mysim-godot` branch `codex/repair-20261029`** (verify at pull time). Adds since 40ddb4e: LAN phase-2 (START handshake MSR6, the persistent-scene SnapshotApplier, the join car picker), the all-track corridor sweep (+seam inventory), the F1 triad pack, and the bindings display (panel + settings toggle + the five product checks; coordinator-verified hunk-by-hunk per the recovery protocol).
+**Current integration/pre-merge SHA: `906d60c` on `https://github.com/Jdiejei/mysim-godot` branch `codex/repair-20261029`** (verify at pull time). Adds since 40ddb4e: LAN phase-2 (START handshake MSR6, the persistent-scene SnapshotApplier, the join car picker) + the LAN race-view adapters (LanRaceView/LanClientRunner; single-player byte-identical; coordinator-reviewed), the all-track corridor sweep (+ the seam inventory), the seam welds (Hockenheim-214/DubaiClub-55, flag-gated OFF), the F1 triad pack, the 24-car acceptance cards, the bindings display (panel + toggle + the five product checks; coordinator-verified per the recovery protocol).
 
 ## SHORTEST REPRODUCIBLE BATTERY (run these FIRST - ~15-35 min total, fail fast)
 
