@@ -59,7 +59,7 @@ namespace MySimulator.Rebuild
     }
     public static class Wire
     {
-        public const string Version="MSR5";
+        public const string Version="MSR6";
         static readonly CultureInfo C=CultureInfo.InvariantCulture;
         public static string F(float f){return f.ToString("0.###",C);}
         public static float Float(string s){float f;if(!float.TryParse(s,NumberStyles.Float,C,out f)||!MathUtil.Finite(f))throw new FormatException("Invalid number");return f;}
@@ -105,6 +105,9 @@ namespace MySimulator.Rebuild
         public string status="Offline",peer,peerNonce="",name="Driver",sessionToken="",nonce=Guid.NewGuid().ToString("N");
         public int localModel,localId,sequence,lastSequence=-1,inputSequence,lastInputSequence=-1;
         public float silence,sendTimer,joinTimer,inputSilence;bool remoteResetHeld;
+        // The adopted LAN plan's explicit start handoff: the host sends START|token when the
+        // room launches; the client gates its race-scene entry on receiving its exact token.
+        public bool startRequested,startReceived;
         public readonly Dictionary<string,string> rooms=new Dictionary<string,string>();
         public DriverInput localInput;
         public bool pitRequest,resetRequest;
@@ -116,6 +119,16 @@ namespace MySimulator.Rebuild
         }
         public void Join(IGameChannel transport,string address,string driver)
         {channel=transport;role=SessionRole.Client;peer=address;name=driver;localId=1;status="Connecting";joinTimer=2;silence=0;}
+        // Host-side race start (the adopted LAN plan's explicit START): arms the real 5 s
+        // countdown (the lobby holds countdown at 9999 so the race-start semantics stay the
+        // single-player ones) and tells the client to enter its race scene. The client gates
+        // its transition on receiving START with its exact session token.
+        public void StartRace()
+        {
+            if(role!=SessionRole.Host||!connected)throw new InvalidOperationException("StartRace requires a connected host session");
+            if(race.started)throw new InvalidOperationException("Race already started");
+            race.countdown=5f;startRequested=true;channel.Send("START|"+sessionToken,peer);
+        }
         public void Tick(float dt)
         {
             if(channel==null)return;silence+=dt;sendTimer+=dt;joinTimer+=dt;inputSilence+=dt;
@@ -156,6 +169,7 @@ namespace MySimulator.Rebuild
             if(sender!=peer)return;
             if(p[0]=="ACCEPT"&&role==SessionRole.Client&&p.Length==4&&p[1]==Wire.Version&&p[2]==nonce&&p[3].Length==32){sessionToken=p[3];connected=true;silence=0;status="Connected — waiting for host";return;}
             if(p[0]=="BUSY"){status="Host race already started";return;}
+            if(p[0]=="START"&&role==SessionRole.Client&&connected&&p.Length==2&&p[1]==sessionToken){startReceived=true;silence=0;status="Race starting";return;}
             if(p[0]=="INPUT"&&role==SessionRole.Host&&connected&&p.Length==10&&p[1]==sessionToken)
             {
                 int seq=Wire.Int(p[2]);if(seq<=lastInputSequence)return;

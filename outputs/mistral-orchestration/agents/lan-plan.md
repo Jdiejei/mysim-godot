@@ -3,6 +3,8 @@
 Owner: physics-gameplay (planning role for the LAN stage, per the reviewer's staffing requirement).
 Status: plan for coordinator sign-off. Nothing here is implemented or validated; the LAN flow remains flagged unstaffed-until-this-plan-is-adopted.
 
+> **Implementation status (updated after the adopted-defaults phase-2 step):** the four decisions were adopted as conservative defaults. Implemented since: the explicit `START|token` handshake (`Wire` v MSR6, `GameSession.StartRace`, client gating on `startReceived`), the logic half of the `RaceSessionBridge` (`src/Logic/RaceSessionSync.cs`: `SnapshotApplier` + `IRaceView`/`ICarView` — one view per car id, updated in place, never recreated per packet), and the join-UI car picker (`LanRoomPanel` → `session.localModel` → HELLO) plus the host START button. NOT yet done (the next small step): the race-scene adapters implementing `IRaceView`/`ICarView` over Godot nodes and the lobby→race-scene transition (touches `Main.cs` — coordinator-owned surface). Unit-verified in CoreRunner (handshake + applier persistence through the real Snapshot→ReadSnapshot→Apply pipeline); no two-instance run yet — the acceptance checklist remains a post-integration battery item.
+
 ## 0. What already exists (verified this session — do not rebuild)
 
 | Piece | Where | State |
