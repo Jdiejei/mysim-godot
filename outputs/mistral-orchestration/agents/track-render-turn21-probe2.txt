@@ -1,0 +1,19 @@
+﻿track 2 Dubai_Autodrome_club segs 52-58 maxD 20
+seg 52 at (-558.0,-104.5) roadY=0.87 nCand=276 L=[0-18] R=[0-20]
+seg 53 at (-550.8,-90.4) roadY=0.64 nCand=359 L=[0-17.25] R=[0-20]
+seg 54 at (-541.3,-77.9) roadY=0.73 nCand=453 L=[0-17.25] R=[0-18.5]
+seg 55 at (-529.2,-67.7) roadY=0.91 nCand=433 L=[0-17.75] R=[0-8],[10-20]
+seg 56 at (-515.7,-59.3) roadY=0.92 nCand=277 L=[0-17.5] R=[0-20]
+seg 57 at (-501.6,-51.9) roadY=0.90 nCand=155 L=[0-20] R=[0-20]
+seg 58 at (-487.1,-45.3) roadY=0.89 nCand=111 L=[0-20] R=[0-20]
+dump around (-487.09,-45.31) r=0
+===COTA-CLUB===track 52 cota_club segs 26-32 maxD 20
+seg 26 at (716.2,461.0) roadY=4.25 nCand=39 L=[0-19.5] R=[0-12]
+seg 27 at (701.0,456.3) roadY=4.11 nCand=32 L=[0-18.25] R=[0-11.75]
+seg 28 at (685.8,451.6) roadY=4.07 nCand=25 L=[0-17] R=[0-11.75]
+seg 29 at (670.5,447.0) roadY=4.15 nCand=24 L=[0-15.75] R=[0-11.5]
+seg 30 at (655.2,442.4) roadY=4.38 nCand=30 L=[0-14.5] R=[0-11.75]
+seg 31 at (639.9,438.0) roadY=4.69 nCand=51 L=[0-14] R=[0-11.75]
+seg 32 at (624.6,433.6) roadY=5.09 nCand=53 L=[0-14.25] R=[0-16.75]
+dump around (624.56,433.56) r=0
+
