@@ -319,8 +319,8 @@ EVIDENCE_ANNOTATIONS = {
             {"run": 41862411919, "head": "eb3890f", "outcome": "SUCCESS but only shard 0 (jobs: prepare+render(0)) - re-dispatch reproduced the collapse"},
         ],
         "cause": "CONFIRMED at a313492: the fleet term sat inside the paren group opened at 'chiron_wing_rebuild' that closed after 'f1_wheel_diagnostic' followed by && '[0]' - the group evaluated to '[0,1,2,3,4,5]' and the trailing && '[0]' collapsed it to '[0]'",
-        "fix": "FIXED at c4fb876 (fork tip o_Jdiejei/codex/repair-20261029 = integration head): 'shard matrix: fix the fleet-grouping bug'; this agent re-verified mechanically - at c4fb876 the fleet term's enclosing paren is the fromJSON( itself (top-level) and the wet/f1_wheel_diagnostic group opens its own parenthesis",
-        "next": "fleet_evidence at c4fb876 = the PRE-PROMOTION mirrored baseline (battery item in the P1 production-runbook); then promotion pending:true->false (NOT deletion); then the post-promotion fleet run",
+        "fix": "FIXED at c4fb876 ('shard matrix: fix the fleet-grouping bug'); this agent re-verified mechanically - at c4fb876 the fleet term's enclosing paren is the fromJSON( itself (top-level) and the wet/f1_wheel_diagnostic group opens its own parenthesis; merged forward into the later integration heads",
+        "next": "the NEXT post-fix fleet run (c4fb876 or later head, dispatched when the owner's queue drains) = the PRE-PROMOTION mirrored baseline (battery item in the P1 production-runbook); then promotion pending:true->false (NOT deletion); then the post-promotion fleet run",
         "coveredCars": [0, 6, 12, 18],
         "provides": "42/42 captures per run, missing=[] (5 views + 4 wheel closeups + cockpit per car + track0 day/night), PRODUCTION render state (SOURCE_UV_CANDIDATES=0, MISC_TWIN_HIDE=0)",
         "decryption": "WORKS locally: owner key C:/Users/shash/.codex/private/mysim-review/review-20261031.key via MYSIM_INTAKE_KEY (verified on the fleet shard-0 envelope: 42/42 PNGs; key never printed)",
@@ -344,7 +344,7 @@ EVIDENCE_ANNOTATIONS = {
         "purpose": "Q3 condition: the A/B legs both carry twin-hide+ext-candidate env; promotion must be validated at PRODUCTION state (no env)",
         "vehicle": "fleet_evidence depth (candidates=0, twin-hide=0 by construction) - the only production-state capture path for car16",
         "blockedBy": "RESOLVED: the fix landed at c4fb876 and is verified; car16 (shard 4) still needs its first fleet captures via the battery run",
-        "sequence": ["1. DONE: paren fix at c4fb876 (verified)", "2. fleet_evidence at c4fb876 = pre-promotion baseline (mirrored badges at production state; owner battery item)", "3. promotion commit: the three entries pending:true -> false (NOT deletion: deletion reverts to mirrored)", "4. fleet_evidence at the promoted head = production captures with corrected badges, no env", "5. per-marking comparison per the turn-4 verdict table + non-badge regression rows unchanged"],
+        "sequence": ["1. DONE: paren fix at c4fb876 (verified)", "2. fleet_evidence at the post-fix head (c4fb876 or later; current at dispatch) = pre-promotion baseline (mirrored badges at production state; owner battery item)", "3. promotion commit: the three entries pending:true -> false (NOT deletion: deletion reverts to mirrored)", "4. fleet_evidence at the promoted head = production captures with corrected badges, no env", "5. per-marking comparison per the turn-4 verdict table + non-badge regression rows unchanged"],
         "baseline": "41798036351 decrypted set (locally available, e8b80bb, twin-hide state per its logs) doubles as the reviewed pre-fix baseline",
     },
 }
@@ -355,17 +355,17 @@ def evidence_state_for(car_id):
     if car_id in (15, 16, 17, 18):
         metrics = "measured by 41837315358/41843317303 (incorporation pending)"
     elif car_id in (0, 1, 2, 3):
-        metrics = "41849732286 FAILED; corrected retry 41854428291 in flight"
+        metrics = "41849732286 FAILED; retry 41854428291 also FAILED (at 6263c51); re-run pending"
     else:
         metrics = "pending-run-<wheel-sweep-batch>"
     if car_id in (0, 6, 12, 18):
         visuals = "captured-41848086075+41862411919-shard0 (42/42 twice; decrypted locally - visual verdicts with the reviewer)"
     else:
-        visuals = "pending fleet_evidence at c4fb876 (fix verified; owner battery item = pre-promotion baseline for all 24 cars)"
+        visuals = "pending the post-fix fleet run (owner battery item = pre-promotion baseline for all 24 cars; shard-matrix fix landed at c4fb876, merged into later heads)"
     return {
         "fleetVisualEvidence": visuals,
         "assemblyMetrics(metresPerUv/basisDeterminant/textOrientation)": metrics,
-        "uvSixFieldFill": "car16 complete (turn-2 report); car6 hood only; others pending the assembly metrics",
+        "uvSixFieldFill": "all 24 cars carry md+json six-field inventories (car16/car6/track0 + batch 1 = cars 0-5,7-11 + batch 2 = cars 12-15,17-23); the per-surface METRIC fields inside await the assembly-audit joins listed above",
     }
 
 
