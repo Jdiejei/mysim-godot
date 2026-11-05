@@ -1,6 +1,21 @@
 # OWNER MERGE INSTRUCTIONS — MySim rebuild line → main (updated 2026-11-05, coordinator)
 
-**Current integration/pre-merge SHA: `75bbd78` on `https://github.com/Jdiejei/mysim-godot` branch `codex/repair-20261029`** (supersedes 40ddb4e/c8db1e0; adds the LAN bounded plan, the vehicle-lights candidate, the track0 review index, the bindings-display design, ledger turn-21; everything below unchanged; verify the SHA at pull time - doc commits may land after) (API-verified pushed; the full integration line: corridor fix, axle candidate + A/B, six-field inventories, touch-strip/cockpit contract, lapValidity, forest-tone candidate, the bisect-verified 25-input workflow). All commands below run on the OWNER's machine with the OWNER's credentials; `--ref main` variants apply after the merge, or substitute `--ref codex/repair-20261029` to run them pre-merge against the branch.
+**Current integration/pre-merge SHA: `6350760` on `https://github.com/Jdiejei/mysim-godot` branch `codex/repair-20261029`** (verify at pull time). Adds since 40ddb4e: LAN phase-2 (START handshake MSR6, the persistent-scene SnapshotApplier, the join car picker), the all-track corridor sweep (+seam inventory), the F1 triad pack, and the bindings display (panel + settings toggle + the five product checks; coordinator-verified hunk-by-hunk per the recovery protocol).
+
+## SHORTEST REPRODUCIBLE BATTERY (run these FIRST - ~15-35 min total, fail fast)
+
+```bash
+# Q1 (fastest, ~10 min): the fence re-run - the first run that can exercise the miprepair invariants end-to-end
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=fence_miprepair_review
+
+# Q2 (~15-25 min): DV core - car 16 DRIVES or the auto-emitted failure report names the gate
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16
+
+# Q3 (~10 min): collision overlay + corridor on track 8 (the corridor fix's visual proof)
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=track_scene_audit
+```
+
+## FULL BATTERY (after the quick three, or post-merge on main) (API-verified pushed; the full integration line: corridor fix, axle candidate + A/B, six-field inventories, touch-strip/cockpit contract, lapValidity, forest-tone candidate, the bisect-verified 25-input workflow). All commands below run on the OWNER's machine with the OWNER's credentials; `--ref main` variants apply after the merge, or substitute `--ref codex/repair-20261029` to run them pre-merge against the branch.
 
 No secrets in this file. All commands run on the OWNER's machine with the OWNER's credentials.
 Current auth on the shared workstation is `Jdiejei` (verified by the reviewer: push to the owner repo = 403, MergePullRequest = denied, collaborator-query = 403 Must have push access). The OWNER performs the merge; nothing here requires sharing tokens or granting admin.
