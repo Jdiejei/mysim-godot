@@ -102,12 +102,15 @@ namespace MySimulator.Rebuild
         public IGameChannel channel;
         public Race race;
         public bool connected;
-        public string status="Offline",peer,peerNonce="",name="Driver",sessionToken="",nonce=Guid.NewGuid().ToString("N");
-        public int localModel,localId,sequence,lastSequence=-1,inputSequence,lastInputSequence=-1;
+        public string status="Offline",peer,PeerName="",peerNonce="",name="Driver",sessionToken="",nonce=Guid.NewGuid().ToString("N");
+        public int localModel,localId,sequence,lastSequence=-1,inputSequence,lastInputSequence=-1,PeerModel;
         public float silence,sendTimer,joinTimer,inputSilence;bool remoteResetHeld;
         // The adopted LAN plan's explicit start handoff: the host sends START|token when the
         // room launches; the client gates its race-scene entry on receiving its exact token.
         public bool startRequested,startReceived;
+        // Set by AdoptRace: the host's live simulated race replaced the lobby race; the
+        // hosting UI stops ticking the session at this point (the drive controller took over).
+        public bool RaceAdopted;
         public readonly Dictionary<string,string> rooms=new Dictionary<string,string>();
         public DriverInput localInput;
         public bool pitRequest,resetRequest;
@@ -128,6 +131,16 @@ namespace MySimulator.Rebuild
             if(role!=SessionRole.Host||!connected)throw new InvalidOperationException("StartRace requires a connected host session");
             if(race.started)throw new InvalidOperationException("Race already started");
             race.countdown=5f;startRequested=true;channel.Send("START|"+sessionToken,peer);
+        }
+        // Host-side adoption of the live race: after the race scene is built, the session
+        // snapshots THE SIMULATED race (the lobby race object is discarded) and the INPUT
+        // handler's cars[1] writes land on the live remote-driven car. The remote car must
+        // already exist in the live race (carAdded by the race scene from PeerName/PeerModel).
+        public void AdoptRace(Race liveRace)
+        {
+            if(role!=SessionRole.Host)throw new InvalidOperationException("Only the host adopts the live race");
+            if(liveRace==null||liveRace.cars.Count<2)throw new ArgumentException("The live race must carry the remote-driven car");
+            race=liveRace;RaceAdopted=true;
         }
         public void Tick(float dt)
         {
@@ -163,7 +176,7 @@ namespace MySimulator.Rebuild
             {
                 if(race.started||connected&&sender!=peer){channel.Send("BUSY|Race already started",sender);return;}
                 if(p[2].Length!=32)return;
-                int model=Wire.Int(p[4]);string peerName=Wire.Unname(p[3]);if(model<0||model>=CarCatalog.Count||race.cars.Count<2)return;if(peerNonce!=p[2]){lastInputSequence=-1;remoteResetHeld=false;sessionToken=Guid.NewGuid().ToString("N");peerNonce=p[2];}race.cars[1].carModel=model;peer=sender;connected=true;silence=0;inputSilence=0;race.cars[1].human=true;race.cars[1].driver=peerName;status="Second driver connected";
+                int model=Wire.Int(p[4]);string peerName=Wire.Unname(p[3]);if(model<0||model>=CarCatalog.Count||race.cars.Count<2)return;if(peerNonce!=p[2]){lastInputSequence=-1;remoteResetHeld=false;sessionToken=Guid.NewGuid().ToString("N");peerNonce=p[2];}race.cars[1].carModel=model;PeerName=peerName;PeerModel=model;peer=sender;connected=true;silence=0;inputSilence=0;race.cars[1].human=true;race.cars[1].driver=peerName;status="Second driver connected";
                 channel.Send("ACCEPT|"+Wire.Version+"|"+p[2]+"|"+sessionToken,peer);channel.Send(Wire.Snapshot(race,++sequence),peer);return;
             }
             if(sender!=peer)return;
