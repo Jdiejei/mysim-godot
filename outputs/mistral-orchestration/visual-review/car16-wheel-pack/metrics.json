@@ -1,0 +1,277 @@
+{
+ "legs": {
+  "legA": "41870086370 @26d0191 production",
+  "legB": "41874911549 @a313492 candidates"
+ },
+ "viewDiff": {
+  "wheel-fl": {
+   "changedPx": 967,
+   "totalPx": 518400
+  },
+  "wheel-fr": {
+   "changedPx": 1018,
+   "totalPx": 518400
+  },
+  "wheel-rl": {
+   "changedPx": 23,
+   "totalPx": 518400
+  },
+  "wheel-rr": {
+   "changedPx": 23,
+   "totalPx": 518400
+  },
+  "wheel-fl-steered": {
+   "changedPx": 1036,
+   "totalPx": 518400
+  }
+ },
+ "rows": [
+  {
+   "renderer": "LOD_A_TYRE_REAR_mm_tyre",
+   "texture": "NONE (geometry-only)",
+   "uvBounds": {
+    "min": [
+     0.002929688,
+     -0.99658203
+    ],
+    "max": [
+     0.996582,
+     -0.0029300451
+    ]
+   },
+   "uvCount": 2060,
+   "evidence": {
+    "view": "wheel-rl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 23
+   },
+   "evidenceNote": "current production state: legA = legB for this view (23 px change, at-noise level) - wheel content unchanged by the badge/ext candidates",
+   "image": "images/row-01-TYRE_REAR_mm_tyre.png"
+  },
+  {
+   "renderer": "LOD_A_TYRE_mm_tyre",
+   "texture": "NONE (geometry-only)",
+   "uvBounds": {
+    "min": [
+     0.002441406,
+     -0.99706995
+    ],
+    "max": [
+     0.9970703,
+     -0.0024410486
+    ]
+   },
+   "uvCount": 2060,
+   "evidence": {
+    "view": "wheel-fl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 967
+   },
+   "evidenceNote": "no candidates staged for THIS renderer; the 967 px legA->legB change measured in the wheel-fl view comes from OTHER staged surfaces in frame (front views: STRUT_UPPER_FRONT corrections)",
+   "image": "images/row-02-TYRE_mm_tyre.png"
+  },
+  {
+   "renderer": "LOD_A_WHEELGUARD_FRONT_LEFT_mm_chassis",
+   "texture": "car_chassis.png",
+   "uvBounds": {
+    "min": [
+     0.8017578,
+     -0.169922
+    ],
+    "max": [
+     0.8022461,
+     -0.16894495
+    ]
+   },
+   "uvCount": 9,
+   "evidence": {
+    "view": "wheel-fl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 967
+   },
+   "evidenceNote": "no candidates staged for THIS renderer; the 967 px legA->legB change measured in the wheel-fl view comes from OTHER staged surfaces in frame (front views: STRUT_UPPER_FRONT corrections)",
+   "image": "images/row-03-WHEELGUARD_FRONT_LEFT_mm_chassis.png"
+  },
+  {
+   "renderer": "LOD_A_WHEELGUARD_FRONT_LEFT_mm_misc",
+   "texture": "2019_f1_ferrari_sf90_misc.png",
+   "uvBounds": {
+    "min": [
+     0.3022461,
+     -0.921875
+    ],
+    "max": [
+     0.9633789,
+     -0.05859399
+    ]
+   },
+   "uvCount": 357,
+   "evidence": {
+    "view": "wheel-fl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 967
+   },
+   "evidenceNote": "no candidates staged for THIS renderer; the 967 px legA->legB change measured in the wheel-fl view comes from OTHER staged surfaces in frame (front views: STRUT_UPPER_FRONT corrections)",
+   "image": "images/row-04-WHEELGUARD_FRONT_LEFT_mm_misc.png"
+  },
+  {
+   "renderer": "LOD_A_WHEELGUARD_FRONT_RIGHT_mm_chassis",
+   "texture": "car_chassis.png",
+   "uvBounds": {
+    "min": [
+     0.8017578,
+     -0.169922
+    ],
+    "max": [
+     0.8022461,
+     -0.16894495
+    ]
+   },
+   "uvCount": 9,
+   "evidence": {
+    "view": "wheel-fr",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 1018
+   },
+   "evidenceNote": "no candidates staged for THIS renderer; the 1018 px legA->legB change measured in the wheel-fr view comes from OTHER staged surfaces in frame (front views: STRUT_UPPER_FRONT corrections)",
+   "image": "images/row-05-WHEELGUARD_FRONT_RIGHT_mm_chassis.png"
+  },
+  {
+   "renderer": "LOD_A_WHEELGUARD_FRONT_RIGHT_mm_misc",
+   "texture": "2019_f1_ferrari_sf90_misc.png",
+   "uvBounds": {
+    "min": [
+     0.3022461,
+     -0.921875
+    ],
+    "max": [
+     0.9633789,
+     -0.05859399
+    ]
+   },
+   "uvCount": 357,
+   "evidence": {
+    "view": "wheel-fr",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 1018
+   },
+   "evidenceNote": "no candidates staged for THIS renderer; the 1018 px legA->legB change measured in the wheel-fr view comes from OTHER staged surfaces in frame (front views: STRUT_UPPER_FRONT corrections)",
+   "image": "images/row-06-WHEELGUARD_FRONT_RIGHT_mm_misc.png"
+  },
+  {
+   "renderer": "LOD_A_WHEEL_REAR_BLUR_mm",
+   "texture": "2019_f1_ferrari_sf90_wheel.png",
+   "uvBounds": {
+    "min": [
+     0.3706055,
+     -0.98681605
+    ],
+    "max": [
+     0.9868164,
+     -0.012694955
+    ]
+   },
+   "uvCount": 1033,
+   "evidence": {
+    "view": "wheel-rl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 23
+   },
+   "evidenceNote": "current production state: legA = legB for this view (23 px change, at-noise level) - wheel content unchanged by the badge/ext candidates",
+   "image": "images/row-07-WHEEL_REAR_BLUR_mm.png"
+  },
+  {
+   "renderer": "LOD_A_WHEEL_REAR_mm",
+   "texture": "2019_f1_ferrari_sf90_wheel.png",
+   "uvBounds": {
+    "min": [
+     0.005859375,
+     -0.99511695
+    ],
+    "max": [
+     0.9941406,
+     -0.0058590174
+    ]
+   },
+   "uvCount": 4110,
+   "evidence": {
+    "view": "wheel-rl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 23
+   },
+   "evidenceNote": "current production state: legA = legB for this view (23 px change, at-noise level) - wheel content unchanged by the badge/ext candidates",
+   "image": "images/row-08-WHEEL_REAR_mm.png"
+  },
+  {
+   "renderer": "LOD_A_WHEEL_mm",
+   "texture": "2019_f1_ferrari_sf90_wheel.png",
+   "uvBounds": {
+    "min": [
+     0.005859375,
+     -0.99706995
+    ],
+    "max": [
+     0.9941406,
+     -0.0058590174
+    ]
+   },
+   "uvCount": 4272,
+   "evidence": {
+    "view": "wheel-fl",
+    "box": [
+     95,
+     53,
+     865,
+     487
+    ],
+    "viewChangedPx_legA_vs_legB": 967
+   },
+   "evidenceNote": "no candidates staged for THIS renderer; the 967 px legA->legB change measured in the wheel-fl view comes from OTHER staged surfaces in frame (front views: STRUT_UPPER_FRONT corrections)",
+   "image": "images/row-09-WHEEL_mm.png"
+  }
+ ],
+ "pack": {
+  "dest": "car16-wheel-pack",
+  "turn5bHullRefs": "agents/carbody-livery-turn5b.md (committed); native-hull-summary.json under outputs/repair-20261029/dvride-41848766195/game-runtime-0-attempt-1/outputs/cloud-game/"
+ }
+}
