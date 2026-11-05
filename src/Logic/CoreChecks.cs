@@ -312,6 +312,32 @@ namespace MySimulator.Verification
                 var noImpact=DrivingValidation.ComputeMetric("recoveryWindowCount","all",clean,recProfile,null);
                 Check(noImpact.HasValue&&noImpact.Value==0,"A flag-enabled profile with no impacts must report an observed zero window count");
             }
+            // Contact-archetype force signatures: a guard-band contact (hub-mounted wheelguard/
+            // caliper) and a body-panel contact must be classifiable per tick with per-archetype
+            // per-tick velocity jumps; mixed ticks (both bands) feed both signatures and are
+            // counted; a profile without the flag reports null (fail-closed, never zero).
+            {
+                var archProfile=new DrivingValidation.Profile{Id="arch",RecordContactArchetypes=true};
+                var arche=new List<DrivingValidation.Sample>();const float adt=1f/240f;
+                arche.Add(new DrivingValidation.Sample{t=0,speed=8,longitudinalSpeed=8,lateralSpeed=0,phaseId="aim",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                arche.Add(new DrivingValidation.Sample{t=adt,speed=5,longitudinalSpeed=4.6,lateralSpeed=-1.9,nonSurfaceContact=true,wheelBandContact=true,phaseId="aim",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                arche.Add(new DrivingValidation.Sample{t=2*adt,speed=4.9,longitudinalSpeed=4.6,lateralSpeed=-1.85,nonSurfaceContact=true,wheelBandContact=true,phaseId="aim",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                arche.Add(new DrivingValidation.Sample{t=3*adt,speed=4.8,longitudinalSpeed=4.6,lateralSpeed=-1.2,nonSurfaceContact=true,bodyPanelContact=true,phaseId="aim",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                arche.Add(new DrivingValidation.Sample{t=4*adt,speed=4.7,longitudinalSpeed=4.6,lateralSpeed=-1.1,nonSurfaceContact=true,bodyPanelContact=true,phaseId="aim",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                arche.Add(new DrivingValidation.Sample{t=5*adt,speed=4.6,longitudinalSpeed=4.5,lateralSpeed=-0.9,nonSurfaceContact=true,wheelBandContact=true,bodyPanelContact=true,phaseId="aim",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                var guardJump=DrivingValidation.ComputeMetric("wheelBandTickPeakDeltaV","all",arche,archProfile,null);
+                Check(guardJump.HasValue&&Math.Abs(guardJump.Value-System.Math.Sqrt(3.4*3.4+1.9*1.9))<0.01,"Guard-band per-tick velocity jump is wrong on synthetic contact data");
+                var panelJump=DrivingValidation.ComputeMetric("bodyPanelTickPeakDeltaV","all",arche,archProfile,null);
+                Check(panelJump.HasValue&&Math.Abs(panelJump.Value-0.65)<0.01,"Body-panel per-tick velocity jump is wrong on synthetic contact data");
+                var panelSamples=DrivingValidation.ComputeMetric("bodyPanelContactSamples","all",arche,archProfile,null);
+                Check(panelSamples.HasValue&&panelSamples.Value==3,"Body-panel contact sample count is wrong (mixed tick must count toward the panel too)");
+                var mixed=DrivingValidation.ComputeMetric("mixedContactSamples","all",arche,archProfile,null);
+                Check(mixed.HasValue&&mixed.Value==1,"Mixed guard+panel contact ticks not counted");
+                var bandSeconds=DrivingValidation.ComputeMetric("wheelBandContactSeconds","all",arche,archProfile,null);
+                Check(bandSeconds.HasValue&&Math.Abs(bandSeconds.Value-3*adt)<1e-6,"Guard-band contact seconds computed wrongly");
+                var offArch=new DrivingValidation.Profile{Id="archoff"};
+                Check(!DrivingValidation.ComputeMetric("wheelBandTickPeakDeltaV","all",arche,offArch,null).HasValue&&!DrivingValidation.ComputeMetric("bodyPanelContactSamples","all",arche,offArch,null).HasValue,"Archetype metrics must be null without the recordContactArchetypes flag (a silent zero could pass an assertion)");
+            }
             log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths, recovery windows and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
         }

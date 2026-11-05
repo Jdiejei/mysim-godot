@@ -173,3 +173,41 @@ Verdicts recorded per run as: `PASS / FAIL(<class>, <assert id>, <actual vs expe
 6. The driven exit + rejoin: pit speed limit through the exit, rejoin onto the driving surface with a bounded `offTrack` burst, and lap validity intact across the stop (a pit cycle must not poison lapValid/bestLap).
 
 **Required runner extensions when implemented (all additive, flag-gated):** `Command.pitRequest` (the pit-request input); Sample fields `pitActive/servicing/pitDone` (mirroring the Network-synced state); phase triggers `until.pitActive`, `until.servicing`, `until.pitDone` alongside the existing speed/wall-clock machinery; case data on a circuit with `PitValid` true and the stop's service terms. Metrics then: `pitEntrySpeedMax`, `boxStopDistance`, `boxStopSpeed`, `serviceWallClockSeconds`, `pitOverspeedSeconds`, `rejoinOffTrackSeconds`, `tyresReplaced`, `compoundAfter`. Until that lands, the pitCompleteness claim stays exactly "logic-unit-covered, not game-validated" — no acceptance language.
+
+## 12. Contact-archetype force characterization — guard band vs body panel (the wall battery's discrimination layer)
+
+**Purpose:** the restored hub-mounted guards carry collision; the wall runs must distinguish a GUARD contact from a BODY-PANEL contact mechanically (per-tick, from recorded samples), so "the wall was hit" splits into "WHAT was hit". This rides on §2 (wall battery) and §6 (contact positions); it changes no assertion.
+
+**Classification (per tick, in `NativeRaceController.BuildValidationSample`, from `ContactParts`):**
+- `wheelBandContact` — any contacted part matches WHEELGUARD/CALIPER (existing, §6).
+- `bodyPanelContact` — any contacted part that is neither the drive surface nor the wheel band (NEW).
+- Mixed tick = both flags set (a tick touching a guard AND a panel): contributes to BOTH signatures; `mixedContactSamples` measures how often that happens.
+
+**Flag-gating:** profile `setup: {"recordContactArchetypes": true}` — currently ON for the four wall profiles alongside `recordRecovery`. Unflagged profiles return NULL archetype metrics (asserting them without the flag fails closed); the per-run report gains `contactArchetypes` only when flagged; serialized samples carry `bodyPanelContact` per tick always (the raw classification is cheap and audit-relevant).
+
+**The archetype metrics (per-run `contactArchetypes`, phase-scoped values available to assertions):**
+
+| Metric | Measures |
+|---|---|
+| `bodyPanelContactSamples:all` | ticks whose contact set includes a body panel (incl. mixed ticks) |
+| `mixedContactSamples:all` | ticks touching BOTH the wheel band and a panel (ambiguity made measurable) |
+| `wheelBandContactSeconds:all` / `bodyPanelContactSeconds:all` | contact duration per archetype (same accumulation rule as `impactContactSeconds`) |
+| `wheelBandTickPeakDeltaV:all` / `bodyPanelTickPeakDeltaV:all` | the largest per-tick velocity jump observed while that archetype was in contact (the force signature's raw material; the impulse identity of §2 applies to the whole-event numbers, not per-archetype) |
+
+**The archetype table (structure now; numbers ONLY from measured runs):**
+
+| Property | Guard-band contact (hub-mounted, outboard) | Body-panel contact |
+|---|---|---|
+| Where (§6 cross-check) | contact patches at the wheel arches, wheelBandContact true, floor-rest rows NOT in the band | mid-panel/belly positions; wheelBandContact false |
+| Duration expectation (structural hypothesis, to verify) | SHORT: small rigid patch sweeping past the obstacle | LONGER: larger compliant panel area in contact |
+| DeltaV shape (structural hypothesis, to verify) | sharp per-tick spikes concentrated at first contact | distributed across the contact window |
+| Count expectation per wall hit | the arch clips FIRST on a square hit (guard-first), panels follow on deeper penetration | panels dominate glancing/offset hits |
+| Numeric band separating the classes | **TO BE FILLED from the first measured battery artifacts — no value is known or assumed** | **TO BE FILLED likewise** |
+
+**INTEGRITY RULE:** until the first measured wall runs land, these metrics LABEL contacts (which archetype, how often, how long) — they do NOT gate on magnitude DIFFERENCES between archetypes. Any numeric "guard vs panel" threshold quoted before a measured artifact exists is invented physics and must be rejected in review.
+
+**Battery reading rules (jolt leg + source pair):**
+- Archetype parity: the same scripted approach on both backends must assign the SAME archetype to each impact event (the geometry is fixed by the script); a different label = a contact-resolution divergence fingerprint → physics investigation, class S.
+- A guard-labelled cluster must ALSO satisfy §6's position rules (arches, not belly): a guard label with belly-position contact is the OLD misplacement fingerprint — escalate to car-assembly, not physics.
+- `mixedContactSamples` > 0 is information, not failure: it measures genuine multi-part contact; investigate only when it dominates (a "guard" hit that is mostly panel contact questions the guard's coverage).
+- Per-sample audit: the serialized `bodyPanelContact`/`wheelBandContact` flags let any cluster be re-derived from the samples without new instrumentation.
