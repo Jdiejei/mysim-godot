@@ -1,0 +1,79 @@
+============================================================
+== _tmp_clinic4_out.txt: HOCKENHEIM bridge (two-pointer, exact coords) ==
+============================================================
+loaded verts 12631 tris 21866
+inner arc (18 verts, -tip->+tip): 12614,12615,12616,12618,12617,12629,12628,12619,12620,12621,12622,12623,12624,12625,12626,12627,12630,12595
+outer arc (21 verts, -tip->+tip): 12614,12613,12611,12612,12609,12610,12607,12608,12605,12606,12604,12600,12601,12598,12599,12603,12596,12597,12602,12594,12595
+y ranges: inner -0.257..-0.395; outer -0.267..-0.405 (smooth rise along the segment)
+bridge triangles: 35 (all faces 0.057-1.913 m2, max edge 2.648 m; full G9 coordinate list embedded in src/TrackSeamWelds.cs)
+
+============================================================
+== _tmp_clinic6_out.txt: DUBAI closed boundary loop ==
+============================================================
+loaded verts 4955 tris 8780
+band edges 34; chain 35 verts, edges 34/34, closed=True
+tipLo v4839 (al -17.29) tipHi v4833 (al +2.62)
+INNER arc (19 verts after dedup of the 0.5 mm pinch at v4860):
+  4839,4838,4831,4830,4832,4846,4845,4862,4861,4860,4841,4840,4858,4855,4854,4853,4852,4834,4833
+OUTER arc (17 verts):
+  4839,4850,4849,4847,4848,4863,4859,4842,4843,4844,4856,4857,4851,4835,4836,4837,4833
+(first clinic pass with naive index pairing had left the -end tip region un-traversed;
+ the geometry-keyed loop closes it with verts 4831/4838/4849/4850.)
+
+============================================================
+== _tmp_clinic5_out.txt: DUBAI stations + bridge (two-pointer) ==
+============================================================
+loaded verts 4955 tris 8780
+segdir ax=0.8498 az=0.5272 len=15.89
+station map (lateral walk, R side, u-shape of the hole):
+  st -40..-18: runsR=[0-30] (no gap)
+  st -16: [0-7.75],[9.5-30]
+  st -14: [0-8],[10-30]
+  st -12: [0-8],[10-30]
+  st -10..-2: [0-8.25],[10.25-30]
+  st 0: [0-8],[10-30]
+  st +2: [0-8],[10-30]
+  st +4..+8: [0-30] (no gap)
+bridge triangles: 32 (1 degenerate skipped); faces 0.114-2.847 m2, max edge 3.719 m
+(two straddle faces at max edge 3.72 are the inner arc's sparse stretch 4846->4845; flat and healthy; full G9 list in src/TrackSeamWelds.cs)
+
+============================================================
+== _tmp_forge_out.txt: BEFORE/AFTER walk verification ==
+============================================================
+HOCKENHEIM bridge: tris 35 area 0.057..1.913 maxEdge 2.648
+BEFORE se212R=[0-7.75]  se213R=[0-11]  se214R=[0-4.75],[6.75-18]  se215R=[0-24]  se216R=[0-24]
+AFTER  se212R=[0-7.75]  se213R=[0-11]  se214R=[0-18]  se215R=[0-24]  se216R=[0-24]
+DUBAI bridge: tris 32 area 0.114..2.847 maxEdge 3.719
+BEFORE se53R=[0-30]  se54R=[0-30]  se55R=[0-8],[10-30]  se56R=[0-30]  se57R=[0-30]
+AFTER  se53R=[0-30]  se54R=[0-30]  se55R=[0-30]  se56R=[0-30]  se57R=[0-30]
+=> both holes fully closed; all neighbor segments byte-identical before/after (weld is strictly local).
+
+============================================================
+== _tmp_apitest_out.txt: runtime dress rehearsal (compiled emitted TrackSeamWelds.cs, V3-adapted) ==
+============================================================
+Hockenheim_gp loaded tris=21866 flat=65598
+flag-off: sameRef=True
+flag-on: addedVectors=105 addedTris=35 r1tris=21901 expectTris=21901
+gate throw OK: Seam weld source triangle count changed: res://assets/Resources/Hocken...
+wrong-path: sameRef=True
+Dubai_Autodrome_club loaded tris=8780 flat=26340
+flag-off: sameRef=True
+flag-on: addedVectors=96 addedTris=32 r1tris=8812 expectTris=8812
+gate throw OK: Seam weld source triangle count changed: res://assets/Resources/Dubai_...
+wrong-path: sameRef=True
+runtime logs (GD.Print path):
+  SEAM_WELD res://assets/Resources/Hockenheim_gp.txt bridgeTriangles=35 sourceTris=21866 outputTris=21901
+  SEAM_WELD res://assets/Resources/Dubai_Autodrome_club.txt bridgeTriangles=32 sourceTris=8780 outputTris=8812
+
+============================================================
+== rejected seam candidates (diagnosis record) ==
+============================================================
+- Daytona_speedway seg 93 R [15.25-18.5]: RETRACTED. Full-mesh re-walk shows [0-26] at
+  every station -14..+14. The earlier gap was the sweep probe's 30 m centroid-radius
+  prefilter starving on the banking's long thin triangles (their centroids sit >30 m
+  away). Turn-21 inventory entry removed. Sweep min-values (small lateral) unaffected.
+- monaco_gp seg 188 L (min 1.50): NOT A SEAM. Smooth V-shaped narrowing with a clean
+  connected boundary edge at lateral 1.13-1.41 - real corner-apex pavement edge.
+- Suzuka_west seg 97 L (min 1.00): NOT A SEAM. The route sits on the figure-8
+  crossover's upper road (midpoint surface hits at y=-5.04 road AND y=-12.12 underpass
+  road 7 m below); the left-side void is the crossover opening. Correct topology.
