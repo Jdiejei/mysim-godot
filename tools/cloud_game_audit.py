@@ -6,6 +6,7 @@ def run(label,values,args=None,timeout=300):
  env.setdefault('MYSIM_RAIN_VISIBILITY_CANDIDATE',os.environ.get('RAIN_VISIBILITY_CANDIDATE','0'));env.setdefault('MYSIM_RAIN_VOLUME_PROFILE',os.environ.get('RAIN_VOLUME_PROFILE','base'));env.setdefault('MYSIM_WET_REFLECT',os.environ.get('WET_REFLECT','1'));env.setdefault('MYSIM_NIGHT_POOL_GAIN',os.environ.get('NIGHT_POOL_GAIN','1'));env.setdefault('MYSIM_NIGHT_AMBIENT_LIFT',os.environ.get('NIGHT_AMBIENT_LIFT','1'));env.setdefault('MYSIM_NIGHT_EXPOSURE',os.environ.get('NIGHT_EXPOSURE','1'));env.setdefault('MYSIM_VEHICLE_LIGHTS',os.environ.get('VEHICLE_LIGHTS','0'));env.setdefault('MYSIM_LIGHT_SCHEME',os.environ.get('LIGHT_SCHEME','uniform'))
  if(os.environ.get('TOD') is not None):env['MYSIM_TOD']=os.environ['TOD']  # pass through ONLY when provided: hard defaults would change existing runs' lighting (DV runs set neither)
  if(os.environ.get('WEATHER') is not None):env['MYSIM_WET']=os.environ['WEATHER']
+ env.setdefault('MYSIM_NIGHT_FIXTURE_VIEW',os.environ.get('NIGHT_FIXTURE_VIEW','0'))
  env['MYSIM_NATIVE_FACE_EVIDENCE']='1' if os.environ.get('NATIVE_GEOMETRY_RECOVERY')=='1' else '0';env['MYSIM_BINDING_AUDIT']=str(out/label);log=out/(label+'.log')
  for attempt in (1,2):
   env['MYSIM_PROBE_ATTEMPT']=str(attempt)

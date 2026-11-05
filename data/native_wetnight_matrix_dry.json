@@ -1,0 +1,21 @@
+{
+ "cases": [
+  {
+   "car": 16,
+   "track": 0
+  },
+  {
+   "car": 0,
+   "track": 0
+  },
+  {
+   "car": 16,
+   "track": 8
+  },
+  {
+   "car": 0,
+   "track": 8
+  }
+ ],
+ "scope": "wet/night matrix shared cases: 2 cars x 2 tracks, dry baseline; same-labelling as the battery plumbing"
+}
