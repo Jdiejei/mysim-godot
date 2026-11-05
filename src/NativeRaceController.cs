@@ -48,9 +48,23 @@ public partial class NativeRaceController : DriveController {
   if(validation!=null){
    if(!validation.Completed&&(Player.finished||Player.retired||elapsed>=AutoSeconds))validation.Abort("session ended before all validation profiles completed");
    validation.Advance(BuildValidationSample(),(float)delta);
-   if(validation.NeedsReset){if(!PlaceBody("validation-reset"))throw new Exception("Driving validation reset lacks drive surface");validationResets++;validation.ConfirmReset();}
+   if(validation.NeedsReset){if(!PlaceBody("validation-reset"))throw new Exception("Driving validation reset lacks drive surface");validationResets++;steering.Reset();pedalsNative.Reset();validation.ConfirmReset();}
    if(validation.Completed){FinishValidation();return;}
-   if(!Player.servicing&&!Player.finished&&!Player.retired)Player.input=ValidationInput(validation.Current);
+   if(!Player.servicing&&!Player.finished&&!Player.retired){
+    var command=validation.Current;
+    bool userPath=System.Environment.GetEnvironmentVariable("MYSIM_USERPATH")=="1";
+    if(userPath){
+     // The userpath leg drives the SAME human chain (keyboard smoothing + directional flip +
+     // pedal latch) instead of injecting DriverInput directly: filter/lock/latch behaviour is
+     // measured through the real input plumbing. Profile reverse phases map to the brake pedal,
+     // which is the reverse pedal once the brake-to-reverse latch engages (human device semantics).
+     float commandThrottle=(float)command.Throttle,commandBrake=(float)command.Brake;
+     if(command.Reverse){commandThrottle=0;commandBrake=1;}
+     Player.input=pedalsNative.Update(commandThrottle,commandBrake,SteeringInput.ToSimulation(steering.Step((float)command.Steer,(float)delta,false)),ControlBindings.Held(4),body.LinearVelocity.Dot(body.GlobalBasis.Z),(float)delta,true);
+    }else{
+     Player.input=ValidationInput(command);
+    }
+   }
    if(dvTraceTick++%120==0){MySimulator.Rebuild.DrivingValidation.Run stage=null;foreach(var r in validation.Runs){if(!r.Completed){stage=r;break;}}
     GD.Print("DV_TRACE t=",elapsed.ToString("0.0")," started=",Race.started," gridHold=",body.GridHold," spd=",Player.speed.ToString("0.00")," thr=",Player.input.throttle.ToString("0.00")," brk=",Player.input.brake.ToString("0.00")," stage=",(stage!=null?stage.Profile.Id:"done")," clock=",validation.Clock.ToString("0.0"));gridHoldTraceSeen=gridHoldTraceSeen||body.GridHold;}
   }
@@ -101,6 +115,7 @@ public partial class NativeRaceController : DriveController {
   float longitudinal=body.LinearVelocity.Dot(forward);
   int mask=0;for(int i=0;i<4;i++)if(body.Grounded[i])mask|=1<<i;
   bool nonSurfaceContact=false;foreach(var surface in body.ContactSurfaces)if(surface!=null&&surface.IndexOf("DriveSurface",StringComparison.OrdinalIgnoreCase)<0){nonSurfaceContact=true;break;}
+  bool wheelBandContact=false;foreach(var part in body.ContactParts)if(part!=null&&part.IndexOf("WHEELGUARD",StringComparison.OrdinalIgnoreCase)>=0||part!=null&&part.IndexOf("CALIPER",StringComparison.OrdinalIgnoreCase)>=0){wheelBandContact=true;break;}
   var command=validation.Current;
   return new MySimulator.Rebuild.DrivingValidation.Sample{
    speed=body.LinearVelocity.Length(),longitudinalSpeed=longitudinal,lateralSpeed=body.LinearVelocity.Dot(right),
@@ -108,7 +123,7 @@ public partial class NativeRaceController : DriveController {
    wheelAngle=body.WheelAngle,wheelAngleTarget=MySimulator.Rebuild.Dynamics.SteeringTarget((float)command.Steer,longitudinal),
    steerCommand=command.Steer,throttle=command.Throttle,brake=command.Brake,
    x=body.GlobalPosition.X,z=body.GlobalPosition.Z,trackLateral=Player.lateral,progress=Player.progress,water=body.Water,
-   onDrivingSurface=Player.onDrivingSurface,nonSurfaceContact=nonSurfaceContact,groundedMask=mask,chassisContacts=body.ChassisContacts,
+   onDrivingSurface=Player.onDrivingSurface,nonSurfaceContact=nonSurfaceContact,wheelBandContact=wheelBandContact,groundedMask=mask,chassisContacts=body.ChassisContacts,
    impactEvents=body.Impacts.Events,maxDeltaV=body.Impacts.MaximumDeltaV,
    loads=ToDoubles(body.Loads),springLengths=ToDoubles(body.SpringLength),
    longitudinalSlip=ToDoubles(body.LongitudinalSlip),lateralSlipAngle=ToDoubles(body.LateralSlipAngle)};
@@ -140,6 +155,7 @@ public partial class NativeRaceController : DriveController {
    ["recordFps"]=System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_RECORD_FPS")??"unrecorded",
    ["rotationalTyres"]=body.RotationalTyres,
    ["assistsOff"]=System.Environment.GetEnvironmentVariable("MYSIM_ASSISTS")=="0",
+   ["userPath"]=System.Environment.GetEnvironmentVariable("MYSIM_USERPATH")=="1",
    ["damageEnabled"]=body.DamageEnabled,
    ["backend"]=System.Environment.GetEnvironmentVariable("MYSIM_PHYSICS_BACKEND")??"authoritative record is physics-backend-experiment.json of the same run",
    ["weatherProfile"]=Conditions.Wet,["water"]=body.Water,["compound"]=(int)Player.tyres[0].compound,

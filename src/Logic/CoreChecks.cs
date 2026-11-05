@@ -194,6 +194,11 @@ namespace MySimulator.Verification
                 Check(dwell.HasValue&&Math.Abs(dwell.Value-2*sdt)<0.001,"Contact dwell is wrong on synthetic wall-contact data");
                 bool noRef=false;try{DrivingValidation.ComputeMetric("impactImpulseEstimate","aim",fs,forceProfile,new Dictionary<string,double>());}catch(Exception){noRef=true;}
                 Check(noRef,"Impact impulse estimate must fail closed without the vehicleMass reference");
+                var fsBand=new List<DrivingValidation.Sample>();
+                fsBand.Add(new DrivingValidation.Sample{phaseId="aim",t=0,speed=10,nonSurfaceContact=false,wheelBandContact=false,loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                fsBand.Add(new DrivingValidation.Sample{phaseId="aim",t=sdt,speed=10,nonSurfaceContact=true,wheelBandContact=true,loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                var band=DrivingValidation.ComputeMetric("wheelBandContactSamples","all",fsBand,forceProfile,forceRefs);
+                Check(band.HasValue&&band.Value==1,"Wheel-band contact samples must count only the band rows on synthetic data");
             }
             var handlingTargets=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_handling_targets.json")).RootElement;
             int handlingTargetCount=0;
@@ -266,6 +271,16 @@ namespace MySimulator.Verification
                 }
             }
             log.Add("PASS steering-feel guards: correction authority, lock reach time, release decay and symmetry (turn-8 measured bands)");
+            // Userpath chain state hygiene: profile-boundary resets must clear the smoothing/latch state
+            // and the human reverse-pedal semantics (brake = the reverse pedal once latched) must engage.
+            {
+                var r1=new SteeringInput();r1.Step(1,1f/60,false);r1.Reset();Check(Math.Abs(r1.Command)<1e-6,"SteeringInput.Reset left a residual command");
+                var p1=new PedalController();DriverInput d1=new DriverInput();bool latched=false;
+                for(int i=0;i<40;i++){d1=p1.Update(0,1,0,false,0,1f/120,true);if(d1.reverse)latched=true;}
+                Check(latched,"Brake-to-reverse latch never engaged holding the brake from standstill");
+                p1.Reset();var d2=p1.Update(0,0,0,false,0,1f/120,true);
+                Check(!d2.reverse&&p1.Reversing==false,"PedalController.Reset left the reverse latch armed");
+            }
             log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
         }

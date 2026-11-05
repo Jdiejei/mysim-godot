@@ -17,7 +17,8 @@ public static class DrivingValidation {
         "slipAnglePeakAbs","longitudinalSlipPeakAbs","wheelAnglePeakAbs","wheelAngleTargetPeakAbs",
         "steerResponseTime","steerTrackingRatio","steerSettleTime","steerSettleRatio","groundedFraction","chassisContactSamples",
         "nonSurfaceContactSamples","offTrackFraction","impactEventsDelta","maxDeltaVRise","positionJumpMax","suspensionCompressionMin",
-        "suspensionExtensionMax","uprightMinCosine","impactTickPeakDeltaV","impactContactSeconds","impactImpulseEstimate","impactPeakForceEstimate"
+        "suspensionExtensionMax","uprightMinCosine","impactTickPeakDeltaV","impactContactSeconds","impactImpulseEstimate","impactPeakForceEstimate",
+        "wheelBandContactSamples"
     };
     public static readonly string[] KnownOps = { "between", "betweenReference", "lt", "lte", "gt", "gte" };
 
@@ -30,6 +31,9 @@ public static class DrivingValidation {
         public bool onDrivingSurface;
         // True when any solver contact this tick is NOT the drive surface (wall/barrier hit).
         public bool nonSurfaceContact;
+        // True when a contact part this tick belongs to the hub-mounted wheel-assembly band
+        // (wheelguard/caliper): the arch-position proof for the restored collision members.
+        public bool wheelBandContact;
         public int groundedMask, chassisContacts, impactEvents;
         public double maxDeltaV;
         public double[] loads, springLengths, longitudinalSlip, lateralSlipAngle;
@@ -285,6 +289,7 @@ public static class DrivingValidation {
             case "groundedFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.groundedMask == 15) n++; return (double)n / s.Count; }
             case "chassisContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.chassisContacts > 0) n++; return (double)n; }
             case "nonSurfaceContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.nonSurfaceContact) n++; return (double)n; }
+            case "wheelBandContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.wheelBandContact) n++; return (double)n; }
             case "offTrackFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (!v.onDrivingSurface) n++; return (double)n / s.Count; }
             case "impactEventsDelta": return s.Count == 0 ? (double?)null : (double)(s[s.Count - 1].impactEvents - s[0].impactEvents);
             case "impactTickPeakDeltaV": {

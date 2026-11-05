@@ -54,7 +54,49 @@ Artifact: `mounted-native-lap-track-08-car-13.json` (+ log) — the `lapValidity
 - The verdicts are car-assembly's (their per-wheel worst tables + `STANCE`/`PART_HUB_OFFSET` lines); the physics intersection: the `STANCE` no-hubs value should hold near the measured ~0.025 class (the ride gate's datum integrity while the axle candidate moves anchors) — a large drift = a physics intersection finding before any acceptance.
 - No re-baselining without a verified fit: if the fit moves the recovered anchors, ALL stance/geometry numbers re-baseline (the corridor/lap/standards sheets re-checked on the next runs).
 
-## 5. Escalation map (who takes which fingerprint)
+## 5. Command: windows userpath run (the exported player, the 9-profile suite, `MYSIM_USERPATH=1`)
+
+The userpath leg is the P0 steering-feel validation END-TO-END: the DV profiles command through the REAL human chain (keyboard smoothing → directional flip → pedal latch → lock → actuator), not the direct DriverInput injection. Same manifests, same bands — they now measure the whole chain.
+
+| Step | Check | PASS |
+|---|---|---|
+| 5.1 | Preconditions | the DV-core/wall preconditions + **the report's `userPath:true`** (injected direct = the wrong mode: the leg is void, re-run in userpath mode) |
+| 5.2 | Chain-inclusive steering authority (at the WHEEL-ANGLE level, from the report samples + assertions) | a 1 Hz correction sine reaches ≥ **0.90×lock** (measured 1.00); a 2 Hz correction sine ≥ **0.65×lock** (measured 0.81); keyboard step → full front-wheel lock ≤ **0.30 s** (measured ~0.19); release decay ≤ **0.30 s** (measured 0.19) |
+| 5.3 | Progressive feel | partial keyboard hold = proportional partial lock (the ramp property; the windows evidence records at least three partial-hold points) |
+| 5.4 | Reverse-pedal semantics | the brake pedal latches reverse within ≤0.3 s of a standstill hold; reverse motion follows the held pedal; the throttle re-latches forward (exercised by every impact/wall profile's reverse_out/recover_fwd tail) |
+| 5.5 | The nine bands | applied verbatim — the userpath regime is the stricter measurement (distances shrink slightly under the 0.19 s ramp + ~0.25 s latch delay: recorded, expected, not failures) |
+| 5.6 | Chain hygiene | no profile inherits another's command/latch state (the boundary resets): each profile's first samples read command≈0 / middle-pedal neutral after the hold phase |
+| 5.7 | Verdict | userPath + all rows = the user's P0 steering feel VERIFIED end-to-end on the exported player; the failure classes split: chain authority (physics/my files), glue (coordinator), device/platform (the windows evidence path) |
+
+## 6. Contact-position proof — the restored hub-mounted guards (DV/wall + lap traces)
+
+The reviewer-directive section: the restored collision must prove its corrected POSITIONS, not just its presence. Three evidence channels, mechanically readable:
+
+**6.1 The DV/wall sample compositions (my `wheelBandContactSamples` metric, committed):** every DV/wall report now carries the per-profile `wheelBandContactSamples` split of `nonSurfaceContactSamples`:
+- **PASS composition:** wall/wheel-band contacts occur under the WHEELGUARD/CALIPER names ONLY at genuine non-drive-surface events (wall bands/kerb edges at the arch); the FLOOR-REST rows (spd≈0, sustained, high chassisContacts with tyreContacts<4) must read `wheelBandContact=false` — the arches never rest on the ground any more.
+- **FAIL fingerprint (the blob regression):** rest rows with `wheelBandContact=true`, or wall rows where the only contact parts are the body-fixed chassis at the belly while spd stays 0 — the misplaced-blob state returning; escalate to physics with the samples.
+- The lap telemetry's `contactParts` histogram is the same proof at lap scale: WHEELGUARD/CALIPER rows may appear ONLY in contact windows concurrent with non-DriveSurface surfaces or kerb-band events — NEVER as the steady-state floor-contact constituents (the clean-lap baseline: CHASSIS/FRONTBUMPER/BODY only, now joined by guard rows only at real wheel-band events).
+
+**6.2 The position cross-check (the geometry, not just the part names):** for wall profiles, the contact-window samples' `(x,z)` must sit near the corridor edge the wall occupies (|trackLateral| ≥ ~routeHalfWidth), not mid-corridor; a guard-named contact at mid-corridor = a mis-placed member (the pose correction failed) — escalate to physics with the sample's coordinates.
+
+**6.3 The audit agreement:** the wheel-fit sweeps' `PART_HUB_OFFSET` lines for the restored parts must read ≈0 (the pose correction landed); `HUB_POSE_RESTORE` lines in the bake log must match the part set (car16: 2 guards; car0: 4 calipers). Any disagreement between the two channels = the restore is inconsistent — stop the physics readout.
+
+## 7. Mounted-hull audit expectations — the axle-fit FITTED state
+
+Which `PART_BELOW_WHEEL_PLANE car=N part=P axle=A lowestY=X delta=D` lines must DISAPPEAR once the axle fit is applied on top of the restored mounts:
+
+| Line class | Fitted-state expectation |
+|---|---|
+| `…part=LOD_A_WHEELGUARD_…` | **GONE** — hub-mounted + pose-corrected: the part's floor sits at hub height, above the wheel plane, by construction |
+| `…part=LOD_A_BRAKE_CALIPER_…` | **GONE** — same mechanism (car0's class; the runtime-disable note: car0's gate never exercised pre-restore) |
+| `…part=FRONTBUMPER…` / `…CHASSIS…` bodywork rows at **−0.0455** (the turn-5 worsts) | **GONE with the axle fit** (the 0.45–0.48 m anchor correction moves the tyre spans clear of the wing/floor bands) — their persistence at the FITTED state = the fit did not apply to that car (the `-source-axle.json` inventory check first!) |
+| `…part=STRUT_UPPER_REAR…` at **−0.02** (axle-class) | **GONE** (the fit's own target); a residual −0.02-class line = the fit's rear-anchor estimate for THAT car needs the escalated rung (mount/parts-transform, their ladder) |
+| STRUT rows inside the suspension group | STAY within their tolerance bands (PASS/WATCH per the turn-4 protocol) — the struts legitimately live near the wheel plane; their clearance is posture-dependent, not a defect |
+| cab/exhaust/others (+0.52…+0.80) | unchanged (clear) |
+
+Reading rule: the fitted-state audit is ACCEPTED only when every axle-FAIL line class above is absent AND the stance lines still hold (the STANCE no-hubs value ≈ the measured ~0.025-class + the fit's shift) — the fit fixing the wheels must not re-break the body datum; both sheets' numbers quoted into the ledger together.
+
+## 8. Escalation map (who takes which fingerprint)
 
 | Fingerprint | Owner |
 |---|---|
