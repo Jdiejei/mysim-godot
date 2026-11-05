@@ -15,6 +15,47 @@ gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref 
 gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=track_scene_audit
 ```
 
+## WET/NIGHT MATRIX (D0-first; OPTIONAL - after the quick battery's D0-family gates hold; added 2026-11-05 turn 25 by the verification agent from track-render turn-23's matrix, VERIFYING every knob against the env plumbing landed at `1f4ccf0`)
+
+**Mechanism (verified):** `tools/cloud_game_audit.py` @ `1f4ccf0` now maps the RUNNER env to the game flags (the ten wet/night setdefault ports: `RAIN_VISIBILITY_CANDIDATE`/`RAIN_VOLUME_PROFILE`/`WET_REFLECT`/`NIGHT_POOL_GAIN`/`NIGHT_AMBIENT_LIFT`/`NIGHT_EXPOSURE`/`VEHICLE_LIGHTS`/`LIGHT_SCHEME` + the conditional `TOD`→`MYSIM_TOD` and `WEATHER`→`MYSIM_WET` — the pair passes through ONLY when set, so existing runs' lighting stays untouched). Workflow inputs stay at 25 — **each cell = a small yml edit committing the cell's env block to the branch, THEN the dispatch; each push's diff must contain ONLY those env lines (the confound check; record each cell's HEAD).** Dispatches run the BRANCH's own yml, so this works pre-merge. Order: D0 first — if D0's identity diff fails, STOP and review the merge before any candidate cell.
+
+```bash
+# PREREQ (data-only commit, BEFORE any matrix dispatch): the shared 4-case manifests
+# (car 16 + car 0, tracks 0 + 8, DRY file weather=0 and WET file weather=2).
+# TODAY only the wet 2-case file exists (data/native_driving_validation_wet.json = car16+car0, track 0, weather 2);
+# the cells would otherwise run on track 0 only and lose the track-8 corridor/seam link. Files: data/, by carbody/track-render or you.
+
+# D0 identity guard (dry day, ALL candidate knobs off): establishes the pixel baseline (SHA-pinned run dir).
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_core
+# (yml env for this cell: none needed - unset TOD/WEATHER = the game defaults day/noon = D0's cell definition)
+
+# N0 night base (patch the branch yml env block: TOD: '3' (WEATHER: '0' optional/implicit), push, then:)
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_core
+
+# N1 night light package (branch yml env += NIGHT_POOL_GAIN: '1.6', NIGHT_AMBIENT_LIFT: '1.5', NIGHT_EXPOSURE: '1.15'):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_core
+
+# N2 night + vehicles + anchored (= N1's block + VEHICLE_LIGHTS: 'emissive', LIGHT_SCHEME: 'anchored'):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_core
+# KNOWN GAP for N2: the fixture-view frames (MYSIM_NIGHT_FIXTURE_VIEW, Main.cs:193) are NOT in the tool's env-port list —
+# either run the separate depth=night_fixture_audit (the existing depth-coupled env line) for the station frames,
+# or have track-render add the 11th setdefault (MYSIM_NIGHT_FIXTURE_VIEW) in a follow-up commit.
+
+# W1 wet day, rain+reflect (branch yml env: TOD: '0', WEATHER: '2', RAIN_VISIBILITY_CANDIDATE: '1', RAIN_VOLUME_PROFILE: 'readable', WET_REFLECT: '1.6'):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_wet
+# (case_set=driving_wet uses data/native_driving_validation_wet.json whose cases already carry weather=2; the manifest level wins over the env level - consistent)
+
+# W2 wet night FULL package (= N2's env block + W1's wet knobs together) - the money cell:
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_wet
+# NOTE for W2: the WET file has only track-0 cases today - without the 4-case wet manifest, W2 tests BOTH packages but ONLY on track 0.
+
+# W0 (OPTIONAL, clean wet baseline, all candidate flags off - added if the budget allows):
+gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_wet
+# (branch yml env: TOD: '0', WEATHER: '2' only - all RAIN/NIGHT/LIGHT knobs off)
+```
+
+Reading per pair (from track-render turn-23 §4, checkable): rain streaks >= 2 px at 10-40 m on >= 5 frames (base profile = sub-pixel at those ranges); the wet-road specular responds under light while the DRY cells show ZERO road delta; night readability (the body/near barriers/kerbs discernible, no hue inversion); `NIGHT_VEHICLE_LIGHTS ... poolBudgetUntouched=true` present for N2; the anchored scheme cross-checked via the audit JSON; W2 must not black-hole the road (>= N1 pool visibility). Fence regression watch: the fence wire stays visible (not black-crushed) in W2 (the turn-1 reject DOES NOT re-enter through a wet/night flag).
+
 ## FULL BATTERY (after the quick three, or post-merge on main) (API-verified pushed; the full integration line: corridor fix, axle candidate + A/B, six-field inventories, touch-strip/cockpit contract, lapValidity, forest-tone candidate, the bisect-verified 25-input workflow). All commands below run on the OWNER's machine with the OWNER's credentials; `--ref main` variants apply after the merge, or substitute `--ref codex/repair-20261029` to run them pre-merge against the branch.
 
 No secrets in this file. All commands run on the OWNER's machine with the OWNER's credentials.
