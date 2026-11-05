@@ -1,0 +1,53 @@
+{
+  "batch": "A",
+  "title": "the 11 POP tracks' D0-day-dry baselines (the first audit-batch item)",
+  "planSource": "outputs/mistral-orchestration/tracks-index/TRACK-AUDIT-PLAN.md (batch A) + audit_contracts.json",
+  "batteryPath": {
+    "existingCapability": {
+      "workflow": "game-review.yml (workflow_dispatch)",
+      "repo": "Jdiejei/mysim-godot",
+      "branch": "codex/repair-20261029",
+      "depth": "weather_review",
+      "shardMatrix": "auto: [0,1,2,3,4,5] (the depth's default branch in the strategy filter - weather_review is not in any named shard list, so it falls to the final fallback)",
+      "rowSet": "(tod,wet) in ((0,0),(3,0),(0,2),(3,3),(0,4)) per track = the full wet/night matrix in ONE dispatch; D0 = the (0,0) row",
+      "note": "one dispatch covers batch A AND the whole matrix bonus (60 tracks x 5 rows = ~300 captures); the POP-11 D0 rows are the review-first subset"
+    },
+    "proposedMinimalAddition": {
+      "purpose": "a D0-ONLY quick battery item (60 PNGs instead of ~300) when the owner wants the batch-A verdicts before the fullmatrix run",
+      "workflowEdit": "inputs: weather_rows: {description: 'csv of tod_wet pairs for the WEATHER_REVIEW matrix', type: string, default: '0_0,3_0,0_2,3_3,0_4'}; env: WEATHER_ROWS: ${{ inputs.weather_rows }}",
+      "toolEdit": "cloud_game_audit.py WEATHER_REVIEW branch: replace the literal tuple loop with rows parsed from os.environ.get('WEATHER_ROWS','0_0,3_0,0_2,3_3,0_4') (pairs split on ',' then '_')",
+      "batchACommand": "gh workflow run game-review.yml --repo Jdiejei/mysim-godot --ref codex/repair-20261029 -f depth=weather_review -f weather_rows=0_0",
+      "owner": "verification folds the two-line patch; the dispatch stays owner-side"
+    }
+  },
+  "dispatchCommands": [
+    "gh workflow run game-review.yml --repo Jdiejei/mysim-godot --ref codex/repair-20261029 -f depth=weather_review",
+    "gh run watch <run-id>",
+    "gh run download <run-id> --repo Jdiejei/mysim-godot -n encrypted-review-<shard>-attempt-1   # per shard 0..5",
+    "# decrypt per the established review-key flow (MYSIM_INTAKE_KEY; key never printed)"
+  ],
+  "d0Tracks": [
+    {"track": 21, "name": "RED BULL RING", "shard": 3, "expectedD0": "weather-track-21-tod-0-wet-0.png"},
+    {"track": 54, "name": "LEMANS SARTHE", "shard": 0, "expectedD0": "weather-track-54-tod-0-wet-0.png"},
+    {"track": 57, "name": "REDBULL SOUTH", "shard": 3, "expectedD0": "weather-track-57-tod-0-wet-0.png"},
+    {"track": 17, "name": "NEW YORK", "shard": 5, "expectedD0": "weather-track-17-tod-0-wet-0.png"},
+    {"track": 9, "name": "HONG KONG", "shard": 3, "expectedD0": "weather-track-09-tod-0-wet-0.png"},
+    {"track": 26, "name": "SPA", "shard": 2, "expectedD0": "weather-track-26-tod-0-wet-0.png"},
+    {"track": 3, "name": "BATHURST", "shard": 3, "expectedD0": "weather-track-03-tod-0-wet-0.png"},
+    {"track": 23, "name": "SEBRING", "shard": 5, "expectedD0": "weather-track-23-tod-0-wet-0.png"},
+    {"track": 24, "name": "SILVERSTONE", "shard": 0, "expectedD0": "weather-track-24-tod-0-wet-0.png"},
+    {"track": 16, "name": "MONZA", "shard": 4, "expectedD0": "weather-track-16-tod-0-wet-0.png"},
+    {"track": 1, "name": "LAGUNA SECA", "shard": 1, "expectedD0": "weather-track-01-tod-0-wet-0.png"}
+  ],
+  "captureSemantics": "each D0 row = MYSIM_TRACK=<N>, MYSIM_CAR=16 (the reference car), MYSIM_TOD=0, MYSIM_WET=0, AI-on/autodrive, no pit/rivals, 3 s drive-by shot (the file names = the audit's f'weather-track-{track:02}-tod-{tod}-wet-{wet}' labels)",
+  "nameSource": "all names verified against the per-track index files (generated from data/TrackList.json)",
+  "ledgerContract": {
+    "index": "outputs/mistral-orchestration/EVIDENCE_INDEX.md (the verification-maintained reviewer index)",
+    "rowShape": "| <claim> | <run> | <head> | <evidence location> | <verdict-slot (reviewer)> | (the index's existing one-claim-per-row shape)",
+    "rows": [
+      "track-D0 baseline visual state (per POP track): claim = 'track<N> D0 day/dry baseline captures (batch A/audit plan)', run = the weather_review run id, head = the dispatch head, evidence = the decrypted weather-track-<NN>-tod-0-wet-0.png path, verdict = open"
+    ],
+    "owner": "verification files the rows; this agent proposes row content only"
+  },
+  "verdictProtocol": "the D0-first review: the 11 POP D0 frames reviewed BEFORE any night/wet row; defects recorded per track only with the row's capture attached (no defect rows without captures)"
+}
