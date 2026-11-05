@@ -70,8 +70,9 @@ Same manifest, same gates, no loosened bands — the source pair answers the bac
 1. **The gates:** every assertion above passes on source too — with one judge nuance: source may register MORE impact events within the aim window (contact resolver can emit multiple Δv≥2 blips in a grind). Recorded per profile; a source count > 20 inside one aim phase is flagged for the backend decision (the turn-3 protocol's instability criterion), it is not itself a battery failure.
 2. **Band parity:** `delta_v_band` and the identity bound hold on source with the SAME numbers range — a source-only breach is a backend physics deviation finding (feeds the ship/backend decision; the pair compares, the choice is the coordinator's).
 3. **Estimate agreement:** `impactImpulseEstimate` (the momentum integral) should agree between backends within ~[0.8, 1.25]×; `impactPeakForceEstimate` may differ more (per-tick resolution differs) — reference ratio [0.5, 2.0]× as judge guidance, never as a gate.
-4. **Recovery parity:** `drives_after_impact` + `stayed_upright` must pass on both — the recovery behaviour is part of what ships.
+4. **Recovery parity:** `drives_after_impact` + `stayed_upright` must pass on both — the recovery behaviour is part of what ships. The R-window layer (reading-card §10) now supplies the per-impact recovery evidence: window count parity with `impactEventsDelta` and `recoveryRecoveredFraction = 1.0` on both backends.
 5. **Identical inputs 艺术:** the source legs must run the SAME manifest revision and the same dispatch inputs as the jolt legs (recorded in `physics-backend-experiment.json` + the summary; no in-flight config drift).
+6. **Archetype labelling (reading-card §12):** the run's `contactArchetypes` + per-sample `bodyPanelContact`/`wheelBandContact` flags label each contact cluster (guard vs panel vs mixed); the source/jolt pair must agree on every cluster's LABEL (a disagreement = contact-resolution divergence, feeds the backend decision). The numeric envelope fill-in and adoption criteria live in card §12.1 — descriptive until promoted.
 
 ## 4. Verified-with queue for me
 
