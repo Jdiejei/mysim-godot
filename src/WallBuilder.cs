@@ -56,7 +56,9 @@ public static class WallBuilder {
  // deferred on its first physics tick so meshes added later in the same frame (e.g. the drive surface)
  // are included. Attaching nothing when the flag is unset = default rendering unchanged.
  public static void AttachCollisionOverlay(Node3D layer){
-  if(System.Environment.GetEnvironmentVariable("MYSIM_COLLISION_OVERLAY")!="1")return;
+  // The workflow's track_scene_audit depth sets the bare name (COLLISION_OVERLAY) because the run() helper strips
+  // MYSIM_* from inherited environments; accept both spellings so the battery wiring activates the overlay.
+  if(System.Environment.GetEnvironmentVariable("MYSIM_COLLISION_OVERLAY")!="1"&&System.Environment.GetEnvironmentVariable("COLLISION_OVERLAY")!="1")return;
   layer.AddChild(new CollisionOverlay {Name="CollisionOverlay"});
  }
 }
@@ -192,6 +194,10 @@ public partial class CollisionOverlay : Node3D {
    }
   }
   string auditPath=System.Environment.GetEnvironmentVariable("MYSIM_COLLISION_OVERLAY_AUDIT");
+  if(string.IsNullOrEmpty(auditPath)){
+   string sceneAudit=System.Environment.GetEnvironmentVariable("MYSIM_TRACK_SCENE_AUDIT");
+   if(!string.IsNullOrEmpty(sceneAudit))auditPath=sceneAudit+"-collision-overlay.json";
+  }
   // Route-corridor overlay: resolve this layer's route variant from its name and draw the corridor edges.
   int variant=-1;string resolvedAs=null;
   if(layer!=null){
