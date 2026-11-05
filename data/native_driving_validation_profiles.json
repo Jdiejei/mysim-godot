@@ -281,6 +281,31 @@
         { "id": "stayed_upright", "metric": "uprightMinCosine:all", "op": "gte", "value": 0.7 },
         { "id": "impulse_identity_bound", "metric": "impactImpulseEstimate:aim", "op": "betweenReference", "reference": "vehicleMass", "factorMin": 0, "factorMax": 16 }
       ]
+    },
+    {
+      "id": "race_start_sequence",
+      "title": "Grid start sequence: countdown hold under full throttle (jump-start attempt), lights-out release and race-clock start",
+      "purpose": "Race-flow validation of the native start sequence under the userpath chain: the profile commands FULL THROTTLE through the grid countdown (a deliberate jump-start attempt); the grid must hold the car (no launch, no creep beyond the established guard), the countdown must expire inside its band, and the release must hand authority to the throttle within the same tick family so the launch happens at lights-out. The countdown's 1 Hz steps are visible in the per-tick samples (the lights timing layer; the light visuals themselves are the already-proven GUI fixture). Requires gridStart at the case level (the AI boot must not skip the countdown); no damage required; jump-start PENALTIES are not part of this validation - only the hold/hold-off mechanics and their timing.",
+      "requires": { "rotationalTyres": false, "damageEnabled": false },
+      "setup": { "requiresGridStart": true },
+      "abort": { "maxDurationSeconds": 40, "lateralAbsBeyond": 25, "positionJumpBeyond": 2.5 },
+      "phases": [
+        { "id": "grid", "throttle": 1, "brake": 0, "steer": 0, "until": { "raceStarted": true }, "maxSeconds": 12, "minSeconds": 0.5 },
+        { "id": "release", "throttle": 1, "brake": 0, "steer": 0, "until": { "speedAtLeast": 5 }, "maxSeconds": 6 },
+        { "id": "settle", "forSeconds": 1, "throttle": 0.3, "brake": 0, "steer": 0 },
+        { "id": "brake_stop", "throttle": 0, "brake": 1, "steer": 0, "until": { "speedBelow": 0.1 }, "minSeconds": 0.2 }
+      ],
+      "assertions": [
+        { "id": "jump_start_attempted", "metric": "throttleHoldSeconds:grid", "op": "gte", "value": 1 },
+        { "id": "grid_held_under_throttle", "metric": "maxSpeed:grid", "op": "lt", "value": 0.15 },
+        { "id": "grid_not_launched", "metric": "endSpeed:grid", "op": "lt", "value": 0.1 },
+        { "id": "countdown_band", "metric": "duration:grid", "op": "between", "min": 4.5, "max": 6.5 },
+        { "id": "release_bits_immediately", "metric": "speedRiseTime:release", "op": "lt", "value": 0.5 },
+        { "id": "race_started_in_release", "metric": "raceStartedFraction:release", "op": "gte", "value": 0.95 },
+        { "id": "launch_reached_speed", "metric": "endSpeed:release", "op": "between", "min": 4.8, "max": 7 },
+        { "id": "no_teleport", "metric": "positionJumpMax:all", "op": "lt", "value": 1 },
+        { "id": "stayed_upright", "metric": "uprightMinCosine:all", "op": "gte", "value": 0.9 }
+      ]
     }
   ]
 }

@@ -93,6 +93,7 @@ public partial class NativeRaceController : DriveController {
    if(!map.TryGetValue(id,out var profile))throw new InvalidOperationException("Driving validation profile "+id+" is missing from native_driving_validation_profiles.json");
    if(profile.RequireRotationalTyres&&!body.RotationalTyres)throw new InvalidOperationException("Driving validation profile "+id+" requires rotational tyres; dispatch with rotational_tyres=true");
    if(profile.RequireDamage&&!body.DamageEnabled)throw new InvalidOperationException("Driving validation profile "+id+" requires the native damage system; dispatch with native_damage=true");
+   if(profile.RequireGridStart&&System.Environment.GetEnvironmentVariable("MYSIM_GRID_START")!="1")throw new InvalidOperationException("Driving validation profile "+id+" requires the grid start; dispatch with MYSIM_GRID_START=1 so the countdown is not skipped");
    runs.Add(new MySimulator.Rebuild.DrivingValidation.Run(profile,references));
   }
   if(runs.Count==0)throw new InvalidOperationException("Driving validation case selected no profiles");
@@ -123,6 +124,7 @@ public partial class NativeRaceController : DriveController {
    x=body.GlobalPosition.X,z=body.GlobalPosition.Z,trackLateral=Player.lateral,progress=Player.progress,water=body.Water,
    onDrivingSurface=Player.onDrivingSurface,nonSurfaceContact=nonSurfaceContact,wheelBandContact=wheelBandContact,groundedMask=mask,chassisContacts=body.ChassisContacts,
    impactEvents=body.Impacts.Events,maxDeltaV=body.Impacts.MaximumDeltaV,
+   raceStarted=Race.started,raceClock=Race.clock,countdown=Race.countdown,
    loads=ToDoubles(body.Loads),springLengths=ToDoubles(body.SpringLength),
    longitudinalSlip=ToDoubles(body.LongitudinalSlip),lateralSlipAngle=ToDoubles(body.LateralSlipAngle)};
  }
