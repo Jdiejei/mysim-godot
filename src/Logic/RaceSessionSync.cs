@@ -37,5 +37,8 @@ public sealed class SnapshotApplier {
         }
         AppliedSnapshots++;
     }
+    // The view for a car id (null before its first snapshot): the host app uses this to
+    // find the LOCAL player's view for camera follow and HUD binding.
+    public ICarView ViewFor(int id) { return views.TryGetValue(id, out var carView) ? carView : null; }
 }
 }

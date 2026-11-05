@@ -125,7 +125,7 @@ public partial class NativeRaceController : DriveController {
    wheelAngle=body.WheelAngle,wheelAngleTarget=MySimulator.Rebuild.Dynamics.SteeringTarget((float)command.Steer,longitudinal),
    steerCommand=command.Steer,throttle=command.Throttle,brake=command.Brake,
    x=body.GlobalPosition.X,z=body.GlobalPosition.Z,trackLateral=Player.lateral,progress=Player.progress,water=body.Water,
-   onDrivingSurface=Player.onDrivingSurface,nonSurfaceContact=nonSurfaceContact,wheelBandContact=wheelBandContact,groundedMask=mask,chassisContacts=body.ChassisContacts,
+   onDrivingSurface=Player.onDrivingSurface,nonSurfaceContact=nonSurfaceContact,wheelBandContact=wheelBandContact,bodyPanelContact=bodyPanelContact,groundedMask=mask,chassisContacts=body.ChassisContacts,
    impactEvents=body.Impacts.Events,maxDeltaV=body.Impacts.MaximumDeltaV,
    raceStarted=Race.started,raceClock=Race.clock,countdown=Race.countdown,
    loads=ToDoubles(body.Loads),springLengths=ToDoubles(body.SpringLength),
