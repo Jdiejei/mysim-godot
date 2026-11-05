@@ -42,7 +42,9 @@ the review-first subset), the proposed minimal two-line addition for a
 D0-ONLY quick item (the `weather_rows` input + the audit-tool loop reading it),
 the exact gh commands, the expected per-track D0 file names, and the ledger
 row templates. Verification owns both the workflow and the ledger; this spec
-is what they fold in.
+is what they fold in. The REVIEW templates (per-POP-track D0 verdict rows +
+check rows in the ledger shape) = `BATCH-A-REVIEW.md` +
+`batch_a_review_template.json` (tools/tracks_index.py --review-templates).
 
 The plan computes from data/TrackList.json only; no other condition enters the
 batching (the wet/night SETS stay per-track rows; the batch assignment = the
