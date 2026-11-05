@@ -1,0 +1,6 @@
+﻿file,bytes,width,height,sha256
+day0-filtered-fence-baseline.png,452845,960,540,3674a065540163a9f05c56c18496ba943078ee5a870cd8ff7b672fa0785b912e
+day0-filtered-fence-family_isolate_fence.png,430960,960,540,1a1bbeba5dd5958ac0210e7fcee97759ecaf8bc9d96464668e9c38adb53ae320
+day0-filtered-fence-family_isolate_foliage.png,432228,960,540,7ef23c3319d9e077e7fb3911c25ba3cfa339705fe543ba322d9a2d5c2a9a994a
+day0-filtered-fence-family_isolate_stands.png,448861,960,540,3ba67d31166f87093725756d349de79976750e15d478fc4e21cb917258fd5577
+day0-filtered-fence-fence_miprepair_candidate.png,438357,960,540,d9a9eed691f580f3287865724536646549d7c4a27e8707cf61ba9cfdc45d56d5
