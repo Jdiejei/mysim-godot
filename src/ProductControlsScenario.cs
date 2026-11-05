@@ -92,7 +92,11 @@ public partial class ProductControlsScenario : Node {
    var rankOrder=race.Standings();
    for(int i=0;i<rankOrder.Count;i++){var car=rankOrder[i];var rowLabel=rows.GetNodeOrNull<Label>("Car"+car.id);Check(rowLabel!=null,"standings data row missing for car "+car.id);
     string name=CarCatalog.Names[car.carModel];if(name.Length>18)name=name.Substring(0,18);
-    Check(rowLabel.Text==(i+1).ToString("00")+"  "+name+"  L"+System.Math.Min(car.completedLaps+1,race.targetLaps),"standings row not bound to live order: car "+car.id+" = '"+rowLabel.Text+"'");
+    // Gap column: the leader row carries none; a trailing running car carries its live metres deficit to the leader.
+    string gap="";if(i>0&&!car.finished&&!car.retired){float metres=(race.DistanceScore(rankOrder[0])-race.DistanceScore(car))*race.track.length;if(metres>=1f)gap="  +"+(int)metres+"m";}
+    Check(rowLabel.Text==(i+1).ToString("00")+"  "+name+"  L"+System.Math.Min(car.completedLaps+1,race.targetLaps)+gap,"standings row not bound to live order: car "+car.id+" = '"+rowLabel.Text+"'");
+    if(i==1)Check(gap.Length>0&&rankOrder[0].id!=rankOrder[1].id,"trailing row lost the live gap column: '"+rowLabel.Text+"'");
+    if(i==0)Check(!rankOrder[0].finished&&rowLabel.Text.EndsWith("L"+System.Math.Min(car.completedLaps+1,race.targetLaps)),"leader row gained a gap or lost its state");
     shown++;}
    Check(shown>0,"standings panel rendered no data rows");
    // ERS charge display equals the live battery; deploying state toggles from the model.
