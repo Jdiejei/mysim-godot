@@ -14,7 +14,9 @@ Run each in its own PowerShell window, from the repo root. `<GAME_EXE>` = the ex
 
 ```powershell
 # Window A — HOST (starts ~3 s before the client; auto-creates the room, auto-starts, auto-drives, exits at 45 s)
-$env:MYSIM_LAN_HOST="1"; $env:MYSIM_LAN_AUTOSTART="1"; $env:MYSIM_AUTODRIVE="1"; $env:MYSIM_LAN_QUIT_AFTER="45"; & "<GAME_EXE>"
+# MYSIM_NATIVE_GAMEPLAY=1 is REQUIRED: the LAN host integration lives in NativeRaceController;
+# without it the run fails loud (LAN_HOST_REQUIRES_NATIVE) instead of silently skipping adoption.
+$env:MYSIM_NATIVE_GAMEPLAY="1"; $env:MYSIM_LAN_HOST="1"; $env:MYSIM_LAN_AUTOSTART="1"; $env:MYSIM_AUTODRIVE="1"; $env:MYSIM_LAN_QUIT_AFTER="45"; & "<GAME_EXE>"
 
 # Window B — CLIENT (auto-joins the host on loopback; exits itself with a PASS/FAIL summary)
 $env:MYSIM_LAN_JOIN="127.0.0.1"; $env:MYSIM_LAN_QUIT_AFTER="45"; & "<GAME_EXE>"
@@ -49,6 +51,7 @@ Failure → fingerprint → owner:
 |---|---|---|
 | The client times out (`No host response`) | the host's room never opened / firewall / wrong address | run env: re-check the env + the port (44880/UDP; a real two-machine LAN needs the inbound rule) |
 | A: `RACE_LOAD_FAILED` after `LAN_HOST_ADOPTED` missing | the track/car load — same as any single-player load failure | physics/environment |
+| A: `LAN_HOST_REQUIRES_NATIVE` | the host command missing `MYSIM_NATIVE_GAMEPLAY=1` (the guard dropped the LAN session; no leak into later races) | test procedure |
 | B: stuck `Connecting` after the host started | the BUSY race-already-started guard fired (the client joined too late) — re-run with the client earlier | test procedure |
 | B: `LAN_SYNC hostSpeed=0.00` forever, `FAIL ... remote motion never observed` | the sync path broken: check A for the `LAN_HOST_ADOPTED` line; if present, the snap/application path — physics (me) with the log | physics (me) |
 | Either console: `LAN session error` / malformed-packet text | a protocol regression — physics (me), include both consoles | physics (me) |

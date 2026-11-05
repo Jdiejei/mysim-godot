@@ -265,7 +265,9 @@ public partial class Main : Node3D {
   var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); if (System.Environment.GetEnvironmentVariable("MYSIM_INPUTCHECKS") != null) world.AddChild(new DrivingScenario { Drive=drive }); world.AddChild(hud); world.AddChild(new TouchControls { Drive=drive });
   ClearUi();GD.Print("RACE_READY track=",trackIdx," car=",carIdx);
   if(NativeRaceController.PendingLanHost!=null&&drive is NativeRaceController nativeHost){var lanHost=NativeRaceController.PendingLanHost;NativeRaceController.PendingLanHost=null;nativeHost.LanSession=lanHost;lanHost.AdoptRace(nativeHost.Race);GD.Print("LAN_HOST_ADOPTED cars=",nativeHost.Race.cars.Count);}
+  else if(NativeRaceController.PendingLanHost!=null){GD.PrintErr("LAN_HOST_REQUIRES_NATIVE: the LAN host integration runs only under MYSIM_NATIVE_GAMEPLAY=1; dropping the LAN session");NativeRaceController.PendingLanHost.Dispose();NativeRaceController.PendingLanHost=null;}
   } catch(System.Exception e) {
+   NativeRaceController.PendingLanHost=null; // a failed load must not leak a pending LAN session into the next race
    GD.PrintErr("RACE_LOAD_FAILED ",e);if(System.Environment.GetEnvironmentVariable("MYSIM_AI")!=null||System.Environment.GetEnvironmentVariable("MYSIM_FIXTURE_LENS_EXIT")!=null){CleanExit.Request(this,1);return;}EndRace();ClearUi();ui=new CanvasLayer();AddChild(ui);
    var errorLabel=new Label { Text="Could not load this race. See game log for details.",Position=new Vector2(48,300) };ui.AddChild(errorLabel);
    var back=new Button { Text="BACK TO MENU",Position=new Vector2(48,360) };back.Pressed+=ShowMenu;ui.AddChild(back);
