@@ -1,0 +1,28 @@
+# Verification — turn 25 report (2026-11-05: 1f4ccf0 ledger; the wet/night env plumbing verified; the SIX(+1) matrix dispatch commands added to the handoff)
+
+## Task
+
+Coordinator turn-25: (1) the ledger for `1f4ccf0` (the wet/night env mappings + the syntax-bomb fix — the PY_COMPILE gate would have caught it; the dispatch blockage delayed it); (2) add the SIX wet/night matrix dispatch commands (D0/N0/N1/N2/W1/W2 + the optional W0) to the owner handoff from track-render's matrix; (3) the packet refresh.
+
+## What was verified (first-hand, this session)
+
+1. **Lineage:** my turn-24 tip = an ancestor → the branch FAST-FORWARDED to `1f4ccf0`. The five merges + the plumbing commit (verified ancestors, merge order): `419f9d6` (physics b4c73ae LAN host-side — the session adoption + the remote car via PeerName/PeerModel; union resolve over Main.cs) → `01a10cc` (track ce93f2a: the wet/night validation matrix + the env allow-list finding — `agents/track-render-turn23.md`) → `0e642d0` (carbody d48586c: TRACKS-INDEX.md — 60 tracks size-ranked + the POP set; the honest "no per-track defect data for tracks 1-59" state) → `b92f668` (hud cb3b9e6: bindings HUD_RECTS) → `a4e9dfa` (my turn-24 ledger merged) → `1f4ccf0`.
+2. **The SYNTAX-BOMB story verified precisely:** `1f4ccf0` changed ONLY `tools/cloud_game_audit.py` (diff-tree) — the collision-overlay edit had planted CSTYLE `if(...)` = invalid Python. **A py_compile gate ALREADY EXISTS in game-review.yml (line 97: `python -m py_compile tools/cloud_game_audit.py tools/cloud_scope_import.py tools/cloud_bake_car_hulls.py ...`) — but it only executes ON A RUN; the dispatch blockage + dispatch-only-trigger silence meant ZERO runs compiled anything — that is exactly how the bomb stayed latent.** The fix = proper if/ternary lines, py_compile-verified (manually). Two notes recorded: windows-build.yml has NO py_compile gate (proposed follow-up, coordinator-owned); any run-free edit window needs the in-commit manual py_compile.
+3. **The env plumbing verified verbatim (the tool's `run()`):** the ten wet/night ports — `RAIN_VISIBILITY_CANDIDATE`/`RAIN_VOLUME_PROFILE`('base')/`WET_REFLECT`('1')/`NIGHT_POOL_GAIN`/`NIGHT_AMBIENT_LIFT`/`NIGHT_EXPOSURE`('1')/`VEHICLE_LIGHTS`('0')/`LIGHT_SCHEME`('uniform') as setdefaults + the CONDITIONAL `TOD`→`MYSIM_TOD` / `WEATHER`→`MYSIM_WET` (pass through ONLY when provided — the existing runs' lighting untouched). The workflow's dispatch inputs stay at 25 (verified; the matrix needs none).
+4. **The SIX(+1) matrix commands ADDED to OWNER_MERGE_INSTRUCTIONS.md** (a new §WET/NIGHT MATRIX section inserted between the QUICK and FULL battery sections; nothing existing edited):
+   - Mechanism (per track-render's own design): each cell = the coordinator's small yml env-block edit to the branch (the cell's runner-env lines) + the push + the branch-ref dispatch — dispatches read the BRANCH's yml, so it works pre-merge; **the confound check = each push's diff contains ONLY the env lines; record each cell's HEAD**.
+   - Cells: D0 (identity guard, all off — establishes the pixel baseline; STOP if the identity diff fails), N0 (TOD=3), N1 (+pool 1.6/lift 1.5/exposure 1.15), N2 (+VEHICLE_LIGHTS=emissive/LIGHT_SCHEME=anchored), W1 (WEATHER=2 + RAIN_VISIBILITY_CANDIDATE=1 + RAIN_VOLUME_PROFILE=readable + WET_REFLECT=1.6), W2 (= N2+W1, "the money cell"), W0 optional (the clean wet baseline).
+   - All commands: `gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16` with case_set=driving_core (the DRY cells) / case_set=driving_wet (the WET cells) — **the case_set choice is load-bearing: inside the DV harness the manifest case's weather OVERRIDES the env-level WEATHER (values.update after the env-copy), so the wet file's always-weather-2 cases would poison the dry cells**.
+   - THREE caveats written into the handoff: (1) the shared 4-case manifest pair (dry+wet × car16+car0 × tracks 0+8) DOES NOT EXIST — only the 2-case wet file (track 0 only, weather 2, verified by parse); without a data-only prereq commit the whole matrix is track-0-only (losing the track-8 corridor/seam link); (2) N2's fixture-view frames need either a separate `depth=night_fixture_audit` run or an 11th env port (`MYSIM_NIGHT_FIXTURE_VIEW` is NOT in the tool's ten — Main.cs:193 reads it); (3) the reading rules per pair come from track-render turn-23 §4 (checkable bands: the rain streaks >= 2px at 10-40m on >= 5 frames, the dry road immune by construction, the night readability, `poolBudgetUntouched=true` for the vehicle lights, W2 must not black-hole the road) + the fence watch (the turn-1 reject must NOT re-enter through a wet/night flag).
+5. Counts re-verified unchanged across the carried symbols.
+
+## Ledger writes
+
+- OWNER_MERGE_INSTRUCTIONS.md: the §WET/NIGHT MATRIX section (the mechanism, the seven dispatch commands, the caveats, the reading rules) — additive only.
+- EVIDENCE_INDEX.md: heading/status → 1f4ccf0; the turn-25 merges paragraph (with the syntax-bomb finding + the ten ports verified verbatim); the QUICK-battery paragraph extended with the matrix + the three caveats.
+- REVIEW_PACKET.md: the new top CURRENT STATUS block (turn 25).
+- This file: agents/verification-turn25.md.
+
+## Standing gates — UNCHANGED
+
+Windows tmp=1/rename=2; crash-consistency through the delete-then-rename window OPEN; PHYSICS UNACCEPTED until contact + force-driven DV evidence land green and are human-reviewed; everything (incl. the LAN phase-2 chain) CODE-PRESENT-UNVERIFIED until runs + human review; no run anywhere has exercised any of this code; PR #1 (a313492) merge = the owner's action.
