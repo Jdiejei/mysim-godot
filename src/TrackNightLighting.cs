@@ -100,6 +100,57 @@ public partial class TrackNightLighting : Node3D {
   for(int i=0;i<budget;i++){var light=new SpotLight3D{Visible=false,SpotRange=range,SpotAngle=Read(p,"coneAngle"),SpotAttenuation=1f,LightEnergy=Read(p,"energy")*poolGain,LightColor=new Color(.82f,.89f,1f),ShadowEnabled=i<2,ShadowBias=.03f,ShadowNormalBias=1f,DistanceFadeEnabled=true,DistanceFadeBegin=110f,DistanceFadeLength=45f};AddChild(light);pool.Add(light);assignments.Add(-1);}
   GD.Print("TRACK_FLOODLIGHTS candidate track=",TrackIndex," scheme=",lightScheme," supportedMounts=",lamps.Count," rejected=",rejected," activeBudget=",pool.Count," poolGain=",poolGain," longestStationGap=",longestUnlitGap," nearestStartStation=",nearestStartStation," rejectReasons=",System.Text.Json.JsonSerializer.Serialize(rejectionReasons));
   rejectedMounts=rejected;auditPath=System.Environment.GetEnvironmentVariable("MYSIM_TRACK_LIGHT_AUDIT");placedScheme=lightScheme;WriteAudit();
+  NightVehicleEmissive();
+ }
+ // VEHICLE-LIGHT EMISSION candidate (MYSIM_VEHICLE_LIGHTS=emissive): the car prefabs' "lights" materials are
+ // forced EmissionEnabled=false at build (CarLoader.Build), so at night every car's lamps read as dead glass -
+ // the reviewer's night-visibility gap for OTHER cars. This night-only pass re-enables emission PER MESH with a
+ // role colour decided from the mesh's position within its car (front = white headlight, rear = red taillight);
+ // meshes are identified by the car texture convention (albedo ends "_lights.png"). Material-level only: no new
+ // light nodes, so the floodlight pool budget and the anchored scheme are untouched (the cooperation rule:
+ // emission = zero light-budget cost). Brake modulation and real beam lights = later tiers, not here.
+ void NightVehicleEmissive(){
+  var modeText=System.Environment.GetEnvironmentVariable("MYSIM_VEHICLE_LIGHTS");
+  if(modeText!="emissive")return;
+  Node root=GetParent();int vehicles=0;var vehicleMeshes=new List<MeshInstance3D>();
+  foreach(var node in root.FindChildren("*","MeshInstance3D",true,false)){
+   var mesh=(MeshInstance3D)node;
+   bool lightsTex=false;
+   for(int s=0;s<mesh.Mesh.GetSurfaceCount();s++){
+    var texPath=mesh.GetActiveMaterial(s)?.AlbedoTexture?.ResourcePath??mesh.Mesh.SurfaceGetMaterial(s)?.AlbedoTexture?.ResourcePath??"";
+    if(texPath.EndsWith("_lights.png",System.StringComparison.OrdinalIgnoreCase)){lightsTex=true;break;}
+   }
+   if(!lightsTex)continue;
+   // car root = the depth-1 ancestor (a direct child of the world) whose total mesh count is small (a car, not a track layer)
+   Node car=null;var walk=node.GetParent();
+   while(walk!=null){var parent=walk.GetParent();if(parent!=null&&parent==root)break;walk=walk.GetParent();}
+   if(walk==null)continue;
+   int meshCount=0;float sizeOk=0f;
+   foreach(var m2 in walk.FindChildren("*","MeshInstance3D",true,false)){var ab=m2.GetAabb();sizeOk=Mathf.Max(sizeOk,Mathf.Max(ab.Size.X,Mathf.Max(ab.Size.Y,ab.Size.Z)));meshCount++;if(meshCount>400)break;}
+   if(meshCount>400||sizeOk>30f)continue;
+   vehicleMeshes.Add(mesh);vehicles++;
+  }
+  int front=0,rear=0;
+  foreach(var mesh in vehicleMeshes){
+   var worldAb=mesh.GetAabb();var center=mesh.GlobalTransform*worldAb.GetCenter();
+   // car forward = +Z basis (the body's forward convention); front = mesh centre forward of the car's mesh centroid
+   float carZ=0f;int n=0;
+   foreach(var other in vehicleMeshes){var oc=other.GlobalTransform*other.GetAabb().GetCenter();carZ+=oc.z;n++;}
+   var carMeanZ=carZ/Mathf.Max(1,n);
+   bool isFront=center.z>carMeanZ;
+   for(int s=0;s<mesh.Mesh.GetSurfaceCount();s++){
+    var mat=mesh.GetActiveMaterial(s) as StandardMaterial3D ?? mesh.Mesh.SurfaceGetMaterial(s) as StandardMaterial3D;
+    var texPath=mat?.AlbedoTexture?.ResourcePath??"";
+    if(!texPath.EndsWith("_lights.png",System.StringComparison.OrdinalIgnoreCase))continue;
+    var clone=(StandardMaterial3D)mat.Duplicate();
+    clone.EmissionEnabled=true;
+    clone.Emission=isFront?new Color(.85f,.88f,.92f):new Color(.85f,.08f,.06f);
+    clone.EmissionEnergyMultiplier=2.5f;
+    mesh.SetSurfaceOverrideMaterial(s,clone);
+    if(isFront)front++;else rear++;
+   }
+  }
+  GD.Print("NIGHT_VEHICLE_LIGHTS emissive vehicles=",vehicles," frontSurfaces=",front," rearSurfaces=",rear," poolBudgetUntouched=true");
  }
  // ANCHORED placement scheme (MYSIM_LIGHT_SCHEME=anchored): pit/brake/apex pole families derived from the route
  // geometry (the real pit route + per-segment curvature). All positions provisional art (geometric derivation,
