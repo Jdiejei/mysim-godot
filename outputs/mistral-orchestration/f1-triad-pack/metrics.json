@@ -1,0 +1,39 @@
+{
+ "cars": {
+  "15": {
+   "name": "Mercedes W10 (2019 F1)",
+   "main": "images/car15-main.png",
+   "wheelStrip": {
+    "present": 6,
+    "missing": [],
+    "image": "images/car15-wheels.png"
+   },
+   "reject": "fragmented source atlas (FULL_F1_W10_WHEEL_REVIEW run 41310403219 + FOUR_CAR_PAINT_PARTIAL_REVIEW run 41335778130 @960e56f)"
+  },
+  "17": {
+   "name": "Red Bull RB15 (2019 F1)",
+   "main": "images/car17-main.png",
+   "wheelStrip": {
+    "present": 6,
+    "missing": [],
+    "image": "images/car17-wheels.png"
+   },
+   "reject": "rubber featureless / brake detail absent (RB15_SIDEWALL_CORRECTION_REVIEW run 41302933144: marking placement verified; FULL_F1_RB15_WHEEL_REVIEW run 41310403219)"
+  },
+  "18": {
+   "name": "McLaren MCL34 (2019 F1)",
+   "main": "images/car18-main.png",
+   "wheelStrip": {
+    "present": 4,
+    "missing": [],
+    "image": "images/car18-wheels.png"
+   },
+   "reject": "coated-paint improvement not established (COATED_PAINT_PARTIAL_REVIEW run 41337127855 @ff93c22); body atlas fragmented (FULL_F1_MCL34_WHEEL_REVIEW run 41310403219)"
+  }
+ },
+ "dirs": {
+  "coatedpaint0/2/3": "the f1-paint candidate artifacts (candidate-0 vs candidate-1 per car)",
+  "car-review-current": "the most recent generic car views",
+  "fleet-41848086075/decrypted-shard0": "car18 production fleet captures (42/42 set, local)"
+ }
+}
