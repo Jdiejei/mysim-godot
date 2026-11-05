@@ -15,15 +15,21 @@ gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref 
 gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=track_scene_audit
 ```
 
-## WET/NIGHT MATRIX (D0-first; OPTIONAL - after the quick battery's D0-family gates hold; added 2026-11-05 turn 25 by the verification agent from track-render turn-23's matrix, VERIFYING every knob against the env plumbing landed at `1f4ccf0`)
+## WET/NIGHT MATRIX (D0-first; OPTIONAL - after the quick battery's D0-family gates hold; added 2026-11-05 turn 25 by the verification agent from track-render turn-23's matrix, VERIFYING every knob against the env plumbing landed at `1f4ccf0`; UPDATED turn 26 for the `4179e30` prerequisites)
 
-**Mechanism (verified):** `tools/cloud_game_audit.py` @ `1f4ccf0` now maps the RUNNER env to the game flags (the ten wet/night setdefault ports: `RAIN_VISIBILITY_CANDIDATE`/`RAIN_VOLUME_PROFILE`/`WET_REFLECT`/`NIGHT_POOL_GAIN`/`NIGHT_AMBIENT_LIFT`/`NIGHT_EXPOSURE`/`VEHICLE_LIGHTS`/`LIGHT_SCHEME` + the conditional `TOD`→`MYSIM_TOD` and `WEATHER`→`MYSIM_WET` — the pair passes through ONLY when set, so existing runs' lighting stays untouched). Workflow inputs stay at 25 — **each cell = a small yml edit committing the cell's env block to the branch, THEN the dispatch; each push's diff must contain ONLY those env lines (the confound check; record each cell's HEAD).** Dispatches run the BRANCH's own yml, so this works pre-merge. Order: D0 first — if D0's identity diff fails, STOP and review the merge before any candidate cell.
+**Prerequisites CLOSED at `4179e30` (verified):** (1) the 4-case manifest pair EXISTS — `data/native_wetnight_matrix_dry.json` (car16+car0 × tracks 0+8, no weather keys = the default dry lighting; the tool now treats missing weather as the 0-default WITHOUT weakening the wet assert: wet-named manifests still require weather>0) + `data/native_wetnight_matrix_wet.json` (the SAME 4 cases with weather=2); (2) the 11th env port LANDED (`MYSIM_NIGHT_FIXTURE_VIEW` setdefault + the fixture-view run: the tool renders `source-night-fixtures-<track>` at the audit); (3) the py_compile gate ADDED to windows-build.yml (`.github/windows-build.yml`: `python -m py_compile tools/cloud_game_audit.py tools/cloud_windows_persist.py tools/cloud_windows_smoke.py tools/cloud_windows_userpath.py ...`).
+
+**ONE LAST-MILE WIRING GAP REMAINS (this agent's verified finding, turn 26): the matrix pair is NOT reachable from any dispatch** — `case_set`'s 32 choices include NONE for the pair, and the `DRIVING_VALIDATION_MANIFEST` env line (game-review.yml line 208) maps driving_impact/driving_wet(=the OLD 2-case)/driving_wall/core only; `native_wetnight_matrix_{dry,wet}.json` appears NOWHERE in the yml. The MY turn-25 commands below said `case_set=driving_core/driving_wet` — those run the OLD manifests (a DEGRADED matrix: core = the 9-target contract; wet = track-0-only). **The exact closing edit (coordinator-owned; choices cost no input-count):**
+1. case_set's options list += `wetnight_dry, wetnight_wet`;
+2. the `DRIVING_VALIDATION_MANIFEST` chain (line 208) += `inputs.case_set == 'wetnight_dry' && 'data/native_wetnight_matrix_dry.json' || inputs.case_set == 'wetnight_wet' && 'data/native_wetnight_matrix_wet.json' ||` BEFORE the driving_wall branch.
+Until this lands, the matrix runs DEGRADED as written below (with `driving_core`/`driving_wet`); after it lands, substitute `-f case_set=wetnight_dry` (D0/N0/N1/N2) and `-f case_set=wetnight_wet` (W1/W2/W0) for END-TO-END execution.
 
 ```bash
 # PREREQ (data-only commit, BEFORE any matrix dispatch): the shared 4-case manifests
 # (car 16 + car 0, tracks 0 + 8, DRY file weather=0 and WET file weather=2).
-# TODAY only the wet 2-case file exists (data/native_driving_validation_wet.json = car16+car0, track 0, weather 2);
-# the cells would otherwise run on track 0 only and lose the track-8 corridor/seam link. Files: data/, by carbody/track-render or you.
+# LANDED at 4179e30: data/native_wetnight_matrix_dry.json (4 cases, no weather keys = dry default)
+# + data/native_wetnight_matrix_wet.json (4 cases, weather=2). SELECTABILITY: PENDING the
+# wetnight_dry/wetnight_wet case_set choices + the line-208 chain entries (the last-mile gap above).
 
 # D0 identity guard (dry day, ALL candidate knobs off): establishes the pixel baseline (SHA-pinned run dir).
 gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_core
@@ -53,6 +59,8 @@ gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref 
 gh workflow run game-review.yml --repo instagramshashank8-bot/mysim-godot --ref codex/repair-20261029 -f depth=driving_validation -f cars=16 -f case_set=driving_wet
 # (branch yml env: TOD: '0', WEATHER: '2' only - all RAIN/NIGHT/LIGHT knobs off)
 ```
+
+**BATCH-A folding note (carbody's track-audit plan @ `8e3123c` = `outputs/mistral-orchestration/tracks-index/TRACK-AUDIT-PLAN.md`; pending — the per-track dispatch strings do not exist yet):** Batch A = tracks 1, 3, 9, 16, 17, 21, 23, 24, 26, 54, 57 (the 10 largest routes + track 1; the plan's batching is route-size-only, verified in `audit_contracts.json`). When the BATCH-A command strings land, they fold INTO this matrix section as per-track instantiations of the SAME cells (the D0-first order per track; the row labels `night-light-track-<N>-wet-<W>[-candidate-<C>]` + the `night-weather-coverage-track-<N>.json` coverage rows). The AUDIT-BLOCKING prerequisite for batch A: the per-track cases (the matrix pair covers ONLY tracks 0+8 today — batch A's 11 tracks need their cases added to the manifests or per-batch manifest files) + the evidence contract is per-track rows backed by captures, folded into the LEDGER via the verification side (the row format = this ledger's).
 
 Reading per pair (from track-render turn-23 §4, checkable): rain streaks >= 2 px at 10-40 m on >= 5 frames (base profile = sub-pixel at those ranges); the wet-road specular responds under light while the DRY cells show ZERO road delta; night readability (the body/near barriers/kerbs discernible, no hue inversion); `NIGHT_VEHICLE_LIGHTS ... poolBudgetUntouched=true` present for N2; the anchored scheme cross-checked via the audit JSON; W2 must not black-hole the road (>= N1 pool visibility). Fence regression watch: the fence wire stays visible (not black-crushed) in W2 (the turn-1 reject DOES NOT re-enter through a wet/night flag).
 
