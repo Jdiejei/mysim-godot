@@ -259,3 +259,33 @@ Promoted bounds: <none yet | bound + source runs + signer>
 - The disconnect leg (kill the client mid-race) is a SEPARATE run with its own expectation: the host keeps racing, the remote car continues under AI control; the host console must NOT show a crash — the graceful-degradation proof.
 - Single-player regression guard: the same build with no LAN envs must-show ZERO `LAN_*` lines in a normal run — the hard-off proof.
 - Environment failures (firewall prompts, port conflicts) are `UNVERIFIED(config)`, never product failures; re-run after the environment fix.
+
+## 14. Single-player regression net (the LAN/bridge work's blast-radius check)
+
+**Purpose:** the LAN/bridge work touched `Main.cs` (StartLanRace + the menu lambdas + the `_Ready` env block + the adoption hook + the catch-clear), `NativeRaceController` (the LAN fields + the `_Ready` block + the `_PhysicsProcess` tick/visual + `_ExitTree`), and the DV/userpath plumbing. Every battery run on a non-LAN path DOUBLES as the single-player regression check by these assertions. ALL of them are log-reading rules on runs the battery already produces — no new runs needed.
+
+**A1 — the master absence proof (every non-LAN run):** a run launched without `MYSIM_LAN_HOST`/`MYSIM_LAN_JOIN` must contain ZERO `LAN_*` lines (`LAN_REMOTE_CAR`, `LAN_HOST_ADOPTED`, `LAN_HOST_EXIT`, `LAN_RACE_READY`, `LAN_SYNC`, `LAN_CLIENT`, `LAN session error`). Any `LAN_*` line in a non-LAN run = **A1 FAIL — the stale-`PendingLanHost` injection or a gate leak: the run is INVALID as evidence, class S.** This is the one-line catch-clear guard's verification (the failed-load leak path: a LAN host load failure used to leave the static set for the NEXT race to inherit).
+
+**A2 — the DV-core signature unchanged:** every DV run (core/wall/start) keeps its exact report shape: `RACE_READY` + the per-profile PASS/FAIL lines + the report JSON with `userPath`/`damageEnabled`/`backend`/`runs[].metrics`/`assertions` unchanged; the new fields (`bodyPanelContact` per sample, `recoveryMetrics`/`contactArchetypes` on flagged profiles) are ADDITIVE only. A MISSING pre-existing field or a changed assertion semantic = regression, class S.
+
+**A3 — the traffic/rivals semantics unchanged:** `MYSIM_RIVALS=N` (N>0) without `MYSIM_NATIVE_TRAFFIC=1` must still throw the experimental-traffic error (the LAN block only zeroes rivals when a session is actually adopted — a non-LAN run's rivals path is untouched); with the flag, the traffic behaves as before (`opponents` evidence in the report).
+
+**A4 — the userpath chain holds:** the userpath leg (`MYSIM_USERPATH=1`) reports `userPath:true` and its chain-inclusive bands hold (1 Hz ≥ 0.9×lock, 2 Hz ≥ 0.65×lock, lock ≤ 0.30 s, release ≤ 0.30 s — CoreRunner-enforced on every push; the run-level metrics are the live proof). A collapsed authority = the routing chain regressed, class S.
+
+**A5 — the menu flows:** the FLOWCHECKS run (`MYSIM_FLOWCHECKS`) green — the menu→race→results→menu cycle is the single-player navigation proof; the LAN lambdas' edit in `ShowMenu` must not have moved the single-player buttons (the flowchecks exercise them).
+
+**A6 — the start-sequence unchanged:** the `race_start_sequence` profile (§9) still passes with its countdown band — the LAN start work did NOT touch the single-player start path (the LAN countdown arming lives in the session, not the Race boot).
+
+**A7 — the new-env inertness:** each new env is absent-inert by construction: `MYSIM_LAN_HOST`/`LAN_JOIN` open panels ONLY in the `_Ready` branch guarded on `MYSIM_TRACK` absence; `MYSIM_LAN_AUTOSTART` acts only inside a hosting panel; `MYSIM_LAN_QUIT_AFTER` acts only when a LAN session exists (and rejects out-of-range values loudly at `_Ready`). A CI/DV run setting none of them cannot reach any new code — A1 is its evidence.
+
+**A8 — the LAN-hosts-without-native guard:** LAN envs + a missing `MYSIM_NATIVE_GAMEPLAY=1` must fail LOUD (`LAN_HOST_REQUIRES_NATIVE`, the session dropped and disposed — no silent skip, no leak into later races). Seen without the message = the pre-guard build; treat as A1-class: the run invalid, re-run with the guard.
+
+**What a REGRESSED single-player run looks like (the summary the reader scans for):**
+- `LAN_*` lines where none belong (A1/A6) — the session leak or a gate regression.
+- A DV report missing pre-existing fields, or assertion semantics shifted (A2).
+- The traffic gate silently accepting rivals without the flag (A3).
+- `userPath:false` on a userpath dispatch, or the authority bands collapsed (A4).
+- The flowchecks failing on the untouched menu paths (A5).
+- A silent solo race where a LAN host was requested — `LAN_HOST_ADOPTED` absent with no error (A8, pre-guard builds).
+
+**Verdict integration:** these checks ride EVERY existing battery reading (§1–§5, §9): one glance at the log for the A1/A6 markers while applying the section's own rules. A1 failures invalidate the run as acceptance evidence REGARDLESS of the section's own outcome.
