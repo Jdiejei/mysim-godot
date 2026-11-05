@@ -1,0 +1,120 @@
+{
+ "popBatchA": {
+  "tracks": [
+   1,
+   3,
+   9,
+   16,
+   17,
+   21,
+   23,
+   24,
+   26,
+   54,
+   57
+  ],
+  "order": "first (the largest routes + track 1)"
+ },
+ "batchB": {
+  "tracks": [
+   27,
+   32,
+   28,
+   51,
+   6,
+   33,
+   19,
+   46,
+   25,
+   5,
+   8,
+   31,
+   35,
+   4,
+   12,
+   7,
+   10,
+   40,
+   42,
+   53
+  ],
+  "order": "second (the mid-size routes)"
+ },
+ "batchC": {
+  "tracks": [
+   38,
+   45,
+   36,
+   50,
+   15,
+   30,
+   59,
+   48,
+   58,
+   47,
+   14,
+   39,
+   2,
+   43,
+   56,
+   13,
+   18,
+   20,
+   55,
+   41,
+   49,
+   11,
+   52,
+   0,
+   34,
+   29,
+   44,
+   22,
+   37
+  ],
+  "order": "third (the short ovals/tails)"
+ },
+ "captureSet": [
+  {
+   "id": "D0-day-dry",
+   "label": "day/night-matrix D0 row (the day0 baseline capture)",
+   "rows": "baseline dry/day view set - FIRST (the D0-first matrix order)"
+  },
+  {
+   "id": "N-night",
+   "label": "night-light-track-<N>-wet-<W>[-candidate-<C>]",
+   "rows": "the night/wet rows per the battery matrix (wet 0..3; candidate = the night-lighting candidate set where applicable)"
+  },
+  {
+   "id": "COV",
+   "label": "night-weather-coverage-track-<N>.json",
+   "rows": "the coverage manifest row per track (profiles + the capture list)"
+  }
+ ],
+ "contract": {
+  "captureSet": [
+   {
+    "id": "D0-day-dry",
+    "label": "day/night-matrix D0 row (the day0 baseline capture)",
+    "rows": "baseline dry/day view set - FIRST (the D0-first matrix order)"
+   },
+   {
+    "id": "N-night",
+    "label": "night-light-track-<N>-wet-<W>[-candidate-<C>]",
+    "rows": "the night/wet rows per the battery matrix (wet 0..3; candidate = the night-lighting candidate set where applicable)"
+   },
+   {
+    "id": "COV",
+    "label": "night-weather-coverage-track-<N>.json",
+    "rows": "the coverage manifest row per track (profiles + the capture list)"
+   }
+  ],
+  "evidenceContract": [
+   "the audit yields per-track: the capture rows (the label sets above) + the defect rows; nothing else",
+   "each capture row = the same track/N + the SAME camera + the same TOD/wet row as its batch-mate (the matrix rows)",
+   "the audit outputs land in the LEDGER via the verification side: the audit JSON + the defect rows fold into the LEDGER's track rows (the ledger owns the schema)",
+   "no defect row may be emitted without the capture rows that back it (absent data never invented)",
+   "the audit = per-track; no multi-track audit row"
+  ]
+ }
+}
