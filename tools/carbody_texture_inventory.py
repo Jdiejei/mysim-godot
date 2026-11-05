@@ -206,6 +206,24 @@ DOCUMENTED_FINDINGS = {
         "_mm_ext": {"defectTaxonomy": "mirrored-UV", "correctionFamily": "uv-remap-per-surface",
                     "evidence": "fleet default transform; no car0 repairs (ASSEMBLED_CAR_REVIEW-era findings: dark rims/discontinuous shading)"},
     },
+    15: {
+        "_mm_ext": {"defectTaxonomy": "source-atlas-fragmentation", "correctionFamily": "source-art-fix",
+                    "evidence": "FULL_F1_W10_WHEEL_REVIEW (run 41310403219): source body atlas fragmented; FOUR_CAR_PAINT_PARTIAL_REVIEW (run 41335778130 @960e56f): W10 body paint coherent silver/teal after the material change but plain body lacks final decals and wing/misc source surfaces still broken looking; qualityAccepted false"},
+        "wheel": {"defectTaxonomy": "authored-detail-missing", "correctionFamily": "source-art-fix",
+                  "evidence": "FULL_F1_W10_WHEEL_REVIEW (run 41310403219, 8 captures viewed): barrels plain bright, raised rings plastic, brake detail insufficient; NEUTRAL_GRADE_W10_SF90_RESULTS (run 41304169011 @e931c33): wet tread channels + rubber curvature confirmed, overall wheel art still rejected; F1_CUSTOM_WHEEL_PLAN.md/SPEC.json = proposed art direction, not accepted art"},
+    },
+    17: {
+        "_mm_ext": {"defectTaxonomy": "source-atlas-fragmentation", "correctionFamily": "source-art-fix",
+                    "evidence": "FULL_F1_RB15_WHEEL_REVIEW (run 41310403219): body atlas/wing decals fragmented; RB15_SIDEWALL_CORRECTION_REVIEW (run 41302933144): body livery/UV fragments remain, issue shared by all four F1 models; qualityAccepted false"},
+        "wheel": {"defectTaxonomy": "authored-detail-missing", "correctionFamily": "source-art-fix",
+                  "evidence": "FULL_F1_RB15_WHEEL_REVIEW (run 41310403219, all 8 views): distinct swept 10-spoke rim + compound markings + dry slicks/wet grooves visible, raised rings plastic-looking, barrel plain bright, caliper mostly occluded; RB15_SIDEWALL_CORRECTION_REVIEW (run 41302933144): sidewall marking placement verified (blue front Wet / yellow rear Medium) but rubber featureless without tread/sidewall detail; NEUTRAL_GRADE_RB15_MCL34_RESULTS (run 41304169011): grooves + curved rubber shading restored, art rejected"},
+    },
+    18: {
+        "_mm_ext": {"defectTaxonomy": "source-atlas-fragmentation", "correctionFamily": "source-art-fix",
+                    "evidence": "FULL_F1_MCL34_WHEEL_REVIEW (run 41310403219): body atlas/wing decals remain fragmented; COATED_PAINT_PARTIAL_REVIEW (run 41337127855 @ff93c22): broad bright body highlights, plain undetailed panels, distinct improvement from the material-only change not established; qualityAccepted false"},
+        "wheel": {"defectTaxonomy": "authored-detail-missing", "correctionFamily": "source-art-fix",
+                  "evidence": "FULL_F1_MCL34_WHEEL_REVIEW (run 41310403219, all 8 front/rear 4-compound views): distinct swept spokes + compound colours + wet drainage geometry visible, raised plastic rings / plain bright barrels / mostly occluded brakes unaccepted; F1_SIDEWALL_SF90_MCL34_REVIEW (run 41302933144): correct blue/yellow compound rings visible, rubber black without readable tread/sidewall detail"},
+    },
 }
 
 # Defect -> correction family mapping for rule-derived defects (no documented override).
