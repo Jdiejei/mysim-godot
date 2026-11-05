@@ -111,7 +111,9 @@ if os.environ.get('DRIVING_VALIDATION')=='1':
  assert cases,'Shard '+str(shard)+' has no driving validation cases'
  impact=os.environ.get('DRIVING_VALIDATION_IMPACT')=='1'
  assert impact==any('impact_wall_recovery' in c['drivingValidation'] for c in spec['cases']),'impact flag must match manifest; damage stays off for non-impact validation'
- if 'wet' in manifest.name:assert all(c.get('weather',0)>0 for c in spec['cases']),'wet manifest must carry wet weather'
+ if spec.get('requiresWetWeather') is not None:
+  if spec['requiresWetWeather']:assert all(c.get('weather',0)>0 for c in spec['cases']),'wet manifest must carry wet weather'  # explicit marker (the wet/night pair) decides
+ elif 'wet' in manifest.name:assert all(c.get('weather',0)>0 for c in spec['cases']),'wet manifest must carry wet weather'  # legacy name rule for the older manifests
  summary=[]
  for case in cases:
   car,track=case['car'],case['track'];assert 0<=car<24 and 0<=track<60,'Invalid validation case'

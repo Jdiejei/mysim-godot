@@ -3,368 +3,368 @@ t0: TRACKBIND bound=2860 of 2860 surfaces; distinct textured materials=10
 t0: WALLS solid meshes=4
 t0: TRACKBIND bound=4 of 4 surfaces; distinct textured materials=0
 t0: DRIVESURFACE verts=6413 tris=11111
-t0: DRIVETEST t=5.00001 speed=25.5465 progress=0.017803837 lateral=-0.1905784 lap=0 wallHits=0 onSurface=True pos=(-139.66212, -5.240137, 415.9783)
+t0: DRIVETEST t=5.00001 speed=25.5465 progress=0.017803837 lateral=-0.1905784 lap=0 wallHits=0 onSurface=True pos=(-139.66212, -5.2163153, 415.9783)
 t1: ERROR: Cannot open file 'res://.godot/imported/seca_variation.fbx-1cf4c1fc5b058655fd899e614f64deff.scn'.
 t1: ERROR: Failed loading resource: res://.godot/imported/seca_variation.fbx-1cf4c1fc5b058655fd899e614f64deff.scn.
 t1: ERROR: Failed loading resource: res://assets/RealRacing/Source/Laguna_Seca/circuit/high/seca_variation.fbx.
 t1: WALLS solid meshes=738
-t1: TRACKBIND bound=2777 of 2777 surfaces; distinct textured materials=13
+t1: TRACKBIND bound=2777 of 2777 surfaces; distinct textured materials=14
 t1: DRIVESURFACE verts=13434 tris=24555
-t1: DRIVETEST t=5.00001 speed=25.306948 progress=0.0036694836 lateral=-0.0067998916 lap=0 wallHits=0 onSurface=True pos=(-255.19466, 2.7377388, 280.85974)
+t1: DRIVETEST t=5.00001 speed=24.016182 progress=0.003345011 lateral=0.0116646625 lap=0 wallHits=0 onSurface=True pos=(-254.48973, 2.7180789, 281.80597)
 t2: WALLS solid meshes=707
-t2: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=13
+t2: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=14
 t2: WALLS solid meshes=8
 t2: TRACKBIND bound=20 of 20 surfaces; distinct textured materials=0
 t2: DRIVESURFACE verts=4955 tris=8780
-t2: DRIVETEST t=5.00001 speed=25.319624 progress=0.010222977 lateral=0.08718147 lap=0 wallHits=0 onSurface=True pos=(162.64644, 8.386221, -237.16924)
+t2: DRIVETEST t=5.00001 speed=23.861921 progress=0.009399308 lateral=0.08446113 lap=0 wallHits=0 onSurface=True pos=(164.75488, 8.3781185, -237.28726)
 t3: ERROR: Cannot open file 'res://.godot/imported/bathurst_variation.fbx-2dc354b6e0c9d3f68176e52432e17d46.scn'.
 t3: ERROR: Failed loading resource: res://.godot/imported/bathurst_variation.fbx-2dc354b6e0c9d3f68176e52432e17d46.scn.
 t3: ERROR: Failed loading resource: res://assets/RealRacing/Source/Bathurst/circuit/high/bathurst_variation.fbx.
 t3: WALLS solid meshes=1028
 t3: TRACKBIND bound=5304 of 5304 surfaces; distinct textured materials=13
 t3: DRIVESURFACE verts=10734 tris=18691
-t3: DRIVETEST t=5.00001 speed=25.502054 progress=0.9972572 lateral=0.962155 lap=0 wallHits=0 onSurface=True pos=(-766.9218, 3.1586807, 883.7407)
+t3: DRIVETEST t=5.00001 speed=23.783497 progress=0.9967214 lateral=0.939854 lap=0 wallHits=0 onSurface=True pos=(-764.9885, 3.002144, 886.4506)
 t4: WALLS solid meshes=740
-t4: TRACKBIND bound=2747 of 2747 surfaces; distinct textured materials=30
+t4: TRACKBIND bound=2747 of 2747 surfaces; distinct textured materials=32
 t4: WALLS solid meshes=2
 t4: TRACKBIND bound=2 of 2 surfaces; distinct textured materials=0
 t4: DRIVESURFACE verts=16254 tris=25798
-t4: DRIVETEST t=5.00001 speed=25.539442 progress=0.0013845854 lateral=-0.049753755 lap=0 wallHits=0 onSurface=True pos=(-219.84575, 29.396301, -260.71964)
+t4: DRIVETEST t=5.00001 speed=26.163523 progress=0.001728803 lateral=-0.04996116 lap=0 wallHits=0 onSurface=True pos=(-219.44623, 29.456318, -262.20688)
 t5: WALLS solid meshes=724
-t5: TRACKBIND bound=3645 of 3645 surfaces; distinct textured materials=5
+t5: TRACKBIND bound=3645 of 3645 surfaces; distinct textured materials=7
 t5: WALLS solid meshes=18
 t5: TRACKBIND bound=36 of 36 surfaces; distinct textured materials=0
 t5: DRIVESURFACE verts=12566 tris=22281
-t5: DRIVETEST t=5.00001 speed=25.950417 progress=0.00075247255 lateral=-0.124207504 lap=0 wallHits=0 onSurface=True pos=(184.29646, 5.923251, -182.73547)
+t5: DRIVETEST t=5.00001 speed=22.764538 progress=0.9985888 lateral=-0.072987795 lap=0 wallHits=0 onSurface=True pos=(194.3789, 5.9255714, -182.77524)
 t6: WALLS solid meshes=226
-t6: TRACKBIND bound=1844 of 1844 surfaces; distinct textured materials=12
+t6: TRACKBIND bound=1844 of 1844 surfaces; distinct textured materials=14
 t6: WALLS solid meshes=38
 t6: TRACKBIND bound=49 of 49 surfaces; distinct textured materials=0
 t6: DRIVESURFACE verts=9909 tris=17819
-t6: DRIVETEST t=5.00001 speed=25.79496 progress=0.9986945 lateral=-0.055128902 lap=0 wallHits=0 onSurface=True pos=(-800.2896, 0.26637775, -153.16794)
+t6: DRIVETEST t=5.00001 speed=25.280094 progress=0.9982567 lateral=-0.04790198 lap=0 wallHits=0 onSurface=True pos=(-802.20465, 0.26691362, -151.7148)
 t7: WALLS solid meshes=199
-t7: TRACKBIND bound=3363 of 3363 surfaces; distinct textured materials=0
+t7: TRACKBIND bound=3363 of 3363 surfaces; distinct textured materials=1
 t7: WALLS solid meshes=4
 t7: TRACKBIND bound=5 of 5 surfaces; distinct textured materials=0
 t7: DRIVESURFACE verts=8275 tris=14793
-t7: DRIVETEST t=5.00001 speed=25.44587 progress=0.0021506045 lateral=3.5131598 lap=0 wallHits=0 onSurface=True pos=(-390.94513, 4.019666, 300.1392)
+t7: DRIVETEST t=5.00001 speed=25.882523 progress=0.0024842056 lateral=3.629923 lap=0 wallHits=0 onSurface=True pos=(-391.84293, 4.095431, 299.12097)
 t8: WALLS solid meshes=483
 t8: TRACKBIND bound=3392 of 3392 surfaces; distinct textured materials=8
 t8: WALLS solid meshes=10
 t8: TRACKBIND bound=39 of 39 surfaces; distinct textured materials=0
 t8: DRIVESURFACE verts=12631 tris=21866
-t8: DRIVETEST t=5.00001 speed=25.848078 progress=0.00089788664 lateral=0.47617045 lap=0 wallHits=0 onSurface=True pos=(-622.028, -2.4707882, -207.84709)
+t8: DRIVETEST t=5.00001 speed=25.666777 progress=0.0006696508 lateral=0.46166265 lap=0 wallHits=0 onSurface=True pos=(-621.5759, -2.470142, -208.79187)
 t9: WALLS solid meshes=174
-t9: TRACKBIND bound=1415 of 1415 surfaces; distinct textured materials=4
+t9: TRACKBIND bound=1415 of 1415 surfaces; distinct textured materials=5
 t9: WALLS solid meshes=1
 t9: TRACKBIND bound=1 of 1 surfaces; distinct textured materials=1
 t9: DRIVESURFACE verts=6770 tris=9632
-t9: DRIVETEST t=5.00001 speed=25.742744 progress=0.019554198 lateral=-0.6299822 lap=0 wallHits=0 onSurface=True pos=(17.064503, 2.9999695, -135.911)
+t9: DRIVETEST t=5.00001 speed=26.237986 progress=0.020623475 lateral=-0.60706854 lap=0 wallHits=0 onSurface=True pos=(18.921173, 2.9999697, -136.61617)
 t10: WALLS solid meshes=471
-t10: TRACKBIND bound=2322 of 2322 surfaces; distinct textured materials=8
+t10: TRACKBIND bound=2322 of 2322 surfaces; distinct textured materials=9
 t10: WALLS solid meshes=11
 t10: TRACKBIND bound=29 of 29 surfaces; distinct textured materials=0
 t10: DRIVESURFACE verts=5939 tris=10154
-t10: DRIVETEST t=5.00001 speed=25.50535 progress=0.0023349656 lateral=0 lap=0 wallHits=0 onSurface=True pos=(362.625, 6.115436E-05, 208.85208)
+t10: DRIVETEST t=5.00001 speed=25.624117 progress=0.0026071905 lateral=0 lap=0 wallHits=0 onSurface=True pos=(362.625, 6.115436E-05, 209.94969)
 t11: WALLS solid meshes=382
 t11: TRACKBIND bound=2890 of 2890 surfaces; distinct textured materials=0
 t11: WALLS solid meshes=47
 t11: TRACKBIND bound=92 of 92 surfaces; distinct textured materials=0
 t11: DRIVESURFACE verts=7768 tris=13049
-t11: DRIVETEST t=5.00001 speed=25.487352 progress=0.016247295 lateral=-0.0473819 lap=0 wallHits=0 onSurface=True pos=(-87.068504, 1.4754642, 106.98778)
+t11: DRIVETEST t=5.00001 speed=26.48714 progress=0.017636387 lateral=-0.07913168 lap=0 wallHits=0 onSurface=True pos=(-87.50787, 1.4755859, 109.750656)
 t12: WALLS solid meshes=1517
 t12: TRACKBIND bound=12111 of 12111 surfaces; distinct textured materials=1
 t12: WALLS solid meshes=18
 t12: TRACKBIND bound=24 of 24 surfaces; distinct textured materials=0
 t12: DRIVESURFACE verts=7826 tris=13281
-t12: DRIVETEST t=5.00001 speed=25.719418 progress=0.0019944522 lateral=0.0012201167 lap=0 wallHits=0 onSurface=True pos=(-1154.1755, 0.21350403, 1918.239)
+t12: DRIVETEST t=5.00001 speed=26.253448 progress=0.002314919 lateral=0.009402466 lap=0 wallHits=0 onSurface=True pos=(-1154.1254, 0.22070321, 1919.5927)
 t13: WALLS solid meshes=149
-t13: TRACKBIND bound=1705 of 1705 surfaces; distinct textured materials=0
+t13: TRACKBIND bound=1705 of 1705 surfaces; distinct textured materials=1
 t13: WALLS solid meshes=5
 t13: TRACKBIND bound=9 of 9 surfaces; distinct textured materials=0
 t13: DRIVESURFACE verts=7712 tris=13243
-t13: DRIVETEST t=5.00001 speed=25.718754 progress=0.0125671085 lateral=-0.034128115 lap=0 wallHits=0 onSurface=True pos=(178.92355, 0.3073583, 89.13363)
+t13: DRIVETEST t=5.00001 speed=26.03019 progress=0.012796874 lateral=-0.042286217 lap=0 wallHits=0 onSurface=True pos=(179.42125, 0.30450076, 88.91209)
 t14: WALLS solid meshes=577
-t14: TRACKBIND bound=4039 of 4039 surfaces; distinct textured materials=10
+t14: TRACKBIND bound=4039 of 4039 surfaces; distinct textured materials=11
 t14: WALLS solid meshes=0
 t14: TRACKBIND bound=2 of 2 surfaces; distinct textured materials=0
 t14: DRIVESURFACE verts=4767 tris=7493
-t14: DRIVETEST t=5.00001 speed=7.584578 progress=0.009233434 lateral=-4.8655443 lap=0 wallHits=1 onSurface=True pos=(258.0979, 29.051329, 660.7992)
+t14: DRIVETEST t=5.00001 speed=9.483719 progress=0.0092681935 lateral=-4.447186 lap=0 wallHits=1 onSurface=True pos=(258.51196, 29.05133, 660.9081)
 t15: ERROR: Cannot open file 'res://.godot/imported/monaco_variation.fbx-92deda6cc42d25baacd4a8fc95d1c61d.scn'.
 t15: ERROR: Failed loading resource: res://.godot/imported/monaco_variation.fbx-92deda6cc42d25baacd4a8fc95d1c61d.scn.
 t15: ERROR: Failed loading resource: res://assets/RealRacing/Source/monaco/gp/high/monaco_variation.fbx.
 t15: WALLS solid meshes=338
-t15: TRACKBIND bound=2207 of 2207 surfaces; distinct textured materials=28
+t15: TRACKBIND bound=2207 of 2207 surfaces; distinct textured materials=31
 t15: DRIVESURFACE verts=6238 tris=8573
-t15: DRIVETEST t=5.00001 speed=25.965292 progress=0.0059455405 lateral=-1.0701994 lap=0 wallHits=0 onSurface=True pos=(-363.42978, 0.25385526, -236.3425)
+t15: DRIVETEST t=5.00001 speed=43.29693 progress=0.017171262 lateral=-3.5597858 lap=0 wallHits=0 onSurface=True pos=(-367.67523, 0.27788973, -199.01256)
 t16: WALLS solid meshes=812
-t16: TRACKBIND bound=4128 of 4128 surfaces; distinct textured materials=11
+t16: TRACKBIND bound=4128 of 4128 surfaces; distinct textured materials=12
 t16: WALLS solid meshes=15
 t16: TRACKBIND bound=26 of 26 surfaces; distinct textured materials=0
 t16: DRIVESURFACE verts=9433 tris=16412
-t16: DRIVETEST t=5.00001 speed=25.820116 progress=0.99814004 lateral=-0.051195808 lap=0 wallHits=0 onSurface=True pos=(-600.2732, -17.15375, -167.77596)
+t16: DRIVETEST t=5.00001 speed=43.793427 progress=0.0051241186 lateral=0.33416218 lap=0 wallHits=0 onSurface=True pos=(-585.5083, -16.85745, -130.31116)
 t17: ERROR: Cannot open file 'res://.godot/imported/newyork_variation.fbx-6eefffd2605bf2809e3854b2cbe42d44.scn'.
 t17: ERROR: Failed loading resource: res://.godot/imported/newyork_variation.fbx-6eefffd2605bf2809e3854b2cbe42d44.scn.
 t17: ERROR: Failed loading resource: res://assets/RealRacing/Source/NewYork/circuit/high/newyork_variation.fbx.
 t17: WALLS solid meshes=188
-t17: TRACKBIND bound=1333 of 1333 surfaces; distinct textured materials=0
+t17: TRACKBIND bound=1333 of 1333 surfaces; distinct textured materials=1
 t17: DRIVESURFACE verts=2786 tris=4330
-t17: DRIVETEST t=5.00001 speed=1.3207165 progress=0.99754196 lateral=4.1926827 lap=0 wallHits=3 onSurface=True pos=(-326.69482, 0.0023040774, 30.917212)
+t17: DRIVETEST t=5.00001 speed=4.312384 progress=0.9989775 lateral=4.0425377 lap=0 wallHits=3 onSurface=True pos=(-328.8405, 0.0023041961, 29.31886)
 t18: ERROR: Cannot open file 'res://.godot/imported/newyork2021_variation.fbx-985841c53f98baf96341473b635e18db.scn'.
 t18: ERROR: Failed loading resource: res://.godot/imported/newyork2021_variation.fbx-985841c53f98baf96341473b635e18db.scn.
 t18: ERROR: Failed loading resource: res://assets/RealRacing/Source/NewYork2021/circuit/high/newyork2021_variation.fbx.
 t18: WALLS solid meshes=206
-t18: TRACKBIND bound=1425 of 1425 surfaces; distinct textured materials=0
+t18: TRACKBIND bound=1425 of 1425 surfaces; distinct textured materials=1
 t18: DRIVESURFACE verts=3905 tris=6273
-t18: DRIVETEST t=5.00001 speed=25.554424 progress=0.012245207 lateral=-0.040502027 lap=0 wallHits=0 onSurface=True pos=(91.80404, 0.0023040005, 45.340374)
+t18: DRIVETEST t=5.00001 speed=43.29983 progress=0.028669575 lateral=-0.2084844 lap=0 wallHits=0 onSurface=True pos=(117.93704, 0.0023038515, 74.3667)
 t19: WALLS solid meshes=318
-t19: TRACKBIND bound=3747 of 3747 surfaces; distinct textured materials=5
+t19: TRACKBIND bound=3747 of 3747 surfaces; distinct textured materials=7
 t19: WALLS solid meshes=22
 t19: TRACKBIND bound=47 of 47 surfaces; distinct textured materials=0
 t19: DRIVESURFACE verts=17247 tris=30607
-t19: DRIVETEST t=5.00001 speed=25.504606 progress=0.99920106 lateral=0.036436938 lap=0 wallHits=0 onSurface=True pos=(296.39636, -7.2649145, 444.4051)
+t19: DRIVETEST t=5.00001 speed=25.868229 progress=0.99947494 lateral=0.01608172 lap=0 wallHits=0 onSurface=True pos=(295.45193, -7.2758775, 443.38226)
 t20: ERROR: Cannot open file 'res://.godot/imported/r3berlin_variation.fbx-238703bf858bde014f5f0431bac712e7.scn'.
 t20: ERROR: Failed loading resource: res://.godot/imported/r3berlin_variation.fbx-238703bf858bde014f5f0431bac712e7.scn.
 t20: ERROR: Failed loading resource: res://assets/RealRacing/Source/r3Berlin/formulae/high/r3berlin_variation.fbx.
 t20: WALLS solid meshes=176
-t20: TRACKBIND bound=1106 of 1106 surfaces; distinct textured materials=0
+t20: TRACKBIND bound=1106 of 1106 surfaces; distinct textured materials=1
 t20: DRIVESURFACE verts=4525 tris=6796
-t20: DRIVETEST t=5.00001 speed=25.657015 progress=0.012412085 lateral=2.966472 lap=0 wallHits=0 onSurface=True pos=(-197.02473, 1.866674E-09, -35.00719)
+t20: DRIVETEST t=5.00001 speed=24.186815 progress=0.010378742 lateral=2.5910914 lap=0 wallHits=0 onSurface=True pos=(-194.114, 1.04372624E-07, -31.137775)
 t21: WALLS solid meshes=350
 t21: TRACKBIND bound=2519 of 2519 surfaces; distinct textured materials=14
 t21: WALLS solid meshes=2
 t21: TRACKBIND bound=27 of 27 surfaces; distinct textured materials=0
 t21: DRIVESURFACE verts=8328 tris=15190
-t21: DRIVETEST t=5.00001 speed=25.777744 progress=0.0015578405 lateral=-0.095140465 lap=0 wallHits=0 onSurface=True pos=(170.0755, -17.924946, -313.6699)
+t21: DRIVETEST t=5.00001 speed=41.12993 progress=0.009031706 lateral=-0.21314982 lap=0 wallHits=0 onSurface=True pos=(139.28171, -17.960953, -322.7303)
 t22: ERROR: Cannot open file 'res://.godot/imported/richmond_variation.fbx-a6c3f1a5bf36e56c9b08d391b043c549.scn'.
 t22: ERROR: Failed loading resource: res://.godot/imported/richmond_variation.fbx-a6c3f1a5bf36e56c9b08d391b043c549.scn.
 t22: ERROR: Failed loading resource: res://assets/RealRacing/Source/Richmond/circuit/high/richmond_variation.fbx.
 t22: WALLS solid meshes=98
 t22: TRACKBIND bound=1388 of 1388 surfaces; distinct textured materials=0
 t22: DRIVESURFACE verts=2645 tris=3930
-t22: DRIVETEST t=5.00001 speed=25.337406 progress=0.035903756 lateral=3.5570889 lap=0 wallHits=0 onSurface=True pos=(-7.8793855, 1.8201586, -141.13968)
+t22: DRIVETEST t=5.00001 speed=26.457653 progress=0.040075824 lateral=4.1587315 lap=0 wallHits=0 onSurface=True pos=(-2.9840233, 1.9304754, -140.76675)
 t23: WALLS solid meshes=349
-t23: TRACKBIND bound=2765 of 2765 surfaces; distinct textured materials=0
+t23: TRACKBIND bound=2765 of 2765 surfaces; distinct textured materials=1
 t23: WALLS solid meshes=8
 t23: TRACKBIND bound=22 of 22 surfaces; distinct textured materials=0
 t23: DRIVESURFACE verts=32455 tris=55750
-t23: DRIVETEST t=5.00001 speed=25.444248 progress=0.9977504 lateral=-0.06314087 lap=0 wallHits=0 onSurface=True pos=(-166.03008, -0.007385182, -316.74936)
+t23: DRIVETEST t=5.00001 speed=25.41705 progress=0.9976945 lateral=-0.06237793 lap=0 wallHits=0 onSurface=True pos=(-166.34737, -0.0073852567, -316.75012)
 t24: WALLS solid meshes=1050
-t24: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=12
+t24: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=16
 t24: WALLS solid meshes=47
 t24: TRACKBIND bound=91 of 91 surfaces; distinct textured materials=0
 t24: DRIVESURFACE verts=13660 tris=23757
-t24: DRIVETEST t=5.00001 speed=25.354275 progress=0.99769634 lateral=0.057205148 lap=0 wallHits=0 onSurface=True pos=(-387.2574, -13.419703, -258.25186)
+t24: DRIVETEST t=5.00001 speed=25.354275 progress=0.99769634 lateral=0.057205148 lap=0 wallHits=0 onSurface=True pos=(-387.2574, -13.412014, -258.25186)
 t25: ERROR: Cannot open file 'res://.godot/imported/singapore_variation.fbx-8cea9efab9cbf07c82e3a1fb4a5c5d9b.scn'.
 t25: ERROR: Failed loading resource: res://.godot/imported/singapore_variation.fbx-8cea9efab9cbf07c82e3a1fb4a5c5d9b.scn.
 t25: ERROR: Failed loading resource: res://assets/RealRacing/Source/singapore/circuit/high/singapore_variation.fbx.
 t25: WALLS solid meshes=504
-t25: TRACKBIND bound=2767 of 2767 surfaces; distinct textured materials=9
+t25: TRACKBIND bound=2767 of 2767 surfaces; distinct textured materials=11
 t25: DRIVESURFACE verts=16351 tris=25614
-t25: DRIVETEST t=5.00001 speed=25.388083 progress=0.99923396 lateral=0.048047077 lap=0 wallHits=0 onSurface=True pos=(579.3913, 0.37126374, -100.393845)
+t25: DRIVETEST t=5.00001 speed=23.573439 progress=0.9985538 lateral=0.011949748 lap=0 wallHits=0 onSurface=True pos=(579.82715, 0.37405902, -103.86194)
 t26: ERROR: Cannot open file 'res://.godot/imported/spa_variation.fbx-3ea9e59657dde90fc9a229b501370d84.scn'.
 t26: ERROR: Failed loading resource: res://.godot/imported/spa_variation.fbx-3ea9e59657dde90fc9a229b501370d84.scn.
 t26: ERROR: Failed loading resource: res://assets/RealRacing/Source/spa/circuit/high/spa_variation.fbx.
 t26: WALLS solid meshes=1391
-t26: TRACKBIND bound=4821 of 4821 surfaces; distinct textured materials=11
+t26: TRACKBIND bound=4821 of 4821 surfaces; distinct textured materials=12
 t26: DRIVESURFACE verts=16332 tris=28598
-t26: DRIVETEST t=5.00001 speed=25.29732 progress=0.996035 lateral=-0.046761096 lap=0 wallHits=0 onSurface=True pos=(-587.5756, -52.341774, 672.6292)
+t26: DRIVETEST t=5.00001 speed=24.311295 progress=0.99601924 lateral=-0.08190802 lap=0 wallHits=0 onSurface=True pos=(-587.50195, -52.328907, 672.5399)
 t27: WALLS solid meshes=936
-t27: TRACKBIND bound=3757 of 3757 surfaces; distinct textured materials=19
+t27: TRACKBIND bound=3757 of 3757 surfaces; distinct textured materials=20
 t27: WALLS solid meshes=41
 t27: TRACKBIND bound=51 of 51 surfaces; distinct textured materials=0
 t27: DRIVESURFACE verts=16740 tris=30146
-t27: DRIVETEST t=5.00001 speed=25.35829 progress=0.9978184 lateral=0.0745002 lap=0 wallHits=0 onSurface=True pos=(664.5274, -25.18612, -503.81802)
+t27: DRIVETEST t=5.00001 speed=23.821953 progress=0.99738276 lateral=0.06567809 lap=0 wallHits=0 onSurface=True pos=(664.31934, -25.128786, -501.3335)
 t28: WALLS solid meshes=651
-t28: TRACKBIND bound=5210 of 5210 surfaces; distinct textured materials=13
+t28: TRACKBIND bound=5210 of 5210 surfaces; distinct textured materials=15
 t28: WALLS solid meshes=0
 t28: TRACKBIND bound=1 of 1 surfaces; distinct textured materials=1
 t28: DRIVESURFACE verts=16508 tris=28900
-t28: DRIVETEST t=5.00001 speed=25.975845 progress=0.99869096 lateral=-0.029481515 lap=0 wallHits=0 onSurface=True pos=(-125.326164, -0.5222254, -129.91583)
+t28: DRIVETEST t=5.00001 speed=26.232538 progress=0.99868363 lateral=-0.014587443 lap=0 wallHits=0 onSurface=True pos=(-125.3651, -0.52176034, -129.93558)
 t29: WALLS solid meshes=724
-t29: TRACKBIND bound=3645 of 3645 surfaces; distinct textured materials=5
+t29: TRACKBIND bound=3645 of 3645 surfaces; distinct textured materials=7
 t29: WALLS solid meshes=8
 t29: TRACKBIND bound=21 of 21 surfaces; distinct textured materials=7
 t29: DRIVESURFACE verts=4505 tris=7858
-t29: DRIVETEST t=5.00001 speed=25.664732 progress=0.021740785 lateral=0.35691833 lap=0 wallHits=0 onSurface=True pos=(-301.76617, 16.945047, 219.08058)
+t29: DRIVETEST t=5.00001 speed=24.020767 progress=0.018948078 lateral=0.31925964 lap=0 wallHits=0 onSurface=True pos=(-306.57312, 16.88677, 219.11824)
 t30: WALLS solid meshes=724
-t30: TRACKBIND bound=3645 of 3645 surfaces; distinct textured materials=5
+t30: TRACKBIND bound=3645 of 3645 surfaces; distinct textured materials=7
 t30: WALLS solid meshes=14
 t30: TRACKBIND bound=35 of 35 surfaces; distinct textured materials=7
 t30: DRIVESURFACE verts=8588 tris=15422
-t30: DRIVETEST t=5.00001 speed=25.528143 progress=0.006606285 lateral=-0.09140087 lap=0 wallHits=0 onSurface=True pos=(167.23476, 5.915733, -182.67151)
+t30: DRIVETEST t=5.00001 speed=25.613115 progress=0.00672196 lateral=-0.08854744 lap=0 wallHits=0 onSurface=True pos=(166.8799, 5.9158006, -182.67004)
 t31: WALLS solid meshes=199
-t31: TRACKBIND bound=3363 of 3363 surfaces; distinct textured materials=0
+t31: TRACKBIND bound=3363 of 3363 surfaces; distinct textured materials=1
 t31: WALLS solid meshes=53
 t31: TRACKBIND bound=100 of 105 surfaces; distinct textured materials=11
 t31: DRIVESURFACE verts=9063 tris=15650
-t31: DRIVETEST t=5.00001 speed=25.55352 progress=4.2932905E-05 lateral=3.671955 lap=0 wallHits=0 onSurface=True pos=(-386.01126, 4.074003, 307.08167)
+t31: DRIVETEST t=5.00001 speed=26.255434 progress=0.0005778935 lateral=3.9298587 lap=0 wallHits=0 onSurface=True pos=(-387.73523, 4.1893134, 305.1848)
 t32: WALLS solid meshes=199
-t32: TRACKBIND bound=3363 of 3363 surfaces; distinct textured materials=0
+t32: TRACKBIND bound=3363 of 3363 surfaces; distinct textured materials=1
 t32: WALLS solid meshes=33
 t32: TRACKBIND bound=64 of 69 surfaces; distinct textured materials=11
 t32: DRIVESURFACE verts=11295 tris=19732
-t32: DRIVETEST t=5.00001 speed=25.730785 progress=0.99809664 lateral=3.4203472 lap=0 wallHits=0 onSurface=True pos=(-379.06354, 3.9913995, 315.95697)
+t32: DRIVETEST t=5.00001 speed=25.667114 progress=0.99799156 lateral=3.354435 lap=0 wallHits=0 onSurface=True pos=(-378.64575, 3.998498, 316.40573)
 t33: WALLS solid meshes=707
-t33: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=13
+t33: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=14
 t33: WALLS solid meshes=10
 t33: TRACKBIND bound=20 of 28 surfaces; distinct textured materials=5
 t33: DRIVESURFACE verts=9412 tris=16791
-t33: DRIVETEST t=5.00001 speed=25.764523 progress=0.99884206 lateral=0.049789794 lap=0 wallHits=0 onSurface=True pos=(194.97978, 8.264897, -238.98026)
+t33: DRIVETEST t=5.00001 speed=26.455564 progress=0.99936175 lateral=0.050874885 lap=0 wallHits=0 onSurface=True pos=(192.21297, 8.279747, -238.82545)
 t34: WALLS solid meshes=707
-t34: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=13
+t34: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=14
 t34: WALLS solid meshes=6
 t34: TRACKBIND bound=11 of 14 surfaces; distinct textured materials=6
 t34: DRIVESURFACE verts=2699 tris=4848
-t34: DRIVETEST t=5.00001 speed=25.923061 progress=0.021722253 lateral=-0.36487716 lap=0 wallHits=0 onSurface=True pos=(531.8123, 1.1188856, 363.06744)
+t34: DRIVETEST t=5.00001 speed=26.125154 progress=0.022632644 lateral=-0.39718705 lap=0 wallHits=0 onSurface=True pos=(533.3104, 1.1241289, 363.60504)
 t35: WALLS solid meshes=707
-t35: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=13
+t35: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=14
 t35: WALLS solid meshes=8
 t35: TRACKBIND bound=18 of 22 surfaces; distinct textured materials=3
 t35: DRIVESURFACE verts=7285 tris=12945
-t35: DRIVETEST t=5.00001 speed=25.756062 progress=0.0014570451 lateral=-0.0072130645 lap=0 wallHits=0 onSurface=True pos=(182.42151, 8.318097, -238.34793)
+t35: DRIVETEST t=5.00001 speed=26.298027 progress=0.0016780728 lateral=-0.01893326 lap=0 wallHits=0 onSurface=True pos=(181.45145, 8.324424, -238.30702)
 t36: WALLS solid meshes=707
-t36: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=13
+t36: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=14
 t36: WALLS solid meshes=10
 t36: TRACKBIND bound=22 of 26 surfaces; distinct textured materials=7
 t36: DRIVESURFACE verts=7039 tris=12563
-t36: DRIVETEST t=5.00001 speed=25.56029 progress=0.0040300456 lateral=0.12880689 lap=0 wallHits=0 onSurface=True pos=(174.25467, 8.328488, -237.76547)
+t36: DRIVETEST t=5.00001 speed=25.87296 progress=0.00415587 lateral=0.12871547 lap=0 wallHits=0 onSurface=True pos=(173.79993, 8.332104, -237.74078)
 t37: WALLS solid meshes=707
-t37: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=13
+t37: TRACKBIND bound=3414 of 3414 surfaces; distinct textured materials=14
 t37: WALLS solid meshes=4
 t37: TRACKBIND bound=6 of 9 surfaces; distinct textured materials=5
 t37: DRIVESURFACE verts=2093 tris=3812
-t37: DRIVETEST t=5.00001 speed=25.65636 progress=0.03896096 lateral=6.1698594 lap=0 wallHits=0 onSurface=True pos=(-366.3099, 2.4861038, 209.94476)
+t37: DRIVETEST t=5.00001 speed=26.295033 progress=0.04049374 lateral=6.666951 lap=0 wallHits=0 onSurface=True pos=(-368.09494, 2.5280435, 209.81221)
 t38: WALLS solid meshes=483
 t38: TRACKBIND bound=3392 of 3392 surfaces; distinct textured materials=8
 t38: WALLS solid meshes=12
 t38: TRACKBIND bound=39 of 39 surfaces; distinct textured materials=8
 t38: DRIVESURFACE verts=10837 tris=18658
-t38: DRIVETEST t=5.00001 speed=25.608316 progress=0.003640205 lateral=-0.055253506 lap=0 wallHits=0 onSurface=True pos=(-626.3462, -2.4791663, -199.14355)
+t38: DRIVETEST t=5.00001 speed=26.19548 progress=0.004056884 lateral=-0.06568177 lap=0 wallHits=0 onSurface=True pos=(-627.02625, -2.480891, -197.75241)
 t39: WALLS solid meshes=483
 t39: TRACKBIND bound=3392 of 3392 surfaces; distinct textured materials=8
 t39: WALLS solid meshes=5
 t39: TRACKBIND bound=18 of 18 surfaces; distinct textured materials=8
 t39: DRIVESURFACE verts=7247 tris=12400
-t39: DRIVETEST t=5.00001 speed=25.426504 progress=0.010016896 lateral=0.32498774 lap=0 wallHits=0 onSurface=True pos=(-631.8878, -2.4901347, -188.3165)
+t39: DRIVETEST t=5.00001 speed=43.891037 progress=0.026572889 lateral=0.57723695 lap=0 wallHits=0 onSurface=True pos=(-650.6573, -2.5279548, -149.64467)
 t40: WALLS solid meshes=471
-t40: TRACKBIND bound=2322 of 2322 surfaces; distinct textured materials=8
+t40: TRACKBIND bound=2322 of 2322 surfaces; distinct textured materials=9
 t40: WALLS solid meshes=18
 t40: TRACKBIND bound=36 of 36 surfaces; distinct textured materials=3
 t40: DRIVESURFACE verts=5341 tris=8561
-t40: DRIVETEST t=5.00001 speed=25.50535 progress=0.0022722199 lateral=-0 lap=0 wallHits=0 onSurface=True pos=(362.625, 7.057451E-14, 190.21341)
+t40: DRIVETEST t=5.00001 speed=43.877567 progress=0.012720165 lateral=-0 lap=0 wallHits=0 onSurface=True pos=(362.625, 9.163742E-32, 148.0873)
 t41: WALLS solid meshes=382
 t41: TRACKBIND bound=2890 of 2890 surfaces; distinct textured materials=0
 t41: WALLS solid meshes=79
 t41: TRACKBIND bound=109 of 118 surfaces; distinct textured materials=13
 t41: DRIVESURFACE verts=9573 tris=15878
-t41: DRIVETEST t=5.00001 speed=25.343195 progress=0.013278295 lateral=-0.09898887 lap=0 wallHits=0 onSurface=True pos=(18.123026, 1.0383196, -234.4817)
+t41: DRIVETEST t=5.00001 speed=43.78076 progress=0.032252263 lateral=0.09099781 lap=0 wallHits=0 onSurface=True pos=(24.18835, 1.6668509, -276.758)
 t42: WALLS solid meshes=382
 t42: TRACKBIND bound=2890 of 2890 surfaces; distinct textured materials=0
 t42: WALLS solid meshes=40
 t42: TRACKBIND bound=78 of 86 surfaces; distinct textured materials=10
 t42: DRIVESURFACE verts=10487 tris=17507
-t42: DRIVETEST t=5.00001 speed=25.549257 progress=0.0031995976 lateral=-0.19191496 lap=0 wallHits=0 onSurface=True pos=(-84.068504, 1.4787023, 86.37042)
+t42: DRIVETEST t=5.00001 speed=43.491096 progress=0.013777646 lateral=-0.043687493 lap=0 wallHits=0 onSurface=True pos=(-90.03173, 1.474433, 126.030556)
 t43: WALLS solid meshes=812
-t43: TRACKBIND bound=4128 of 4128 surfaces; distinct textured materials=11
+t43: TRACKBIND bound=4128 of 4128 surfaces; distinct textured materials=12
 t43: WALLS solid meshes=12
 t43: TRACKBIND bound=21 of 23 surfaces; distinct textured materials=7
 t43: DRIVESURFACE verts=3352 tris=5568
-t43: DRIVETEST t=5.00001 speed=25.662746 progress=0.011786556 lateral=0.3984997 lap=0 wallHits=0 onSurface=True pos=(-585.79596, -16.865133, -131.25372)
+t43: DRIVETEST t=5.00001 speed=25.888828 progress=0.012084017 lateral=0.3949743 lap=0 wallHits=0 onSurface=True pos=(-585.5433, -16.858492, -130.57549)
 t44: WALLS solid meshes=318
-t44: TRACKBIND bound=3747 of 3747 surfaces; distinct textured materials=5
+t44: TRACKBIND bound=3747 of 3747 surfaces; distinct textured materials=7
 t44: WALLS solid meshes=8
 t44: TRACKBIND bound=20 of 24 surfaces; distinct textured materials=14
 t44: DRIVESURFACE verts=5871 tris=10512
-t44: DRIVETEST t=5.00001 speed=25.785427 progress=0.027251758 lateral=2.691843 lap=0 wallHits=0 onSurface=True pos=(-504.44778, -56.80365, -716.9746)
+t44: DRIVETEST t=5.00001 speed=24.043106 progress=0.023450453 lateral=2.1891496 lap=0 wallHits=0 onSurface=True pos=(-500.58813, -56.56186, -712.7927)
 t45: WALLS solid meshes=318
-t45: TRACKBIND bound=3747 of 3747 surfaces; distinct textured materials=5
+t45: TRACKBIND bound=3747 of 3747 surfaces; distinct textured materials=7
 t45: WALLS solid meshes=24
 t45: TRACKBIND bound=41 of 45 surfaces; distinct textured materials=14
 t45: DRIVESURFACE verts=12229 tris=21419
-t45: DRIVETEST t=5.00001 speed=25.603521 progress=0.003989402 lateral=0.0042524566 lap=0 wallHits=0 onSurface=True pos=(283.96698, -7.3847404, 431.28198)
+t45: DRIVETEST t=5.00001 speed=40.890396 progress=0.012713998 lateral=-0.015541869 lap=0 wallHits=0 onSurface=True pos=(262.0769, -7.5711737, 408.24402)
 t46: WALLS solid meshes=1050
-t46: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=12
+t46: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=16
 t46: WALLS solid meshes=22
 t46: TRACKBIND bound=47 of 50 surfaces; distinct textured materials=19
 t46: DRIVESURFACE verts=12634 tris=21731
-t46: DRIVETEST t=5.00001 speed=25.697737 progress=0.9994008 lateral=-0.5830374 lap=0 wallHits=0 onSurface=True pos=(119.33577, -4.5671864, 821.7661)
+t46: DRIVETEST t=5.00001 speed=26.46485 progress=4.6020254E-05 lateral=-0.61883676 lap=0 wallHits=0 onSurface=True pos=(122.59662, -4.5402164, 822.0717)
 t47: WALLS solid meshes=1050
-t47: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=12
+t47: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=16
 t47: WALLS solid meshes=5
 t47: TRACKBIND bound=13 of 15 surfaces; distinct textured materials=5
 t47: DRIVESURFACE verts=6409 tris=11071
-t47: DRIVETEST t=5.00001 speed=25.477108 progress=0.009645655 lateral=-0.10907704 lap=0 wallHits=0 onSurface=True pos=(148.18462, -4.3557177, 823.64777)
+t47: DRIVETEST t=5.00001 speed=25.704998 progress=0.009973634 lateral=-0.08268054 lap=0 wallHits=0 onSurface=True pos=(149.0477, -4.34648, 823.69293)
 t48: WALLS solid meshes=1050
-t48: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=12
+t48: TRACKBIND bound=3648 of 3648 surfaces; distinct textured materials=16
 t48: WALLS solid meshes=15
 t48: TRACKBIND bound=26 of 28 surfaces; distinct textured materials=11
 t48: DRIVESURFACE verts=6499 tris=10799
-t48: DRIVETEST t=5.00001 speed=25.438242 progress=0.0071163657 lateral=-0.23054597 lap=0 wallHits=0 onSurface=True pos=(-366.39572, -12.924961, -230.51776)
+t48: DRIVETEST t=5.00001 speed=25.438242 progress=0.0071163657 lateral=-0.23054597 lap=0 wallHits=0 onSurface=True pos=(-366.39572, -12.916112, -230.51776)
 t49: WALLS solid meshes=936
-t49: TRACKBIND bound=3757 of 3757 surfaces; distinct textured materials=19
+t49: TRACKBIND bound=3757 of 3757 surfaces; distinct textured materials=20
 t49: WALLS solid meshes=6
 t49: TRACKBIND bound=16 of 16 surfaces; distinct textured materials=6
 t49: DRIVESURFACE verts=5806 tris=10172
-t49: DRIVETEST t=5.00001 speed=25.704021 progress=0.013895327 lateral=0.050252207 lap=0 wallHits=0 onSurface=True pos=(668.39136, -26.398617, -547.60236)
+t49: DRIVETEST t=5.00001 speed=23.454071 progress=0.011471506 lateral=0.03254181 lap=0 wallHits=0 onSurface=True pos=(667.9177, -26.259481, -542.1326)
 t50: WALLS solid meshes=936
-t50: TRACKBIND bound=3757 of 3757 surfaces; distinct textured materials=19
+t50: TRACKBIND bound=3757 of 3757 surfaces; distinct textured materials=20
 t50: WALLS solid meshes=6
 t50: TRACKBIND bound=12 of 12 surfaces; distinct textured materials=6
 t50: DRIVESURFACE verts=9554 tris=17161
-t50: DRIVETEST t=5.00001 speed=25.423992 progress=0.004514445 lateral=2.1246715 lap=0 wallHits=0 onSurface=True pos=(-281.96494, -7.101561, 475.90955)
+t50: DRIVETEST t=5.00001 speed=23.914354 progress=0.0038541616 lateral=2.0288577 lap=0 wallHits=0 onSurface=True pos=(-283.2239, -7.1504393, 477.8459)
 t51: WALLS solid meshes=651
-t51: TRACKBIND bound=5210 of 5210 surfaces; distinct textured materials=13
+t51: TRACKBIND bound=5210 of 5210 surfaces; distinct textured materials=15
 t51: WALLS solid meshes=0
 t51: TRACKBIND bound=1 of 1 surfaces; distinct textured materials=1
 t51: DRIVESURFACE verts=16508 tris=28900
-t51: DRIVETEST t=5.00001 speed=25.975845 progress=0.99869096 lateral=-0.029481515 lap=0 wallHits=0 onSurface=True pos=(-125.326164, -0.5222361, -129.91583)
+t51: DRIVETEST t=5.00001 speed=23.800848 progress=0.99771416 lateral=-0.0076235314 lap=0 wallHits=0 onSurface=True pos=(-130.74103, -0.519298, -130.59613)
 t52: WALLS solid meshes=226
-t52: TRACKBIND bound=1844 of 1844 surfaces; distinct textured materials=12
+t52: TRACKBIND bound=1844 of 1844 surfaces; distinct textured materials=14
 t52: WALLS solid meshes=13
 t52: TRACKBIND bound=22 of 26 surfaces; distinct textured materials=4
 t52: DRIVESURFACE verts=2616 tris=4556
-t52: DRIVETEST t=5.00001 speed=25.595974 progress=0.017245114 lateral=-0.1441924 lap=0 wallHits=0 onSurface=True pos=(798.39655, 8.47059, 355.43665)
+t52: DRIVETEST t=5.00001 speed=26.547804 progress=0.018766055 lateral=-0.16164567 lap=0 wallHits=0 onSurface=True pos=(800.2689, 8.435308, 357.79324)
 t53: WALLS solid meshes=226
-t53: TRACKBIND bound=1844 of 1844 surfaces; distinct textured materials=12
+t53: TRACKBIND bound=1844 of 1844 surfaces; distinct textured materials=14
 t53: WALLS solid meshes=29
 t53: TRACKBIND bound=33 of 35 surfaces; distinct textured materials=4
 t53: DRIVESURFACE verts=7766 tris=14035
-t53: DRIVETEST t=5.00001 speed=25.461557 progress=0.0033741267 lateral=0.18429092 lap=0 wallHits=0 onSurface=True pos=(-784.6633, 0.26695207, -165.32555)
+t53: DRIVETEST t=5.00001 speed=23.9095 progress=0.0022366806 lateral=0.2565449 lap=0 wallHits=0 onSurface=True pos=(-788.10254, 0.26964965, -162.81575)
 t54: WALLS solid meshes=1517
 t54: TRACKBIND bound=12111 of 12111 surfaces; distinct textured materials=1
 t54: WALLS solid meshes=26
 t54: TRACKBIND bound=32 of 32 surfaces; distinct textured materials=13
 t54: DRIVESURFACE verts=16424 tris=26475
-t54: DRIVETEST t=5.00001 speed=21.866259 progress=0.99198145 lateral=-11.086205 lap=0 wallHits=0 onSurface=True pos=(-1169.4226, -0.21071568, 1795.8943)
+t54: DRIVETEST t=5.00001 speed=22.000355 progress=0.9920279 lateral=-11.230822 lap=0 wallHits=0 onSurface=True pos=(-1169.5449, -0.20269129, 1796.5326)
 t55: WALLS solid meshes=149
-t55: TRACKBIND bound=1705 of 1705 surfaces; distinct textured materials=0
+t55: TRACKBIND bound=1705 of 1705 surfaces; distinct textured materials=1
 t55: WALLS solid meshes=5
 t55: TRACKBIND bound=9 of 9 surfaces; distinct textured materials=1
 t55: DRIVESURFACE verts=7825 tris=13706
-t55: DRIVETEST t=5.00001 speed=25.618475 progress=0.012399994 lateral=-0.03241765 lap=0 wallHits=0 onSurface=True pos=(178.60669, 0.30869648, 89.29864)
+t55: DRIVETEST t=5.00001 speed=25.956919 progress=0.012816941 lateral=0.0031747804 lap=0 wallHits=0 onSurface=True pos=(179.49654, 0.30422565, 88.85084)
 t56: WALLS solid meshes=149
-t56: TRACKBIND bound=1705 of 1705 surfaces; distinct textured materials=0
+t56: TRACKBIND bound=1705 of 1705 surfaces; distinct textured materials=1
 t56: WALLS solid meshes=7
 t56: TRACKBIND bound=11 of 11 surfaces; distinct textured materials=1
 t56: DRIVESURFACE verts=7494 tris=13052
-t56: DRIVETEST t=5.00001 speed=25.452229 progress=0.011758239 lateral=-0.033832546 lap=0 wallHits=0 onSurface=True pos=(177.63394, 0.31140828, 89.73358)
+t56: DRIVETEST t=5.00001 speed=25.864927 progress=0.012323181 lateral=-0.04246813 lap=0 wallHits=0 onSurface=True pos=(178.87453, 0.30653703, 89.165596)
 t57: WALLS solid meshes=350
 t57: TRACKBIND bound=2519 of 2519 surfaces; distinct textured materials=14
 t57: WALLS solid meshes=8
 t57: TRACKBIND bound=38 of 39 surfaces; distinct textured materials=9
 t57: DRIVESURFACE verts=4984 tris=8929
-t57: DRIVETEST t=5.00001 speed=25.517605 progress=0.012617435 lateral=-0.09128259 lap=0 wallHits=0 onSurface=True pos=(148.33154, -17.960032, -320.00208)
+t57: DRIVETEST t=5.00001 speed=26.026112 progress=0.013484424 lateral=-0.082709275 lap=0 wallHits=0 onSurface=True pos=(146.43037, -17.962172, -320.56348)
 t58: WALLS solid meshes=349
-t58: TRACKBIND bound=2765 of 2765 surfaces; distinct textured materials=0
+t58: TRACKBIND bound=2765 of 2765 surfaces; distinct textured materials=1
 t58: WALLS solid meshes=6
 t58: TRACKBIND bound=9 of 10 surfaces; distinct textured materials=4
 t58: DRIVESURFACE verts=15309 tris=26285
-t58: DRIVETEST t=5.00001 speed=25.906866 progress=0.009935505 lateral=0.25509846 lap=0 wallHits=0 onSurface=True pos=(-307.85068, -0.0073852297, 227.68304)
+t58: DRIVETEST t=5.00001 speed=25.989656 progress=0.01030802 lateral=0.26647148 lap=0 wallHits=0 onSurface=True pos=(-306.90244, -0.0073851477, 228.01862)
 t59: WALLS solid meshes=349
-t59: TRACKBIND bound=2765 of 2765 surfaces; distinct textured materials=0
+t59: TRACKBIND bound=2765 of 2765 surfaces; distinct textured materials=1
 t59: WALLS solid meshes=14
 t59: TRACKBIND bound=20 of 20 surfaces; distinct textured materials=3
 t59: DRIVESURFACE verts=16785 tris=28065
-t59: DRIVETEST t=5.00001 speed=25.950455 progress=0.0071747387 lateral=0.10733032 lap=0 wallHits=0 onSurface=True pos=(-129.5666, -0.0074155447, -316.85733)
+t59: DRIVETEST t=5.00001 speed=26.509405 progress=0.0074277134 lateral=0.10723877 lap=0 wallHits=0 onSurface=True pos=(-128.78444, -0.00741554, -316.85724)
 SHOOTDONE
