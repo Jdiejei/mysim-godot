@@ -18,7 +18,7 @@ public static class DrivingValidation {
         "steerResponseTime","steerTrackingRatio","steerSettleTime","steerSettleRatio","groundedFraction","chassisContactSamples",
         "nonSurfaceContactSamples","offTrackFraction","impactEventsDelta","maxDeltaVRise","positionJumpMax","suspensionCompressionMin",
         "suspensionExtensionMax","uprightMinCosine","impactTickPeakDeltaV","impactContactSeconds","impactImpulseEstimate","impactPeakForceEstimate",
-        "wheelBandContactSamples"
+        "wheelBandContactSamples","maxSpeed","throttleHoldSeconds","raceStartedFraction"
     };
     public static readonly string[] KnownOps = { "between", "betweenReference", "lt", "lte", "gt", "gte" };
 
@@ -34,6 +34,8 @@ public static class DrivingValidation {
         // True when a contact part this tick belongs to the hub-mounted wheel-assembly band
         // (wheelguard/caliper): the arch-position proof for the restored collision members.
         public bool wheelBandContact;
+        // Race-start sequence state (the grid/start validation).
+        public bool raceStarted;public double raceClock,countdown;
         public int groundedMask, chassisContacts, impactEvents;
         public double maxDeltaV;
         public double[] loads, springLengths, longitudinalSlip, lateralSlipAngle;
@@ -47,7 +49,7 @@ public static class DrivingValidation {
 
     public sealed class Profile {
         public string Id, Title, Purpose;
-        public bool RequireRotationalTyres, RequireDamage;
+        public bool RequireRotationalTyres, RequireDamage, RequireGridStart;
         public double MaxDurationSeconds = 60, AbortLateralAbs = 25, AbortPositionJump = 2.5;
         public int SampleEveryTicks = 1, MaxSamples = 12000;
         public List<Phase> Phases = new List<Phase>();
@@ -61,8 +63,8 @@ public static class DrivingValidation {
         public double? ForSeconds, MinSeconds, MaxSeconds;
         public double? UntilSpeedAtLeast, UntilSpeedBelow;
         public int? UntilChassisContactsAtLeast, UntilImpactEventsAtLeast;
-        public bool UntilNonSurfaceContact, UntilOffTrackObserved;
-        public bool Terminates => ForSeconds.HasValue || UntilSpeedAtLeast.HasValue || UntilSpeedBelow.HasValue || UntilChassisContactsAtLeast.HasValue || UntilImpactEventsAtLeast.HasValue || UntilNonSurfaceContact || UntilOffTrackObserved;
+        public bool UntilNonSurfaceContact, UntilOffTrackObserved, UntilRaceStarted;
+        public bool Terminates => ForSeconds.HasValue || UntilSpeedAtLeast.HasValue || UntilSpeedBelow.HasValue || UntilChassisContactsAtLeast.HasValue || UntilImpactEventsAtLeast.HasValue || UntilNonSurfaceContact || UntilOffTrackObserved || UntilRaceStarted;
     }
 
     public sealed class Assertion {
@@ -91,6 +93,9 @@ public static class DrivingValidation {
             p.RequireRotationalTyres = req.TryGetProperty("rotationalTyres", out var rt) && rt.ValueKind == System.Text.Json.JsonValueKind.True;
             p.RequireDamage = req.TryGetProperty("damageEnabled", out var de) && de.ValueKind == System.Text.Json.JsonValueKind.True;
         }
+        if (e.TryGetProperty("setup", out var setup)) {
+            p.RequireGridStart = setup.TryGetProperty("requiresGridStart", out var gs) && gs.ValueKind == System.Text.Json.JsonValueKind.True;
+        }
         if (e.TryGetProperty("abort", out var abort)) {
             p.MaxDurationSeconds = Num(abort, "maxDurationSeconds", p.MaxDurationSeconds);
             p.AbortLateralAbs = Num(abort, "lateralAbsBeyond", p.AbortLateralAbs);
@@ -117,6 +122,7 @@ public static class DrivingValidation {
                 if (until.TryGetProperty("impactEventsAtLeast", out var iea) && iea.ValueKind == System.Text.Json.JsonValueKind.Number) ph.UntilImpactEventsAtLeast = (int)iea.GetDouble();
                 if (until.TryGetProperty("nonSurfaceContact", out var nsc)) ph.UntilNonSurfaceContact = nsc.ValueKind == System.Text.Json.JsonValueKind.True;
                 if (until.TryGetProperty("offTrackObserved", out var oto)) ph.UntilOffTrackObserved = oto.ValueKind == System.Text.Json.JsonValueKind.True;
+                if (until.TryGetProperty("raceStarted", out var rs)) ph.UntilRaceStarted = rs.ValueKind == System.Text.Json.JsonValueKind.True;
             }
             if (!ph.Terminates) throw new Exception("Driving validation profile " + p.Id + " phase " + ph.Id + " has no forSeconds or until termination");
             if (ph.MinSeconds.HasValue && ph.ForSeconds.HasValue && ph.MinSeconds.Value > ph.ForSeconds.Value)
@@ -290,6 +296,9 @@ public static class DrivingValidation {
             case "chassisContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.chassisContacts > 0) n++; return (double)n; }
             case "nonSurfaceContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.nonSurfaceContact) n++; return (double)n; }
             case "wheelBandContactSamples": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.wheelBandContact) n++; return (double)n; }
+            case "maxSpeed": { if (s.Count == 0) return null; double m = 0; foreach (var v in s) m = Math.Max(m, v.speed); return m; }
+            case "throttleHoldSeconds": { if (s.Count == 0) return null; double sum = 0; for (int i = 0; i < s.Count; i++) if (s[i].throttle > 0.5) { if (i == 0) { if (s.Count > 1 && s[1].t > s[0].t) sum += s[1].t - s[0].t; } else sum += s[i].t - s[i - 1].t; } return sum; }
+            case "raceStartedFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (v.raceStarted) n++; return (double)n / s.Count; }
             case "offTrackFraction": { if (s.Count == 0) return null; int n = 0; foreach (var v in s) if (!v.onDrivingSurface) n++; return (double)n / s.Count; }
             case "impactEventsDelta": return s.Count == 0 ? (double?)null : (double)(s[s.Count - 1].impactEvents - s[0].impactEvents);
             case "impactTickPeakDeltaV": {
@@ -432,6 +441,7 @@ public static class DrivingValidation {
             if (!done && phase.UntilSpeedBelow.HasValue && minOk && s.speed < phase.UntilSpeedBelow.Value) done = true;
             if (!done && phase.UntilChassisContactsAtLeast.HasValue && minOk && s.chassisContacts >= phase.UntilChassisContactsAtLeast.Value) done = true;
             if (!done && phase.UntilNonSurfaceContact && minOk && s.nonSurfaceContact) done = true;
+            if (!done && phase.UntilRaceStarted && minOk && s.raceStarted) done = true;
             if (!done && phase.UntilImpactEventsAtLeast.HasValue && minOk && hasBaseline && s.impactEvents - impactBaseline >= phase.UntilImpactEventsAtLeast.Value) done = true;
             if (!done && phase.UntilOffTrackObserved && minOk && !s.onDrivingSurface) done = true;
             if (!done && phase.MaxSeconds.HasValue && inPhase > phase.MaxSeconds.Value) { Abort("phase " + phase.Id + " exceeded maxSeconds without reaching its condition"); return; }

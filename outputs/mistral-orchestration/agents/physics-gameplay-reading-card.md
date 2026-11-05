@@ -107,3 +107,28 @@ Reading rule: the fitted-state audit is ACCEPTED only when every axle-FAIL line 
 | Workflow parse/`403` dispatch blockers | coordinator + owner child-dispatch path |
 
 Verdicts recorded per run as: `PASS / FAIL(<class>, <assert id>, <actual vs expected>) / UNVERIFIED(<reason>)` — the ledger line the charts consume.
+
+## 9. Command: DV start sequence (`race_start_sequence`, case `native_driving_validation_start`)
+
+**Preconditions (mechanical):** the case is car16/track0/dry with `gridStart:true`; the dispatch MUST carry `MYSIM_GRID_START=1` (the boot otherwise skips the countdown for AI boots). The runner fails fast with `Driving validation profile race_start_sequence requires the grid start; dispatch with MYSIM_GRID_START=1...` — that thrown message = `UNVERIFIED(config)`, NOT a physics FAIL; re-dispatch with the env. No damage requirement; assists per physics-acceptance rule; userpath leg (`MYSIM_USERPATH=1`, §5) is the stronger proof and runs the same profile through the real input chain.
+
+**What the report must show (per asserted metric, phase-s keys):**
+
+| Check | Report field | Bound | Failure class if out |
+|---|---|---|---|
+| Jump-start attempt actually commanded | `throttleHoldSeconds:grid` | ≥ 1.0 s | FAIL-validation (profile didn't drive; check userpath/throttle latch) |
+| Grid held under full throttle | `maxSpeed:grid` | < 0.15 m/s | race-start sequencing (hold force released too early / never applied) |
+| Grid end state not launched | `endSpeed:grid` | < 0.1 m/s | race-start sequencing |
+| Countdown duration | `duration:grid` | 4.5–6.5 s | timing: >6.5 = clock start late/stuck; <4.5 = countdown skipped/short (boot path) |
+| Release bite at lights-out | `speedRiseTime:release` | < 0.5 s | throttle path dead at release (§5 throttle-latch fingerprint) |
+| Race started in release | `raceStartedFraction:release` | ≥ 0.95 | clock started late relative to hold-off |
+| Launch reached speed | `endSpeed:release` | 4.8–7.0 m/s | launch dynamics (compare against the freed-car DV-core trace first) |
+| Burned-in guards | `positionJumpMax:all`, `uprightMinCosine:all` | < 1 m; ≥ 0.9 | teleport / loss of control |
+
+**Trace reading rules:**
+- Per-tick `raceStarted=false` through the grid with `countdown` stepping 5→0 at 1 Hz = the lights timing layer; the light GUI itself is already proven (fixture).
+- `raceStarted` never true → phase overruns `maxSeconds 12` → FAIL with fingerprint = race clock start (countdown expiry), NOT the DV runner.
+- `maxSpeed:grid` high WITH `raceStarted=false` and commanded throttle 1 = hold released early (GridHold brake force dropped) — wake fingerprint shares the frozen-car contact family only if `bodyContacts` composition is wrong; check §6 fields in the same trace.
+- `duration:grid` < 4.5 s with `raceStartedFraction:release` still ≥ 0.95 = the boot skip fired partially (countdown shortened but hold respected) — escalates to coordinator (start sequencing constants).
+- Compound/wetness: this case is dry; a wet variant is a NEW case, not a re-dispatch of this one.
+- The `chassisContactSamples` metric is RECORDED but NOT asserted here by design: the ~1 cm stance floor legitimately grazes under full brake-stop compression; a chassis-contact assert would false-fail (nonSurfaceContactSamples remains the loss-of-control guard).
