@@ -211,3 +211,30 @@ Verdicts recorded per run as: `PASS / FAIL(<class>, <assert id>, <actual vs expe
 - A guard-labelled cluster must ALSO satisfy §6's position rules (arches, not belly): a guard label with belly-position contact is the OLD misplacement fingerprint — escalate to car-assembly, not physics.
 - `mixedContactSamples` > 0 is information, not failure: it measures genuine multi-part contact; investigate only when it dominates (a "guard" hit that is mostly panel contact questions the guard's coverage).
 - Per-sample audit: the serialized `bodyPanelContact`/`wheelBandContact` flags let any cluster be re-derived from the samples without new instrumentation.
+
+### 12.1 Measurement protocol — how the first artifacts fill the table (prep; no numbers exist yet)
+
+**Cluster extraction (mechanical, from a run's serialized `samples`):**
+1. A contact CLUSTER is a maximal run of consecutive samples with `nonSurfaceContact=1` (allow no gaps; a 1-tick gap starts a new cluster).
+2. Per cluster record: `tStart/tEnd` (first/last sample), `n` (length), `archCounts` = {wheelBand ticks, bodyPanel ticks, mixed ticks}, `peakDeltaV` per archetype present (max per-tick |Δv| over the cluster's samples for that archetype, computed from consecutive `longitudinalSpeed`/`lateralSpeed` exactly as the metric does), and the §6 position read (first-contact sample's contact parts).
+3. Cluster label: `guard` if wheelBand ticks ≥ bodyPanel ticks, else `panel`; a cluster with both > 0 is labelled `guard+panel(mixed)` — the label is descriptive, never a pass/fail.
+4. Cross-checks per cluster: a `guard`-labelled cluster's first-contact parts must be WHEELGUARD/CALIPER names (§6); a `panel` cluster triggering an impact event must also show the §2 impact fields consistent (impactEventsDelta increments once per event-level expectation).
+
+**What fills the numeric column:** the per-archetype observed envelopes across the FIRST measured set = the four wall profiles × both backends (jolt leg + source pair), one entry per (profile, backend, cluster). The envelope is `min–max` of: cluster duration, per-archetype peak Δv, samples-count. Qualification for entry: the run must be a completed terminal state (global rule), its archetype labels must satisfy the §6 cross-check, and the source/jolt pair must agree on every cluster's label (§12 parity); a pair that disagrees on a label contributes NO numbers until the divergence is resolved.
+
+**Adoption criteria (when a number becomes usable):**
+- Descriptive envelope first: the filled table is DESCRIPTIVE (observed ranges on the measured configurations) — it never gates until the coordinator promotes a specific bound.
+- Promotion requires: the envelope stable across BOTH backends and at least two independent runs per backend (no identical re-dispatches — distinct runs), the §6/§2 cross-checks green on every contributing run, and an explicit sign-off line in this card naming the runs that produced it.
+- Any promoted bound then appears in the table WITH its source runs named; a later run contradicting a promoted bound is a class-S fingerprint (§8), not a silent re-baseline.
+
+**Fill-in template (paste into §12's table when the first artifacts land):**
+
+```
+Measured (run <id>, <backend>, <date>):
+- guard clusters: n=<count>; duration <min>–<max> s; peakΔv <min>–<max> m/s; labels verified vs §6: <yes/no + exceptions>
+- panel clusters: n=<count>; duration <min>–<max> s; peakΔv <min>–<max> m/s
+- mixed clusters: n=<count>; dominant archetype: <...>
+- source/jolt label agreement: <k>/<n> clusters
+- separation observation (descriptive only): <e.g. "guard durations 3-9x shorter than panel on every paired cluster">
+Promoted bounds: <none yet | bound + source runs + signer>
+```
