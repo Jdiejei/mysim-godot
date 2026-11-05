@@ -179,6 +179,27 @@ namespace MySimulator.Verification
                 Check(lastWall=="impact_wall_recovery","Wall manifest must end with impact_wall_recovery (the DV impact-flag contract: DRIVING_VALIDATION_IMPACT must match the manifest)");
             }
             {
+                // The wet/night matrix pair (the D0/N/W cells): the manifests must carry
+                // explicit drivingValidation lists (ParseCaseProfiles fails closed without
+                // them - the c677943 pair killed every matrix dispatch at boot), the dry
+                // file stays on the dry default, and the wet file pins its weather contract
+                // (requiresWetWeather: the tool's name-based wet assert cannot express the
+                // wetnight_dry file's intent - "wetnight" contains "wet").
+                var dryNight=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_wetnight_matrix_dry.json")).RootElement;
+                var wetNight=System.Text.Json.JsonDocument.Parse(System.IO.File.ReadAllText("data/native_wetnight_matrix_wet.json")).RootElement;
+                foreach(var c in dryNight.GetProperty("cases").EnumerateArray()){
+                    Check(c.TryGetProperty("drivingValidation",out var dvD)&&dvD.GetArrayLength()>0,"The wetnight DRY manifest lost its drivingValidation lists");
+                    Check(!c.TryGetProperty("weather",out var wD)||wD.GetInt32()==0,"The wetnight DRY manifest must stay on the dry default");
+                    foreach(var id in dvD.EnumerateArray())Check(validationProfileIds.Contains(id.GetString()),"The wetnight DRY manifest references unknown profile "+id.GetString());
+                }
+                Check(wetNight.TryGetProperty("requiresWetWeather",out var rww)&&rww.GetBoolean(),"The wetnight WET manifest must pin requiresWetWeather");
+                foreach(var c in wetNight.GetProperty("cases").EnumerateArray()){
+                    Check(c.GetProperty("weather").GetInt32()==2&&c.GetProperty("compound").GetInt32()==3,"The wetnight WET manifest must keep weather 2 + compound 3");
+                    Check(c.TryGetProperty("drivingValidation",out var dvW)&&dvW.GetArrayLength()>0,"The wetnight WET manifest lost its drivingValidation lists");
+                    foreach(var id in dvW.EnumerateArray())Check(validationProfileIds.Contains(id.GetString()),"The wetnight WET manifest references unknown profile "+id.GetString());
+                }
+            }
+            {
                 var forceProfile=new DrivingValidation.Profile{Id="force"};
                 var fs=new List<DrivingValidation.Sample>();
                 const float sdt=1f/240f;
