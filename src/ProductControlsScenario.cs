@@ -84,6 +84,22 @@ public partial class ProductControlsScenario : Node {
    hud.Paused=true;await Frame();await Frame();
    Check(hud.InfoLabel.Text=="PAUSED  (Esc / Tab to resume)","paused hud text missing: '"+hud.InfoLabel.Text+"'");
    hud.Paused=false;await Frame();await Frame();
+   // Bindings panel: the pause shows the live binding list; the setting hides it; a remap reflects without
+   // reopening pause; the panel sits inside the canvas, right of the centered pause column.
+   hud.Paused=true;await Frame();await Frame();
+   Check(hud.BindingsNode!=null&&hud.BindingsNode.Visible,"bindings panel hidden under pause while show_bindings is on");
+   var key0=(Label)hud.BindingsNode.FindChild("Key0",true,false);Check(key0!=null,"bindings row Key0 missing");
+   Check(key0.Text==OS.GetKeycodeString(ControlBindings.Get(0)),"bindings row not live from ControlBindings: '"+key0.Text+"'");
+   Key throttleBefore=ControlBindings.Get(0);Settings.Set("key_0",(long)Key.J);await Frame();await Frame();
+   Check(key0.Text=="J","remapped throttle key not reflected in the bindings panel: '"+key0.Text+"'");
+   Settings.Set("key_0",(long)throttleBefore);
+   Settings.Set("show_bindings",false);await Frame();await Frame();
+   Check(!hud.BindingsNode.Visible,"show_bindings off did not hide the panel");
+   Settings.Set("show_bindings",true);await Frame();await Frame();
+   Check(hud.BindingsNode.Visible,"show_bindings on did not restore the panel");
+   var bindRect=hud.BindingsNode.GetGlobalRect();float bindW=GetViewport().GetVisibleRect().Size.X;
+   Check(bindRect.Position.X>=741&&bindRect.End.X<=bindW-15&&bindRect.Position.Y>=15&&bindRect.End.Y<=GetViewport().GetVisibleRect().Size.Y-1,"bindings panel outside the designed right column: "+bindRect);
+   hud.Paused=false;await Frame();await Frame();
    // Classification: the panel's first child is its HEADER; data rows are named Car<id>. Each named row
    // must carry the slot the LIVE standings gives that same car (order-agnostic view binding).
    player.progress=0.10f;opp.progress=0.20f;for(int i=0;i<16;i++)await Frame();
