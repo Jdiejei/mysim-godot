@@ -363,6 +363,18 @@ namespace MySimulator.Verification
                 Check(!client.startReceived,"A START with a wrong token must be ignored");
                 client.Process("START|"+client.sessionToken,"1.2.3.4:9");
                 Check(client.startReceived,"Client did not gate its race entry on the START token");
+                // Host-side adoption: the session re-points at the LIVE simulated race (the
+                // remote car already added by the race scene from PeerName/PeerModel); the
+                // client role can never adopt; a race without the remote car is rejected.
+                Check(host.PeerName=="GUEST"&&host.PeerModel==1,"The host did not retain the peer's identity from HELLO");
+                var liveRace=new Race(0,3,0);liveRace.Add("HOST",true,Compound.Medium);liveRace.Add("GUEST",true,Compound.Medium);
+                host.AdoptRace(liveRace);
+                Check(host.RaceAdopted&&host.race==liveRace,"AdoptRace did not re-point the session at the live race");
+                bool clientRejected=false;try{client.AdoptRace(liveRace);}catch(InvalidOperationException){clientRejected=true;}
+                Check(clientRejected,"A client session must never adopt a race");
+                bool thinRejected=false;try{host.AdoptRace(new Race(0,3,0));}catch(ArgumentException){thinRejected=true;}
+                if(!thinRejected){host.AdoptRace(liveRace);}
+                Check(thinRejected,"A live race without the remote-driven car must be rejected");
             }
             // LAN phase-2: the client pipeline end to end (Snapshot -> ReadSnapshot ->
             // SnapshotApplier) with the persistence rule: one view per car id, updated in

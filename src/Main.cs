@@ -176,6 +176,16 @@ public partial class Main : Node3D {
  // host stays in its lobby, which keeps ticking and serving STATE.
  async void StartLanRace(GameSession session) {
   if (session == null || session.race == null) return;
+  if (session.role == SessionRole.Host) {
+   // Host: the FULL simulated race with the remote-driven car. Hand the session to the
+   // race controller via the static (consumed in its _Ready, so the remote car exists from
+   // construction); the hosting panel keeps ticking the session until the adoption lands
+   // (RaceAdopted), so the client's silence window never sees the loading gap.
+   int lanTrack = session.race.track.variant, lanLaps = session.race.targetLaps;
+   NativeRaceController.PendingLanHost = session;
+   StartRace(lanTrack, Settings.Get("car", 0), lanLaps);
+   return;
+  }
   EndRace(); ClearUi();
   ui = new CanvasLayer { Layer = 30 }; AddChild(ui);
   ui.AddChild(new ColorRect { Color = new Color(.025f, .035f, .05f), AnchorRight = 1, AnchorBottom = 1 });
@@ -245,6 +255,7 @@ public partial class Main : Node3D {
   var carSize = CarLoader.MeasureSize(car); GD.Print("CARSIZE ", carIdx, " ", carSize.ToString("0.00")); drive = System.Environment.GetEnvironmentVariable("MYSIM_NATIVE_GAMEPLAY")=="1"?new NativeRaceController():new DriveController();drive.CarIndex=carIdx;drive.CarSize=carSize;drive.Car=car;drive.WheelPivots=wheelPivots;drive.TrackIndex=trackIdx;drive.Laps=laps;drive.Cam=cam;drive.AutoDrive=System.Environment.GetEnvironmentVariable("MYSIM_AUTODRIVE")!=null;drive.AiTest=System.Environment.GetEnvironmentVariable("MYSIM_AI")!=null;drive.AutoSeconds=float.Parse(System.Environment.GetEnvironmentVariable("MYSIM_SECONDS")??"8");
   var hud = new Hud(); drive.Hud = hud; world.AddChild(drive); if (System.Environment.GetEnvironmentVariable("MYSIM_INPUTCHECKS") != null) world.AddChild(new DrivingScenario { Drive=drive }); if (System.Environment.GetEnvironmentVariable("MYSIM_USERPATH") != null) world.AddChild(new UserPathScenario { Drive=drive }); world.AddChild(hud); world.AddChild(new TouchControls { Drive=drive });
   ClearUi();GD.Print("RACE_READY track=",trackIdx," car=",carIdx);
+  if(NativeRaceController.PendingLanHost!=null&&drive is NativeRaceController nativeHost){var lanHost=NativeRaceController.PendingLanHost;NativeRaceController.PendingLanHost=null;nativeHost.LanSession=lanHost;lanHost.AdoptRace(nativeHost.Race);GD.Print("LAN_HOST_ADOPTED cars=",nativeHost.Race.cars.Count);}
   } catch(System.Exception e) {
    GD.PrintErr("RACE_LOAD_FAILED ",e);if(System.Environment.GetEnvironmentVariable("MYSIM_AI")!=null||System.Environment.GetEnvironmentVariable("MYSIM_FIXTURE_LENS_EXIT")!=null){CleanExit.Request(this,1);return;}EndRace();ClearUi();ui=new CanvasLayer();AddChild(ui);
    var errorLabel=new Label { Text="Could not load this race. See game log for details.",Position=new Vector2(48,300) };ui.AddChild(errorLabel);
