@@ -115,6 +115,7 @@ public partial class NativeRaceController : DriveController {
   int mask=0;for(int i=0;i<4;i++)if(body.Grounded[i])mask|=1<<i;
   bool nonSurfaceContact=false;foreach(var surface in body.ContactSurfaces)if(surface!=null&&surface.IndexOf("DriveSurface",StringComparison.OrdinalIgnoreCase)<0){nonSurfaceContact=true;break;}
   bool wheelBandContact=false;foreach(var part in body.ContactParts)if(part!=null&&part.IndexOf("WHEELGUARD",StringComparison.OrdinalIgnoreCase)>=0||part!=null&&part.IndexOf("CALIPER",StringComparison.OrdinalIgnoreCase)>=0){wheelBandContact=true;break;}
+  bool bodyPanelContact=false;foreach(var part in body.ContactParts)if(part!=null&&part.IndexOf("DriveSurface",StringComparison.OrdinalIgnoreCase)<0&&part.IndexOf("WHEELGUARD",StringComparison.OrdinalIgnoreCase)<0&&part.IndexOf("CALIPER",StringComparison.OrdinalIgnoreCase)<0){bodyPanelContact=true;break;}
   var command=validation.Current;
   return new MySimulator.Rebuild.DrivingValidation.Sample{
    speed=body.LinearVelocity.Length(),longitudinalSpeed=longitudinal,lateralSpeed=body.LinearVelocity.Dot(right),
@@ -138,14 +139,14 @@ public partial class NativeRaceController : DriveController {
    var metrics=new System.Collections.Generic.Dictionary<string,object>();
    foreach(var phase in run.Profile.Phases)
     foreach(var name in MySimulator.Rebuild.DrivingValidation.KnownMetrics){
-     if(name=="meanYawRateAbsMin"||System.Array.IndexOf(MySimulator.Rebuild.DrivingValidation.RecoveryMetricNames,name)>=0)continue;
+     if(name=="meanYawRateAbsMin"||System.Array.IndexOf(MySimulator.Rebuild.DrivingValidation.RecoveryMetricNames,name)>=0||System.Array.IndexOf(MySimulator.Rebuild.DrivingValidation.ContactArchetypeMetricNames,name)>=0)continue;
      var value=MySimulator.Rebuild.DrivingValidation.ComputeMetric(name,phase.Id,run.Timeline,run.Profile,validation.References);
      if(value.HasValue)metrics[phase.Id+"."+name]=value.Value;
     }
    var assertions=new System.Collections.Generic.List<object>();
    foreach(var r in run.Results)assertions.Add(new{id=r.Id,metric=r.Metric,op=r.Op,passed=r.Passed,actual=r.Actual,expected=r.Expected});
    var samples=new System.Collections.Generic.List<object>();
-   foreach(var s in run.Timeline)samples.Add(new{s.t,s.speed,s.longitudinalSpeed,s.lateralSpeed,s.heading,s.yawRate,s.upY,s.wheelAngle,s.wheelAngleTarget,s.steerCommand,s.throttle,s.brake,s.x,s.z,s.trackLateral,s.progress,s.water,onDrivingSurface=s.onDrivingSurface?1:0,nonSurfaceContact=s.nonSurfaceContact?1:0,wheelBandContact=s.wheelBandContact?1:0,s.groundedMask,s.chassisContacts,s.impactEvents,s.maxDeltaV,s.loads,s.springLengths,s.longitudinalSlip,s.lateralSlipAngle});
+   foreach(var s in run.Timeline)samples.Add(new{s.t,s.speed,s.longitudinalSpeed,s.lateralSpeed,s.heading,s.yawRate,s.upY,s.wheelAngle,s.wheelAngleTarget,s.steerCommand,s.throttle,s.brake,s.x,s.z,s.trackLateral,s.progress,s.water,onDrivingSurface=s.onDrivingSurface?1:0,nonSurfaceContact=s.nonSurfaceContact?1:0,wheelBandContact=s.wheelBandContact?1:0,bodyPanelContact=s.bodyPanelContact?1:0,s.groundedMask,s.chassisContacts,s.impactEvents,s.maxDeltaV,s.loads,s.springLengths,s.longitudinalSlip,s.lateralSlipAngle});
    var runEntry=new System.Collections.Generic.Dictionary<string,object>{{"profile",run.Profile.Id},{"title",run.Profile.Title},{"ok",run.Passed&&run.AbortReason==null},{"completed",run.Completed},{"abortReason",run.AbortReason},{"firstFailure",run.FirstFailure},{"metrics",metrics},{"assertions",assertions},{"sampleCount",run.Timeline.Count},{"samplesTruncated",run.Timeline.Count>=run.Profile.MaxSamples},{"samples",samples}};
    if(run.Profile.Recovery!=null){
     var windows=MySimulator.Rebuild.DrivingValidation.RecoveryWindows(run.Timeline,run.Profile.Recovery);
@@ -156,6 +157,13 @@ public partial class NativeRaceController : DriveController {
     var windowList=new System.Collections.Generic.List<object>();
     foreach(var w in windows)windowList.Add(new{w.startT,w.endT,w.startSpeed,w.Recovered,w.motionTime,w.pathLength,w.maxReverseSpeed,w.offTrackFraction,w.throttleFraction,w.brakeFraction,w.steerPeakAbs});
     runEntry["recoveryMetrics"]=recoveryMetrics;runEntry["recoveryWindows"]=windowList;
+   }
+   if(run.Profile.RecordContactArchetypes){
+    var archetypeMetrics=new System.Collections.Generic.Dictionary<string,object>();
+    foreach(var name in MySimulator.Rebuild.DrivingValidation.ContactArchetypeMetricNames){
+     var value=MySimulator.Rebuild.DrivingValidation.ComputeMetric(name,"all",run.Timeline,run.Profile,validation.References);
+     if(value.HasValue)archetypeMetrics[name]=value.Value;}
+    runEntry["contactArchetypes"]=archetypeMetrics;
    }
    runList.Add(runEntry);
   }

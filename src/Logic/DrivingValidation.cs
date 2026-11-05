@@ -21,7 +21,9 @@ public static class DrivingValidation {
         "wheelBandContactSamples","maxSpeed","throttleHoldSeconds","raceStartedFraction",
         "recoveryWindowCount","recoveryRecoveredFraction","recoveryMotionTimeMax","recoveryMotionTimeMean",
         "recoveryPathLengthMax","recoveryOffTrackFractionMax","recoveryThrottleFractionMean",
-        "recoveryBrakeFractionMean","recoverySteerPeakAbsMax"
+        "recoveryBrakeFractionMean","recoverySteerPeakAbsMax",
+        "bodyPanelContactSamples","mixedContactSamples","wheelBandContactSeconds","bodyPanelContactSeconds",
+        "wheelBandTickPeakDeltaV","bodyPanelTickPeakDeltaV"
     };
     // The recovery family, listed separately so the host emits it once per run (not per phase):
     // the windows span phases, so phase-keyed values would be misleading duplicates.
@@ -29,6 +31,13 @@ public static class DrivingValidation {
         "recoveryWindowCount","recoveryRecoveredFraction","recoveryMotionTimeMax","recoveryMotionTimeMean",
         "recoveryPathLengthMax","recoveryOffTrackFractionMax","recoveryThrottleFractionMean",
         "recoveryBrakeFractionMean","recoverySteerPeakAbsMax"
+    };
+    // The contact-archetype family (guard band vs body panel vs mixed): emitted once per run
+    // when the profile sets setup.recordContactArchetypes; phase-scoped values stay available
+    // to assertions through ComputeMetric.
+    public static readonly string[] ContactArchetypeMetricNames = {
+        "bodyPanelContactSamples","mixedContactSamples","wheelBandContactSeconds","bodyPanelContactSeconds",
+        "wheelBandTickPeakDeltaV","bodyPanelTickPeakDeltaV"
     };
     public static readonly string[] KnownOps = { "between", "betweenReference", "lt", "lte", "gt", "gte" };
 
@@ -44,6 +53,11 @@ public static class DrivingValidation {
         // True when a contact part this tick belongs to the hub-mounted wheel-assembly band
         // (wheelguard/caliper): the arch-position proof for the restored collision members.
         public bool wheelBandContact;
+        // True when a contact part this tick is a non-drive body panel (neither the drive
+        // surface nor the wheel-assembly band): the second archetype of the guard-vs-panel
+        // force characterization. A tick touching BOTH bands is mixed (both flags set) and
+        // contributes to both archetypes' signatures; mixedContactSamples measures it.
+        public bool bodyPanelContact;
         // Race-start sequence state (the grid/start validation).
         public bool raceStarted;public double raceClock,countdown;
         public int groundedMask, chassisContacts, impactEvents;
@@ -60,6 +74,7 @@ public static class DrivingValidation {
     public sealed class Profile {
         public string Id, Title, Purpose;
         public bool RequireRotationalTyres, RequireDamage, RequireGridStart;
+        public bool RecordContactArchetypes;
         public RecoverySpec Recovery;
         public double MaxDurationSeconds = 60, AbortLateralAbs = 25, AbortPositionJump = 2.5;
         public int SampleEveryTicks = 1, MaxSamples = 12000;
@@ -169,6 +184,7 @@ public static class DrivingValidation {
         }
         if (e.TryGetProperty("setup", out var setup)) {
             p.RequireGridStart = setup.TryGetProperty("requiresGridStart", out var gs) && gs.ValueKind == System.Text.Json.JsonValueKind.True;
+            p.RecordContactArchetypes = setup.TryGetProperty("recordContactArchetypes", out var rca) && rca.ValueKind == System.Text.Json.JsonValueKind.True;
             if (setup.TryGetProperty("recordRecovery", out var rr)) {
                 p.Recovery = new RecoverySpec { Enabled = true };
                 if (rr.ValueKind == System.Text.Json.JsonValueKind.Object) {
@@ -482,6 +498,49 @@ public static class DrivingValidation {
             case "recoverySteerPeakAbsMax": {
                 var w = RecoveryWindowsOf(profile, all); if (w == null || w.Count == 0) return null;
                 double m = 0; foreach (var x in w) m = Math.Max(m, x.steerPeakAbs); return m;
+            }
+            // Contact-archetype family (guard band vs body panel): null unless the profile sets
+            // setup.recordContactArchetypes (fail-closed, never a silent zero). A tick touching
+            // BOTH the wheel band and a body panel is mixed and feeds both signatures; the
+            // mixedContactSamples count makes that ambiguity measurable instead of hidden.
+            case "bodyPanelContactSamples": {
+                if (profile == null || !profile.RecordContactArchetypes) return null;
+                int n = 0; foreach (var v in s) if (v.bodyPanelContact) n++; return (double)n;
+            }
+            case "mixedContactSamples": {
+                if (profile == null || !profile.RecordContactArchetypes) return null;
+                int n = 0; foreach (var v in s) if (v.wheelBandContact && v.bodyPanelContact) n++; return (double)n;
+            }
+            case "wheelBandContactSeconds":
+            case "bodyPanelContactSeconds": {
+                if (profile == null || !profile.RecordContactArchetypes) return null;
+                if (s.Count == 0) return null;
+                bool wantBand = name == "wheelBandContactSeconds";
+                double sum = 0;
+                for (int i = 0; i < s.Count; i++) {
+                    bool hit = wantBand ? s[i].wheelBandContact : s[i].bodyPanelContact;
+                    if (!hit) continue;
+                    if (i == 0) { if (s.Count > 1 && s[1].t > s[0].t) sum += s[1].t - s[0].t; }
+                    else sum += s[i].t - s[i - 1].t;
+                }
+                return sum;
+            }
+            case "wheelBandTickPeakDeltaV":
+            case "bodyPanelTickPeakDeltaV": {
+                if (profile == null || !profile.RecordContactArchetypes) return null;
+                double? best = null;
+                for (int i = 1; i < s.Count; i++) {
+                    bool hit = name == "wheelBandTickPeakDeltaV"
+                        ? (s[i].wheelBandContact || s[i - 1].wheelBandContact)
+                        : (s[i].bodyPanelContact || s[i - 1].bodyPanelContact);
+                    if (!hit) continue;
+                    var dt = s[i].t - s[i - 1].t; if (dt <= 0) continue;
+                    var dl = s[i].longitudinalSpeed - s[i - 1].longitudinalSpeed;
+                    var da = s[i].lateralSpeed - s[i - 1].lateralSpeed;
+                    var dv = Math.Sqrt(dl * dl + da * da);
+                    if (double.IsFinite(dv)) best = Math.Max(best ?? 0, dv);
+                }
+                return best;
             }
             default: throw new Exception("Driving validation metric " + name + " is not implemented (fail closed)");
         }
