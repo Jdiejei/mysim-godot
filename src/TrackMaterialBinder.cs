@@ -42,16 +42,31 @@ public static class TrackMaterialBinder {
   ForestTonePass(track);
   WallBuilder.AttachCollisionOverlay(track);
  }
- // One controlled road-variation candidate: env-gated (MYSIM_ROAD_VARIATION=1), reversible, addressed only to
- // ground ShaderMaterials whose texture is gnd_asphalt_* (the shader's own asphalt class; track0 binds exactly
- // gnd_asphalt_01 and gnd_asphalt_noskids_01 here). Turns up the shader's existing procedural detail/macro layers
- // (nearly invisible at authored amps 0.10/0.07) so the road stops reading as flat/uniform. No texture swap (the
- // available albedo variants would seam at road joints), tiling period unchanged (world-anchored sampling has no
- // offset uniform; true anti-tiling needs an owner/cloud shader or texture change). Appearance only. Default
- // rendering unchanged when the variable is unset.
+ // Road MATERIAL definition candidates: env-gated profile selector (MYSIM_ROAD_MATERIAL=<name>), reversible,
+ // addressed only to the ground ShaderMaterials whose texture is gnd_asphalt_* (the shader's own asphalt class).
+ // WHAT THE ROAD MATERIAL IS (source): the visible road = the track layers' gnd_/road meshes bound to a
+ // ShaderMaterial (UnityMaterialBinder's GroundShader for mapped tracks; this file's twin for the rest):
+ // ALBEDO = the asphalt texture world-projected * tint + procedural fbm variation; ROUGHNESS constant 1.0 dry;
+ // SPECULAR constant 0.04; no normal-map sampling (flat vertex normals). The separate DriveSurface = the
+ // INVISIBLE collision mesh (layer 1). The profiles tune the shader's EXISTING uniforms only (spatial definition);
+ // roughness/specular stay shader-code constants (an owner-side two-line expose is the follow-up), no texture
+ // swap, no tiling change. Defaults untouched when unset; MYSIM_ROAD_VARIATION=1 maps to "definition".
+ static (float detailScale,float detailAmp,float macroScale,float macroAmp,Vector3 macroTint)? RoadProfile(string name){
+  switch(name){
+   case "base":return (90f,0.10f,0.18f,0.07f,new Vector3(0.96f,0.96f,0.98f));
+   case "definition":return (110f,0.16f,0.26f,0.11f,new Vector3(0.95f,0.97f,1.00f));
+   case "worn":return (55f,0.10f,0.40f,0.14f,new Vector3(0.97f,0.98f,1.00f));
+   default:return null;
+  }
+ }
  static void RoadVariationPass(Node3D track){
-  if(System.Environment.GetEnvironmentVariable("MYSIM_ROAD_VARIATION")!="1")return;
-  if(System.Environment.GetEnvironmentVariable("MYSIM_AUTHORED_GROUND")=="1"){GD.Print("ROAD_VARIATION skipped: MYSIM_AUTHORED_GROUND owns ground variation");return;}
+  string profileName=System.Environment.GetEnvironmentVariable("MYSIM_ROAD_MATERIAL");
+  if(string.IsNullOrEmpty(profileName)&&System.Environment.GetEnvironmentVariable("MYSIM_ROAD_VARIATION")=="1")profileName="definition";
+  if(string.IsNullOrEmpty(profileName))return;
+  var profile=RoadProfile(profileName);
+  if(profile==null){GD.Print("ROAD_MATERIAL unknown profile: ",profileName," (base|definition|worn)");return;}
+  var pf=profile.Value;
+  if(System.Environment.GetEnvironmentVariable("MYSIM_AUTHORED_GROUND")=="1"){GD.Print("ROAD_MATERIAL skipped: MYSIM_AUTHORED_GROUND owns ground variation");return;}
   var seen=new HashSet<Material>();var records=new List<object>();
   foreach(var node in track.FindChildren("*","MeshInstance3D",true,false)){
    var mesh=(MeshInstance3D)node;if(mesh.Mesh==null)continue;
@@ -61,15 +76,16 @@ public static class TrackMaterialBinder {
     var tex=sm.GetShaderParameter("tex").AsGodotObject() as Texture2D;if(tex==null)continue;
     string name=System.IO.Path.GetFileName(tex.ResourcePath).ToLowerInvariant();
     if(!name.StartsWith("gnd_asphalt",System.StringComparison.Ordinal))continue;
-    sm.SetShaderParameter("detail_amp",0.16f);
-    sm.SetShaderParameter("macro_amp",0.11f);
-    sm.SetShaderParameter("macro_scale",0.26f);
-    sm.SetShaderParameter("macro_tint",new Vector3(0.95f,0.97f,1.00f));
-    records.Add(new{renderer=mesh.GetPath().ToString(),surface=s,texture=tex.ResourcePath,detailAmpTo=0.16f,macroAmpTo=0.11f,macroScaleTo=0.26f,macroTintTo="0.95,0.97,1.00"});
+    sm.SetShaderParameter("detail_scale",pf.detailScale);
+    sm.SetShaderParameter("detail_amp",pf.detailAmp);
+    sm.SetShaderParameter("macro_scale",pf.macroScale);
+    sm.SetShaderParameter("macro_amp",pf.macroAmp);
+    sm.SetShaderParameter("macro_tint",pf.macroTint);
+    records.Add(new{renderer=mesh.GetPath().ToString(),surface=s,texture=tex.ResourcePath,profile=profileName,detailScale=pf.detailScale,detailAmp=pf.detailAmp,macroScale=pf.macroScale,macroAmp=pf.macroAmp,macroTint=pf.macroTint.ToString()});
    }
   }
-  GD.Print("ROAD_VARIATION materials=",records.Count," scope=gnd_asphalt* ground ShaderMaterials only; appearances only; road/fairness untouched");
-  if(System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string dir&&records.Count>0){System.IO.Directory.CreateDirectory(dir);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"road-variation-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new{layer=track.Name.ToString(),materials=records,scope="One variation candidate bundle on gnd_asphalt ground materials; env-gated; no texture swap, no tiling change, no physics meaning; not a promoted fix"},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
+  GD.Print("ROAD_MATERIAL profile=",profileName," materials=",records.Count," scope=gnd_asphalt* ground ShaderMaterials only; appearance only");
+  if(System.Environment.GetEnvironmentVariable("MYSIM_BINDING_AUDIT") is string dir&&records.Count>0){System.IO.Directory.CreateDirectory(dir);string safeName=System.Text.RegularExpressions.Regex.Replace(track.Name.ToString(),"[^A-Za-z0-9_-]","_");System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"road-material-"+safeName+".json"),System.Text.Json.JsonSerializer.Serialize(new{layer=track.Name.ToString(),profile=profileName,materials=records,scope="Road material profile candidate on gnd_asphalt ground materials; env-gated; uniforms only; no texture swap/tiling/roughness/spec change; not a promoted fix"},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));}
  }
  // One controlled tree-line breakup candidate: env-gated (MYSIM_TREE_BREAKUP=1), reversible, addressed only to the
  // continuous backdrop wall the reviewer flagged: org_brandshatch_treeline_00..24, 25 separate backdrop strip nodes
