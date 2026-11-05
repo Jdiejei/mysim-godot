@@ -9,7 +9,7 @@ namespace MySimulator.Rebuild {
 public interface ICarView {
     void EnsureCreated(int carModel, string driver);
     void ApplyPose(float x, float z, float heading, bool hasBodyPose, float bodyHeight, float bodyQx, float bodyQy, float bodyQz, float bodyQw);
-    void ApplyState(float damage, float fuel, int completedLaps, bool finished, float finishTime, bool pitActive, bool servicing, float serviceRemaining);
+    void ApplyState(float damage, float fuel, float speed, int completedLaps, bool finished, float finishTime, bool pitActive, bool servicing, float serviceRemaining);
 }
 public interface IRaceView {
     ICarView CreateCarView(int id);
@@ -33,7 +33,7 @@ public sealed class SnapshotApplier {
             if (!views.TryGetValue(car.id, out var carView)) { carView = view.CreateCarView(car.id); views[car.id] = carView; }
             carView.EnsureCreated(car.carModel, car.driver);
             carView.ApplyPose(car.position.x, car.position.z, car.heading, car.hasBodyPose, car.bodyHeight, car.bodyQx, car.bodyQy, car.bodyQz, car.bodyQw);
-            carView.ApplyState(car.damage, car.fuel, car.completedLaps, car.finished, car.finishTime, car.pitActive, car.servicing, car.serviceRemaining);
+            carView.ApplyState(car.damage, car.fuel, car.speed, car.completedLaps, car.finished, car.finishTime, car.pitActive, car.servicing, car.serviceRemaining);
         }
         AppliedSnapshots++;
     }

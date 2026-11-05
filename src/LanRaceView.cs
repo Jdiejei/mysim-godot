@@ -13,7 +13,7 @@ namespace MySim {
 public partial class LanCarView : Node3D, ICarView {
     Node3D visual;
     public string Driver;
-    public float Damage, Fuel, ServiceRemaining;
+    public float Damage, Fuel, Speed, ServiceRemaining;
     public int CompletedLaps;
     public bool Finished, PitActive, Servicing;
     public void EnsureCreated(int carModel, string driver) {
@@ -34,8 +34,8 @@ public partial class LanCarView : Node3D, ICarView {
             else Rotation = new Vector3(0, heading, 0);
         } else Rotation = new Vector3(0, heading, 0);
     }
-    public void ApplyState(float damage, float fuel, int completedLaps, bool finished, float finishTime, bool pitActive, bool servicing, float serviceRemaining) {
-        Damage = damage; Fuel = fuel; CompletedLaps = completedLaps; Finished = finished;
+    public void ApplyState(float damage, float fuel, float speed, int completedLaps, bool finished, float finishTime, bool pitActive, bool servicing, float serviceRemaining) {
+        Damage = damage; Fuel = fuel; Speed = speed; CompletedLaps = completedLaps; Finished = finished;
         PitActive = pitActive; Servicing = servicing; ServiceRemaining = serviceRemaining;
     }
 }
@@ -60,6 +60,12 @@ public partial class LanClientRunner : Node {
     public Camera3D Cam;
     public Action OnExit;
     public bool EscWas;
+    // Two-instance test automation (the owner-run script): QuitAfter>0 ends the client with
+    // a PASS/FAIL summary line; SyncObserved records that the REMOTE (host) car was seen
+    // moving above the motion threshold - the sync proof for the unattended run.
+    public double QuitAfter;
+    public bool SyncObserved;
+    double quitTimer, syncTimer;
     SnapshotApplier applier;
     LanRaceView raceView;
     Label status;
@@ -87,11 +93,31 @@ public partial class LanClientRunner : Node {
                 Cam.GlobalPosition = mine.GlobalPosition + new Vector3(0, 5f, 0) + behind * 9f;
                 Cam.LookAt(mine.GlobalPosition + Vector3.Up);
             }
+            // The sync proof: car 0 is the HOST's car on the client; motion above the
+            // threshold at the client means states are flowing and applied.
+            if (!SyncObserved && applier.ViewFor(0) is LanCarView hostCar && hostCar.Speed > 3f) {
+                SyncObserved = true;
+                GD.Print("PASS LAN_CLIENT sync observed: host car speed=", hostCar.Speed.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture), " at t=", raceView.Clock.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture));
+            }
+        }
+        syncTimer += delta;
+        if (syncTimer >= 2) {
+            syncTimer = 0;
+            var hostCar = applier.ViewFor(0) as LanCarView;
+            GD.Print("LAN_SYNC t=", raceView.Clock.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture), " phase=", (raceView.Started ? "RACE" : "GRID"), " hostPos=", hostCar == null ? "n/a" : hostCar.Position.ToString("0.0"), " hostSpeed=", hostCar == null ? "n/a" : hostCar.Speed.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture), " syncObserved=", SyncObserved);
         }
         status.Text = (raceView.Started ? "RACE" : "GRID") + "  laps " + raceView.TargetLaps + "  t " + raceView.Clock.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + (raceView.Started ? "" : "  countdown " + raceView.Countdown.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture));
         bool escNow = Input.IsKeyPressed(Key.Escape);
-        if (escNow && !EscWas) { Session.Dispose(); Session = null; OnExit?.Invoke(); }
+        if (escNow && !EscWas) { Session.Dispose(); Session = null; OnExit?.Invoke(); return; }
         EscWas = escNow;
+        if (QuitAfter > 0) {
+            quitTimer += delta;
+            if (quitTimer >= QuitAfter) {
+                GD.Print(SyncObserved ? "PASS LAN_CLIENT exit: sync observed" : "FAIL LAN_CLIENT exit: remote motion never observed");
+                Session.Dispose(); Session = null;
+                CleanExit.Request(this, SyncObserved ? 0 : 1);
+            }
+        }
     }
     public override void _ExitTree() { Session?.Dispose(); Session = null; }
 }

@@ -238,3 +238,24 @@ Measured (run <id>, <backend>, <date>):
 - separation observation (descriptive only): <e.g. "guard durations 3-9x shorter than panel on every paired cluster">
 Promoted bounds: <none yet | bound + source runs + signer>
 ```
+
+## 13. Two-instance LAN test (owner-run) — reading rules
+
+**Artifact:** both console transcripts of the scripted two-instance run (`agents/lan-two-instance-test.md` §1 commands; exit codes recorded). This is the LAN plan's phase-1/2 exit evidence — the FIRST live LAN verification; everything LAN stays CODE-PRESENT-UNVERIFIED until it passes.
+
+**Required lines (mechanical):**
+
+| Instance | Must contain | Must NOT contain |
+|---|---|---|
+| Host (A) | `RACE_READY`, `LAN_REMOTE_CAR model=<n> driver=<name>`, `LAN_HOST_ADOPTED cars=2`, `LAN_HOST_EXIT connected=True inputs=<n>`, n ≥ 1, exit 0 | `LAN session error`, `Connection lost`, `RACE_LOAD_FAILED` |
+| Client (B) | `LAN_RACE_READY track=<n> role=Client`, ≥1 `LAN_SYNC ... hostSpeed=` > 3, `PASS LAN_CLIENT sync observed:`, `PASS LAN_CLIENT exit: sync observed`, exit 0 | `LAN session error`, `Connection lost`, `Room connection error`, any `FAIL LAN_CLIENT` |
+
+**Verdict grammar:** `PASS` = every row above holds on the recorded consoles; `FAIL(<class>, <line/absence>, <expected>)` per the test doc's fingerprint table; `UNVERIFIED(<reason>)` for environment failures (firewall prompt, port blocked, wrong address — the run never tested the product).
+
+**Reading notes:**
+- `inputs=<n>` on the host counts the client's received INPUT sequence — the reverse-direction proof (client→host control channel); `inputs=0` with a connected session = the INPUT path broken, class S.
+- The `sync observed` marker fires when the HOST's car exceeds 3 m/s AS SEEN ON THE CLIENT — states flowing AND applied to the persistent scene objects; without it the visual similarity of two static grids would be worthless as evidence.
+- The `LAN_SYNC` cadence lines (2 s) are the timing evidence: `phase=GRID→RACE` transition must follow the host's START within ~a second of lines; a long gap = the START gating stuck (protocol, class S).
+- The disconnect leg (kill the client mid-race) is a SEPARATE run with its own expectation: the host keeps racing, the remote car continues under AI control; the host console must NOT show a crash — the graceful-degradation proof.
+- Single-player regression guard: the same build with no LAN envs must-show ZERO `LAN_*` lines in a normal run — the hard-off proof.
+- Environment failures (firewall prompts, port conflicts) are `UNVERIFIED(config)`, never product failures; re-run after the environment fix.

@@ -409,7 +409,7 @@ namespace MySimulator.Verification
             public int PoseApplications,StateApplications;
             public void EnsureCreated(int carModel,string driver){}
             public void ApplyPose(float x,float z,float heading,bool hasBodyPose,float bodyHeight,float bodyQx,float bodyQy,float bodyQz,float bodyQw){PoseApplications++;}
-            public void ApplyState(float damage,float fuel,int completedLaps,bool finished,float finishTime,bool pitActive,bool servicing,float serviceRemaining){StateApplications++;}
+            public void ApplyState(float damage,float fuel,float speed,int completedLaps,bool finished,float finishTime,bool pitActive,bool servicing,float serviceRemaining){StateApplications++;}
         }
         sealed class TestRaceView:IRaceView{
             readonly Func<int,ICarView> factory;readonly Action onRaceState;
