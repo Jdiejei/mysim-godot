@@ -380,6 +380,7 @@ namespace MySimulator.Verification
                 applier.Apply(Wire.ReadSnapshot(Wire.Snapshot(hostRace,3).Split('|'),out _));
                 Check(views.Count==3&&views[0].PoseApplications==3,"A new car id appends exactly one view; existing views keep updating");
                 Check(applier.AppliedSnapshots==3&&applier.CarViews==3,"SnapshotApplier counters drifted");
+                Check(applier.ViewFor(1)!=null&&applier.ViewFor(99)==null,"ViewFor must return the persistent view for a known id and null for an unknown one");
             }
             log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths, recovery windows and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
