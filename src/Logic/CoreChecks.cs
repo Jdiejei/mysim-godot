@@ -281,7 +281,38 @@ namespace MySimulator.Verification
                 p1.Reset();var d2=p1.Update(0,0,0,false,0,1f/120,true);
                 Check(!d2.reverse&&p1.Reversing==false,"PedalController.Reset left the reverse latch armed");
             }
-            log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths and fail-closed parsing");
+            // R-window recovery forensics: windows open on impact-counter rises and close when
+            // motion (speed magnitude) holds at MotionSpeed for HoldSeconds; a profile without
+            // the recordRecovery flag reports null metrics (fail-closed, never a passing zero).
+            {
+                var recSpec=new DrivingValidation.RecoverySpec{Enabled=true,MotionSpeed=1,HoldSeconds=0.5,MaxSeconds=10};
+                var recProfile=new DrivingValidation.Profile{Id="rec",Recovery=recSpec};
+                var rs=new List<DrivingValidation.Sample>();const float rdt=1f/240f;
+                // t=0: 5 m/s; impact rise at t=rdt (speed 2); stalled at 0.2 until t=0.5; then a
+                // reverse-out (speed 2.5, longitudinal -2.5) which holds past the 0.5 s hold.
+                for(int i=0;i<1200;i++){double t=i*rdt;double sp=t<rdt?5:t<2*rdt?2:(t<0.5?0.2:2.5);
+                    rs.Add(new DrivingValidation.Sample{t=t,speed=sp,longitudinalSpeed=t<0.5?sp:-sp,x=t<0.5?0:(t-0.5)*2.5,z=0,heading=0,upY=1,groundedMask=15,impactEvents=i==0?0:1,onDrivingSurface=i>=2,throttle=t>=0.5?1:0,phaseId="recover_fwd",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});}
+                var windows=DrivingValidation.RecoveryWindows(rs,recSpec);
+                Check(windows.Count==1,"Recovery windows did not open exactly on the impact rise (got "+windows.Count+")");
+                Check(windows[0].Recovered&&windows[0].motionTime.HasValue&&Math.Abs(windows[0].motionTime.Value-(1.0-rdt))<2*rdt,"Recovery motion time is wrong (got "+(windows[0].motionTime?.ToString(CultureInfo.InvariantCulture)??"null")+")");
+                Check(windows[0].maxReverseSpeed>1.5,"Recovery window missed the reverse-out phase");
+                Check(windows[0].pathLength>1.0,"Recovery path length not measured");
+                Check(windows[0].throttleFraction>0.4&&windows[0].throttleFraction<0.6&&windows[0].offTrackFraction<0.5,"Recovery input/surface fractions not recorded honestly");
+                var maxMotion=DrivingValidation.ComputeMetric("recoveryMotionTimeMax","all",rs,recProfile,null);
+                Check(maxMotion.HasValue&&Math.Abs(maxMotion.Value-(1.0-rdt))<2*rdt,"recoveryMotionTimeMax metric maths wrong against the same synthetic window");
+                var stuckSpec=new DrivingValidation.RecoverySpec{Enabled=true,MotionSpeed=1,HoldSeconds=0.5,MaxSeconds=2};
+                var stuck=new List<DrivingValidation.Sample>();
+                for(int i=0;i<720;i++){double t=i*rdt;stuck.Add(new DrivingValidation.Sample{t=t,speed=0.2,impactEvents=i==0?0:1,onDrivingSurface=true,throttle=1,phaseId="recover_fwd",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});}
+                var stuckWindows=DrivingValidation.RecoveryWindows(stuck,stuckSpec);
+                Check(stuckWindows.Count==1&&!stuckWindows[0].Recovered&&stuckWindows[0].motionTime==null,"A stalled recovery must record an unresolved window (Recovered=false, motionTime null)");
+                Check(Math.Abs(stuckWindows[0].endT-stuckWindows[0].startT-2)<2*rdt,"Unresolved recovery window not capped at maxSeconds");
+                var offProfile=new DrivingValidation.Profile{Id="off"};
+                Check(!DrivingValidation.ComputeMetric("recoveryWindowCount","all",rs,offProfile,null).HasValue,"Recovery metrics must be null without the recordRecovery flag (a silent zero could pass an assertion)");
+                var clean=new List<DrivingValidation.Sample>();for(int i=0;i<240;i++)clean.Add(new DrivingValidation.Sample{t=i*rdt,speed=3,onDrivingSurface=true,phaseId="recover_fwd",loads=new double[4],springLengths=new double[4],longitudinalSlip=new double[4],lateralSlipAngle=new double[4]});
+                var noImpact=DrivingValidation.ComputeMetric("recoveryWindowCount","all",clean,recProfile,null);
+                Check(noImpact.HasValue&&noImpact.Value==0,"A flag-enabled profile with no impacts must report an observed zero window count");
+            }
+            log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths, recovery windows and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
         }
 #if CLI_TEST

@@ -138,15 +138,26 @@ public partial class NativeRaceController : DriveController {
    var metrics=new System.Collections.Generic.Dictionary<string,object>();
    foreach(var phase in run.Profile.Phases)
     foreach(var name in MySimulator.Rebuild.DrivingValidation.KnownMetrics){
-     if(name=="meanYawRateAbsMin")continue;
+     if(name=="meanYawRateAbsMin"||System.Array.IndexOf(MySimulator.Rebuild.DrivingValidation.RecoveryMetricNames,name)>=0)continue;
      var value=MySimulator.Rebuild.DrivingValidation.ComputeMetric(name,phase.Id,run.Timeline,run.Profile,validation.References);
      if(value.HasValue)metrics[phase.Id+"."+name]=value.Value;
     }
    var assertions=new System.Collections.Generic.List<object>();
    foreach(var r in run.Results)assertions.Add(new{id=r.Id,metric=r.Metric,op=r.Op,passed=r.Passed,actual=r.Actual,expected=r.Expected});
    var samples=new System.Collections.Generic.List<object>();
-   foreach(var s in run.Timeline)samples.Add(new{s.t,s.speed,s.longitudinalSpeed,s.lateralSpeed,s.heading,s.yawRate,s.upY,s.wheelAngle,s.wheelAngleTarget,s.steerCommand,s.throttle,s.brake,s.x,s.z,s.trackLateral,s.progress,s.water,onDrivingSurface=s.onDrivingSurface?1:0,s.groundedMask,s.chassisContacts,s.impactEvents,s.maxDeltaV,s.loads,s.springLengths,s.longitudinalSlip,s.lateralSlipAngle});
-   runList.Add(new{profile=run.Profile.Id,title=run.Profile.Title,ok=run.Passed&&run.AbortReason==null,completed=run.Completed,abortReason=run.AbortReason,firstFailure=run.FirstFailure,metrics,assertions,sampleCount=run.Timeline.Count,samplesTruncated=run.Timeline.Count>=run.Profile.MaxSamples,samples});
+   foreach(var s in run.Timeline)samples.Add(new{s.t,s.speed,s.longitudinalSpeed,s.lateralSpeed,s.heading,s.yawRate,s.upY,s.wheelAngle,s.wheelAngleTarget,s.steerCommand,s.throttle,s.brake,s.x,s.z,s.trackLateral,s.progress,s.water,onDrivingSurface=s.onDrivingSurface?1:0,nonSurfaceContact=s.nonSurfaceContact?1:0,wheelBandContact=s.wheelBandContact?1:0,s.groundedMask,s.chassisContacts,s.impactEvents,s.maxDeltaV,s.loads,s.springLengths,s.longitudinalSlip,s.lateralSlipAngle});
+   var runEntry=new System.Collections.Generic.Dictionary<string,object>{{"profile",run.Profile.Id},{"title",run.Profile.Title},{"ok",run.Passed&&run.AbortReason==null},{"completed",run.Completed},{"abortReason",run.AbortReason},{"firstFailure",run.FirstFailure},{"metrics",metrics},{"assertions",assertions},{"sampleCount",run.Timeline.Count},{"samplesTruncated",run.Timeline.Count>=run.Profile.MaxSamples},{"samples",samples}};
+   if(run.Profile.Recovery!=null){
+    var windows=MySimulator.Rebuild.DrivingValidation.RecoveryWindows(run.Timeline,run.Profile.Recovery);
+    var recoveryMetrics=new System.Collections.Generic.Dictionary<string,object>();
+    foreach(var name in MySimulator.Rebuild.DrivingValidation.RecoveryMetricNames){
+     var value=MySimulator.Rebuild.DrivingValidation.ComputeMetric(name,"all",run.Timeline,run.Profile,validation.References);
+     if(value.HasValue)recoveryMetrics[name]=value.Value;}
+    var windowList=new System.Collections.Generic.List<object>();
+    foreach(var w in windows)windowList.Add(new{w.startT,w.endT,w.startSpeed,w.Recovered,w.motionTime,w.pathLength,w.maxReverseSpeed,w.offTrackFraction,w.throttleFraction,w.brakeFraction,w.steerPeakAbs});
+    runEntry["recoveryMetrics"]=recoveryMetrics;runEntry["recoveryWindows"]=windowList;
+   }
+   runList.Add(runEntry);
   }
   var report=new System.Collections.Generic.Dictionary<string,object>{
    ["ok"]=validation.Completed&&validation.AllPassed,

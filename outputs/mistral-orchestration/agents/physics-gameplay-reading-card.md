@@ -132,3 +132,44 @@ Verdicts recorded per run as: `PASS / FAIL(<class>, <assert id>, <actual vs expe
 - `duration:grid` < 4.5 s with `raceStartedFraction:release` still ≥ 0.95 = the boot skip fired partially (countdown shortened but hold respected) — escalates to coordinator (start sequencing constants).
 - Compound/wetness: this case is dry; a wet variant is a NEW case, not a re-dispatch of this one.
 - The `chassisContactSamples` metric is RECORDED but NOT asserted here by design: the ~1 cm stance floor legitimately grazes under full brake-stop compression; a chassis-contact assert would false-fail (nonSurfaceContactSamples remains the loss-of-control guard).
+
+## 10. Recovery-phase telemetry (R-window forensics) — the wall battery's recovery readout
+
+**What it is:** the wall judgement sheet's R-class ("the car could not leave the barrier under its own drive — check the sample window") previously had no per-window evidence; the reading was a manual sample dig. The R-window instrumentation closes that: every rise of the cumulative impact counter opens a recovery window recording what the car did under its own drive — motion recovery time, path covered, inputs applied, surface state — until motion (speed magnitude) holds at `MotionSpeed` for `HoldSeconds` or the window caps at `MaxSeconds` (unresolved: `Recovered=false`, `motionTime=null`).
+
+**Flag-gating:** enabled per profile by `setup: {"recordRecovery": true}` — currently ON for exactly the four wall profiles (`wall_contact_low/high/graze`, `impact_wall_recovery`); every other profile reports null recovery metrics (an assertion on them without the flag FAILS with "metric not observed" — never a silent pass). A profile with the flag and no impacts reports `recoveryWindowCount: 0` (observed zero). Physics defaults untouched.
+
+**Report fields (per run, only when flagged):** `recoveryMetrics` (the summary metrics below) + `recoveryWindows[]` (per window: `startT,endT,startSpeed,Recovered,motionTime,pathLength,maxReverseSpeed,offTrackFraction,throttleFraction,brakeFraction,steerPeakAbs`).
+
+| Metric | Reads | Use in the wall readout |
+|---|---|---|
+| `recoveryWindowCount:all` | full stream | must equal the run's total `impactEventsDelta` (per-impact accounting) |
+| `recoveryRecoveredFraction:all` | windows | the R-class gate: 1.0 = every impact followed by recovered motion; <1.0 = R failure with the window array naming WHICH one |
+| `recoveryMotionTimeMax:all` / `Mean` | recovered windows | how long the car sat unable to move after impact; the drive-away bound stays on `endLongitudinalSpeed:recover_fwd`, this quantifies the gap |
+| `recoveryPathLengthMax:all` | windows | the path back (reverse-out + re-approach distance) |
+| `recoveryOffTrackFractionMax:all` | windows | how much of the recovery was off the driving surface (a car pinned off-line reads high) |
+| `recoveryThrottleFractionMean:all` / `BrakeFractionMean` | windows | the inputs actually commanded during recovery (the reverse-out shows throttle in reverse + brake release timing) |
+| `recoverySteerPeakAbsMax:all` | windows | countersteer/straightening evidence |
+
+**Reading rules for the wall battery legs (jolt leg + source pair):**
+- Window count parity: `recoveryWindowCount` must match the run's total `impactEventsDelta`, and the source/jolt pair must show the SAME window count (the §2 impact-count parity rule, now per-window checkable).
+- Recovery parity (extends the wall sheet's rule 4): `recoveryRecoveredFraction = 1.0` on BOTH backends is the shipping gate; a backend that leaves a car stuck (fraction < 1) fails R even when its impact numbers look better.
+- `motionTime` comparisons across backends are DESCRIPTIVE (recovery is scripted-input-dependent); only the recovered/unrecovered fact and the input record are parity evidence.
+- A window with `startSpeed < 1` (car stopped by the hit) and a large `maxReverseSpeed` = the scripted reverse-out worked; a window with `startSpeed > 5` = a glancing scrape at speed (near-instant recovery is the honest reading, not a bug).
+- Unresolved window (`Recovered=false`) with finite contact numbers = the R-class failure, now carrying its own evidence (inputs applied, off-track fraction, path) — attach the window object, not just the assert id, to the failure report.
+- The window's inputs are the COMMANDED stream (Sample.throttle/brake record the DV command); in userpath mode the chain's applied output is visible in the session telemetry's appliedThrottle, not here. Note this when comparing userpath vs scripted legs.
+- Serialized samples now also carry `nonSurfaceContact` and `wheelBandContact` per tick — use them to audit any window's contact composition against §6 without re-deriving from metrics.
+
+## 11. Pit-stop sequence validation — SCOPE SPEC (spec only this turn; the pitCompleteness item)
+
+**What the servicing state machine already covers (logic-level, unit-tested in CoreChecks — keep, never weaken):** assisted entry→service→rejoin with wear reset; no service before race start (service clock frozen); pit-speed penalty (limit 16.666667 m/s; overspeed > +0.5 m/s held ≥ 1 s latches once); occupied box refuses a second service; unsafe-release hold + release after clearance; explicit repair duration extends the service clock (`PitServiceTimeline` stages READY/JACK UP/WHEELS OFF/FIT & SECURE/JACK DOWN/RELEASE; service 7.5 s, bodywork repair +8 s configurable); tyre-only stop preserves bodywork damage; staged tyre+compound swap; safe release (`servicing→pitDone`). Entry gate: within 16 m of `PitRoute[0]` with `PitValid`; box gate: within 1.2 m of `PitBox` AND speed < 1.2 m/s; exit: past `PitRoute.Length-4` within 5 m of the route end.
+
+**What is NOT yet validated (the game-level gap — needs DV-runner extensions, flag-gated, additive only):**
+1. The DRIVEN entry: a car under script/userpath input physically reaching the pit entry, committing (`pitActive`), and decelerating inside the pit speed limit. Open design question to resolve BEFORE implementation: who steers a human-driven (`externalPhysics`) car while `pitActive` — the pit-route lane target exists on the AI path; the profile must either script the steering explicitly or the runner gains a documented, flag-gated pit-lane assist. No silent assist introduction.
+2. Box stop accuracy: the stop within the 1.2 m / 1.2 m/s gate, with stop position/heading recorded (a stop 1.19 m off still services — whether that tolerance is the intended box behaviour needs game-level evidence).
+3. Service timing against the WALL CLOCK: measured `servicing` duration in a live run vs `PitServiceTimeline.Duration` (+ `RepairDuration` when repair is requested) — the unit tests prove state consistency, not real-time consumption under physics load.
+4. Work-performed verification on the LIVE car: tyres actually replaced (compound applied, wear reset), bodywork repaired only when requested (tyre-only preservation must hold in the driven case, not just the unit case).
+5. Release under traffic: the clearance hold exercised with a REAL stopped car behind (fixture), release on clearance, no contact during the exit roll.
+6. The driven exit + rejoin: pit speed limit through the exit, rejoin onto the driving surface with a bounded `offTrack` burst, and lap validity intact across the stop (a pit cycle must not poison lapValid/bestLap).
+
+**Required runner extensions when implemented (all additive, flag-gated):** `Command.pitRequest` (the pit-request input); Sample fields `pitActive/servicing/pitDone` (mirroring the Network-synced state); phase triggers `until.pitActive`, `until.servicing`, `until.pitDone` alongside the existing speed/wall-clock machinery; case data on a circuit with `PitValid` true and the stop's service terms. Metrics then: `pitEntrySpeedMax`, `boxStopDistance`, `boxStopSpeed`, `serviceWallClockSeconds`, `pitOverspeedSeconds`, `rejoinOffTrackSeconds`, `tyresReplaced`, `compoundAfter`. Until that lands, the pitCompleteness claim stays exactly "logic-unit-covered, not game-validated" — no acceptance language.
