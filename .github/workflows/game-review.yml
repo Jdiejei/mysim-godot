@@ -25,7 +25,7 @@ on:
       native_damage: {description: 'Explicit native collision-damage experiment', type: boolean, default: false}
       rotational_tyres: {description: 'Explicit physical wheel angular-state experiment', type: boolean, default: false}
       native_ai: {description: 'Apply explicit experimental AI mode during native regression only', type: boolean, default: false}
-      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [grid_start_reference, loaded_formula16_reference, wet_slick_comparison, wet_support_reference, chiron_spec0_support, formula16_reference_drive, spec0_fleet_a, spec0_fleet_b, spec0_fleet_c, formula17_support_regression, source_road_spec0_regression, both_spin_suspension_regression, later_spin_contact_capture, later_spin_diagonal_regression, spin_diagonal_regression, spin_contact_capture, seam_weld_regression, fleet_contact_replay, shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression, edge_fleet_regression, chiron_rebuilt_regression, chiron_remaining_tracks, driving_core, driving_impact, driving_wet, driving_wall], default: shutdown}
+      case_set: {description: 'Exact native regression cases; completed cases are not repeated', type: choice, options: [grid_start_reference, loaded_formula16_reference, wet_slick_comparison, wet_support_reference, chiron_spec0_support, formula16_reference_drive, spec0_fleet_a, spec0_fleet_b, spec0_fleet_c, formula17_support_regression, source_road_spec0_regression, both_spin_suspension_regression, later_spin_contact_capture, later_spin_diagonal_regression, spin_diagonal_regression, spin_contact_capture, seam_weld_regression, fleet_contact_replay, shutdown, bridge, monaco_ai3, ai4_regression, braking_monaco, edge_regression, edge_axle_regression, edge_fleet_regression, chiron_rebuilt_regression, chiron_remaining_tracks, driving_core, driving_impact, driving_wet, driving_wall, wetnight_matrix_dry, wetnight_matrix_wet], default: shutdown}
       ai_mode: {description: 'Opt-in curvature AI experiment; default game AI is unchanged', type: choice, options: ['1', '2', '3', '4', '5', '6'], default: '1'}
       cars: {description: 'Comma-separated car IDs for native scene laps', type: string, default: '16'}
 env:
@@ -205,7 +205,7 @@ jobs:
           MYSIM_PRODUCTCHECKS: ${{ inputs.depth == 'product_controls_review' && '1' || '0' }}
           DRIVING_VALIDATION: ${{ inputs.depth == 'driving_validation' && '1' || '0' }}
           DRIVING_VALIDATION_IMPACT: ${{ (inputs.depth == 'driving_validation' && (inputs.case_set == 'driving_impact' || inputs.case_set == 'driving_wall')) && '1' || '0' }}
-          DRIVING_VALIDATION_MANIFEST: ${{ inputs.depth == 'driving_validation' && (inputs.case_set == 'driving_impact' && 'data/native_driving_validation_impact.json' || inputs.case_set == 'driving_wet' && 'data/native_driving_validation_wet.json' || inputs.case_set == 'driving_wall' && 'data/native_driving_validation_wall.json' || 'data/native_driving_validation_core.json') || 'data/native_driving_validation_core.json' }}
+          DRIVING_VALIDATION_MANIFEST: ${{ inputs.depth == 'driving_validation' && (inputs.case_set == 'driving_impact' && 'data/native_driving_validation_impact.json' || inputs.case_set == 'driving_wet' && 'data/native_driving_validation_wet.json' || inputs.case_set == 'driving_wall' && 'data/native_driving_validation_wall.json' || inputs.case_set == 'wetnight_matrix_dry' && 'data/native_wetnight_matrix_dry.json' || inputs.case_set == 'wetnight_matrix_wet' && 'data/native_wetnight_matrix_wet.json' || 'data/native_driving_validation_core.json') || 'data/native_driving_validation_core.json' }}
           SOURCE_UV_CANDIDATES: ${{ inputs.depth == 'car_evidence' && '1' || '0' }}
           MISC_TWIN_HIDE: ${{ inputs.depth == 'car_evidence' && '1' || '0' }}
           NIGHT_EVIDENCE: ${{ inputs.depth == 'night_evidence' && '1' || '0' }}
@@ -292,6 +292,12 @@ jobs:
           SURFACE_REVIEW: ${{ inputs.depth == 'surfaces' && '1' || '0' }}
           FULL_RACES: ${{ inputs.depth == 'full_races' && '1' || '0' }}
         run: xvfb-run -a python tools/cloud_game_audit.py
+      - name: Hash produced frames for the D0 identity check (unencrypted; hashes expose no render content)
+        if: always()
+        run: |
+          f=outputs/cloud-game/frame-hashes.log
+          find outputs/cloud-game -maxdepth 1 -name '*.png' -type f -exec sha256sum {} + | sort > "$f" || true
+          wc -l "$f" || true
       - name: Preserve encrypted visual evidence
         if: always()
         env:
