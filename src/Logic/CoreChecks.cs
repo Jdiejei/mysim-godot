@@ -338,8 +338,71 @@ namespace MySimulator.Verification
                 var offArch=new DrivingValidation.Profile{Id="archoff"};
                 Check(!DrivingValidation.ComputeMetric("wheelBandTickPeakDeltaV","all",arche,offArch,null).HasValue&&!DrivingValidation.ComputeMetric("bodyPanelContactSamples","all",arche,offArch,null).HasValue,"Archetype metrics must be null without the recordContactArchetypes flag (a silent zero could pass an assertion)");
             }
+            // LAN phase-2: the explicit START handshake (the adopted default) - the host sends
+            // START carrying its session token and arms the real 5 s countdown; the client
+            // gates its race entry on ITS exact token; wrong-token and pre-handshake STARTs
+            // are ignored; a stale-protocol HELLO is refused (the version gate stays strict).
+            {
+                var channel=new TestChannel();
+                var hostRace=new Race(0,3,0);hostRace.Add("HOST",true,Compound.Medium);hostRace.Add("GUEST",false,Compound.Medium);
+                var host=new GameSession(hostRace);host.Host(channel,"HOST");
+                host.Process("HELLO|"+Wire.Version+"|"+new string('a',32)+"|"+Wire.Name("GUEST")+"|1","1.2.3.4:9");
+                Check(host.connected,"LAN host did not accept a valid HELLO");
+                host.Process("HELLO|MSR5|"+new string('a',32)+"|"+Wire.Name("GUEST")+"|1","1.2.3.5:9");
+                Check(!host.connected||host.peer=="1.2.3.4:9","A stale-protocol HELLO must be refused");
+                host.StartRace();
+                Check(channel.Sent.Contains("START|"+host.sessionToken),"Host did not send START carrying its session token");
+                Check(host.race.countdown==5f&&host.startRequested,"Host start did not arm the 5 s countdown (the lobby's 9999 hold must end)");
+                Check(!host.startReceived,"The host must not set the client-side startReceived flag");
+                var client=new GameSession(new Race(0,3,0));client.Join(new TestChannel(),"1.2.3.4:9","GUEST");
+                client.Process("START|"+client.sessionToken,"1.2.3.4:9");
+                Check(!client.startReceived,"START before the handshake completed must be ignored");
+                client.Process("ACCEPT|"+Wire.Version+"|"+client.nonce+"|"+new string('b',32),"1.2.3.4:9");
+                Check(client.connected,"Client did not accept the host token");
+                client.Process("START|wrongtoken","1.2.3.4:9");
+                Check(!client.startReceived,"A START with a wrong token must be ignored");
+                client.Process("START|"+client.sessionToken,"1.2.3.4:9");
+                Check(client.startReceived,"Client did not gate its race entry on the START token");
+            }
+            // LAN phase-2: the client pipeline end to end (Snapshot -> ReadSnapshot ->
+            // SnapshotApplier) with the persistence rule: one view per car id, updated in
+            // place, never recreated per packet; new ids append exactly one view.
+            {
+                var views=new Dictionary<int,TestCarView>();int raceStates=0;
+                var applier=new SnapshotApplier(new TestRaceView(id=>{var v=new TestCarView();views[id]=v;return v;},()=>raceStates++));
+                var hostRace=new Race(0,3,0);hostRace.Add("HOST",true,Compound.Medium);hostRace.Add("GUEST",false,Compound.Medium);
+                hostRace.cars[0].position=new Vec(10,20);
+                applier.Apply(Wire.ReadSnapshot(Wire.Snapshot(hostRace,1).Split('|'),out _));
+                applier.Apply(Wire.ReadSnapshot(Wire.Snapshot(hostRace,2).Split('|'),out _));
+                Check(views.Count==2&&raceStates==2,"SnapshotApplier must create exactly one view per car and apply race state per snapshot");
+                Check(views[0].PoseApplications==2&&views[1].PoseApplications==2,"Existing car views must update in place, never be recreated per packet");
+                hostRace.Add("THIRD",false,Compound.Medium);
+                applier.Apply(Wire.ReadSnapshot(Wire.Snapshot(hostRace,3).Split('|'),out _));
+                Check(views.Count==3&&views[0].PoseApplications==3,"A new car id appends exactly one view; existing views keep updating");
+                Check(applier.AppliedSnapshots==3&&applier.CarViews==3,"SnapshotApplier counters drifted");
+            }
             log.Add("PASS driving validation scaffolding: profiles, manifests, matrix, targets, metric maths, recovery windows and fail-closed parsing");
             log.Add("PASS "+count+" assertions");return string.Join("\n",log.ToArray());
+        }
+        // Test doubles for the LAN phase-2 checks: a recording channel, a counting car view
+        // and a counting race view (no Godot types - the real adapters live in the host app).
+        sealed class TestChannel:IGameChannel{
+            public List<string> Sent=new List<string>();public string Status{get;set;}="test";
+            public bool Receive(out string message,out string sender){message=null;sender=null;return false;}
+            public void Send(string message,string address){Sent.Add(message);}
+            public void Dispose(){}
+        }
+        sealed class TestCarView:ICarView{
+            public int PoseApplications,StateApplications;
+            public void EnsureCreated(int carModel,string driver){}
+            public void ApplyPose(float x,float z,float heading,bool hasBodyPose,float bodyHeight,float bodyQx,float bodyQy,float bodyQz,float bodyQw){PoseApplications++;}
+            public void ApplyState(float damage,float fuel,int completedLaps,bool finished,float finishTime,bool pitActive,bool servicing,float serviceRemaining){StateApplications++;}
+        }
+        sealed class TestRaceView:IRaceView{
+            readonly Func<int,ICarView> factory;readonly Action onRaceState;
+            public TestRaceView(Func<int,ICarView> factory,Action onRaceState){this.factory=factory;this.onRaceState=onRaceState;}
+            public ICarView CreateCarView(int id)=>factory(id);
+            public void ApplyRaceState(float clock,float countdown,bool started,int trackVariant,int targetLaps,float wetness)=>onRaceState();
         }
 #if CLI_TEST
         public static void Main(){try{Console.WriteLine(Run());}catch(Exception e){Console.WriteLine("FAIL "+e);Environment.Exit(1);}}
