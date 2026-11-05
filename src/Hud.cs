@@ -15,6 +15,7 @@ public partial class Hud : CanvasLayer {
   GD.Print("HUD_RECTS viewport=",size," speed=",speed.GetGlobalRect()," gear=",gear.GetGlobalRect()," info=",info.GetGlobalRect(),
    " carState=",carState.GetGlobalRect(),
    " strip=",strip!=null?strip.GetGlobalRect().ToString():"none",
+   " bindings=",bindPanel!=null?bindPanel.GetGlobalRect().ToString():"none",
    " minimap=",mini!=null?mini.GetGlobalRect().ToString():"none",
    " standings=",standings!=null?standings.GetGlobalRect().ToString():"none",
    " hybrid=",hybridControls!=null?hybridControls.GetGlobalRect().ToString():"none");
