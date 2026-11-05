@@ -1,0 +1,314 @@
+{
+ "runs": {
+  "tier0": "41453316712 (chiron-atlas-baseline-visuals: 4 modes x front/rear)",
+  "integrated": "41458535677 (production-path re-verification; exteriorAtlasCorrectionVerified=true; wholeCarAccepted=false)"
+ },
+ "rows": [
+  {
+   "renderer": "LOD_A_BODY_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.002929688,
+     -0.992676
+    ],
+    "max": [
+     0.9951172,
+     -0.056640983
+    ]
+   },
+   "uvCount": 5965,
+   "strips": [
+    {
+     "view": "front",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-01a-BODY-ext.png"
+    },
+    {
+     "view": "rear",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-01b-BODY-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_BOOT_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.5327148,
+     -0.994141
+    ],
+    "max": [
+     0.9956055,
+     -0.12548804
+    ]
+   },
+   "uvCount": 990,
+   "strips": [
+    {
+     "view": "rear",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-02a-BOOT-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_DOOR_LEFT_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.2602539,
+     -0.43652296
+    ],
+    "max": [
+     0.5375977,
+     -0.232422
+    ]
+   },
+   "uvCount": 632,
+   "strips": [
+    {
+     "view": "side",
+     "tier0Before": false,
+     "tier0After": false,
+     "integratedAfter": true,
+     "gaps": [
+      "no before-side capture exists in the tier sets (front/rear only) - the side A/B gap is real"
+     ],
+     "image": "images/row-03a-DOOR_LEFT-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_DOOR_RIGHT_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.2617188,
+     -0.88818395
+    ],
+    "max": [
+     0.5375977,
+     -0.68261695
+    ]
+   },
+   "uvCount": 632,
+   "strips": [
+    {
+     "view": "side",
+     "tier0Before": false,
+     "tier0After": false,
+     "integratedAfter": true,
+     "gaps": [
+      "no before-side capture exists in the tier sets (front/rear only) - the side A/B gap is real"
+     ],
+     "image": "images/row-04a-DOOR_RIGHT-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_EXHAUST_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.01220703,
+     -0.014160037
+    ],
+    "max": [
+     0.05029297,
+     -0.0019530058
+    ]
+   },
+   "uvCount": 1145,
+   "strips": [
+    {
+     "view": "rear",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-05a-EXHAUST-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_FRONTBUMPER_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.009277344,
+     -0.053223014
+    ],
+    "max": [
+     0.4716797,
+     -0.011718988
+    ]
+   },
+   "uvCount": 787,
+   "strips": [
+    {
+     "view": "front",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-06a-FRONTBUMPER-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_HOOD_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.004394531,
+     -0.70214796
+    ],
+    "max": [
+     0.2236328,
+     -0.41748
+    ]
+   },
+   "uvCount": 337,
+   "strips": [
+    {
+     "view": "front",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-07a-HOOD-ext.png"
+    },
+    {
+     "view": "rear",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-07b-HOOD-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_MIRROR_LEFT_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.2075195,
+     -0.553223
+    ],
+    "max": [
+     0.2949219,
+     -0.44238305
+    ]
+   },
+   "uvCount": 714,
+   "strips": [
+    {
+     "view": "side",
+     "tier0Before": false,
+     "tier0After": false,
+     "integratedAfter": true,
+     "gaps": [
+      "no before-side capture exists in the tier sets (front/rear only) - the side A/B gap is real"
+     ],
+     "image": "images/row-08a-MIRROR_LEFT-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_MIRROR_RIGHT_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.2089844,
+     -0.67675805
+    ],
+    "max": [
+     0.296875,
+     -0.56591797
+    ]
+   },
+   "uvCount": 714,
+   "strips": [
+    {
+     "view": "side",
+     "tier0Before": false,
+     "tier0After": false,
+     "integratedAfter": true,
+     "gaps": [
+      "no before-side capture exists in the tier sets (front/rear only) - the side A/B gap is real"
+     ],
+     "image": "images/row-09a-MIRROR_RIGHT-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_REARBUMPER_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.5805664,
+     -0.07372999
+    ],
+    "max": [
+     0.9897461,
+     -0.012207031
+    ]
+   },
+   "uvCount": 636,
+   "strips": [
+    {
+     "view": "rear",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-10a-REARBUMPER-ext.png"
+    }
+   ]
+  },
+  {
+   "renderer": "LOD_A_WING_mm_ext",
+   "atlas": "2017_bugatti_chiron_ext_blue.png",
+   "uvBounds": {
+    "min": [
+     0.8266602,
+     -0.70996106
+    ],
+    "max": [
+     0.984375,
+     -0.40966797
+    ]
+   },
+   "uvCount": 731,
+   "strips": [
+    {
+     "view": "rear",
+     "tier0Before": true,
+     "tier0After": true,
+     "integratedAfter": true,
+     "gaps": [],
+     "image": "images/row-11a-WING-ext.png"
+    }
+   ]
+  }
+ ],
+ "atlas": {
+  "file": "assets/RealRacing/Source/2017_bugatti_chiron/livery/2017_bugatti_chiron_ext_blue.png",
+  "pixels": [
+   1024,
+   1024
+  ]
+ }
+}
